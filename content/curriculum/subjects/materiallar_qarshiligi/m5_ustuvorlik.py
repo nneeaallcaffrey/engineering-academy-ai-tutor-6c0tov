@@ -210,8 +210,10 @@ value("Ish kuchlanishi", F/A/1e6, "MPa")
 value("Ustuvorlik zaxirasi n_y", F_kr/F, "—")
 
 lam_lim = np.pi*np.sqrt(E/200e6)
-note(f"Eyler formulasi chegarasi: λ_lim = π√(E/σ_pts) ≈ {lam_lim:.0f}. "
-     f"Joriy λ = {lam:.1f} — {'Eyler qo\\'llanadi' if lam >= lam_lim else 'Yasinskiy formulasi kerak (mq-26)'}")
+verdict = ("Eyler qo'llanadi" if lam >= lam_lim
+           else "Yasinskiy formulasi kerak (mq-26)")
+note(f"Eyler formulasi chegarasi: lambda_lim = pi*sqrt(E/sigma_pts) "
+     f"= {lam_lim:.0f}. Joriy lambda = {lam:.1f} — {verdict}")
 
 # Sonli yechim: chekli ayirmalar eigenvalue masalasi
 n = 200

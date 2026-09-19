@@ -748,8 +748,10 @@ series("To'la energiya E", q.tolist(), np.full_like(q, E_total).tolist(),
 
 allowed = q[U <= E_total]
 if allowed.size:
-    note(f"E = {E_total:.4f} da harakat sohasi: q ∈ [{allowed.min():.3f}, {allowed.max():.3f}]. "
-         f"{'Ikki chuqurcha bog\\'langan — jism o\\'tib keta oladi.' if E_total > 0 else 'Jism bitta chuqurchada qamalgan.'}")
+    verdict = ("Ikki chuqurcha bog'langan — jism o'tib keta oladi."
+               if E_total > 0 else "Jism bitta chuqurchada qamalgan.")
+    note(f"E = {E_total:.4f} da harakat sohasi: q in "
+         f"[{allowed.min():.3f}, {allowed.max():.3f}]. {verdict}")
 
 # Muvozanat nuqtalari: dU/dq = 0 -> q^3 - q = 0
 roots = [-1.0, 0.0, 1.0]
