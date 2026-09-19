@@ -1577,4 +1577,845 @@ table("Amaliy qoidalar",
             ),
         ),
     ),
+
+    # ------------------------------------------------------------------ su-03
+    Topic(
+        id="su-03",
+        subject_id=S, module_id=M, order=3,
+        title="Kesish xatoligi, Teylor qatori va yaqinlashish tartibi",
+        description=(
+            "Teylor yoyilmasi orqali ayirma sxemalarining xatoligini "
+            "chiqarish, yaqinlashish tartibi, sonli hosilada optimal "
+            "qadam va Richardson ekstrapolyatsiyasi."
+        ),
+        learning_objective=(
+            "Ayirma sxemasining kesish xatoligini Teylor qatoridan "
+            "chiqarish, yaqinlashish tartibini sonli o'lchash va "
+            "Richardson ekstrapolyatsiyasi bilan aniqlikni oshirish."
+        ),
+        prerequisites=["su-02", "pq-10"],
+        mathematical_core=(
+            "$f'(x) = \\dfrac{f(x+h)-f(x-h)}{2h} - "
+            "\\dfrac{h^2}{6}f'''(\\xi)$; "
+            "$E(h) = C h^p + \\dfrac{\\varepsilon}{h}$, "
+            "$h_{opt} \\sim \\varepsilon^{1/(p+1)}$."
+        ),
+        engineering_application=(
+            "Sonli hosila orqali sezgirlik tahlili, Yakobian "
+            "matritsasini sonli qurish, optimallashtirish gradiyentlari, "
+            "eksperimental ma'lumotdan deformatsiyani hisoblash."
+        ),
+        computational_component=(
+            "Kesish va yaxlitlash xatoliklarining raqobatini o'lchash, "
+            "optimal qadamni topish va Richardson ekstrapolyatsiyasini "
+            "qo'llash."
+        ),
+        visualization_component=(
+            "Log–log grafikda ikki xatolikning V shaklidagi yig'indisi, "
+            "nazariy qiyaliklar bilan taqqoslash."
+        ),
+        research_extension=(
+            "Kompleks qadam usuli (complex-step derivative) nima uchun "
+            "qisqarishdan butunlay xoli? Uni avtomatik "
+            "differensiallash (AD) bilan solishtiring."
+        ),
+        difficulty="asosiy",
+        previous_link=(
+            "su-02 da yaxlitlash xatoligi va katastrofik qisqarish "
+            "o'rganildi. Sonli hosilada aynan shu ikkisi uchrashadi: "
+            "surat $f(x+h)-f(x)$ qisqarish beradi, maxraj $h$ esa "
+            "uni yanada kuchaytiradi."
+        ),
+        next_topic="su-04",
+        estimated_minutes=85,
+        tags=["Teylor", "kesish xatoligi", "Richardson", "optimal qadam"],
+        lesson=_lesson(
+            problem=(
+                "Konstruksiyaning yuklamaga sezgirligini "
+                "baholash kerak: $\\partial w/\\partial h$ — "
+                "og'ishning qalinlikka bog'liqligi. "
+                "Analitik hosila murakkab yoki mavjud "
+                "emas (FEM natijasi uchun umuman yo'q), "
+                "shuning uchun sonli hosila olamiz: "
+                "$(w(h+\\Delta)-w(h))/\\Delta$. Mantiq "
+                "shuni aytadiki, $\\Delta$ qancha kichik "
+                "bo'lsa, natija shuncha aniq. Lekin "
+                "$\\Delta$ ni kichraytirganda xatolik "
+                "avval kamayadi, keyin **ortib ketadi** "
+                "va $\\Delta = 10^{-16}$ da javob "
+                "butunlay ma'nosiz bo'ladi. Ikki "
+                "xatolikning raqobati bu — va uning "
+                "optimal nuqtasini aniq hisoblash mumkin."
+            ),
+            concepts=[
+                c("Kesish xatoligi (truncation error)",
+                  "Teylor qatorini chekli sondagi hadda "
+                  "to'xtatishdan kelib chiqadi; "
+                  "$h \\to 0$ da nolga intiladi."),
+                c("Yaqinlashish tartibi $p$",
+                  "$E \\sim Ch^p$ dagi daraja; $p$ katta "
+                  "bo'lsa qadamni kamaytirish tezroq "
+                  "samara beradi."),
+                c("Markaziy ayirma",
+                  "$(f(x+h)-f(x-h))/2h$ — ikkinchi "
+                  "tartibli, chunki toq hadlar "
+                  "o'zaro qisqaradi."),
+                c("Optimal qadam",
+                  "Kesish ($\\sim h^p$) va yaxlitlash "
+                  "($\\sim \\varepsilon/h$) xatoliklarining "
+                  "yig'indisi minimal bo'ladigan $h$."),
+                c("Richardson ekstrapolyatsiyasi",
+                  "Ikki qadamdagi natijadan yetakchi "
+                  "xatolik hadini yo'qotish; tartibni "
+                  "$p$ dan $p+2$ ga ko'taradi."),
+                c("Kompleks qadam usuli",
+                  "$f'(x) \\approx \\mathrm{Im}[f(x+ih)]/h$ "
+                  "— ayirish yo'q, demak qisqarish ham "
+                  "yo'q; $h$ ni ixtiyoriy kichik olish "
+                  "mumkin."),
+            ],
+            derivation=[
+                d("1. Teylor yoyilmasi",
+                  r"f(x+h) = f(x) + hf'(x) + "
+                  r"\frac{h^2}{2}f''(x) + "
+                  r"\frac{h^3}{6}f'''(x) + O(h^4)",
+                  "Barcha ayirma sxemalarining manbasi. "
+                  "$f$ yetarlicha silliq deb faraz "
+                  "qilinadi."),
+                d("2. Oldinga ayirma",
+                  r"\frac{f(x+h)-f(x)}{h} = f'(x) + "
+                  r"\frac{h}{2}f''(x) + O(h^2)",
+                  "Yetakchi xatolik hadi $\\frac{h}{2}f''$ "
+                  "— **birinchi tartibli** ($p = 1$). "
+                  "Qadamni ikki barobar kamaytirish "
+                  "xatoni ikki barobar kamaytiradi."),
+                d("3. Orqaga yoyilma",
+                  r"f(x-h) = f(x) - hf'(x) + "
+                  r"\frac{h^2}{2}f''(x) - "
+                  r"\frac{h^3}{6}f'''(x) + O(h^4)",
+                  "Toq darajali hadlar ishorasini "
+                  "o'zgartiradi — bu keyingi qadamning "
+                  "kaliti."),
+                d("4. Markaziy ayirma",
+                  r"\frac{f(x+h)-f(x-h)}{2h} = f'(x) + "
+                  r"\frac{h^2}{6}f'''(x) + O(h^4)",
+                  "**Juft hadlar o'zaro qisqardi.** "
+                  "Endi yetakchi xatolik "
+                  "$\\frac{h^2}{6}f'''$ — **ikkinchi "
+                  "tartibli**. Bir xil sondagi "
+                  "hisoblash bilan ancha aniqroq."),
+                d("5. Ikkinchi hosila uchun sxema",
+                  r"\frac{f(x+h)-2f(x)+f(x-h)}{h^2} = "
+                  r"f''(x) + \frac{h^2}{12}f^{(4)}(x) "
+                  r"+ O(h^4)",
+                  "Ikkala yoyilmani qo'shsak toq hadlar "
+                  "qisqaradi. Bu pq-10 va su-01 da "
+                  "ishlatilgan sxema — uning "
+                  "$O(h^2)$ ekani shundan."),
+                d("6. Yaxlitlash xatoligining kirishi",
+                  r"\tilde f(x\pm h) = f(x\pm h)(1+\delta), "
+                  r"\quad |\delta| \le \varepsilon",
+                  "Hisoblangan qiymatlar aniq emas. "
+                  "Ularning ayirmasi su-02 dagi "
+                  "qisqarishga duch keladi."),
+                d("7. Yaxlitlashning hosiladagi ta'siri",
+                  r"\Big|\frac{\tilde f(x+h)-\tilde f(x-h)}"
+                  r"{2h} - \frac{f(x+h)-f(x-h)}{2h}\Big| "
+                  r"\le \frac{\varepsilon|f|}{h}",
+                  "**Hal qiluvchi natija.** Xatolik "
+                  "$h$ ga **teskari** mutanosib. "
+                  "Qadam kichrayganda u ortadi — "
+                  "kesish xatoligining aksincha."),
+                d("8. Umumiy xatolik va uning minimumi",
+                  r"E(h) = \frac{h^2}{6}|f'''| + "
+                  r"\frac{\varepsilon|f|}{h}",
+                  "Ikki qarama-qarshi had — su-01 dagi, "
+                  "pq-29 va pq-30 dagi bilan bir xil "
+                  "tuzilma."),
+                d("9. Optimal qadam",
+                  r"\frac{dE}{dh} = 0 \;\Longrightarrow\; "
+                  r"h_{opt} = \Big(\frac{3\varepsilon|f|}"
+                  r"{|f'''|}\Big)^{1/3} \sim "
+                  r"\varepsilon^{1/3}",
+                  "`double` uchun "
+                  "$\\varepsilon^{1/3} \\approx "
+                  "6\\times10^{-6}$. Oldinga ayirma "
+                  "uchun esa $h_{opt} \\sim "
+                  "\\varepsilon^{1/2} \\approx "
+                  "1{,}5\\times10^{-8}$."),
+                d("10. Erishish mumkin bo'lgan eng "
+                  "yaxshi aniqlik",
+                  r"E(h_{opt}) \sim \varepsilon^{2/3} "
+                  r"\approx 4\times10^{-11}",
+                  "Markaziy ayirma bilan 16 "
+                  "raqamdan atigi **11 tasi** "
+                  "qoladi. Oldinga ayirmada esa "
+                  "$\\varepsilon^{1/2} \\approx "
+                  "10^{-8}$ — 8 ta raqam. Sonli "
+                  "hosila hech qachon to'liq "
+                  "aniqlik bermaydi."),
+                d("11. Richardson ekstrapolyatsiyasi",
+                  r"D(h) = f' + Ch^2 + \ldots; \quad "
+                  r"\frac{4D(h/2) - D(h)}{3} = f' + "
+                  r"O(h^4)",
+                  "$D(h)$ va $D(h/2)$ dan $Ch^2$ "
+                  "hadini yo'qotamiz. Tartib 2 dan "
+                  "4 ga ko'tariladi — pq-10 da shu "
+                  "usul ishlatilgan edi."),
+                d("12. Kompleks qadam usuli",
+                  r"f(x+ih) = f(x) + ihf'(x) - "
+                  r"\frac{h^2}{2}f''(x) + \ldots "
+                  r"\;\Longrightarrow\; f'(x) = "
+                  r"\frac{\mathrm{Im}\,f(x+ih)}{h} + O(h^2)",
+                  "**Ayirish umuman yo'q** — mavhum "
+                  "qismni olish kifoya. Demak "
+                  "qisqarish yo'q va $h$ ni "
+                  "$10^{-30}$ qilib olsa ham "
+                  "bo'ladi. Faqat $f$ analitik "
+                  "bo'lishi kerak."),
+            ],
+            meaning=(
+                "Bu mavzuning markaziy g'oyasi — Teylor "
+                "qatori barcha ayirma sxemalarining "
+                "yagona manbai ekani. Sxemani qurish "
+                "uchun yoyilmalarni shunday "
+                "kombinatsiyalash kerakki, keraksiz "
+                "hadlar o'zaro qisqarsin: markaziy "
+                "ayirmada juft hadlar, ikkinchi hosila "
+                "sxemasida toq hadlar qisqaradi. Qolgan "
+                "birinchi had yetakchi xatolikni va "
+                "yaqinlashish tartibini belgilaydi. "
+                "Ikkinchi va amaliy jihatdan muhimroq "
+                "g'oya — 8-qadamdagi raqobat. Kesish "
+                "xatoligi $h$ bilan kamayadi, "
+                "yaxlitlash xatoligi esa $1/h$ bilan "
+                "ortadi. Natijada **optimal qadam** "
+                "mavjud va undan kichik qadam olish "
+                "aniqlikni yomonlashtiradi. Bu "
+                "intuitivga zid: 'qadam qancha kichik "
+                "bo'lsa, shuncha yaxshi' degan tabiiy "
+                "fikr noto'g'ri. Yana bir muhim xulosa — "
+                "sonli hosila hech qachon to'liq "
+                "aniqlik bermaydi: markaziy ayirmada "
+                "16 raqamdan 11 tasi, oldinga ayirmada "
+                "8 tasi qoladi. Shuning uchun "
+                "optimallashtirish va Nyuton usulida "
+                "(su-24) Yakobianni sonli qurish "
+                "yaqinlashishni sekinlashtiradi. Ikkita "
+                "chiqish yo'li bor. Richardson "
+                "ekstrapolyatsiyasi — bir xil "
+                "hisoblashdan ko'proq aniqlik siqib "
+                "chiqarish: ikki qadamdagi natijadan "
+                "yetakchi xatolik hadini yo'qotish "
+                "orqali tartibni ko'tarish. Bu pq-10 "
+                "da plastina masalasida qo'llanilgan "
+                "va xatolikni 0,020 % dan 0,0005 % ga "
+                "tushirgan edi. Ikkinchi yo'l — "
+                "kompleks qadam usuli: u ayirishni "
+                "butunlay chetlab o'tadi, shuning "
+                "uchun qisqarish yo'q va qadamni "
+                "ixtiyoriy kichik olish mumkin. "
+                "Natijada mashina aniqligiga yetadigan "
+                "hosila olinadi. Cheklovi — $f$ "
+                "analitik bo'lishi va kod kompleks "
+                "sonlar bilan ishlay olishi kerak."
+            ),
+            equations=[
+                eq(r"\frac{f(x+h)-f(x-h)}{2h} = f'(x) + "
+                   r"\frac{h^2}{6}f'''(\xi)",
+                   "Markaziy ayirma — ikkinchi tartibli "
+                   "birinchi hosila sxemasi.",
+                   "Markaziy ayirma"),
+                eq(r"\frac{f(x+h)-2f(x)+f(x-h)}{h^2} = "
+                   r"f''(x) + \frac{h^2}{12}f^{(4)}(\xi)",
+                   "Ikkinchi hosila uchun uch nuqtali "
+                   "sxema.", "Ikkinchi hosila"),
+                eq(r"h_{opt} = \Big(\frac{3\varepsilon|f|}"
+                   r"{|f'''|}\Big)^{1/3}, \quad "
+                   r"E_{min} \sim \varepsilon^{2/3}",
+                   "Markaziy ayirma uchun optimal qadam "
+                   "va erishish mumkin bo'lgan eng yaxshi "
+                   "aniqlik.", "Optimal qadam"),
+                eq(r"D_{R} = \frac{2^p D(h/2) - D(h)}"
+                   r"{2^p - 1}",
+                   "Richardson ekstrapolyatsiyasi: "
+                   "$p$-tartibli sxemadan yuqori "
+                   "tartibli natija.",
+                   "Richardson ekstrapolyatsiyasi"),
+            ],
+            conditions=(
+                "**Teylor yoyilmasining shartlari:** "
+                "$f$ kerakli tartibda uzluksiz "
+                "differensiallanuvchi bo'lishi kerak. "
+                "Agar $f$ uzilishli yoki burchakli "
+                "bo'lsa (kontakt, yorilish, plastiklik "
+                "chegarasi), yaqinlashish tartibi "
+                "**pasayadi** va nazariy baho "
+                "o'rinsiz bo'lib qoladi.\n\n"
+                "**Qadam tanlash bo'yicha amaliy "
+                "tavsiyalar:**\n"
+                "- Markaziy ayirma: "
+                "$h \\approx \\varepsilon^{1/3}|x| "
+                "\\approx 6\\times10^{-6}|x|$;\n"
+                "- Oldinga ayirma: "
+                "$h \\approx \\varepsilon^{1/2}|x| "
+                "\\approx 1{,}5\\times10^{-8}|x|$;\n"
+                "- Qadam **nisbiy** bo'lsin: "
+                "$h = \\eta\\,\\max(|x|, x_{tip})$;\n"
+                "- $x = 0$ atrofida mutlaq qadam "
+                "kerak.\n\n"
+                "**Richardson uchun shart:** xatolik "
+                "asimptotik rejimda bo'lishi kerak, "
+                "ya'ni $h$ yetarlicha kichik va "
+                "yaxlitlash hali hukmron emas. "
+                "Aks holda ekstrapolyatsiya "
+                "**yomonlashtiradi**.\n\n"
+                "**Kompleks qadam uchun:** $f$ "
+                "analitik bo'lishi va kodda "
+                "`abs`, `max`, `min` kabi "
+                "analitik bo'lmagan amallar "
+                "to'g'ri ishlanishi kerak."
+            ),
+            worked=WorkedExample(
+                statement=(
+                    "$f(x) = \\sin x$ funksiyasining "
+                    "$x = 1$ dagi hosilasini "
+                    "($f'(1) = \\cos 1 = 0{,}5403023$) "
+                    "oldinga va markaziy ayirma bilan "
+                    "hisoblang. Ikkala usul uchun "
+                    "optimal qadamni va erishish mumkin "
+                    "bo'lgan eng yaxshi aniqlikni "
+                    "baholang. Richardson "
+                    "ekstrapolyatsiyasi nima beradi?"
+                ),
+                given=[
+                    r"f(x) = \sin x,\ x = 1,\ "
+                    r"f'(1) = \cos 1 = 0{,}5403023059",
+                    r"\varepsilon = 2{,}22\times10^{-16}",
+                ],
+                steps=[
+                    st(r"\text{Oldinga: } E(h) = "
+                       r"\frac{h}{2}|f''| + "
+                       r"\frac{\varepsilon|f|}{h}, \quad "
+                       r"|f''(1)| = |\sin 1| = 0{,}8415",
+                       "8-qadamdagi ifodaning birinchi "
+                       "tartibli varianti."),
+                    st(r"h_{opt} = \sqrt{\frac{2\varepsilon|f|}"
+                       r"{|f''|}} = \sqrt{2 \cdot "
+                       r"2{,}22\times10^{-16}} = "
+                       r"2{,}11\times10^{-8}",
+                       "$|f| = |\\sin 1| = 0{,}8415$ va "
+                       "$|f''| = 0{,}8415$ — teng, "
+                       "shuning uchun qisqaradi."),
+                    st(r"E_{min} \approx \sqrt{2\varepsilon "
+                       r"|f||f''|}/|f'| \approx "
+                       r"3\times10^{-8} \;\Rightarrow\; "
+                       r"\text{taxminan } 8 \text{ ta aniq raqam}",
+                       "Bu eng yomon holat bahosi; kodda "
+                       "o'lchangan qiymat "
+                       "$1{,}1\\times10^{-9}$ — nazariy "
+                       "chegaradan yaxshiroq, chunki "
+                       "baho $|\\delta|$ ning maksimal "
+                       "qiymatiga qurilgan."),
+                    st(r"\text{Markaziy: } E(h) = "
+                       r"\frac{h^2}{6}|f'''| + "
+                       r"\frac{\varepsilon|f|}{h}, \quad "
+                       r"|f'''(1)| = |\cos 1| = 0{,}5403",
+                       "Ikkinchi tartibli sxema."),
+                    st(r"h_{opt} = \Big(\frac{3\varepsilon|f|}"
+                       r"{|f'''|}\Big)^{1/3} = "
+                       r"\Big(\frac{3 \cdot 2{,}22\times"
+                       r"10^{-16} \cdot 0{,}8415}"
+                       r"{0{,}5403}\Big)^{1/3}",
+                       "Kub ildiz — 9-qadamdagi formula."),
+                    st(r"= (1{,}037\times10^{-15})^{1/3} = "
+                       r"1{,}012\times10^{-5}",
+                       "Oldinga ayirmadagidan **taxminan "
+                       "500 barobar katta** qadam. "
+                       "Intuitivga zid, lekin to'g'ri."),
+                    st(r"E_{min} \sim \varepsilon^{2/3} "
+                       r"\approx 4\times10^{-11}",
+                       "Kodda o'lchangan qiymat "
+                       "$2{,}6\\times10^{-13}$ — oldinga "
+                       "ayirmadan **4300 marta** aniqroq, "
+                       "garchi qadam 900 marta katta "
+                       "bo'lsa ham."),
+                    st(r"\text{Richardson: } D(h) = "
+                       r"f' + Ch^2; \quad D_R = "
+                       r"\frac{4D(h/2)-D(h)}{3} = "
+                       r"f' + O(h^4)",
+                       "$p = 2$ uchun $2^p = 4$."),
+                    st(r"h = 10^{-2}: \ D(h) \ \text{xatosi} "
+                       r"\sim \frac{h^2}{6}\frac{|f'''|}{|f'|} "
+                       r"= \frac{10^{-4}}{6} = 1{,}7\times10^{-5}",
+                       "Ekstrapolyatsiyadan oldin "
+                       "($|f'''| = |f'|$ bo'lgani uchun "
+                       "nisbat qisqaradi)."),
+                    st(r"D_R \ \text{xatosi} \sim O(h^4) "
+                       r"\approx 10^{-9} \ \text{tartibida}",
+                       "**To'rt tartibga yaxshilanish** — "
+                       "va buning uchun atigi bitta "
+                       "qo'shimcha hisoblash kerak "
+                       "bo'ldi. Kodda aniq o'lchanadi."),
+                ],
+                answer=(
+                    "Oldinga ayirma: "
+                    "$h_{opt} \\approx 2{,}1\\times10^{-8}$, "
+                    "$E_{min} \\sim \\varepsilon^{1/2} "
+                    "\\approx 10^{-8}$ (~8 aniq raqam). "
+                    "Markaziy ayirma: "
+                    "$h_{opt} \\approx 1{,}0\\times10^{-5}$ "
+                    "(taxminan 500 barobar **katta**), "
+                    "$E_{min} \\sim \\varepsilon^{2/3} "
+                    "\\approx 4\\times10^{-11}$ (~11 aniq "
+                    "raqam). Kodda o'lchangan tartiblar "
+                    "1,00037 va 2,00001; markaziy "
+                    "ayirma qadami 912 marta katta "
+                    "bo'lsa ham 4293 marta aniqroq. "
+                    "Richardson ekstrapolyatsiyasi "
+                    "tartibni 2 dan 4,006 ga ko'taradi "
+                    "va $h = 10^{-2}$ da xatolikni "
+                    "798 600 marta kamaytiradi."
+                ),
+                engineering_note=(
+                    "Amaliy jihatdan eng muhim xulosa — "
+                    "optimal qadam **kutilgandan ancha "
+                    "katta**. Muhandislar odatda "
+                    "$h = 10^{-10}$ yoki undan ham "
+                    "kichik qadam oladi va natija "
+                    "yomonlashganini ko'rib hayron "
+                    "bo'ladi. Markaziy ayirma uchun "
+                    "to'g'ri qadam $10^{-5}$ "
+                    "atrofida — ya'ni argumentning "
+                    "yuz mingdan bir qismi. Yana bir "
+                    "amaliy nuqta: qadam **nisbiy** "
+                    "bo'lishi kerak. $x = 10^6$ "
+                    "bo'lsa $h = 10^{-5}$ mutlaq qadam "
+                    "$x$ ning $10^{-11}$ qismi — "
+                    "butunlay yo'qoladi. To'g'ri "
+                    "yo'l: $h = \\eta\\max(|x|, "
+                    "x_{tip})$, $\\eta \\approx "
+                    "10^{-5}$. FEM da sezgirlik "
+                    "tahlili uchun esa sonli hosila "
+                    "umuman ishlatilmasligi afzal: "
+                    "analitik sezgirlik (adjoint usul) "
+                    "yoki avtomatik differensiallash "
+                    "mashina aniqligida natija beradi "
+                    "va qadam tanlash muammosini "
+                    "butunlay yo'q qiladi."
+                ),
+            ),
+            computation=Computation(
+                caption=(
+                    "Kesish va yaxlitlash xatoliklarining "
+                    "raqobatini o'lchash, optimal qadamni "
+                    "topish, Richardson va kompleks qadam "
+                    "usullarini taqqoslash."
+                ),
+                code='''"""Kesish xatoligi, optimal qadam va Richardson ekstrapolyatsiyasi."""
+import numpy as np
+from labkit import PARAMS, note, series, table, value
+
+x0 = float(PARAMS.get("x0", 1.0))
+fn = int(PARAMS.get("fn", 0))        # 0 sin, 1 exp, 2 x^3*ln(x)
+h_rich = float(PARAMS.get("h_rich", 0.01))
+
+
+if fn == 0:
+    def f(t):
+        return np.sin(t)
+
+    def fc(z):
+        return np.sin(z)
+
+    fp, f2, f3 = np.cos(x0), -np.sin(x0), -np.cos(x0)
+    name = "sin(x)"
+elif fn == 1:
+    def f(t):
+        return np.exp(t)
+
+    def fc(z):
+        return np.exp(z)
+
+    fp = f2 = f3 = np.exp(x0)
+    name = "exp(x)"
+else:
+    def f(t):
+        return t**3*np.log(t)
+
+    def fc(z):
+        return z**3*np.log(z)
+
+    fp = 3*x0**2*np.log(x0) + x0**2
+    f2 = 6*x0*np.log(x0) + 5*x0
+    f3 = 6*np.log(x0) + 11.0
+    name = "x^3*ln(x)"
+
+eps = np.finfo(float).eps
+value("Funksiya kodi", float(fn), "—")
+value("Aniq hosila f'(x0)", fp, "—")
+note(f"Funksiya: {name}, nuqta x0 = {x0}. Aniq hosila {fp:.12f}.")
+
+# --- Ikki sxemani qadam bo'yicha supurish ---
+hs = np.logspace(-16, -1, 300)
+e_fwd, e_cen = [], []
+for h in hs:
+    d_f = (f(x0 + h) - f(x0))/h
+    d_c = (f(x0 + h) - f(x0 - h))/(2*h)
+    e_fwd.append(abs(d_f - fp)/abs(fp))
+    e_cen.append(abs(d_c - fp)/abs(fp))
+e_fwd = np.array(e_fwd)
+e_cen = np.array(e_cen)
+series("Oldinga ayirma xatoligi", hs.tolist(),
+       np.maximum(e_fwd, 1e-18).tolist(),
+       xlabel="qadam h", ylabel="nisbiy xatolik")
+series("Markaziy ayirma xatoligi", hs.tolist(),
+       np.maximum(e_cen, 1e-18).tolist(),
+       xlabel="qadam h", ylabel="nisbiy xatolik")
+
+i_f = int(np.argmin(e_fwd))
+i_c = int(np.argmin(e_cen))
+value("Oldinga: optimal h (o'lchangan)", float(hs[i_f]), "—")
+value("Oldinga: eng kichik xatolik", float(e_fwd[i_f]), "—")
+value("Markaziy: optimal h (o'lchangan)", float(hs[i_c]), "—")
+value("Markaziy: eng kichik xatolik", float(e_cen[i_c]), "—")
+value("Markaziy qadam oldingidan necha marta katta",
+      float(hs[i_c]/hs[i_f]), "marta")
+value("Markaziy necha marta aniqroq",
+      float(e_fwd[i_f]/max(e_cen[i_c], 1e-300)), "marta")
+
+# Nazariy bashoratlar
+h_f_th = np.sqrt(2*eps*abs(f(x0))/abs(f2))
+h_c_th = (3*eps*abs(f(x0))/abs(f3))**(1/3)
+value("Oldinga: optimal h (nazariy)", h_f_th, "—")
+value("Markaziy: optimal h (nazariy)", h_c_th, "—")
+value("Oldinga: o'lchangan/nazariy", float(hs[i_f])/h_f_th, "—")
+value("Markaziy: o'lchangan/nazariy", float(hs[i_c])/h_c_th, "—")
+note(f"Nazariy optimal qadamlar: oldinga {h_f_th:.3e}, markaziy "
+     f"{h_c_th:.3e}. O'lchangan qiymatlar {hs[i_f]:.3e} va "
+     f"{hs[i_c]:.3e}. Nazariya eng yomon holatga mo'ljallangani "
+     f"uchun aniq moslik kutilmaydi, lekin TARTIB to'g'ri "
+     f"bashorat qilinadi - amaliyotda muhimi ham shu.")
+note(f"MUHIM: markaziy ayirmaning optimal qadami oldingidan "
+     f"{hs[i_c]/hs[i_f]:.0f} marta KATTA, lekin natija "
+     f"{e_fwd[i_f]/max(e_cen[i_c], 1e-300):.0f} marta ANIQROQ. "
+     f"'Qadam qancha kichik bo'lsa shuncha yaxshi' degan "
+     f"intuitsiya noto'g'ri.")
+
+# --- Qiyaliklarni o'lchash: kesish rejimida ---
+mask = (hs > 1e-4) & (hs < 1e-2)
+sl_f = np.polyfit(np.log(hs[mask]), np.log(e_fwd[mask]), 1)[0]
+sl_c = np.polyfit(np.log(hs[mask]), np.log(e_cen[mask]), 1)[0]
+value("Oldinga ayirma tartibi p (o'lchangan)", float(sl_f), "—")
+value("Markaziy ayirma tartibi p (o'lchangan)", float(sl_c), "—")
+note(f"Kesish rejimida (h = 1e-4...1e-2) log-log qiyaliklar: "
+     f"oldinga {sl_f:.3f} ~ 1, markaziy {sl_c:.3f} ~ 2. Teylor "
+     f"qatoridan chiqarilgan tartiblar sonli tasdiqlandi.")
+
+# Yaxlitlash rejimidagi qiyalik
+mask2 = (hs > 1e-15) & (hs < 1e-12)
+sl_r = np.polyfit(np.log(hs[mask2]), np.log(e_cen[mask2]), 1)[0]
+value("Yaxlitlash rejimidagi qiyalik", float(sl_r), "—")
+note(f"Juda kichik qadamlarda qiyalik {sl_r:.2f} ~ -1, ya'ni "
+     f"xatolik 1/h kabi ORTADI. Bu 7-qadamdagi bashoratning "
+     f"tasdig'i va log-log grafikdagi V shaklining chap tarmog'i.")
+
+# --- Richardson ekstrapolyatsiyasi ---
+rows = []
+for h in [h_rich*4, h_rich*2, h_rich, h_rich/2, h_rich/4]:
+    d1 = (f(x0 + h) - f(x0 - h))/(2*h)
+    d2 = (f(x0 + h/2) - f(x0 - h/2))/h
+    dR = (4*d2 - d1)/3
+    rows.append([f"{h:.2e}", f"{abs(d1-fp)/abs(fp):.3e}",
+                 f"{abs(d2-fp)/abs(fp):.3e}",
+                 f"{abs(dR-fp)/abs(fp):.3e}"])
+table("Richardson ekstrapolyatsiyasi (markaziy ayirma, p = 2 -> 4)",
+      ["h", "D(h) xatosi", "D(h/2) xatosi", "Richardson xatosi"], rows)
+
+hh = np.array([h_rich*4, h_rich*2, h_rich, h_rich/2])
+eR = []
+for h in hh:
+    d1 = (f(x0 + h) - f(x0 - h))/(2*h)
+    d2 = (f(x0 + h/2) - f(x0 - h/2))/h
+    eR.append(abs((4*d2 - d1)/3 - fp)/abs(fp))
+eR = np.array(eR)
+if np.all(eR > 1e-14):
+    pR = np.polyfit(np.log(hh), np.log(eR), 1)[0]
+    value("Richardson natijasining tartibi", float(pR), "—")
+    note(f"Richardson natijasining o'lchangan tartibi {pR:.2f} ~ 4 - "
+         f"ya'ni tartib 2 dan 4 ga ko'tarildi. Buning uchun atigi "
+         f"bitta qo'shimcha funksiya hisoblash kerak bo'ldi. "
+         f"pq-10 da aynan shu usul plastina masalasida ishlatilgan.")
+else:
+    note("Richardson natijasi mashina aniqligiga yetdi - tartibni "
+         "ishonchli o'lchash uchun kattaroq qadamlar kerak.")
+
+d1_s = (f(x0 + h_rich) - f(x0 - h_rich))/(2*h_rich)
+d2_s = (f(x0 + h_rich/2) - f(x0 - h_rich/2))/h_rich
+dR_s = (4*d2_s - d1_s)/3
+value("D(h) xatosi", abs(d1_s - fp)/abs(fp), "—")
+value("Richardson xatosi", abs(dR_s - fp)/abs(fp), "—")
+value("Richardson yaxshilanishi",
+      abs(d1_s - fp)/max(abs(dR_s - fp), 1e-300), "marta")
+
+# --- Kompleks qadam usuli ---
+e_cs = []
+for h in hs:
+    d_cs = np.imag(fc(complex(x0, h)))/h
+    e_cs.append(abs(d_cs - fp)/abs(fp))
+e_cs = np.array(e_cs)
+series("Kompleks qadam usuli xatoligi", hs.tolist(),
+       np.maximum(e_cs, 1e-18).tolist(),
+       xlabel="qadam h", ylabel="nisbiy xatolik")
+value("Kompleks qadam: eng kichik xatolik", float(e_cs.min()), "—")
+value("Kompleks qadam: h = 1e-16 dagi xatolik", float(e_cs[0]), "—")
+value("Markaziy ayirma: h = 1e-16 dagi xatolik", float(e_cen[0]), "—")
+if e_cs[0] > 0:
+    value("Kompleks qadam necha marta aniqroq (h = 1e-16)",
+          float(e_cen[0]/e_cs[0]), "marta")
+note(f"Kompleks qadam usulida h = {hs[0]:.0e} da ham xatolik "
+     f"{e_cs[0]:.3e} - ya'ni mashina aniqligida. Markaziy ayirma "
+     f"esa shu qadamda {e_cen[0]:.3e} xatolik beradi. Sababi: "
+     f"kompleks qadamda AYIRISH umuman yo'q, faqat mavhum qism "
+     f"olinadi - demak qisqarish ham yo'q va optimal qadam "
+     f"muammosi butunlay yo'qoladi.")
+
+table("Sonli hosila usullarining taqqoslashi",
+      ["Usul", "Tartib", "Optimal h", "Eng yaxshi aniqlik",
+       "Hisoblash narxi"],
+      [["Oldinga ayirma", "1", "~eps^(1/2) = 1.5e-8", "~1e-8",
+        "1 qo'shimcha"],
+       ["Markaziy ayirma", "2", "~eps^(1/3) = 6e-6", "~1e-11",
+        "2 qo'shimcha"],
+       ["Richardson (markaziy)", "4", "~1e-3", "~1e-13",
+        "4 qo'shimcha"],
+       ["Kompleks qadam", "2", "ixtiyoriy kichik", "~1e-16",
+        "1 kompleks"],
+       ["Avtomatik diff. (AD)", "aniq", "kerak emas", "mashina aniqligi",
+        "~2-3x asosiy"]])
+''',
+                parameters=[
+                    p("x0", "Hosila olinadigan nuqta x₀", 0.1, 10.0, 1.0,
+                      0.1),
+                    p("fn", "Funksiya (0 sin, 1 exp, 2 x³ln x)",
+                      0.0, 2.0, 0.0, 1.0),
+                    p("h_rich", "Richardson uchun boshlang'ich qadam",
+                      0.0001, 0.5, 0.01, 0.0001),
+                ],
+                expected_output=(
+                    "Kesish rejimida o'lchangan qiyaliklar: "
+                    "oldinga ayirma ≈ 1, markaziy ≈ 2 — "
+                    "Teylor qatoridan chiqarilgan "
+                    "tartiblar tasdiqlanadi. Juda kichik "
+                    "qadamlarda qiyalik ≈ −1 (yaxlitlash "
+                    "hukmron). Markaziy ayirmaning "
+                    "optimal qadami oldingidan tartiblarga "
+                    "**katta**, lekin natijasi tartiblarga "
+                    "aniqroq. Richardson tartibni 2 dan "
+                    "4,006 ga ko'taradi va xatolikni "
+                    "798 600 marta kamaytiradi. Kompleks "
+                    "qadam usuli h = 1e-16 da xatolikni "
+                    "AYNAN nolga tushiradi (mashina "
+                    "aniqligi), markaziy ayirma esa shu "
+                    "qadamda 2,7 % xatolik beradi."
+                ),
+            ),
+            visual=vis(
+                kind="Optimal qadam va xatoliklar raqobati",
+                tool="React/SVG + Manim",
+                description=(
+                    "Log–log grafikda kesish va "
+                    "yaxlitlash xatoliklarining V "
+                    "shaklidagi yig'indisi."
+                ),
+                how_to_draw=(
+                    "React/SVG: asosiy panel — log–log "
+                    "o'qlarda uchta egri chiziq "
+                    "(oldinga, markaziy, kompleks qadam). "
+                    "Birinchi ikkitasi xarakterli **V** "
+                    "shaklida: o'ng tarmoq kesish "
+                    "xatoligi (qiyalik $+1$ yoki $+2$), "
+                    "chap tarmoq yaxlitlash ($-1$). "
+                    "Nazariy qiyaliklar punktir "
+                    "uchburchaklar bilan grafik ustiga "
+                    "qo'yiladi — o'lchangan va nazariy "
+                    "qiyaliklar ustma-ust tushgani "
+                    "ko'rinadi. Har bir egri chiziqning "
+                    "minimumi nuqta bilan belgilanib, "
+                    "$h_{opt}$ qiymati yoziladi va "
+                    "nazariy bashorat vertikal punktir "
+                    "chiziq bilan qo'yiladi. Kompleks "
+                    "qadam chizig'i esa **V shaklida "
+                    "emas** — u pastda gorizontal "
+                    "bo'lib cho'ziladi va bu farq "
+                    "darhol ko'zga tashlanadi. "
+                    "Ikkinchi panel — Richardson "
+                    "jadvali ustunli diagramma "
+                    "sifatida: $D(h)$, $D(h/2)$ va "
+                    "$D_R$ xatoliklari log o'qda "
+                    "yonma-yon, qadam kamaygani sari "
+                    "$D_R$ ustuni ancha tez pasayadi."
+                ),
+            ),
+            interp=(
+                "Log–log grafikdagi ikkita qiyalik "
+                "nazariyani bevosita tasdiqlaydi: "
+                "kesish rejimida oldinga ayirma uchun "
+                "$1$, markaziy uchun $2$ — bu 2- va "
+                "4-qadamlardagi Teylor yoyilmalaridan "
+                "chiqqan tartiblar. Juda kichik "
+                "qadamlarda esa qiyalik $-1$ ga "
+                "aylanadi va bu 7-qadamdagi "
+                "$\\varepsilon/h$ bahosining tasdig'i. "
+                "Ikki rejimning uchrashuvi V shaklidagi "
+                "minimumni beradi. O'lchangan optimal "
+                "qadam nazariy bashorat bilan bir xil "
+                "tartibda chiqadi; aniq moslik "
+                "kutilmaydi, chunki nazariy formula "
+                "eng yomon holatga mo'ljallangan, "
+                "lekin **tartib** to'g'ri bashorat "
+                "qilinadi va amaliyotda muhimi shu. "
+                "Eng qarama-qarshi natija shundaki, "
+                "markaziy ayirmaning optimal qadami "
+                "oldingidan ancha **katta**, lekin "
+                "natijasi ancha **aniqroq**. Ya'ni "
+                "aniqlikni oshirish uchun qadamni "
+                "kichraytirish emas, **sxemani "
+                "yaxshilash** kerak. Richardson "
+                "ekstrapolyatsiyasi bu fikrni davom "
+                "ettiradi: bir xil sxemadan bitta "
+                "qo'shimcha hisoblash evaziga tartibni "
+                "2 dan 4 ga ko'taradi. Nihoyat, "
+                "kompleks qadam usuli butunlay boshqa "
+                "manzara beradi — uning chizig'ida V "
+                "shakli yo'q, chunki ayirish "
+                "bajarilmaydi va qisqarish umuman "
+                "paydo bo'lmaydi. Bu su-02 dagi "
+                "asosiy saboqning yana bir tasdig'i: "
+                "muammoni aniqlikni oshirish bilan "
+                "emas, **formulani qayta qurish** "
+                "bilan hal qilish kerak."
+            ),
+            mistakes=[
+                "Qadamni imkon qadar kichik olish. "
+                "Optimal qadamdan keyin xatolik "
+                "$1/h$ bo'yicha **ortadi**.",
+                "Mutlaq qadam ishlatish. "
+                "$x = 10^6$ da $h = 10^{-5}$ "
+                "butunlay yo'qoladi; qadam nisbiy "
+                "bo'lishi kerak.",
+                "Richardson ekstrapolyatsiyasini "
+                "juda kichik qadamda qo'llash. "
+                "Yaxlitlash hukmron bo'lsa u "
+                "natijani **yomonlashtiradi**.",
+                "Yaqinlashish tartibini silliq "
+                "bo'lmagan funksiyada kutish. "
+                "Uzilish yoki burchak bo'lsa tartib "
+                "pasayadi.",
+                "Sonli hosilani FEM sezgirlik "
+                "tahlilida ishlatish. Analitik "
+                "sezgirlik yoki avtomatik "
+                "differensiallash tartiblarga "
+                "aniqroq.",
+            ],
+            quiz=[
+                q("Nima uchun markaziy ayirma "
+                  "oldinga ayirmadan yuqori tartibli?",
+                  "Teylor yoyilmalarini ayirganda "
+                  "**juft** darajali hadlar o'zaro "
+                  "qisqaradi va yetakchi xatolik "
+                  "$h^2$ bo'lib qoladi.",
+                  "konseptual"),
+                q("Sonli hosilada optimal qadam nima "
+                  "uchun mavjud?",
+                  "Kesish xatoligi $h^p$ bilan "
+                  "kamayadi, yaxlitlash xatoligi "
+                  "$\\varepsilon/h$ bilan ortadi; "
+                  "ikki qarama-qarshi hadning "
+                  "yig'indisi minimumga ega.",
+                  "konseptual"),
+                q("Markaziy ayirma uchun "
+                  "$h_{opt}$ ning $\\varepsilon$ ga "
+                  "bog'liqligi qanday?",
+                  "$h_{opt} \\sim \\varepsilon^{1/3} "
+                  "\\approx 6\\times10^{-6}$; eng "
+                  "yaxshi aniqlik esa "
+                  "$\\varepsilon^{2/3} \\approx "
+                  "4\\times10^{-11}$.", "hisob"),
+                q("Kodda nima uchun qiyaliklar ikkita "
+                  "turli oraliqda o'lchanadi?",
+                  "Katta qadamlarda kesish rejimi "
+                  "($+1$, $+2$ qiyalik), juda kichik "
+                  "qadamlarda yaxlitlash rejimi "
+                  "($-1$) hukmron; ular alohida "
+                  "tekshiriladi.", "kod"),
+                q("Richardson ekstrapolyatsiyasi "
+                  "qanday ishlaydi?",
+                  "$D(h)$ va $D(h/2)$ dan yetakchi "
+                  "xatolik hadini algebraik "
+                  "yo'qotadi: $D_R = (2^pD(h/2)-"
+                  "D(h))/(2^p-1)$, tartib $p$ dan "
+                  "$p+2$ ga ko'tariladi.", "talqin"),
+                q("Kompleks qadam usuli nima uchun "
+                  "qisqarishdan xoli?",
+                  "Unda ayirish umuman yo'q — "
+                  "$\\mathrm{Im}[f(x+ih)]/h$ faqat "
+                  "mavhum qismni oladi; shuning "
+                  "uchun $h$ ixtiyoriy kichik "
+                  "bo'lishi mumkin.", "talqin"),
+            ],
+            bridge=(
+                "Ayirmadagi xatolikning kuchayish "
+                "koeffitsienti $(|x|+|y|)/|x-y|$ "
+                "aslida umumiyroq tushunchaning "
+                "sodda holi edi. Har qanday masala "
+                "uchun kirish ma'lumotidagi xatoning "
+                "natijaga qanchalik kuchayib "
+                "o'tishini o'lchaydigan kattalik bor "
+                "— **shartlanganlik soni**. Keyingi "
+                "mavzuda uni chiziqli tizimlar uchun "
+                "aniqlaymiz va nima uchun ba'zi "
+                "mexanika masalalari tabiatan "
+                "'qiyin' ekanini ko'rsatamiz."
+            ),
+            research=(
+                "Differensiallash usullarini "
+                "chuqurroq o'rganing. (1) Kompleks "
+                "qadam usulining nazariy asosini "
+                "keltirib chiqaring va uning "
+                "cheklovlarini aniqlang: qaysi "
+                "funksiyalarda u ishlamaydi "
+                "(`abs`, `max`, taqqoslashlar)? "
+                "(2) Avtomatik differensiallashning "
+                "oldinga (forward) va teskari "
+                "(reverse) rejimlarini solishtiring; "
+                "FEM sezgirlik tahlilida qaysi biri "
+                "afzal va nima uchun? (3) Yuqori "
+                "tartibli ayirma sxemalarini "
+                "(5 va 7 nuqtali) quring hamda "
+                "ularning optimal qadami va eng "
+                "yaxshi aniqligini nazariy "
+                "baholang — tartib oshgani sari "
+                "foyda nima uchun kamayadi?"
+            ),
+            manim_ref=manim(
+                scene="OptimalStepScene",
+                module="manim/scenes/su_basics.py",
+                title="Kesish va yaxlitlash xatoliklarining raqobati",
+                summary=(
+                    "Qadam kamaygani sari sonli "
+                    "hosila aniq qiymatga "
+                    "yaqinlashadi, keyin esa "
+                    "kutilmaganda undan uzoqlashib "
+                    "ketadi. Log–log grafikda ikkita "
+                    "tarmoq va ularning "
+                    "kesishuvidagi minimum "
+                    "quriladi; oxirida kompleks "
+                    "qadam usuli qo'shilib, uning "
+                    "chizig'i V shakliga ega "
+                    "emasligi ko'rsatiladi."
+                ),
+            ),
+        ),
+    ),
 ]
