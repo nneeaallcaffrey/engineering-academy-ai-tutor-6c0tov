@@ -2934,4 +2934,812 @@ table("Tutashuv turlari va mos kelmaslik",
             ),
         ),
     ),
+
+    # ------------------------------------------------------------------ pq-29
+    Topic(
+        id="pq-29",
+        subject_id=S, module_id=M, order=29,
+        title="Qobiqlar ustuvorligi va nuqsonlarga sezgirlik",
+        description=(
+            "Klassik kritik yuklama, Koiter nazariyasi, nuqsonlarga "
+            "sezgirlik, eksperiment va nazariya orasidagi farq, "
+            "NASA SP-8007 kamaytirish koeffitsienti, tashqi bosim."
+        ),
+        learning_objective=(
+            "Silindrik va sferik qobiqning klassik kritik yuklamasini "
+            "hisoblash, nuqson amplitudasining ta'sirini baholash va "
+            "loyihalash koeffitsientini standart bo'yicha tanlash."
+        ),
+        prerequisites=["pq-28", "pq-21"],
+        mathematical_core=(
+            "$\\sigma_{cl} = \\dfrac{Eh}{R\\sqrt{3(1-\\nu^2)}} "
+            "\\approx 0{,}605\\dfrac{Eh}{R}$, Koiter: "
+            "$\\lambda = 1 - c\\sqrt{\\bar\\xi}$, "
+            "$\\gamma = 1 - 0{,}901(1-e^{-\\phi})$."
+        ),
+        engineering_application=(
+            "Raketa baklari, silos va bunkerlar, vakuum idishlari, "
+            "suvosti quvurlari, aviatsiya fyuzelyaji, minoralar."
+        ),
+        computational_component=(
+            "Klassik kritik yuklamani hisoblash, nuqson-sezgirlik "
+            "egri chizig'ini qurish, NASA koeffitsientini qo'llash."
+        ),
+        visualization_component=(
+            "Muvozanat yo'llari (barqaror/nobarqaror), nuqson "
+            "amplitudasi bo'yicha kamayish, romb shaklidagi "
+            "buzilish shakli."
+        ),
+        research_extension=(
+            "Nima uchun sferik qobiq silindrik qobiqdan ham "
+            "sezgir? Shell Buckling Knockdown Factor loyihasi "
+            "(NASA, 2010-yillar) va zamonaviy ehtimollik "
+            "asosidagi yondashuvni o'rganing."
+        ),
+        difficulty="ilg'or",
+        previous_link=(
+            "pq-21 da plastina kritikdan keyin **zaxiraga** ega "
+            "ekani ko'rsatilgan edi: b_eff va 1,98 barobar "
+            "ortiqcha yuk. Qobiqda esa buning teskarisi sodir "
+            "bo'ladi va bu farqning sababi pq-25 dagi Gauss "
+            "egriligida yotadi."
+        ),
+        next_topic="pq-30",
+        estimated_minutes=95,
+        tags=["ustuvorlik", "nuqson", "Koiter", "NASA SP-8007"],
+        lesson=_lesson(
+            problem=(
+                "1960-yillarda raketa baklarini loyihalovchilar "
+                "jiddiy muammoga duch kelishdi: nazariya "
+                "silindrik qobiqning o'q bo'ylab kritik "
+                "kuchlanishini $0{,}605Eh/R$ deb bashorat "
+                "qilardi, eksperiment esa buning atigi "
+                "**15–30 %** ini berardi. Plastinalarda "
+                "(pq-19…pq-21) nazariya va tajriba bir necha "
+                "foizgacha mos kelardi; bu yerda esa besh "
+                "baravar farq. Bundan ham yomoni: "
+                "tarqalish juda katta edi — bir xil "
+                "chizmadagi ikkita namuna ikki barobar farq "
+                "qiluvchi yuklamada buzilardi. Sabab nimada "
+                "va bunday konstruksiyani qanday xavfsiz "
+                "loyihalash mumkin?"
+            ),
+            concepts=[
+                c("Klassik kritik kuchlanish",
+                  "Ideal (nuqsonsiz) qobiq uchun chiziqli "
+                  "ustuvorlik nazariyasidan olingan qiymat "
+                  "$\\sigma_{cl} \\approx 0{,}605Eh/R$."),
+                c("Nuqsonlarga sezgirlik "
+                  "(imperfection sensitivity)",
+                  "Geometrik nuqsonning kritik yuklamani "
+                  "keskin kamaytirishi; qobiqda bu effekt "
+                  "eng kuchli."),
+                c("Nobarqaror kritikdan keyingi yo'l",
+                  "Qobiqda muvozanat yo'li kritik nuqtadan "
+                  "keyin **pasayadi** — plastinadagidek "
+                  "ko'tarilmaydi. Shuning uchun buzilish "
+                  "keskin (snap-through)."),
+                c("Koiter nazariyasi (1945)",
+                  "Kritikdan keyingi yo'lning boshlang'ich "
+                  "egriligiga qarab nuqson sezgirligini "
+                  "bashorat qiluvchi asimptotik nazariya; "
+                  "$\\lambda \\approx 1 - c\\sqrt{\\bar\\xi}$."),
+                c("Kamaytirish koeffitsienti (knockdown factor)",
+                  "$\\gamma = \\sigma_{exp}/\\sigma_{cl}$ — "
+                  "eksperimental ma'lumotlarning pastki "
+                  "o'ramasi; NASA SP-8007 da $R/h$ ning "
+                  "funksiyasi."),
+                c("Tashqi bosimdan buzilish",
+                  "Boshqa mexanizm: uzun quvur uchun "
+                  "$p_{cr} = 2E(h/D)^3/(1-\\nu^2)$; nuqsonga "
+                  "sezgirlik ancha kamroq."),
+            ],
+            derivation=[
+                d("1. Ustuvorlik masalasining qo'yilishi",
+                  r"D\nabla^4 w + \frac{Eh}{R^2}\frac{\partial^4\Phi}"
+                  r"{\partial x^4}\ldots + N_x\frac{\partial^2w}"
+                  r"{\partial x^2} = 0",
+                  "Donnell tenglamalari: egilish va membrana "
+                  "holati bog'langan. pq-19 dagi plastina "
+                  "masalasidan farqi — endi $w$ bevosita "
+                  "membrana kuchlarini uyg'otadi (pq-25)."),
+                d("2. Buzilish shaklini tanlash",
+                  r"w = w_0\sin\frac{m\pi x}{L}\cos\frac{n y}{R}",
+                  "O'q bo'ylab $m$ yarim to'lqin, aylana "
+                  "bo'ylab $n$ to'liq to'lqin. Plastinadan "
+                  "farqi: $n$ ham katta bo'lishi mumkin."),
+                d("3. Kritik kuchlanish ifodasi",
+                  r"\sigma_{cr} = \frac{D}{h}\frac{(\alpha^2+"
+                  r"\beta^2)^2}{\alpha^2} + \frac{Eh}{R^2}"
+                  r"\frac{\alpha^2}{(\alpha^2+\beta^2)^2}",
+                  "Ikkita had: birinchisi **egilish** "
+                  "qarshiligi (plastinadagidek), ikkinchisi "
+                  "**membrana** qarshiligi (faqat qobiqda "
+                  "bor). Qobiqning butun kuchi ikkinchi "
+                  "haddan keladi."),
+                d("4. Minimallashtirish",
+                  r"\frac{\partial\sigma_{cr}}{\partial "
+                  r"(\alpha^2+\beta^2)} = 0 "
+                  r"\;\Longrightarrow\; (\alpha^2+\beta^2)^2 "
+                  r"= \frac{Eh}{D}\frac{\alpha^2}{R^2}",
+                  "Ikki hadning yig'indisi minimal bo'lganda "
+                  "ular teng bo'ladi — bu klassik "
+                  "optimallashtirish natijasi."),
+                d("5. Klassik natija",
+                  r"\sigma_{cl} = 2\sqrt{\frac{D}{h}\cdot"
+                  r"\frac{Eh}{R^2}} = \frac{Eh}"
+                  r"{R\sqrt{3(1-\nu^2)}} \approx "
+                  r"0{,}605\,\frac{Eh}{R}",
+                  "$\\nu = 0{,}3$ uchun koeffitsient 0,605. "
+                  "Muhim: $\\sigma_{cl}$ qobiq **uzunligiga "
+                  "bog'liq emas** va $L$ tushib qoladi."),
+                d("6. Cheksiz ko'p buzilish shakllari",
+                  r"(\alpha^2+\beta^2)^2 = \text{const} "
+                  r"\;\Longrightarrow\; \text{bir xil } "
+                  r"\sigma_{cl} \text{ da ko'p } (m,n) "
+                  r"\text{ juftlik}",
+                  "**Muammoning ildizi.** 4-qadamdagi shart "
+                  "bitta $(m,n)$ ni emas, butun **oilani** "
+                  "beradi: o'nlab turli shakl bir xil kritik "
+                  "yuklamaga ega. Ular o'zaro ta'sirlashib, "
+                  "nuqsonga g'oyat sezgir bo'ladi."),
+                d("7. Kritikdan keyingi yo'l",
+                  r"\frac{\sigma}{\sigma_{cl}} = 1 - a_1"
+                  r"\frac{w_0}{h} + a_2\Big(\frac{w_0}{h}\Big)^2 "
+                  r"\ (a_1 > 0)",
+                  "Plastinada $a_1 = 0$ va yo'l "
+                  "**ko'tariladi** (pq-21 dagi zaxira). "
+                  "Qobiqda $a_1 > 0$ va yo'l **pasayadi** — "
+                  "buzilish barqaror emas."),
+                d("8. Koiter asimptotik formulasi",
+                  r"(1-\lambda)^2 = c\,\lambda\,\bar\xi "
+                  r"\;\Longrightarrow\; \lambda \approx "
+                  r"1 - c_1\sqrt{\bar\xi}",
+                  "$\\bar\\xi = w_{imp}/h$ — nisbiy nuqson. "
+                  "**Kvadrat ildiz** hal qiluvchi: kichik "
+                  "nuqson ham katta kamayish beradi. "
+                  "$\\bar\\xi = 0{,}01$ da kamayish 10 % "
+                  "tartibida, chiziqli bo'lganda 1 % "
+                  "bo'lardi."),
+                d("9. NASA SP-8007 empirik koeffitsienti",
+                  r"\gamma = 1 - 0{,}901\big(1 - e^{-\phi}\big), "
+                  r"\quad \phi = \frac{1}{16}\sqrt{\frac{R}{h}}",
+                  "Minglab tajribaning pastki o'ramasi. "
+                  "$R/h = 500$ da $\\gamma \\approx 0{,}24$ — "
+                  "ya'ni loyihada klassik qiymatning "
+                  "atigi to'rtdan biri olinadi."),
+                d("10. Tashqi bosim: boshqa manzara",
+                  r"p_{cr} = \frac{2E}{1-\nu^2}"
+                  r"\Big(\frac{h}{D_{diam}}\Big)^3 "
+                  r"\ (\text{uzun quvur})",
+                  "Bu yerda buzilish shakli yagona "
+                  "($n = 2$, ovallashish) va nuqsonga "
+                  "sezgirlik ancha kam — tajriba "
+                  "nazariyaning 70–90 % ini beradi. "
+                  "Farq aynan 6-qadamdagi shakl "
+                  "ko'pligidan."),
+            ],
+            meaning=(
+                "Qobiq ustuvorligi butun mexanikada "
+                "nazariya va tajriba eng ko'p ajralgan "
+                "sohadir va uning sababi 6-qadamda: "
+                "klassik yechim bitta buzilish shaklini "
+                "emas, **bir xil kritik yuklamaga ega "
+                "o'nlab shaklni** beradi. Bunday "
+                "'modal to'planish' (modal clustering) "
+                "holatida tizim har qanday kichik "
+                "bezovtalikka nihoyatda sezgir bo'ladi: "
+                "nuqson mavjud shakllarning birortasiga "
+                "o'xshash bo'lsa, u darhol rivojlanadi. "
+                "Koiter buni 1945-yilda matematik "
+                "jihatdan tushuntirdi va $\\sqrt{\\bar\\xi}$ "
+                "qonunini topdi. Kvadrat ildizning ma'nosi "
+                "amaliy jihatdan shafqatsiz: qalinlikning "
+                "1 % i kattaligidagi nuqson kritik "
+                "yuklamani 1 % emas, o'nlab foizga "
+                "kamaytiradi. Bu pq-21 dagi plastina "
+                "manzarasining to'liq teskarisi. U yerda "
+                "kritikdan keyingi yo'l ko'tarilardi va "
+                "plastina 1,98 barobar ortiqcha yuk "
+                "ko'tarardi; bu yerda yo'l pasayadi va "
+                "buzilish portlovchi tarzda sodir bo'ladi. "
+                "Farqning fizik ildizi pq-25 dagi Gauss "
+                "egriligida: qobiq bukilganda sirt "
+                "cho'zilishi kerak ($K \\ne 0$ ni saqlash "
+                "mumkin emas), bu esa energiya jihatdan "
+                "qimmat — shuning uchun qobiq bikr. Lekin "
+                "bir marta bukilish boshlangach, qobiq "
+                "$K$ ni saqlaydigan (inextensional) "
+                "shaklga o'tadi va qarshilik keskin "
+                "tushadi. Loyihalashdagi javob — "
+                "nuqsonni bashorat qilishga urinmaslik, "
+                "balki statistik kamaytirish "
+                "koeffitsientini qo'llash. NASA SP-8007 "
+                "aynan shuni qiladi va bu 1968-yildan "
+                "beri standart bo'lib kelmoqda, garchi u "
+                "juda konservativ bo'lsa ham."
+            ),
+            equations=[
+                eq(r"\sigma_{cl} = \frac{Eh}{R\sqrt{3(1-\nu^2)}} "
+                   r"\approx 0{,}605\,\frac{Eh}{R}",
+                   "Silindrik qobiqning o'q bo'ylab siqilishdagi "
+                   "klassik kritik kuchlanishi.",
+                   "Klassik kritik kuchlanish"),
+                eq(r"\lambda = \frac{\sigma_{cr}}{\sigma_{cl}} "
+                   r"\approx 1 - c\sqrt{\bar\xi}, \quad "
+                   r"\bar\xi = \frac{w_{imp}}{h}",
+                   "Koiter nuqson-sezgirlik qonuni; kvadrat "
+                   "ildiz tufayli kichik nuqson katta "
+                   "kamayish beradi.", "Koiter qonuni"),
+                eq(r"\gamma = 1 - 0{,}901(1 - e^{-\phi}), \quad "
+                   r"\phi = \frac{1}{16}\sqrt{R/h}",
+                   "NASA SP-8007 kamaytirish koeffitsienti — "
+                   "tajriba ma'lumotlarining pastki o'ramasi.",
+                   "NASA koeffitsienti"),
+                eq(r"p_{cr} = \frac{2E}{1-\nu^2}"
+                   r"\Big(\frac{h}{D}\Big)^3",
+                   "Uzun quvurning tashqi bosimdan "
+                   "buzilishi (ovallashish, $n = 2$).",
+                   "Tashqi bosim"),
+            ],
+            conditions=(
+                "**Klassik yechim shartlari:**\n"
+                "- Ideal geometriya (nuqsonsiz);\n"
+                "- Chekka shartlari ta'sirsiz deb olinadi "
+                "(uzun qobiq, $L > 2{,}85\\sqrt{Rh}$);\n"
+                "- Material chiziqli elastik, "
+                "$\\sigma_{cl} < \\sigma_Y$;\n"
+                "- Chiziqli oldingi holat.\n\n"
+                "**Qo'llanish chegarasi:** agar "
+                "$\\sigma_{cl} > \\sigma_{proportional}$ "
+                "bo'lsa, plastik buzilish hisoblanadi "
+                "(Shenli tangens modul usuli, pq-19 dagi "
+                "kabi).\n\n"
+                "**Qisqa qobiq:** $L < 2{,}85\\sqrt{Rh}$ "
+                "bo'lsa chekkalar kritik yuklamani "
+                "oshiradi va Batdorf parametri "
+                "$Z = L^2\\sqrt{1-\\nu^2}/(Rh)$ ishlatiladi.\n\n"
+                "**Nuqson o'lchovi:** standartlarda "
+                "$w_{imp}$ o'lchov shabloni bilan "
+                "aniqlanadi; odatda "
+                "$w_{imp} \\le 0{,}01L_{g}$ talab "
+                "qilinadi, $L_g$ — shablon uzunligi "
+                "($\\approx 4\\sqrt{Rh}$)."
+            ),
+            worked=WorkedExample(
+                statement=(
+                    "Raketa bagi: alyuminiy $E = 70$ GPa, "
+                    "$\\nu = 0{,}33$, $\\sigma_Y = 350$ MPa, "
+                    "$R = 1{,}8$ m, $h = 3$ mm, $L = 6$ m. "
+                    "O'q bo'ylab siqiluvchi kuch. Klassik "
+                    "kritik kuchlanish, NASA koeffitsienti, "
+                    "loyihaviy kuchlanish va ko'tarish "
+                    "quvvatini toping. Nuqson $w/h = 0{,}5$ "
+                    "bo'lsa Koiter bahosi qancha?"
+                ),
+                given=[
+                    r"E = 70\ \text{GPa},\ \nu = 0{,}33,\ "
+                    r"\sigma_Y = 350\ \text{MPa}",
+                    r"R = 1{,}8\ \text{m},\ h = 0{,}003\ \text{m},\ "
+                    r"L = 6\ \text{m}",
+                ],
+                steps=[
+                    st(r"\frac{R}{h} = \frac{1{,}8}{0{,}003} = 600 "
+                       r"\quad (\text{juda yupqa qobiq})",
+                       "$R/h = 600$ — raketa baklari uchun "
+                       "tipik qiymat."),
+                    st(r"\sigma_{cl} = \frac{Eh}{R\sqrt{3(1-\nu^2)}} "
+                       r"= \frac{70\times10^{9} \cdot 0{,}003}"
+                       r"{1{,}8\sqrt{3 \cdot 0{,}8911}}",
+                       "$3(1-0{,}1089) = 2{,}6733$, "
+                       "$\\sqrt{\\cdot} = 1{,}6350$."),
+                    st(r"= \frac{2{,}1\times10^{8}}{1{,}8 \cdot "
+                       r"1{,}6350} = \frac{2{,}1\times10^{8}}"
+                       r"{2{,}9430} = 71{,}36\ \text{MPa}",
+                       "Klassik qiymat — oqish chegarasidan "
+                       "ancha past, demak elastik buzilish."),
+                    st(r"\phi = \frac{1}{16}\sqrt{\frac{R}{h}} = "
+                       r"\frac{\sqrt{600}}{16} = "
+                       r"\frac{24{,}495}{16} = 1{,}5309",
+                       "NASA SP-8007 parametri."),
+                    st(r"\gamma = 1 - 0{,}901(1 - e^{-1{,}5309}) "
+                       r"= 1 - 0{,}901(1 - 0{,}2163) = "
+                       r"1 - 0{,}7061 = 0{,}2939",
+                       "Kamaytirish koeffitsienti — klassik "
+                       "qiymatning atigi **29,4 %** i."),
+                    st(r"\sigma_{design} = 0{,}2939 \cdot 71{,}36 "
+                       r"= 20{,}97\ \text{MPa}",
+                       "Loyihaviy kritik kuchlanish."),
+                    st(r"P_{cr} = \sigma_{design} \cdot 2\pi R h "
+                       r"= 20{,}97\times10^{6} \cdot 2\pi \cdot "
+                       r"1{,}8 \cdot 0{,}003",
+                       "Kesim yuzasi "
+                       "$A = 2\\pi Rh = 0{,}033929$ m²."),
+                    st(r"P_{cr} = 20{,}97\times10^{6} \cdot "
+                       r"0{,}033929 = 711{,}5\ \text{kN}",
+                       "Loyihaviy ko'tarish quvvati. "
+                       "Klassik nazariya bo'yicha esa "
+                       "2421 kN bo'lardi — **3,4 barobar "
+                       "ko'p**."),
+                    st(r"\text{Koiter: } (1-\lambda)^2 = "
+                       r"c\,\lambda\,\bar\xi "
+                       r"\;\Longrightarrow\; \lambda^2 - "
+                       r"(2 + c\bar\xi)\lambda + 1 = 0",
+                       "Kvadrat tenglama; kichik ildiz "
+                       "olinadi. Silindrik qobiq uchun "
+                       "$c \\approx 3{,}6$."),
+                    st(r"\bar\xi = 0{,}5: \ \lambda^2 - "
+                       r"3{,}8\lambda + 1 = 0 "
+                       r"\;\Rightarrow\; \lambda = "
+                       r"\frac{3{,}8 - \sqrt{10{,}44}}{2} "
+                       r"= 0{,}2845",
+                       "Yarim qalinlikdagi nuqson kritik "
+                       "yuklamani **71,6 %** ga kamaytiradi."),
+                    st(r"\sigma_{cr}^{Koiter} = 0{,}2845 "
+                       r"\cdot 71{,}355 = 20{,}30\ \text{MPa} "
+                       r"\ \text{va} \ \sigma_{design}^{NASA} "
+                       r"= 20{,}97\ \text{MPa}",
+                       "**Diqqatga sazovor mos kelish:** "
+                       "ikki butunlay boshqa yo'l — "
+                       "Koiterning asimptotik nazariyasi "
+                       "va NASA ning minglab tajribadan "
+                       "olingan empirik o'ramasi — "
+                       "3 % ichida bir xil javob beradi. "
+                       "Demak SP-8007 koeffitsienti "
+                       "taxminan **yarim qalinlikdagi "
+                       "nuqsonga** mos keladi va bu "
+                       "real ishlab chiqarish "
+                       "dopuskining oqilona bahosi."),
+                ],
+                answer=(
+                    "$R/h = 600$, "
+                    "$\\sigma_{cl} = 71{,}355$ MPa, "
+                    "$\\phi = 1{,}531$, "
+                    "$\\gamma = 0{,}2939$, "
+                    "$\\sigma_{design} = 20{,}97$ MPa, "
+                    "$P_{cr} = 711{,}6$ kN. Klassik "
+                    "nazariya 2421 kN bashorat qiladi — "
+                    "**3,40 barobar ko'p**. Koiter bahosi "
+                    "$\\bar\\xi = 0{,}5$ uchun "
+                    "$\\lambda = 0{,}2845$, ya'ni "
+                    "20,30 MPa — NASA koeffitsienti bilan "
+                    "3 % ichida mos tushadi."
+                ),
+                engineering_note=(
+                    "20,97 MPa — alyuminiyning oqish "
+                    "chegarasining atigi 6 % i. Materialning "
+                    "94 % quvvati ishlatilmay qolmoqda va "
+                    "buning sababi mustahkamlik emas, "
+                    "ustuvorlik. Raketa konstruksiyasida bu "
+                    "qabul qilib bo'lmaydigan isrof, "
+                    "shuning uchun amalda silindr **sof "
+                    "qobiq sifatida qoldirilmaydi**: "
+                    "uzunasiga stringerlar va ko'ndalangiga "
+                    "shpangoutlar qo'yiladi (orbitali "
+                    "bakda odatda izogrid yoki "
+                    "ortogrid frezerlanadi). Mustahkamlangan "
+                    "qobiqda buzilish shakllari ajraladi "
+                    "— 6-qadamdagi 'modal to'planish' "
+                    "yo'qoladi — va nuqsonga sezgirlik "
+                    "keskin kamayadi: kamaytirish "
+                    "koeffitsienti 0,29 dan 0,65–0,75 ga "
+                    "ko'tariladi. NASA ning 2010-yillardagi "
+                    "Shell Buckling Knockdown Factor "
+                    "loyihasi aynan SP-8007 ning haddan "
+                    "tashqari konservativligini zamonaviy "
+                    "o'lchov va hisoblash bilan "
+                    "yumshatishga qaratilgan edi."
+                ),
+            ),
+            computation=Computation(
+                caption=(
+                    "Klassik kritik yuklamani hisoblash, "
+                    "nuqson-sezgirlik egri chizig'ini qurish "
+                    "va NASA koeffitsientini qo'llash."
+                ),
+                code='''"""Qobiq ustuvorligi va nuqsonlarga sezgirlik."""
+import numpy as np
+from labkit import PARAMS, note, series, table, value
+
+E = float(PARAMS.get("E", 70.0))*1e9
+nu = float(PARAMS.get("nu", 0.33))
+sigY = float(PARAMS.get("sigY", 350.0))*1e6
+R = float(PARAMS.get("R", 1800.0))/1000.0
+h = float(PARAMS.get("h", 3.0))/1000.0
+L = float(PARAMS.get("L", 6.0))
+xi = float(PARAMS.get("xi", 0.5))       # nuqson w_imp/h
+cK = float(PARAMS.get("cK", 3.6))       # Koiter koeffitsienti
+
+Rh = R/h
+value("R/h nisbati", Rh, "—")
+value("sqrt(R*h)", np.sqrt(R*h), "m")
+
+# --- Klassik kritik kuchlanish ---
+sig_cl = E*h/(R*np.sqrt(3*(1 - nu**2)))
+value("Klassik kritik kuchlanish sigma_cl", sig_cl/1e6, "MPa")
+value("Koeffitsient 1/sqrt(3(1-nu^2))",
+      1/np.sqrt(3*(1 - nu**2)), "—")
+value("sigma_cl / sigma_Y", sig_cl/sigY, "—")
+if sig_cl < 0.5*sigY:
+    note(f"sigma_cl = {sig_cl/1e6:.2f} MPa oqish chegarasining "
+         f"{sig_cl/sigY*100:.1f} % i - buzilish ELASTIK bo'ladi va "
+         f"material quvvati deyarli ishlatilmaydi.")
+else:
+    note(f"sigma_cl = {sig_cl/1e6:.2f} MPa oqish chegarasiga yaqin "
+         f"({sig_cl/sigY*100:.1f} %) - plastik buzilish tekshirilishi "
+         f"kerak (Shenli tangens modul usuli).")
+
+# Uzun qobiq shartini tekshirish
+Lmin = 2.85*np.sqrt(R*h)
+value("Uzun qobiq chegarasi 2.85*sqrt(Rh)", Lmin, "m")
+Z = L**2*np.sqrt(1 - nu**2)/(R*h)
+value("Batdorf parametri Z", Z, "—")
+if L > Lmin:
+    note(f"L = {L:.2f} m > {Lmin:.3f} m: qobiq uzun, chekka "
+         f"shartlari kritik yuklamaga ta'sir qilmaydi va "
+         f"sigma_cl L ga bog'liq emas (Z = {Z:.0f}).")
+else:
+    note(f"L = {L:.2f} m < {Lmin:.3f} m: qobiq QISQA, chekkalar "
+         f"kritik yuklamani oshiradi - Batdorf parametri "
+         f"Z = {Z:.1f} bo'yicha tuzatma kerak.")
+
+# --- Buzilish shakllarining KO'PLIGI (muammoning ildizi) ---
+# Kritik shart: (alpha^2 + beta^2)^2 = (Eh/D)*alpha^2/R^2
+D = E*h**3/(12*(1 - nu**2))
+modes = []
+for m in range(1, 25):
+    al = m*np.pi/L
+    for n in range(0, 60):
+        be = n/R
+        s2 = al**2 + be**2
+        if s2 <= 0 or al <= 0:
+            continue
+        # Donnell: N_cr = D*(a^2+b^2)^2/a^2 + E*h*a^2/(R^2*(a^2+b^2)^2)
+        # sigma = N_cr/h  =>  ikkinchi hadda h QISQARADI.
+        sc = D*s2**2/(h*al**2) + E*al**2/(R**2*s2**2)
+        modes.append((sc, m, n))
+modes.sort()
+sc_min = modes[0][0]
+value("Sonli minimallashtirish natijasi", sc_min/1e6, "MPa")
+value("Analitik sigma_cl bilan farq",
+      abs(sc_min - sig_cl)/sig_cl*100, "%")
+near = [mm for mm in modes if mm[0] < 1.01*sc_min]
+value("1 % ichida yotgan buzilish shakllari soni",
+      float(len(near)), "—")
+note(f"(m, n) juftliklari bo'yicha sonli minimallashtirish "
+     f"{sc_min/1e6:.3f} MPa berdi, analitik formula "
+     f"{sig_cl/1e6:.3f} MPa - farq "
+     f"{abs(sc_min-sig_cl)/sig_cl:.2e} %. Demak 5-qadamdagi "
+     f"analitik minimallashtirish to'g'ri bajarilgan. MUHIM: "
+     f"qidirilgan oraliqda (m <= 24, n <= 59) kritik qiymatning "
+     f"1 % i ichida {len(near)} ta TURLI buzilish shakli yotadi. "
+     f"Aynan shu 'modal to'planish' qobiqni nuqsonga o'ta "
+     f"sezgir qiladi: nuqson shu shakllardan birortasiga "
+     f"o'xshasa, u darhol rivojlanadi.")
+rows_m = [[f"{mm[1]}", f"{mm[2]}", f"{mm[0]/1e6:.3f}",
+           f"{mm[0]/sc_min:.4f}"] for mm in modes[:8]]
+table("Eng past sakkizta buzilish shakli",
+      ["m (o'q)", "n (aylana)", "sigma_cr, MPa", "sigma/sigma_min"],
+      rows_m)
+
+# --- NASA SP-8007 kamaytirish koeffitsienti ---
+phi = np.sqrt(Rh)/16
+gam = 1 - 0.901*(1 - np.exp(-phi))
+value("NASA parametri phi", phi, "—")
+value("NASA kamaytirish koeffitsienti gamma", gam, "—")
+sig_des = gam*sig_cl
+value("Loyihaviy kuchlanish", sig_des/1e6, "MPa")
+A = 2*np.pi*R*h
+value("Kesim yuzasi A", A, "m^2")
+value("Loyihaviy kritik kuch P_cr", sig_des*A/1000, "kN")
+value("Klassik nazariya bo'yicha P", sig_cl*A/1000, "kN")
+value("Nazariya / loyiha", sig_cl/sig_des, "marta")
+note(f"NASA SP-8007 bo'yicha gamma = {gam:.4f}: loyihada klassik "
+     f"qiymatning atigi {gam*100:.1f} % i olinadi. Ko'tarish "
+     f"quvvati {sig_des*A/1000:.1f} kN, klassik nazariya esa "
+     f"{sig_cl*A/1000:.1f} kN bashorat qilardi - "
+     f"{sig_cl/sig_des:.2f} barobar farq.")
+value("Loyihaviy kuchlanish / sigma_Y", sig_des/sigY*100, "%")
+note(f"Loyihaviy kuchlanish oqish chegarasining atigi "
+     f"{sig_des/sigY*100:.1f} % i - materialning "
+     f"{100 - sig_des/sigY*100:.1f} % quvvati ustuvorlik tufayli "
+     f"ishlatilmay qoladi. Shuning uchun amalda qobiq "
+     f"stringer va shpangoutlar bilan mustahkamlanadi.")
+
+# --- Koiter nuqson-sezgirlik egri chizig'i ---
+# (1 - lam)^2 = c*lam*xi  =>  lam^2 - (2 + c*xi)*lam + 1 = 0
+def koiter(xb, c=cK):
+    b = 2 + c*xb
+    return (b - np.sqrt(b**2 - 4))/2
+
+xs = np.linspace(0.0, 2.0, 300)
+lam = np.array([koiter(v) for v in xs])
+series("Koiter: lambda(nuqson)", xs.tolist(), lam.tolist(),
+       xlabel="nuqson w_imp/h", ylabel="sigma_cr / sigma_cl")
+series("NASA SP-8007 darajasi", xs.tolist(),
+       [gam]*len(xs), xlabel="nuqson w_imp/h",
+       ylabel="sigma_cr / sigma_cl")
+
+lam_x = koiter(xi)
+value("Koiter lambda (berilgan nuqsonda)", lam_x, "—")
+value("Koiter kritik kuchlanishi", lam_x*sig_cl/1e6, "MPa")
+note(f"Nuqson w/h = {xi:.2f} da Koiter lambda = {lam_x:.4f}, ya'ni "
+     f"kritik kuchlanish {(1-lam_x)*100:.1f} % ga kamayadi.")
+
+# Kvadrat ildiz qonunini tekshirish: kichik xi da 1 - lam ~ sqrt(xi)
+xsm = np.array([1e-4, 4e-4, 1e-3, 4e-3, 1e-2])
+dl = np.array([1 - koiter(v) for v in xsm])
+pw = np.polyfit(np.log(xsm), np.log(dl), 1)[0]
+value("(1 - lambda) ning nuqson bo'yicha darajasi", float(pw), "—")
+note(f"Kichik nuqsonlarda log-log moslashtirish darajasi "
+     f"{pw:.4f} ~ 0.5 - ya'ni (1 - lambda) ~ sqrt(xi). Bu Koiter "
+     f"qonunining KVADRAT ILDIZ tabiati: nuqson 1 % bo'lsa, "
+     f"kamayish {(1-koiter(0.01))*100:.1f} % ga yetadi, chiziqli "
+     f"bog'liqlikda esa atigi 1 % bo'lardi.")
+
+rows_x = []
+for v in [0.0, 0.01, 0.05, 0.1, 0.25, 0.5, 1.0, 2.0]:
+    lv = koiter(v)
+    rows_x.append([f"{v:.2f}", f"{lv:.4f}", f"{(1-lv)*100:.1f}",
+                   f"{lv*sig_cl/1e6:.2f}"])
+table("Nuqson amplitudasining kritik yuklamaga ta'siri",
+      ["w_imp/h", "lambda", "kamayish, %", "sigma_cr, MPa"], rows_x)
+
+# --- R/h bo'yicha NASA koeffitsienti ---
+rhs = np.linspace(50, 2000, 200)
+gams = [1 - 0.901*(1 - np.exp(-np.sqrt(v)/16)) for v in rhs]
+series("NASA gamma(R/h)", rhs.tolist(), gams,
+       xlabel="R/h", ylabel="kamaytirish koeffitsienti gamma")
+value("gamma, R/h = 100 da",
+      1 - 0.901*(1 - np.exp(-np.sqrt(100)/16)), "—")
+value("gamma, R/h = 1000 da",
+      1 - 0.901*(1 - np.exp(-np.sqrt(1000)/16)), "—")
+note(f"Qobiq yupqalashgani sari gamma kamayadi: R/h = 100 da "
+     f"{1-0.901*(1-np.exp(-np.sqrt(100)/16)):.3f}, R/h = 1000 da "
+     f"{1-0.901*(1-np.exp(-np.sqrt(1000)/16)):.3f}. Yupqa qobiq "
+     f"nuqsonga sezgirroq, chunki bir xil mutlaq nuqson "
+     f"w_imp/h nisbatini oshiradi.")
+
+# --- Tashqi bosim: taqqoslash uchun ---
+Dd = 2*R
+p_cr = 2*E/(1 - nu**2)*(h/Dd)**3
+value("Tashqi bosimdan kritik bosim p_cr", p_cr/1000, "kPa")
+note(f"Tashqi bosimda p_cr = {p_cr/1000:.2f} kPa. Bu mexanizmda "
+     f"buzilish shakli YAGONA (n = 2, ovallashish), shuning uchun "
+     f"nuqsonga sezgirlik ancha kam: tajriba nazariyaning 70-90 % "
+     f"ini beradi, o'q bo'ylab siqilishdagi 15-30 % o'rniga.")
+
+table("Plastina va qobiq ustuvorligining taqqoslashi",
+      ["Jihat", "Plastina (pq-21)", "Qobiq"],
+      [["Kritikdan keyingi yo'l", "ko'tariladi", "pasayadi"],
+       ["Zaxira", "bor (1.98 marta)", "yo'q"],
+       ["Buzilish turi", "asta-sekin", "keskin (snap-through)"],
+       ["Nuqsonga sezgirlik", "kam", "juda yuqori"],
+       ["Nazariya/tajriba", "~5 % farq", "3-5 barobar farq"],
+       ["Buzilish shakllari", "ajralgan", "to'plangan"],
+       ["Loyiha koeffitsienti", "b_eff (Vinter)", "gamma (NASA)"]])
+''',
+                parameters=[
+                    p("E", "Yung moduli E", 20.0, 400.0, 70.0, 1.0, "GPa"),
+                    p("nu", "Puasson koeffitsienti ν", 0.0, 0.45, 0.33, 0.01),
+                    p("sigY", "Oqish chegarasi σ_Y", 50.0, 1500.0, 350.0,
+                      10.0, "MPa"),
+                    p("R", "Qobiq radiusi R", 100.0, 20000.0, 1800.0, 50.0,
+                      "mm"),
+                    p("h", "Qalinlik h", 0.5, 50.0, 3.0, 0.1, "mm"),
+                    p("L", "Uzunlik L", 0.2, 40.0, 6.0, 0.2, "m"),
+                    p("xi", "Nuqson w_imp/h", 0.0, 2.0, 0.5, 0.05),
+                    p("cK", "Koiter koeffitsienti c", 0.5, 10.0, 3.6, 0.1),
+                ],
+                expected_output=(
+                    "R/h = 600, σ_cl = 71,355 MPa. (m,n) "
+                    "juftliklari bo'yicha sonli "
+                    "minimallashtirish analitik formulani "
+                    "9e-5 % aniqlik bilan qaytaradi va "
+                    "kritik qiymatning 1 % i ichida "
+                    "**46 ta** turli buzilish shakli "
+                    "borligini ko'rsatadi (eng pasti "
+                    "m = 16, n = 21) — nuqsonga "
+                    "sezgirlikning sababi shu. "
+                    "NASA: φ = 1,531, "
+                    "γ = 0,2939, loyihaviy kuchlanish "
+                    "20,97 MPa (σ_Y ning 6 % i), "
+                    "P_cr = 711,5 kN klassik 2421 kN "
+                    "o'rniga. Koiter egri chizig'ining "
+                    "log–log darajasi 0,5 — kvadrat ildiz "
+                    "qonuni tasdiqlanadi."
+                ),
+            ),
+            visual=vis(
+                kind="Nuqson-sezgirlik va muvozanat yo'llari",
+                tool="React/SVG + Manim",
+                description=(
+                    "Koiter egri chizig'i, kritikdan "
+                    "keyingi yo'llar va plastina bilan "
+                    "taqqoslash."
+                ),
+                how_to_draw=(
+                    "React/SVG: asosiy panel — "
+                    "$\\lambda$ ning nuqson amplitudasiga "
+                    "bog'liqligi. Koiter egri chizig'i "
+                    "nolda 1 dan boshlanadi va **vertikal "
+                    "urinma bilan** keskin tushadi — "
+                    "kvadrat ildiz shakli ko'z bilan "
+                    "o'qiladi. Ustiga chiziqli "
+                    "bog'liqlik punktir bilan qo'yiladi "
+                    "va ikkisi orasidagi maydon "
+                    "shtrixlanadi: bu 'nuqsonga "
+                    "sezgirlik' ning vizual ta'rifi. "
+                    "Gorizontal chiziq bilan NASA "
+                    "$\\gamma$ darajasi ko'rsatiladi va "
+                    "u Koiter egri chizig'ini qaysi "
+                    "nuqsonda kesishi belgilanadi. "
+                    "Ikkinchi panel — muvozanat yo'llari "
+                    "(yuklama–og'ish): plastina uchun "
+                    "yo'l kritik nuqtadan keyin "
+                    "**ko'tariladi** (yashil, barqaror), "
+                    "qobiq uchun **pasayadi** (qizil, "
+                    "nobarqaror); nuqsonli qobiqning "
+                    "yo'li esa cho'qqiga yetmasdan "
+                    "burilib ketadi va cho'qqi nuqtasi "
+                    "belgilanadi. Uchinchi panel — "
+                    "$(m,n)$ tekisligida buzilish "
+                    "shakllarining joylashuvi: "
+                    "$\\sigma_{cr}$ ga qarab bo'yalgan "
+                    "nuqtalar va 1 % chizig'i ichida "
+                    "yotganlari ajratib ko'rsatiladi — "
+                    "modal to'planish ko'rinadi."
+                ),
+            ),
+            interp=(
+                "Sonli minimallashtirish ikkita narsani "
+                "beradi. Birinchisi — analitik formulaning "
+                "tasdig'i: $(m,n)$ butun sonlar bo'yicha "
+                "to'liq qidiruv $0{,}605Eh/R$ ni qaytaradi "
+                "(kichik farq faqat $m$, $n$ ning "
+                "butunligidan). Ikkinchisi va muhimrog'i — "
+                "kritik qiymatning 1 % i ichida o'nlab "
+                "turli buzilish shakli yotishi. Bu "
+                "6-qadamdagi nazariy da'voning bevosita "
+                "sonli ko'rinishi va u nuqsonga "
+                "sezgirlikning fizik sababidir: shakllar "
+                "shunchalik yaqin joylashganki, har qanday "
+                "kichik nuqson ulardan birini "
+                "'tanlaydi' va rivojlantiradi. Koiter "
+                "egri chizig'ining log–log darajasi "
+                "$0{,}48 \\approx 0{,}5$ chiqishi kvadrat "
+                "ildiz qonunini tasdiqlaydi va uning "
+                "amaliy og'irligini ko'rsatadi: "
+                "qalinlikning 1 % i kattaligidagi nuqson "
+                "kritik yuklamani 1 % emas, 17,3 % ga "
+                "kamaytiradi. Yana bir mustaqil mos "
+                "kelish diqqatga sazovor: "
+                "$\\bar\\xi = 0{,}5$ dagi Koiter bahosi "
+                "(20,30 MPa) NASA ning empirik "
+                "koeffitsienti bergan qiymat bilan "
+                "(20,97 MPa) 3 % ichida to'g'ri keladi. "
+                "Nazariya va minglab tajribaning "
+                "statistik o'ramasi bir-biriga mustaqil "
+                "ravishda kelishadi va bu SP-8007 "
+                "koeffitsientining fizik ma'nosini "
+                "ochadi — u taxminan yarim qalinlikdagi "
+                "nuqsonga mos keladi. "
+                "Eng jiddiy loyihaviy xulosa esa oxirgi "
+                "sonlarda: NASA koeffitsienti bilan "
+                "loyihaviy kuchlanish materialning oqish "
+                "chegarasining atigi 6 % ini tashkil "
+                "qiladi. Sof qobiq konstruksiya "
+                "materialning 94 % quvvatini behuda "
+                "sarflaydi — shuning uchun haqiqiy "
+                "raketa baklari hech qachon sof "
+                "silindrik qobiq bo'lmaydi."
+            ),
+            mistakes=[
+                "Klassik qiymat $0{,}605Eh/R$ ni loyihada "
+                "to'g'ridan-to'g'ri ishlatish. U ideal "
+                "qobiq uchun; real qobiqda 3–5 barobar "
+                "kam.",
+                "Plastinadagi kritikdan keyingi zaxirani "
+                "(pq-21) qobiqqa ko'chirish. Qobiqda yo'l "
+                "pasayadi — zaxira yo'q, aksincha keskin "
+                "buzilish.",
+                "Nuqson ta'sirini chiziqli deb hisoblash. "
+                "U $\\sqrt{\\bar\\xi}$ ga mutanosib — "
+                "kichik nuqson ham katta kamayish beradi.",
+                "O'q bo'ylab siqilish va tashqi bosim "
+                "koeffitsientlarini aralashtirish. Tashqi "
+                "bosimda sezgirlik ancha kam.",
+                "$\\sigma_{cl}$ ni oqish chegarasi bilan "
+                "solishtirmaslik. Qalin qobiqda plastik "
+                "buzilish avval sodir bo'ladi.",
+            ],
+            quiz=[
+                q("Nima uchun qobiq ustuvorligida nazariya "
+                  "va tajriba 3–5 barobar farq qiladi?",
+                  "Klassik yechim bir xil kritik yuklamaga "
+                  "ega ko'p buzilish shaklini beradi "
+                  "(modal to'planish); bunday tizim "
+                  "nuqsonga g'oyat sezgir bo'ladi.",
+                  "konseptual"),
+                q("Koiter qonunida kvadrat ildizning "
+                  "amaliy ma'nosi nima?",
+                  "Kichik nuqson nomutanosib katta "
+                  "kamayish beradi: $\\bar\\xi = 0{,}01$ "
+                  "da kamayish 1 % emas, ~17 % — kodda "
+                  "hisoblanadi.", "talqin"),
+                q("$E = 200$ GPa, $R = 1$ m, $h = 5$ mm, "
+                  "$\\nu = 0{,}3$ uchun $\\sigma_{cl}$ "
+                  "nechaga teng?",
+                  "$\\sigma_{cl} = 0{,}605 \\cdot 200000 "
+                  "\\cdot 0{,}005/1 = 605$ MPa — bu "
+                  "ko'pchilik po'latning oqish "
+                  "chegarasidan yuqori, demak plastik "
+                  "buzilish tekshirilishi kerak.",
+                  "hisob"),
+                q("Kodda '1 % ichida yotgan buzilish "
+                  "shakllari soni' nima uchun hisoblanadi?",
+                  "U modal to'planishni miqdoriy "
+                  "ko'rsatadi — nuqsonga sezgirlikning "
+                  "bevosita sababi; shakllar qancha ko'p "
+                  "bo'lsa, sezgirlik shuncha yuqori.",
+                  "kod"),
+                q("Nima uchun raketa baklariga stringer "
+                  "va shpangout qo'yiladi?",
+                  "Mustahkamlagichlar buzilish shakllarini "
+                  "ajratadi, modal to'planishni yo'qotadi "
+                  "va kamaytirish koeffitsientini 0,29 "
+                  "dan 0,65–0,75 ga ko'taradi.",
+                  "talqin"),
+                q("Tashqi bosimdan buzilish nima uchun "
+                  "nuqsonga kamroq sezgir?",
+                  "Buzilish shakli yagona ($n = 2$, "
+                  "ovallashish) va to'planish yo'q; "
+                  "tajriba nazariyaning 70–90 % ini "
+                  "beradi.", "konseptual"),
+            ],
+            bridge=(
+                "Qobiqning statikasi va ustuvorligi "
+                "o'rganildi. Fanning oxirgi mavzusida "
+                "dinamikaga o'tamiz: qobiq tebranishlari "
+                "plastina tebranishlaridan (pq-22) "
+                "tubdan farq qiladi, chunki membrana va "
+                "egilish energiyalari bir-biriga "
+                "bog'langan. Shu bilan 4-fan yakunlanadi "
+                "va biz sonli usullarga o'tamiz."
+            ),
+            research=(
+                "Zamonaviy yondashuvlarni o'rganing. "
+                "(1) NASA SP-8007 (1968) va Shell "
+                "Buckling Knockdown Factor loyihasi "
+                "(2010-yillar) natijalarini "
+                "solishtiring: nima uchun eski standart "
+                "haddan tashqari konservativ deb "
+                "topildi? (2) O'lchangan nuqson "
+                "asosidagi hisob (measured imperfection "
+                "approach) va ehtimollik yondashuvini "
+                "tahlil qiling. (3) Sferik qobiq nima "
+                "uchun silindrdan ham sezgir ekanini "
+                "asoslang: $\\sigma_{cl}$ bir xil, "
+                "lekin sferada tajriba 10–20 % beradi. "
+                "(4) Mustahkamlangan (stringer, izogrid) "
+                "qobiqlarda modal to'planish qanday "
+                "yo'qotilishini sonli ko'rsating."
+            ),
+            manim_ref=manim(
+                scene="ShellBucklingScene",
+                module="manim/scenes/pq_shells.py",
+                title="Qobiq ustuvorligi va nuqsonlarga sezgirlik",
+                summary=(
+                    "Ideal silindr siqiladi va kritik "
+                    "nuqtada romb shaklidagi buzilish "
+                    "paydo bo'ladi. Keyin kichik nuqson "
+                    "kiritiladi va buzilish ancha past "
+                    "yuklamada sodir bo'ladi. Muvozanat "
+                    "yo'llari yonma-yon ko'rsatiladi: "
+                    "plastina uchun ko'tariluvchi, qobiq "
+                    "uchun pasayuvchi."
+                ),
+            ),
+        ),
+    ),
 ]
