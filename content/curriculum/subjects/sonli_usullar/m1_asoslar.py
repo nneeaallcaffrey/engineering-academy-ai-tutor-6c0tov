@@ -2418,4 +2418,912 @@ table("Sonli hosila usullarining taqqoslashi",
             ),
         ),
     ),
+
+    # ------------------------------------------------------------------ su-04
+    Topic(
+        id="su-04",
+        subject_id=S, module_id=M, order=4,
+        title="Shartlanganlik soni va masalaning xosligi",
+        description=(
+            "Shartlanganlik soni, uning mexanik ma'nosi, to'r va "
+            "birliklar ta'siri, nozik masalalar va oldindan shartlash "
+            "(preconditioning) g'oyasi."
+        ),
+        learning_objective=(
+            "Chiziqli tizimning shartlanganlik sonini hisoblash, "
+            "yechimdagi ishonchli raqamlar sonini baholash va "
+            "shartlanganlikni yaxshilash usullarini qo'llash."
+        ),
+        prerequisites=["su-03", "mq-27", "pq-19"],
+        mathematical_core=(
+            "$\\kappa(\\mathbf{K}) = \\|\\mathbf{K}\\|\\,"
+            "\\|\\mathbf{K}^{-1}\\| = "
+            "\\sigma_{max}/\\sigma_{min}$; "
+            "$\\dfrac{\\|\\delta u\\|}{\\|u\\|} \\le \\kappa\\,"
+            "\\dfrac{\\|\\delta f\\|}{\\|f\\|}$."
+        ),
+        engineering_application=(
+            "Yupqa qobiq elementlari, juda qattiq va juda yumshoq "
+            "material aralashgan modellar, kontakt masalalari, "
+            "deyarli mexanizm bo'lgan fermalar, birliklar aralashuvi."
+        ),
+        computational_component=(
+            "Shartlanganlik sonini turli holatlarda o'lchash va "
+            "yechimning aniqligiga ta'sirini ko'rsatish."
+        ),
+        visualization_component=(
+            "Yomon shartlangan tizimning geometrik ma'nosi: deyarli "
+            "parallel chiziqlar va ularning kesishuvi."
+        ),
+        research_extension=(
+            "Oldindan shartlash (preconditioning) usullarini "
+            "o'rganing: Yakobi, to'liq bo'lmagan Cholesky, ko'p "
+            "to'rli usullar. FEM matritsalari uchun qaysi biri "
+            "samarali?"
+        ),
+        difficulty="murakkab",
+        previous_link=(
+            "su-02 da ayirmadagi xatolikning kuchayish koeffitsienti "
+            "$(|x|+|y|)/|x-y|$ chiqarilgan edi. U aslida bitta "
+            "amalning shartlanganlik soni edi. Endi bu tushunchani "
+            "butun chiziqli tizimga umumlashtiramiz."
+        ),
+        next_topic="su-05",
+        estimated_minutes=85,
+        tags=["shartlanganlik", "kappa", "xoslik", "preconditioning"],
+        lesson=_lesson(
+            problem=(
+                "Ikkita ferma hisoblaymiz. Birinchisi — "
+                "oddiy uchburchak ferma, sterjenlari bir "
+                "xil. Ikkinchisi — deyarli yassi ferma: "
+                "uchta tugun bir to'g'ri chiziqqa juda "
+                "yaqin, ko'tarilish balandligi tayanchlar "
+                "orasidagi masofaning mingdan biri. "
+                "Ikkalasi ham statik aniqlanuvchi, "
+                "ikkalasining ham yechimi mavjud va "
+                "yagona. Lekin ikkinchisida yuklamani "
+                "0,01 % ga o'zgartirsak, sterjendagi kuch "
+                "10 % ga o'zgaradi. Hech qanday hisoblash "
+                "xatosi yo'q — **masalaning o'zi shunday**. "
+                "Bunday masalalarni oldindan tanib olish "
+                "va ular bilan qanday ishlashni bilish "
+                "kerak."
+            ),
+            concepts=[
+                c("Shartlanganlik soni $\\kappa$",
+                  "Kirish ma'lumotidagi nisbiy xatoning "
+                  "yechimdagi nisbiy xatoga maksimal "
+                  "kuchayish koeffitsienti; "
+                  "$\\kappa = \\|\\mathbf{K}\\|\\|"
+                  "\\mathbf{K}^{-1}\\|$."),
+                c("Xos (well-posed) masala",
+                  "Yechim mavjud, yagona va kirish "
+                  "ma'lumotiga uzluksiz bog'liq "
+                  "(Adamar shartlari)."),
+                c("Yomon shartlangan (ill-conditioned) "
+                  "masala",
+                  "Xos, lekin $\\kappa$ juda katta — "
+                  "kichik bezovtalik katta o'zgarish "
+                  "beradi. Bu **masalaning** xossasi, "
+                  "algoritmniki emas."),
+                c("Nobarqaror algoritm",
+                  "Yaxshi shartlangan masalada ham katta "
+                  "xato beradigan algoritm — bu "
+                  "**algoritmning** kamchiligi. Ikkisini "
+                  "ajratish muhim."),
+                c("Singulyar qiymatlar orqali ifoda",
+                  "$\\kappa_2 = \\sigma_{max}/\\sigma_{min}$; "
+                  "simmetrik musbat aniqlangan matritsada "
+                  "$\\kappa = \\lambda_{max}/\\lambda_{min}$."),
+                c("Oldindan shartlash (preconditioning)",
+                  "$\\mathbf{M}^{-1}\\mathbf{K}$ ning "
+                  "shartlanganligi $\\mathbf{K}$ nikidan "
+                  "yaxshi bo'ladigan $\\mathbf{M}$ tanlash."),
+            ],
+            derivation=[
+                d("1. Bezovtalangan tizim",
+                  r"\mathbf{K}(\mathbf{u}+\delta\mathbf{u}) "
+                  r"= \mathbf{f} + \delta\mathbf{f}",
+                  "O'ng tomonda kichik xato bor (yuklama "
+                  "aniq emas yoki yaxlitlangan). Yechim "
+                  "qanchalik o'zgaradi?"),
+                d("2. Bezovtalikning yechimga o'tishi",
+                  r"\delta\mathbf{u} = \mathbf{K}^{-1}"
+                  r"\delta\mathbf{f} \;\Longrightarrow\; "
+                  r"\|\delta\mathbf{u}\| \le "
+                  r"\|\mathbf{K}^{-1}\|\,\|\delta\mathbf{f}\|",
+                  "Asosiy tizimni ayirdik. Norma "
+                  "xossasidan tengsizlik."),
+                d("3. Yechimning normasini baholash",
+                  r"\|\mathbf{f}\| = \|\mathbf{K}\mathbf{u}\| "
+                  r"\le \|\mathbf{K}\|\,\|\mathbf{u}\| "
+                  r"\;\Longrightarrow\; "
+                  r"\frac{1}{\|\mathbf{u}\|} \le "
+                  r"\frac{\|\mathbf{K}\|}{\|\mathbf{f}\|}",
+                  "Pastdan baho — nisbiy xatoni "
+                  "shakllantirish uchun kerak."),
+                d("4. Shartlanganlik soni",
+                  r"\frac{\|\delta\mathbf{u}\|}"
+                  r"{\|\mathbf{u}\|} \le "
+                  r"\underbrace{\|\mathbf{K}\|\,"
+                  r"\|\mathbf{K}^{-1}\|}_{\kappa}\,"
+                  r"\frac{\|\delta\mathbf{f}\|}"
+                  r"{\|\mathbf{f}\|}",
+                  "**Asosiy natija.** $\\kappa$ — "
+                  "kuchayish koeffitsienti. U su-02 "
+                  "dagi $(|x|+|y|)/|x-y|$ ning "
+                  "umumlashmasi."),
+                d("5. Singulyar qiymatlar orqali",
+                  r"\|\mathbf{K}\|_2 = \sigma_{max}, \quad "
+                  r"\|\mathbf{K}^{-1}\|_2 = "
+                  r"\frac{1}{\sigma_{min}} "
+                  r"\;\Longrightarrow\; \kappa_2 = "
+                  r"\frac{\sigma_{max}}{\sigma_{min}}",
+                  "Eng katta va eng kichik "
+                  "'cho'zilish' koeffitsientlarining "
+                  "nisbati. $\\kappa \\ge 1$ har doim."),
+                d("6. Yo'qoladigan raqamlar soni",
+                  r"\text{ishonchli raqamlar} \approx "
+                  r"16 - \log_{10}\kappa",
+                  "$\\kappa = 10^{8}$ bo'lsa 16 raqamdan "
+                  "8 tasi qoladi. $\\kappa = 10^{16}$ "
+                  "bo'lsa **hech narsa qolmaydi** — "
+                  "yechim ma'nosiz."),
+                d("7. Mexanik ma'nosi: energiya orqali",
+                  r"\kappa = \frac{\lambda_{max}}"
+                  r"{\lambda_{min}} = \frac{\text{eng "
+                  r"bikr deformatsiya rejimi}}"
+                  r"{\text{eng yumshoq rejim}}",
+                  "**Hal qiluvchi talqin.** Simmetrik "
+                  "musbat aniqlangan bikrlik "
+                  "matritsasida $\\lambda$ lar "
+                  "deformatsiya rejimlarining "
+                  "bikrliklari. $\\kappa$ katta — "
+                  "demak tizimda juda bikr va juda "
+                  "yumshoq rejimlar birga yashaydi."),
+                d("8. Mexanikadagi manbalar",
+                  r"\kappa \sim \Big(\frac{L}{h}\Big)^2, "
+                  r"\quad \kappa \sim \frac{E_1}{E_2}, "
+                  r"\quad \kappa \sim n^2 "
+                  r"\ (\text{to'r})",
+                  "Uchta asosiy manba: yupqa "
+                  "konstruksiyalar (egilish va "
+                  "cho'zilish bikrliklari juda farq "
+                  "qiladi), materiallar farqi "
+                  "(po'lat va rezina) va to'rning "
+                  "zichligi (su-01 da o'lchangan "
+                  "$q = 1{,}91$)."),
+                d("9. Birliklarning ta'siri",
+                  r"\mathbf{K} \to \mathbf{D}\mathbf{K}"
+                  r"\mathbf{D} \ \text{(masshtablash)} "
+                  r"\;\Longrightarrow\; \kappa \ "
+                  r"\text{keskin o'zgaradi}",
+                  "Ko'chish metrlarda, burilish "
+                  "radianlarda o'lchansa, ularning "
+                  "koeffitsientlari tartiblarga farq "
+                  "qiladi. **Bu sun'iy yomon "
+                  "shartlanganlik** — masshtablash "
+                  "bilan bartaraf etiladi."),
+                d("10. Oldindan shartlash",
+                  r"\mathbf{M}^{-1}\mathbf{K}\mathbf{u} = "
+                  r"\mathbf{M}^{-1}\mathbf{f}, \quad "
+                  r"\kappa(\mathbf{M}^{-1}\mathbf{K}) "
+                  r"\ll \kappa(\mathbf{K})",
+                  "Eng sodda tanlov — Yakobi "
+                  "(diagonal) shartlash: "
+                  "$\\mathbf{M} = \\mathrm{diag}"
+                  "(\\mathbf{K})$. U birliklar "
+                  "aralashuvidan kelgan sun'iy "
+                  "shartlanganlikni deyarli to'liq "
+                  "yo'qotadi."),
+                d("11. Qoldiq aldamchi ekani",
+                  r"\|\mathbf{r}\| = \|\mathbf{f} - "
+                  r"\mathbf{K}\tilde{\mathbf{u}}\| "
+                  r"\ \text{kichik} \ \nRightarrow\ "
+                  r"\|\tilde{\mathbf{u}} - \mathbf{u}\| "
+                  r"\ \text{kichik}",
+                  "**Muhim ogohlantirish.** Yomon "
+                  "shartlangan tizimda qoldiq juda "
+                  "kichik bo'lishi mumkin, lekin "
+                  "yechim baribir xato. Chunki "
+                  "$\\|\\delta u\\| \\le "
+                  "\\|\\mathbf{K}^{-1}\\|\\|r\\|$ va "
+                  "$\\|\\mathbf{K}^{-1}\\|$ katta."),
+            ],
+            meaning=(
+                "Shartlanganlik soni sonli usullardagi "
+                "eng muhim tushunchalardan biri, chunki "
+                "u **masalaning** xossasini **algoritm** "
+                "xossasidan ajratadi. Agar $\\kappa$ "
+                "katta bo'lsa, hech qanday algoritm "
+                "yaxshi javob bera olmaydi — bu "
+                "dasturning aybi emas, masalaning "
+                "tabiati. Aksincha, $\\kappa$ kichik "
+                "bo'lib turib natija yomon chiqsa, "
+                "algoritm nobarqaror. Bu ajratish "
+                "amaliyotda hal qiluvchi: birinchi "
+                "holatda modelni qayta qurish kerak, "
+                "ikkinchisida algoritmni almashtirish. "
+                "7-qadamdagi mexanik talqin eng "
+                "foydalisi: $\\kappa$ — eng bikr va "
+                "eng yumshoq deformatsiya rejimlarining "
+                "bikrliklari nisbati. Yupqa qobiqda "
+                "membrana bikrligi $Eh$, egilish "
+                "bikrligi esa $Eh^3/12$ tartibida — "
+                "ularning nisbati $(L/h)^2$ ga "
+                "mutanosib. $L/h = 100$ bo'lsa "
+                "$\\kappa \\sim 10^4$, ya'ni 4 ta "
+                "raqam yo'qoladi. Bu qobiq elementlari "
+                "nima uchun 'qiyin' ekanining aniq "
+                "izohi va u pq-24 dagi sdvig "
+                "qulflanishi bilan bevosita bog'liq. "
+                "Amaliy jihatdan eng muhimi — 9- va "
+                "11-qadamlar. Birliklardan kelgan "
+                "yomon shartlanganlik **sun'iy** va "
+                "uni oddiy diagonal masshtablash "
+                "bilan bartaraf etish mumkin; ko'p "
+                "muhandislar buni bilmay, mavjud "
+                "bo'lmagan muammo bilan kurashadi. "
+                "11-qadam esa ogohlantiradi: kichik "
+                "qoldiq yechimning to'g'riligini "
+                "kafolatlamaydi. Yomon shartlangan "
+                "tizimda $\\|\\mathbf{r}\\|$ mashina "
+                "aniqligida bo'lishi va yechim "
+                "baribir butunlay xato bo'lishi "
+                "mumkin."
+            ),
+            equations=[
+                eq(r"\kappa(\mathbf{K}) = \|\mathbf{K}\|\,"
+                   r"\|\mathbf{K}^{-1}\| = "
+                   r"\frac{\sigma_{max}}{\sigma_{min}}",
+                   "Shartlanganlik sonining ta'rifi va "
+                   "singulyar qiymatlar orqali ifodasi.",
+                   "Shartlanganlik soni"),
+                eq(r"\frac{\|\delta\mathbf{u}\|}"
+                   r"{\|\mathbf{u}\|} \le \kappa\,"
+                   r"\frac{\|\delta\mathbf{f}\|}"
+                   r"{\|\mathbf{f}\|}",
+                   "Kirish xatosining yechimga "
+                   "kuchayib o'tishi.",
+                   "Xatolikning kuchayishi"),
+                eq(r"\text{ishonchli raqamlar} \approx "
+                   r"16 - \log_{10}\kappa",
+                   "`double` aniqligida qancha raqam "
+                   "qolishi.", "Ishonchli raqamlar"),
+                eq(r"\kappa_{qobiq} \sim "
+                   r"\Big(\frac{L}{h}\Big)^2",
+                   "Yupqa konstruksiyalarda "
+                   "shartlanganlikning geometriyaga "
+                   "bog'liqligi.",
+                   "Yupqa qobiq shartlanganligi"),
+            ],
+            conditions=(
+                "**Adamar bo'yicha xoslik "
+                "(well-posedness) shartlari:**\n"
+                "1. Yechim **mavjud**;\n"
+                "2. Yechim **yagona**;\n"
+                "3. Yechim kirish ma'lumotiga "
+                "**uzluksiz** bog'liq.\n\n"
+                "Uchinchi shart buzilsa masala xos "
+                "emas (teskari masalalar, "
+                "eksperimental ma'lumotdan "
+                "yuklamani tiklash). Shartlanganlik "
+                "soni katta bo'lsa — masala xos, "
+                "lekin **amalda** xos emasdek "
+                "xatti-harakat qiladi.\n\n"
+                "**$\\kappa$ ni baholash "
+                "mezonlari:**\n"
+                "- $\\kappa < 10^{3}$ — yaxshi;\n"
+                "- $10^{3} \\ldots 10^{8}$ — odatiy "
+                "FEM tizimi, e'tibor talab qiladi;\n"
+                "- $10^{8} \\ldots 10^{12}$ — xavfli, "
+                "natijani tekshirish shart;\n"
+                "- $> 10^{14}$ — `double` da yechim "
+                "ma'nosiz.\n\n"
+                "**Diagnostika tartibi:** avval "
+                "diagonal masshtablash qo'llang "
+                "(sun'iy shartlanganlikni yo'qotadi), "
+                "keyin qolgan $\\kappa$ ni baholang — "
+                "u masalaning haqiqiy xossasi."
+            ),
+            worked=WorkedExample(
+                statement=(
+                    "Deyarli yassi ikki sterjenli "
+                    "ferma: tayanchlar orasi "
+                    "$2L = 2$ m, o'rta tugunning "
+                    "ko'tarilishi $H$. Tugunga "
+                    "vertikal $P = 10$ kN qo'yilgan. "
+                    "$H = 500$ mm va $H = 1$ mm "
+                    "holatlari uchun sterjendagi kuchni "
+                    "va masalaning shartlanganligini "
+                    "taqqoslang."
+                ),
+                given=[
+                    r"L = 1\ \text{m},\ P = 10\ \text{kN}",
+                    r"H_1 = 0{,}5\ \text{m},\ "
+                    r"H_2 = 0{,}001\ \text{m}",
+                ],
+                steps=[
+                    st(r"\text{Tugun muvozanati: } "
+                       r"2N\sin\alpha = P, \quad "
+                       r"\sin\alpha = \frac{H}"
+                       r"{\sqrt{L^2+H^2}}",
+                       "Ikkala sterjen simmetrik; "
+                       "$\\alpha$ — sterjenning "
+                       "gorizontal bilan burchagi."),
+                    st(r"N = \frac{P}{2\sin\alpha} = "
+                       r"\frac{P\sqrt{L^2+H^2}}{2H}",
+                       "Sterjendagi kuch."),
+                    st(r"H_1 = 0{,}5: \ N = "
+                       r"\frac{10\sqrt{1+0{,}25}}{2 \cdot "
+                       r"0{,}5} = \frac{10 \cdot 1{,}118}"
+                       r"{1} = 11{,}18\ \text{kN}",
+                       "Kuch yuklamaga yaqin — normal "
+                       "holat."),
+                    st(r"H_2 = 0{,}001: \ N = "
+                       r"\frac{10\sqrt{1+10^{-6}}}"
+                       r"{0{,}002} = 5000\ \text{kN}",
+                       "**500 barobar katta.** Deyarli "
+                       "yassi ferma yuklamani juda "
+                       "katta o'q kuchlari bilan "
+                       "ko'taradi."),
+                    st(r"\frac{\partial N}{\partial H} "
+                       r"\approx -\frac{PL}{2H^2}: \quad "
+                       r"\frac{dN/N}{dH/H} = -1 "
+                       r"\ (\text{kichik } H)",
+                       "Sezgirlik: $H$ ning nisbiy "
+                       "xatosi $N$ ga **bir barobar** "
+                       "o'tadi. Bu hali yomon emas."),
+                    st(r"\text{Bikrlik matritsasi: } "
+                       r"k_{vert} = \frac{2EA\sin^2\alpha}"
+                       r"{\ell}, \quad k_{gor} = "
+                       r"\frac{2EA\cos^2\alpha}{\ell}",
+                       "Tugunning vertikal va gorizontal "
+                       "bikrliklari."),
+                    st(r"\kappa = \frac{k_{gor}}{k_{vert}} "
+                       r"= \cot^2\alpha = "
+                       r"\Big(\frac{L}{H}\Big)^2",
+                       "**Hal qiluvchi natija.** "
+                       "Shartlanganlik soni "
+                       "$(L/H)^2$ — 8-qadamdagi umumiy "
+                       "qonunning aynan o'zi."),
+                    st(r"H_1 = 0{,}5: \ \kappa = 2^2 = 4 "
+                       r"\;\Rightarrow\; \text{ajoyib}",
+                       "Deyarli hech narsa yo'qolmaydi."),
+                    st(r"H_2 = 0{,}001: \ \kappa = "
+                       r"1000^2 = 10^{6} "
+                       r"\;\Rightarrow\; 6 \ "
+                       r"\text{raqam yo'qoladi}",
+                       "16 dan 10 tasi qoladi — hali "
+                       "ishlaydi, lekin "
+                       "$H = 10^{-5}$ m bo'lsa "
+                       "$\\kappa = 10^{10}$ va faqat "
+                       "6 raqam qoladi."),
+                    st(r"H = 10^{-8}\ \text{m}: \ "
+                       r"\kappa = 10^{16} "
+                       r"\;\Rightarrow\; \text{yechim "
+                       r"ma'nosiz}",
+                       "Bu yerda ferma amalda "
+                       "**mexanizmga** aylanadi — "
+                       "matematik singulyarlikka "
+                       "yaqinlashadi. Masalaning "
+                       "o'zi buzilgan, algoritm "
+                       "emas."),
+                ],
+                answer=(
+                    "$H = 0{,}5$ m: $N = 11{,}18$ kN, "
+                    "$\\kappa = 4$ — masala yaxshi "
+                    "shartlangan. $H = 1$ mm: "
+                    "$N = 5000$ kN (500 barobar katta), "
+                    "$\\kappa = 10^{6}$ — 6 ta raqam "
+                    "yo'qoladi. Shartlanganlik soni "
+                    "$(L/H)^2$ qonuni bo'yicha o'sadi, "
+                    "ya'ni geometriya yassilashgani "
+                    "sari **kvadratik** yomonlashadi."
+                ),
+                engineering_note=(
+                    "Deyarli yassi ferma — "
+                    "mexanikadagi klassik yomon "
+                    "shartlangan masala va u amaliyotda "
+                    "tez-tez uchraydi: yassi tomlar, "
+                    "kabel tizimlari, oldindan "
+                    "tarang tortilgan konstruksiyalar. "
+                    "Bu yerda ikkita alohida muammo "
+                    "bor. Birinchisi fizik: kuch "
+                    "haqiqatan ham juda katta va "
+                    "konstruksiya buzilishi mumkin. "
+                    "Ikkinchisi sonli: hisob "
+                    "natijasiga ishonib bo'lmaydi, "
+                    "chunki geometriyadagi ishlab "
+                    "chiqarish dopuski (masalan "
+                    "$\\pm 1$ mm) natijani ikki "
+                    "barobar o'zgartirishi mumkin. "
+                    "Shuning uchun bunday "
+                    "konstruksiyalarda geometrik "
+                    "nochiziqli tahlil (su-24) "
+                    "majburiy: chiziqli yechim "
+                    "nafaqat noaniq, balki fizik "
+                    "jihatdan ham noto'g'ri — katta "
+                    "ko'chishlarda geometriya "
+                    "o'zgaradi va kuch qayta "
+                    "taqsimlanadi. Yana bir amaliy "
+                    "maslahat: $\\kappa$ ni FEM "
+                    "hisobidan keyin **har doim** "
+                    "tekshiring; ko'pchilik paketlar "
+                    "uni chiqaradi yoki 'pivot ratio' "
+                    "ogohlantirishini beradi."
+                ),
+            ),
+            computation=Computation(
+                caption=(
+                    "Shartlanganlik sonini turli "
+                    "holatlarda o'lchash: geometriya, "
+                    "materiallar farqi, to'r zichligi "
+                    "va birliklar."
+                ),
+                code='''"""Shartlanganlik soni va uning mexanikadagi manbalari."""
+import numpy as np
+from labkit import PARAMS, note, series, table, value
+
+E = float(PARAMS.get("E", 210.0))*1e9
+A = float(PARAMS.get("A", 1000.0))/1e6
+L = float(PARAMS.get("L", 1.0))
+H = float(PARAMS.get("H", 500.0))/1000.0
+P = float(PARAMS.get("P", 10.0))*1e3
+n_grid = int(PARAMS.get("n_grid", 40))
+Erat = float(PARAMS.get("Erat", 1000.0))
+
+# --- (1) Deyarli yassi ferma ---
+def truss_K(h):
+    ell = np.sqrt(L**2 + h**2)
+    ca, sa = L/ell, h/ell
+    k = E*A/ell
+    # Tugunning 2x2 bikrlik matritsasi (ikkita simmetrik sterjen)
+    return np.array([[2*k*ca**2, 0.0],
+                     [0.0, 2*k*sa**2]])
+
+
+Kt = truss_K(H)
+kap_t = np.linalg.cond(Kt)
+ell0 = np.sqrt(L**2 + H**2)
+N_bar = P*ell0/(2*H)
+value("Ko'tarilish H", H*1000, "mm")
+value("Sterjendagi kuch N", N_bar/1000, "kN")
+value("N / P nisbati", N_bar/P, "marta")
+value("Shartlanganlik soni kappa", kap_t, "—")
+value("Nazariy (L/H)^2", (L/H)**2, "—")
+value("Yo'qoladigan raqamlar", np.log10(kap_t), "—")
+note(f"H = {H*1000:.3f} mm da sterjen kuchi {N_bar/1000:.1f} kN, ya'ni "
+     f"yuklamadan {N_bar/P:.1f} marta katta. Shartlanganlik soni "
+     f"{kap_t:.4e}, nazariy (L/H)^2 = {(L/H)**2:.4e} - aynan mos. "
+     f"Taxminan {np.log10(kap_t):.1f} ta o'nlik raqam yo'qoladi.")
+
+Hs = np.logspace(-6, 0, 200)
+kaps, forces = [], []
+for h in Hs:
+    kaps.append(np.linalg.cond(truss_K(h)))
+    forces.append(P*np.sqrt(L**2 + h**2)/(2*h)/1000)
+series("kappa(H) — ferma", (Hs*1000).tolist(), kaps,
+       xlabel="ko'tarilish H, mm", ylabel="kappa")
+series("Nazariy (L/H)^2", (Hs*1000).tolist(),
+       [(L/h)**2 for h in Hs],
+       xlabel="ko'tarilish H, mm", ylabel="kappa")
+series("Sterjen kuchi N(H)", (Hs*1000).tolist(), forces,
+       xlabel="ko'tarilish H, mm", ylabel="N, kN")
+dev = max(abs(k - (L/h)**2)/((L/h)**2) for k, h in zip(kaps, Hs))
+value("kappa va (L/H)^2 maks. farqi", dev*100, "%")
+
+# Qaysi H da double aniqligi tugaydi?
+crit = [h for h, k in zip(Hs, kaps) if k > 1e16]
+if crit:
+    value("double aniqligi tugaydigan H", crit[-1]*1000, "mm")
+    note(f"H < {crit[-1]*1000:.4f} mm da kappa > 1e16 va double "
+         f"aniqligida yechim BUTUNLAY ma'nosiz bo'ladi - ferma "
+         f"amalda mexanizmga aylanadi.")
+else:
+    note("Berilgan H oralig'ida kappa 1e16 dan oshmadi - double "
+         "aniqligi yetarli.")
+
+# --- (2) Bezovtalikni SONLI tekshirish ---
+# Kt simmetrik, shuning uchun xususiy vektorlar orqali ishlaymiz.
+lam, V = np.linalg.eigh(Kt)
+i_lo, i_hi = int(np.argmin(lam)), int(np.argmax(lam))
+
+# (a) TASODIFIY yo'nalishlar: tengsizlik bajariladi, lekin kappa ga
+#     odatda YETMAYDI
+rng = np.random.default_rng(7)
+f0 = np.array([0.0, -P])
+u0 = np.linalg.solve(Kt, f0)
+amp_rand = 0.0
+for _ in range(400):
+    dp = rng.normal(size=2)
+    dp = dp/np.linalg.norm(dp)*1e-8*np.linalg.norm(f0)
+    u1 = np.linalg.solve(Kt, f0 + dp)
+    ri = np.linalg.norm(dp)/np.linalg.norm(f0)
+    ro = np.linalg.norm(u1 - u0)/np.linalg.norm(u0)
+    amp_rand = max(amp_rand, ro/ri)
+value("Tasodifiy yo'nalishlarda maksimal kuchayish", amp_rand, "—")
+
+# (b) ENG YOMON holat: f eng BIKR rejim bo'ylab, bezovtalik esa eng
+#     YUMSHOQ rejim bo'ylab. Shunda nisbat aynan kappa ga teng bo'ladi.
+f_w = V[:, i_hi]*P
+u_w = np.linalg.solve(Kt, f_w)
+df_w = V[:, i_lo]*(1e-8*P)
+u_w2 = np.linalg.solve(Kt, f_w + df_w)
+ri_w = np.linalg.norm(df_w)/np.linalg.norm(f_w)
+ro_w = np.linalg.norm(u_w2 - u_w)/np.linalg.norm(u_w)
+amp_worst = ro_w/ri_w
+value("Eng yomon yo'nalishda kuchayish", amp_worst, "—")
+value("Nazariy chegara kappa", kap_t, "—")
+value("Eng yomon / kappa", amp_worst/kap_t, "—")
+note(f"Tasodifiy 400 ta yo'nalishda kuchayish eng ko'pi bilan "
+     f"{amp_rand:.4e} bo'ldi - kappa = {kap_t:.4e} dan kichik. "
+     f"Lekin ENG YOMON yo'nalish maxsus qurilganda (yuklama eng bikr "
+     f"rejim bo'ylab, bezovtalik eng yumshoq rejim bo'ylab) kuchayish "
+     f"{amp_worst:.6e} bo'ldi, ya'ni kappa ning aynan o'zi "
+     f"(nisbat {amp_worst/kap_t:.6f}). Demak 4-qadamdagi tengsizlik "
+     f"ham TO'G'RI, ham QATTIQ: u erishib bo'lmaydigan baho emas.")
+note("Amaliy xulosa: tasodifiy bezovtalik odatda kappa ga yetmaydi, "
+     "shuning uchun 'menda hammasi yaxshi ishladi' degan tajriba "
+     "kafolat bermaydi - eng yomon holat baribir mumkin.")
+
+# --- (3) Materiallar farqi ---
+rats = np.logspace(0, 8, 100)
+kap_m = []
+for r in rats:
+    # Ketma-ket ulangan ikki prujina: k1 = 1, k2 = 1/r
+    Km = np.array([[1.0 + 1.0/r, -1.0/r],
+                   [-1.0/r, 1.0/r]])
+    kap_m.append(np.linalg.cond(Km))
+series("kappa(materiallar nisbati)", rats.tolist(), kap_m,
+       xlabel="E1/E2", ylabel="kappa")
+Km0 = np.array([[1.0 + 1.0/Erat, -1.0/Erat],
+                [-1.0/Erat, 1.0/Erat]])
+value("kappa, materiallar nisbati uchun", np.linalg.cond(Km0), "—")
+note(f"Modullari {Erat:.0f} marta farq qiluvchi ikki material ketma-ket "
+     f"ulanganda kappa = {np.linalg.cond(Km0):.3e}. Po'lat va rezina "
+     f"(E nisbati ~1e5) birga modellashtirilganda bu jiddiy muammo.")
+
+# --- (4) To'r zichligi ---
+def laplace_K(n):
+    K = np.zeros((n, n))
+    for i in range(n):
+        K[i, i] = 2.0
+        if i > 0:
+            K[i, i-1] = -1.0
+        if i < n - 1:
+            K[i, i+1] = -1.0
+    return K*(n + 1)**2
+
+
+ns = [5, 10, 20, 40, 80, 160]
+kap_n = [np.linalg.cond(laplace_K(n)) for n in ns]
+series("kappa(to'r zichligi)", [float(x) for x in ns], kap_n,
+       xlabel="tugunlar soni n", ylabel="kappa")
+pw = np.polyfit(np.log(ns), np.log(kap_n), 1)[0]
+value("kappa ~ n^q, o'lchangan q", float(pw), "—")
+note(f"Bir o'lchovli Laplas operatori uchun kappa ~ n^{pw:.2f}. "
+     f"Nazariya n^2 beradi (eng katta xususiy qiymat ~ 4, eng "
+     f"kichigi ~ (pi/n)^2). Bu su-01 dagi o'lchangan q = 1.91 bilan "
+     f"mos - to'r zichlashgani sari tizim yomonlashadi.")
+
+# --- (5) Birliklar: SUN'IY yomon shartlanganlik ---
+# Balka elementi: [w1, theta1, w2, theta2], w metrda, theta radianda
+le, Ib = 1.0, 1e-6
+c0 = E*Ib/le**3
+Kb = c0*np.array([[12, 6*le, -12, 6*le],
+                  [6*le, 4*le**2, -6*le, 2*le**2],
+                  [-12, -6*le, 12, -6*le],
+                  [6*le, 2*le**2, -6*le, 4*le**2]])
+# Mahkamlangan chap uch -> 2x2 qoladi
+Kr = Kb[2:, 2:]
+kap_si = np.linalg.cond(Kr)
+# Endi ko'chishni MILLIMETRDA o'lchaymiz: w -> w/1000
+Dsc = np.diag([1e-3, 1.0])
+Kmm = Dsc @ Kr @ Dsc
+kap_mm = np.linalg.cond(Kmm)
+value("kappa (ko'chish metrda)", kap_si, "—")
+value("kappa (ko'chish millimetrda)", kap_mm, "—")
+value("Birlik almashtirish kappa ni necha marta o'zgartirdi",
+      max(kap_si, kap_mm)/min(kap_si, kap_mm), "marta")
+
+# Yakobi (diagonal) oldindan shartlash
+def jacobi_cond(K):
+    dg = np.sqrt(np.diag(K))
+    Dm = np.diag(1.0/dg)
+    return np.linalg.cond(Dm @ K @ Dm)
+
+
+value("kappa (metr) Yakobi shartlashdan keyin", jacobi_cond(Kr), "—")
+value("kappa (mm) Yakobi shartlashdan keyin", jacobi_cond(Kmm), "—")
+note(f"Faqat BIRLIK o'zgartirildi (metr -> millimetr) va kappa "
+     f"{kap_si:.3e} dan {kap_mm:.3e} ga o'zgardi - masala esa "
+     f"o'zgarmadi. Bu SUN'IY yomon shartlanganlik. Yakobi (diagonal) "
+     f"shartlashdan keyin ikkala holat ham "
+     f"{jacobi_cond(Kr):.3e} va {jacobi_cond(Kmm):.3e} beradi - "
+     f"ya'ni AYNI QIYMAT. Demak diagonal masshtablash birliklardan "
+     f"kelgan sun'iy shartlanganlikni butunlay yo'qotadi.")
+
+# --- (6) Qoldiq aldamchi ekani ---
+# Yomon shartlangan tizim olamiz va yuklamani eng BIKR rejim bo'ylab
+# qo'yamiz; yechimdagi xatoni esa eng YUMSHOQ rejim bo'ylab kiritamiz.
+# Shunda xato katta, qoldiq esa kichik bo'ladi.
+Kb2 = truss_K(1e-4)
+kap_b = np.linalg.cond(Kb2)
+lam_b, Vb = np.linalg.eigh(Kb2)
+j_lo, j_hi = int(np.argmin(lam_b)), int(np.argmax(lam_b))
+
+fb = Vb[:, j_hi]*P                      # yuklama eng bikr rejim bo'ylab
+ub = np.linalg.solve(Kb2, fb)
+u_bad = ub + Vb[:, j_lo]*(0.05*np.linalg.norm(ub))   # 5 % xato
+r_bad = fb - Kb2 @ u_bad
+err_rel = np.linalg.norm(u_bad - ub)/np.linalg.norm(ub)*100
+res_rel = np.linalg.norm(r_bad)/np.linalg.norm(fb)*100
+value("Tekshiruv tizimining kappa si", kap_b, "—")
+value("Yechimdagi nisbiy xato", err_rel, "%")
+value("Qoldiqning nisbiy normasi", res_rel, "%")
+value("Xato qoldiqdan necha marta katta",
+      err_rel/max(res_rel, 1e-300), "marta")
+note(f"kappa = {kap_b:.3e} bo'lgan tizimda yechimni {err_rel:.2f} % ga "
+     f"buzdik, lekin QOLDIQ atigi {res_rel:.3e} % chiqdi - ya'ni xato "
+     f"qoldiqdan {err_rel/max(res_rel, 1e-300):.3e} marta katta. Bu "
+     f"nisbat kappa ning o'zi bilan bir tartibda va bu tasodif emas: "
+     f"||du||/||u|| <= kappa*||r||/||f||. Demak KICHIK QOLDIQ "
+     f"yechimning to'g'riligini KAFOLATLAMAYDI.")
+note("Amaliy xulosa: iteratsiyani faqat qoldiq bo'yicha to'xtatish "
+     "yomon shartlangan tizimda xavfli. Qoldiq bilan birga kappa "
+     "bahosi ham kerak yoki yechimni mustaqil tekshirish lozim.")
+
+table("Shartlanganlikning mexanikadagi manbalari",
+      ["Manba", "kappa ning o'sishi", "Misol", "Yechimi"],
+      [["Yupqa geometriya", "(L/h)^2", "qobiq, yassi ferma",
+        "nochiziqli tahlil"],
+       ["Materiallar farqi", "E1/E2", "po'lat + rezina",
+        "alohida modellar"],
+       ["To'r zichligi", "n^2", "istalgan FEM",
+        "ko'p to'rli usul"],
+       ["Birliklar aralashuvi", "sun'iy", "w[m] + theta[rad]",
+        "diagonal masshtablash"],
+       ["Mexanizmga yaqinlik", "-> cheksiz", "yetarlicha "
+        "mahkamlanmagan model", "chegaraviy shartni tuzatish"]])
+''',
+                parameters=[
+                    p("E", "Yung moduli E", 1.0, 400.0, 210.0, 1.0, "GPa"),
+                    p("A", "Sterjen yuzasi A", 10.0, 100000.0, 1000.0, 10.0,
+                      "mm²"),
+                    p("L", "Yarim oraliq L", 0.1, 20.0, 1.0, 0.1, "m"),
+                    p("H", "Ko'tarilish H", 0.001, 2000.0, 500.0, 0.001,
+                      "mm"),
+                    p("P", "Yuklama P", 0.1, 1000.0, 10.0, 0.1, "kN"),
+                    p("n_grid", "To'r tugunlari soni", 5.0, 200.0, 40.0,
+                      5.0),
+                    p("Erat", "Materiallar moduli nisbati E₁/E₂",
+                      1.0, 100000000.0, 1000.0, 10.0),
+                ],
+                expected_output=(
+                    "Ferma uchun o'lchangan κ nazariy "
+                    "$(L/H)^2$ bilan 1e-13 % aniqlikda "
+                    "mos tushadi. 400 ta tasodifiy "
+                    "bezovtalikda kuchayish κ ga "
+                    "yetmaydi, lekin maxsus qurilgan "
+                    "eng yomon yo'nalishda (yuklama eng "
+                    "bikr rejim bo'ylab, bezovtalik eng "
+                    "yumshoq rejim bo'ylab) u **aynan κ** "
+                    "ga teng chiqadi — tengsizlik ham "
+                    "to'g'ri, ham qattiq. To'r uchun "
+                    "κ ~ n^1,92 (su-01 dagi 1,91 bilan "
+                    "mos). Birlikni metrdan millimetrga "
+                    "o'zgartirish κ ni 69 000 marta "
+                    "o'zgartiradi, lekin Yakobi "
+                    "shartlashdan keyin ikkala holat ham "
+                    "**ayni 13,93 qiymatini** beradi — "
+                    "sun'iy shartlanganlik butunlay "
+                    "yo'qoladi. Oxirgi blokda κ = 1e8 "
+                    "bo'lgan tizimda yechimdagi 5 % xato "
+                    "atigi 5e-8 % qoldiq beradi — xato "
+                    "qoldiqdan aynan κ marta katta."
+                ),
+            ),
+            visual=vis(
+                kind="Yomon shartlanganlikning geometriyasi",
+                tool="React/SVG",
+                description=(
+                    "Deyarli parallel chiziqlarning "
+                    "kesishuvi va shartlanganlikning "
+                    "manbalari."
+                ),
+                how_to_draw=(
+                    "React/SVG: chap panelda ikkita "
+                    "chiziqli tenglama tekislikda "
+                    "chiziq sifatida tasvirlanadi va "
+                    "ularning kesishuvi yechim. "
+                    "Yaxshi shartlangan holatda "
+                    "chiziqlar deyarli perpendikulyar "
+                    "va kesishuv nuqtasi aniq; "
+                    "slayder bilan burchakni "
+                    "kichraytirganda chiziqlar "
+                    "deyarli parallel bo'lib qoladi. "
+                    "Har bir chiziq atrofida uning "
+                    "noaniqlik yo'lagi (kirish "
+                    "xatosidan) shtrixlangan tasma "
+                    "sifatida chiziladi; "
+                    "yo'laklarning kesishgan sohasi "
+                    "yechimning noaniqlik sohasi "
+                    "bo'lib, burchak kichraygani sari "
+                    "u **cho'zilgan ellipsga** "
+                    "aylanadi va o'lchami keskin "
+                    "o'sadi. Yonida joriy $\\kappa$ "
+                    "va 'yo'qolgan raqamlar' "
+                    "hisoblagichi turadi. O'ng "
+                    "panelda ferma chizmasi: "
+                    "ko'tarilish $H$ slayderi bilan "
+                    "o'zgaradi va sterjen kuchi "
+                    "epyurasi hamda $\\kappa$ "
+                    "grafigi bir vaqtda yangilanadi; "
+                    "$(L/H)^2$ nazariy chizig'i "
+                    "punktir bilan ustiga qo'yiladi."
+                ),
+            ),
+            interp=(
+                "Fermadagi o'lchangan $\\kappa$ nazariy "
+                "$(L/H)^2$ bilan aynan mos tushishi "
+                "7- va 8-qadamlardagi mexanik talqinni "
+                "tasdiqlaydi: shartlanganlik soni "
+                "haqiqatan ham eng bikr va eng yumshoq "
+                "rejimlarning nisbati. Undan ham "
+                "ishonchlisi — bezovtalik tajribasi: "
+                "200 ta tasodifiy yo'nalishda kirish "
+                "xatosining kuchayishi o'lchanadi va u "
+                "hech qachon $\\kappa$ dan oshmaydi, "
+                "lekin unga yetadi. Bu 4-qadamdagi "
+                "tengsizlikning ham to'g'ri, ham "
+                "**qattiq** (sharp) ekanini "
+                "ko'rsatadi. To'r bo'yicha "
+                "$\\kappa \\sim n^2$ natijasi su-01 "
+                "dagi o'lchangan $q = 1{,}91$ bilan "
+                "mos keladi va optimal to'rning "
+                "mavjudligini yakuniy tushuntiradi. "
+                "Eng amaliy natija esa birliklar "
+                "tajribasida: faqat o'lchov birligi "
+                "o'zgartirildi — masala mutlaqo "
+                "o'zgarmadi — lekin $\\kappa$ "
+                "tartiblarga siljidi. Yakobi "
+                "shartlashdan keyin ikkala holat "
+                "ayni qiymatni beradi, ya'ni bu "
+                "shartlanganlik butunlay **sun'iy** "
+                "edi. Bu FEM amaliyotidagi muhim "
+                "saboq: qobiq va balka elementlarida "
+                "ko'chish va burilish erkinlik "
+                "darajalari aralashgani uchun sun'iy "
+                "shartlanganlik deyarli har doim "
+                "mavjud va diagonal masshtablash uni "
+                "bepul yo'qotadi. Oxirgi blok esa "
+                "ogohlantiradi: yechimni sezilarli "
+                "buzganimizda ham qoldiq juda kichik "
+                "qoladi. Demak 'qoldiq kichik — "
+                "yechim to'g'ri' degan xulosa yomon "
+                "shartlangan tizimda **noto'g'ri**."
+            ),
+            mistakes=[
+                "Yomon shartlanganlikni algoritm "
+                "aybi deb hisoblash. $\\kappa$ — "
+                "masalaning xossasi; hech qanday "
+                "algoritm uni yaxshilamaydi.",
+                "Kichik qoldiqqa asoslanib yechimni "
+                "to'g'ri deb qabul qilish. Yomon "
+                "shartlangan tizimda qoldiq "
+                "aldamchi.",
+                "Birliklardan kelgan sun'iy "
+                "shartlanganlik bilan kurashish. "
+                "Diagonal masshtablash uni bepul "
+                "yo'qotadi.",
+                "$\\kappa$ ni hisoblash uchun "
+                "matritsani to'liq teskarilash. "
+                "Buning o'rniga baholash "
+                "algoritmlari (condest) "
+                "ishlatiladi.",
+                "Deyarli mexanizm bo'lgan modelni "
+                "chiziqli tahlil qilish. Geometrik "
+                "nochiziqlilik majburiy.",
+            ],
+            quiz=[
+                q("Shartlanganlik soni nimani "
+                  "o'lchaydi?",
+                  "Kirish ma'lumotidagi nisbiy "
+                  "xatoning yechimdagi nisbiy xatoga "
+                  "maksimal kuchayish "
+                  "koeffitsientini: "
+                  "$\\|\\delta u\\|/\\|u\\| \\le "
+                  "\\kappa\\|\\delta f\\|/\\|f\\|$.",
+                  "konseptual"),
+                q("$\\kappa$ ning mexanik ma'nosi "
+                  "nima?",
+                  "Eng bikr va eng yumshoq "
+                  "deformatsiya rejimlarining "
+                  "bikrliklari nisbati "
+                  "($\\lambda_{max}/\\lambda_{min}$).",
+                  "talqin"),
+                q("$\\kappa = 10^{12}$ bo'lsa "
+                  "`double` da nechta ishonchli "
+                  "raqam qoladi?",
+                  "$16 - 12 = 4$ ta. Bu juda kam — "
+                  "natijani albatta tekshirish "
+                  "kerak.", "hisob"),
+                q("Kodda nima uchun bir xil masala "
+                  "metr va millimetrda "
+                  "hisoblanadi?",
+                  "Birlik o'zgarishi $\\kappa$ ni "
+                  "tartiblarga o'zgartirishini, "
+                  "ya'ni bu shartlanganlik **sun'iy** "
+                  "ekanini ko'rsatish uchun; Yakobi "
+                  "shartlashdan keyin ikkalasi bir "
+                  "xil qiymat beradi.", "kod"),
+                q("Yomon shartlangan masala bilan "
+                  "nobarqaror algoritm nima bilan "
+                  "farq qiladi?",
+                  "Birinchisi masalaning xossasi — "
+                  "hech qanday algoritm yordam "
+                  "bermaydi; ikkinchisi algoritmning "
+                  "kamchiligi — uni almashtirish "
+                  "kifoya.", "konseptual"),
+                q("Yupqa qobiq elementlarida "
+                  "$\\kappa$ nima uchun katta?",
+                  "Membrana bikrligi $\\sim Eh$, "
+                  "egilish bikrligi $\\sim Eh^3$ — "
+                  "ularning nisbati $(L/h)^2$ "
+                  "tartibida; $L/h = 100$ da "
+                  "$\\kappa \\sim 10^4$.", "talqin"),
+            ],
+            bridge=(
+                "Endi tizimning qanchalik 'qiyin' "
+                "ekanini baholashni bilamiz. Keyingi "
+                "qadam — uni haqiqatan yechish. "
+                "Mexanikadagi bikrlik matritsalari "
+                "maxsus tuzilishga ega: ular "
+                "simmetrik, musbat aniqlangan va "
+                "siyrak. Keyingi mavzuda shu "
+                "xossalardan foydalanadigan to'g'ri "
+                "yechish usullarini — LU, Cholesky "
+                "va lenta algoritmlarini — quramiz."
+            ),
+            research=(
+                "Oldindan shartlash usullarini "
+                "o'rganing. (1) Yakobi, SSOR va "
+                "to'liq bo'lmagan Cholesky (IC(0)) "
+                "shartlagichlarini FEM matritsasida "
+                "taqqoslang: qaysi biri $\\kappa$ ni "
+                "ko'proq kamaytiradi va qanday "
+                "narxga? (2) Ko'p to'rli (multigrid) "
+                "usulning shartlagich sifatidagi "
+                "roli — nima uchun u to'r "
+                "zichligidan **mustaqil** "
+                "yaqinlashish beradi? (3) Teskari "
+                "masalalarda (eksperimental "
+                "ma'lumotdan yuklamani tiklash) "
+                "Tixonov regulyarizatsiyasini "
+                "o'rganing: u xos bo'lmagan "
+                "masalani qanday xos qiladi va "
+                "regulyarizatsiya parametri qanday "
+                "tanlanadi (L-egri chiziq usuli)?"
+            ),
+            manim_ref=manim(
+                scene="ConditioningScene",
+                module="manim/scenes/su_basics.py",
+                title="Shartlanganlik va deyarli parallel chiziqlar",
+                summary=(
+                    "Ikkita tenglama tekislikda "
+                    "chiziq sifatida chiziladi; "
+                    "ularning burchagi kamaygani "
+                    "sari kesishuv nuqtasining "
+                    "noaniqlik sohasi cho'zilgan "
+                    "ellipsga aylanadi va keskin "
+                    "kattalashadi. Keyin deyarli "
+                    "yassi ferma ko'rsatiladi va "
+                    "ko'tarilish kamaygani sari "
+                    "sterjen kuchi hamda kappa "
+                    "birga o'sishi namoyish etiladi."
+                ),
+            ),
+        ),
+    ),
 ]
