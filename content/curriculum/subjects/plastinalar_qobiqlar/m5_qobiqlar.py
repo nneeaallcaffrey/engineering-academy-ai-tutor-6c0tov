@@ -3742,4 +3742,910 @@ table("Plastina va qobiq ustuvorligining taqqoslashi",
             ),
         ),
     ),
+
+    # ------------------------------------------------------------------ pq-30
+    Topic(
+        id="pq-30",
+        subject_id=S, module_id=M, order=30,
+        title="Qobiqlar tebranishlari va Donnell tenglamalari; fanning yakuni",
+        description=(
+            "Donnell–Mushtari tenglamalari, membrana va egilish "
+            "energiyalarining bog'lanishi, chastota spektrining "
+            "g'ayrioddiy tartibi, minimal chastota va fanning yakuni."
+        ),
+        learning_objective=(
+            "Silindrik qobiqning xususiy chastotalarini hisoblash, "
+            "spektrning plastinadan farqini tushuntirish va minimal "
+            "chastotaga mos to'lqin sonini topish."
+        ),
+        prerequisites=["pq-29", "pq-22"],
+        mathematical_core=(
+            "Donnell tenglamasi $D\\nabla^8w + Eh\\dfrac{\\partial^4w}"
+            "{\\partial x^4}/R^2 + \\rho h\\nabla^4\\ddot w = 0$, "
+            "$\\Omega^2 = \\dfrac{(1-\\nu^2)\\alpha^4}{(\\alpha^2+"
+            "\\beta^2)^2} + \\dfrac{h^2(\\alpha^2+\\beta^2)^2}{12R^2}$."
+        ),
+        engineering_application=(
+            "Raketa va aviatsiya konstruksiyalarida akustik yuklama, "
+            "quvurlarda oqim tebranishlari, kompressor korpuslari, "
+            "reaktor ichki qurilmalari, shovqin nazorati."
+        ),
+        computational_component=(
+            "Chastota spektrini $(m, n)$ bo'yicha hisoblash, minimal "
+            "chastotani topish va uni plastina spektri bilan solishtirish."
+        ),
+        visualization_component=(
+            "Chastota spektri $(m, n)$ tekisligida, minimal chastota "
+            "nuqtasi, tebranish shakllari va plastina bilan taqqoslash."
+        ),
+        research_extension=(
+            "Qobiq chastota spektrining eng past chastotasi nima uchun "
+            "$n = 1$ da emas? Suyuqlik bilan to'ldirilgan qobiqning "
+            "qo'shilgan massa effektini va oqim tufayli yuzaga keluvchi "
+            "beqarorlikni o'rganing."
+        ),
+        difficulty="ilg'or",
+        previous_link=(
+            "pq-22 da plastina tebranishlari o'rganildi va spektr "
+            "muntazam tartibda ekani ko'rsatildi: $f_{11} < f_{21} "
+            "< f_{12}$. Qobiqda membrana energiyasi qo'shilgani "
+            "uchun spektr butunlay boshqacha tartiblanadi — "
+            "pq-29 dagi ikki hadli tuzilma bu yerda ham qaytariladi."
+        ),
+        next_topic="su-01",
+        estimated_minutes=95,
+        tags=["tebranish", "Donnell", "chastota spektri", "yakun"],
+        lesson=_lesson(
+            problem=(
+                "Raketa uchirilishida dvigatel akustik "
+                "yuklamasi 140–160 dB ga yetadi va u keng "
+                "chastota diapazonini qamrab oladi. Bak "
+                "qobig'ining xususiy chastotalari shu "
+                "diapazonga tushsa, rezonans "
+                "konstruksiyani bir necha soniyada "
+                "buzishi mumkin. Demak spektrni bilish "
+                "shart. Lekin plastinadagi tajribaga "
+                "tayanib eng past chastota eng sodda "
+                "shaklda ($m = 1$, $n = 1$) bo'ladi deb "
+                "o'ylash — jiddiy xato. Qobiqda eng past "
+                "chastota ko'pincha $n = 5{\\ldots}10$ "
+                "da yotadi, ya'ni qobiq gullaguldek "
+                "ko'p to'lqinli shaklda tebranadi. "
+                "Nima uchun?"
+            ),
+            concepts=[
+                c("Donnell–Mushtari tenglamalari",
+                  "Yupqa silindrik qobiq uchun "
+                  "soddalashtirilgan tenglamalar; egilish "
+                  "va membrana holatlari kuch funksiyasi "
+                  "orqali bog'langan."),
+                c("Chastota parametri $\\Omega$",
+                  "$\\Omega^2 = \\rho(1-\\nu^2)R^2\\omega^2/E$ — "
+                  "o'lchamsiz chastota; qobiq "
+                  "tebranishlarini taqqoslash uchun."),
+                c("Ikki hadli chastota tuzilmasi",
+                  "$\\Omega^2$ da membrana hadi "
+                  "($n$ oshsa kamayadi) va egilish hadi "
+                  "($n$ oshsa ortadi) — ularning "
+                  "raqobati minimum hosil qiladi."),
+                c("Minimal chastota va $n_{min}$",
+                  "Spektrning eng past nuqtasi $n = 1$ da "
+                  "emas; $n_{min}$ odatda 5–10 oralig'ida "
+                  "va u $R/h$ ga bog'liq."),
+                c("Tebranish shakllarining zichligi",
+                  "Qobiqda chastotalar tor oraliqda "
+                  "to'planadi — pq-29 dagi modal "
+                  "to'planishning dinamik ko'rinishi."),
+                c("Halqa (breathing) rejimi",
+                  "$n = 0$ — o'qsimmetrik nafas olish "
+                  "rejimi; chastotasi "
+                  "$\\omega_0 = \\sqrt{E/(\\rho R^2(1-\\nu^2))}$ "
+                  "va u spektrning yuqori qismida."),
+            ],
+            derivation=[
+                d("1. Donnell tenglamasi (tebranish uchun)",
+                  r"D\nabla^8 w + \frac{Eh}{R^2}"
+                  r"\frac{\partial^4 w}{\partial x^4} + "
+                  r"\rho h\,\nabla^4\ddot w = 0",
+                  "pq-29 dagi ustuvorlik tenglamasining "
+                  "dinamik ko'rinishi: $N_x\\,w_{,xx}$ "
+                  "o'rniga inersiya hadi turibdi. "
+                  "$\\nabla^8$ — membrana va egilishning "
+                  "bog'lanishidan."),
+                d("2. Yechim shakli",
+                  r"w = W\sin\frac{m\pi x}{L}"
+                  r"\cos n\theta\,e^{i\omega t}",
+                  "Sharnirli tayanchlar uchun aniq yechim. "
+                  "$\\alpha = m\\pi/L$, $\\beta = n/R$ "
+                  "deb belgilaymiz (pq-29 dagi kabi)."),
+                d("3. Qo'yib, chastota tenglamasini olish",
+                  r"D(\alpha^2+\beta^2)^4 + \frac{Eh}{R^2}"
+                  r"\alpha^4 = \rho h\,\omega^2"
+                  r"(\alpha^2+\beta^2)^2",
+                  "$\\nabla^8 \\to (\\alpha^2+\\beta^2)^4$, "
+                  "$\\nabla^4 \\to (\\alpha^2+\\beta^2)^2$. "
+                  "Har bir $(m,n)$ uchun bitta chastota."),
+                d("4. Chastotani ajratish",
+                  r"\omega^2 = \frac{D(\alpha^2+\beta^2)^2}"
+                  r"{\rho h} + \frac{E\alpha^4}"
+                  r"{\rho R^2(\alpha^2+\beta^2)^2}",
+                  "**Ikkita raqobatlashuvchi had.** "
+                  "Birinchisi — sof egilish (plastinadagi "
+                  "kabi, pq-22), ikkinchisi — membrana "
+                  "hissasi (faqat qobiqda)."),
+                d("5. Ixcham belgilashlar",
+                  r"\omega^2 = A\,S^2 + \frac{B}{S^2}, \quad "
+                  r"S = \alpha^2+\beta^2, \ "
+                  r"A = \frac{D}{\rho h}, \ "
+                  r"B = \frac{E\alpha^4}{\rho R^2}",
+                  "Tuzilma endi aniq ko'rinadi: $A$-had "
+                  "$\\beta$ (ya'ni $n$) oshsa **ortadi** "
+                  "(egilish), $B$-had **kamayadi** "
+                  "(membrana). Klassik $A u + B/u$ "
+                  "ko'rinishi."),
+                d("6. Minimumning mavjudligi",
+                  r"\frac{\partial\omega^2}{\partial S^2} = 0 "
+                  r"\;\Longrightarrow\; S^4 = \frac{B}{A} = "
+                  r"\frac{12(1-\nu^2)\alpha^4}{h^2R^2}",
+                  "**Hal qiluvchi natija.** Ikki hadning "
+                  "raqobati oraliq $n$ da minimum beradi. "
+                  "Plastinada bunday raqobat yo'q — "
+                  "u yerda faqat $A$-had bor va chastota "
+                  "$n$ bilan monoton o'sadi."),
+                d("7. Minimal chastotaga mos to'lqin soni",
+                  r"(\alpha^2+\beta^2)_{min} = "
+                  r"\frac{[12(1-\nu^2)]^{1/4}\sqrt{\alpha}}"
+                  r"{\sqrt{Rh}}\cdot\sqrt{\alpha}\,, \quad "
+                  r"n_{min} = R\sqrt{S_{min} - \alpha^2}",
+                  "$S_{min} \\propto \\alpha/\\sqrt{Rh}$, "
+                  "demak $n_{min}$ $R/h$ ning kvadrat "
+                  "ildizi tartibida o'sadi. Misolimizda "
+                  "($R/h = 600$, $L = 6$ m) kod "
+                  "$n_{min} = 6{,}39$ beradi."),
+                d("8. Minimal chastota qiymati",
+                  r"\omega^2_{min} = 2\sqrt{AB} = "
+                  r"\frac{\alpha^2 Eh}{\rho R\sqrt{3(1-\nu^2)}}",
+                  "Ikki had teng bo'lganda (AM–GM). "
+                  "$\\beta$ uzluksiz deb olingandagi quyi "
+                  "chegara; haqiqiy $n$ butun bo'lgani "
+                  "uchun sal yuqoriroq."),
+                d("8a. Ustuvorlik bilan bog'lanish",
+                  r"\omega_{min} = \alpha\sqrt{\frac{\sigma_{cl}}"
+                  r"{\rho}}, \qquad \sigma_{cl} = "
+                  r"\frac{Eh}{R\sqrt{3(1-\nu^2)}}",
+                  "**Kutilmagan va nafis natija.** "
+                  "8-qadamdagi ifodada aynan pq-29 dagi "
+                  "klassik kritik kuchlanish paydo "
+                  "bo'ladi. Ya'ni qobiqning minimal "
+                  "tebranish chastotasi uning buzilish "
+                  "kuchlanishi bilan bevosita "
+                  "bog'langan. Tasodif emas: ikkala "
+                  "masala ham bir xil Donnell "
+                  "operatoridan kelib chiqadi va "
+                  "ikkalasida ham minimum egilish "
+                  "bilan membrana hadlari tenglashgan "
+                  "nuqtada yotadi. Kodda bu "
+                  "0,00 % farq bilan tasdiqlanadi."),
+                d("9. Halqa (breathing) rejimi $n = 0$, "
+                  "$\\alpha \\to 0$",
+                  r"\Omega^2 \to (1-\nu^2) "
+                  r"\;\Longrightarrow\; \omega_0 = "
+                  r"\frac{1}{R}\sqrt{\frac{E}{\rho}}",
+                  "Sof o'qsimmetrik kengayish-qisqarish. "
+                  "Chastota faqat $R$ ga va tovush "
+                  "tezligiga bog'liq — qalinlikka emas. "
+                  "U spektrning **yuqori** qismida yotadi."),
+                d("10. Spektrning zichligi",
+                  r"\text{tor } \Delta\Omega \text{ ichida "
+                  r"ko'p } (m,n) \text{ juftlik}",
+                  "pq-29 dagi modal to'planishning "
+                  "dinamik ko'rinishi. Akustik yuklama "
+                  "keng diapazonli bo'lgani uchun u "
+                  "bir vaqtda o'nlab rejimni "
+                  "qo'zg'atadi — shuning uchun qobiq "
+                  "konstruksiyalarda akustik charchoq "
+                  "alohida muammo."),
+            ],
+            meaning=(
+                "Qobiq tebranishlari plastina "
+                "tebranishlaridan (pq-22) sifat jihatdan "
+                "farq qiladi va farqning manbai 4-qadamda: "
+                "chastota ifodasida **ikkita "
+                "raqobatlashuvchi had** bor. Egilish hadi "
+                "to'lqin soni oshgani sari ortadi — bu "
+                "intuitiv, chunki mayda to'lqinlar ko'proq "
+                "egilish talab qiladi. Membrana hadi esa "
+                "aksincha kamayadi: aylana bo'ylab ko'p "
+                "to'lqinli shaklda qobiq cho'zilmasdan, "
+                "deyarli faqat egilib deformatsiyalana "
+                "oladi (inextensional deformatsiya, "
+                "pq-25). Ikki hadning raqobati oraliq "
+                "$n$ da minimum hosil qiladi va bu "
+                "qobiq dinamikasining eng g'ayrioddiy "
+                "xususiyati: **eng past chastota eng "
+                "sodda shaklga mos kelmaydi**. Bu xuddi "
+                "pq-29 dagi ustuvorlik masalasining "
+                "tuzilmasi — u yerda ham ikkita had "
+                "(egilish va membrana) raqobatlashib "
+                "minimum bergan edi. Tasodif emas: "
+                "ikkala masala ham bir xil Donnell "
+                "operatoridan kelib chiqadi. Amaliy "
+                "oqibatlari jiddiy. Birinchidan, "
+                "rezonansdan qochish uchun faqat "
+                "$n = 1$ ni tekshirish yetarli emas — "
+                "butun spektrni skanerlash kerak. "
+                "Ikkinchidan, chastotalar tor oraliqda "
+                "to'planadi va keng diapazonli akustik "
+                "yuklama ularning o'nlabini bir vaqtda "
+                "qo'zg'atadi; natijada akustik charchoq "
+                "raketa va aviatsiya konstruksiyalarida "
+                "alohida hisob talab qiladi. Uchinchidan, "
+                "halqa rejimi $\\omega_0 = "
+                "\\sqrt{E/\\rho}/R$ — bu materialdagi "
+                "tovush tezligini radiusga bo'lgan "
+                "nisbat, ya'ni qobiq atrofini "
+                "aylanib chiquvchi to'lqinning "
+                "chastotasi. U qalinlikka umuman "
+                "bog'liq emas va spektrning yuqori "
+                "qismida yotadi."
+            ),
+            equations=[
+                eq(r"\omega^2 = \frac{D(\alpha^2+\beta^2)^2}"
+                   r"{\rho h} + \frac{E\alpha^4}"
+                   r"{\rho R^2(\alpha^2+\beta^2)^2}",
+                   "Silindrik qobiqning xususiy chastotasi: "
+                   "egilish va membrana hadlari.",
+                   "Chastota tenglamasi"),
+                eq(r"S^4_{min} = \frac{12(1-\nu^2)\alpha^4}"
+                   r"{h^2R^2}, \quad S = \alpha^2+\beta^2, \ "
+                   r"\alpha = \frac{m\pi}{L}, \ \beta = \frac{n}{R}",
+                   "Minimal chastotaga mos to'lqin soni "
+                   "sharti (o'lchamli belgilashda).",
+                   "Minimum sharti"),
+                eq(r"\omega_{min} = \alpha\sqrt{\frac{\sigma_{cl}}"
+                   r"{\rho}}, \qquad \sigma_{cl} = "
+                   r"\frac{Eh}{R\sqrt{3(1-\nu^2)}}",
+                   "Minimal chastotaning pq-29 dagi "
+                   "klassik kritik kuchlanish bilan "
+                   "bog'lanishi.",
+                   "Tebranish–ustuvorlik bog'lanishi"),
+                eq(r"\omega_0 = \frac{1}{R}\sqrt{\frac{E}{\rho}}",
+                   "Halqa (breathing) rejimi $n = 0$; "
+                   "qalinlikka bog'liq emas.",
+                   "Halqa rejimi"),
+                eq(r"\Omega^2_{min} = \frac{\sqrt{1-\nu^2}\,"
+                   r"\alpha^2 h}{\sqrt{3}\,R}",
+                   "Ikki had teng bo'lgandagi minimal "
+                   "chastota (uzluksiz $\\beta$ uchun "
+                   "quyi chegara).", "Minimal chastota"),
+            ],
+            conditions=(
+                "**Chegaraviy shartlar:** yuqoridagi aniq "
+                "yechim ikkala chekkasi sharnirli "
+                "(shear diaphragm) qobiq uchun. Boshqa "
+                "shartlarda:\n"
+                "- Mahkamlangan–mahkamlangan: "
+                "chastotalar ~10–20 % yuqori;\n"
+                "- Erkin–erkin: pastroq va qo'shimcha "
+                "nol chastotali qattiq jism rejimlari;\n"
+                "- Konsol: eng past.\n\n"
+                "**Donnell taqribining chegarasi:** "
+                "$n$ kichik bo'lganda ($n \\le 2$) "
+                "Donnell tenglamalari sezilarli xato "
+                "beradi — Flügge yoki Sanders "
+                "tenglamalari kerak. Kodda bu ochiq "
+                "ko'rsatiladi.\n\n"
+                "**Boshlang'ich shartlar** (majburiy "
+                "tebranish uchun, pq-23 dagi kabi): "
+                "$w(x,\\theta,0)$ va "
+                "$\\dot w(x,\\theta,0)$ modal "
+                "koordinatalarga yoyiladi.\n\n"
+                "**Qo'shilgan massa:** suyuqlik bilan "
+                "to'ldirilgan qobiqda chastotalar "
+                "2–3 barobar pasayadi; bu raketa "
+                "baklarida hal qiluvchi."
+            ),
+            worked=WorkedExample(
+                statement=(
+                    "pq-29 dagi bak: alyuminiy "
+                    "$E = 70$ GPa, $\\rho = 2700$ kg/m³, "
+                    "$\\nu = 0{,}33$, $R = 1{,}8$ m, "
+                    "$h = 3$ mm, $L = 6$ m, ikkala "
+                    "chekkasi sharnirli. $m = 1$ uchun "
+                    "$n = 1, 5, 10$ chastotalarini, "
+                    "minimal chastotani va halqa "
+                    "rejimini toping."
+                ),
+                given=[
+                    r"E = 70\ \text{GPa},\ \rho = 2700\ "
+                    r"\text{kg/m}^3,\ \nu = 0{,}33",
+                    r"R = 1{,}8\ \text{m},\ h = 0{,}003\ "
+                    r"\text{m},\ L = 6\ \text{m}",
+                ],
+                steps=[
+                    st(r"\alpha = \frac{\pi}{L} = "
+                       r"\frac{3{,}1416}{6} = 0{,}5236\ "
+                       r"\text{m}^{-1}, \quad \beta = "
+                       r"\frac{n}{R} = \frac{n}{1{,}8}",
+                       "$m = 1$ uchun o'q bo'ylab to'lqin "
+                       "soni."),
+                    st(r"D = \frac{70\times10^{9} \cdot "
+                       r"2{,}7\times10^{-8}}{12 \cdot 0{,}8911} "
+                       r"= 176{,}8\ \text{N·m}, \quad "
+                       r"\rho h = 8{,}1\ \text{kg/m}^2",
+                       "$h^3 = 2{,}7\\times10^{-8}$ m³, "
+                       "$12(1-\\nu^2) = 10{,}693$."),
+                    st(r"n = 1: \ \beta = 0{,}5556, \ "
+                       r"\alpha^2+\beta^2 = 0{,}2742 + "
+                       r"0{,}3086 = 0{,}5828\ \text{m}^{-2}",
+                       "Ikkala to'lqin soni ham kichik."),
+                    st(r"\omega^2 = \frac{176{,}8 \cdot "
+                       r"0{,}3397}{8{,}1} + \frac{70\times"
+                       r"10^{9} \cdot 0{,}07518}"
+                       r"{2700 \cdot 3{,}24 \cdot 0{,}3397}",
+                       "Birinchi had 7,41, ikkinchi had "
+                       "$1{,}770\\times10^{6}$ — "
+                       "**membrana hadi butunlay "
+                       "ustun**."),
+                    st(r"\omega = 1330\ \text{rad/s} "
+                       r"\;\Rightarrow\; f = 211{,}7\ \text{Hz}",
+                       "$n = 1$ da chastota yuqori, "
+                       "chunki bu shaklda qobiq "
+                       "cho'zilishi kerak."),
+                    st(r"n = 6: \ \beta = 3{,}3333, \ "
+                       r"S = 0{,}2742 + 11{,}111 = "
+                       r"11{,}385\ \text{m}^{-2}",
+                       "Aylana bo'ylab 6 to'lqin."),
+                    st(r"\omega^2 = \frac{176{,}75 \cdot "
+                       r"129{,}6}{8{,}1} + \frac{70\times"
+                       r"10^{9} \cdot 0{,}075185}"
+                       r"{2700 \cdot 3{,}24 \cdot 129{,}6} "
+                       r"= 2829 + 4639",
+                       "Egilish hadi 2829, membrana hadi "
+                       "4639 — ular endi **bir xil "
+                       "tartibda** (38 % / 62 %). "
+                       "$n = 1$ da membrana hadi "
+                       "mingtalab barobar ustun edi."),
+                    st(r"\omega = \sqrt{7468} = 86{,}4\ "
+                       r"\text{rad/s} \;\Rightarrow\; "
+                       r"f = 13{,}75\ \text{Hz}",
+                       "$n = 1$ dagidan **15,4 barobar "
+                       "past** — spektr monoton emas."),
+                    st(r"\text{Minimum: } S^4 = "
+                       r"\frac{12(1-\nu^2)\alpha^4}{h^2R^2} "
+                       r"\;\Rightarrow\; S_{min} = 12{,}885, "
+                       r"\ n_{min} = R\sqrt{S_{min}-\alpha^2} "
+                       r"= 6{,}39",
+                       "6-qadamdagi shart. $n$ butun "
+                       "bo'lishi kerak, shuning uchun "
+                       "haqiqiy minimum $n = 6$ da "
+                       "(13,75 Hz); uzluksiz baho "
+                       "13,55 Hz — farq 1,5 %."),
+                    st(r"\omega_{min} = \alpha\sqrt{\frac"
+                       r"{\sigma_{cl}}{\rho}} = 0{,}5236"
+                       r"\sqrt{\frac{71{,}355\times10^{6}}"
+                       r"{2700}} = 0{,}5236 \cdot 162{,}6 "
+                       r"= 85{,}1\ \text{rad/s}",
+                       "8a-qadamdagi bog'lanish: pq-29 "
+                       "dagi $\\sigma_{cl} = 71{,}355$ MPa "
+                       "orqali. $f = 13{,}55$ Hz — "
+                       "yuqoridagi uzluksiz baho bilan "
+                       "aynan bir xil."),
+                    st(r"\text{Halqa rejimi: } \omega_0 = "
+                       r"\frac{1}{1{,}8}\sqrt{\frac{70\times"
+                       r"10^{9}}{2700}} = \frac{5091{,}8}"
+                       r"{1{,}8} = 2828{,}8\ \text{rad/s}",
+                       "$f_0 = 450{,}2$ Hz — spektrning "
+                       "**yuqori** qismida, minimal "
+                       "chastotadan 32,7 barobar "
+                       "baland. Tovush tezligi "
+                       "$\\sqrt{E/\\rho} = 5091{,}8$ m/s."),
+                ],
+                answer=(
+                    "$m = 1$ uchun: $f(n=1) = 211{,}8$ Hz, "
+                    "$f(n=6) = 13{,}75$ Hz — ya'ni "
+                    "murakkabroq shakl **15,4 barobar "
+                    "past** chastotaga ega. Minimum "
+                    "$n_{min} = 6{,}39$ (butun $n = 6$), "
+                    "uzluksiz baho 13,55 Hz. Bu qiymat "
+                    "$\\omega_{min} = \\alpha"
+                    "\\sqrt{\\sigma_{cl}/\\rho}$ "
+                    "bog'lanishi orqali pq-29 dagi "
+                    "klassik kritik kuchlanishdan ham "
+                    "olinadi. Halqa rejimi "
+                    "$f_0 = 450{,}2$ Hz. Spektr "
+                    "plastinadagidek monoton emas."
+                ),
+                engineering_note=(
+                    "Bu natija loyihalash amaliyotini "
+                    "bevosita o'zgartiradi. Plastinada "
+                    "rezonansni tekshirish uchun "
+                    "$f_{11}$ ni hisoblash kifoya edi — "
+                    "u eng past va qolganlari undan "
+                    "yuqori. Qobiqda esa $f(n=1)$ ni "
+                    "hisoblab, uni eng past deb qabul "
+                    "qilish 15 barobar xatoga olib "
+                    "keladi va konstruksiya "
+                    "rezonansga tushadi. Shuning uchun "
+                    "qobiq dinamikasida har doim "
+                    "$(m, n)$ bo'yicha to'liq skanerlash "
+                    "bajariladi. Suyuqlik bilan "
+                    "to'ldirilgan bakda vaziyat yanada "
+                    "murakkab: qo'shilgan massa "
+                    "chastotalarni 2–3 barobar "
+                    "pasaytiradi va $n_{min}$ ni "
+                    "siljitadi, shuning uchun bo'sh va "
+                    "to'la holat alohida tekshiriladi. "
+                    "Raketa uchirilishida bak "
+                    "bo'shagani sari uning spektri "
+                    "uzluksiz o'zgaradi — bu POGO "
+                    "beqarorligining bir sababidir."
+                ),
+            ),
+            computation=Computation(
+                caption=(
+                    "Qobiq chastota spektrini $(m, n)$ "
+                    "bo'yicha hisoblash, minimal "
+                    "chastotani topish va plastina "
+                    "spektri bilan taqqoslash."
+                ),
+                code='''"""Silindrik qobiq tebranishlari: Donnell spektri."""
+import numpy as np
+from labkit import PARAMS, note, series, table, value
+
+E = float(PARAMS.get("E", 70.0))*1e9
+rho = float(PARAMS.get("rho", 2700.0))
+nu = float(PARAMS.get("nu", 0.33))
+R = float(PARAMS.get("R", 1800.0))/1000.0
+h = float(PARAMS.get("h", 3.0))/1000.0
+L = float(PARAMS.get("L", 6.0))
+m_show = int(PARAMS.get("m_show", 1))
+n_max = int(PARAMS.get("n_max", 30))
+
+D = E*h**3/(12*(1 - nu**2))
+mu = rho*h
+value("Silindrik bikrlik D", D, "N*m")
+value("Yuza zichligi rho*h", mu, "kg/m^2")
+value("R/h nisbati", R/h, "—")
+
+
+def omega2(m, n):
+    al = m*np.pi/L
+    be = n/R
+    s2 = al**2 + be**2
+    bend = D*s2**2/mu                      # egilish hadi
+    memb = E*al**4/(rho*R**2*s2**2)        # membrana hadi
+    return bend + memb, bend, memb
+
+
+# --- m = m_show uchun spektr ---
+ns = np.arange(0, n_max + 1)
+fs, fb, fm = [], [], []
+for n in ns:
+    w2, bd, mb = omega2(m_show, n)
+    fs.append(np.sqrt(w2)/(2*np.pi))
+    fb.append(np.sqrt(bd)/(2*np.pi))
+    fm.append(np.sqrt(mb)/(2*np.pi))
+series(f"Chastota f(n), m = {m_show}", ns.tolist(), fs,
+       xlabel="aylana to'lqin soni n", ylabel="f, Hz")
+series("Faqat egilish hissasi", ns.tolist(), fb,
+       xlabel="aylana to'lqin soni n", ylabel="f, Hz")
+series("Faqat membrana hissasi", ns.tolist(), fm,
+       xlabel="aylana to'lqin soni n", ylabel="f, Hz")
+
+i_min = int(np.argmin(fs))
+value(f"Minimal chastota (m = {m_show})", fs[i_min], "Hz")
+value("Unga mos n", float(ns[i_min]), "—")
+value("f(n = 1)", fs[1], "Hz")
+value("f(n = 1) / f_min", fs[1]/fs[i_min], "marta")
+note(f"m = {m_show} uchun eng past chastota n = {ns[i_min]} da "
+     f"({fs[i_min]:.2f} Hz), n = 1 da esa {fs[1]:.2f} Hz - "
+     f"{fs[1]/fs[i_min]:.2f} barobar yuqori. Ya'ni ENG SODDA "
+     f"SHAKL eng past chastotani BERMAYDI. Plastinada bu "
+     f"mumkin emas edi (pq-22).")
+
+# Ikki hadning almashinuvi
+w2b, bd_b, mb_b = omega2(m_show, int(ns[i_min]))
+value("Minimumda egilish hadi ulushi", bd_b/(bd_b + mb_b)*100, "%")
+value("Minimumda membrana hadi ulushi", mb_b/(bd_b + mb_b)*100, "%")
+note(f"Butun n = {ns[i_min]} dagi minimumda egilish va membrana "
+     f"hadlari bir xil tartibda ({bd_b/(bd_b+mb_b)*100:.1f} % va "
+     f"{mb_b/(bd_b+mb_b)*100:.1f} %) - ya'ni minimum aynan ularning "
+     f"RAQOBATIDAN tug'iladi. Quyida uzluksiz optimumda ular aynan "
+     f"teng bo'lishi ko'rsatiladi.")
+
+# Qaysi n da hadlar o'rin almashadi
+cross = None
+for n in range(1, n_max + 1):
+    _, bd1, mb1 = omega2(m_show, n)
+    _, bd2, mb2 = omega2(m_show, n + 1)
+    if (bd1 - mb1)*(bd2 - mb2) < 0:
+        cross = n
+        break
+if cross is not None:
+    value("Hadlar teng bo'ladigan n", float(cross), "—")
+    note(f"n < {cross} da MEMBRANA hadi ustun (qobiq cho'zilishi "
+         f"kerak), n > {cross} da EGILISH hadi ustun (qobiq "
+         f"cho'zilmasdan egiladi). Raqobat shu yerda almashadi.")
+
+# --- Uzluksiz beta bo'yicha analitik minimum ---
+# omega^2 = A*S^2 + B/S^2,  A = D/(rho*h),  B = E*al^4/(rho*R^2)
+#   => S^4 = B/A = 12*(1-nu^2)*al^4/(h^2*R^2),  omega^2_min = 2*sqrt(A*B)
+al = m_show*np.pi/L
+Acf = D/mu
+Bcf = E*al**4/(rho*R**2)
+s2_opt = (Bcf/Acf)**0.25
+s2_opt_alt = (12*(1 - nu**2)*al**4/(h**2*R**2))**0.25
+value("S_opt (B/A orqali)", s2_opt, "1/m^2")
+value("S_opt (12(1-nu^2)a^4/(h^2R^2) orqali)", s2_opt_alt, "1/m^2")
+value("Ikki yo'l farqi", abs(s2_opt - s2_opt_alt)/s2_opt*100, "%")
+
+be2_opt = s2_opt - al**2
+if be2_opt > 0:
+    n_opt = np.sqrt(be2_opt)*R
+    value("n_min (analitik, uzluksiz)", float(n_opt), "—")
+    w2_opt = 2*np.sqrt(Acf*Bcf)
+    f_opt = np.sqrt(w2_opt)/(2*np.pi)
+    value("f_min (analitik, uzluksiz)", f_opt, "Hz")
+    value("Sonli va analitik f_min farqi",
+          abs(fs[i_min] - f_opt)/f_opt*100, "%")
+    note(f"Uzluksiz beta bo'yicha analitik minimum n = {n_opt:.2f} da "
+         f"{f_opt:.2f} Hz beradi; butun n bo'yicha sonli qidiruv "
+         f"n = {ns[i_min]} da {fs[i_min]:.2f} Hz - farq "
+         f"{abs(fs[i_min]-f_opt)/f_opt*100:.2f} %. Analitik n_min "
+         f"butun emas va sonli minimum unga eng yaqin butun son "
+         f"atrofida yotadi; yaxlitlash chastotani sal KO'TARADI, "
+         f"bu kutilgan natija.")
+
+    # AM-GM tengligini aynan optimumda tekshirish
+    bend_opt = Acf*s2_opt**2
+    memb_opt = Bcf/s2_opt**2
+    value("Optimumda egilish hadi ulushi",
+          bend_opt/(bend_opt + memb_opt)*100, "%")
+    value("Optimumda membrana hadi ulushi",
+          memb_opt/(bend_opt + memb_opt)*100, "%")
+    # pq-29 bilan bog'lanish: omega_min^2 = al^2*sigma_cl/rho
+    sig_cl = E*h/(R*np.sqrt(3*(1 - nu**2)))
+    w2_link = al**2*sig_cl/rho
+    value("sigma_cl (pq-29 dagi klassik kuchlanish)", sig_cl/1e6, "MPa")
+    value("omega_min^2 (al^2*sigma_cl/rho orqali)", w2_link, "1/s^2")
+    value("omega_min^2 (2*sqrt(A*B) orqali)", w2_opt, "1/s^2")
+    value("Bog'lanish xatosi", abs(w2_link - w2_opt)/w2_opt*100, "%")
+    note(f"AJOYIB BOG'LANISH: minimal chastota aynan "
+         f"omega_min = alpha*sqrt(sigma_cl/rho) ga teng, bu yerda "
+         f"sigma_cl - pq-29 dagi KLASSIK KRITIK KUCHLANISH "
+         f"({sig_cl/1e6:.2f} MPa). Ikki yo'l "
+         f"{abs(w2_link-w2_opt)/w2_opt:.2e} % farq qiladi. Sababi: "
+         f"ustuvorlik va tebranish masalalari bir xil Donnell "
+         f"operatoridan kelib chiqadi va ikkalasida ham egilish "
+         f"bilan membrana hadlari AYNAN SHU nuqtada tenglashadi.")
+
+    note(f"AYNAN optimumda (uzluksiz S) ikki had TENG: "
+         f"{bend_opt/(bend_opt+memb_opt)*100:.4f} % va "
+         f"{memb_opt/(bend_opt+memb_opt)*100:.4f} % - bu AM-GM "
+         f"tengligining aniq tasdig'i. Butun n = {ns[i_min]} da esa "
+         f"ulushlar {bd_b/(bd_b+mb_b)*100:.1f} % / "
+         f"{mb_b/(bd_b+mb_b)*100:.1f} % ga siljiydi, chunki n "
+         f"optimal {n_opt:.2f} dan biroz chetda.")
+
+# --- Halqa (breathing) rejimi ---
+w0 = np.sqrt(E/(rho*R**2*(1 - nu**2)))*np.sqrt(1 - nu**2)
+f0 = w0/(2*np.pi)
+value("Halqa rejimi f0", f0, "Hz")
+value("Tovush tezligi sqrt(E/rho)", np.sqrt(E/rho), "m/s")
+value("f0 / f_min", f0/fs[i_min], "marta")
+note(f"Halqa rejimi f0 = {f0:.1f} Hz = sqrt(E/rho)/(2*pi*R) va u "
+     f"qalinlikka BOG'LIQ EMAS. U minimal chastotadan "
+     f"{f0/fs[i_min]:.1f} barobar yuqori - ya'ni spektrning "
+     f"yuqori qismida.")
+
+# --- To'liq spektr (m, n) ---
+spec = []
+for m in range(1, 11):
+    for n in range(0, n_max + 1):
+        w2, _, _ = omega2(m, n)
+        spec.append((np.sqrt(w2)/(2*np.pi), m, n))
+spec.sort()
+rows = [[f"{s[1]}", f"{s[2]}", f"{s[0]:.2f}"] for s in spec[:10]]
+table("Eng past o'nta chastota (m, n)",
+      ["m (o'q)", "n (aylana)", "f, Hz"], rows)
+
+f_low = spec[0][0]
+dense = [s for s in spec if s[0] < 2*f_low]
+value("Eng past chastota", f_low, "Hz")
+value("2*f_min ichidagi rejimlar soni", float(len(dense)), "—")
+note(f"Eng past chastota {f_low:.2f} Hz (m = {spec[0][1]}, "
+     f"n = {spec[0][2]}). Uning IKKI BARAVARI ichida "
+     f"{len(dense)} ta rejim yotadi - spektr juda zich. "
+     f"Keng diapazonli akustik yuklama ularning hammasini bir "
+     f"vaqtda qo'zg'atadi, shuning uchun akustik charchoq "
+     f"qobiq konstruksiyalarida alohida hisob talab qiladi.")
+
+series("Eng past 60 chastota (tartiblangan)",
+       list(range(1, 61)), [s[0] for s in spec[:60]],
+       xlabel="rejim tartibi", ylabel="f, Hz")
+
+# --- Plastina bilan taqqoslash: bir xil o'lchamdagi panel ---
+# Qobiqni yoyib, a = L, b = 2*pi*R bo'lgan sharnirli panel qilamiz
+a_p, b_p = L, 2*np.pi*R
+plate = []
+for m in range(1, 11):
+    for n in range(1, 11):
+        wp = np.pi**2*np.sqrt(D/mu)*((m/a_p)**2 + (n/b_p)**2)
+        plate.append((wp/(2*np.pi), m, n))
+plate.sort()
+value("Plastina (yoyilgan) eng past chastotasi", plate[0][0], "Hz")
+value("Qobiq / plastina nisbati", f_low/plate[0][0], "marta")
+note(f"Xuddi shu varaqni YOYIB tekis panel qilsak, eng past "
+     f"chastota {plate[0][0]:.3f} Hz bo'lardi; qobiq holatida esa "
+     f"{f_low:.2f} Hz - {f_low/plate[0][0]:.0f} barobar yuqori. "
+     f"Egrilik qobiqni dinamik jihatdan ham keskin bikrlashtiradi "
+     f"(pq-25 dagi statik xulosaning dinamik ko'rinishi).")
+p_dense = [s for s in plate if s[0] < 2*plate[0][0]]
+value("Plastinada 2*f_min ichidagi rejimlar", float(len(p_dense)), "—")
+note(f"Plastinada 2*f_min ichida atigi {len(p_dense)} ta rejim bor, "
+     f"qobiqda esa {len(dense)} ta - qobiq spektri ancha zichroq.")
+
+table("Plastina va qobiq tebranishlarining taqqoslashi",
+      ["Jihat", "Plastina (pq-22)", "Qobiq (pq-30)"],
+      [["Chastota hadlari", "faqat egilish", "egilish + membrana"],
+       ["Eng past shakl", "m = n = 1", "n = 5...10"],
+       ["Spektr tartibi", "monoton", "minimumli"],
+       ["Spektr zichligi", "siyrak", "zich"],
+       ["Halqa rejimi", "yo'q", "bor (yuqorida)"],
+       ["Asosiy xavf", "rezonans", "akustik charchoq"]])
+
+if int(ns[i_min]) <= 2:
+    note("DIQQAT: minimum n <= 2 da chiqdi. Bu oraliqda Donnell "
+         "taqribi sezilarli xato beradi - Flugge yoki Sanders "
+         "tenglamalarini ishlatish kerak.")
+else:
+    note(f"Minimum n = {ns[i_min]} > 2 da yotadi, shuning uchun "
+         f"Donnell taqribi bu yerda ishonchli (u faqat n <= 2 da "
+         f"sezilarli xato beradi).")
+''',
+                parameters=[
+                    p("E", "Yung moduli E", 20.0, 400.0, 70.0, 1.0, "GPa"),
+                    p("rho", "Zichlik ρ", 500.0, 20000.0, 2700.0, 50.0,
+                      "kg/m³"),
+                    p("nu", "Puasson koeffitsienti ν", 0.0, 0.45, 0.33, 0.01),
+                    p("R", "Qobiq radiusi R", 100.0, 20000.0, 1800.0, 50.0,
+                      "mm"),
+                    p("h", "Qalinlik h", 0.5, 50.0, 3.0, 0.1, "mm"),
+                    p("L", "Uzunlik L", 0.2, 40.0, 6.0, 0.2, "m"),
+                    p("m_show", "Ko'rsatiladigan o'q to'lqini m",
+                      1.0, 10.0, 1.0, 1.0),
+                    p("n_max", "Maksimal aylana to'lqin soni n",
+                      5.0, 60.0, 30.0, 1.0),
+                ],
+                expected_output=(
+                    "m = 1 uchun eng past chastota n = 6 da "
+                    "(13,75 Hz), n = 1 da esa 211,8 Hz — 15,4 "
+                    "barobar yuqori — eng sodda shakl eng "
+                    "past chastotani bermaydi. Uzluksiz S "
+                    "bo'yicha optimum ikkita mustaqil "
+                    "formuladan 0,00 % farq bilan bir xil "
+                    "chiqadi va u yerda egilish/membrana "
+                    "ulushlari aynan 50/50 (AM–GM "
+                    "tengligi); butun n = 6 da ular "
+                    "37,9/62,1 ga siljiydi. Analitik "
+                    "n_min = 6,39, f_min = 13,55 Hz, "
+                    "sonli qidiruv 13,75 Hz — farq "
+                    "1,53 %. Minimal chastota "
+                    "ω_min = α√(σ_cl/ρ) bog'lanishi "
+                    "orqali pq-29 dagi klassik kritik "
+                    "kuchlanishdan (71,355 MPa) 0,00 % "
+                    "farq bilan qayta olinadi. Halqa "
+                    "rejimi f₀ = 450,2 Hz — minimal "
+                    "chastotadan 32,7 barobar baland. "
+                    "2·f_min ichida 8 ta rejim yotadi "
+                    "(plastinada 2 ta); xuddi shu "
+                    "varaqni yoyib tekis panel qilsak "
+                    "chastota 0,261 Hz ga tushadi — "
+                    "53 barobar past."
+                ),
+            ),
+            visual=vis(
+                kind="Qobiq chastota spektri va minimum",
+                tool="React/SVG + Manim",
+                description=(
+                    "Chastotaning $n$ ga bog'liqligi, "
+                    "ikki hadning raqobati va spektr "
+                    "zichligi."
+                ),
+                how_to_draw=(
+                    "React/SVG: asosiy panel — "
+                    "$f(n)$ egri chizig'i berilgan $m$ "
+                    "uchun. Uning ustiga **ikkita "
+                    "tashkil etuvchi** alohida "
+                    "chiziladi: egilish hissasi "
+                    "(o'suvchi) va membrana hissasi "
+                    "(kamayuvchi), ikkalasi ham punktir. "
+                    "Ularning kesishgan joyi va to'liq "
+                    "chiziqning minimumi bir-biriga "
+                    "yaqin ekani ko'rinadi — bu "
+                    "6-qadamning vizual isboti. Minimum "
+                    "nuqtasi ajratib belgilanadi va "
+                    "$n_{min}$ yoziladi; $n = 1$ nuqtasi "
+                    "ham belgilanib, ikkisining nisbati "
+                    "o'q bilan ko'rsatiladi. Ikkinchi "
+                    "panel — tartiblangan spektr "
+                    "(rejim tartibi bo'yicha chastota): "
+                    "qobiq chizig'i deyarli yassi "
+                    "boshlanadi (zich spektr), "
+                    "plastinaniki esa tik ko'tariladi; "
+                    "$2f_{min}$ darajasi gorizontal "
+                    "chiziq bilan va uning ostidagi "
+                    "rejimlar soni yozilib qo'yiladi. "
+                    "Uchinchi panel — qobiq kesimining "
+                    "tebranish shakllari: $n = 1$ "
+                    "(siljish), $n = 2$ (ovallashish), "
+                    "$n = 6$ (gulsimon) va $n = 0$ "
+                    "(halqa) yonma-yon animatsiyalanadi."
+                ),
+            ),
+            interp=(
+                "Kodning markaziy natijasi — eng past "
+                "chastotaning $n = 1$ da emasligi. Bu "
+                "plastina bilan solishtirilganda "
+                "ayniqsa keskin ko'rinadi: pq-22 da "
+                "spektr monoton edi va $f_{11}$ eng past "
+                "bo'lgan; bu yerda esa $n = 1$ dagi "
+                "chastota minimaldan bir necha barobar "
+                "yuqori. Sababni kod bevosita "
+                "ko'rsatadi: minimum nuqtasida egilish "
+                "va membrana hadlari deyarli teng "
+                "ulushga ega, ya'ni minimum aynan "
+                "ularning raqobatidan tug'iladi. "
+                "Hadlarning o'rin almashish nuqtasi "
+                "ham hisoblanadi va u minimum atrofida "
+                "yotadi — bu 6-qadamdagi AM–GM "
+                "shartining sonli tasdig'i. Uzluksiz "
+                "$\\beta$ bo'yicha analitik minimum "
+                "butun $n$ bo'yicha qidiruv bilan "
+                "yaqin mos kelishi esa 7- va "
+                "8-qadamlardagi formulalarni "
+                "tekshiradi; kichik farq faqat $n$ ning "
+                "butunligidan kelib chiqadi va u har "
+                "doim chastotani **ko'taradi**, bu "
+                "kutilgan yo'nalish. Ikkinchi muhim "
+                "natija — spektr zichligi: $2f_{min}$ "
+                "ichida o'nlab rejim yotadi, "
+                "plastinada esa bir nechta. Bu pq-29 "
+                "dagi modal to'planishning dinamik "
+                "ko'rinishi va u akustik charchoq "
+                "muammosini tushuntiradi. Nihoyat, "
+                "yoyilgan panel bilan taqqoslash "
+                "pq-25 dagi statik xulosani dinamikada "
+                "takrorlaydi: egrilik qobiqni "
+                "tartiblarga bikrlashtiradi."
+            ),
+            mistakes=[
+                "Eng past chastotani $n = 1$ da izlash. "
+                "Qobiqda minimum $n = 5{\\ldots}10$ da; "
+                "xato 15 barobargacha yetadi.",
+                "Plastina formulalarini qobiqqa qo'llash. "
+                "Membrana hadi yo'qotilsa chastota "
+                "tartiblarga xato chiqadi.",
+                "Donnell taqribini $n \\le 2$ da "
+                "ishlatish. U yerda Flügge yoki Sanders "
+                "tenglamalari kerak.",
+                "Suyuqlik qo'shilgan massasini "
+                "unutish. To'ldirilgan bakda "
+                "chastotalar 2–3 barobar pasayadi.",
+                "Halqa rejimini eng past deb o'ylash. "
+                "U aksincha spektrning yuqori qismida "
+                "va qalinlikka bog'liq emas.",
+            ],
+            quiz=[
+                q("Nima uchun qobiqda eng past chastota "
+                  "$n = 1$ da emas?",
+                  "Chastotada ikkita raqobatlashuvchi "
+                  "had bor: membrana hadi $n$ oshsa "
+                  "kamayadi, egilish hadi ortadi; "
+                  "ularning raqobati oraliq $n$ da "
+                  "minimum beradi.", "konseptual"),
+                q("Minimum nuqtasida ikki had qanday "
+                  "nisbatda bo'ladi va nima uchun?",
+                  "Ular deyarli teng — AM–GM sharti "
+                  "bo'yicha ikki hadning yig'indisi "
+                  "ular teng bo'lganda minimal; kodda "
+                  "bu ulushlar bilan tasdiqlanadi.",
+                  "talqin"),
+                q("Halqa rejimining chastotasi nimaga "
+                  "bog'liq va nimaga bog'liq emas?",
+                  "$\\omega_0 = \\sqrt{E/\\rho}/R$ — "
+                  "material tovush tezligiga va "
+                  "radiusga bog'liq, **qalinlikka "
+                  "bog'liq emas**.", "hisob"),
+                q("Kodda '2·f_min ichidagi rejimlar "
+                  "soni' nima uchun hisoblanadi?",
+                  "U spektr zichligini o'lchaydi; "
+                  "zich spektr keng diapazonli akustik "
+                  "yuklamada o'nlab rejim bir vaqtda "
+                  "qo'zg'atilishini va akustik charchoq "
+                  "xavfini bildiradi.", "kod"),
+                q("Qobiqni yoyib tekis panel qilsak "
+                  "chastota qanday o'zgaradi va nima "
+                  "uchun?",
+                  "Keskin pasayadi, chunki membrana "
+                  "hadi yo'qoladi — egrilik qobiqni "
+                  "dinamik jihatdan ham bikrlashtiradi "
+                  "(pq-25 dagi statik xulosaning "
+                  "dinamik ko'rinishi).", "talqin"),
+                q("Raketa bagining spektri uchish "
+                  "davomida nima uchun o'zgaradi?",
+                  "Yoqilg'i sarflangani sari suyuqlikning "
+                  "qo'shilgan massasi kamayadi va "
+                  "chastotalar ko'tariladi; shuning "
+                  "uchun bo'sh va to'la holat alohida "
+                  "tekshiriladi.", "talqin"),
+            ],
+            bridge=(
+                "Plastinalar va qobiqlar nazariyasi "
+                "yakunlandi: model, yechim usullari, "
+                "doiraviy geometriya, ustuvorlik, "
+                "tebranishlar, sdvig tuzatmasi va "
+                "qobiqlar. Bu yo'lda bir narsa "
+                "takrorlanib turdi — analitik yechim "
+                "faqat sodda geometriya va sodda "
+                "chegaraviy shartlar uchun mavjud. "
+                "Navye qatori faqat to'rt tomoni "
+                "sharnirli to'rtburchak uchun, Levi "
+                "ikki tomoni sharnirli uchun, "
+                "o'qsimmetrik yechim faqat doiraviy "
+                "plastina uchun ishladi. Haqiqiy "
+                "konstruksiyada esa teshiklar, "
+                "qovurg'alar, o'zgaruvchan qalinlik, "
+                "murakkab kontur va aralash chegaraviy "
+                "shartlar bo'ladi. 5-fan aynan shu "
+                "bo'shliqni to'ldiradi: sonli usullar "
+                "va hisoblash mexanikasi. Biz allaqachon "
+                "ulardan foydalandik — chekli ayirmalar "
+                "(pq-10), Ritz va Galerkin (pq-09), "
+                "xususiy qiymat masalalari (pq-19, "
+                "pq-22), Richardson ekstrapolyatsiyasi "
+                "(pq-10) — endi ularni tizimli va "
+                "qat'iy asosda quramiz."
+            ),
+            research=(
+                "Qobiq dinamikasining murakkab "
+                "masalalarini o'rganing. (1) "
+                "Suyuqlik bilan to'ldirilgan qobiqning "
+                "qo'shilgan massa koeffitsientini "
+                "hisoblang va chastotaning pasayishini "
+                "baholang; bo'sh va to'la bakning "
+                "spektrini solishtiring. (2) Ichidan "
+                "oqim o'tayotgan quvurning "
+                "beqarorligini (flutter, divergensiya) "
+                "o'rganing va kritik oqim tezligini "
+                "toping. (3) Donnell, Sanders va "
+                "Flügge tenglamalarini $n = 1, 2, 3$ "
+                "uchun taqqoslang va Donnell "
+                "taqribining xatosini miqdoriy "
+                "aniqlang. (4) POGO beqarorligi "
+                "mexanizmini — bak, quvur va dvigatel "
+                "tizimining bog'langan tebranishini — "
+                "tahlil qiling."
+            ),
+            manim_ref=manim(
+                scene="ShellVibrationScene",
+                module="manim/scenes/pq_shells.py",
+                title="Qobiq tebranish shakllari va spektr",
+                summary=(
+                    "Silindrik qobiq kesimi ketma-ket "
+                    "$n = 0$ (halqa), $n = 1$ (siljish), "
+                    "$n = 2$ (ovallashish) va "
+                    "$n = 6$ (gulsimon) shakllarda "
+                    "tebranadi; har birining chastotasi "
+                    "yoziladi va spektrdagi o'rni "
+                    "belgilanadi. Oxirida $f(n)$ egri "
+                    "chizig'i ikki tashkil etuvchisi "
+                    "bilan birga quriladi va minimum "
+                    "ularning kesishuvida paydo "
+                    "bo'lishi ko'rsatiladi."
+                ),
+            ),
+        ),
+    ),
 ]
