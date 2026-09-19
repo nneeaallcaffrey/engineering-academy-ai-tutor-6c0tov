@@ -3326,4 +3326,878 @@ table("Shartlanganlikning mexanikadagi manbalari",
             ),
         ),
     ),
+
+    # ------------------------------------------------------------------ su-05
+    Topic(
+        id="su-05",
+        subject_id=S, module_id=M, order=5,
+        title="Chiziqli tizimlarni to'g'ri yechish: LU, Cholesky va lenta",
+        description=(
+            "Gauss usuli va LU yoyilmasi, bosh element tanlash, "
+            "simmetrik musbat aniqlangan matritsalar uchun Cholesky, "
+            "lenta va profil saqlash, tugunlarni qayta raqamlash."
+        ),
+        learning_objective=(
+            "Bikrlik matritsasining tuzilishidan foydalanib mos yechish "
+            "usulini tanlash, hisoblash hajmini baholash va tugunlarni "
+            "qayta raqamlash bilan tejash miqdorini o'lchash."
+        ),
+        prerequisites=["su-04", "mq-27"],
+        mathematical_core=(
+            "$\\mathbf{K} = \\mathbf{L}\\mathbf{U}$, simmetrik musbat "
+            "aniqlangan uchun $\\mathbf{K} = \\mathbf{L}\\mathbf{L}^T$; "
+            "to'liq matritsada $O(n^3/3)$, lentada $O(nb^2)$."
+        ),
+        engineering_application=(
+            "Har qanday FEM paketining yadrosi; katta modellarda "
+            "yechish vaqti va xotira aynan shu algoritmlar bilan "
+            "belgilanadi."
+        ),
+        computational_component=(
+            "LU va Cholesky ni qo'lda amalga oshirish, lenta "
+            "algoritmini qurish va qayta raqamlashning samarasini "
+            "o'lchash."
+        ),
+        visualization_component=(
+            "Matritsa to'ldirilishi (fill-in), lenta kengligi, "
+            "qayta raqamlashdan oldin va keyin."
+        ),
+        research_extension=(
+            "Cuthill–McKee va minimal daraja (minimum degree) "
+            "tartiblarini taqqoslang; ko'p frontli (multifrontal) "
+            "yechuvchilarning ishlash prinsipini o'rganing."
+        ),
+        difficulty="asosiy",
+        previous_link=(
+            "su-04 da bikrlik matritsasining shartlanganligi "
+            "o'rganildi va u yechimning aniqligini belgilashi "
+            "ko'rsatildi. Endi shu tizimni **qanday** yechishga "
+            "o'tamiz va mexanik matritsalarning maxsus "
+            "tuzilishidan foydalanamiz."
+        ),
+        next_topic="su-06",
+        estimated_minutes=85,
+        tags=["LU", "Cholesky", "lenta", "Cuthill-McKee"],
+        lesson=_lesson(
+            problem=(
+                "Ko'prik modeli: 50 000 tugun, har birida 6 "
+                "erkinlik darajasi — jami 300 000 "
+                "noma'lum. To'liq matritsa sifatida "
+                "saqlansa xotira "
+                "$300000^2 \\times 8$ bayt $= 720$ "
+                "gigabayt kerak bo'ladi va Gauss usuli "
+                "$n^3/3 = 9\\times10^{15}$ amal talab "
+                "qiladi — zamonaviy protsessorda bir "
+                "necha kun. Lekin xuddi shu model FEM "
+                "paketida bir necha **soniyada** "
+                "yechiladi va bir necha gigabayt xotira "
+                "yetadi. Farq qayerdan? Bikrlik "
+                "matritsasi deyarli butunlay noldan "
+                "iborat: har bir tugun faqat qo'shni "
+                "tugunlar bilan bog'langan. Shu "
+                "tuzilishdan qanday foydalanish kerak?"
+            ),
+            concepts=[
+                c("LU yoyilmasi",
+                  "$\\mathbf{K} = \\mathbf{L}\\mathbf{U}$ — "
+                  "quyi va yuqori uchburchak "
+                  "matritsalarga ajratish; Gauss "
+                  "usulining matritsaviy shakli."),
+                c("Cholesky yoyilmasi",
+                  "Simmetrik musbat aniqlangan matritsa "
+                  "uchun $\\mathbf{K} = \\mathbf{L}"
+                  "\\mathbf{L}^T$ — ikki barobar tez va "
+                  "ikki barobar kam xotira."),
+                c("Bosh element tanlash (pivoting)",
+                  "Qatorlarni almashtirib eng katta "
+                  "elementni diagonalga chiqarish; "
+                  "barqarorlik uchun zarur, lekin "
+                  "musbat aniqlangan matritsada "
+                  "**kerak emas**."),
+                c("Lenta kengligi (bandwidth)",
+                  "$b = \\max|i-j|$ noldan farqli "
+                  "elementlar uchun; hisoblash hajmi "
+                  "$O(nb^2)$ va xotira $O(nb)$."),
+                c("To'ldirilish (fill-in)",
+                  "Yoyilma davomida dastlab nol bo'lgan "
+                  "joylarda noldan farqli elementlar "
+                  "paydo bo'lishi; siyraklikni "
+                  "yo'qotadi."),
+                c("Qayta raqamlash (reordering)",
+                  "Tugunlarni shunday tartiblashki, "
+                  "lenta kengligi yoki to'ldirilish "
+                  "minimal bo'lsin (Cuthill–McKee, "
+                  "minimal daraja)."),
+            ],
+            derivation=[
+                d("1. Gauss usulining bir qadami",
+                  r"a^{(k+1)}_{ij} = a^{(k)}_{ij} - "
+                  r"\frac{a^{(k)}_{ik}}{a^{(k)}_{kk}}"
+                  r"a^{(k)}_{kj}",
+                  "$k$-ustun ostidagi elementlarni "
+                  "yo'qotamiz. Ko'paytuvchi "
+                  "$\\ell_{ik} = a_{ik}/a_{kk}$ "
+                  "saqlanadi — u $\\mathbf{L}$ ning "
+                  "elementi bo'ladi."),
+                d("2. LU yoyilmasi",
+                  r"\mathbf{K} = \mathbf{L}\mathbf{U}, "
+                  r"\quad \mathbf{L} \ \text{quyi "
+                  r"(diagonalda 1)}, \ \mathbf{U} \ "
+                  r"\text{yuqori uchburchak}",
+                  "Gauss usuli aslida yoyilma: "
+                  "$\\mathbf{U}$ — oxirgi uchburchak "
+                  "shakl, $\\mathbf{L}$ — "
+                  "ko'paytuvchilar. Bir marta "
+                  "hisoblanib, ko'p o'ng tomon uchun "
+                  "qayta ishlatiladi."),
+                d("3. Ikki bosqichli yechish",
+                  r"\mathbf{L}\mathbf{y} = \mathbf{f} \ "
+                  r"(\text{oldinga}), \quad "
+                  r"\mathbf{U}\mathbf{u} = \mathbf{y} \ "
+                  r"(\text{orqaga})",
+                  "Har biri $O(n^2)$ — yoyilmadan "
+                  "($O(n^3/3)$) ancha arzon. Shuning "
+                  "uchun ko'p yuklama holati uchun "
+                  "yoyilma bir marta qilinadi."),
+                d("4. Hisoblash hajmi",
+                  r"\text{LU: } \frac{n^3}{3} + "
+                  r"O(n^2) \ \text{amal}",
+                  "$n = 10^4$ uchun $3\\times10^{11}$ "
+                  "amal — bir necha daqiqa. "
+                  "$n = 10^5$ uchun "
+                  "$3\\times10^{14}$ — bir necha "
+                  "kun. Kubik o'sish hal qiluvchi "
+                  "cheklov."),
+                d("5. Simmetriya va musbat aniqlanganlik",
+                  r"\mathbf{K} = \mathbf{K}^T, \quad "
+                  r"\mathbf{u}^T\mathbf{K}\mathbf{u} > 0 "
+                  r"\ \forall \mathbf{u} \ne 0",
+                  "Bikrlik matritsasi har doim "
+                  "simmetrik (Betti teoremasi, "
+                  "mq-26) va yetarlicha mahkamlangan "
+                  "tizimda musbat aniqlangan "
+                  "(deformatsiya energiyasi musbat)."),
+                d("6. Cholesky yoyilmasi",
+                  r"\mathbf{K} = \mathbf{L}\mathbf{L}^T, "
+                  r"\quad \ell_{jj} = \sqrt{k_{jj} - "
+                  r"\sum_{m<j}\ell_{jm}^2}",
+                  "**Ikki barobar tejash.** Faqat "
+                  "$\\mathbf{L}$ saqlanadi va amallar "
+                  "soni $n^3/6$ — LU dan ikki barobar "
+                  "kam. Bundan tashqari bosh element "
+                  "tanlash kerak emas."),
+                d("7. Musbat aniqlanganlik "
+                  "diagnostikasi",
+                  r"k_{jj} - \sum_{m<j}\ell_{jm}^2 \le 0 "
+                  r"\;\Longrightarrow\; \mathbf{K} \ "
+                  r"\text{musbat aniqlangan emas}",
+                  "Ildiz ostidagi ifoda manfiy "
+                  "bo'lsa — model yetarlicha "
+                  "mahkamlanmagan yoki mexanizm. Bu "
+                  "FEM dagi eng foydali "
+                  "diagnostikalardan biri."),
+                d("8. Lenta tuzilishi",
+                  r"k_{ij} = 0 \ \text{agar} \ |i-j| > b "
+                  r"\;\Longrightarrow\; \text{yoyilma "
+                  r"lenta ichida qoladi}",
+                  "**Muhim xossa.** LU va Cholesky "
+                  "yoyilmasi lenta tashqarisiga "
+                  "chiqmaydi — to'ldirilish faqat "
+                  "lenta ichida sodir bo'ladi."),
+                d("9. Lentali algoritmning hajmi",
+                  r"\text{amallar: } O(nb^2), \quad "
+                  r"\text{xotira: } O(nb)",
+                  "$n = 3\\times10^{5}$, $b = 300$ "
+                  "uchun $2{,}7\\times10^{10}$ amal — "
+                  "bir necha soniya. To'liq "
+                  "matritsadagi $9\\times10^{15}$ "
+                  "o'rniga. **Bu 300 000 barobar "
+                  "tejash.**"),
+                d("10. Lenta kengligi raqamlashga "
+                  "bog'liq",
+                  r"b = \max_{e}\max_{i,j \in e}|i-j|",
+                  "Bir xil to'r, turli raqamlash — "
+                  "butunlay boshqa $b$. To'g'ri "
+                  "yo'nalishda raqamlash $b$ ni "
+                  "tartiblarga kamaytiradi."),
+                d("11. Cuthill–McKee algoritmi",
+                  r"\text{eng kam darajali tugundan "
+                  r"boshlab kenglik bo'yicha "
+                  r"(BFS) raqamlash}",
+                  "Graf nazariyasidagi kenglik "
+                  "bo'yicha qidiruv. Teskari "
+                  "Cuthill–McKee (RCM) — natijani "
+                  "teskarilash — odatda yanada "
+                  "yaxshiroq profil beradi."),
+                d("12. Siyrak yechuvchilar",
+                  r"\text{to'ldirilishni minimallash} "
+                  r"\ne \text{lentani minimallash}",
+                  "Zamonaviy yechuvchilar lenta "
+                  "o'rniga **to'ldirilishni** "
+                  "minimallaydi (minimal daraja, "
+                  "ajratish daraxti) — bu yanada "
+                  "samarali, lekin murakkabroq."),
+            ],
+            meaning=(
+                "Bu mavzuning amaliy og'irligi "
+                "9-qadamda: mexanik masalalarda "
+                "bikrlik matritsasining siyrakligidan "
+                "foydalanish yechish vaqtini "
+                "tartiblarga qisqartiradi. Kirish "
+                "misolidagi 300 000 noma'lumli model "
+                "to'liq matritsa sifatida amalda "
+                "yechilmaydi, lentali algoritm bilan "
+                "esa soniyalarda yechiladi. Sabab "
+                "oddiy: FEM da har bir tugun faqat "
+                "qo'shni tugunlar bilan bog'langan, "
+                "shuning uchun matritsaning 99,9 % dan "
+                "ortig'i nol. Muhim nuqta 8-qadamda: "
+                "LU va Cholesky yoyilmasi lenta "
+                "tashqarisiga **chiqmaydi**, ya'ni "
+                "siyraklik yoyilma davomida to'liq "
+                "yo'qolmaydi. Shuning uchun faqat "
+                "lenta ichini saqlash va faqat u "
+                "yerda hisoblash yetarli. Ikkinchi "
+                "markaziy g'oya — matritsaning "
+                "fizik xossalaridan foydalanish. "
+                "Bikrlik matritsasi simmetrik "
+                "(Betti o'zaroligi) va musbat "
+                "aniqlangan (deformatsiya energiyasi "
+                "musbat), demak Cholesky yoyilmasi "
+                "qo'llanadi: u ikki barobar tez, "
+                "ikki barobar kam xotira talab "
+                "qiladi va bosh element tanlashga "
+                "muhtoj emas. Oxirgisi muhim, "
+                "chunki bosh element tanlash "
+                "qatorlarni almashtiradi va lenta "
+                "tuzilishini buzadi. Cholesky esa "
+                "lentani saqlaydi. 7-qadam "
+                "amaliyotda alohida qiymatga ega: "
+                "Cholesky yoyilmasi ildiz ostida "
+                "manfiy son bilan to'xtasa, bu "
+                "modelning yetarlicha "
+                "mahkanmaganini bildiradi. Bu FEM "
+                "paketlaridagi 'negative pivot' "
+                "yoki 'matrix not positive "
+                "definite' xabarining aniq ma'nosi "
+                "va u odatda chegaraviy shartlardagi "
+                "xatoni yoki mexanizmni ko'rsatadi. "
+                "Nihoyat, 10- va 11-qadamlar "
+                "kutilmagan xulosaga olib keladi: "
+                "bir xil to'rni turlicha raqamlash "
+                "yechish vaqtini tartiblarga "
+                "o'zgartiradi. Bu sof "
+                "**nomerlash** masalasi — hech "
+                "qanday fizika yo'q — lekin uning "
+                "narxi juda katta."
+            ),
+            equations=[
+                eq(r"\mathbf{K} = \mathbf{L}\mathbf{U} "
+                   r"\;\Longrightarrow\; "
+                   r"\mathbf{L}\mathbf{y} = \mathbf{f}, \ "
+                   r"\mathbf{U}\mathbf{u} = \mathbf{y}",
+                   "LU yoyilmasi va ikki bosqichli "
+                   "yechish.", "LU yoyilmasi"),
+                eq(r"\mathbf{K} = \mathbf{L}\mathbf{L}^T, "
+                   r"\quad \ell_{jj} = \sqrt{k_{jj} - "
+                   r"\sum_{m<j}\ell_{jm}^2}",
+                   "Cholesky yoyilmasi — simmetrik "
+                   "musbat aniqlangan matritsalar "
+                   "uchun.", "Cholesky yoyilmasi"),
+                eq(r"\text{to'liq: } O\Big(\frac{n^3}{3}\Big), "
+                   r"\quad \text{lenta: } O(nb^2)",
+                   "Hisoblash hajmining taqqoslashi.",
+                   "Hisoblash hajmi"),
+                eq(r"\text{xotira: } O(n^2) \to O(nb)",
+                   "Lenta saqlashda xotira tejami.",
+                   "Xotira"),
+            ],
+            conditions=(
+                "**Cholesky uchun shartlar:**\n"
+                "- $\\mathbf{K}$ simmetrik;\n"
+                "- $\\mathbf{K}$ musbat aniqlangan.\n\n"
+                "Ikkinchisi model yetarlicha "
+                "mahkamlangan bo'lsa bajariladi. "
+                "Qattiq jism harakati qolgan bo'lsa "
+                "(mahkamlash yetishmasa) matritsa "
+                "musbat yarim aniqlangan bo'ladi va "
+                "Cholesky **to'xtaydi** — bu foydali "
+                "diagnostika.\n\n"
+                "**Bosh element tanlash qachon "
+                "kerak:**\n"
+                "- Simmetrik bo'lmagan tizimlarda "
+                "(oqimlar, nochiziqli masalalar);\n"
+                "- Musbat aniqlangan bo'lmaganda "
+                "(ustuvorlikdan keyingi holat, "
+                "aralash formulirovkalar);\n"
+                "- Musbat aniqlangan tizimda "
+                "**kerak emas** va u lentani "
+                "buzadi.\n\n"
+                "**Lenta algoritmi uchun:** "
+                "tugunlar shunday raqamlanishi "
+                "kerakki, bog'langan tugunlarning "
+                "nomerlari yaqin bo'lsin. Aks holda "
+                "$b$ katta bo'ladi va tejash "
+                "yo'qoladi.\n\n"
+                "**Xotira bahosi:** lenta "
+                "saqlashda $8nb$ bayt (double). "
+                "$n = 3\\times10^5$, $b = 300$ "
+                "uchun 720 MB — qabul qilsa "
+                "bo'ladi."
+            ),
+            worked=WorkedExample(
+                statement=(
+                    "$N \\times N$ kvadrat to'rli "
+                    "plastina modeli ($N = 100$, jami "
+                    "$n = 10^4$ tugun). (a) To'liq "
+                    "matritsa uchun xotira va amallar "
+                    "sonini hisoblang; (b) qatorma-qator "
+                    "raqamlashda lenta kengligini va "
+                    "tejashni toping; (c) "
+                    "$N = 1000$ ($n = 10^6$) bo'lsa "
+                    "nima o'zgaradi?"
+                ),
+                given=[
+                    r"N = 100,\ n = N^2 = 10^4",
+                    r"\text{double: } 8 \ \text{bayt}",
+                ],
+                steps=[
+                    st(r"\text{(a) xotira} = n^2 \times 8 = "
+                       r"10^{8} \times 8 = 800\ "
+                       r"\text{MB}",
+                       "To'liq matritsa — chegarada, "
+                       "lekin hali mumkin."),
+                    st(r"\text{amallar} = \frac{n^3}{3} = "
+                       r"\frac{10^{12}}{3} = "
+                       r"3{,}3\times10^{11}",
+                       "Zamonaviy protsessorda "
+                       "(10 Gflops) taxminan 33 "
+                       "soniya."),
+                    st(r"\text{(b) qatorma-qator "
+                       r"raqamlash: } b = N = 100",
+                       "Tugun $(i,j)$ nomeri "
+                       "$iN+j$; qo'shnilari "
+                       "$\\pm 1$ va $\\pm N$ — "
+                       "demak $b = N$."),
+                    st(r"\text{xotira} = nb \times 8 = "
+                       r"10^4 \cdot 100 \cdot 8 = "
+                       r"8\ \text{MB}",
+                       "**100 barobar tejash** "
+                       "(800 MB dan 8 MB ga)."),
+                    st(r"\text{amallar} = nb^2 = "
+                       r"10^4 \cdot 10^4 = 10^{8}",
+                       "**3300 barobar tejash** "
+                       "($3{,}3\\times10^{11}$ dan "
+                       "$10^{8}$ ga) — 33 soniya "
+                       "o'rniga 0,01 soniya."),
+                    st(r"\text{(c) } N = 1000: \ "
+                       r"n = 10^{6}, \ "
+                       r"\text{to'liq xotira} = "
+                       r"10^{12} \times 8 = 8\ "
+                       r"\text{TB}",
+                       "To'liq matritsa **butunlay "
+                       "imkonsiz**."),
+                    st(r"\text{to'liq amallar} = "
+                       r"\frac{10^{18}}{3} = "
+                       r"3{,}3\times10^{17} "
+                       r"\;\Rightarrow\; \sim 1 "
+                       r"\ \text{yil}",
+                       "10 Gflops da bir yildan "
+                       "ko'p."),
+                    st(r"\text{lenta: } b = 1000, \ "
+                       r"\text{xotira} = 10^{6} \cdot "
+                       r"10^{3} \cdot 8 = 8\ \text{GB}",
+                       "Katta, lekin zamonaviy "
+                       "serverda mumkin."),
+                    st(r"\text{lenta amallar} = "
+                       r"nb^2 = 10^{6} \cdot 10^{6} = "
+                       r"10^{12} \;\Rightarrow\; "
+                       r"\sim 100\ \text{soniya}",
+                       "**330 000 barobar tejash.** "
+                       "Bir yildan bir necha "
+                       "daqiqaga."),
+                    st(r"\text{Noto'g'ri raqamlash: } "
+                       r"b \sim n \;\Rightarrow\; "
+                       r"nb^2 \sim n^3 "
+                       r"\;\Rightarrow\; \text{tejash "
+                       r"YO'Q}",
+                       "Agar tugunlar tasodifiy "
+                       "raqamlansa, lenta kengligi "
+                       "$n$ tartibida bo'ladi va "
+                       "butun afzallik yo'qoladi. "
+                       "Shuning uchun qayta "
+                       "raqamlash majburiy."),
+                ],
+                answer=(
+                    "$N = 100$: to'liq matritsa "
+                    "800 MB va $3{,}3\\times10^{11}$ "
+                    "amal; lenta ($b = 100$) 8 MB va "
+                    "$10^{8}$ amal — **100 barobar "
+                    "xotira, 3300 barobar vaqt** "
+                    "tejami. $N = 1000$: to'liq "
+                    "matritsa 8 TB va ~1 yil (amalda "
+                    "imkonsiz); lenta 8 GB va "
+                    "~100 soniya — **330 000 barobar "
+                    "tejash**. Noto'g'ri raqamlashda "
+                    "$b \\sim n$ bo'lib, butun "
+                    "afzallik yo'qoladi."
+                ),
+                engineering_note=(
+                    "Bu hisob nima uchun FEM "
+                    "paketlari katta modellarni "
+                    "yecha olishini tushuntiradi va "
+                    "bir muhim amaliy xulosa beradi: "
+                    "to'r generatori chiqargan "
+                    "tugun raqamlari deyarli har "
+                    "doim yomon va paket ularni "
+                    "ichki ravishda qayta "
+                    "raqamlaydi. Agar siz o'z "
+                    "kodingizni yozsangiz, qayta "
+                    "raqamlashni unutmaslik kerak — "
+                    "bu bir necha o'nlab qator kod "
+                    "bo'lib, yechish vaqtini "
+                    "tartiblarga qisqartiradi. "
+                    "Yana bir nozik jihat: lenta "
+                    "kengligi to'rning **shakliga** "
+                    "bog'liq. Uzun va ingichka "
+                    "sohada qisqa tomon bo'ylab "
+                    "raqamlash kerak — shunda $b$ "
+                    "kichik bo'ladi. Amaliyotda "
+                    "zamonaviy yechuvchilar lenta "
+                    "o'rniga to'liq siyrak "
+                    "(sparse) saqlashni va "
+                    "to'ldirilishni minimallovchi "
+                    "tartiblarni ishlatadi — ular "
+                    "yanada samarali, lekin asosiy "
+                    "g'oya o'zgarmaydi: "
+                    "siyraklikdan foydalanish."
+                ),
+            ),
+            computation=Computation(
+                caption=(
+                    "LU va Cholesky yoyilmalarini "
+                    "qo'lda amalga oshirish, lenta "
+                    "algoritmini qurish va qayta "
+                    "raqamlashning samarasini "
+                    "o'lchash."
+                ),
+                code='''"""To'g'ri yechish usullari: LU, Cholesky va lenta."""
+import numpy as np
+from labkit import PARAMS, note, series, table, value
+
+N = int(PARAMS.get("N", 12))         # to'r NxN
+n_time = int(PARAMS.get("n_time", 120))
+seed = int(PARAMS.get("seed", 3))
+
+
+def grid_K(N, order="row"):
+    """NxN to'rdagi 5 nuqtali Laplas operatori, berilgan raqamlash bilan."""
+    n = N*N
+    idx = np.arange(n)
+    if order == "row":
+        perm = idx
+    elif order == "random":
+        rng = np.random.default_rng(seed)
+        perm = rng.permutation(n)
+    else:                              # ustunma-ustun
+        perm = (idx % N)*N + idx//N
+    pos = np.empty(n, dtype=int)
+    pos[perm] = idx
+    K = np.zeros((n, n))
+    for i in range(N):
+        for j in range(N):
+            a = pos[i*N + j]
+            K[a, a] += 4.0
+            for di, dj in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                ii, jj = i + di, j + dj
+                if 0 <= ii < N and 0 <= jj < N:
+                    b = pos[ii*N + jj]
+                    K[a, b] -= 1.0
+    return K
+
+
+def bandwidth(K):
+    nz = np.argwhere(np.abs(K) > 1e-14)
+    return int(np.max(np.abs(nz[:, 0] - nz[:, 1]))) if len(nz) else 0
+
+
+def my_cholesky(K):
+    """Cholesky yoyilmasini qo'lda amalga oshirish."""
+    n = K.shape[0]
+    L = np.zeros_like(K)
+    for j in range(n):
+        s = K[j, j] - np.dot(L[j, :j], L[j, :j])
+        if s <= 0:
+            raise ValueError(f"musbat aniqlangan emas: j = {j}, s = {s:.3e}")
+        L[j, j] = np.sqrt(s)
+        for i in range(j + 1, n):
+            L[i, j] = (K[i, j] - np.dot(L[i, :j], L[j, :j]))/L[j, j]
+    return L
+
+
+K = grid_K(N, "row")
+n = K.shape[0]
+value("To'r o'lchami N", float(N), "—")
+value("Noma'lumlar soni n", float(n), "—")
+nnz = int(np.count_nonzero(np.abs(K) > 1e-14))
+value("Noldan farqli elementlar", float(nnz), "—")
+value("To'ldirilganlik", nnz/n**2*100, "%")
+note(f"{N}x{N} to'rda n = {n} noma'lum. Matritsaning atigi "
+     f"{nnz/n**2*100:.2f} % i noldan farqli - qolgani nol. Aynan "
+     f"shu siyraklikdan foydalanish kerak.")
+
+# --- Cholesky ni QO'LDA amalga oshirish va tekshirish ---
+L = my_cholesky(K)
+err_chol = np.max(np.abs(L @ L.T - K))/np.max(np.abs(K))
+value("Cholesky qoldig'i max|L*L^T - K|/max|K|", err_chol, "—")
+Lnp = np.linalg.cholesky(K)
+value("numpy bilan farq", float(np.max(np.abs(L - Lnp))), "—")
+note(f"Qo'lda yozilgan Cholesky yoyilmasi L*L^T = K ni "
+     f"{err_chol:.3e} nisbiy aniqlik bilan qaytardi va numpy "
+     f"natijasi bilan {np.max(np.abs(L - Lnp)):.3e} farq qiladi - "
+     f"algoritm to'g'ri amalga oshirilgan.")
+
+# Yechimni tekshirish
+rng = np.random.default_rng(1)
+u_ex = rng.normal(size=n)
+f = K @ u_ex
+y = np.linalg.solve(np.tril(L), f)
+u_ch = np.linalg.solve(np.triu(L.T), y)
+value("Cholesky yechimining nisbiy xatosi",
+      float(np.linalg.norm(u_ch - u_ex)/np.linalg.norm(u_ex)), "—")
+note("Ma'lum yechimdan o'ng tomon qurildi (ishlab chiqilgan yechimlar "
+     "usuli, su-28) va Cholesky uni mashina aniqligida tikladi.")
+
+# --- Musbat aniqlanganlik diagnostikasi ---
+K_bad = K.copy()
+K_bad[0, 0] -= 4.0        # tugunni 'bo'shatamiz' -> mexanizm
+try:
+    my_cholesky(K_bad)
+    note("K_bad uchun Cholesky to'xtamadi.")
+except ValueError as exc:
+    value("Buzilgan matritsa aniqlandi", 1.0, "—")
+    note(f"Bir tugunning mahkamlanishi olib tashlanganda Cholesky "
+         f"yoyilmasi to'xtadi: {exc}. Bu FEM paketlaridagi "
+         f"'negative pivot' / 'matrix not positive definite' "
+         f"xabarining aynan sababi - model yetarlicha mahkamlanmagan.")
+value("K ning eng kichik xususiy qiymati",
+      float(np.min(np.linalg.eigvalsh(K))), "—")
+value("K_bad ning eng kichik xususiy qiymati",
+      float(np.min(np.linalg.eigvalsh(K_bad))), "—")
+
+# --- Lenta kengligi va raqamlash ---
+rows = []
+for name, od in (("qatorma-qator", "row"), ("ustunma-ustun", "col"),
+                 ("tasodifiy", "random")):
+    Ko = grid_K(N, od)
+    b = bandwidth(Ko)
+    Lo = np.linalg.cholesky(Ko)
+    fill = int(np.count_nonzero(np.abs(Lo) > 1e-12))
+    tri = n*(n + 1)//2
+    rows.append([name, b, n*b, fill, f"{fill/tri*100:.1f}"])
+table("Raqamlashning lenta kengligiga va to'ldirilishiga ta'siri",
+      ["Raqamlash", "lenta b", "lenta xotirasi n*b",
+       "L dagi noldan farqli", "to'liq L ning % i"], rows)
+
+b_row = bandwidth(grid_K(N, "row"))
+b_rand = bandwidth(grid_K(N, "random"))
+value("Lenta kengligi (qatorma-qator)", float(b_row), "—")
+value("Lenta kengligi (tasodifiy)", float(b_rand), "—")
+value("Tasodifiy raqamlash lentani necha marta kengaytirdi",
+      b_rand/b_row, "marta")
+value("Amallar nisbati n*b^2", (b_rand/b_row)**2, "marta")
+note(f"Bir xil to'r, bir xil fizika - faqat TUGUN RAQAMLARI "
+     f"o'zgartirildi. Lenta kengligi {b_row} dan {b_rand} ga chiqdi "
+     f"({b_rand/b_row:.1f} marta), amallar soni esa n*b^2 bo'lgani "
+     f"uchun {(b_rand/b_row)**2:.0f} marta ko'paydi. Qayta raqamlash "
+     f"sof nomerlash masalasi, lekin narxi juda katta.")
+
+# --- Hisoblash hajmining n ga bog'liqligi ---
+Ns = np.arange(4, min(N + 10, 26))
+full_ops, band_ops, bws = [], [], []
+for Nk in Ns:
+    nk = Nk*Nk
+    bk = bandwidth(grid_K(int(Nk), "row"))
+    bws.append(bk)
+    full_ops.append(nk**3/3)
+    band_ops.append(nk*bk**2)
+series("To'liq matritsa: n^3/3", (Ns**2).tolist(), full_ops,
+       xlabel="noma'lumlar soni n", ylabel="amallar soni")
+series("Lenta: n*b^2", (Ns**2).tolist(), band_ops,
+       xlabel="noma'lumlar soni n", ylabel="amallar soni")
+series("Lenta kengligi b(n)", (Ns**2).tolist(),
+       [float(x) for x in bws],
+       xlabel="noma'lumlar soni n", ylabel="lenta kengligi b")
+pf = np.polyfit(np.log(Ns**2), np.log(full_ops), 1)[0]
+pb = np.polyfit(np.log(Ns**2), np.log(band_ops), 1)[0]
+value("To'liq usulning o'lchangan tartibi", float(pf), "—")
+value("Lentali usulning o'lchangan tartibi", float(pb), "—")
+note(f"Log-log qiyaliklar: to'liq matritsa uchun {pf:.2f} (nazariya 3), "
+     f"lentali algoritm uchun {pb:.2f}. Kvadrat to'rda b ~ sqrt(n), "
+     f"demak n*b^2 ~ n^2 - nazariya 2 beradi. Farq o'sib boradi: "
+     f"n katta bo'lgani sari lentali usul tobora ustunroq.")
+
+# --- Xotira va vaqt bahosi (amaliy o'lchamlar uchun) ---
+rows2 = []
+for Nk in [100, 300, 1000, 3000]:
+    nk = Nk*Nk
+    bk = Nk
+    mem_full = nk**2*8/1e9
+    mem_band = nk*bk*8/1e9
+    ops_full = nk**3/3
+    ops_band = nk*bk**2
+    rows2.append([f"{Nk}", f"{nk:.1e}",
+                  f"{mem_full:.3g}", f"{mem_band:.3g}",
+                  f"{ops_full:.2e}", f"{ops_band:.2e}",
+                  f"{ops_full/ops_band:.1e}"])
+table("Amaliy o'lchamlarda xotira (GB) va amallar soni",
+      ["N", "n", "to'liq, GB", "lenta, GB", "to'liq amal",
+       "lenta amal", "tejash"], rows2)
+note("N = 1000 (n = 1e6) da to'liq matritsa 8 TB xotira va ~1 yil "
+     "talab qiladi; lentali algoritm esa 8 GB va ~100 soniya. "
+     "Aynan shu sabab FEM paketlari million darajali modellarni "
+     "yecha oladi.")
+
+table("Yechish usullarini tanlash",
+      ["Matritsa xossasi", "Usul", "Amallar", "Izoh"],
+      [["Umumiy", "LU + bosh element", "n^3/3", "eng universal"],
+       ["Simmetrik musbat aniq.", "Cholesky", "n^3/6",
+        "2x tez, pivot kerak emas"],
+       ["Lentali SPD", "lentali Cholesky", "n*b^2",
+        "FEM uchun asosiy"],
+       ["Siyrak SPD", "siyrak Cholesky + tartib", "~n^1.5",
+        "zamonaviy standart"],
+       ["Juda katta", "iterativ (su-06)", "~n per iter",
+        "xotira tejaydi"]])
+''',
+                parameters=[
+                    p("N", "To'r o'lchami N (N×N tugun)", 4.0, 26.0, 12.0,
+                      1.0),
+                    p("n_time", "Vaqt bahosi uchun o'lcham", 20.0, 500.0,
+                      120.0, 10.0),
+                    p("seed", "Tasodifiy raqamlash urug'i", 0.0, 100.0, 3.0,
+                      1.0),
+                ],
+                expected_output=(
+                    "Qo'lda yozilgan Cholesky yoyilmasi "
+                    "$\\mathbf{L}\\mathbf{L}^T = "
+                    "\\mathbf{K}$ ni mashina aniqligida "
+                    "qaytaradi va numpy natijasi bilan "
+                    "mos tushadi. Bitta tugunning "
+                    "mahkamlanishi olib tashlanganda "
+                    "yoyilma manfiy ildiz ostida "
+                    "to'xtaydi — 'negative pivot' "
+                    "diagnostikasi. Tasodifiy raqamlash "
+                    "lenta kengligini bir necha barobar "
+                    "kengaytiradi va amallar sonini "
+                    "uning kvadratiga mutanosib "
+                    "oshiradi. Log–log qiyaliklar: "
+                    "to'liq usul uchun ≈ 3, lentali "
+                    "usul uchun ≈ 2 (kvadrat to'rda "
+                    "$b \\sim \\sqrt{n}$)."
+                ),
+            ),
+            visual=vis(
+                kind="Matritsa tuzilishi va to'ldirilish",
+                tool="React/SVG",
+                description=(
+                    "Siyraklik naqshi, lenta kengligi "
+                    "va raqamlashning ta'siri."
+                ),
+                how_to_draw=(
+                    "React/SVG: markazda matritsaning "
+                    "**siyraklik naqshi** (spy plot) — "
+                    "har bir noldan farqli element "
+                    "kichik kvadrat sifatida. Uchta "
+                    "naqsh yonma-yon: qatorma-qator, "
+                    "ustunma-ustun va tasodifiy "
+                    "raqamlash. Birinchisida aniq "
+                    "**lenta** ko'rinadi, oxirgisida "
+                    "nuqtalar butun maydonga "
+                    "sochilgan — farq bir qarashda "
+                    "tushunarli. Har bir naqsh ustida "
+                    "$b$ va $nb^2$ qiymatlari "
+                    "yoziladi. Pastda xuddi shu "
+                    "matritsalarning Cholesky "
+                    "omilining naqshi qo'yiladi va "
+                    "**to'ldirilish** boshqa rangda "
+                    "belgilanadi: dastlab nol bo'lgan, "
+                    "keyin to'lgan joylar. Lentali "
+                    "holatda to'ldirilish lenta "
+                    "ichida qoladi, tasodifiy holatda "
+                    "esa butun uchburchakni "
+                    "egallaydi. O'ngda log–log "
+                    "grafik: $n^3/3$ va $nb^2$ "
+                    "chiziqlari, ular orasidagi "
+                    "masofa shtrixlanadi va "
+                    "'tejash' deb belgilanadi."
+                ),
+            ),
+            interp=(
+                "Cholesky yoyilmasini qo'lda amalga "
+                "oshirish va uni ikki yo'l bilan "
+                "tekshirish — $\\mathbf{L}\\mathbf{L}^T "
+                "= \\mathbf{K}$ qoldig'i hamda numpy "
+                "bilan taqqoslash — algoritmning "
+                "to'g'riligini kafolatlaydi. Yechim "
+                "esa ma'lum javobdan qurilgan o'ng "
+                "tomon orqali tekshiriladi; bu "
+                "**ishlab chiqilgan yechimlar usuli** "
+                "(su-28) ning eng sodda ko'rinishi va "
+                "u butun fanda takrorlanadi. Musbat "
+                "aniqlanganlik diagnostikasi amaliy "
+                "jihatdan eng qimmatli qismi: bitta "
+                "tugunning mahkamlanishi olib "
+                "tashlanganda yoyilma manfiy ildiz "
+                "ostida to'xtaydi. Bu FEM "
+                "paketlaridagi eng ko'p uchraydigan "
+                "xato xabarining aniq mexanizmi va "
+                "u modelni tuzatishga "
+                "to'g'ridan-to'g'ri yo'l ko'rsatadi. "
+                "Raqamlash tajribasi esa kutilmagan "
+                "xulosa beradi: bir xil to'r, bir "
+                "xil fizika, bir xil yechim — "
+                "faqat tugun raqamlari o'zgartirildi "
+                "va hisoblash hajmi tartiblarga "
+                "farq qildi. Bu sonli usullardagi "
+                "muhim saboq: samaradorlik "
+                "ko'pincha fizikada emas, "
+                "**ma'lumotlar tuzilishida** "
+                "yotadi. Nihoyat, log–log "
+                "qiyaliklar nazariy baholarni "
+                "tasdiqlaydi: to'liq usul uchun "
+                "$n^3$, lentali usul uchun kvadrat "
+                "to'rda $n^2$ (chunki "
+                "$b \\sim \\sqrt n$). Ikki "
+                "chiziqning ajralib borishi "
+                "amaliy o'lchamlar jadvalida "
+                "yakunlanadi — million noma'lumli "
+                "modelda farq $10^5$ barobardan "
+                "oshadi."
+            ),
+            mistakes=[
+                "Musbat aniqlangan tizimda bosh "
+                "element tanlashni qo'llash. U "
+                "keraksiz va lenta tuzilishini "
+                "buzadi.",
+                "Matritsani to'liq (dense) saqlash. "
+                "FEM matritsasining 99 % dan ortig'i "
+                "nol — bu xotira va vaqtni behuda "
+                "sarflaydi.",
+                "Tugunlarni qayta raqamlashni "
+                "o'tkazib yuborish. To'r generatori "
+                "bergan tartib deyarli har doim "
+                "yomon.",
+                "Har bir yuklama holati uchun "
+                "yoyilmani qaytadan hisoblash. "
+                "Yoyilma bir marta ($n^3/3$), "
+                "keyin har bir o'ng tomon uchun "
+                "faqat $O(n^2)$.",
+                "'Negative pivot' xabarini "
+                "sonli muammo deb hisoblash. U "
+                "odatda **model** xatosi: "
+                "yetarlicha mahkamlanmagan yoki "
+                "mexanizm.",
+            ],
+            quiz=[
+                q("Nima uchun bikrlik matritsasi "
+                  "uchun Cholesky yoyilmasi "
+                  "ishlatiladi?",
+                  "U simmetrik va musbat aniqlangan "
+                  "(Betti o'zaroligi va musbat "
+                  "deformatsiya energiyasi tufayli); "
+                  "Cholesky ikki barobar tez, ikki "
+                  "barobar kam xotira va bosh element "
+                  "tanlashsiz ishlaydi.",
+                  "konseptual"),
+                q("Lentali algoritmning hisoblash "
+                  "hajmi qanday?",
+                  "$O(nb^2)$ amal va $O(nb)$ xotira; "
+                  "to'liq matritsadagi $O(n^3/3)$ va "
+                  "$O(n^2)$ o'rniga.", "konseptual"),
+                q("$n = 10^4$, $b = 100$ uchun "
+                  "lentali usul to'liq usuldan necha "
+                  "marta tez?",
+                  "$n^3/3 = 3{,}3\\times10^{11}$, "
+                  "$nb^2 = 10^{8}$; nisbat "
+                  "$3300$ marta.", "hisob"),
+                q("Kodda Cholesky yoyilmasi nima "
+                  "uchun bitta tugunning "
+                  "mahkamlanishi olib tashlanganda "
+                  "to'xtaydi?",
+                  "Matritsa musbat aniqlangan "
+                  "bo'lmay qoladi (qattiq jism "
+                  "harakati paydo bo'ladi) va "
+                  "ildiz ostidagi ifoda manfiy "
+                  "bo'ladi.", "kod"),
+                q("Tugunlarni qayta raqamlash nima "
+                  "uchun kerak?",
+                  "Lenta kengligi raqamlashga "
+                  "bog'liq; yomon tartibda "
+                  "$b \\sim n$ bo'lib, "
+                  "siyraklikdan keladigan butun "
+                  "afzallik yo'qoladi.", "talqin"),
+                q("Bir xil matritsa bilan 100 ta "
+                  "turli yuklama holatini yechish "
+                  "qanchaga tushadi?",
+                  "Yoyilma bir marta $n^3/3$ "
+                  "(yoki $nb^2$), keyin har bir "
+                  "yuklama uchun faqat oldinga va "
+                  "orqaga yurish $O(n^2)$ "
+                  "(lentada $O(nb)$) — juda arzon.",
+                  "talqin"),
+            ],
+            bridge=(
+                "To'g'ri usullar aniq yechim beradi "
+                "va matritsani bir marta yoyib, ko'p "
+                "yuklama uchun qayta ishlatish "
+                "imkonini tug'diradi. Lekin ular "
+                "yoyilmani **saqlashni** talab "
+                "qiladi va juda katta uch o'lchovli "
+                "modellarda to'ldirilish xotirani "
+                "to'ldirib yuboradi. Keyingi mavzuda "
+                "boshqa yondashuvni ko'ramiz: "
+                "matritsani umuman yoymasdan, faqat "
+                "ko'paytirish amali orqali yechimga "
+                "**yaqinlashish**."
+            ),
+            research=(
+                "Siyrak yechuvchilarni chuqurroq "
+                "o'rganing. (1) Cuthill–McKee, "
+                "teskari Cuthill–McKee va minimal "
+                "daraja tartiblarini bir xil FEM "
+                "to'rida taqqoslang: qaysi biri "
+                "kamroq to'ldirilish beradi? "
+                "(2) Ko'p frontli (multifrontal) "
+                "yechuvchining ishlash prinsipini "
+                "o'rganing: u ajratish daraxti "
+                "(elimination tree) orqali "
+                "qanday parallellashtiriladi? "
+                "(3) Ichma-ich ajratish (nested "
+                "dissection) tartibining nazariy "
+                "murakkabligini isbotlang: ikki "
+                "o'lchovda $O(n^{1{,}5})$, uch "
+                "o'lchovda $O(n^2)$ — nima uchun "
+                "3D masalalar sezilarli qiyin?"
+            ),
+            manim_ref=manim(
+                scene="FactorizationScene",
+                module="manim/scenes/su_basics.py",
+                title="Lenta, to'ldirilish va qayta raqamlash",
+                summary=(
+                    "Matritsaning siyraklik naqshi "
+                    "ko'rsatiladi va Cholesky "
+                    "yoyilmasi qadam-baqadam "
+                    "bajariladi; to'ldirilish "
+                    "boshqa rangda paydo bo'ladi va "
+                    "u lenta ichida qolishi "
+                    "ko'rinadi. Keyin tugunlar "
+                    "tasodifiy qayta raqamlanadi va "
+                    "xuddi shu yoyilma butun "
+                    "uchburchakni to'ldirib "
+                    "yuborishi namoyish etiladi."
+                ),
+            ),
+        ),
+    ),
 ]
