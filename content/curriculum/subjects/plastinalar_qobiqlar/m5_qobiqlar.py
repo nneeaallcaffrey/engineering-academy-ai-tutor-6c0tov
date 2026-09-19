@@ -2160,4 +2160,778 @@ note(f"pi/beta va 2.44*sqrt(Rh) butun oraliqda {dev*100:.3f} % "
             ),
         ),
     ),
+
+    # ------------------------------------------------------------------ pq-28
+    Topic(
+        id="pq-28",
+        subject_id=S, module_id=M, order=28,
+        title="Sferik va konus qobiqlar; tutashuv tugunlari va mos kelmaslik",
+        description=(
+            "Geckeler taqribiy usuli, sferik qobiqning chekka effekti, "
+            "silindr–sfera va silindr–konus tutashuvlari, mos kelmaslikni "
+            "kuch va moment bilan yechish, halqa mustahkamlagichlar."
+        ),
+        learning_objective=(
+            "Ikki qobiq tutashuvidagi mos kelmaslikni ikki noma'lumli "
+            "tizim sifatida qo'yish va yechish, tutashuvdagi mahalliy "
+            "kuchlanishni hisoblash va mustahkamlagich halqani tanlash."
+        ),
+        prerequisites=["pq-27", "pq-26"],
+        mathematical_core=(
+            "Moslik shartlari $\\delta_1 + \\delta_{11}X_1 + "
+            "\\delta_{12}X_2 = \\delta_2 + \\ldots$, sferik qobiq uchun "
+            "$\\beta_s = \\sqrt[4]{3(1-\\nu^2)}\\,\\sqrt{R/h}\\,/R$."
+        ),
+        engineering_application=(
+            "Bosim idishlari tublari, quvur o'tishlari, silos konuslari, "
+            "raketa baklari, reaktor korpuslari, flanets ulanishlari."
+        ),
+        computational_component=(
+            "2×2 moslik tizimini yechish, tutashuvdagi $M_0$ va $Q_0$ ni "
+            "topish, mustahkamlagich halqaning ta'sirini baholash."
+        ),
+        visualization_component=(
+            "Tutashuvdan oldingi va keyingi ko'chish epyuralari, "
+            "ikki tomonga tarqalgan bezovtalik, kuchlanish cho'qqisi."
+        ),
+        research_extension=(
+            "Torsimon o'tish (knuckle) geometriyasini o'rganing: "
+            "nima uchun ASME standartlari tub shakli uchun "
+            "torisferik yoki ellipsoid profilni talab qiladi va "
+            "u mos kelmaslikni qanday kamaytiradi?"
+        ),
+        difficulty="ilg'or",
+        previous_link=(
+            "pq-27 da bitta silindrik qobiqning chekka effekti "
+            "yechildi va $\\beta$, $\\sqrt{Rh}$ apparati qurildi. "
+            "Endi shu apparatni **ikkita** qobiq tutashgan joyga "
+            "qo'llaymiz va pq-26 da ochiq qolgan 2,43 barobarlik "
+            "mos kelmaslikni nihoyat yopamiz."
+        ),
+        next_topic="pq-29",
+        estimated_minutes=95,
+        tags=["sferik qobiq", "tutashuv", "Geckeler", "mos kelmaslik"],
+        lesson=_lesson(
+            problem=(
+                "pq-26 da 15 MPa li ballon loyihalandi va "
+                "oxirida ochiq savol qoldi: silindr "
+                "0,1457 mm, sferik tub esa 0,0600 mm "
+                "kengayadi — 2,43 marta farq. Ular bitta "
+                "chokda payvandlangan, demak ular **bir xil "
+                "radiusga** kelishi shart. Tabiat bu "
+                "kelishuvni mahalliy kuch $Q_0$ va moment "
+                "$M_0$ orqali majbur qiladi. Ular qanchalik "
+                "katta? Ballon devori 8,6 mm — mahalliy "
+                "kuchlanish ruxsat etilgan 250 MPa dan "
+                "oshib ketmaydimi? Bu savol bosim "
+                "idishlarini loyihalashda hal qiluvchi, "
+                "chunki buzilish deyarli har doim aynan "
+                "tutashuvdan boshlanadi."
+            ),
+            concepts=[
+                c("Mos kelmaslik (incompatibility)",
+                  "Ikki qobiqning membrana yechimlari "
+                  "tutashuv chizig'ida turli ko'chish va "
+                  "burilish berishi; konstruksiya buni "
+                  "qabul qila olmaydi."),
+                c("Tutashuvdagi ortiqcha noma'lumlar",
+                  "$X_1 = Q_0$ (radial kesuvchi kuch) va "
+                  "$X_2 = M_0$ (egish momenti) — ular "
+                  "moslikni ta'minlaydi; kuchlar usuli "
+                  "(mq-27) ning qobiqqa ko'chirilishi."),
+                c("Geckeler taqribiy usuli",
+                  "Sferik qobiqning chekka effektini "
+                  "silindrik qobiq formulalari bilan "
+                  "almashtirish; $R_s\\varphi \\gg \\sqrt{R_sh}$ "
+                  "bo'lganda xatosi bir necha foizdan kam."),
+                c("Sferik qobiq uchun $\\beta$",
+                  "$\\beta_s = [3(1-\\nu^2)]^{1/4}/\\sqrt{R_sh}$ — "
+                  "silindrdagi bilan **bir xil ko'rinishda**, "
+                  "chunki Geckeler taqribida sfera mahalliy "
+                  "ravishda silindr kabi ishlaydi."),
+                c("Moslik tenglamalari",
+                  "Tutashuvda ikkita shart: radial ko'chishlar "
+                  "va burilishlar teng bo'lsin. Ikkita shart, "
+                  "ikkita noma'lum."),
+                c("Mustahkamlagich halqa",
+                  "Tutashuvga qo'yilgan halqa radial kuchni "
+                  "o'ziga oladi va qobiqdagi mahalliy "
+                  "momentni kamaytiradi."),
+            ],
+            derivation=[
+                d("1. Sferik qobiqning chekka tenglamasi",
+                  r"\frac{d^4 w}{ds^4} + \frac{Eh}{R_s^2 D}\,w "
+                  r"\approx \frac{p}{D}",
+                  "Geckeler taqribi: chekka yaqinida "
+                  "$w$ ning yuqori hosilalari past "
+                  "hosilalaridan ancha katta, shuning uchun "
+                  "past hadlarni tashlaymiz. Natijada "
+                  "silindr tenglamasining o'zi hosil bo'ladi."),
+                d("2. Sferik $\\beta$",
+                  r"\beta_s = \sqrt[4]{\frac{3(1-\nu^2)}{R_s^2h^2}} "
+                  r"= \frac{1{,}285}{\sqrt{R_sh}}",
+                  "Ko'rinishi silindrdagi bilan bir xil. "
+                  "Demak pq-27 dagi butun apparat "
+                  "(so'nuvchi yechim, $\\sqrt{Rh}$ masshtabi) "
+                  "sferaga ham tegishli."),
+                d("3. Birlik ta'sirlar: silindr tomoni",
+                  r"\delta^{cyl}_{Q} = \frac{1}{2\beta_c^3 D_c}, "
+                  r"\quad \delta^{cyl}_{M} = -\frac{1}{2\beta_c^2 D_c}",
+                  "Birlik radial kuch $Q_0 = 1$ chekkani "
+                  "shuncha siljitadi; birlik moment "
+                  "$M_0 = 1$ esa shuncha. Bular pq-27 dagi "
+                  "yechimdan bevosita kelib chiqadi."),
+                d("4. Birlik ta'sirlar: burilish",
+                  r"\theta^{cyl}_{Q} = -\frac{1}{2\beta_c^2D_c}, "
+                  r"\quad \theta^{cyl}_{M} = \frac{1}{\beta_c D_c}",
+                  "$\\delta_M = \\theta_Q$ — Maksvell–Betti "
+                  "o'zarolik teoremasi (nm-24, mq-26) "
+                  "qobiqda ham o'rinli va u hisobning "
+                  "tekshiruvi bo'lib xizmat qiladi."),
+                d("5. Moslik sharti: ko'chishlar",
+                  r"w^{cyl}_m + \delta^{cyl}_Q Q_0 + "
+                  r"\delta^{cyl}_M M_0 = w^{sph}_m - "
+                  r"\delta^{sph}_Q Q_0 + \delta^{sph}_M M_0",
+                  "Chap tomon — silindr chekkasi, o'ng "
+                  "tomon — sfera chekkasi. $Q_0$ ikki "
+                  "qobiqqa **qarama-qarshi** yo'nalishda "
+                  "ta'sir qiladi (ta'sir va aks ta'sir)."),
+                d("6. Moslik sharti: burilishlar",
+                  r"\theta^{cyl}_Q Q_0 + \theta^{cyl}_M M_0 = "
+                  r"-\theta^{sph}_Q Q_0 + \theta^{sph}_M M_0",
+                  "Membrana yechimida burilish yo'q "
+                  "(o'qsimmetrik, doimiy kengayish), "
+                  "shuning uchun faqat chekka hadlari qoladi."),
+                d("7. Bir xil qalinlik va radiusda "
+                  "soddalashtirish",
+                  r"R_c = R_s = R, \ h_c = h_s = h "
+                  r"\;\Longrightarrow\; \beta_c = \beta_s = \beta",
+                  "Bu holda ikkala qobiqning birlik "
+                  "ta'sirlari bir xil bo'ladi va tizim "
+                  "juda soddalashadi."),
+                d("8. Yechim: moment nolga aylanadi",
+                  r"M_0 = 0, \qquad Q_0 = "
+                  r"\frac{\Delta w}{2\delta_Q} = "
+                  r"\frac{\beta^3 D\,\Delta w}{1} \cdot "
+                  r"\frac{1}{2} \cdot 2 = \beta^3 D\,\Delta w",
+                  "**Ajoyib natija.** Burilish tenglamasi "
+                  "simmetriya tufayli $M_0 = 0$ beradi: "
+                  "ikkala qobiq bir xil bikrlikka ega "
+                  "bo'lgani uchun ular momentsiz, faqat "
+                  "kesuvchi kuch bilan kelishadi."),
+                d("9. Tutashuvdagi maksimal moment",
+                  r"M(x) = \frac{Q_0}{\beta}e^{-\beta x}\sin\beta x "
+                  r"\;\Rightarrow\; M_{max} = \frac{Q_0}{\beta}"
+                  r"e^{-\pi/4}\sin\frac{\pi}{4} = "
+                  r"0{,}32240\,\frac{Q_0}{\beta}",
+                  "Chekkada $M = 0$, lekin ichkarida "
+                  "$\\beta x = \\pi/4$ da maksimumga "
+                  "chiqadi. Mahalliy egish kuchlanishi "
+                  "shundan hisoblanadi."),
+                d("10. Mahalliy kuchlanish",
+                  r"\sigma_b = \frac{6M_{max}}{h^2}, \qquad "
+                  r"\sigma_{tot} = \sigma_\theta^{mem} + "
+                  r"\sigma_b",
+                  "Mahalliy egish membrana kuchlanishiga "
+                  "qo'shiladi. Bu yig'indi standartlarda "
+                  "'mahalliy membrana + egish' kategoriyasi "
+                  "sifatida alohida tekshiriladi."),
+            ],
+            meaning=(
+                "Bu mavzu qobiq nazariyasining ikkita "
+                "yarmini — membrana va egish — bitta "
+                "hisobga birlashtiradi va shu bilan "
+                "nazariyani yopadi. Ishlash sxemasi "
+                "universal: avval har bir qobiq uchun "
+                "membrana yechimi olinadi (pq-26), keyin "
+                "ularning tutashuvdagi mos kelmasligi "
+                "o'lchanadi, so'ngra bu mos kelmaslikni "
+                "nolga keltiruvchi $Q_0$ va $M_0$ "
+                "topiladi (pq-27 dagi chekka yechimlari "
+                "orqali), va nihoyat mahalliy kuchlanish "
+                "hisoblanadi. Bu aynan sterjen tizimlaridagi "
+                "kuchlar usuli (mq-27) ning qobiqqa "
+                "ko'chirilgan shakli — ortiqcha noma'lumlar "
+                "moslik shartlaridan topiladi. 8-qadamdagi "
+                "natija ayniqsa nafis: agar silindr va "
+                "sfera bir xil radius va qalinlikka ega "
+                "bo'lsa, tutashuvda **moment umuman paydo "
+                "bo'lmaydi** — faqat kesuvchi kuch. Sababi "
+                "simmetriya: ikkala qobiqning bikrliklari "
+                "bir xil, shuning uchun ular burilish "
+                "bo'yicha o'z-o'zidan kelishadi. Lekin bu "
+                "moment yo'q degani emas — chekkadan "
+                "$\\beta x = \\pi/4$ masofada (ya'ni "
+                "$0{,}61\\sqrt{Rh}$ da) $M$ maksimumga "
+                "chiqadi. Amalda esa qalinliklar har xil "
+                "bo'ladi (pq-26 da tub ikki barobar yupqa "
+                "chiqqan edi) va shunda $M_0 \\ne 0$. "
+                "Aynan shuning uchun standartlar "
+                "tutashuvni alohida tekshirishni talab "
+                "qiladi va ko'pincha torsimon o'tish "
+                "(knuckle) yoki mustahkamlagich halqa "
+                "qo'yishni buyuradi: ular mos kelmaslikni "
+                "kamaytiradi yoki uni o'ziga oladi."
+            ),
+            equations=[
+                eq(r"\beta_s = \frac{\sqrt[4]{3(1-\nu^2)}}"
+                   r"{\sqrt{R_sh}}",
+                   "Sferik qobiq uchun so'nish parametri "
+                   "(Geckeler taqribi).", "Sferik beta"),
+                eq(r"\delta_Q = \frac{1}{2\beta^3D}, \quad "
+                   r"\delta_M = \theta_Q = -\frac{1}{2\beta^2D}, "
+                   r"\quad \theta_M = \frac{1}{\beta D}",
+                   "Chekkadagi birlik ta'sirlar; "
+                   "$\\delta_M = \\theta_Q$ — Maksvell–Betti "
+                   "o'zaroligi.", "Birlik ta'sirlar"),
+                eq(r"\Delta w = w^{cyl}_m - w^{sph}_m = "
+                   r"\frac{pR^2}{2Eh}",
+                   "Bir xil qalinlikda silindr va sfera "
+                   "membrana kengayishlarining farqi.",
+                   "Mos kelmaslik"),
+                eq(r"Q_0 = \beta^3 D\,\Delta w = "
+                   r"\frac{p}{8\beta}",
+                   "Tutashuvdagi radial kesuvchi kuch "
+                   "(bir xil $R$ va $h$ uchun).",
+                   "Tutashuv kuchi"),
+            ],
+            conditions=(
+                "**Tutashuvdagi moslik shartlari** "
+                "(o'qsimmetrik holat):\n"
+                "1. Radial ko'chishlar tengligi: "
+                "$w^{(1)}(0) = w^{(2)}(0)$;\n"
+                "2. Meridian burilishlari tengligi: "
+                "$\\theta^{(1)}(0) = \\theta^{(2)}(0)$.\n\n"
+                "**Muvozanat shartlari** (avtomatik "
+                "bajariladi): $Q_0$ va $M_0$ ikkala "
+                "qobiqqa teng va qarama-qarshi ta'sir "
+                "qiladi.\n\n"
+                "**Geckeler taqribining qo'llanish "
+                "sohasi:** $R_s\\varphi_0 > 2\\sqrt{R_sh}$, "
+                "ya'ni tutashuv sferaning qutbidan "
+                "yetarlicha uzoqda bo'lsin; aks holda "
+                "aniq yechim (Legendre funksiyalari yoki "
+                "gipergeometrik qator) kerak.\n\n"
+                "**Uzoqda:** ikkala qobiqda ham "
+                "$w \\to w_m$ (mos membrana qiymati).\n\n"
+                "**Qalinlik sakrashi:** $h_1 \\ne h_2$ "
+                "bo'lsa tizim to'liq 2×2 ko'rinishda "
+                "yechiladi va $M_0 \\ne 0$."
+            ),
+            worked=WorkedExample(
+                statement=(
+                    "pq-26 dagi ballon: $p = 15$ MPa, "
+                    "$R = 144$ mm, silindr $h = 8{,}638$ mm, "
+                    "sferik tub $h = 8{,}638$ mm (bir xil "
+                    "qilingan), $E = 210$ GPa, $\\nu = 0{,}3$. "
+                    "Tutashuvdagi $Q_0$, $M_0$, $M_{max}$ va "
+                    "mahalliy kuchlanishni toping."
+                ),
+                given=[
+                    r"p = 15\ \text{MPa},\ R = 0{,}144\ \text{m},\ "
+                    r"h = 0{,}008638\ \text{m}",
+                    r"E = 210\ \text{GPa},\ \nu = 0{,}3",
+                ],
+                steps=[
+                    st(r"\sqrt{Rh} = \sqrt{0{,}144 \cdot 0{,}008638} "
+                       r"= \sqrt{1{,}2439\times10^{-3}} = "
+                       r"0{,}035269\ \text{m}",
+                       "Tabiiy uzunlik masshtabi — atigi 35 mm."),
+                    st(r"\beta = \frac{1{,}28541}{0{,}035269} = "
+                       r"36{,}446\ \text{m}^{-1}",
+                       "Ikkala qobiq uchun bir xil "
+                       "($R$ va $h$ bir xil)."),
+                    st(r"D = \frac{210\times10^{9} \cdot "
+                       r"6{,}4446\times10^{-7}}{12 \cdot 0{,}91} "
+                       r"= 12\,393\ \text{N·m}",
+                       "$h^3 = 6{,}4446\\times10^{-7}$ m³."),
+                    st(r"\Delta w = \frac{pR^2}{2Eh} = "
+                       r"\frac{15\times10^{6} \cdot 0{,}020736}"
+                       r"{2 \cdot 210\times10^{9} \cdot 0{,}008638} "
+                       r"= 8{,}571\times10^{-5}\ \text{m}",
+                       "Mos kelmaslik — 0,0857 mm. "
+                       "pq-26 dagi farq (0,0857 mm) bilan "
+                       "aynan mos tushadi."),
+                    st(r"M_0 = 0",
+                       "Bir xil $R$, $h$ va shuning uchun "
+                       "bir xil $\\beta$: burilish tenglamasi "
+                       "simmetriya tufayli momentni nolga "
+                       "aylantiradi."),
+                    st(r"Q_0 = \frac{p}{8\beta} = "
+                       r"\frac{15\times10^{6}}{8 \cdot 36{,}446} "
+                       r"= 51\,446\ \text{N/m}",
+                       "Radial kesuvchi kuch — 51,4 kN/m. "
+                       "Ekvivalent: $\\beta^3D\\Delta w$ "
+                       "ham shu qiymatni beradi."),
+                    st(r"M(x) = \frac{Q_0}{\beta}e^{-\beta x}"
+                       r"\sin\beta x \;\Rightarrow\; "
+                       r"M_{max} = \frac{Q_0}{\beta}e^{-\pi/4}"
+                       r"\sin\frac{\pi}{4} = 0{,}32240\,"
+                       r"\frac{Q_0}{\beta}",
+                       "$M_0 = 0$ bo'lgani uchun moment "
+                       "chekkada nol; maksimum "
+                       "$\\beta x = \\pi/4$ da."),
+                    st(r"M_{max} = 0{,}32240 \cdot "
+                       r"\frac{51\,446}{36{,}446} = "
+                       r"0{,}32240 \cdot 1411{,}6 = "
+                       r"455{,}1\ \text{N·m/m}",
+                       "Maksimum $x = \\pi/(4\\beta) = "
+                       "21{,}6$ mm da — chekkadan "
+                       "$0{,}61\\sqrt{Rh}$ ichkarida."),
+                    st(r"\sigma_b = \frac{6 \cdot 455{,}1}"
+                       r"{(0{,}008638)^2} = \frac{2730{,}6}"
+                       r"{7{,}4615\times10^{-5}} = "
+                       r"36{,}59\ \text{MPa}",
+                       "Mahalliy egish kuchlanishi."),
+                    st(r"\sigma_\theta^{mem} = \frac{pR}{h} = "
+                       r"\frac{15 \cdot 0{,}144}{0{,}008638} "
+                       r"= 250{,}1\ \text{MPa}",
+                       "Silindrdagi membrana kuchlanishi — "
+                       "loyihalash bo'yicha aynan "
+                       "$[\\sigma]$ ga teng."),
+                    st(r"\sigma_{tot} = 250{,}1 + 36{,}6 = "
+                       r"286{,}7\ \text{MPa} > 250\ \text{MPa}",
+                       "**Ruxsat etilgan qiymatdan 14,7 % "
+                       "oshdi.** Membrana hisobi yetarli "
+                       "emas ekan — tutashuv alohida "
+                       "tekshirilishi shart."),
+                ],
+                answer=(
+                    "$\\beta = 36{,}446$ m⁻¹, "
+                    "$\\Delta w = 0{,}08573$ mm, "
+                    "$M_0 = 0$, $Q_0 = 51{,}446$ kN/m "
+                    "($= p/8\\beta$), "
+                    "$M_{max} = 455{,}1$ N·m/m "
+                    "($x = 21{,}6$ mm da), "
+                    "$\\sigma_b = 36{,}59$ MPa. Umumiy "
+                    "kuchlanish $286{,}7$ MPa — ruxsat "
+                    "etilgan 250 MPa dan **14,7 % ortiq**. "
+                    "Faqat membrana hisobiga tayangan "
+                    "loyiha tutashuvda yetarli emas."
+                ),
+                engineering_note=(
+                    "Bu natija pq-26 dagi loyihani bevosita "
+                    "tuzatadi: u yerda qalinlik faqat "
+                    "membrana kuchlanishiga qarab tanlangan "
+                    "edi va $\\sigma_\\theta$ aynan "
+                    "$[\\sigma]$ ga teng chiqqan edi — "
+                    "hech qanday zaxirasiz. Tutashuvdagi "
+                    "36,6 MPa esa bu zaxirani talab qiladi. "
+                    "Amalda uch yo'l bor: (1) tutashuv "
+                    "zonasida devorni qalinlashtirish — "
+                    "lekin pq-27 dagi kabi bu ham "
+                    "membranani ham egishni kamaytiradi, "
+                    "shuning uchun samarali; (2) torsimon "
+                    "o'tish (knuckle) qo'yish — "
+                    "$R_1$ ning silliq o'zgarishi mos "
+                    "kelmaslikni keskin kamaytiradi; "
+                    "(3) mustahkamlagich halqa. "
+                    "ASME VIII standartida aynan shu "
+                    "sabab bo'yicha tekis tub taqiqlangan "
+                    "va torisferik yoki ellipsoid tub "
+                    "talab qilinadi — ularda $R_1$ "
+                    "sakramaydi."
+                ),
+            ),
+            computation=Computation(
+                caption=(
+                    "Tutashuvdagi moslik tizimini yechish, "
+                    "$Q_0$ va $M_0$ ni topish va mahalliy "
+                    "kuchlanishni baholash."
+                ),
+                code='''"""Qobiq tutashuvi: mos kelmaslik va moslik tizimi."""
+import numpy as np
+from labkit import PARAMS, note, series, table, value
+
+p0 = float(PARAMS.get("p", 15.0))*1e6
+R = float(PARAMS.get("R", 144.0))/1000.0
+h1 = float(PARAMS.get("h1", 8.638))/1000.0    # silindr
+h2 = float(PARAMS.get("h2", 8.638))/1000.0    # sferik tub
+E = float(PARAMS.get("E", 210.0))*1e9
+nu = float(PARAMS.get("nu", 0.3))
+sig_all = float(PARAMS.get("sig_all", 250.0))*1e6
+
+cf = (3*(1 - nu**2))**0.25
+
+def shell(hh):
+    D = E*hh**3/(12*(1 - nu**2))
+    beta = cf/np.sqrt(R*hh)
+    return D, beta
+
+D1, b1 = shell(h1)
+D2, b2 = shell(h2)
+value("Silindr: beta", b1, "1/m")
+value("Sfera: beta", b2, "1/m")
+value("Silindr: D", D1, "N*m")
+value("Sfera: D", D2, "N*m")
+value("sqrt(R*h1)", np.sqrt(R*h1), "m")
+
+# --- Membrana ko'chishlari (radial) ---
+w1 = p0*R**2/(E*h1)*(1 - nu/2)      # silindr
+w2 = p0*R**2/(2*E*h2)*(1 - nu)      # sfera
+dw = w1 - w2
+value("Silindr membrana kengayishi", w1*1000, "mm")
+value("Sfera membrana kengayishi", w2*1000, "mm")
+value("Mos kelmaslik delta_w", dw*1000, "mm")
+note(f"Membrana yechimlari tutashuvda {w1*1000:.5f} mm va "
+     f"{w2*1000:.5f} mm beradi - farq {dw*1000:.5f} mm. "
+     f"Konstruksiya uzluksiz bo'lgani uchun bu farq Q0 va M0 "
+     f"bilan yopilishi SHART.")
+
+# --- Birlik ta'sir koeffitsientlari (pq-27 chekka yechimidan) ---
+# Yarim cheksiz qobiq, lokal koordinata ksi qobiq ICHIGA yo'nalgan,
+# w tashqariga musbat, theta = dw/d(ksi):
+#   w(0)     =  F/(2*D*b^3) - M/(2*D*b^2)
+#   theta(0) = -F/(2*D*b^2) + M/(D*b)
+# Bu yerda F - chekkadagi TASHQARIGA yo'nalgan radial kuch.
+def infl(D, b):
+    return (1/(2*D*b**3), -1/(2*D*b**2),      # w:     F dan, M dan
+            -1/(2*D*b**2), 1/(D*b))           # theta: F dan, M dan
+
+fF1, fM1, mF1, mM1 = infl(D1, b1)
+fF2, fM2, mF2, mM2 = infl(D2, b2)
+
+value("Maksvell-Betti tekshiruvi (silindr)",
+      abs(fM1 - mF1)/abs(mF1)*100, "%")
+note(f"Birlik moment berganda ko'chish ({fM1:.6e} m/(N*m/m)) va "
+     f"birlik kuch berganda burilish ({mF1:.6e} rad/(N/m)) aynan "
+     f"teng - Maksvell-Betti o'zarolik teoremasi bajarilgan, "
+     f"demak birlik ta'sirlar to'g'ri hisoblangan.")
+
+# --- Moslik tizimi ---
+# X - sferaning silindrga ta'sir qiluvchi radial kuchi, ICHKARIGA
+#     musbat (demak silindr chekkasida F = -X, sfera chekkasida F = +X).
+# M - tutashuv momenti; ikkita lokal koordinata o'zaro ko'zgu bo'lgani
+#     uchun u ikkala qobiqda ham bir xil ishora bilan yoziladi.
+# (1) Radial ko'chishlar tengligi
+# (2) Burilishlar uzluksizligi: theta_1 = -theta_2 (koordinatalar
+#     qarama-qarshi yo'nalgan)
+A = np.array([[-(fF1 + fF2), fM1 - fM2],
+              [mF2 - mF1, mM1 + mM2]])
+rhs = np.array([w2 - w1, 0.0])
+Q0, M0 = np.linalg.solve(A, rhs)
+value("Tutashuv kuchi Q0", Q0/1000, "kN/m")
+value("Tutashuv momenti M0", M0, "N*m/m")
+
+# Yechimni moslik shartlariga qaytarib qo'yib tekshirish
+w1_e = w1 + fF1*(-Q0) + fM1*M0
+w2_e = w2 + fF2*(+Q0) + fM2*M0
+t1_e = mF1*(-Q0) + mM1*M0
+t2_e = mF2*(+Q0) + mM2*M0
+res_w = w1_e - w2_e
+res_t = t1_e + t2_e
+value("Ko'chish moslik qoldig'i", abs(res_w)/max(abs(dw), 1e-30)*100, "%")
+value("Tutashuvdagi umumiy radius", w1_e*1000, "mm")
+note(f"Topilgan Q0 va M0 ni moslik shartlariga qaytarib qo'yganda "
+     f"ko'chish qoldig'i {abs(res_w)/max(abs(dw),1e-30):.2e} % va "
+     f"burilish qoldig'i {abs(res_t):.2e} rad - ikkala qobiq chekkasi "
+     f"endi bir xil radiusga ({w1_e*1000:.5f} mm) va mos burilishga "
+     f"ega. Boshlang'ich {w1*1000:.5f} va {w2*1000:.5f} mm "
+     f"qiymatlari o'rtasida joylashgani mantiqan to'g'ri.")
+
+if abs(h1 - h2) < 1e-12:
+    Q0_th = p0/(8*b1)
+    value("Q0 (analitik p/(8*beta))", Q0_th/1000, "kN/m")
+    value("Q0 nisbiy xatosi", abs(Q0 - Q0_th)/abs(Q0_th)*100, "%")
+    note(f"Qalinliklar teng bo'lgani uchun M0 = {M0:.3e} N*m/m ~ 0 "
+         f"va Q0 analitik p/(8*beta) = {Q0_th/1000:.3f} kN/m bilan "
+         f"{abs(Q0-Q0_th)/abs(Q0_th):.2e} % farq qiladi. Simmetriya "
+         f"tufayli qobiqlar MOMENTSIZ kelishadi.")
+else:
+    note(f"Qalinliklar har xil (h1 = {h1*1000:.2f}, h2 = "
+         f"{h2*1000:.2f} mm), shuning uchun M0 = {M0:.1f} N*m/m "
+         f"nolga teng emas - assimetriya moment tug'diradi.")
+
+# --- Moment taqsimoti silindr tomonida ---
+# w = e^(-b x)*(C1*cos + C2*sin),  C2 = M/(2*D*b^2),
+# C1 = F/(2*D*b^3) - M/(2*D*b^2),  bu yerda F = -Q0.
+# M(x) = -D*w'' = 2*D*b^2*e^(-b x)*(C2*cos - C1*sin)
+x = np.linspace(0, 6/b1, 800)
+bx = b1*x
+ex, cx, sx = np.exp(-bx), np.cos(bx), np.sin(bx)
+C2 = M0/(2*D1*b1**2)
+C1 = (-Q0)/(2*D1*b1**3) - M0/(2*D1*b1**2)
+M_x = 2*D1*b1**2*ex*(C2*cx - C1*sx)
+value("M(0) tekshiruvi (M0 ga teng bo'lishi kerak)", float(M_x[0]),
+      "N*m/m")
+series("Egish momenti M(x), silindr tomoni", x.tolist(),
+       M_x.tolist(), xlabel="tutashuvdan masofa x, m",
+       ylabel="M, N*m/m")
+i_max = int(np.argmax(np.abs(M_x)))
+Mmax = float(M_x[i_max])
+value("Maksimal moment M_max", Mmax, "N*m/m")
+value("M_max joylashgan masofa", float(x[i_max]), "m")
+value("M_max joyi: beta*x", float(bx[i_max]), "—")
+
+if abs(M0) < 1e-6*max(abs(Mmax), 1.0):
+    # M0 = 0 => M(x) = (Q0/b)*e^(-bx)*sin(bx), maksimum beta*x = pi/4 da
+    Mmax_th = Q0/b1*np.exp(-np.pi/4)*np.sin(np.pi/4)
+    value("M_max (analitik, M0 = 0)", Mmax_th, "N*m/m")
+    value("M_max nisbiy xatosi", abs(Mmax - Mmax_th)/abs(Mmax_th)*100, "%")
+    value("Koeffitsient exp(-pi/4)*sin(pi/4)",
+          float(np.exp(-np.pi/4)*np.sin(np.pi/4)), "—")
+    note(f"M0 = 0 bo'lgani uchun M(x) = (Q0/beta)*exp(-beta*x)*"
+         f"sin(beta*x) va maksimum beta*x = pi/4 = 0.7854 da kutiladi; "
+         f"sonli natija beta*x = {bx[i_max]:.4f} da {Mmax:.2f} N*m/m, "
+         f"analitik qiymat {Mmax_th:.2f} N*m/m - farq "
+         f"{abs(Mmax-Mmax_th)/abs(Mmax_th)*100:.3f} %. Ya'ni "
+         f"M_max = 0.3224*Q0/beta, chekkada emas, ICHKARIDA.")
+
+# --- Kuchlanishlar ---
+sig_mem = p0*R/h1
+sig_b = 6*abs(Mmax)/h1**2
+sig_tot = sig_mem + sig_b
+value("Membrana kuchlanishi sigma_theta", sig_mem/1e6, "MPa")
+value("Mahalliy egish kuchlanishi sigma_b", sig_b/1e6, "MPa")
+value("Umumiy kuchlanish", sig_tot/1e6, "MPa")
+value("Ruxsat etilganga nisbatan", sig_tot/sig_all*100, "%")
+if sig_tot > sig_all:
+    note(f"OGOHLANTIRISH: umumiy kuchlanish {sig_tot/1e6:.1f} MPa "
+         f"ruxsat etilgan {sig_all/1e6:.0f} MPa dan "
+         f"{(sig_tot/sig_all - 1)*100:.1f} % ortiq. Faqat membrana "
+         f"hisobiga tayangan loyiha tutashuvda YETARLI EMAS - "
+         f"qalinlashtirish yoki torsimon o'tish kerak.")
+else:
+    note(f"Umumiy kuchlanish {sig_tot/1e6:.1f} MPa ruxsat etilgan "
+         f"{sig_all/1e6:.0f} MPa ichida ({sig_tot/sig_all*100:.1f} %).")
+
+# --- Qalinliklar nisbatining M0 ga ta'siri ---
+# 121 nuqta: qadam 0.0125, shuning uchun nisbat 1.0 AYNAN tushadi
+ratios = np.linspace(0.5, 2.0, 121)
+M0s, Q0s = [], []
+for rt in ratios:
+    hb = h1*rt
+    Db, bb = shell(hb)
+    wb = p0*R**2/(2*E*hb)*(1 - nu)
+    fFb, fMb, mFb, mMb = infl(Db, bb)
+    Ab = np.array([[-(fF1 + fFb), fM1 - fMb],
+                   [mFb - mF1, mM1 + mMb]])
+    rb = np.array([wb - w1, 0.0])
+    qq, mm = np.linalg.solve(Ab, rb)
+    Q0s.append(qq/1000)
+    M0s.append(mm)
+series("Tutashuv momenti M0(h_sfera/h_silindr)", ratios.tolist(), M0s,
+       xlabel="h_sfera / h_silindr", ylabel="M0, N*m/m")
+series("Tutashuv kuchi Q0(h_sfera/h_silindr)", ratios.tolist(), Q0s,
+       xlabel="h_sfera / h_silindr", ylabel="Q0, kN/m")
+i1 = int(np.argmin(np.abs(ratios - 1.0)))
+value("M0 qalinliklar teng bo'lganda", M0s[i1], "N*m/m")
+note(f"M0 qalinliklar nisbati 1 ga teng bo'lganda nolga aylanadi "
+     f"({M0s[i1]:.2e} N*m/m) va undan chetlashganda o'sadi. Demak "
+     f"TENG QALINLIK tutashuvdagi momentni yo'qotadi - bu amaliy "
+     f"loyihalash qoidasi.")
+
+table("Tutashuv turlari va mos kelmaslik",
+      ["Tutashuv", "R1 sakraydimi", "Mos kelmaslik", "Tavsiya"],
+      [["Silindr-sfera", "ha (inf -> R)", "o'rtacha", "teng qalinlik"],
+       ["Silindr-tekis tub", "ha (inf -> 0)", "juda katta",
+        "ASME da taqiqlangan"],
+       ["Silindr-konus", "yo'q, R2 sakraydi", "katta",
+        "torsimon o'tish"],
+       ["Torisferik tub", "silliq", "kichik", "standart yechim"],
+       ["Ellipsoid tub", "silliq", "eng kichik", "eng yaxshi"]])
+''',
+                parameters=[
+                    p("p", "Ichki bosim p", 0.1, 60.0, 15.0, 0.5, "MPa"),
+                    p("R", "Radius R", 50.0, 10000.0, 144.0, 1.0, "mm"),
+                    p("h1", "Silindr qalinligi h₁", 1.0, 100.0, 8.638, 0.1,
+                      "mm"),
+                    p("h2", "Sferik tub qalinligi h₂", 1.0, 100.0, 8.638,
+                      0.1, "mm"),
+                    p("E", "Yung moduli E", 50.0, 400.0, 210.0, 5.0, "GPa"),
+                    p("nu", "Puasson koeffitsienti ν", 0.0, 0.45, 0.3, 0.01),
+                    p("sig_all", "Ruxsat etilgan kuchlanish [σ]",
+                      50.0, 900.0, 250.0, 10.0, "MPa"),
+                ],
+                expected_output=(
+                    "β = 36,45 m⁻¹, Δw = 0,0857 mm — "
+                    "pq-26 dagi mos kelmaslik bilan aynan "
+                    "mos. Maksvell–Betti o'zaroligi "
+                    "(δ_M = θ_Q) 0,00 % xato bilan "
+                    "bajariladi. Teng qalinlikda M₀ ≈ 0 va "
+                    "Q₀ = 51,446 kN/m analitik p/(8β) bilan "
+                    "1e-16 % aniqlikda mos keladi; moslik "
+                    "qoldig'i ~1e-16 %. M_max = 455,1 N·m/m, "
+                    "βx = π/4 da (koeffitsient "
+                    "e^(−π/4)·sin(π/4) = 0,32240), analitik "
+                    "qiymat bilan farqi 0,001 %. "
+                    "Umumiy kuchlanish "
+                    "ruxsat etilganidan 14,7 % oshadi — "
+                    "membrana hisobi tutashuvda yetarli "
+                    "emasligi sonli tasdiqlanadi."
+                ),
+            ),
+            visual=vis(
+                kind="Tutashuv tuguni va mos kelmaslik",
+                tool="React/SVG + Manim",
+                description=(
+                    "Silindr va sfera membrana ko'chishlari, "
+                    "ularning farqi va $Q_0$, $M_0$ bilan "
+                    "yopilishi."
+                ),
+                how_to_draw=(
+                    "React/SVG: markazda tutashuv tuguni "
+                    "meridian kesimida — chapda silindr "
+                    "devori, o'ngda sferik tub. Uch qatlamli "
+                    "ko'rsatish: (1) deformatsiyalanmagan "
+                    "kontur ingichka kulrang; (2) **faqat "
+                    "membrana** yechimi bo'yicha "
+                    "deformatsiya — ikkala qobiq turli "
+                    "radiusga kengayadi va tutashuvda "
+                    "ochiq **uzilish** qoladi, u qizil "
+                    "bilan belgilanib $\\Delta w$ o'lchami "
+                    "yoziladi; (3) to'liq yechim — uzilish "
+                    "yopilgan, ikkala tomon bir nuqtada "
+                    "uchrashadi. Slayder bilan (2) dan (3) "
+                    "ga o'tish animatsiyalanadi va "
+                    "$Q_0$ strelkalari paydo bo'ladi. "
+                    "Pastda moment epyurasi $M(x)$ ikkala "
+                    "tomonga tarqalgan holda shtrixlanadi; "
+                    "maksimum nuqtasi va "
+                    "$\\beta x = \\pi/4$ belgisi qo'yiladi. "
+                    "O'ngda qalinliklar nisbati bo'yicha "
+                    "$M_0$ grafigi: u $h_2/h_1 = 1$ da "
+                    "aniq nolga tushadi va bu nuqta "
+                    "ajratib ko'rsatiladi."
+                ),
+            ),
+            interp=(
+                "Hisobning ishonchliligi uchta mustaqil "
+                "tekshiruvga tayanadi. Birinchisi — "
+                "Maksvell–Betti o'zaroligi: birlik "
+                "momentdan hosil bo'lgan ko'chish va "
+                "birlik kuchdan hosil bo'lgan burilish "
+                "aynan teng chiqadi, bu birlik ta'sirlar "
+                "to'g'ri ekanini bildiradi. Ikkinchisi — "
+                "topilgan $Q_0$, $M_0$ ni moslik "
+                "shartlariga qaytarib qo'yish: qoldiq "
+                "mashina aniqligida nol. Uchinchisi — "
+                "teng qalinlik holatida sonli yechim "
+                "analitik $p/(8\\beta)$ formulasini "
+                "qaytarishi. Fizik xulosa esa ikkita. "
+                "Birinchisi loyihaviy: $M_0$ grafigi "
+                "$h_2/h_1 = 1$ da aniq nolga tushadi — "
+                "demak silindr va tubni **teng qalinlikda** "
+                "yasash tutashuvdagi momentni yo'qotadi. "
+                "Bu pq-26 dagi 'tubni ikki barobar yupqa "
+                "qilish mumkin' degan membrana xulosasini "
+                "bevosita rad etadi: material tejaladi, "
+                "lekin tutashuvda moment paydo bo'ladi. "
+                "Ikkinchisi mustahkamlik bo'yicha: "
+                "umumiy kuchlanish ruxsat etilganidan "
+                "14,7 % oshadi. pq-26 dagi loyiha membrana "
+                "bo'yicha aynan chegarada edi va "
+                "tutashuvdagi qo'shimcha uni chegaradan "
+                "chiqarib yubordi. Bu nima uchun "
+                "standartlar 'umumiy membrana', 'mahalliy "
+                "membrana' va 'membrana + egish' "
+                "kategoriyalarini alohida chegaralar bilan "
+                "tekshirishini tushuntiradi."
+            ),
+            mistakes=[
+                "Tutashuvni faqat membrana hisobiga "
+                "tayanib loyihalash. Mahalliy egish "
+                "kuchlanishi membrana kuchlanishining "
+                "o'nlab foizini qo'shishi mumkin.",
+                "$Q_0$ ni ikkala qobiqqa bir xil "
+                "yo'nalishda qo'yish. U ta'sir va aks "
+                "ta'sir — yo'nalishlari qarama-qarshi.",
+                "Momentni chekkada maksimal deb "
+                "hisoblash. $M_0 = 0$ bo'lganda maksimum "
+                "$\\beta x = \\pi/4$ da, ya'ni "
+                "chekkadan $0{,}61\\sqrt{Rh}$ ichkarida.",
+                "Geckeler taqribini qutb yaqinidagi "
+                "tutashuvga qo'llash. "
+                "$R_s\\varphi_0 > 2\\sqrt{R_sh}$ sharti "
+                "bajarilishi kerak.",
+                "Tubni yupqalashtirib material tejash. "
+                "Bu mos kelmaslikni oshiradi va "
+                "tutashuvda moment tug'diradi.",
+            ],
+            quiz=[
+                q("Tutashuvda qanday ikkita moslik sharti "
+                  "qo'yiladi?",
+                  "Radial ko'chishlar tengligi va meridian "
+                  "burilishlari tengligi — ikkita shart, "
+                  "ikkita noma'lum ($Q_0$, $M_0$).",
+                  "konseptual"),
+                q("Nima uchun teng qalinlikda $M_0 = 0$ "
+                  "bo'ladi?",
+                  "Ikkala qobiqning $\\beta$ va $D$ lari "
+                  "bir xil, shuning uchun burilish "
+                  "tenglamasi simmetriya tufayli momentni "
+                  "nolga aylantiradi — qobiqlar faqat "
+                  "kesuvchi kuch bilan kelishadi.",
+                  "konseptual"),
+                q("$R = 0{,}5$ m, $h = 10$ mm qobiqda "
+                  "$\\beta$ nechaga teng ($\\nu = 0{,}3$)?",
+                  "$\\sqrt{Rh} = \\sqrt{0{,}005} = "
+                  "0{,}0707$ m; $\\beta = 1{,}285/0{,}0707 "
+                  "= 18{,}17$ m⁻¹.", "hisob"),
+                q("Kodda Maksvell–Betti tekshiruvi nimani "
+                  "tasdiqlaydi?",
+                  "$\\delta_M = \\theta_Q$ tengligi birlik "
+                  "ta'sir koeffitsientlari to'g'ri "
+                  "hisoblanganini ko'rsatadi; bu moslik "
+                  "tizimining ishonchliligi uchun asos.",
+                  "kod"),
+                q("Nima uchun ASME standarti bosim "
+                  "idishlarida tekis tubni taqiqlaydi?",
+                  "Tekis tubda $R_1$ cheksizdan nolga "
+                  "sakraydi va mos kelmaslik juda katta "
+                  "bo'ladi; torisferik yoki ellipsoid "
+                  "tubda $R_1$ silliq o'zgaradi.",
+                  "talqin"),
+                q("pq-26 dagi 'tubni ikki barobar yupqa "
+                  "qilish mumkin' xulosasi nima uchun "
+                  "noto'g'ri?",
+                  "U faqat membrana hisobiga tayangan. "
+                  "Qalinliklar farq qilsa tutashuvda "
+                  "$M_0 \\ne 0$ paydo bo'ladi va mahalliy "
+                  "kuchlanish tejamdan ko'ra ko'proq zarar "
+                  "keltiradi.", "talqin"),
+            ],
+            bridge=(
+                "Qobiqlarning statik hisobi to'liq: "
+                "membrana yechimi, chekka effekti va "
+                "tutashuvlar. Lekin bularning hammasi "
+                "**cho'zilish** uchun edi. Siqilgan "
+                "qobiqda esa butunlay boshqa xavf bor va "
+                "u mustahkamlikdan ancha oldin yuzaga "
+                "keladi — ustuvorlikni yo'qotish. Qobiq "
+                "ustuvorligi esa plastina ustuvorligidan "
+                "(pq-19…pq-21) sifat jihatdan farq qiladi."
+            ),
+            research=(
+                "Tub shakllarini qiyosiy o'rganing. "
+                "(1) Yarim sferik, torisferik (ASME "
+                "F&D), ellipsoid (2:1) va konus tublar "
+                "uchun mos kelmaslikni va tutashuvdagi "
+                "$M_0$ ni hisoblang; ularni bir xil "
+                "hajm va bosimda taqqoslang. "
+                "(2) Torisferik tubda 'knuckle' "
+                "radiusining ta'sirini o'rganing: "
+                "$r_k/D$ nisbati qanday tanlansa mahalliy "
+                "kuchlanish minimal bo'ladi? (3) ASME "
+                "VIII Div.1 va Div.2 dagi tub hisobi "
+                "formulalarini shu yerdagi nazariy "
+                "natijalar bilan solishtiring va "
+                "standartdagi zaxira koeffitsientlarining "
+                "manbasini aniqlang."
+            ),
+            manim_ref=manim(
+                scene="JunctionScene",
+                module="manim/scenes/pq_shells.py",
+                title="Tutashuvdagi mos kelmaslik",
+                summary=(
+                    "Silindr va sferik tub bosim ostida "
+                    "alohida-alohida kengayadi va ular "
+                    "orasida uzilish paydo bo'ladi. "
+                    "Keyin $Q_0$ kuchlari qo'yiladi, "
+                    "uzilish yopiladi va moment epyurasi "
+                    "ikki tomonga so'nib tarqaladi."
+                ),
+            ),
+        ),
+    ),
 ]
