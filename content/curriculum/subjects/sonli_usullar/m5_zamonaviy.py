@@ -6005,4 +6005,1029 @@ note(
             ),
         ),
     ),
+    # ------------------------------------------------------------------ su-30
+    Topic(
+        id="su-30",
+        subject_id=S, module_id=M, order=30,
+        title="Yakuniy integratsiya: to'liq hisoblash zanjiri",
+        description=(
+            "Beshta fanning bitta real konstruksiya elementida "
+            "birlashishi: modellashtirish qarori, diskretlashtirish, "
+            "yechish, xatolik baholash, farazlarni validatsiya qilish "
+            "va resurs rejalashtirish — uzluksiz ish oqimi sifatida."
+        ),
+        learning_objective=(
+            "Real muhandislik masalasini boshidan oxirigacha mustaqil "
+            "olib borish: model tanlashdan natijaning ishonchlilik "
+            "chegarasini asoslashgacha, har bir qadamda mos fanning "
+            "tenglamasini qo'llagan holda."
+        ),
+        prerequisites=["su-29", "su-28", "pq-13", "mq-13", "tmm-21"],
+        mathematical_core=(
+            "Zanjir: $\\sum \\mathbf{F} = 0$ (NM) $\\to$ "
+            "$\\sigma = M y / I$ (MQ) $\\to$ "
+            "$\\sigma_{ij,j} = 0$, $\\sigma_{vM}$ (TMM) $\\to$ "
+            "$D\\nabla^4 w = p$ (PQ) $\\to$ "
+            "$\\mathbf{K}\\mathbf{u} = \\mathbf{f}$, "
+            "$\\mathrm{GCI}$ (SU)."
+        ),
+        engineering_application=(
+            "Bosim datchigi membranasini loyihalash: sezgirlik, "
+            "mustahkamlik zaxirasi va chastota diapazoni bo'yicha "
+            "bir vaqtda optimallashtirish — sanoat sensorlari, "
+            "gidravlika va aviatsiya tizimlarida standart vazifa."
+        ),
+        computational_component=(
+            "O'qsimmetrik Ermit plastina elementi bilan to'liq hisob: "
+            "aniq yechim bilan taqqoslash, to'r bo'yicha yaqinlashish "
+            "tartibini o'lchash, kuchlanishni tiklash, xususiy "
+            "chastotani topish va barcha model farazlarini avtomatik "
+            "tekshirish."
+        ),
+        visualization_component=(
+            "Membrananing egilish shakli va moment epyurasi, "
+            "yaqinlashish grafigi, farazlar validatsiyasi paneli "
+            "hamda beshta fanning hissasini ko'rsatuvchi zanjir "
+            "diagrammasi."
+        ),
+        research_extension=(
+            "To'liq hisoblash zanjirining zamonaviy davomi — raqamli "
+            "egizak (digital twin): model real vaqtda o'lchov "
+            "ma'lumotlari bilan yangilanib turadi. Bu yerda kursning "
+            "barcha bo'g'inlari bir vaqtda ishlaydi va yangi savollar "
+            "tug'iladi: model tezligi (su-29), noaniqlikni "
+            "miqdoriylashtirish (su-28), kamaytirilgan tartibli "
+            "modellar (reduced-order models, POD), hamda o'lchov va "
+            "modelni birlashtiruvchi ma'lumotlar assimilyatsiyasi "
+            "(Kalman filtri, Bayes yangilash). Alohida yo'nalish — "
+            "fizikaga asoslangan neyron tarmoqlar (PINN), ularda "
+            "differensial tenglama yo'qotish funksiyasiga kiritiladi; "
+            "ular hozircha klassik FEM dan aniqlik bo'yicha "
+            "yutqazadi, lekin teskari masalalarda va parametrik "
+            "oilalarda istiqbolli."
+        ),
+        difficulty="chuqurlashtirilgan",
+        previous_link=(
+            "su-29 hisoblash narxini boshqarishni o'rgatdi va shu "
+            "bilan sonli usullarning texnik qismi yakunlandi. Endi "
+            "oxirgi qadam qoldi: barcha bo'g'inlarni bitta ishchi "
+            "zanjirga ulash. Bu mavzuda yangi nazariya "
+            "kiritilmaydi — aksincha, kursda o'rganilgan hamma narsa "
+            "bitta real masalada birgalikda ishlatiladi va har bir "
+            "qadamda 'qaysi fan nima berdi' degan savolga aniq "
+            "javob beriladi."
+        ),
+        next_topic=None,
+        estimated_minutes=120,
+        tags=["integratsiya", "yakun", "ish oqimi", "validatsiya",
+              "loyihalash", "membrana"],
+        lesson=_lesson(
+            problem=(
+                "Sanoat bosim datchigining po'lat membranasi "
+                "loyihalanmoqda: chetidan qattiq qisilgan doiraviy "
+                "plastina, bir tekis bosim ostida. Uch talab bir "
+                "vaqtda bajarilishi kerak — SEZGIRLIK (egilish "
+                "o'lchanadigan darajada katta bo'lsin), MUSTAHKAMLIK "
+                "(zaxira koeffitsienti kamida 2,0) va TEZKORLIK "
+                "(birinchi xususiy chastota 4 kHz dan yuqori, aks "
+                "holda datchik tez o'zgaruvchan bosimni "
+                "kuzatolmaydi).\n\n"
+                "Bu uch talab bir-biriga QARSHI ishlaydi. "
+                "Membranani yupqalashtirish sezgirlikni oshiradi "
+                "(egilish $h^3$ ga teskari proporsional), lekin "
+                "kuchlanishni ham oshiradi ($h^2$ ga teskari) va "
+                "chastotani pasaytiradi. Radiusni kattalashtirish "
+                "sezgirlikni yanada kuchliroq oshiradi ($a^4$), "
+                "lekin kuchlanish $a^2$ kabi o'sadi va chastota "
+                "$a^2$ kabi tushadi. Demak yechim — kompromiss, va "
+                "uni topish uchun barcha uchta kattalikni bitta "
+                "modelda hisoblay olish kerak.\n\n"
+                "Aynan shu yerda butun kurs birlashadi. Muvozanat "
+                "tenglamasi 1-fandan; egilish momenti va kuchlanish "
+                "bog'lanishi 2-fandan; tekis kuchlanish holati va "
+                "von Mizes mezoni 3-fandan; plastinaning "
+                "$D\\nabla^4 w = p$ tenglamasi va uning aniq yechimi "
+                "4-fandan; sonli yechim, xatolik bahosi va resurs "
+                "rejasi 5-fandan. Hech bir bo'g'inni tashlab "
+                "bo'lmaydi: aniq yechimsiz sonli natijani "
+                "tekshirib bo'lmaydi, sonli usulsiz esa real "
+                "geometriyaga (teshik, qovurg'a, o'zgaruvchan "
+                "qalinlik) o'tib bo'lmaydi."
+            ),
+            concepts=[
+                c("Hisoblash zanjiri (computational chain)",
+                  "Fizik masaladan ishonchli songacha olib boradigan "
+                  "to'liq ketma-ketlik: modellashtirish qarori → "
+                  "matematik formulirovka → diskretlashtirish → "
+                  "yechish → xatolik bahosi → validatsiya → qaror. "
+                  "Zanjirning kuchi eng zaif bo'g'iniga teng."),
+                c("Modellashtirish qarori (modelling decision)",
+                  "Qaysi nazariya ishlatilishini tanlash: sterjen, "
+                  "balka, plastina, qobiq yoki to'liq 3D. Bu qaror "
+                  "sonli xatodan ko'ra kattaroq xatolik manbai "
+                  "bo'lishi mumkin — noto'g'ri model cheksiz maydan "
+                  "to'rda ham noto'g'ri javob beradi."),
+                c("Model xatosi va diskretlashtirish xatosi",
+                  "Diskretlashtirish xatosi to'rni maydalash bilan "
+                  "nolga intiladi; model xatosi esa intilmaydi — u "
+                  "nazariyaning farazlaridan kelib chiqadi. FEM "
+                  "faqat birinchisini kamaytiradi, ikkinchisini "
+                  "faqat validatsiya ochib beradi (su-28)."),
+                c("Farazlarni tekshirish (assumption checking)",
+                  "Hisob tugagandan keyin natijani nazariyaning "
+                  "qo'llanish shartlariga qaytarib solishtirish: "
+                  "yupqalik h/a, kichik siljish w/h, elastiklik "
+                  "sigma < sigma_y. Biror shart buzilsa, natija "
+                  "raqam sifatida to'g'ri, fizika sifatida "
+                  "noto'g'ri bo'ladi."),
+                c("Loyihaviy kompromiss (design trade-off)",
+                  "Bir-biriga qarshi talablar orasidagi muvozanat. "
+                  "Bu yerda sezgirlik ~ (a/h)^4, kuchlanish ~ "
+                  "(a/h)^2, chastota ~ h/a^2 — uchalasi bitta "
+                  "nisbatga bog'liq, shuning uchun masala bir "
+                  "o'lchovli qidiruvga keltiriladi."),
+                c("O'lchamdan mustaqil masshtab (scale invariance)",
+                  "Yupqa plastinada chetdagi kuchlanish "
+                  "sigma = 3p(a/h)^2/4 — u faqat a/h NISBATIGA "
+                  "bog'liq, mutlaq o'lchamga emas. Shuning uchun "
+                  "ishlaydigan membranani shunchaki kattalashtirib "
+                  "bo'lmaydi: nisbat saqlansa kuchlanish ham "
+                  "saqlanadi, lekin chastota tushib ketadi."),
+                c("Ishonchlilik chegarasi (confidence interval)",
+                  "Yakuniy natija bitta son emas, balki xatolik "
+                  "chegarasi bilan berilgan oraliq: w = 91,84 ± GCI "
+                  "mikrometr. Muhandislik hisobotining talab "
+                  "qilinadigan shakli aynan shu (su-28)."),
+            ],
+            derivation=[
+                d("1-fan (NM): muvozanatdan chet reaksiyasi",
+                  "F = p\\pi a^2, \\qquad "
+                  "q_{\\text{chet}} = \\frac{F}{2\\pi a} "
+                  "= \\frac{p a}{2}",
+                  "Butun membranaga ta'sir qiluvchi bosim kuchi "
+                  "chet bo'ylab taqsimlangan kesuvchi kuch bilan "
+                  "muvozanatlashadi. Bu eng sodda, lekin eng "
+                  "muhim bo'g'in: u keyingi barcha hisoblar uchun "
+                  "nazorat beradi. Hisobda "
+                  "2*pi*a*q - F = 0 aynan tekshiriladi."),
+                d("4-fan (PQ): plastina tenglamasi va aniq yechim",
+                  "D\\nabla^4 w = p, \\quad "
+                  "D = \\frac{Eh^3}{12(1-\\nu^2)} "
+                  "\;\\Longrightarrow\; "
+                  "w(r) = \\frac{p(a^2-r^2)^2}{64D}, \\quad "
+                  "w_{\\max} = \\frac{pa^4}{64D}",
+                  "O'qsimmetrik holatda bigarmonik operator "
+                  "oddiy differensial tenglamaga aylanadi va "
+                  "qisilgan chet shartlari (w = w' = 0 da r = a) "
+                  "bilan yechim yopiq ko'rinishda chiqadi. Bu "
+                  "yechim keyin sonli natijaning ETALONI bo'lib "
+                  "xizmat qiladi."),
+                d("2-fan (MQ): momentdan kuchlanishga",
+                  "M_r = -D\\left(w'' + \\nu \\frac{w'}{r}\\right), "
+                  "\\quad \\sigma_r = \\frac{6M_r}{h^2} "
+                  "\;\\Longrightarrow\; "
+                  "\\sigma_{\\text{chet}} = \\frac{3pa^2}{4h^2} "
+                  "= \\frac{3p}{4}\\left(\\frac{a}{h}\\right)^2",
+                  "Aniq yechimni ikki marta differensiallab "
+                  "momentni, undan esa egilish kuchlanishini "
+                  "topamiz (mq-13). Chetda w' = 0 bo'lgani uchun ifoda "
+                  "soddalashadi. MUHIM KUZATUV: natija faqat a/h "
+                  "nisbatiga bog'liq — mutlaq o'lchamga emas. "
+                  "Hisobda bu sigma/p = 3(a/h)^2/4 aynan "
+                  "tenglik sifatida tekshiriladi."),
+                d("3-fan (TMM): tekis kuchlanish va von Mizes",
+                  "\\sigma_\\theta = \\nu\\sigma_r \\ "
+                  "(\\text{chetda}) \;\\Longrightarrow\; "
+                  "\\sigma_{vM} = \\sigma_r\\sqrt{1-\\nu+\\nu^2} "
+                  "= 0{,}8888\\,\\sigma_r",
+                  "Plastina — yupqa jism, demak qalinlik bo'yicha "
+                  "kuchlanish nolga yaqin va tekis kuchlanish "
+                  "holati o'rinli (tmm-16). Chetda w' = 0 bo'lgani uchun "
+                  "M_theta = nu*M_r, demak sigma_theta = "
+                  "nu*sigma_r. Ikki o'qli holat uchun von Mizes "
+                  "mezoni (tmm-21) bir o'qli qiymatdan 11% past chiqadi — "
+                  "bu zaxira koeffitsientiga to'g'ridan-to'g'ri "
+                  "ta'sir qiladi."),
+                d("1-fan + 4-fan: xususiy chastota",
+                  "\\omega_1 = \\frac{\\lambda^2}{a^2}"
+                  "\\sqrt{\\frac{D}{\\rho h}}, \\qquad "
+                  "I_0(\\lambda)J_1(\\lambda) "
+                  "+ J_0(\\lambda)I_1(\\lambda) = 0",
+                  "Erkin tebranish masalasi qisilgan doiraviy "
+                  "plastina uchun Bessel funksiyalariga keltiriladi. "
+                  "Ildiz SONLI YECHILADI: lambda^2 = 10,215826..., "
+                  "adabiyotda keltiriladigan 10,2158 esa "
+                  "yaxlitlangan qiymat. Bu farq 2,57*10^-4 % — "
+                  "quyida u alohida rol o'ynaydi."),
+                d("5-fan (SU): sonli yechim va uning tekshiruvi",
+                  "\\mathbf{K}\\mathbf{u} = \\mathbf{f}, \\qquad "
+                  "p_{obs} = \\frac{\\ln(e_1/e_2)}{\\ln 2} "
+                  "\\to 4 \\ (\\text{Ermit kubigi})",
+                  "O'qsimmetrik Ermit elementi (su-20 dagi balka "
+                  "elementining doiraviy analogi) bilan tizim "
+                  "quriladi va yechiladi. Aniq yechim mavjud "
+                  "bo'lgani uchun xatoni to'g'ridan-to'g'ri "
+                  "o'lchash mumkin: n = 32 da w_max xatosi "
+                  "1,2*10^-5 %, kuzatilgan tartib esa 3,84 — "
+                  "kubik Ermit uchun nazariy 4 ga intiladi."),
+                d("Loyihaviy kompromissni bitta nisbatga keltirish",
+                  "\\frac{w_{\\max}}{h} = "
+                  "\\frac{12(1-\\nu^2)}{64}\\cdot\\frac{p}{E}"
+                  "\\cdot\\left(\\frac{a}{h}\\right)^4, \\qquad "
+                  "f_1 = \\frac{\\lambda^2}{2\\pi}\\cdot"
+                  "\\frac{h}{a^2}\\sqrt{\\frac{E}{12(1-\\nu^2)\\rho}}",
+                  "Uchala talab bitta o'zgaruvchiga — a/h "
+                  "nisbatiga — keltiriladi. Sezgirlik (a/h)^4 kabi, "
+                  "kuchlanish (a/h)^2 kabi o'sadi, demak "
+                  "mustahkamlik yuqoridan, yupqa plastina sharti "
+                  "esa quyidan chegara qo'yadi. Chastota esa "
+                  "MUTLAQ o'lchamga bog'liq (h/a^2), shuning uchun "
+                  "u nisbat tanlangandan keyin o'lchamni belgilaydi. "
+                  "Masala shu tariqa ikki bosqichli aniq qidiruvga "
+                  "aylanadi."),
+            ],
+            meaning=(
+                "**$\\sigma_{\\text{chet}} = \\tfrac34 p (a/h)^2$ — "
+                "o'lchamdan mustaqillik.** Bu ifodada mutlaq "
+                "o'lchamlar umuman yo'q, faqat NISBAT bor. Muhandislik "
+                "uchun bu juda kuchli natija: ishlaydigan membranani "
+                "ikki baravar kattalashtirib, qalinligini ham ikki "
+                "baravar oshirsak, kuchlanish o'zgarmaydi. Lekin "
+                "chastota to'rt baravar tushadi — demak 'shunchaki "
+                "kattalashtirish' bepul emas. Aynan shu sabab "
+                "mikroelektromexanik datchiklar (MEMS) shunchalik "
+                "kichik: kichik o'lcham yuqori chastota demakdir.\n\n"
+                "**$w_{\\max}/h \\propto (a/h)^4$ — sezgirlikning "
+                "narxi.** To'rtinchi daraja juda tez o'sadi: a/h ni "
+                "20 dan 23 ga oshirish sezgirlikni 1,75 marta "
+                "oshiradi, kuchlanishni esa atigi 1,32 marta. Demak "
+                "mustahkamlik chegarasiga imkon qadar yaqin ishlash "
+                "foydali — lekin bu zaxira koeffitsientini "
+                "kamaytiradi. Loyihaviy qaror aynan shu yerda "
+                "qabul qilinadi.\n\n"
+                "**$f_1 \\propto h/a^2$ — tezkorlikning shartlari.** "
+                "Chastota qalinlikka CHIZIQLI, radiusga esa "
+                "KVADRATIK bog'liq. Shuning uchun yuqori chastota "
+                "kerak bo'lsa, radiusni kichraytirish qalinlikni "
+                "oshirishdan ancha samaraliroq — lekin radiusni "
+                "kichraytirish sezgirlikni $a^4$ kabi yo'qotadi. "
+                "Uch talab shu tariqa bitta kichik ruxsat etilgan "
+                "sohani qoldiradi.\n\n"
+                "**$\\sigma_{vM} = 0{,}8888\\,\\sigma_r$ — ikki "
+                "o'qlilikning foydasi.** Chetda ikkinchi asosiy "
+                "kuchlanish $\\nu\\sigma_r$ ga teng va u bir xil "
+                "ishorali, shuning uchun von Mizes ekvivalent "
+                "kuchlanishi bir o'qli holatdagidan 11% past "
+                "chiqadi. Buni hisobga olmaslik konstruksiyani "
+                "asossiz og'irlashtiradi — bu 3-fanning amaliy "
+                "hissasi.\n\n"
+                "**$p_{obs} \\to 4$ — sonli yechimning "
+                "ishonchliligi.** Kuzatilgan tartibning nazariy "
+                "qiymatga intilishi — kod to'g'ri ishlayotganining "
+                "eng kuchli dalili (su-28). Agar u 4 o'rniga 2 "
+                "chiqsa, demak element, integrallash yoki "
+                "chegaraviy shartda xato bor."
+            ),
+            equations=[
+                eq("\\sum\\mathbf{F} = 0: \\quad "
+                   "p\\pi a^2 = 2\\pi a\\, q_{\\text{chet}}",
+                   "Muvozanat sharti — 1-fanning hissasi. Hisobda "
+                   "aynan nolga teng ayirma sifatida tekshiriladi.",
+                   "Global muvozanat (NM)"),
+                eq("\\sigma_r = \\frac{6M_r}{h^2}, \\qquad "
+                   "M_r = -D\\left(\\frac{d^2w}{dr^2} "
+                   "+ \\frac{\\nu}{r}\\frac{dw}{dr}\\right)",
+                   "Momentdan kuchlanishga o'tish — 2-fanning "
+                   "hissasi, o'qsimmetrik holatga moslashtirilgan.",
+                   "Egilish kuchlanishi (MQ)"),
+                eq("\\sigma_{vM} = \\sqrt{\\sigma_r^2 "
+                   "- \\sigma_r\\sigma_\\theta + \\sigma_\\theta^2}, "
+                   "\\qquad n = \\frac{\\sigma_y}{\\sigma_{vM}}",
+                   "Tekis kuchlanish holatidagi von Mizes mezoni va "
+                   "zaxira koeffitsienti — 3-fanning hissasi.",
+                   "Mustahkamlik mezoni (TMM)"),
+                eq("D\\nabla^4 w = p, \\qquad "
+                   "w_{\\max} = \\frac{pa^4}{64D}, \\qquad "
+                   "D = \\frac{Eh^3}{12(1-\\nu^2)}",
+                   "Kirxhoff plastinasi tenglamasi va qisilgan "
+                   "doiraviy plastina uchun aniq yechim — "
+                   "4-fanning hissasi.",
+                   "Plastina tenglamasi (PQ)"),
+                eq("\\omega_1 = \\frac{\\lambda^2}{a^2}"
+                   "\\sqrt{\\frac{D}{\\rho h}}, \\qquad "
+                   "\\lambda^2 = 10{,}215826\\ldots",
+                   "Qisilgan doiraviy plastinaning birinchi xususiy "
+                   "chastotasi; lambda Bessel tenglamasining "
+                   "ildizidan sonli topiladi.",
+                   "Xususiy chastota (NM + PQ)"),
+                eq("\\mathbf{K}\\mathbf{u} = \\mathbf{f}, \\qquad "
+                   "\\left(\\mathbf{K} - \\omega^2\\mathbf{M}\\right)"
+                   "\\boldsymbol{\\phi} = \\mathbf{0}",
+                   "Chekli elementlar tizimi: statik va xususiy "
+                   "qiymat masalalari — 5-fanning hissasi.",
+                   "FEM tizimi (SU)"),
+                eq("\\frac{w_{\\max}}{h} = "
+                   "\\frac{12(1-\\nu^2)}{64}\\,\\frac{p}{E}\\,"
+                   "\\left(\\frac{a}{h}\\right)^4",
+                   "Loyihaviy kompromissni bitta o'lchovsiz "
+                   "nisbatga keltiruvchi ifoda.",
+                   "Sezgirlikning o'lchovsiz shakli"),
+            ],
+            conditions=(
+                "Bu mavzuda chegaraviy shartlar IKKI darajada "
+                "qo'yiladi, va ularning farqini tushunish butun "
+                "kursning asosiy saboqlaridan biri.\n\n"
+                "**1. Masalaning chegaraviy shartlari.** Qisilgan "
+                "chet: r = a da w = 0 va dw/dr = 0 — ikkala shart "
+                "ham MAJBURIY (essential), chunki Kirxhoff "
+                "formulirovkasida ikkinchi tartibli hosilalar "
+                "qatnashadi (su-13). Markazda o'qsimmetriya "
+                "sharti: r = 0 da dw/dr = 0, aks holda yechim shu "
+                "nuqtada silliq bo'lmaydi. Ermit elementida bu "
+                "shartlar to'g'ridan-to'g'ri erkinlik darajalarini "
+                "chiqarib tashlash bilan qo'yiladi (su-17).\n\n"
+                "**2. Nazariyaning qo'llanish shartlari.** Bular "
+                "hisob boshida emas, OXIRIDA tekshiriladi, chunki "
+                "ularning ko'pchiligi natijaning o'ziga bog'liq:\n"
+                "— Yupqa plastina: h/a < 0,05. Buzilsa, "
+                "Reyssner-Mindlin nazariyasiga o'tish kerak "
+                "(su-22), siljish deformatsiyasi hisobga olinadi.\n"
+                "— Kichik siljish: w/h < 0,2. Buzilsa, membrana "
+                "kuchlari paydo bo'ladi va masala nochiziqli "
+                "bo'ladi (fon Karman tenglamalari, su-24).\n"
+                "— Elastik holat: sigma_vM < sigma_y. Buzilsa, "
+                "plastiklik modeli kerak (su-24 dagi qaytish "
+                "akslantirish).\n"
+                "— Siljish ulushi < 5%: Kirxhoff nazariyasining "
+                "siljishni e'tiborsiz qoldirishi asosli ekanligi.\n\n"
+                "Hisobda bu to'rt shart AVTOMATIK tekshiriladi va "
+                "jadvalda 'OK' yoki 'BUZILDI' sifatida "
+                "ko'rsatiladi. Bu tasodifiy qo'shimcha emas: "
+                "sonli natija har doim chiqadi, va u ishonarli "
+                "ko'rinadi — faqat farazlarni qaytarib tekshirish "
+                "uning haqiqatan ham o'rinli ekanini aniqlaydi."
+            ),
+            worked=WorkedExample(
+                statement=(
+                    "Po'lat bosim datchigi membranasini "
+                    "loyihalang. Ish bosimi p = 0,5 MPa. Talablar: "
+                    "zaxira koeffitsienti kamida 2,0; birinchi "
+                    "xususiy chastota kamida 4 kHz; sezgirlik "
+                    "imkon qadar yuqori; Kirxhoff nazariyasi "
+                    "o'rinli bo'lsin. Material: E = 210 GPa, "
+                    "nu = 0,3, rho = 7850 kg/m^3, "
+                    "sigma_y = 355 MPa. Radius a va qalinlik h ni "
+                    "toping."
+                ),
+                given=[
+                    "p = 0,5 MPa, sigma_y = 355 MPa",
+                    "E = 210 GPa, nu = 0,3, rho = 7850 kg/m^3",
+                    "Zaxira koeffitsienti n >= 2,0",
+                    "f1 >= 4 kHz",
+                    "Yupqa plastina: a/h >= 20",
+                ],
+                steps=[
+                    st("\\sigma_{vM} \\le \\frac{\\sigma_y}{2} "
+                       "= 177{,}5\\ \\text{MPa} "
+                       "\;\\Longrightarrow\; "
+                       "\\sigma_r \\le \\frac{177{,}5}{0{,}8888} "
+                       "= 199{,}7\\ \\text{MPa}",
+                       "Zaxira talabidan ruxsat etilgan von Mizes "
+                       "kuchlanishi, undan esa radial kuchlanish. "
+                       "0,8888 = sqrt(1 - nu + nu^2) — ikki o'qli "
+                       "holatning foydasi (3-fan)."),
+                    st("\\sigma_r = \\frac{3p}{4}"
+                       "\\left(\\frac{a}{h}\\right)^2 "
+                       "\;\\Longrightarrow\; "
+                       "\\left(\\frac{a}{h}\\right)^2 \\le "
+                       "\\frac{4 \\cdot 199{,}7}{3 \\cdot 0{,}5} "
+                       "= 532{,}6 \;\\Longrightarrow\; "
+                       "\\frac{a}{h} \\le 23{,}08",
+                       "Mustahkamlik yuqoridan chegara qo'ydi. "
+                       "E'tibor bering: chegara NISBATGA, mutlaq "
+                       "o'lchamga emas."),
+                    st("20 \\le \\frac{a}{h} \\le 23{,}08 "
+                       "\;\\Longrightarrow\; "
+                       "\\frac{a}{h} = \\frac{25}{1{,}2} "
+                       "= 20{,}83",
+                       "Yupqa plastina sharti quyidan chegara "
+                       "qo'yadi. Ruxsat etilgan tor oraliqdan "
+                       "texnologik qulay qiymat tanlanadi: "
+                       "a = 25 mm, h = 1,2 mm (standart list "
+                       "qalinligi)."),
+                    st("\\sigma_r = 0{,}75 \\cdot 0{,}5 \\cdot "
+                       "20{,}83^2 = 162{,}8\\ \\text{MPa}, \\quad "
+                       "\\sigma_{vM} = 144{,}7\\ \\text{MPa}, "
+                       "\\quad n = \\frac{355}{144{,}7} = 2{,}45",
+                       "Tanlovni tekshiramiz: zaxira 2,45 — talab "
+                       "qilingan 2,0 dan yuqori, demak shart "
+                       "bajarildi."),
+                    st("\\frac{w_{\\max}}{h} = "
+                       "\\frac{12(1-0{,}3^2)}{64}\\cdot"
+                       "\\frac{0{,}5}{210000}\\cdot 20{,}83^4 "
+                       "= 0{,}170625 \\cdot 2{,}381\\cdot10^{-6} "
+                       "\\cdot 188380 = 0{,}0765",
+                       "Sezgirlik: w_max = 0,0765 * 1,2 mm = "
+                       "91,8 mkm. Bu o'lchash uchun juda qulay "
+                       "kattalik. Kichik siljish sharti "
+                       "w/h = 0,0765 < 0,2 ham bajarildi."),
+                    st("f_1 = \\frac{\\lambda^2}{2\\pi}\\cdot"
+                       "\\frac{h}{a^2}\\sqrt{\\frac{E}"
+                       "{12(1-\\nu^2)\\rho}} = 1{,}6259 \\cdot "
+                       "1{,}920 \\cdot 1565{,}2 "
+                       "= 4886\\ \\text{Hz}",
+                       "Chastota: 4886 Hz — talab qilingan 4 kHz "
+                       "dan yuqori. Uchala shart ham bajarildi. "
+                       "Bu yerda MUTLAQ o'lcham ishladi: nisbat "
+                       "bir xil qolib, a = 50 mm bo'lsa, chastota "
+                       "to'rt baravar tushib 1222 Hz bo'lar edi "
+                       "va talab buzilardi."),
+                    st("w_{\\max} = \\frac{pa^4}{64D} = "
+                       "91{,}8353\\ \\text{mkm} \\quad "
+                       "(\\text{5-qadamda } 91{,}8353)",
+                       "MUSTAQIL NAZORAT: o'lchovsiz ifodadan "
+                       "topilgan qiymat to'g'ridan-to'g'ri "
+                       "formuladan topilgan qiymat bilan aynan "
+                       "mos tushdi. Chastota uchun ham xuddi "
+                       "shunday: 4886,1 va 4886,06 Hz."),
+                ],
+                answer=(
+                    "**a = 25 mm, h = 1,2 mm** (a/h = 20,83). "
+                    "Natijalar: w_max = 91,8 mkm (sezgirlik), "
+                    "sigma_vM = 144,7 MPa va zaxira 2,45 "
+                    "(mustahkamlik), f1 = 4886 Hz (tezkorlik). "
+                    "Uchala talab bajarildi, va barcha to'rt "
+                    "model farazi ham tekshiruvdan o'tdi: "
+                    "h/a = 0,048 < 0,05; w/h = 0,077 < 0,2; "
+                    "zaxira 2,45 > 1,5; siljish ulushi "
+                    "1,05% < 5%."
+                ),
+                engineering_note=(
+                    "Bu masala nima uchun ruxsat etilgan soha "
+                    "SHUNCHALIK TOR ekanini ko'rsatadi: "
+                    "20 <= a/h <= 23,08. Pastdan yupqa plastina "
+                    "sharti, yuqoridan mustahkamlik. Agar bosim "
+                    "0,9 MPa gacha oshirilsa, yuqori chegara 20 "
+                    "dan pastga tushadi va soha BO'SH bo'lib "
+                    "qoladi — ya'ni po'lat yupqa plastina bunday "
+                    "bosimga umuman yaramaydi. Shunda "
+                    "muhandisning tanlovi: qalinroq plastinaga "
+                    "(Reyssner-Mindlin, su-22) o'tish, "
+                    "mustahkamroq material olish yoki "
+                    "gofrlangan membrana kabi boshqa "
+                    "konstruktiv yechim qidirish. Aynan shu "
+                    "xulosa — 'bu sohada yechim yo'q' — "
+                    "ko'pincha hisobning eng qimmatli natijasi "
+                    "bo'ladi."
+                ),
+            ),
+            computation=Computation(
+                caption=(
+                    "Beshta fanni bitta hisobda birlashtirish: "
+                    "muvozanat nazorati, aniq plastina yechimi, "
+                    "kuchlanish va von Mizes, Bessel ildizidan "
+                    "xususiy chastota, o'qsimmetrik Ermit FEM, "
+                    "to'r bo'yicha yaqinlashish tartibi va barcha "
+                    "model farazlarining avtomatik validatsiyasi."
+                ),
+                parameters=[
+                    p("a", "Membrana radiusi", 10.0, 60.0, 25.0, 1.0, "mm"),
+                    p("h", "Qalinlik", 0.4, 4.0, 1.2, 0.1, "mm"),
+                    p("p", "Bosim", 0.1, 3.0, 0.5, 0.1, "MPa"),
+                    p("n_el", "Elementlar soni", 4, 64, 16, 2, "dona"),
+                ],
+                code='''"""Yakuniy integratsiya: bosim datchigi membranasining to'liq zanjiri."""
+import numpy as np
+from labkit import PARAMS, note, series, table, value
+from numpy.polynomial.legendre import leggauss
+from scipy.linalg import eigh
+from scipy.optimize import brentq
+from scipy.special import iv, jv
+
+a = float(PARAMS.get("a", 25.0))*1e-3          # radius, mm -> m
+h = float(PARAMS.get("h", 1.2))*1e-3           # qalinlik, mm -> m
+pres = float(PARAMS.get("p", 0.5))*1e6         # bosim, MPa -> Pa
+n_el = int(PARAMS.get("n_el", 16))
+E, nu, rho, sig_y = 210e9, 0.3, 7850.0, 355e6
+
+D = E*h**3/(12*(1 - nu**2))
+value("Egilish qattiqligi D", D, "N*m")
+value("Nisbat h/a", h/a, "-")
+
+# ---- 1-fan (NM): muvozanat — bosim kuchi va reaksiya -------------------
+F_tot = pres*np.pi*a**2
+V_edge = F_tot/(2*np.pi*a)                      # chet birlik uzunlikdagi kesuvchi kuch
+value("To'liq bosim kuchi", F_tot, "N")
+value("Chetdagi kesuvchi kuch q", V_edge, "N/m")
+value("Muvozanat nazorati", abs(2*np.pi*a*V_edge - F_tot), "N")
+
+# ---- 4-fan (PQ): Kirxhoff plastinasining aniq yechimi ------------------
+w_ex = pres*a**4/(64*D)
+sig_edge = 3*pres*a**2/(4*h**2)                 # radial, chetda
+sig_cent = 3*pres*a**2*(1 + nu)/(8*h**2)        # markazda
+value("w_max aniq", w_ex*1e6, "um")
+value("sigma chetda aniq", sig_edge/1e6, "MPa")
+value("sigma markazda aniq", sig_cent/1e6, "MPa")
+
+# ---- 1-fan (NM) + 4-fan (PQ): xususiy chastota --------------------------
+# Qisilgan doiraviy plastina: I0(l)J1(l) + J0(l)I1(l) = 0 — ILDIZ YECHILADI,
+# adabiyotdagi yaxlitlangan 10,2158 ishlatilmaydi (su-23 saboqi).
+lam = brentq(lambda l: iv(0, l)*jv(1, l) + jv(0, l)*iv(1, l),
+             3.0, 3.4, xtol=1e-14, rtol=1e-15)
+om_ex = lam**2/a**2*np.sqrt(D/(rho*h))
+value("lambda^2 aniq", lam**2, "-")
+value("lambda^2 adabiyotda", 10.2158, "-")
+value("Konstanta yaxlitlash xatosi", abs(lam**2 - 10.2158)/lam**2*100, "%")
+value("f1 aniq", om_ex/(2*np.pi), "Hz")
+
+# ---- 5-fan (SU): o'qsimmetrik Ermit elementi ----------------------------
+def herm(xi, Le):
+    N = np.array([0.25*(1 - xi)**2*(2 + xi), Le/8*(1 - xi)**2*(1 + xi),
+                  0.25*(1 + xi)**2*(2 - xi), -Le/8*(1 + xi)**2*(1 - xi)])
+    dN = np.array([-0.75*(1 - xi**2), Le/8*(3*xi**2 - 2*xi - 1),
+                   0.75*(1 - xi**2), Le/8*(3*xi**2 + 2*xi - 1)])*(2/Le)
+    d2N = np.array([1.5*xi, Le/8*(6*xi - 2),
+                    -1.5*xi, Le/8*(6*xi + 2)])*(2/Le)**2
+    return N, dN, d2N
+
+def fem(n, ng=6):
+    nd = n + 1
+    r = np.linspace(0.0, a, nd)
+    K = np.zeros((2*nd, 2*nd)); M = np.zeros((2*nd, 2*nd)); F = np.zeros(2*nd)
+    gx, gw = leggauss(ng)
+    for e in range(n):
+        r1, Le = r[e], r[e+1] - r[e]
+        idx = [2*e, 2*e+1, 2*e+2, 2*e+3]
+        for xi, wq in zip(gx, gw):
+            rr = r1 + Le/2*(1 + xi)
+            if rr < 1e-14:
+                continue
+            N, dN, d2N = herm(xi, Le)
+            B = (np.outer(d2N, d2N)
+                 + nu*(np.outer(d2N, dN) + np.outer(dN, d2N))/rr
+                 + np.outer(dN, dN)/rr**2)
+            f2 = 2*np.pi*rr*wq*(Le/2)
+            K[np.ix_(idx, idx)] += D*B*f2
+            M[np.ix_(idx, idx)] += rho*h*np.outer(N, N)*f2
+            F[idx] += pres*N*f2
+    fixed = [1, 2*nd - 2, 2*nd - 1]        # markazda th=0, chetda w=th=0
+    free = np.array([i for i in range(2*nd) if i not in fixed])
+    u = np.zeros(2*nd)
+    u[free] = np.linalg.solve(K[np.ix_(free, free)], F[free])
+    ev = eigh(K[np.ix_(free, free)], M[np.ix_(free, free)], eigvals_only=True)
+    return u, r, np.sqrt(ev[0])
+
+# yaqinlashish: to'r bo'yicha (su-18, su-28)
+ns, ew, ef = [], [], []
+for n in (2, 4, 8, 16, 32):
+    u, r, om = fem(n)
+    ns.append(n)
+    ew.append(abs(u[0] - w_ex)/w_ex*100)
+    ef.append(abs(om - om_ex)/om_ex*100)
+rows = [[n, f"{u_:.3e}", f"{f_:.3e}"] for n, u_, f_ in zip(ns, ew, ef)]
+table("To'r bo'yicha yaqinlashish (aniq yechimga nisbatan xato, %)",
+      ["elementlar", "w_max xatosi", "f1 xatosi"], rows)
+series("w_max xatosi", ns, ew, "elementlar", "xato, %")
+series("f1 xatosi", ns, ef, "elementlar", "xato, %")
+p_obs = np.log(ew[-3]/ew[-2])/np.log(2.0)
+value("Kuzatilgan tartib p_obs", p_obs, "-")
+
+u, r, om_fem = fem(n_el)
+w_fem = u[0]
+value("w_max FEM", w_fem*1e6, "um")
+value("w_max xatosi", abs(w_fem - w_ex)/w_ex*100, "%")
+value("f1 FEM", om_fem/(2*np.pi), "Hz")
+
+# ---- 2-fan (MQ) + 3-fan (TMM): kuchlanish va mustahkamlik --------------
+# M_r = -D(w'' + nu w'/r), sigma = 6M/h^2  (su-15 dagi kuchlanishni tiklash)
+nd = n_el + 1
+rr_ = np.linspace(0.0, a, nd)
+Le = rr_[1] - rr_[0]
+_, _, d2N = herm(1.0, Le)
+_, dN_, _ = herm(1.0, Le)
+idx_last = [2*(n_el-1), 2*(n_el-1)+1, 2*n_el, 2*n_el+1]
+w2 = float(d2N @ u[idx_last])
+w1 = float(dN_ @ u[idx_last])
+Mr_edge = -D*(w2 + nu*w1/a)
+sig_fem_edge = 6*abs(Mr_edge)/h**2
+value("sigma chetda FEM", sig_fem_edge/1e6, "MPa")
+value("sigma chetda xatosi", abs(sig_fem_edge - sig_edge)/sig_edge*100, "%")
+# tekis kuchlanish holati: sigma_r, sigma_th = nu*sigma_r (chetda w'=0)
+sv = np.sqrt(sig_edge**2 - sig_edge*(nu*sig_edge) + (nu*sig_edge)**2)
+value("von Mizes chetda", sv/1e6, "MPa")
+value("Zaxira koeffitsienti", sig_y/sv, "-")
+
+# ---- Model chegarasini tekshirish (validatsiya) -------------------------
+# yupqa plastina sharti va siljish tuzatmasi (Reyssner-Mindlin, su-22)
+G = E/(2*(1 + nu))
+# Q(r) = p r / 2  ->  gamma = Q/(kappa G h)  ->  w_s(0) = p a^2/(4 kappa G h)
+w_shear = pres*a**2/(4*(5/6)*G*h)
+value("Siljish ulushi", w_shear/w_ex*100, "%")
+value("Yupqalik h/a", h/a, "-")
+rows = [
+    ["Yupqa plastina (h/a < 0,05)", f"{h/a:.4f}", "OK" if h/a < 0.05 else "BUZILDI"],
+    ["Kichik siljish (w/h < 0,2)", f"{w_ex/h:.3f}",
+     "OK" if w_ex/h < 0.2 else "BUZILDI"],
+    ["Zaxira koeffitsienti > 1,5", f"{sig_y/sv:.2f}",
+     "OK" if sig_y/sv > 1.5 else "BUZILDI"],
+    ["Siljish ulushi < 5%", f"{w_shear/w_ex*100:.2f} %",
+     "OK" if w_shear/w_ex < 0.05 else "BUZILDI"],
+]
+table("Model farazlarining validatsiyasi", ["Faraz", "Qiymat", "Holat"], rows)
+
+# ---- 5-fan (SU): resurs bahosi (su-29) ----------------------------------
+N_dof = 2*(n_el + 1)
+value("sigma/p nisbati", sig_edge/pres, "-")
+value("3(a/h)^2/4 nazorati", 3*(a/h)**2/4, "-")
+value("FEM erkinlik darajasi", N_dof, "-")
+value("Lentali amallar", 2.0*N_dof*4**2, "amal")
+note(
+    "Zanjir yopildi: muvozanat (1-fan) bosim kuchini chet reaksiyasiga "
+    "bog'ladi; egilish nazariyasi (2-fan) kuchlanishni momentdan "
+    "chiqardi; tutash muhit (3-fan) tekis kuchlanish holatini va von "
+    "Mizes mezonini berdi; plastinalar nazariyasi (4-fan) aniq yechimni "
+    "berdi; sonli usullar (5-fan) uni FEM bilan takrorladi va xatoni "
+    "o'lchadi."
+)''',
+                expected_output=(
+                    "Standart qiymatlarda (a = 25 mm, h = 1,2 mm, "
+                    "p = 0,5 MPa): D = 33,23 N*m, w_max = 91,8353 "
+                    "mkm, sigma_chet = 162,76 MPa, von Mizes "
+                    "144,67 MPa, zaxira 2,45, f1 = 4886,06 Hz. "
+                    "Muvozanat nazorati aynan 0. sigma/p = 325,521 "
+                    "va 3(a/h)^2/4 = 325,521 — aynan teng. "
+                    "Yaqinlashish: n = 32 da w_max xatosi "
+                    "1,2*10^-5 %, f1 xatosi 8,4*10^-7 %; "
+                    "kuzatilgan tartib p_obs = 3,84 (nazariy 4). "
+                    "Validatsiya jadvalidagi to'rtala shart ham OK."
+                ),
+            ),
+            visual=vis(
+                kind="To'liq zanjir paneli",
+                tool="React/SVG + Matplotlib",
+                description=(
+                    "Beshta bog'liq ko'rinish: (1) membrananing "
+                    "egilish shakli w(r), aniq yechim va FEM "
+                    "tugunlari ustma-ust; (2) M_r va M_theta "
+                    "epyuralari radius bo'ylab, chetda va "
+                    "markazda maksimumlar belgilangan; (3) "
+                    "yaqinlashish grafigi log-log, qiyaligi 4 "
+                    "bo'lgan mos uchburchak bilan; (4) farazlar "
+                    "validatsiyasi paneli — to'rt shart va "
+                    "ularning holati; (5) beshta fanning "
+                    "hissasini ko'rsatuvchi zanjir diagrammasi."
+                ),
+                how_to_draw=(
+                    "Egilish shaklini aniq yechim uchun uzluksiz "
+                    "chiziq, FEM uchun esa tugunlarda nuqta bilan "
+                    "chizish — ular ustma-ust tushishi sonli "
+                    "yechimning to'g'riligini darhol ko'rsatadi. "
+                    "Moment epyurasida M_r chetda manfiy "
+                    "maksimumga, markazda esa M_r = M_theta "
+                    "bo'lishiga e'tibor qaratiladi (o'qsimmetriya "
+                    "talabi). Validatsiya panelida har bir shart "
+                    "gorizontal chiziq sifatida chiziladi: "
+                    "joriy qiymat nuqta bilan, ruxsat etilgan "
+                    "chegara vertikal chiziq bilan; nuqta "
+                    "chegaradan chap tomonda bo'lsa yashil, "
+                    "o'ngda bo'lsa qizil. Parametrlar "
+                    "o'zgartirilganda nuqtalarning chegaradan "
+                    "o'tishi jonli ko'rinadi — bu mavzuning "
+                    "asosiy interaktiv g'oyasi. Zanjir "
+                    "diagrammasi beshta blokdan iborat "
+                    "(NM -> MQ -> TMM -> PQ -> SU), har birida "
+                    "shu fan bergan tenglama va shu hisobdagi "
+                    "aniq son yoziladi."
+                ),
+            ),
+            interp=(
+                "**Zanjirning har bir bo'g'ini o'z sonini berdi.** "
+                "Muvozanat nazorati aynan nol chiqdi (1-fan); "
+                "aniq yechim w_max = 91,8353 mkm berdi (4-fan); "
+                "moment orqali sigma = 162,76 MPa topildi (2-fan); "
+                "von Mizes 144,67 MPa va zaxira 2,45 aniqlandi "
+                "(3-fan); FEM esa bularning hammasini mustaqil "
+                "takrorladi va xatoni o'lchadi (5-fan). Hech bir "
+                "bo'g'in ortiqcha emas — har biri boshqasining "
+                "tekshiruvi bo'lib xizmat qildi.\n\n"
+                "**O'lchamdan mustaqillik aynan tasdiqlandi.** "
+                "Hisobda sigma/p = 325,521 va 3(a/h)^2/4 = "
+                "325,521 — bu tasodif emas, balki 2-qadamdagi "
+                "chiqarishning aynan tekshiruvi. Amaliy ma'nosi: "
+                "membrananing mustahkamligi faqat nisbatga "
+                "bog'liq, chastotasi esa mutlaq o'lchamga. "
+                "Shuning uchun datchikni kichraytirish "
+                "mustahkamlikni buzmasdan tezkorlikni oshiradi — "
+                "MEMS texnologiyasining asosiy g'oyasi shu.\n\n"
+                "**Eng muhim kuzatuv: FEM etalon konstantadan "
+                "aniqroq chiqdi.** Chastota xatosi to'r "
+                "maydalanganda 6,6*10^-2 dan 8,4*10^-7 % gacha "
+                "tushdi. Lekin dastlabki hisobda, adabiyotdagi "
+                "yaxlitlangan lambda^2 = 10,2158 ishlatilganda, "
+                "xato 2,6*10^-4 % da TO'XTAB QOLGAN edi va "
+                "pasaymagan. Sabab FEM da emas: Bessel "
+                "tenglamasining aniq ildizi lambda^2 = "
+                "10,215826..., va yaxlitlangan qiymatning nisbiy "
+                "farqi aynan 2,57*10^-4 % — ya'ni 'xato' butunlay "
+                "ETALONDA edi. Shuning uchun hisobda ildiz "
+                "brentq bilan sonli yechiladi. Bu su-28 dagi "
+                "V&V tartibining eng nozik nuqtasi: yaqinlashish "
+                "to'xtaganda avval etalonni shubha ostiga qo'yish "
+                "kerak, keyin kodni.\n\n"
+                "**Kuzatilgan tartib 3,84 — kod to'g'ri.** "
+                "Kubik Ermit elementi uchun nazariy tartib 4; "
+                "o'lchangan 3,84 unga pastdan yaqinlashadi "
+                "(su-29 dagi asimptotik rejim masalasi). Agar "
+                "2 yoki 1 chiqqanida, bu element, integrallash "
+                "yoki chegaraviy shartdagi xatoni anglatardi.\n\n"
+                "**Validatsiya jadvali ixtiyoriy emas.** "
+                "Dastlabki loyihaviy urinishda (a = 30 mm, "
+                "h = 0,8 mm, p = 2 MPa) hisob mukammal "
+                "yaqinlashdi va chiroyli sonlar berdi: "
+                "w = 2570,8 mkm, f1 = 2262 Hz. Faqat farazlar "
+                "tekshiruvi ochib berdiki, w/h = 3,2 (kichik "
+                "siljish sharti 16 baravar buzilgan) va "
+                "sigma_vM = 1875 MPa (oqish chegarasidan besh "
+                "baravar yuqori) — ya'ni membrana amalda yorilib "
+                "ketardi. Sonli yechim benuqson, fizik natija "
+                "esa ma'nosiz edi. Butun kursning yakuniy "
+                "saboqi shu: FEM diskretlashtirish xatosini "
+                "kamaytiradi, model xatosini esa faqat "
+                "farazlarni qaytarib tekshirish ochadi."
+            ),
+            mistakes=[
+                "Sonli yechim yaqinlashgani uchun natijani "
+                "to'g'ri deb hisoblash. Yaqinlashish faqat "
+                "DISKRETLASHTIRISH xatosining kichikligini "
+                "bildiradi. Noto'g'ri tanlangan nazariya cheksiz "
+                "maydan to'rda ham noto'g'ri javobga yaqinlashadi.",
+                "Model farazlarini hisob boshida tekshirish va "
+                "oxirida unutish. Kichik siljish sharti w/h < 0,2 "
+                "natijaning O'ZIGA bog'liq, demak uni faqat "
+                "hisobdan keyin tekshirish mumkin. Bu mavzudagi "
+                "dastlabki loyihada aynan shu xato 3,2 qiymatini "
+                "sezdirmay o'tkazib yuborgan edi.",
+                "Adabiyotdagi yaxlitlangan konstantani etalon "
+                "sifatida ishlatish. lambda^2 = 10,2158 "
+                "yaqinlashishni 2,6*10^-4 % da to'xtatadi va "
+                "'FEM yaqinlashmayapti' degan noto'g'ri xulosaga "
+                "olib keladi. Transsendent tenglamaning ildizi "
+                "har doim sonli yechilishi kerak (su-23).",
+                "Chetda sigma_theta = nu*sigma_r ekanini "
+                "unutib, von Mizesni bir o'qli holatdek "
+                "hisoblash. Bu kuchlanishni 11% ga ortiqcha "
+                "baholaydi va konstruksiyani asossiz "
+                "og'irlashtiradi.",
+                "Ishlaydigan membranani o'lchamini oshirib, "
+                "nisbatni saqlash orqali 'kattaroq versiya' "
+                "yasash. Kuchlanish haqiqatan o'zgarmaydi, lekin "
+                "chastota a^2 kabi tushadi — datchik tezkorligini "
+                "yo'qotadi. Masshtablashda HAR BIR talabni "
+                "qayta tekshirish kerak.",
+                "Markazdagi o'qsimmetriya shartini (dw/dr = 0 da "
+                "r = 0) qo'ymaslik. Tizim yechiladi va natija "
+                "chiqadi, lekin markazda yechim silliq bo'lmaydi "
+                "va kuchlanish noto'g'ri tiklanadi.",
+                "Kuchlanishni tugunlardagi siljishlardan "
+                "to'g'ridan-to'g'ri ayirmalar bilan hisoblash. "
+                "Kuchlanish ikkinchi hosilaga bog'liq, shuning "
+                "uchun u shakl funksiyalari orqali tiklanishi "
+                "kerak (su-17); aks holda aniqlik ikki tartibga "
+                "tushadi.",
+                "Zaxira koeffitsientini oqish chegarasiga "
+                "nisbatan hisoblab, charchoqni e'tiborsiz "
+                "qoldirish. Datchik membranasi siklik yuk ostida "
+                "ishlaydi, demak charchoq chegarasi (odatda "
+                "sigma_y dan ancha past) haqiqiy cheklovchi "
+                "omil bo'lishi mumkin.",
+            ],
+            quiz=[
+                q("Nima uchun yupqa membrananing chetidagi "
+                  "kuchlanish mutlaq o'lchamga bog'liq emas?",
+                  "Chunki sigma = 3p(a/h)^2/4 ifodasida faqat "
+                  "a/h NISBATI qatnashadi. Egilish momenti a^2 "
+                  "kabi o'sadi, qarshilik momenti h^2 kabi — "
+                  "ikkalasi bir xil tarzda masshtablanadi va "
+                  "mutlaq o'lcham qisqaradi. Hisobda bu "
+                  "sigma/p = 325,521 va 3(a/h)^2/4 = 325,521 "
+                  "aynan tengligi bilan tasdiqlanadi.",
+                  kind="konseptual"),
+                q("Membrana radiusi va qalinligi ikkalasi ham "
+                  "ikki baravar oshirildi. Kuchlanish va birinchi "
+                  "xususiy chastota qanday o'zgaradi?",
+                  "Kuchlanish O'ZGARMAYDI, chunki u faqat a/h "
+                  "nisbatiga bog'liq va nisbat saqlandi. Chastota "
+                  "esa f1 ~ h/a^2 bo'lgani uchun 2/4 = 1/2 marta, "
+                  "ya'ni IKKI BARAVAR TUSHADI. Shuning uchun "
+                  "kattalashtirilgan versiya bir xil mustahkam, "
+                  "lekin ikki baravar sekin bo'ladi.",
+                  kind="hisob",
+                  options=["Kuchlanish 2x oshadi, chastota 2x tushadi",
+                           "Kuchlanish o'zgarmaydi, chastota 2x tushadi",
+                           "Kuchlanish o'zgarmaydi, chastota o'zgarmaydi",
+                           "Kuchlanish 4x oshadi, chastota 4x tushadi"],
+                  correct_index=1),
+                q("FEM hisobida chastota xatosi to'r maydalanganda "
+                  "2,6*10^-4 % da to'xtab qoldi va pasaymadi. "
+                  "Birinchi navbatda nimani shubha ostiga qo'yish "
+                  "kerak?",
+                  "ETALONNI. Yaqinlashish o'zi davom etayotgan "
+                  "bo'lsa (w_max xatosi pasayishda davom etsa), "
+                  "lekin bitta kattalik plato hosil qilsa, bu "
+                  "ko'pincha taqqoslanayotgan qiymatning "
+                  "aniqligi cheklanganini bildiradi. Bu yerda "
+                  "aynan shunday bo'ldi: adabiyotdagi "
+                  "lambda^2 = 10,2158 yaxlitlangan, aniq qiymati "
+                  "10,215826..., nisbiy farq esa 2,57*10^-4 % — "
+                  "platoning aynan o'zi.",
+                  kind="talqin",
+                  options=["Chegaraviy shartlarni",
+                           "Etalon (taqqoslash) qiymatini",
+                           "Element turini",
+                           "Integrallash tartibini"],
+                  correct_index=1),
+                q("Dastlabki loyihada a = 30 mm, h = 0,8 mm, "
+                  "p = 2 MPa olingan edi va FEM mukammal "
+                  "yaqinlashdi. Nega bu natija yaroqsiz?",
+                  "Chunki model farazlari buzilgan edi: "
+                  "w/h = 3,2 (kichik siljish sharti w/h < 0,2 "
+                  "dan 16 baravar yuqori) va sigma_vM = 1875 MPa "
+                  "(oqish chegarasi 355 MPa dan besh baravar "
+                  "yuqori). Kirxhoff nazariyasi bu rejimda "
+                  "o'rinli emas — membrana katta siljishda "
+                  "membrana kuchlarini oladi va bundan oldin "
+                  "plastik oqadi. Sonli yechim benuqson, fizik "
+                  "natija esa ma'nosiz.",
+                  kind="talqin"),
+                q("Qisilgan doiraviy plastinaning chetida "
+                  "sigma_theta = nu*sigma_r ekanini hisobga "
+                  "olish zaxira koeffitsientiga qanday ta'sir "
+                  "qiladi?",
+                  "Von Mizes ekvivalent kuchlanishi "
+                  "sqrt(1 - nu + nu^2) = 0,8888 marta, ya'ni "
+                  "11% ga kamayadi, demak zaxira koeffitsienti "
+                  "shuncha OSHADI. Buni e'tiborsiz qoldirish "
+                  "konstruksiyani asossiz og'irlashtiradi. "
+                  "Bu 3-fanning (tutash muhitlar mexanikasi) "
+                  "bevosita amaliy hissasi.",
+                  kind="hisob"),
+                q("Kubik Ermit elementi uchun w_max bo'yicha "
+                  "kuzatilgan yaqinlashish tartibi qancha "
+                  "bo'lishi kerak va hisobda qancha chiqdi?",
+                  "Nazariy tartib 4 (kubik interpolyatsiya). "
+                  "Hisobda p_obs = 3,84 chiqdi — bu 4 ga pastdan "
+                  "yaqinlashish, asimptotik rejimga to'liq "
+                  "kirilmaganining belgisi (su-29). Agar 2 yoki "
+                  "1 chiqqanida, element matritsasida, "
+                  "integrallash tartibida yoki chegaraviy "
+                  "shartda xato bor degani bo'lardi.",
+                  kind="kod",
+                  options=["Nazariy 2, o'lchangan 1,9",
+                           "Nazariy 3, o'lchangan 2,8",
+                           "Nazariy 4, o'lchangan 3,84",
+                           "Nazariy 6, o'lchangan 5,8"],
+                  correct_index=2),
+                q("Ish bosimi 0,5 MPa dan 0,9 MPa ga "
+                  "oshirilsa, ruxsat etilgan a/h oralig'iga "
+                  "nima bo'ladi?",
+                  "Mustahkamlikdan kelib chiqadigan yuqori "
+                  "chegara (a/h)^2 <= 4*sigma_ruxsat/(3p) "
+                  "bosimga teskari proporsional, demak u 20 dan "
+                  "pastga tushadi. Yupqa plastina sharti esa "
+                  "a/h >= 20 ni talab qiladi. Natijada ruxsat "
+                  "etilgan soha BO'SH bo'lib qoladi: po'lat yupqa "
+                  "plastina bu bosimga umuman yaramaydi. Yechim — "
+                  "qalinroq plastina nazariyasiga (su-22) "
+                  "o'tish, mustahkamroq material yoki boshqa "
+                  "konstruktiv sxema.",
+                  kind="talqin"),
+                q("Nima uchun membrana markazida dw/dr = 0 "
+                  "sharti qo'yilishi kerak?",
+                  "O'qsimmetriya talabi: yechim r = 0 nuqtada "
+                  "silliq bo'lishi uchun hosila nolga teng "
+                  "bo'lishi shart, aks holda markazda burchak "
+                  "(konus) hosil bo'ladi va moment "
+                  "M_r = -D(w'' + nu w'/r) ifodasidagi w'/r "
+                  "had aniqlanmay qoladi. Ermit elementida bu "
+                  "shart birinchi tugunning burilish erkinlik "
+                  "darajasini chiqarib tashlash bilan qo'yiladi.",
+                  kind="konseptual"),
+                q("Beshta fanning har biri bu masalaga qanday "
+                  "aniq hissa qo'shdi?",
+                  "1-fan (nazariy mexanika) — muvozanat "
+                  "tenglamasi va u orqali chet reaksiyasi hamda "
+                  "nazorat; 2-fan (materiallar qarshiligi) — "
+                  "momentdan kuchlanishga o'tish sigma = 6M/h^2; "
+                  "3-fan (tutash muhitlar mexanikasi) — tekis "
+                  "kuchlanish holati va von Mizes mezoni; 4-fan "
+                  "(plastinalar nazariyasi) — D*nabla^4 w = p "
+                  "tenglamasi va uning aniq yechimi; 5-fan "
+                  "(sonli usullar) — FEM yechimi, yaqinlashish "
+                  "tartibi, xatolik bahosi va resurs rejasi. "
+                  "Zanjirdan bitta bo'g'inni olib tashlash "
+                  "natijani tekshirib bo'lmaydigan qiladi.",
+                  kind="konseptual"),
+                q("Yakuniy hisobot natijani qanday shaklda "
+                  "berishi kerak?",
+                  "Bitta son sifatida emas, balki xatolik "
+                  "chegarasi va farazlar ro'yxati bilan: "
+                  "'w_max = 91,84 mkm, GCI asosidagi "
+                  "ishonchlilik chegarasi ichida; farazlar: "
+                  "h/a = 0,048 < 0,05, w/h = 0,077 < 0,2, "
+                  "zaxira 2,45 > 1,5, siljish ulushi 1,05% < 5%; "
+                  "material chiziqli elastik, chet ideal "
+                  "qisilgan'. Chegaralar va farazlarsiz son "
+                  "muhandislik qiymatiga ega emas (su-28).",
+                  kind="talqin"),
+            ],
+            bridge=(
+                "Kurs tugadi — va shu bilan zanjir yopildi. "
+                "nm-01 da moddiy nuqtaning muvozanati bilan "
+                "boshlangan yo'l 150 ta mavzudan o'tib, shu "
+                "yerda real datchik membranasining to'liq "
+                "hisobiga olib keldi. Har bir fan keyingisiga "
+                "tenglama berdi: nazariy mexanika muvozanatni, "
+                "materiallar qarshiligi kuchlanish va "
+                "deformatsiyani, tutash muhitlar mexanikasi "
+                "ularning tenzorli umumlashmasini, plastinalar "
+                "va qobiqlar nazariyasi ikki o'lchovli "
+                "konstruksiyalarni, sonli usullar esa "
+                "bularning hammasini ixtiyoriy geometriyada "
+                "yechish vositasini.\n\n"
+                "Bundan keyingi qadam — yakuniy loyiha. Unda "
+                "shu zanjir talabaning o'z tanlagan "
+                "konstruksiyasida mustaqil takrorlanadi: "
+                "modellashtirish qarorini asoslash, sonli "
+                "yechimni qurish, to'r bo'yicha yaqinlashishni "
+                "ko'rsatish, analitik yoki eksperimental "
+                "ma'lumot bilan validatsiya qilish va xatolik "
+                "byudjetini keltirish. Kursning maqsadi "
+                "formulalarni yodlash emas edi — maqsad shu "
+                "zanjirni mustaqil qura olish va uning har "
+                "bir bo'g'iniga ishonch darajasini ayta "
+                "olish edi."
+            ),
+            research=(
+                "To'liq hisoblash zanjirining bugungi "
+                "davomi — RAQAMLI EGIZAK (digital twin): "
+                "konstruksiyaning model nusxasi real "
+                "o'lchovlar bilan uzluksiz yangilanib turadi "
+                "va uning holatini real vaqtda bashorat "
+                "qiladi. Bunda kursning barcha bo'g'inlari bir "
+                "vaqtda ishlaydi va yangi talablar paydo "
+                "bo'ladi. Birinchisi — TEZLIK: to'liq FEM "
+                "hisobini real vaqtda takrorlab bo'lmaydi, "
+                "shuning uchun kamaytirilgan tartibli modellar "
+                "(reduced-order models, POD/Galerkin) "
+                "quriladi: yechimlar fazosining bir necha o'nlab "
+                "asosiy modasi ajratiladi va masala shu kichik "
+                "bazisda yechiladi, bu esa hisobni minglab "
+                "marta tezlashtiradi. Ikkinchisi — "
+                "NOANIQLIKNI MIQDORIYLASHTIRISH (UQ): material "
+                "parametrlari, geometriya bardoshliklari va "
+                "yuk tasodifiy kattaliklar sifatida "
+                "qaraladi, natija esa taqsimot sifatida "
+                "chiqadi (Monte-Karlo, polinomial xaos). "
+                "Uchinchisi — MA'LUMOTLAR ASSIMILYATSIYASI: "
+                "o'lchov va modelni birlashtirish (Kalman "
+                "filtri, Bayes yangilash), bu yerda "
+                "su-28 dagi validatsiya g'oyasi uzluksiz "
+                "jarayonga aylanadi. Alohida va faol "
+                "rivojlanayotgan yo'nalish — FIZIKAGA "
+                "ASOSLANGAN NEYRON TARMOQLAR (PINN), ularda "
+                "differensial tenglamaning qoldig'i yo'qotish "
+                "funksiyasiga kiritiladi; ular hozircha to'g'ri "
+                "masalalarda klassik FEM dan aniqlik va "
+                "ishonchlilik bo'yicha yutqazadi, lekin "
+                "teskari masalalarda (material parametrlarini "
+                "o'lchovdan tiklash) va parametrik oilalarda "
+                "sezilarli ustunlik ko'rsatmoqda."
+            ),
+            manim_ref=manim(
+                scene="FullChain",
+                module="manim/scenes/su30_yakun.py",
+                title="To'liq hisoblash zanjiri",
+                summary=(
+                    "Sahna beshta blokni ketma-ket yoqadi va "
+                    "har birida shu fan bergan tenglama hamda "
+                    "shu hisobdagi aniq son paydo bo'ladi: "
+                    "muvozanat (nazorat = 0), sigma = 6M/h^2 "
+                    "(162,76 MPa), von Mizes (144,67 MPa), "
+                    "D*nabla^4 w = p (91,8353 mkm) va "
+                    "K u = f (FEM, xato 1,7*10^-4 %). Bloklar "
+                    "strelkalar bilan bog'lanib, to'liq zanjir "
+                    "hosil qiladi. Keyin membrananing egilish "
+                    "shakli ko'rsatiladi va to'r maydalanishi "
+                    "animatsiya qilinadi: FEM nuqtalari aniq "
+                    "chiziqqa yopishib boradi. Yakunda "
+                    "validatsiya paneli ochiladi — to'rt shart "
+                    "yashil yonadi, keyin bosim ataylab "
+                    "oshiriladi va ikkita shart qizil bo'lib "
+                    "o'zgaradi: sonli yechim hamon "
+                    "yaqinlashayotgan bo'lsa ham, natija "
+                    "yaroqsiz bo'lib qolgani ko'rsatiladi."
+                ),
+            ),
+        ),
+    ),
 ]
