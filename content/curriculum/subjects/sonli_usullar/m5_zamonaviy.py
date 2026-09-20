@@ -2483,4 +2483,1230 @@ table("BEM va FEM: qachon qaysi biri",
             ),
         ),
     ),
+
+    # ------------------------------------------------------------------ su-27
+    Topic(
+        id="su-27",
+        subject_id=S, module_id=M, order=27,
+        title="Spektral va to'rsiz usullar",
+        description=(
+            "Chebishev spektral usuli, radial bazis funksiyalari, "
+            "to'rsiz kollokatsiya, shakl parametri tanlovi va "
+            "noaniqlik prinsipi."
+        ),
+        learning_objective=(
+            "Spektral va to'rsiz usullarni qurish, ularning aniqlik va "
+            "shartlanganlik almashuvini miqdoriy baholash hamda "
+            "qo'llanish sohasini asoslash."
+        ),
+        prerequisites=["su-26", "su-25", "su-05"],
+        mathematical_core=(
+            "$u(x) \\approx \\sum_j\\alpha_j\\phi(\\|x - x_j\\|)$; "
+            "multikvadrik "
+            "$\\phi(r) = \\sqrt{r^2 + c^2}$; "
+            "noaniqlik prinsipi: aniqlik $\\times$ shartlanganlik "
+            "$\\approx$ const."
+        ),
+        engineering_application=(
+            "Katta deformatsiya, yorilish tarqalishi, suyuqlik–qattiq "
+            "jism ta'siri, harakatlanuvchi chegaralar — to'r "
+            "buzilib ketadigan masalalar."
+        ),
+        computational_component=(
+            "Chebishev differensiallash matritsasi, RBF kollokatsiya, "
+            "shakl parametrining optimal qiymatini topish."
+        ),
+        visualization_component=(
+            "Radial bazis funksiyalari, tugun taqsimoti, aniqlik va "
+            "shartlanganlik egri chiziqlari."
+        ),
+        research_extension=(
+            "RBF-FD usulini o'rganing: u RBF ning moslashuvchanligini "
+            "siyrak matritsalar bilan birlashtiradi."
+        ),
+        difficulty="murakkab",
+        previous_link=(
+            "su-25 butun sohani, su-26 esa faqat chegarani "
+            "diskretlashtirdi. Ikkalasi ham tugunlar orasidagi "
+            "bog'lanishga — to'rga — tayanardi. Endi to'rning o'zidan "
+            "voz kechamiz."
+        ),
+        next_topic="su-28",
+        estimated_minutes=85,
+        tags=["spektral usul", "RBF", "to'rsiz", "shakl parametri",
+              "noaniqlik prinsipi"],
+        lesson=_lesson(
+            problem=(
+                "Metall shakllantirish "
+                "jarayoni modellashtirilmoqda: "
+                "zagotovka press ostida "
+                "butunlay o'zgaradi — "
+                "deformatsiya yuzlab "
+                "foizga yetadi. FEM to'ri "
+                "bunday deformatsiyada "
+                "buziladi: elementlar "
+                "cho'ziladi, ag'dariladi va "
+                "su-14 dagi "
+                "$\\det\\mathbf{J} \\le 0$ "
+                "holati yuzaga keladi. "
+                "Hisob to'xtaydi va to'rni "
+                "qayta qurish kerak "
+                "bo'ladi — bu esa "
+                "natijani interpolyatsiya "
+                "qilishni va aniqlik "
+                "yo'qotishni anglatadi. "
+                "Yorilish tarqalishida "
+                "ham xuddi shunday: yoriq "
+                "yo'li oldindan noma'lum "
+                "va to'r unga moslashishi "
+                "kerak. To'rni butunlay "
+                "tashlab yuborish "
+                "mumkinmi?"
+            ),
+            concepts=[
+                c("Spektral usul",
+                  "Global silliq bazis "
+                  "(Chebishev, Fure); "
+                  "silliq yechimda mashina "
+                  "aniqligiga yetadi."),
+                c("Chebishev "
+                  "differensiallash "
+                  "matritsasi",
+                  "su-25 dagi DQM ning "
+                  "Chebishev tugunlaridagi "
+                  "ko'rinishi — yopiq "
+                  "formulasi bor."),
+                c("Radial bazis funksiyasi "
+                  "(RBF)",
+                  "$\\phi(\\|x - x_j\\|)$ — "
+                  "faqat masofaga bog'liq; "
+                  "shuning uchun istalgan "
+                  "o'lchovda va istalgan "
+                  "tugun joylashuvida "
+                  "ishlaydi."),
+                c("To'rsizlik",
+                  "Tugunlar orasida "
+                  "bog'lanish **umuman "
+                  "yo'q** — faqat "
+                  "koordinatalar kerak."),
+                c("Shakl parametri $c$",
+                  "Multikvadrikning "
+                  "kengligi; aniqlikni ham, "
+                  "shartlanganlikni ham "
+                  "belgilaydi."),
+                c("Noaniqlik prinsipi",
+                  "Yaxshi shartlanganlik va "
+                  "yuqori aniqlikka "
+                  "**bir vaqtda** erishib "
+                  "bo'lmaydi (Shaback)."),
+            ],
+            derivation=[
+                d("1. Spektral yoyilma",
+                  r"u(x) \approx \sum_{k=0}^{N}"
+                  r"a_kT_k(x)",
+                  "Chebishev ko'phadlari — "
+                  "global va silliq. Bu "
+                  "su-25 dagi DQM bilan bir "
+                  "oiladagi yondashuv."),
+                d("2. Differensiallash "
+                  "matritsasi",
+                  r"D_{ij} = "
+                  r"\frac{c_i(-1)^{i+j}}"
+                  r"{c_j(x_i - x_j)}, \quad "
+                  r"i \ne j; \qquad D_{ii} = "
+                  r"-\sum_{j \ne i}D_{ij}",
+                  "$c_0 = c_N = 2$, "
+                  "qolganlari 1. Diagonal "
+                  "yana qator yig'indisi "
+                  "noli shartidan — su-25 "
+                  "va su-26 dagi bir xil "
+                  "ayniyat."),
+                d("3. Spektral aniqlik",
+                  r"\|e\| \sim e^{-\sigma N} "
+                  r"\quad (\text{analitik } u)",
+                  "**O'lchangan natija.** "
+                  "Kodda $N = 6$ da "
+                  "$1{,}7\\cdot10^{-5}$, "
+                  "$N = 20$ da esa "
+                  "$8{,}9\\cdot10^{-16}$ — "
+                  "mashina aniqligi."),
+                d("4. Spektral usulning "
+                  "cheklovi",
+                  r"\text{muntazam geometriya "
+                  r"talab qilinadi}",
+                  "Chebishev tugunlari "
+                  "to'g'ri to'rtburchakda "
+                  "tabiiy; murakkab "
+                  "sohada esa ularni "
+                  "joylashtirish "
+                  "muammo."),
+                d("5. Radial bazis g'oyasi",
+                  r"u(x) \approx "
+                  r"\sum_{j=1}^{N}\alpha_j"
+                  r"\phi\left(\|x - x_j\|"
+                  r"\right)",
+                  "**Hal qiluvchi qadam.** "
+                  "Bazis faqat **masofaga** "
+                  "bog'liq, demak tugunlar "
+                  "qanday joylashganining "
+                  "ahamiyati yo'q — "
+                  "to'r kerak emas."),
+                d("6. Multikvadrik",
+                  r"\phi(r) = \sqrt{r^2 + c^2}",
+                  "Eng keng tarqalgan RBF. "
+                  "$c$ — shakl parametri; "
+                  "$c \\to 0$ da funksiya "
+                  "o'tkirlashadi, katta "
+                  "$c$ da yassilashadi."),
+                d("7. Kollokatsiya",
+                  r"\mathcal{L}u(x_i) = f(x_i), "
+                  r"\quad u(x_b) = g(x_b)",
+                  "Tenglamani tugunlarda "
+                  "aynan qanoatlantiramiz. "
+                  "Zaif formulirovka, "
+                  "integrallash va yig'ish "
+                  "— hech biri kerak "
+                  "emas."),
+                d("8. Hosilalar oson",
+                  r"\frac{\partial^2\phi}"
+                  r"{\partial x^2} = "
+                  r"\frac{c^2}{(r^2+c^2)^{3/2}}",
+                  "RBF analitik "
+                  "differensiallanadi, "
+                  "shuning uchun istalgan "
+                  "tartibli operator "
+                  "bevosita qo'llanadi."),
+                d("9. Matritsaning xossalari",
+                  r"\mathbf{A} \ \text{to'la, "
+                  r"nosimmetrik, yomon "
+                  r"shartlangan}",
+                  "BEM dagi kabi to'la, "
+                  "lekin undan ham yomon "
+                  "shartlangan."),
+                d("10. $c$ ning ikki "
+                  "tomonlama ta'siri",
+                  r"c \uparrow "
+                  r"\;\Longrightarrow\; "
+                  r"\text{aniqlik} \uparrow, "
+                  r"\quad \kappa \uparrow",
+                  "**Kasallikning "
+                  "ildizi.** Yassiroq "
+                  "bazis silliq "
+                  "funksiyani yaxshiroq "
+                  "yaqinlashtiradi, lekin "
+                  "bazis funksiyalari "
+                  "bir-biriga o'xshab "
+                  "qoladi va matritsa "
+                  "buziladi."),
+                d("11. Noaniqlik prinsipi",
+                  r"\text{xato} \times "
+                  r"\kappa \approx "
+                  r"\text{const}",
+                  "**Shaback prinsipi.** "
+                  "Ikkalasini bir vaqtda "
+                  "yaxshilash mumkin "
+                  "emas — bu usulning "
+                  "kamchiligi emas, "
+                  "nazariy chegara."),
+                d("12. Optimal $c$",
+                  r"\kappa(c_{opt}) \approx "
+                  r"\varepsilon_{mach}^{-1} "
+                  r"\approx 10^{16}",
+                  "**O'lchangan natija.** "
+                  "Eng yaxshi aniqlik "
+                  "shartlanganlik ikkilangan "
+                  "aniqlik chegarasiga "
+                  "yetgan joyda — kodda "
+                  "$c = 1{,}5$ da "
+                  "$\\kappa = "
+                  "4{,}3\\cdot10^{16}$."),
+                d("13. $N$ bo'yicha "
+                  "nomonotonlik",
+                  r"N \uparrow \ \text{har doim "
+                  r"ham yaxshiroq EMAS}",
+                  "**Kutilmagan oqibat.** "
+                  "Qat'iy $c$ da "
+                  "tugunlar qo'shilishi "
+                  "shartlanganlikni "
+                  "oshiradi va yaxlitlash "
+                  "xatosi yutuqni yeb "
+                  "qo'yadi."),
+            ],
+            meaning=(
+                "Bu mavzuda ikkita butunlay "
+                "boshqacha falsafa "
+                "uchrashadi. Spektral usul "
+                "global silliq bazisga "
+                "tayanadi va silliq "
+                "masalada u hech narsa "
+                "bilan raqobatlasha "
+                "olmaydigan natija beradi: "
+                "kodda 20 ta nuqta "
+                "mashina aniqligini "
+                "beradi. Lekin uning "
+                "narxi 4-qadamda — "
+                "geometriya muntazam "
+                "bo'lishi shart. RBF esa "
+                "aksincha: 5-qadamdagi "
+                "g'oya tufayli u "
+                "geometriyaga umuman "
+                "befarq. Bazis faqat "
+                "masofaga bog'liq, demak "
+                "tugunlarni istalgan "
+                "joyga, istalgan tartibda "
+                "sochish mumkin — to'r, "
+                "elementlar, bog'lanish "
+                "jadvali, yig'ish — "
+                "hech biri kerak emas. "
+                "Metall shakllantirish "
+                "yoki yorilish "
+                "tarqalishida bu hal "
+                "qiluvchi: tugunlar "
+                "bilan birga "
+                "harakatlanadi va "
+                "hech qachon "
+                "'ag'darilmaydi'. "
+                "Ammo 10–12-qadamlar "
+                "jiddiy narxni ochadi va "
+                "bu narx nazariy. "
+                "Shakl parametri $c$ "
+                "ni oshirsangiz bazis "
+                "yassilashadi va silliq "
+                "funksiyani yaxshiroq "
+                "yaqinlashtiradi — "
+                "lekin ayni paytda bazis "
+                "funksiyalari "
+                "bir-biriga o'xshab "
+                "qoladi va matritsa "
+                "buziladi. Kod bu "
+                "almashuvni aniq "
+                "o'lchaydi: $c$ 0,05 "
+                "dan 5 gacha "
+                "o'zgarganda xato "
+                "avval $9\\cdot10^{-2}$ "
+                "dan "
+                "$2{,}6\\cdot10^{-7}$ "
+                "ga tushadi, so'ng "
+                "yana "
+                "$2\\cdot10^{-2}$ ga "
+                "ko'tariladi, "
+                "shartlanganlik esa "
+                "38 dan "
+                "$3\\cdot10^{18}$ ga "
+                "monoton o'sadi. "
+                "Optimal nuqta esa "
+                "chiroyli tarzda "
+                "aniqlanadi: u "
+                "shartlanganlik "
+                "ikkilangan aniqlik "
+                "chegarasiga "
+                "($\\sim10^{16}$) "
+                "yetgan joyda. "
+                "Ya'ni optimal $c$ "
+                "matematik emas, "
+                "**arifmetik** "
+                "kattalik — u "
+                "mashinaning "
+                "aniqligiga "
+                "bog'liq. "
+                "13-qadam esa "
+                "intuitsiyaga "
+                "butunlay zid "
+                "natija beradi: "
+                "tugunlar sonini "
+                "oshirish har doim "
+                "ham yaxshiroq "
+                "emas. Kodda "
+                "$c = 2$ da "
+                "$N = 11$ dan "
+                "$N = 15$ ga "
+                "o'tish xatoni "
+                "o'n barobar "
+                "**yomonlashtiradi**. "
+                "Bu su-17 dagi "
+                "jarima "
+                "koeffitsienti va "
+                "su-18 dagi to'r "
+                "zichlashtirish "
+                "bilan bir "
+                "oiladagi hodisa: "
+                "bir xatoni "
+                "kamaytirish "
+                "boshqasini "
+                "oshiradi."
+            ),
+            equations=[
+                eq(r"u(x) \approx \sum_{j=1}^{N}"
+                   r"\alpha_j\,\phi\left(\|x - "
+                   r"x_j\|\right), \qquad "
+                   r"\phi(r) = \sqrt{r^2 + c^2}",
+                   "RBF yoyilmasi va "
+                   "multikvadrik.",
+                   "RBF bazisi"),
+                eq(r"D_{ij} = \frac{c_i(-1)^{i+j}}"
+                   r"{c_j(x_i-x_j)}, \qquad "
+                   r"D_{ii} = -\sum_{j\ne i}D_{ij}",
+                   "Chebishev differensiallash "
+                   "matritsasi.",
+                   "Spektral matritsa"),
+                eq(r"\|e\| \sim e^{-\sigma N} "
+                   r"\quad (\text{spektral}), "
+                   r"\qquad \|e\|\cdot\kappa "
+                   r"\approx \text{const} \quad "
+                   r"(\text{RBF})",
+                   "Spektral yaqinlashish va "
+                   "RBF noaniqlik prinsipi.",
+                   "Aniqlik qonunlari"),
+                eq(r"\kappa(c_{opt}) \approx "
+                   r"\varepsilon_{mach}^{-1} "
+                   r"\approx 10^{16}",
+                   "Optimal shakl parametri "
+                   "arifmetika bilan "
+                   "belgilanadi.",
+                   "Optimal c"),
+            ],
+            conditions=(
+                "**Spektral usul qachon:**\n"
+                "- Muntazam geometriya "
+                "(to'rtburchak, doira);\n"
+                "- Yechim **analitik** yoki "
+                "juda silliq;\n"
+                "- Eng yuqori aniqlik kerak "
+                "bo'lganda.\n\n"
+                "**To'rsiz usul qachon:**\n"
+                "- Katta deformatsiya — to'r "
+                "buziladi;\n"
+                "- Harakatlanuvchi chegara, "
+                "yorilish tarqalishi;\n"
+                "- Tugunlarni qo'shish/olib "
+                "tashlash oson bo'lishi "
+                "kerak;\n"
+                "- To'r qurish hisobning "
+                "asosiy vaqtini olganda.\n\n"
+                "**RBF da amaliy "
+                "tavsiyalar:**\n"
+                "1. $c$ ni har doim "
+                "sozlang — universal "
+                "qiymat yo'q; "
+                "$c \\sim h$ tartibida "
+                "boshlang;\n"
+                "2. Shartlanganlikni "
+                "kuzating: "
+                "$\\kappa > 10^{16}$ "
+                "bo'lsa natijaga "
+                "ishonmang;\n"
+                "3. $N$ ni oshirish "
+                "natijani "
+                "yomonlashtirishi "
+                "mumkin — "
+                "yaqinlashishni "
+                "**tekshiring**;\n"
+                "4. Mahalliy RBF "
+                "(RBF-FD) katta "
+                "masalalarda "
+                "yagona amaliy "
+                "variant.\n\n"
+                "**Chegaraviy "
+                "shartlar:** to'rsiz "
+                "usullarda ular FEM "
+                "dagidek oson emas. "
+                "Kollokatsiyada "
+                "to'g'ridan-to'g'ri "
+                "qo'llanadi, lekin "
+                "Galerkin asosidagi "
+                "to'rsiz usullarda "
+                "(EFG) shakl "
+                "funksiyalari "
+                "Kroneker delta "
+                "xossasiga ega "
+                "emas — Lagranj "
+                "ko'paytuvchilari "
+                "yoki jarima kerak "
+                "(su-17)."
+            ),
+            worked=WorkedExample(
+                statement=(
+                    "Multikvadrik "
+                    "$\\phi = \\sqrt{r^2+c^2}$ "
+                    "uchun: (a) ikkinchi "
+                    "hosilani toping; "
+                    "(b) $c \\to 0$ va "
+                    "$c \\to \\infty$ "
+                    "chegaralarida bazis "
+                    "qanday o'zgaradi; "
+                    "(c) nima uchun katta "
+                    "$c$ matritsani "
+                    "buzadi."
+                ),
+                given=[
+                    r"\phi(r) = \sqrt{r^2 + c^2}, "
+                    r"\qquad r = |x - x_j|",
+                    r"\text{bir o'lchovda } "
+                    r"r^2 = (x-x_j)^2",
+                ],
+                steps=[
+                    st(r"\frac{d\phi}{dx} = "
+                       r"\frac{x - x_j}"
+                       r"{\sqrt{r^2+c^2}}",
+                       "Zanjir qoidasi."),
+                    st(r"\frac{d^2\phi}{dx^2} = "
+                       r"\frac{1}{\sqrt{r^2+c^2}} "
+                       r"- \frac{(x-x_j)^2}"
+                       r"{(r^2+c^2)^{3/2}}",
+                       "Bo'linma hosilasi."),
+                    st(r"= \frac{(r^2+c^2) - r^2}"
+                       r"{(r^2+c^2)^{3/2}} = "
+                       r"\frac{c^2}"
+                       r"{(r^2+c^2)^{3/2}}",
+                       "**Ixcham natija.** "
+                       "Analitik, "
+                       "yaqinlashishsiz."),
+                    st(r"\text{(b)}\quad c \to 0: "
+                       r"\ \phi \to |x - x_j|",
+                       "Bazis o'tkir "
+                       "burchakli bo'lib "
+                       "qoladi."),
+                    st(r"\frac{d^2\phi}{dx^2} \to "
+                       r"0 \ (r \ne 0), \quad "
+                       r"\to \infty \ (r = 0)",
+                       "Ikkinchi hosila "
+                       "delta-funksiyaga "
+                       "aylanadi — "
+                       "mahalliy, lekin "
+                       "silliq emas."),
+                    st(r"c \to \infty: \ \phi "
+                       r"\approx c\left(1 + "
+                       r"\frac{r^2}{2c^2}"
+                       r"\right) = c + "
+                       r"\frac{r^2}{2c}",
+                       "Teylor yoyilmasi "
+                       "(su-07)."),
+                    st(r"\text{(c)}\quad \phi_j "
+                       r"\approx c + "
+                       r"\frac{(x-x_j)^2}{2c}",
+                       "**Tuzoqning "
+                       "ildizi.** Barcha "
+                       "bazis funksiyalari "
+                       "bir xil katta "
+                       "doimiy $c$ ni o'z "
+                       "ichiga oladi."),
+                    st(r"\phi_i - \phi_j = "
+                       r"\frac{(x-x_i)^2 - "
+                       r"(x-x_j)^2}{2c}",
+                       "Ular orasidagi "
+                       "farq esa "
+                       "$1/c$ kabi "
+                       "**kichrayadi**."),
+                    st(r"\Rightarrow \ "
+                       r"\text{ustunlar deyarli "
+                       r"chiziqli bog'liq}",
+                       "Matritsa "
+                       "singulyarlikka "
+                       "yaqinlashadi."),
+                    st(r"\kappa \sim c^{2N} \ "
+                       r"(\text{taxminan})",
+                       "Shartlanganlik "
+                       "$c$ bilan juda "
+                       "tez o'sadi — "
+                       "kodda "
+                       "$c = 0{,}05$ da "
+                       "38, $c = 5$ da "
+                       "$3\\cdot10^{18}$."),
+                    st(r"\text{Optimal } c: \ "
+                       r"\kappa \approx 10^{16}",
+                       "**Amaliy qoida.** "
+                       "Shartlanganlik "
+                       "mashina "
+                       "aniqligiga "
+                       "yetgan joy — "
+                       "kodda "
+                       "$c = 1{,}5$."),
+                ],
+                answer=(
+                    "(a) $\\phi'' = "
+                    "c^2/(r^2+c^2)^{3/2}$; "
+                    "(b) $c \\to 0$ da bazis "
+                    "$|x-x_j|$ ga aylanadi "
+                    "(o'tkir, mahalliy), "
+                    "$c \\to \\infty$ da esa "
+                    "$c + r^2/(2c)$ "
+                    "(yassi, global); "
+                    "(c) katta $c$ da barcha "
+                    "bazis funksiyalari bir "
+                    "xil $c$ ni o'z ichiga "
+                    "oladi va farqlari "
+                    "$1/c$ kabi kichrayadi — "
+                    "ustunlar deyarli "
+                    "chiziqli bog'liq "
+                    "bo'lib qoladi. Kodda "
+                    "optimal "
+                    "$c = 1{,}5$ da "
+                    "$\\kappa = "
+                    "4{,}3\\cdot10^{16}$."
+                ),
+                engineering_note=(
+                    "(c) dagi tahlil "
+                    "noaniqlik "
+                    "prinsipining fizik "
+                    "ma'nosini beradi. "
+                    "Yassi bazis silliq "
+                    "funksiyani yaxshi "
+                    "yaqinlashtiradi, "
+                    "chunki u o'zi "
+                    "silliq — lekin "
+                    "aynan shuning uchun "
+                    "bazis funksiyalari "
+                    "bir-biridan kam "
+                    "farq qiladi va "
+                    "ularni ajratish "
+                    "qiyinlashadi. Bu "
+                    "su-17 dagi jarima "
+                    "koeffitsienti bilan "
+                    "bir xil tuzilishga "
+                    "ega: u yerda "
+                    "$\\beta$ ni "
+                    "oshirish shartni "
+                    "aniqroq bajaradi, "
+                    "lekin "
+                    "shartlanganlikni "
+                    "buzadi; bu yerda "
+                    "$c$ ni oshirish "
+                    "aniqlikni "
+                    "oshiradi, lekin "
+                    "shartlanganlikni "
+                    "buzadi. Ikkala "
+                    "holatda ham "
+                    "optimal qiymat "
+                    "**arifmetika** "
+                    "bilan "
+                    "belgilanadi, "
+                    "matematika bilan "
+                    "emas — ya'ni u "
+                    "mashinaning "
+                    "aniqligiga "
+                    "bog'liq. "
+                    "To'rt karra "
+                    "aniqlikda "
+                    "hisoblansangiz "
+                    "optimal $c$ "
+                    "kattaroq bo'lardi "
+                    "va natija "
+                    "aniqroq. Bu "
+                    "su-02 va su-05 "
+                    "dagi xatolik "
+                    "byudjeti "
+                    "g'oyasining "
+                    "eng aniq "
+                    "ko'rinishi."
+                ),
+            ),
+            computation=Computation(
+                caption=(
+                    "Chebishev spektral usulini "
+                    "qurish, RBF kollokatsiyani "
+                    "amalga oshirish va "
+                    "noaniqlik prinsipini "
+                    "o'lchash."
+                ),
+                code='''"""Spektral va to'rsiz usullar."""
+import numpy as np
+from labkit import PARAMS, note, series, table, value
+
+N_rbf = int(PARAMS.get("N_rbf", 15))
+c_shape = float(PARAMS.get("c_shape", 1.0))
+N_spec = int(PARAMS.get("N_spec", 12))
+
+
+# --- (1) CHEBISHEV SPEKTRAL USUL ---
+def cheb_D(N):
+    """Chebishev differensiallash matritsasi (su-25 DQM bilan bir oila)."""
+    x = np.cos(np.pi*np.arange(N + 1)/N)
+    cc = np.ones(N + 1)
+    cc[0] = cc[N] = 2.0
+    cc = cc*(-1)**np.arange(N + 1)
+    X = np.tile(x, (N + 1, 1)).T
+    dX = X - X.T
+    D = np.outer(cc, 1.0/cc)/(dX + np.eye(N + 1))
+    D = D - np.diag(D.sum(axis=1))      # qator yig'indisi noli
+    return D, x
+
+
+D_t, x_t = cheb_D(8)
+value("Chebishev D: max|D @ 1| (nol bo'lishi kerak)",
+      float(np.max(np.abs(D_t @ np.ones(len(x_t))))), "—")
+# ko'phadlarni aynan differensiallaydimi
+rows0 = []
+for N in [6, 10, 14]:
+    D, x = cheb_D(N)
+    line = [N]
+    for pdeg in [1, 3, N - 1, N]:
+        f = x**pdeg
+        ex = pdeg*x**(pdeg - 1)
+        den = max(float(np.max(np.abs(ex))), 1e-30)
+        line.append(f"{float(np.max(np.abs(D @ f - ex)))/den:.1e}")
+    rows0.append(line)
+table("Chebishev matritsasi ko'phadlarda",
+      ["N", "x^1", "x^3", "x^(N-1)", "x^N"], rows0)
+
+rows = []
+sp_N, sp_e = [], []
+for N in [4, 6, 8, 10, 12, 16, 20]:
+    D, x = cheb_D(N)
+    D2 = (D @ D)[1:N, 1:N]
+    xs = x[1:N]
+    u_ex = np.sin(np.pi*(xs + 1)/2)
+    rhs = -(np.pi/2)**2*u_ex
+    u = np.linalg.solve(D2, rhs)
+    e = float(np.max(np.abs(u - u_ex)))
+    rows.append([N, f"{e:.4e}",
+                 f"{np.linalg.cond(D2):.2e}"])
+    sp_N.append(N)
+    sp_e.append(e)
+table("Chebishev spektral usuli: u'' = -(pi/2)^2 u, u(+-1) = 0",
+      ["N", "maks xato", "cond(D2)"], rows)
+series("Spektral yaqinlashish", sp_N,
+       [np.log10(max(v, 1e-18)) for v in sp_e],
+       xlabel="N", ylabel="log10(xato)")
+value("Spektral: N = 6 dagi xato", float(sp_e[sp_N.index(6)]), "—")
+value("Spektral: N = 20 dagi xato", float(sp_e[sp_N.index(20)]), "—")
+note("Chebishev matritsasi ham qator yig'indisi noli shartiga "
+     "bo'ysunadi (D @ 1 = 0) - su-25 dagi DQM va su-26 dagi BEM bilan "
+     "AYNI ayniyat. Spektral yaqinlashish esa hech narsa bilan "
+     "raqobatlasha olmaydi: N = 6 da xato 1.7e-5, N = 20 da esa 8.9e-16 "
+     "- ya'ni MASHINA ANIQLIGI. Shartlanganlik ham me'yorda qoladi. "
+     "Lekin buning sharti - muntazam geometriya va silliq yechim.")
+
+
+# --- (2) TO'RSIZ RBF KOLLOKATSIYA ---
+def rbf(r, c):
+    return np.sqrt(r*r + c*c)
+
+
+def rbf_d2(r, c):
+    """d2/dx2 multikvadrik - ANALITIK (sinovdan o'tgan)."""
+    return c*c/np.power(r*r + c*c, 1.5)
+
+
+def solve_rbf(N, c, L=1.0):
+    """u'' = -pi^2 sin(pi x), u(0) = u(L) = 0 - TO'RSIZ kollokatsiya."""
+    x = np.linspace(0.0, L, N)
+    A = np.zeros((N, N))
+    b = np.zeros(N)
+    for i in range(N):
+        for j in range(N):
+            r = abs(x[i] - x[j])
+            A[i, j] = rbf(r, c) if i in (0, N - 1) else rbf_d2(r, c)
+        b[i] = 0.0 if i in (0, N - 1) else -np.pi**2*np.sin(np.pi*x[i])
+    al = np.linalg.solve(A, b)
+    xe = np.linspace(0.0, L, 401)
+    ue = np.array([float(np.sum(al*rbf(np.abs(xx - x), c))) for xx in xe])
+    ex = np.sin(np.pi*xe)
+    err = float(np.max(np.abs(ue - ex))/np.max(np.abs(ex)))
+    return err, float(np.linalg.cond(A)), xe, ue, ex
+
+
+# analitik ikkinchi hosilani tekshirish
+c_chk = 0.7
+rr = np.linspace(-2, 2, 9)
+num_d2 = np.array([(rbf(abs(t + 1e-5), c_chk) - 2*rbf(abs(t), c_chk) +
+                    rbf(abs(t - 1e-5), c_chk))/1e-10 for t in rr])
+value("RBF ikkinchi hosilasi: analitik va sonli farqi",
+      float(np.max(np.abs(rbf_d2(np.abs(rr), c_chk) - num_d2))), "—")
+
+rows2 = []
+cs = [0.05, 0.1, 0.2, 0.4, 0.6, 0.8, 1.0, 1.5, 2.0, 3.0, 5.0]
+errs, konds = [], []
+for c in cs:
+    e, k, *_ = solve_rbf(N_rbf, c)
+    rows2.append([f"{c:.2f}", f"{e:.3e}", f"{k:.3e}", f"{e*k:.3e}"])
+    errs.append(e)
+    konds.append(k)
+table(f"NOANIQLIK PRINSIPI: shakl parametri c ning roli (N = {N_rbf})",
+      ["c", "nisbiy xato", "cond(A)", "xato x cond"], rows2)
+i_best = int(np.argmin(errs))
+value("Eng yaxshi c", float(cs[i_best]), "—")
+value("Eng yaxshi c dagi xato", float(errs[i_best]), "—")
+value("Eng yaxshi c dagi shartlanganlik", float(konds[i_best]), "—")
+value("Ikkilangan aniqlik chegarasi 1/eps",
+      float(1.0/np.finfo(float).eps), "—")
+series("RBF xatosi", [np.log10(c) for c in cs],
+       [np.log10(max(e, 1e-18)) for e in errs],
+       xlabel="log10(c)", ylabel="log10(xato)")
+series("RBF shartlanganligi", [np.log10(c) for c in cs],
+       [np.log10(k) for k in konds],
+       xlabel="log10(c)", ylabel="log10(cond)")
+note(f"NOANIQLIK PRINSIPI (Shaback). c ortgani sari shartlanganlik "
+     f"MONOTON o'sadi (38 dan 3e18 gacha), xato esa avval kamayadi, "
+     f"minimumga yetadi va keyin YANA O'SADI. Minimum c = {cs[i_best]} "
+     f"da va o'sha yerda cond = {konds[i_best]:.1e} - ya'ni ikkilangan "
+     f"aniqlik chegarasi 1/eps = {1.0/np.finfo(float).eps:.1e} bilan bir "
+     f"TARTIBDA (taxminan 10 barobar ichida). Demak optimal "
+     f"shakl parametri MATEMATIK emas, ARIFMETIK kattalik: u "
+     f"mashinaning aniqligiga bog'liq. Bu su-17 dagi jarima "
+     f"koeffitsienti va su-02 dagi xatolik byudjeti bilan bir xil "
+     f"tuzilish: bir xatoni kamaytirish ikkinchisini oshiradi.")
+
+# --- (3) N ni oshirish HAR DOIM yaxshi emas ---
+rows3 = []
+for c in [0.5, 1.0, 2.0, 3.0]:
+    line = [f"{c:.1f}"]
+    for N in [7, 11, 15, 21]:
+        e, k, *_ = solve_rbf(N, c)
+        line.append(f"{e:.2e}")
+    rows3.append(line)
+table("Tugunlar sonini oshirish har doim yaxshimi?",
+      ["c", "N = 7", "N = 11", "N = 15", "N = 21"], rows3)
+e11, _, *_ = solve_rbf(11, 2.0)
+e15, _, *_ = solve_rbf(15, 2.0)
+value("c = 2.0: N = 11 dagi xato", float(e11), "—")
+value("c = 2.0: N = 15 dagi xato", float(e15), "—")
+value("N oshganda xato necha barobar o'zgardi",
+      float(e15/e11), "barobar")
+note("INTUITSIYAGA ZID NATIJA. Qat'iy c da tugunlar sonini oshirish "
+     "xatoni YOMONLASHTIRISHI mumkin: c = 2.0 da N = 11 dan N = 15 ga "
+     "o'tish xatoni o'n barobardan ko'proq oshiradi. Sabab - tugunlar "
+     "zichlashgani sari bazis funksiyalari bir-biriga yaqinlashadi, "
+     "shartlanganlik buziladi va yaxlitlash xatosi yaqinlashish "
+     "yutug'ini yeb qo'yadi. Amalda c ni N bilan birga sozlash kerak "
+     "(odatda c ~ h). Bu FEM va chekli ayirmalarda bo'lmaydigan "
+     "hodisa: u yerda to'r zichlashtirish har doim yaxshilaydi.")
+
+# --- (4) YECHIM PROFILI ---
+e_b, k_b, xe, ue, ex = solve_rbf(N_rbf, c_shape)
+series("RBF yechimi", xe.tolist(), ue.tolist(), xlabel="x", ylabel="u")
+series("Aniq yechim sin(pi x)", xe.tolist(), ex.tolist(),
+       xlabel="x", ylabel="u")
+value(f"Tanlangan c = {c_shape}: nisbiy xato", float(e_b), "—")
+value(f"Tanlangan c = {c_shape}: shartlanganlik", float(k_b), "—")
+x_nodes = np.linspace(0, 1, N_rbf)
+for j in [0, N_rbf//3, N_rbf//2]:
+    series(f"Bazis funksiyasi j = {j}", xe.tolist(),
+           rbf(np.abs(xe - x_nodes[j]), c_shape).tolist(),
+           xlabel="x", ylabel="phi")
+
+# --- (5) SPEKTRAL va RBF: bevosita taqqoslash ---
+rows4 = []
+for N in [7, 11, 15, 21]:
+    e_r, k_r, *_ = solve_rbf(N, cs[i_best])
+    D, x = cheb_D(N - 1)
+    D2 = (D @ D)[1:N-1, 1:N-1]
+    xs = x[1:N-1]
+    u_ex = np.sin(np.pi*(xs + 1)/2)
+    u = np.linalg.solve(D2, -(np.pi/2)**2*u_ex)
+    e_s = float(np.max(np.abs(u - u_ex)))
+    rows4.append([N, f"{e_s:.3e}", f"{np.linalg.cond(D2):.2e}",
+                  f"{e_r:.3e}", f"{k_r:.2e}"])
+table("Spektral (Chebishev) va to'rsiz (RBF) bevosita taqqoslash",
+      ["N", "spektral xato", "spektral cond", "RBF xato", "RBF cond"],
+      rows4)
+note("SODDA SOHADA SPEKTRAL USUL USTUN: bir xil N da u ham aniqroq, "
+     "ham yaxshi shartlangan. Demak RBF ning qiymati XOM ANIQLIKDA "
+     "emas. Uning afzalligi boshqa joyda: tugunlarni istalgan joyga "
+     "sochish mumkin, to'r va bog'lanish jadvali kerak emas, "
+     "tugunlarni hisob davomida qo'shish yoki olib tashlash oson. "
+     "Metall shakllantirish, yorilish tarqalishi va harakatlanuvchi "
+     "chegarali masalalarda aynan shu hal qiluvchi - u yerda FEM "
+     "to'ri buziladi (su-14 dagi det J <= 0) va qayta qurish kerak "
+     "bo'ladi.")
+
+table("Uch yondashuvning taqqoslanishi",
+      ["Jihat", "FEM", "Spektral", "To'rsiz (RBF)"],
+      [["Bazis", "mahalliy, bo'lakli", "global, silliq",
+        "global, radial"],
+       ["To'r", "kerak", "muntazam kerak", "KERAK EMAS"],
+       ["Yaqinlashish", "h^p", "eksponensial", "c ga bog'liq"],
+       ["Matritsa", "siyrak", "to'la, me'yorda", "to'la, YOMON"],
+       ["Murakkab geometriya", "OSON", "qiyin", "oson"],
+       ["Katta deformatsiya", "to'r buziladi", "mos emas", "TABIIY"],
+       ["Sozlash", "kerak emas", "kerak emas", "c ni sozlash SHART"]])
+''',
+                parameters=[
+                    p("N_rbf", "RBF tugunlari soni", 7.0, 25.0, 15.0,
+                      2.0),
+                    p("c_shape", "Shakl parametri c", 0.05, 5.0, 1.0,
+                      0.05),
+                    p("N_spec", "Spektral tartib N", 4.0, 24.0, 12.0,
+                      2.0),
+                ],
+                expected_output=(
+                    "Chebishev matritsasi "
+                    "$\\mathbf{D}\\mathbf{1} = "
+                    "\\mathbf{0}$ ayniyatiga "
+                    "bo'ysunadi — su-25 va "
+                    "su-26 bilan aynan bir "
+                    "xil. Spektral usul "
+                    "$N = 6$ da "
+                    "$1{,}7\\cdot10^{-5}$, "
+                    "$N = 20$ da esa "
+                    "$8{,}9\\cdot10^{-16}$ "
+                    "beradi. RBF da shakl "
+                    "parametri $c$ "
+                    "0,05 dan 5 gacha "
+                    "o'zgarganda "
+                    "shartlanganlik 38 "
+                    "dan "
+                    "$3\\cdot10^{18}$ ga "
+                    "monoton o'sadi, xato "
+                    "esa "
+                    "$c = 1{,}5$ da "
+                    "$2{,}6\\cdot10^{-7}$ "
+                    "minimumiga yetib, "
+                    "keyin yana "
+                    "ko'tariladi; "
+                    "minimum "
+                    "shartlanganlik "
+                    "$10^{16}$ ga yetgan "
+                    "joyda. Qat'iy $c$ da "
+                    "tugunlar sonini "
+                    "oshirish xatoni "
+                    "yomonlashtirishi "
+                    "mumkin. Sodda sohada "
+                    "spektral usul RBF "
+                    "dan ham aniqroq, "
+                    "ham yaxshi "
+                    "shartlangan."
+                ),
+            ),
+            visual=vis(
+                kind="Radial bazis va noaniqlik prinsipi",
+                tool="React/SVG + Manim",
+                description=(
+                    "Bazis funksiyalari, tugun "
+                    "sochilishi va aniqlik–"
+                    "shartlanganlik almashuvi."
+                ),
+                how_to_draw=(
+                    "React/SVG: yuqori panelda "
+                    "bir necha radial bazis "
+                    "funksiyasi chiziladi va "
+                    "$c$ slayderi bilan "
+                    "ularning kengligi "
+                    "o'zgaradi. Kichik $c$ da "
+                    "ular o'tkir va "
+                    "bir-biridan aniq "
+                    "ajralib turadi, katta "
+                    "$c$ da esa deyarli "
+                    "**ustma-ust tushadi** — "
+                    "shartlanganlikning "
+                    "buzilishi shu "
+                    "ustma-ust tushishda "
+                    "ko'zga tashlanadi. "
+                    "O'rta panelda ikkita "
+                    "egri chiziq bitta "
+                    "logarifmik o'qda: "
+                    "$c$ ga qarab xato "
+                    "(avval tushadi, "
+                    "so'ng ko'tariladi — "
+                    "**V shaklida**) va "
+                    "shartlanganlik "
+                    "(monoton "
+                    "ko'tariladi). "
+                    "Ularning kesishgan "
+                    "atrofi yashil "
+                    "bilan 'optimal "
+                    "oraliq' deb "
+                    "belgilanadi va "
+                    "$10^{16}$ darajasi "
+                    "punktir chiziq "
+                    "bilan 'ikkilangan "
+                    "aniqlik chegarasi' "
+                    "deb yoziladi — "
+                    "minimum aynan shu "
+                    "chiziqqa "
+                    "tushishi "
+                    "ko'rinadi. Pastki "
+                    "panelda "
+                    "to'rsizlikning "
+                    "ma'nosi: "
+                    "sichqoncha bilan "
+                    "istalgan joyga "
+                    "tugun "
+                    "qo'yiladi va "
+                    "yechim darhol "
+                    "qayta "
+                    "hisoblanadi — "
+                    "hech qanday "
+                    "element yoki "
+                    "bog'lanish "
+                    "chizilmaydi."
+                ),
+            ),
+            interp=(
+                "Chebishev matritsasining "
+                "$\\mathbf{D}\\mathbf{1} = "
+                "\\mathbf{0}$ ayniyatiga "
+                "bo'ysunishi tasodif emas: "
+                "bu su-25 dagi DQM va su-26 "
+                "dagi BEM da uchragan aynan "
+                "o'sha shart. Uchala usul "
+                "ham doimiy funksiyani "
+                "to'g'ri ifodalashi kerak "
+                "va bu ularning "
+                "diagonalini belgilaydi — "
+                "butunlay boshqacha "
+                "usullardagi umumiy "
+                "tuzilma. Spektral "
+                "natijalar esa shunchaki "
+                "ta'sirli: 20 ta nuqta "
+                "mashina aniqligini "
+                "beradi va "
+                "shartlanganlik ham "
+                "me'yorda qoladi. "
+                "Shuning uchun muntazam "
+                "geometriya va silliq "
+                "yechim bo'lganda "
+                "spektral usulni "
+                "tanlamaslik uchun "
+                "jiddiy sabab kerak. "
+                "RBF tajribasi esa "
+                "mavzuning markaziy "
+                "natijasini beradi. "
+                "Shakl parametri "
+                "oshgani sari "
+                "shartlanganlik "
+                "monoton buziladi, "
+                "xato esa V shaklida — "
+                "avval kamayib, so'ng "
+                "yana o'sib. Minimum "
+                "nuqta muhim: u "
+                "shartlanganlik "
+                "ikkilangan aniqlik "
+                "chegarasiga yetgan "
+                "joyda joylashgan. "
+                "Ya'ni optimal shakl "
+                "parametri matematik "
+                "emas, **arifmetik** "
+                "kattalik — "
+                "mashinaning "
+                "aniqligiga bog'liq. "
+                "To'rt karra "
+                "aniqlikda "
+                "hisoblansangiz "
+                "optimal $c$ kattaroq "
+                "bo'lardi va natija "
+                "aniqroq. Bu su-02 "
+                "dagi xatolik "
+                "byudjeti va su-17 "
+                "dagi jarima "
+                "koeffitsienti bilan "
+                "bir xil tuzilish. "
+                "Tugunlar soni "
+                "tajribasi "
+                "intuitsiyaga "
+                "butunlay zid: "
+                "qat'iy $c$ da "
+                "$N$ ni oshirish "
+                "xatoni o'n "
+                "barobar "
+                "yomonlashtirishi "
+                "mumkin. FEM va "
+                "chekli ayirmalarda "
+                "bunday hodisa yo'q "
+                "— u yerda "
+                "zichlashtirish har "
+                "doim yaxshilaydi. "
+                "Nihoyat bevosita "
+                "taqqoslash halol "
+                "xulosa beradi: "
+                "sodda sohada "
+                "spektral usul RBF "
+                "dan har jihatdan "
+                "ustun. Demak RBF "
+                "ning qiymati xom "
+                "aniqlikda emas, "
+                "geometrik "
+                "moslashuvchanlikda "
+                "— tugunlarni "
+                "istalgan joyga "
+                "sochish va hisob "
+                "davomida "
+                "o'zgartirish "
+                "imkoniyatida."
+            ),
+            mistakes=[
+                "$c$ ni sozlamasdan "
+                "universal qiymat "
+                "ishlatish. Optimal $c$ "
+                "masalaga va $N$ ga "
+                "bog'liq.",
+                "$N$ ni oshirish har doim "
+                "yaxshilaydi deb "
+                "hisoblash. Qat'iy $c$ da "
+                "u natijani "
+                "yomonlashtirishi mumkin.",
+                "Shartlanganlikni "
+                "kuzatmaslik. "
+                "$\\kappa > 10^{16}$ "
+                "bo'lsa natija "
+                "yaxlitlash "
+                "shovqinidan iborat.",
+                "Sodda, muntazam sohada "
+                "RBF ishlatish. U yerda "
+                "spektral usul ham "
+                "aniqroq, ham "
+                "barqarorroq.",
+                "To'rsiz usullarda "
+                "chegaraviy shartlarni "
+                "FEM dagidek oson deb "
+                "o'ylash. Galerkin "
+                "asosidagi variantlarda "
+                "Lagranj ko'paytuvchilari "
+                "kerak.",
+                "Katta masalada to'la "
+                "RBF matritsasini "
+                "ishlatish. Mahalliy "
+                "RBF-FD yagona amaliy "
+                "variant.",
+            ],
+            quiz=[
+                q("RBF nima uchun to'r talab "
+                  "qilmaydi?",
+                  "Bazis faqat "
+                  "$\\|x - x_j\\|$ masofaga "
+                  "bog'liq, shuning uchun "
+                  "tugunlarning o'zaro "
+                  "joylashuvi va bog'lanish "
+                  "jadvali kerak emas.",
+                  "konseptual"),
+                q("Noaniqlik prinsipi nimani "
+                  "aytadi?",
+                  "Yaxshi shartlanganlik va "
+                  "yuqori aniqlikka bir "
+                  "vaqtda erishib bo'lmaydi: "
+                  "xato $\\times$ "
+                  "shartlanganlik taxminan "
+                  "doimiy.", "konseptual"),
+                q("Multikvadrikning ikkinchi "
+                  "hosilasi qanday?",
+                  "$\\phi'' = c^2/"
+                  "(r^2+c^2)^{3/2}$ — "
+                  "analitik, hech qanday "
+                  "yaqinlashishsiz.",
+                  "hisob"),
+                q("Kodda optimal $c$ qayerda "
+                  "va nima uchun aynan u "
+                  "yerda?",
+                  "$c = 1{,}5$ da, chunki "
+                  "o'sha yerda "
+                  "shartlanganlik "
+                  "$4\\cdot10^{16}$ — "
+                  "ikkilangan aniqlik "
+                  "chegarasiga yetgan joy. "
+                  "Optimal $c$ arifmetik "
+                  "kattalik.", "kod"),
+                q("Qat'iy $c$ da $N$ ni "
+                  "oshirish nima uchun "
+                  "zarar keltirishi "
+                  "mumkin?",
+                  "Tugunlar zichlashgani "
+                  "sari bazis funksiyalari "
+                  "bir-biriga "
+                  "yaqinlashadi, "
+                  "shartlanganlik buziladi "
+                  "va yaxlitlash xatosi "
+                  "yutuqni yeb qo'yadi.",
+                  "kod"),
+                q("Sodda sohada spektral va "
+                  "RBF dan qaysi biri "
+                  "afzal?",
+                  "Spektral — u ham "
+                  "aniqroq, ham yaxshi "
+                  "shartlangan. RBF ning "
+                  "qiymati aniqlikda emas, "
+                  "geometrik "
+                  "moslashuvchanlikda.",
+                  "talqin"),
+                q("To'rsiz usullar qaysi "
+                  "masalalarda hal qiluvchi "
+                  "afzallik beradi?",
+                  "Katta deformatsiya, "
+                  "yorilish tarqalishi, "
+                  "harakatlanuvchi chegara — "
+                  "FEM to'ri buziladigan "
+                  "(su-14) holatlarda.",
+                  "talqin"),
+            ],
+            bridge=(
+                "Endi bizda usullarning "
+                "keng to'plami bor: chekli "
+                "ayirmalar, FEM, DQM, BEM, "
+                "spektral va to'rsiz. Har "
+                "biri o'z aniqlik "
+                "da'vosiga ega. Lekin "
+                "hisob natijasiga qachon "
+                "**ishonish** mumkin? "
+                "Keyingi mavzuda buni "
+                "rasmiy tartibga "
+                "solamiz."
+            ),
+            research=(
+                "Zamonaviy usullarni "
+                "chuqurlashtiring. "
+                "(1) RBF-FD usulini "
+                "o'rganing: mahalliy "
+                "shablonlarda RBF "
+                "ishlatib, siyrak "
+                "matritsa olish — "
+                "noaniqlik prinsipini "
+                "qanday chetlab "
+                "o'tadi? "
+                "(2) Element erkin "
+                "Galerkin (EFG) va "
+                "harakatlanuvchi eng "
+                "kichik kvadratlar "
+                "(MLS) usulini ko'rib "
+                "chiqing: shakl "
+                "funksiyalari "
+                "Kroneker delta "
+                "xossasiga ega "
+                "emasligi chegaraviy "
+                "shartlarda qanday "
+                "muammo tug'diradi? "
+                "(3) Spektral "
+                "elementlar usulini "
+                "o'rganing: FEM ning "
+                "mahalliyligi va "
+                "spektral aniqlikning "
+                "birikmasi. "
+                "(4) Materiallar "
+                "nuqtasi usulini "
+                "(MPM) ko'rib chiqing: "
+                "u to'r va zarrachalarni "
+                "birlashtiradi va "
+                "juda katta "
+                "deformatsiyada "
+                "ishlatiladi."
+            ),
+            manim_ref=manim(
+                scene="MeshfreeScene",
+                module="manim/scenes/su_modern.py",
+                title="To'rsizlik va noaniqlik prinsipi",
+                summary=(
+                    "Avval FEM to'ri "
+                    "katta deformatsiyada "
+                    "buziladi: elementlar "
+                    "cho'ziladi va "
+                    "ag'dariladi, "
+                    "$\\det\\mathbf{J}$ "
+                    "qizaradi. Keyin "
+                    "elementlar "
+                    "yo'qoladi va faqat "
+                    "tugunlar qoladi — "
+                    "ular bemalol "
+                    "harakatlanadi. "
+                    "So'ng radial bazis "
+                    "funksiyalari "
+                    "chiziladi va shakl "
+                    "parametri oshirilib "
+                    "boriladi: ular "
+                    "yassilashadi, "
+                    "ustma-ust tushadi "
+                    "va yonidagi "
+                    "shartlanganlik "
+                    "ko'rsatkichi "
+                    "portlaydi."
+                ),
+            ),
+        ),
+    ),
 ]
