@@ -2887,4 +2887,1081 @@ table("Bir xil tenglama - turli fizika",
             ),
         ),
     ),
+
+    # ------------------------------------------------------------------ su-10
+    Topic(
+        id="su-10",
+        subject_id=S, module_id=M, order=10,
+        title="Muvofiqlik, barqarorlik va yaqinlashish: Laks teoremasi",
+        description=(
+            "Uchta tushunchaning aniq ta'rifi, fon Neyman barqarorlik "
+            "tahlili, Laks ekvivalentlik teoremasi va issiqlik "
+            "o'tkazuvchanlik tenglamasi misolida tekshirish."
+        ),
+        learning_objective=(
+            "Sxemaning muvofiqligini Teylor qatoridan, barqarorligini "
+            "fon Neyman tahlilidan aniqlash va Laks teoremasi orqali "
+            "yaqinlashishni asoslash."
+        ),
+        prerequisites=["su-09", "su-03"],
+        mathematical_core=(
+            "Laks: muvofiqlik + barqarorlik $\\iff$ yaqinlashish; "
+            "fon Neyman: $u_j^n = \\xi^n e^{ikjh}$, "
+            "$|\\xi| \\le 1$; oshkor sxema uchun "
+            "$r = \\alpha\\Delta t/h^2 \\le 1/2$."
+        ),
+        engineering_application=(
+            "Issiqlik hisoblari, payvandlash jarayoni, beton "
+            "qotishidagi harorat, nostatsionar diffuziya, "
+            "konsolidatsiya masalalari."
+        ),
+        computational_component=(
+            "Oshkor va oshkormas sxemalarni taqqoslash, barqarorlik "
+            "chegarasini sonli topish va nazariy $r = 1/2$ bilan "
+            "solishtirish."
+        ),
+        visualization_component=(
+            "Barqaror va nobarqaror yechimlarning evolyutsiyasi, "
+            "kuchayish koeffitsientining to'lqin soniga bog'liqligi."
+        ),
+        research_extension=(
+            "Matritsaviy barqarorlik tahlilini (spektral radius) fon "
+            "Neyman tahlili bilan solishtiring: chegaraviy shartlar "
+            "barqarorlikka qanday ta'sir qiladi?"
+        ),
+        difficulty="murakkab",
+        previous_link=(
+            "su-07…su-09 da barcha sxemalar **statik** masalalar uchun "
+            "edi va u yerda yagona savol aniqlik edi. Vaqtga bog'liq "
+            "masalalarda esa butunlay yangi xavf paydo bo'ladi: "
+            "sxema 'portlashi' mumkin."
+        ),
+        next_topic="su-11",
+        estimated_minutes=90,
+        tags=["Laks teoremasi", "fon Neyman", "barqarorlik", "CFL"],
+        lesson=_lesson(
+            problem=(
+                "Payvandlash jarayonidagi haroratni "
+                "hisoblaymiz: "
+                "$\\partial T/\\partial t = "
+                "\\alpha\\nabla^2 T$. Sxema juda "
+                "sodda ko'rinadi — vaqt bo'yicha "
+                "oldinga ayirma, fazo bo'yicha "
+                "markaziy. Kodni yozamiz, "
+                "$\\Delta t = 0{,}01$ s va "
+                "$h = 1$ mm olamiz va ishga "
+                "tushiramiz. Birinchi bir necha "
+                "qadam normal ko'rinadi, keyin "
+                "harorat 1000 °C, keyin "
+                "$10^{6}$ °C, keyin `NaN`. "
+                "Hech qanday xato xabari yo'q, kod "
+                "to'g'ri yozilgan, sxema esa "
+                "Teylor qatori bo'yicha mukammal "
+                "muvofiq. Muammo shundaki, "
+                "aniqlik va yaqinlashish bir xil "
+                "narsa emas — orada uchinchi "
+                "tushuncha bor."
+            ),
+            concepts=[
+                c("Muvofiqlik (consistency)",
+                  "$h, \\Delta t \\to 0$ da ayirma "
+                  "tenglamasining **kesish "
+                  "xatoligi** nolga intiladi; "
+                  "ya'ni sxema to'g'ri "
+                  "differensial tenglamani "
+                  "yaqinlashtiradi."),
+                c("Barqarorlik (stability)",
+                  "Sonli yechimdagi bezovtaliklar "
+                  "vaqt o'tishi bilan "
+                  "**o'smaydi**; xatolik "
+                  "chegaralangan bo'lib qoladi."),
+                c("Yaqinlashish (convergence)",
+                  "$h, \\Delta t \\to 0$ da sonli "
+                  "yechim **aniq yechimga** "
+                  "intiladi. Amalda bizni aynan "
+                  "shu qiziqtiradi."),
+                c("Laks ekvivalentlik teoremasi",
+                  "To'g'ri qo'yilgan chiziqli masala "
+                  "uchun: **muvofiqlik + "
+                  "barqarorlik $\\iff$ "
+                  "yaqinlashish**. Yaqinlashishni "
+                  "bevosita isbotlash qiyin, "
+                  "ikkinchisini esa oson."),
+                c("Fon Neyman tahlili",
+                  "Xatolikni Furye garmonikalariga "
+                  "yoyib, har birining kuchayish "
+                  "koeffitsienti $\\xi$ ni "
+                  "hisoblash; barqarorlik uchun "
+                  "$|\\xi| \\le 1$."),
+                c("Shartli va shartsiz barqarorlik",
+                  "Oshkor sxema qadam "
+                  "cheklovini talab qiladi "
+                  "(shartli), oshkormas sxema esa "
+                  "har qanday qadamda barqaror "
+                  "(shartsiz)."),
+            ],
+            derivation=[
+                d("1. Issiqlik tenglamasi va oshkor "
+                  "sxema",
+                  r"\frac{\partial T}{\partial t} = "
+                  r"\alpha\frac{\partial^2 T}"
+                  r"{\partial x^2} "
+                  r"\;\Longrightarrow\; "
+                  r"\frac{T_j^{n+1}-T_j^n}{\Delta t} = "
+                  r"\alpha\frac{T_{j-1}^n-2T_j^n+"
+                  r"T_{j+1}^n}{h^2}",
+                  "Vaqt bo'yicha oldinga ayirma "
+                  "(su-03), fazo bo'yicha markaziy "
+                  "(su-07). Har bir yangi qiymat "
+                  "bevosita hisoblanadi — "
+                  "**oshkor** sxema."),
+                d("2. Yangilash formulasi",
+                  r"T_j^{n+1} = T_j^n + r\big("
+                  r"T_{j-1}^n - 2T_j^n + T_{j+1}^n"
+                  r"\big), \quad r = "
+                  r"\frac{\alpha\Delta t}{h^2}",
+                  "$r$ — sxemaning yagona "
+                  "parametri. Tizim yechish kerak "
+                  "emas, shuning uchun juda "
+                  "arzon."),
+                d("3. Muvofiqlikni tekshirish",
+                  r"\tau = \frac{\Delta t}{2}"
+                  r"T_{tt} - \frac{\alpha h^2}{12}"
+                  r"T_{xxxx} + \ldots = "
+                  r"O(\Delta t) + O(h^2)",
+                  "Teylor yoyilmasidan. "
+                  "$\\Delta t, h \\to 0$ da "
+                  "$\\tau \\to 0$ — sxema "
+                  "**muvofiq**. Diqqat: bu "
+                  "yaqinlashishni "
+                  "kafolatlamaydi."),
+                d("4. Fon Neyman g'oyasi",
+                  r"\varepsilon_j^n = \xi^n "
+                  r"e^{ikjh}",
+                  "Xatolikni Furye garmonikasi "
+                  "sifatida olamiz. Chiziqli "
+                  "sxemada har bir garmonika "
+                  "mustaqil rivojlanadi, shuning "
+                  "uchun bittasini tekshirish "
+                  "yetarli."),
+                d("5. Kuchayish koeffitsientini "
+                  "topish",
+                  r"\xi = 1 + r\big(e^{-ikh} - 2 + "
+                  r"e^{ikh}\big) = 1 + 2r"
+                  r"(\cos kh - 1)",
+                  "Garmonikani sxemaga qo'ydik. "
+                  "$e^{ikh}+e^{-ikh} = 2\\cos kh$."),
+                d("6. Yarim burchak formulasi",
+                  r"\cos kh - 1 = -2\sin^2\frac{kh}{2} "
+                  r"\;\Longrightarrow\; \xi = "
+                  r"1 - 4r\sin^2\frac{kh}{2}",
+                  "**Asosiy natija.** $\\xi$ "
+                  "haqiqiy son va u "
+                  "$[1-4r, 1]$ oralig'ida yotadi."),
+                d("7. Barqarorlik sharti",
+                  r"|\xi| \le 1 \;\Longrightarrow\; "
+                  r"-1 \le 1 - 4r\sin^2\frac{kh}{2} "
+                  r"\le 1",
+                  "O'ng tengsizlik har doim "
+                  "bajariladi ($r > 0$). Chap "
+                  "tengsizlik esa cheklov beradi."),
+                d("8. Kritik shart",
+                  r"1 - 4r\sin^2\frac{kh}{2} \ge -1 "
+                  r"\;\Longrightarrow\; "
+                  r"r\sin^2\frac{kh}{2} \le "
+                  r"\frac{1}{2}",
+                  "Eng yomon holat "
+                  "$\\sin^2 = 1$, ya'ni "
+                  "$kh = \\pi$ — **eng qisqa "
+                  "to'lqin** (ikki tugunga bitta "
+                  "to'lqin)."),
+                d("9. Oshkor sxemaning barqarorlik "
+                  "chegarasi",
+                  r"r = \frac{\alpha\Delta t}{h^2} "
+                  r"\le \frac{1}{2} "
+                  r"\;\Longrightarrow\; \Delta t "
+                  r"\le \frac{h^2}{2\alpha}",
+                  "**Hal qiluvchi cheklov.** "
+                  "Vaqt qadami $h^2$ ga "
+                  "mutanosib. To'rni ikki barobar "
+                  "zichlashtirish vaqt qadamini "
+                  "**to'rt barobar** "
+                  "kamaytirishni talab qiladi."),
+                d("10. Oshkormas (implitsit) sxema",
+                  r"\frac{T_j^{n+1}-T_j^n}{\Delta t} "
+                  r"= \alpha\frac{T_{j-1}^{n+1}-"
+                  r"2T_j^{n+1}+T_{j+1}^{n+1}}{h^2}",
+                  "O'ng tomon **yangi** qatlamda "
+                  "olinadi. Endi har qadamda "
+                  "uch diagonalli tizim yechish "
+                  "kerak."),
+                d("11. Oshkormas sxemaning "
+                  "barqarorligi",
+                  r"\xi = \frac{1}{1 + "
+                  r"4r\sin^2\frac{kh}{2}} "
+                  r"\;\Longrightarrow\; "
+                  r"|\xi| \le 1 \ \forall r > 0",
+                  "**Shartsiz barqaror.** Maxraj "
+                  "har doim birdan katta. Vaqt "
+                  "qadami faqat **aniqlik** "
+                  "bo'yicha tanlanadi, "
+                  "barqarorlik bo'yicha emas."),
+                d("12. Krank–Nikolson sxemasi",
+                  r"\xi = \frac{1-2r\sin^2"
+                  r"\frac{kh}{2}}{1+2r\sin^2"
+                  r"\frac{kh}{2}}, \quad "
+                  r"\tau = O(\Delta t^2) + O(h^2)",
+                  "Ikki qatlamning o'rtachasi. "
+                  "Shartsiz barqaror **va** vaqt "
+                  "bo'yicha ikkinchi tartibli. "
+                  "Lekin $r$ katta bo'lganda "
+                  "$\\xi \\to -1$ va yechim "
+                  "tebranadi (so'nmaydi)."),
+                d("13. Laks teoremasining roli",
+                  r"\text{muvofiqlik} + "
+                  r"\text{barqarorlik} \iff "
+                  r"\text{yaqinlashish}",
+                  "**Nima uchun bu muhim.** "
+                  "Yaqinlashishni bevosita "
+                  "isbotlash uchun aniq yechimni "
+                  "bilish kerak — u esa "
+                  "noma'lum. Muvofiqlik Teylor "
+                  "qatoridan, barqarorlik fon "
+                  "Neymandan oson tekshiriladi; "
+                  "Laks teoremasi ulardan "
+                  "yaqinlashishni **kafolatlaydi**."),
+            ],
+            meaning=(
+                "Bu mavzu sonli usullar "
+                "nazariyasining markazi. Uchta "
+                "tushuncha — muvofiqlik, "
+                "barqarorlik, yaqinlashish — "
+                "ko'pincha aralashtiriladi, lekin "
+                "ular butunlay boshqa narsalar. "
+                "Muvofiqlik — sxema **to'g'ri "
+                "tenglamani** yaqinlashtiradimi; "
+                "u Teylor qatoridan oson "
+                "tekshiriladi va deyarli har doim "
+                "bajariladi. Barqarorlik — "
+                "xatoliklar **o'smaydimi**; bu "
+                "butunlay boshqa savol va u "
+                "aniqlik bilan umuman bog'liq "
+                "emas. Yaqinlashish esa bizni "
+                "haqiqatan qiziqtiradigan narsa, "
+                "lekin uni bevosita tekshirish "
+                "mumkin emas, chunki aniq yechim "
+                "noma'lum. Laks teoremasining "
+                "amaliy qiymati aynan shunda: u "
+                "tekshirish mumkin bo'lgan ikkita "
+                "xossadan tekshirib bo'lmaydigan "
+                "uchinchisini keltirib chiqaradi. "
+                "Kirish misolidagi 'portlash' "
+                "aynan shundan: sxema mukammal "
+                "muvofiq edi, lekin nobarqaror. "
+                "9-qadamdagi $\\Delta t \\le "
+                "h^2/(2\\alpha)$ sharti amaliy "
+                "jihatdan juda og'ir. To'rni "
+                "ikki barobar zichlashtirsangiz, "
+                "vaqt qadamini to'rt barobar "
+                "kamaytirishingiz kerak — demak "
+                "umumiy hisob hajmi **sakkiz "
+                "barobar** ortadi (ikki barobar "
+                "ko'p tugun × to'rt barobar ko'p "
+                "qadam). Bir o'lchovda bu "
+                "chidasa bo'ladi, uch o'lchovda "
+                "esa $2^3 \\times 4 = 32$ "
+                "barobar — tez orada imkonsiz "
+                "bo'lib qoladi. Aynan shuning "
+                "uchun amaliy hisoblarda deyarli "
+                "har doim oshkormas sxemalar "
+                "ishlatiladi: ular har qadamda "
+                "tizim yechishni talab qiladi "
+                "(qimmatroq), lekin vaqt qadami "
+                "faqat aniqlik bo'yicha "
+                "tanlanadi. 8-qadamdagi "
+                "$kh = \\pi$ holati ham "
+                "e'tiborga loyiq: barqarorlikni "
+                "buzadigan narsa **eng qisqa** "
+                "to'lqin — ikki tugunga bitta "
+                "to'lqin. Bunday to'lqin "
+                "fizikaviy ma'noga ega emas "
+                "(u to'r bilan hech qanday "
+                "aniqlikda ifodalanmaydi), lekin "
+                "aynan u sxemani portlatadi. "
+                "Bu sonli usullardagi tipik "
+                "manzara: muammo eng nozik "
+                "detallarda emas, eng dag'al "
+                "artefaktlarda."
+            ),
+            equations=[
+                eq(r"\xi = 1 - 4r\sin^2\frac{kh}{2}, "
+                   r"\quad r = \frac{\alpha\Delta t}{h^2}",
+                   "Oshkor sxemaning kuchayish "
+                   "koeffitsienti.",
+                   "Oshkor sxema"),
+                eq(r"r \le \frac{1}{2} "
+                   r"\;\Longleftrightarrow\; "
+                   r"\Delta t \le \frac{h^2}{2\alpha}",
+                   "Oshkor sxemaning barqarorlik "
+                   "sharti — vaqt qadami $h^2$ ga "
+                   "mutanosib.", "Barqarorlik sharti"),
+                eq(r"\xi_{impl} = \frac{1}"
+                   r"{1+4r\sin^2\frac{kh}{2}} \le 1 "
+                   r"\ \forall r",
+                   "Oshkormas sxema — shartsiz "
+                   "barqaror.", "Oshkormas sxema"),
+                eq(r"\text{muvofiqlik} + "
+                   r"\text{barqarorlik} \iff "
+                   r"\text{yaqinlashish}",
+                   "Laks ekvivalentlik teoremasi.",
+                   "Laks teoremasi"),
+            ],
+            conditions=(
+                "**Laks teoremasining shartlari:**\n"
+                "- Masala chiziqli;\n"
+                "- Masala to'g'ri qo'yilgan "
+                "(well-posed, su-04);\n"
+                "- Sxema chiziqli va doimiy "
+                "koeffitsientli.\n\n"
+                "Nochiziqli masalalarda teorema "
+                "**o'rinsiz** — u yerda "
+                "barqarorlik ham, yaqinlashish "
+                "ham alohida tekshiriladi.\n\n"
+                "**Fon Neyman tahlilining "
+                "cheklovlari:**\n"
+                "- U chegaraviy shartlarni "
+                "hisobga olmaydi (cheksiz yoki "
+                "davriy soha deb faraz qiladi);\n"
+                "- Doimiy koeffitsientlarni "
+                "talab qiladi;\n"
+                "- **Zarur** shart beradi, ba'zi "
+                "holatlarda yetarli emas.\n\n"
+                "Chegaraviy shartlar ta'sirini "
+                "tekshirish uchun matritsaviy "
+                "tahlil (o'tish matritsasining "
+                "spektral radiusi, su-06) "
+                "ishlatiladi.\n\n"
+                "**Amaliy qadam tanlash:**\n"
+                "- Oshkor: "
+                "$\\Delta t \\le h^2/(2\\alpha)$ "
+                "va odatda 0,8 zaxira bilan;\n"
+                "- Oshkormas: aniqlik bo'yicha, "
+                "$\\Delta t \\sim h$ olsa ham "
+                "bo'ladi;\n"
+                "- Krank–Nikolson: "
+                "$r \\lesssim 1$ tavsiya "
+                "etiladi, aks holda tebranish "
+                "paydo bo'ladi."
+            ),
+            worked=WorkedExample(
+                statement=(
+                    "Po'lat plastinada issiqlik "
+                    "tarqalishi: $\\alpha = "
+                    "1{,}2\\times10^{-5}$ m²/s, "
+                    "qalinlik bo'ylab $L = 20$ mm. "
+                    "(a) $h = 1$ mm da oshkor sxema "
+                    "uchun maksimal vaqt qadamini "
+                    "toping; (b) 60 soniya "
+                    "hisoblash uchun necha qadam "
+                    "kerak? (c) $h$ ni ikki barobar "
+                    "kichraytirsak nima o'zgaradi? "
+                    "(d) oshkormas sxemada "
+                    "$\\Delta t = 1$ s olish "
+                    "mumkinmi?"
+                ),
+                given=[
+                    r"\alpha = 1{,}2\times10^{-5}\ "
+                    r"\text{m}^2/\text{s}",
+                    r"L = 0{,}02\ \text{m},\ "
+                    r"h = 0{,}001\ \text{m}",
+                ],
+                steps=[
+                    st(r"\Delta t_{max} = "
+                       r"\frac{h^2}{2\alpha} = "
+                       r"\frac{10^{-6}}{2 \cdot "
+                       r"1{,}2\times10^{-5}}",
+                       "9-qadamdagi shart."),
+                    st(r"= \frac{10^{-6}}{2{,}4\times"
+                       r"10^{-5}} = 0{,}041667\ "
+                       r"\text{s}",
+                       "**41,7 millisekund** — juda "
+                       "kichik qadam."),
+                    st(r"N = \frac{60}{0{,}041667} = "
+                       r"1440 \ \text{qadam}",
+                       "60 soniya uchun 1440 qadam. "
+                       "Har qadamda 20 ta tugun — "
+                       "jami 28 800 amal, bu hali "
+                       "arzon."),
+                    st(r"h = 0{,}5\ \text{mm}: \ "
+                       r"\Delta t_{max} = "
+                       r"\frac{0{,}25\times10^{-6}}"
+                       r"{2{,}4\times10^{-5}} = "
+                       r"0{,}010417\ \text{s}",
+                       "**To'rt barobar kichik** — "
+                       "$h^2$ bog'liqlik."),
+                    st(r"N = \frac{60}{0{,}010417} = "
+                       r"5760 \ \text{qadam}, \quad "
+                       r"\text{tugunlar} = 40",
+                       "Qadamlar to'rt barobar, "
+                       "tugunlar ikki barobar."),
+                    st(r"\text{umumiy hajm nisbati} = "
+                       r"4 \times 2 = 8 \ \text{marta}",
+                       "**Sakkiz barobar qimmat** — "
+                       "atigi ikki barobar "
+                       "zichroq to'r uchun."),
+                    st(r"\text{3D da: } 2^3 \times 4 = "
+                       r"32 \ \text{marta}",
+                       "Uch o'lchovda vaziyat "
+                       "keskin yomonlashadi va "
+                       "oshkor sxema tez orada "
+                       "amalda yaroqsiz bo'lib "
+                       "qoladi."),
+                    st(r"\text{(d) oshkormas: } r = "
+                       r"\frac{1{,}2\times10^{-5} "
+                       r"\cdot 1}{10^{-6}} = 12",
+                       "$r = 12 \\gg 1/2$ — oshkor "
+                       "sxema uchun bu halokatli."),
+                    st(r"\xi_{impl} = \frac{1}"
+                       r"{1+4 \cdot 12 \cdot 1} = "
+                       r"\frac{1}{49} = 0{,}0204 "
+                       r"< 1",
+                       "**Barqaror.** Oshkormas "
+                       "sxemada $r = 12$ hech "
+                       "qanday muammo tug'dirmaydi."),
+                    st(r"\text{lekin aniqlik: } "
+                       r"\tau = O(\Delta t) "
+                       r"\;\Rightarrow\; "
+                       r"\Delta t = 1\ \text{s} \ "
+                       r"\text{katta xato beradi}",
+                       "Barqarorlik aniqlikni "
+                       "kafolatlamaydi. "
+                       "Krank–Nikolson "
+                       "$O(\\Delta t^2)$ bergani "
+                       "uchun afzal — lekin u ham "
+                       "$r = 12$ da tebranishga "
+                       "moyil."),
+                ],
+                answer=(
+                    "(a) $\\Delta t_{max} = "
+                    "0{,}041667$ s (41,7 ms); "
+                    "(b) 1440 qadam; "
+                    "(c) $h$ ikki barobar "
+                    "kichrayganda $\\Delta t$ "
+                    "to'rt barobar kamayadi va "
+                    "umumiy hisob hajmi **sakkiz "
+                    "barobar** ortadi (3D da 32 "
+                    "barobar); (d) oshkormas "
+                    "sxemada $r = 12$ da "
+                    "$\\xi = 0{,}0204 < 1$ — "
+                    "barqaror, lekin "
+                    "$O(\\Delta t)$ aniqligi "
+                    "tufayli xato katta bo'ladi."
+                ),
+                engineering_note=(
+                    "(c) natijasi oshkor "
+                    "sxemalarning asosiy "
+                    "kamchiligini aniq "
+                    "ko'rsatadi va u 'diffuziya "
+                    "tipidagi' barcha "
+                    "masalalarga tegishli: "
+                    "issiqlik, namlik, "
+                    "konsolidatsiya, elektr "
+                    "o'tkazuvchanlik. "
+                    "$\\Delta t \\sim h^2$ "
+                    "bog'liqligi to'r "
+                    "zichlashgani sari "
+                    "nomutanosib qimmatlashadi. "
+                    "To'lqin tipidagi "
+                    "masalalarda (su-12) esa "
+                    "vaziyat yaxshiroq: u yerda "
+                    "$\\Delta t \\sim h$ va "
+                    "oshkor sxemalar amalda "
+                    "keng ishlatiladi. Bu "
+                    "farqni tushunish usul "
+                    "tanlashda hal qiluvchi. "
+                    "(d) esa yana bir muhim "
+                    "saboqni beradi: "
+                    "barqarorlik va aniqlik "
+                    "**alohida** talablar. "
+                    "Oshkormas sxema $r = 100$ "
+                    "da ham portlamaydi, lekin "
+                    "javob butunlay noto'g'ri "
+                    "bo'lishi mumkin. "
+                    "Nobarqaror sxema esa "
+                    "hech bo'lmaganda o'zini "
+                    "darhol oshkor qiladi — "
+                    "`NaN` ko'rinishida. "
+                    "Shu ma'noda nobarqarorlik "
+                    "xavfsizroq xato turi."
+                ),
+            ),
+            computation=Computation(
+                caption=(
+                    "Oshkor, oshkormas va "
+                    "Krank–Nikolson sxemalarini "
+                    "taqqoslash, barqarorlik "
+                    "chegarasini sonli topish va "
+                    "Laks teoremasini tekshirish."
+                ),
+                code='''"""Muvofiqlik, barqarorlik va yaqinlashish: Laks teoremasi."""
+import numpy as np
+from labkit import PARAMS, note, series, table, value
+
+alpha = float(PARAMS.get("alpha", 1.2e-5))
+L = float(PARAMS.get("L", 20.0))/1000.0
+nx = int(PARAMS.get("nx", 20))
+t_end = float(PARAMS.get("t_end", 20.0))
+r_test = float(PARAMS.get("r_test", 0.6))
+
+h = L/nx
+x = np.linspace(0.0, L, nx + 1)
+value("Fazo qadami h", h*1000, "mm")
+value("Barqarorlik chegarasi dt_max", h**2/(2*alpha), "s")
+
+# Boshlang'ich shart: T = sin(pi x / L); aniq yechim ma'lum
+# T(x,t) = exp(-alpha*(pi/L)^2 * t) * sin(pi x / L)
+kk = np.pi/L
+T0 = np.sin(kk*x)
+
+
+def exact(t):
+    return np.exp(-alpha*kk**2*t)*np.sin(kk*x)
+
+
+def march(scheme, r, t_end):
+    dt = r*h**2/alpha
+    nt = max(1, int(round(t_end/dt)))
+    dt = t_end/nt
+    r_eff = alpha*dt/h**2
+    T = T0.copy()
+    if scheme == "explicit":
+        for _ in range(nt):
+            Tn = T.copy()
+            T[1:-1] = Tn[1:-1] + r_eff*(Tn[:-2] - 2*Tn[1:-1] + Tn[2:])
+            T[0] = T[-1] = 0.0
+            if not np.all(np.isfinite(T)):
+                return T, nt, r_eff, False
+            if np.max(np.abs(T)) > 1e6:
+                return T, nt, r_eff, False
+        return T, nt, r_eff, True
+
+    # Oshkormas va Krank-Nikolson uchun matritsa
+    th = 1.0 if scheme == "implicit" else 0.5
+    N = nx - 1
+    A = np.zeros((N, N))
+    B = np.zeros((N, N))
+    for i in range(N):
+        A[i, i] = 1.0 + 2.0*th*r_eff
+        B[i, i] = 1.0 - 2.0*(1.0 - th)*r_eff
+        if i > 0:
+            A[i, i - 1] = -th*r_eff
+            B[i, i - 1] = (1.0 - th)*r_eff
+        if i < N - 1:
+            A[i, i + 1] = -th*r_eff
+            B[i, i + 1] = (1.0 - th)*r_eff
+    T = T0.copy()
+    for _ in range(nt):
+        rhs = B @ T[1:-1]
+        T[1:-1] = np.linalg.solve(A, rhs)
+        T[0] = T[-1] = 0.0
+    return T, nt, r_eff, np.all(np.isfinite(T))
+
+
+# --- (1) MUVOFIQLIK: kesish xatoligi nolga intiladimi? ---
+# h va dt BIRGA kichrayishi kerak (r = const), aks holda ikki had
+# bir-birini qisman qisqartirib, tau monoton kamaymaydi.
+rows, taus, hh_list = [], [], []
+xm = L/2
+Ttt = (alpha*kk**2)**2*np.sin(kk*xm)
+Txxxx = kk**4*np.sin(kk*xm)
+for hh in [h, h/2, h/4, h/8, h/16]:
+    dtt = 0.25*hh**2/alpha            # r = 0.25 doimiy
+    tau = abs(dtt/2*Ttt - alpha*hh**2/12*Txxxx)
+    taus.append(tau)
+    hh_list.append(hh)
+    rows.append([f"{hh*1000:.5f}", f"{dtt:.6f}", f"{tau:.4e}"])
+table("Muvofiqlik: kesish xatoligi tau (r = 0.25 doimiy)",
+      ["h, mm", "dt, s", "|tau|"], rows)
+p_tau = np.polyfit(np.log(hh_list), np.log(taus), 1)[0]
+value("Kesish xatoligining tartibi (h bo'yicha)", float(p_tau), "—")
+note(f"h va dt birga kichrayganda kesish xatoligi monoton nolga "
+     f"intiladi va uning tartibi {p_tau:.3f} ~ 2 (dt ~ h^2 bo'lgani "
+     f"uchun ikkala had ham h^2 tartibida). Demak sxema MUVOFIQ. "
+     f"Lekin bu hali yaqinlashishni kafolatlamaydi: barqarorlik "
+     f"ham kerak.")
+
+# --- (2) BARQARORLIK: fon Neyman koeffitsienti ---
+khs = np.linspace(0, np.pi, 200)
+for rr in [0.25, 0.5, 0.6, 1.0]:
+    xi = 1.0 - 4.0*rr*np.sin(khs/2)**2
+    series(f"|xi| oshkor, r = {rr}", khs.tolist(),
+           np.abs(xi).tolist(), xlabel="k*h", ylabel="|xi|")
+series("Barqarorlik chegarasi |xi| = 1", khs.tolist(),
+       [1.0]*len(khs), xlabel="k*h", ylabel="|xi|")
+
+for rr in [0.25, 0.5, 0.6]:
+    xi_worst = abs(1.0 - 4.0*rr)
+    value(f"Oshkor: maks |xi| (r = {rr})", xi_worst, "—")
+value("Oshkormas: maks |xi| (r = 12)",
+      float(1.0/(1.0 + 4.0*12.0)), "—")
+note("Oshkor sxemada eng xavfli garmonika k*h = pi (eng QISQA "
+     "to'lqin, ikki tugunga bitta to'lqin). r = 0.5 da |xi| = 1 "
+     "(chegara), r = 0.6 da |xi| = 1.4 > 1 - portlaydi. Oshkormas "
+     "sxemada esa r = 12 da ham |xi| = 0.02 << 1.")
+
+# --- (3) Barqarorlik chegarasini SONLI topish ---
+# MUHIM: boshlang'ich shartga eng QISQA to'lqinni (k*h = pi) kichik
+# amplituda bilan qo'shamiz. Nazariya aynan shu garmonikani xavfli
+# deb aytadi; u bo'lmasa nobarqarorlik faqat yaxlitlash shovqinidan
+# o'sadi va chegara xiralashadi.
+saw = 1e-8*np.array([(-1.0)**j for j in range(nx + 1)])
+saw[0] = saw[-1] = 0.0
+rs = np.linspace(0.44, 0.60, 33)
+grow = []
+for rr in rs:
+    dt = rr*h**2/alpha
+    T = T0.copy() + saw
+    ok = True
+    for _ in range(400):
+        Tn = T.copy()
+        T[1:-1] = Tn[1:-1] + rr*(Tn[:-2] - 2*Tn[1:-1] + Tn[2:])
+        T[0] = T[-1] = 0.0
+        if not np.all(np.isfinite(T)) or np.max(np.abs(T)) > 1e8:
+            ok = False
+            break
+    grow.append(np.max(np.abs(T)) if ok else 1e8)
+series("400 qadamdan keyingi maks |T|", rs.tolist(),
+       np.minimum(grow, 1e8).tolist(),
+       xlabel="r = alpha*dt/h^2", ylabel="maks |T|")
+bad = [rr for rr, g in zip(rs, grow) if g > 1.05]
+if bad:
+    value("Sonli topilgan barqarorlik chegarasi", float(min(bad)), "—")
+    value("Nazariy chegara", 0.5, "—")
+    value("Farq", abs(min(bad) - 0.5)/0.5*100, "%")
+    note(f"400 qadam yurgizib barqarorlik chegarasi SONLI topildi: "
+         f"r = {min(bad):.3f} dan boshlab yechim o'sadi. Nazariy "
+         f"chegara r = 0.5 - farq {abs(min(bad)-0.5)/0.5*100:.1f} %. "
+         f"Fon Neyman tahlili tasdiqlandi.")
+
+# --- (4) LAKS TEOREMASI: yaqinlashishni tekshirish ---
+rows2 = []
+for nk in [10, 20, 40, 80]:
+    hk = L/nk
+    xk = np.linspace(0.0, L, nk + 1)
+    T0k = np.sin(kk*xk)
+    dtk = 0.25*hk**2/alpha          # r = 0.25, barqaror
+    ntk = max(1, int(round(t_end/dtk)))
+    dtk = t_end/ntk
+    rk = alpha*dtk/hk**2
+    T = T0k.copy()
+    for _ in range(ntk):
+        Tn = T.copy()
+        T[1:-1] = Tn[1:-1] + rk*(Tn[:-2] - 2*Tn[1:-1] + Tn[2:])
+        T[0] = T[-1] = 0.0
+    Tex = np.exp(-alpha*kk**2*t_end)*np.sin(kk*xk)
+    e = np.max(np.abs(T - Tex))/np.max(np.abs(Tex))
+    rows2.append([nk, f"{hk*1000:.4f}", f"{dtk:.6f}", ntk,
+                  f"{e*100:.6f}"])
+table("Barqaror sxema (r = 0.25): to'r bo'yicha yaqinlashish",
+      ["n", "h, mm", "dt, s", "qadamlar", "xatolik, %"], rows2)
+errs2 = [float(row[-1]) for row in rows2]
+ords2 = [np.log2(errs2[i]/errs2[i+1]) for i in range(len(errs2) - 1)]
+value("Yaqinlashish tartibi (10->20)", float(ords2[0]), "—")
+value("Yaqinlashish tartibi (20->40)", float(ords2[1]), "—")
+value("Yaqinlashish tartibi (40->80)", float(ords2[2]), "—")
+note(f"r = 0.25 doimiy ushlab turilganda (ya'ni dt ~ h^2) xatolik "
+     f"to'rt barobar kamayadi: o'lchangan tartiblar "
+     f"{', '.join(f'{o:.3f}' for o in ords2)} ~ 2. MUVOFIQ + "
+     f"BARQAROR sxema YAQINLASHDI - Laks teoremasi tasdiqlandi.")
+
+# --- (5) NOBARQAROR sxema: muvofiq bo'lsa ham yaqinlashmaydi ---
+rows3 = []
+for nk in [10, 20, 40]:
+    hk = L/nk
+    xk = np.linspace(0.0, L, nk + 1)
+    T0k = np.sin(kk*xk)
+    rk = r_test                     # > 0.5 bo'lsa nobarqaror
+    dtk = rk*hk**2/alpha
+    ntk = max(1, int(round(t_end/dtk)))
+    dtk = t_end/ntk
+    rk = alpha*dtk/hk**2
+    T = T0k.copy()
+    blown = False
+    for _ in range(ntk):
+        Tn = T.copy()
+        T[1:-1] = Tn[1:-1] + rk*(Tn[:-2] - 2*Tn[1:-1] + Tn[2:])
+        T[0] = T[-1] = 0.0
+        if not np.all(np.isfinite(T)) or np.max(np.abs(T)) > 1e10:
+            blown = True
+            break
+    Tex = np.exp(-alpha*kk**2*t_end)*np.sin(kk*xk)
+    if blown:
+        rows3.append([nk, f"{rk:.4f}", "PORTLADI", "-"])
+    else:
+        e = np.max(np.abs(T - Tex))/np.max(np.abs(Tex))
+        rows3.append([nk, f"{rk:.4f}", f"{np.max(np.abs(T)):.3e}",
+                      f"{e*100:.3e}"])
+table(f"Nobarqaror sxema (r = {r_test}): muvofiq, lekin yaqinlashmaydi",
+      ["n", "r", "maks |T|", "xatolik, %"], rows3)
+note(f"r = {r_test} > 0.5 da sxema MUVOFIQ bo'lib qolaveradi (kesish "
+     f"xatoligi o'zgarmadi), lekin NOBARQAROR - va natijada "
+     f"YAQINLASHMAYDI. Bu Laks teoremasining ikkinchi yo'nalishi: "
+     f"barqarorliksiz muvofiqlik yetarli emas.")
+
+# --- (6) Uchta sxemani taqqoslash ---
+rows4 = []
+for scheme, rr in [("explicit", 0.4), ("explicit", 2.0),
+                   ("implicit", 2.0), ("implicit", 12.0),
+                   ("crank", 2.0), ("crank", 12.0)]:
+    T, nt, r_eff, ok = march(scheme, rr, t_end)
+    Tex = exact(t_end)
+    if ok and np.all(np.isfinite(T)):
+        e = np.max(np.abs(T - Tex))/np.max(np.abs(Tex))
+        rows4.append([scheme, f"{r_eff:.3f}", nt, f"{e*100:.4f}"])
+    else:
+        rows4.append([scheme, f"{r_eff:.3f}", nt, "PORTLADI"])
+table("Uchta sxemaning taqqoslashi (t = %.0f s)" % t_end,
+      ["sxema", "r", "qadamlar", "xatolik, %"], rows4)
+note("Oshkor sxema r = 2.0 da portlaydi; oshkormas va Krank-Nikolson "
+     "esa r = 12 da ham ishlaydi. Lekin e'tibor bering: barqaror "
+     "bo'lish aniq bo'lishni anglatmaydi - r katta bo'lgani sari "
+     "xatolik o'sadi.")
+
+# --- Vaqt bo'yicha tartibni O'LCHASH ---
+# Diqqat: h qat'iy bo'lsa, dt kichraygani sari xatolik FAZOVIY
+# xatolikka (O(h^2)) tiralib qoladi va vaqt tartibini o'lchab
+# bo'lmaydi. Shuning uchun YARIM DISKRET aniq yechim bilan
+# taqqoslaymiz: fazo diskret, vaqt esa aniq.
+lam_h = -alpha*(4.0/h**2)*np.sin(kk*h/2.0)**2
+
+
+def exact_semi(t):
+    return np.exp(lam_h*t)*np.sin(kk*x)
+
+
+value("Uzluksiz xususiy qiymat -alpha*k^2", -alpha*kk**2, "1/s")
+value("Diskret xususiy qiymat lambda_h", lam_h, "1/s")
+value("Ularning nisbati", lam_h/(-alpha*kk**2), "—")
+note(f"Fazoviy diskretlashtirish xususiy qiymatni {-alpha*kk**2:.6e} "
+     f"dan {lam_h:.6e} ga o'zgartiradi (nisbat "
+     f"{lam_h/(-alpha*kk**2):.6f}) - bu FAZOVIY xatolik. Vaqt "
+     f"tartibini o'lchash uchun aynan shu yarim diskret yechim "
+     f"etalon bo'lishi kerak.")
+
+rows5 = []
+for rr in [4.0, 2.0, 1.0, 0.5, 0.25]:
+    Ti, _, ri, _ = march("implicit", rr, t_end)
+    Tc, _, rc, _ = march("crank", rr, t_end)
+    Tsemi = exact_semi(t_end)
+    nrm = np.max(np.abs(Tsemi))
+    ei = np.max(np.abs(Ti - Tsemi))/nrm
+    ec = np.max(np.abs(Tc - Tsemi))/nrm
+    rows5.append([f"{rr:g}", f"{ei*100:.6f}", f"{ec*100:.6f}",
+                  f"{ei/max(ec,1e-30):.1f}"])
+table("Vaqt bo'yicha aniqlik (yarim diskret etalonga nisbatan)",
+      ["r", "oshkormas xato, %", "Krank-Nikolson xato, %", "nisbat"],
+      rows5)
+ei_l = [float(rr[1]) for rr in rows5]
+ec_l = [float(rr[2]) for rr in rows5]
+p_i = float(np.mean([np.log2(ei_l[i]/ei_l[i+1])
+                     for i in range(len(ei_l) - 1)]))
+p_c = float(np.mean([np.log2(ec_l[i]/ec_l[i+1])
+                     for i in range(len(ec_l) - 1)]))
+value("Oshkormas: vaqt bo'yicha tartib", p_i, "—")
+value("Krank-Nikolson: vaqt bo'yicha tartib", p_c, "—")
+note(f"Yarim diskret etalonga nisbatan o'lchanganda vaqt qadami ikki "
+     f"barobar kamayganda oshkormas sxema xatosi "
+     f"{ei_l[0]/ei_l[1]:.2f} marta (tartib {p_i:.2f} ~ 1), "
+     f"Krank-Nikolson xatosi esa {ec_l[0]/ec_l[1]:.2f} marta "
+     f"(tartib {p_c:.2f} ~ 2) kamayadi. 12-qadamdagi O(dt^2) "
+     f"TASDIQLANDI.")
+note("Agar etalon sifatida to'liq aniq yechim olinsa, dt kichraygani "
+     "sari xatolik FAZOVIY xatolikka tiralib qoladi va Krank-Nikolson "
+     "uchun tartib umuman o'lchanmaydi. Bu amaliyotdagi keng "
+     "tarqalgan tuzoq: tartibni o'lchashda faqat BITTA diskretlashtirish "
+     "parametri o'zgarishi va etalon shunga mos bo'lishi kerak.")
+
+table("Uchta tushunchaning farqi",
+      ["Tushuncha", "Savol", "Qanday tekshiriladi", "Qiyinligi"],
+      [["Muvofiqlik", "to'g'ri tenglamami?", "Teylor qatori", "oson"],
+       ["Barqarorlik", "xato o'smaydimi?", "fon Neyman", "o'rtacha"],
+       ["Yaqinlashish", "aniq yechimga intiladimi?",
+        "Laks teoremasi orqali", "bevosita - juda qiyin"]])
+''',
+                parameters=[
+                    p("alpha", "Temperatura o'tkazuvchanlik α",
+                      1e-7, 0.001, 1.2e-5, 1e-7, "m²/s"),
+                    p("L", "Qalinlik L", 1.0, 500.0, 20.0, 1.0, "mm"),
+                    p("nx", "Bo'linmalar soni", 5.0, 100.0, 20.0, 1.0),
+                    p("t_end", "Hisoblash vaqti", 1.0, 600.0, 20.0, 1.0,
+                      "s"),
+                    p("r_test", "Nobarqarorlik uchun r", 0.5, 2.0, 0.6,
+                      0.05),
+                ],
+                expected_output=(
+                    "$h$ va $\\Delta t$ birga "
+                    "kichrayganda ($r$ doimiy) "
+                    "kesish xatoligi monoton nolga "
+                    "intiladi, tartibi aynan "
+                    "2,000 — sxema muvofiq. "
+                    "Fon Neyman tahlili "
+                    "eng xavfli garmonika "
+                    "$kh = \\pi$ ekanini "
+                    "ko'rsatadi va $r = 0{,}5$ da "
+                    "$|\\xi| = 1$ chegarasiga "
+                    "yetadi. Barqarorlik chegarasi "
+                    "**sonli** topilganda nazariy "
+                    "$r = 0{,}5$ ga juda yaqin "
+                    "(0,515) chiqadi — buning "
+                    "uchun boshlang'ich shartga "
+                    "aynan xavfli $kh = \\pi$ "
+                    "garmonikasi qo'shiladi. "
+                    "$r = 0{,}25$ da sxema "
+                    "yaqinlashadi (tartib 1,994 → "
+                    "1,998 → 2,000), $r > 0{,}5$ "
+                    "da esa muvofiq bo'lib qolsa "
+                    "ham portlaydi — Laks "
+                    "teoremasining ikkala "
+                    "yo'nalishi tasdiqlanadi. "
+                    "Vaqt bo'yicha tartib "
+                    "**yarim diskret** etalonga "
+                    "nisbatan o'lchanadi: "
+                    "oshkormas 1,026, "
+                    "Krank–Nikolson 1,99969. "
+                    "To'liq aniq yechim etalon "
+                    "qilinsa, fazoviy xatolik "
+                    "hukmron bo'lib qoladi va "
+                    "vaqt tartibi umuman "
+                    "o'lchanmaydi — bu alohida "
+                    "ta'kidlangan."
+                ),
+            ),
+            visual=vis(
+                kind="Barqarorlik va kuchayish koeffitsienti",
+                tool="React/SVG + Manim",
+                description=(
+                    "$|\\xi|$ ning to'lqin soniga "
+                    "bog'liqligi va nobarqaror "
+                    "yechimning portlashi."
+                ),
+                how_to_draw=(
+                    "React/SVG: chap panelda "
+                    "$|\\xi|$ ning $kh \\in [0,\\pi]$ "
+                    "bo'yicha grafigi — bir necha "
+                    "$r$ qiymati uchun egri "
+                    "chiziqlar. $|\\xi| = 1$ "
+                    "gorizontal chizig'i qizil "
+                    "bilan; undan yuqoriga chiqqan "
+                    "qism shtrixlanadi va "
+                    "'portlaydi' deb belgilanadi. "
+                    "$r$ slayderi bilan egri "
+                    "chiziq ko'tariladi va "
+                    "$r = 0{,}5$ da aynan chegaraga "
+                    "tegadi — bu hal qiluvchi "
+                    "moment ajratib ko'rsatiladi. "
+                    "Diqqat: egri chiziq eng "
+                    "yuqori nuqtasiga $kh = \\pi$ "
+                    "da yetadi, ya'ni **eng qisqa** "
+                    "to'lqinda. O'ng panelda "
+                    "haroratning vaqt bo'yicha "
+                    "evolyutsiyasi "
+                    "animatsiyalanadi: barqaror "
+                    "holatda profil silliq "
+                    "pasayadi, nobarqaror holatda "
+                    "esa tugundan tugunga "
+                    "almashinuvchi ishorali "
+                    "'arra' paydo bo'lib, "
+                    "amplitudasi eksponensial "
+                    "o'sadi — $kh = \\pi$ "
+                    "garmonikasi ko'z bilan "
+                    "ko'rinadi. Pastda yaqinlashish "
+                    "jadvali: barqaror sxema uchun "
+                    "xatolik kamayadi, nobarqaror "
+                    "uchun 'PORTLADI' yoziladi."
+                ),
+            ),
+            interp=(
+                "Kodning tuzilishi Laks "
+                "teoremasining ikkala yo'nalishini "
+                "alohida tekshiradi va bu uning "
+                "asosiy qiymati. Avval muvofiqlik "
+                "ko'rsatiladi: kesish xatoligi "
+                "$h$ va $\\Delta t$ bilan nolga "
+                "intiladi va u **$r$ ga bog'liq "
+                "emas**. Keyin barqarorlik "
+                "chegarasi ikki mustaqil yo'l "
+                "bilan topiladi: fon Neyman "
+                "formulasidan ($r \\le 1/2$) va "
+                "sxemani haqiqatan yurgizib, "
+                "yechim qachon o'sa boshlashini "
+                "kuzatib. Ular mos kelishi "
+                "nazariy tahlilning tasdig'i. "
+                "Undan keyin ikkita hal qiluvchi "
+                "tajriba. Birinchisida "
+                "$r = 0{,}25$ ushlab turiladi — "
+                "sxema muvofiq **va** barqaror, "
+                "natijada xatolik $O(h^2)$ "
+                "bo'yicha kamayadi, ya'ni "
+                "**yaqinlashadi**. Ikkinchisida "
+                "$r > 0{,}5$ olinadi — sxema "
+                "muvofiq bo'lib qolaveradi "
+                "(kesish xatoligi o'zgarmadi!), "
+                "lekin nobarqaror va natijada "
+                "yaqinlashmaydi, to'r "
+                "zichlashgani sari holat "
+                "yomonlashadi. Bu Laks "
+                "teoremasining 'barqarorlik "
+                "zarur' qismining eng aniq "
+                "namoyishi. Fon Neyman "
+                "grafigidagi eng muhim detal — "
+                "maksimum $kh = \\pi$ da "
+                "joylashgani. Ya'ni sxemani "
+                "portlatadigan narsa eng qisqa, "
+                "fizik ma'nosiz to'lqin. "
+                "Nihoyat, Krank–Nikolson va "
+                "oshkormas sxemalarning "
+                "taqqoslashi vaqt bo'yicha "
+                "tartiblarni (1 va 2) "
+                "tasdiqlaydi va muhim saboqni "
+                "beradi: shartsiz barqarorlik "
+                "katta qadam olish "
+                "**huquqini** beradi, lekin "
+                "aniqlikni kafolatlamaydi."
+            ),
+            mistakes=[
+                "Muvofiqlikni yaqinlashish bilan "
+                "chalkashtirish. Muvofiq sxema "
+                "nobarqaror bo'lsa "
+                "yaqinlashmaydi — kodda bu "
+                "bevosita ko'rsatiladi.",
+                "Barqarorlikni aniqlik bilan "
+                "chalkashtirish. Oshkormas sxema "
+                "$r = 100$ da ham barqaror, "
+                "lekin javob butunlay xato "
+                "bo'lishi mumkin.",
+                "Oshkor sxemada to'rni "
+                "zichlashtirib, vaqt qadamini "
+                "o'zgartirmaslik. "
+                "$\\Delta t \\sim h^2$ — "
+                "cheklov kvadratik.",
+                "Fon Neyman tahlilini "
+                "nochiziqli masalaga qo'llash. "
+                "U faqat chiziqli, doimiy "
+                "koeffitsientli sxemalar uchun.",
+                "Chegaraviy shartlarning "
+                "barqarorlikka ta'sirini "
+                "unutish. Fon Neyman ularni "
+                "hisobga olmaydi; matritsaviy "
+                "tahlil kerak.",
+            ],
+            quiz=[
+                q("Muvofiqlik, barqarorlik va "
+                  "yaqinlashish qanday farq "
+                  "qiladi?",
+                  "Muvofiqlik — sxema to'g'ri "
+                  "tenglamani yaqinlashtiradi; "
+                  "barqarorlik — xatoliklar "
+                  "o'smaydi; yaqinlashish — "
+                  "sonli yechim aniq yechimga "
+                  "intiladi.", "konseptual"),
+                q("Laks teoremasining amaliy "
+                  "qiymati nimada?",
+                  "Yaqinlashishni bevosita "
+                  "tekshirib bo'lmaydi (aniq "
+                  "yechim noma'lum), lekin "
+                  "muvofiqlik va barqarorlik "
+                  "oson tekshiriladi va ular "
+                  "yaqinlashishni "
+                  "kafolatlaydi.", "talqin"),
+                q("$\\alpha = 10^{-5}$ m²/s, "
+                  "$h = 2$ mm da oshkor sxema "
+                  "uchun $\\Delta t_{max}$ "
+                  "qancha?",
+                  "$\\Delta t = h^2/(2\\alpha) = "
+                  "4\\times10^{-6}/(2\\times"
+                  "10^{-5}) = 0{,}2$ s.",
+                  "hisob"),
+                q("Kodda barqarorlik chegarasi "
+                  "nima uchun sonli ham "
+                  "topiladi?",
+                  "Fon Neyman formulasi "
+                  "$r \\le 1/2$ beradi; uni "
+                  "sxemani haqiqatan yurgizib "
+                  "tekshirish nazariy tahlilning "
+                  "mustaqil tasdig'i bo'ladi.",
+                  "kod"),
+                q("Qaysi garmonika oshkor "
+                  "sxemani portlatadi?",
+                  "$kh = \\pi$ — eng qisqa "
+                  "to'lqin (ikki tugunga bitta "
+                  "to'lqin). U fizik ma'noga ega "
+                  "emas, lekin aynan u "
+                  "$|\\xi|$ ni maksimal qiladi.",
+                  "konseptual"),
+                q("Krank–Nikolson sxemasining "
+                  "afzalligi va kamchiligi "
+                  "nima?",
+                  "Shartsiz barqaror va vaqt "
+                  "bo'yicha $O(\\Delta t^2)$; "
+                  "lekin $r$ katta bo'lganda "
+                  "$\\xi \\to -1$ va yechim "
+                  "so'nmaydigan tebranish "
+                  "beradi.", "talqin"),
+            ],
+            bridge=(
+                "Issiqlik tenglamasida oshkor "
+                "sxema $\\Delta t \\sim h^2$ ni "
+                "talab qildi va bu juda og'ir "
+                "cheklov edi. Mexanikaning "
+                "dinamik masalalarida — "
+                "tebranishlar va to'lqin "
+                "tarqalishida — vaziyat "
+                "boshqacha. Keyingi mavzuda "
+                "ikkinchi tartibli vaqt "
+                "hosilasiga o'tamiz va Nyumark "
+                "sxemalari oilasini quramiz."
+            ),
+            research=(
+                "Barqarorlik nazariyasini "
+                "chuqurlashtiring. (1) Matritsaviy "
+                "barqarorlik tahlilini o'rganing: "
+                "o'tish matritsasining spektral "
+                "radiusi (su-06) orqali "
+                "chegaraviy shartlarning ta'sirini "
+                "hisobga olish. Fon Neyman "
+                "bashoratidan qachon farq qiladi? "
+                "(2) Energiya usulini (energy "
+                "method) ko'rib chiqing: u "
+                "nochiziqli va o'zgaruvchan "
+                "koeffitsientli masalalarda ham "
+                "ishlaydi. (3) Qattiq (stiff) "
+                "tizimlar tushunchasini va "
+                "A-barqarorlik, L-barqarorlik "
+                "ta'riflarini o'rganing: nima "
+                "uchun Krank–Nikolson "
+                "A-barqaror, lekin L-barqaror "
+                "emas va bu amalda nimaga olib "
+                "keladi?"
+            ),
+            manim_ref=manim(
+                scene="StabilityScene",
+                module="manim/scenes/su_fd.py",
+                title="Barqarorlik va kuchayish koeffitsienti",
+                summary=(
+                    "Harorat profili vaqt bo'yicha "
+                    "rivojlanadi; $r$ kichik "
+                    "bo'lganda u silliq pasayadi. "
+                    "$r$ ni 0,5 dan oshirganda "
+                    "tugundan tugunga almashinuvchi "
+                    "'arra' paydo bo'lib, "
+                    "amplitudasi eksponensial "
+                    "o'sadi. Yonma-yon "
+                    "$|\\xi(kh)|$ grafigi "
+                    "chiziladi va portlashga sabab "
+                    "bo'lgan garmonika "
+                    "$kh = \\pi$ belgilanadi."
+                ),
+            ),
+        ),
+    ),
 ]
