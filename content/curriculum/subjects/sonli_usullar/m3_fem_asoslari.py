@@ -6207,4 +6207,1278 @@ note(f"Shartlanganlik soni n^{slope:.3f} kabi o'sadi, ya'ni h^(-2). "
             ),
         ),
     ),
+
+    # ------------------------------------------------------------------ su-18
+    Topic(
+        id="su-18",
+        subject_id=S, module_id=M, order=18,
+        title="Xatolikni baholash va adaptiv to'r",
+        description=(
+            "Aprior va aposterior xatolik baholari, tiklashga asoslangan "
+            "ko'rsatkich, teng taqsimlash prinsipi, h-, p- va hp-"
+            "zichlashtirish hamda avtomatik adaptiv halqa."
+        ),
+        learning_objective=(
+            "Aniq yechimni bilmasdan xatolikni baholash, muammoli "
+            "elementlarni aniqlash va to'rni avtomatik yaxshilaydigan "
+            "adaptiv halqani qurish."
+        ),
+        prerequisites=["su-17"],
+        mathematical_core=(
+            "$\\|e\\|_E \\le Ch^{\\min(p,\\,t)}$; tiklashga asoslangan "
+            "ko'rsatkich $\\eta_e^2 = \\int_{\\Omega_e}E"
+            "(\\varepsilon^* - \\varepsilon_h)^2$; teng taqsimlash: "
+            "$\\eta_e \\approx \\text{const}$."
+        ),
+        engineering_application=(
+            "Burchaklar, teshiklar va yorilish uchlari atrofidagi "
+            "kuchlanish konsentratsiyasi; hisob ishonchliligini "
+            "raqam bilan asoslash."
+        ),
+        computational_component=(
+            "Yaqinlashish tartibini o'lchash, ko'rsatkich sifatini "
+            "baholash, adaptiv halqani ishga tushirish."
+        ),
+        visualization_component=(
+            "Xatolikning elementlar bo'yicha taqsimoti, adaptiv to'rning "
+            "rivojlanishi, yaqinlashish egri chiziqlari."
+        ),
+        research_extension=(
+            "Maqsadga yo'naltirilgan (goal-oriented) adaptivlikni "
+            "o'rganing: qo'shma (dual) masala orqali aynan kerakli "
+            "kattalikning xatosini kamaytirish."
+        ),
+        difficulty="murakkab",
+        previous_link=(
+            "su-17 da to'liq FEM zanjiri yopildi: zaif formulirovkadan "
+            "kuchlanish diagrammasigacha. Bitta savol ochiq qoldi — "
+            "natija qanchalik aniq? Aniq yechim ma'lum bo'lmagan holda "
+            "unga qanday javob berish mumkin?"
+        ),
+        next_topic="su-19",
+        estimated_minutes=95,
+        tags=["xatolik baholash", "adaptivlik", "Zienkievich-Chju",
+              "teng taqsimlash", "hp-usul"],
+        lesson=_lesson(
+            problem=(
+                "Kuchlanish konsentratsiyasi "
+                "hisobi topshirildi: "
+                "detaldagi o'tkir burchak "
+                "atrofida maksimal kuchlanish "
+                "kerak. Birinchi hisob "
+                "$\\sigma = 180$ MPa berdi. "
+                "To'r ikki barobar "
+                "zichlashtirildi — "
+                "$\\sigma = 240$ MPa. Yana "
+                "zichlashtirildi — 310 MPa. "
+                "Raqam to'xtamayapti va har "
+                "safar o'sib boryapti. "
+                "Qaysi biriga ishonish kerak? "
+                "Hisobni qachon to'xtatish "
+                "mumkin? Va eng muhimi — "
+                "butun modelni bir tekis "
+                "zichlashtirish juda qimmat: "
+                "har safar elementlar soni "
+                "to'rt barobar oshadi, "
+                "holbuki muammo faqat bitta "
+                "burchakda. Zichlashtirishni "
+                "kerakli joyga **avtomatik** "
+                "yo'naltirish mumkinmi?"
+            ),
+            concepts=[
+                c("Aprior baho",
+                  "Yechimni hisoblashdan "
+                  "**oldin** tartibni "
+                  "beradi: "
+                  "$\\|e\\|_E \\le "
+                  "Ch^{\\min(p,t)}$, lekin "
+                  "$C$ noma'lum."),
+                c("Aposterior baho",
+                  "Hisoblangan yechimdan "
+                  "xatolikni baholaydi — "
+                  "amalda ishlatiladigani "
+                  "shu."),
+                c("Tiklashga asoslangan "
+                  "ko'rsatkich (ZZ)",
+                  "Silliqlangan "
+                  "$\\varepsilon^*$ bilan "
+                  "elementdagi "
+                  "$\\varepsilon_h$ "
+                  "farqidan xatolik "
+                  "baholanadi."),
+                c("Samaradorlik indeksi "
+                  "$\\theta$",
+                  "$\\theta = \\eta/"
+                  "\\|e\\|_E$ — ko'rsatkich "
+                  "haqiqiy xatolikka qanchalik "
+                  "yaqin; ideal $\\theta = 1$."),
+                c("Teng taqsimlash prinsipi",
+                  "Optimal to'rda xatolik "
+                  "barcha elementlar bo'ylab "
+                  "**teng** taqsimlanadi."),
+                c("h-, p- va hp-zichlashtirish",
+                  "Elementni maydalash, "
+                  "tartibni oshirish yoki "
+                  "ikkalasini birlashtirish."),
+                c("Dyorfler belgilashi",
+                  "Umumiy xatolikning "
+                  "berilgan ulushini "
+                  "(masalan 50%) qamrab "
+                  "oladigan eng kam "
+                  "elementni belgilash."),
+            ],
+            derivation=[
+                d("1. Xatolikning energiya "
+                  "normasi",
+                  r"\|e\|_E^2 = \int_\Omega "
+                  r"E\left(\varepsilon - "
+                  r"\varepsilon_h\right)^2 "
+                  r"d\Omega",
+                  "FEM uchun eng tabiiy "
+                  "o'lchov, chunki su-13 dagi "
+                  "Galerkin usuli aynan shu "
+                  "normani minimallashtiradi."),
+                d("2. Aprior baho",
+                  r"\|e\|_E \le C\,h^{\min(p,\,t)}",
+                  "$t$ — yechimning "
+                  "silliqligi "
+                  "($u \\in H^{1+t}$). Silliq "
+                  "yechimda $t \\ge p$ va "
+                  "tartib $p$ ga teng."),
+                d("3. Singulyarlikning ta'siri",
+                  r"u \sim x^{\alpha} \ "
+                  r"(\alpha < 1) "
+                  r"\;\Longrightarrow\; "
+                  r"\text{tartib} < p",
+                  "**Asosiy muammo.** O'tkir "
+                  "burchak, yorilish uchi yoki "
+                  "nuqtaviy kuch yechimni "
+                  "singulyar qiladi va "
+                  "yaqinlashish keskin "
+                  "sekinlashadi."),
+                d("4. Tekis to'rning cheklovi",
+                  r"\|e\|_E \sim h^{\alpha/2} \ "
+                  r"(\text{tarangligi } x^s "
+                  r"\text{ bo'lgan sterjen "
+                  r"uchun})",
+                  "**O'lchangan natija.** "
+                  "$\\alpha = 0{,}6$ da tartib "
+                  "atigi 0,3 — aniqlikni "
+                  "ikki barobar oshirish "
+                  "uchun elementlar sonini "
+                  "**o'n barobar** oshirish "
+                  "kerak."),
+                d("5. Aniq yechim ma'lum emas",
+                  r"\varepsilon \ \text{noma'lum} "
+                  r"\;\Longrightarrow\; "
+                  r"\|e\|_E \ \text{bevosita "
+                  r"hisoblanmaydi}",
+                  "1-qadamdagi formula "
+                  "amalda ishlatib "
+                  "bo'lmaydi. Kerak bo'lgani "
+                  "— faqat hisoblangan "
+                  "yechimdan foydalanadigan "
+                  "baho."),
+                d("6. Tiklangan deformatsiya",
+                  r"\varepsilon^* = "
+                  r"\text{silliqlangan}"
+                  r"(\varepsilon_h) \approx "
+                  r"\varepsilon",
+                  "**Hal qiluvchi g'oya.** "
+                  "su-16 dagi Barlou "
+                  "nuqtalaridan tiklangan "
+                  "maydon aniq yechimga "
+                  "$\\varepsilon_h$ dan "
+                  "ko'ra yaqinroq."),
+                d("7. Zienkievich–Chju "
+                  "ko'rsatkichi",
+                  r"\eta_e^2 = \int_{\Omega_e}"
+                  r"E\left(\varepsilon^* - "
+                  r"\varepsilon_h\right)^2"
+                  r"d\Omega",
+                  "Noma'lum $\\varepsilon$ "
+                  "o'rniga $\\varepsilon^*$ "
+                  "qo'yiladi. Element "
+                  "bo'yicha hisoblanadi — "
+                  "bu belgilash uchun "
+                  "zarur."),
+                d("8. Samaradorlik indeksi",
+                  r"\theta = \frac{\eta}"
+                  r"{\|e\|_E}, \qquad "
+                  r"\text{ideal } \theta \to 1",
+                  "Ko'rsatkich sifatining "
+                  "o'lchovi. $\\theta < 1$ — "
+                  "kam baholaydi, "
+                  "$\\theta > 1$ — ortiqcha "
+                  "baholaydi."),
+                d("9. Belgilash uchun "
+                  "kattalik emas, TARTIB "
+                  "muhim",
+                  r"\eta_{e_1} > \eta_{e_2} "
+                  r"\;\Longleftrightarrow\; "
+                  r"\|e\|_{e_1} > \|e\|_{e_2}",
+                  "**Nozik va muhim "
+                  "kuzatuv.** Adaptivlik "
+                  "uchun ko'rsatkich "
+                  "elementlarni to'g'ri "
+                  "**saralashi** yetarli; "
+                  "kattaligi noto'g'ri "
+                  "bo'lsa ham bo'ladi."),
+                d("10. Teng taqsimlash "
+                  "prinsipi",
+                  r"\eta_e = \text{const} \quad "
+                  r"\forall e "
+                  r"\;\Longleftrightarrow\; "
+                  r"\text{optimal to'r}",
+                  "Berilgan element soni "
+                  "uchun umumiy xatolik "
+                  "xatolik teng "
+                  "taqsimlanganda minimal. "
+                  "Adaptiv halqaning maqsadi "
+                  "aynan shu."),
+                d("11. Dyorfler belgilashi",
+                  r"\sum_{e \in \mathcal{M}}"
+                  r"\eta_e^2 \ge \theta_D"
+                  r"\sum_{e}\eta_e^2, \quad "
+                  r"\theta_D = 0{,}5",
+                  "Ko'rsatkich bo'yicha "
+                  "saralab, umumiy "
+                  "xatolikning yarmini "
+                  "qamrab oladigan eng kam "
+                  "elementni belgilaymiz. "
+                  "Yaqinlashish isbotlangan "
+                  "strategiya."),
+                d("12. Adaptiv halqa",
+                  r"\text{YECH} \to "
+                  r"\text{BAHOLA} \to "
+                  r"\text{BELGILA} \to "
+                  r"\text{ZICHLASHTIR} \to "
+                  r"\dots",
+                  "To'rt qadamli takrorlanuvchi "
+                  "jarayon (SEMR). Har bir "
+                  "aylanishda to'r faqat "
+                  "kerakli joyda "
+                  "zichlashadi."),
+                d("13. Daraja bo'yicha "
+                  "zichlangan to'r",
+                  r"x_i = L\left(\frac{i}{n}"
+                  r"\right)^{b}, \qquad "
+                  r"b_{opt} \approx "
+                  r"\frac{3}{\alpha}",
+                  "**O'lchangan natija.** "
+                  "Singulyarlik darajasi "
+                  "ma'lum bo'lsa, to'rni "
+                  "oldindan grading bilan "
+                  "qurish mumkin va optimal "
+                  "tartib tiklanadi."),
+                d("14. p- va hp-zichlashtirish",
+                  r"\text{silliq joyda: } p"
+                  r"\uparrow, \qquad "
+                  r"\text{singulyarlikda: } "
+                  r"h\downarrow",
+                  "**Eng kuchli usul.** "
+                  "hp-FEM to'g'ri "
+                  "qo'llanganda "
+                  "**eksponensial** "
+                  "yaqinlashish beradi — "
+                  "darajali emas."),
+            ],
+            meaning=(
+                "Bu mavzu FEM ni "
+                "'hisoblash' dan "
+                "'ishonchli hisoblash' ga "
+                "o'tkazadi. 3- va "
+                "4-qadamlar muammoni aniq "
+                "qo'yadi: singulyarlik "
+                "borligida tekis to'r "
+                "deyarli foydasiz. "
+                "O'lchangan tartib 0,3 "
+                "degani — xatolikni ikki "
+                "barobar kamaytirish uchun "
+                "elementlar sonini o'n "
+                "barobar oshirish kerak. Uch "
+                "marta ikkiga bo'lish uchun "
+                "esa ming barobar. Aynan shu "
+                "sababdan boshlanishdagi "
+                "180–240–310 MPa ketma-ketligi "
+                "to'xtamaydi. 5-qadam esa "
+                "asosiy qiyinchilikni "
+                "ko'rsatadi: xatolikni "
+                "o'lchash uchun aniq yechim "
+                "kerak, lekin u bo'lganda "
+                "hisobning o'zi kerak "
+                "bo'lmasdi. Chiqish yo'li "
+                "6-qadamda va u su-16 ga "
+                "tayanadi: Barlou "
+                "nuqtalaridagi qiymatlar "
+                "bir tartib aniqroq, demak "
+                "ulardan tiklangan "
+                "$\\varepsilon^*$ ni "
+                "'aniqroq yechim' o'rnida "
+                "ishlatish mumkin. Bu "
+                "hiyla ko'rinadi, lekin "
+                "ishlaydi. Eng nozik "
+                "joyi — 9-qadam. "
+                "Ko'rsatkich xatolik "
+                "kattaligini noto'g'ri "
+                "berishi mumkin va amalda "
+                "shunday bo'ladi ham. "
+                "Lekin adaptivlik uchun "
+                "kattalik kerak emas: "
+                "faqat qaysi element "
+                "yomonroq ekanini bilish "
+                "yetarli. Kod buni aniq "
+                "o'lchaydi — ko'rsatkich "
+                "kattalikni ikki yarim "
+                "barobar kam baholaydi, "
+                "lekin elementlarni deyarli "
+                "mukammal saralaydi. "
+                "Shuning uchun adaptiv "
+                "halqa ishonchli ishlaydi "
+                "garchi baho raqami "
+                "noto'g'ri bo'lsa ham. "
+                "10-qadamdagi teng "
+                "taqsimlash prinsipi "
+                "adaptivlikning maqsadini "
+                "belgilaydi va uni "
+                "tekshirish oson: yaxshi "
+                "to'rda element xatoliklari "
+                "bir-biriga yaqin bo'lishi "
+                "kerak. Tekis to'rda esa "
+                "ular yuz minglab barobar "
+                "farq qiladi — bu "
+                "resursning qanchalik "
+                "isrof bo'layotganini "
+                "ko'rsatadi. Nihoyat "
+                "14-qadam eng kuchli "
+                "vositani eslatadi: "
+                "hp-usul silliq joyda "
+                "tartibni oshirib, "
+                "singulyarlikda elementni "
+                "maydalaydi va natijada "
+                "eksponensial yaqinlashish "
+                "beradi."
+            ),
+            equations=[
+                eq(r"\|e\|_E^2 = \int_\Omega "
+                   r"E(\varepsilon - "
+                   r"\varepsilon_h)^2 d\Omega "
+                   r"\le C^2h^{2\min(p,t)}",
+                   "Xatolikning energiya "
+                   "normasi va aprior baho.",
+                   "Aprior baho"),
+                eq(r"\eta_e^2 = \int_{\Omega_e}"
+                   r"E\left(\varepsilon^* - "
+                   r"\varepsilon_h\right)^2"
+                   r"d\Omega, \qquad \eta^2 = "
+                   r"\sum_e \eta_e^2",
+                   "Zienkievich–Chju "
+                   "tiklashga asoslangan "
+                   "aposterior ko'rsatkichi.",
+                   "ZZ ko'rsatkichi"),
+                eq(r"\theta = \frac{\eta}"
+                   r"{\|e\|_E}, \qquad "
+                   r"\eta_e \approx "
+                   r"\text{const} \ "
+                   r"(\text{optimal to'r})",
+                   "Samaradorlik indeksi va "
+                   "teng taqsimlash prinsipi.",
+                   "Sifat mezonlari"),
+                eq(r"\sum_{e \in \mathcal{M}}"
+                   r"\eta_e^2 \ge \theta_D"
+                   r"\sum_e \eta_e^2",
+                   "Dyorfler belgilash "
+                   "strategiyasi.",
+                   "Belgilash"),
+            ],
+            conditions=(
+                "**To'xtash mezoni:**\n"
+                "$\\eta/\\|\\mathbf{u}\\|_E "
+                "\\le \\text{tol}$ — odatda "
+                "muhandislik hisobida "
+                "1–5%.\n\n"
+                "**Ko'rsatkichni ishonch "
+                "bilan ishlatish uchun:**\n"
+                "1. Samaradorlik indeksi "
+                "$\\theta$ to'r bilan "
+                "**barqaror** bo'lsin — "
+                "kodda u 4 xonagacha "
+                "o'zgarmaydi;\n"
+                "2. $\\theta$ birga yaqin "
+                "bo'lmasa ham, u "
+                "kalibrlanishi mumkin;\n"
+                "3. Element saralashi "
+                "to'g'ri bo'lsin — "
+                "adaptivlik uchun aynan "
+                "shu muhim.\n\n"
+                "**Belgilash "
+                "parametrlari:**\n"
+                "- $\\theta_D = 0{,}3$ — "
+                "ehtiyotkor, ko'p "
+                "aylanish;\n"
+                "- $\\theta_D = 0{,}5$ — "
+                "muvozanatli (standart);\n"
+                "- $\\theta_D \\to 1$ — "
+                "deyarli tekis "
+                "zichlashtirish.\n\n"
+                "**Qaysi usulni tanlash:**\n"
+                "- Yechim silliq → "
+                "p-zichlashtirish;\n"
+                "- Singulyarlik bor → "
+                "h-zichlashtirish yoki "
+                "grading;\n"
+                "- Ikkalasi → hp (eng "
+                "samarali, eng murakkab).\n\n"
+                "**Ogohlantirish:** "
+                "singulyarlik nuqtasida "
+                "aniq yechimda kuchlanish "
+                "**cheksiz**. U yerda to'rni "
+                "cheksiz zichlashtirish "
+                "ma'nosiz — model o'zi "
+                "noto'g'ri (o'tkir burchak "
+                "haqiqatda galtelga ega "
+                "yoki material oqadi). "
+                "Adaptivlik modelning "
+                "xatosini tuzatmaydi "
+                "(su-29)."
+            ),
+            worked=WorkedExample(
+                statement=(
+                    "Tekis to'rda ikkita hisob "
+                    "bajarildi: $n = 32$ da "
+                    "$\\eta = 0{,}0840$, "
+                    "$n = 64$ da "
+                    "$\\eta = 0{,}0682$. "
+                    "(a) Yaqinlashish tartibini "
+                    "aniqlang; (b) "
+                    "$\\eta = 0{,}01$ ga "
+                    "yetish uchun necha element "
+                    "kerak; (c) adaptiv usul "
+                    "optimal tartib 1 ni "
+                    "tiklasa, u holda necha "
+                    "element kerak bo'ladi?"
+                ),
+                given=[
+                    r"n_1 = 32,\ \eta_1 = 0{,}0840; "
+                    r"\quad n_2 = 64,\ \eta_2 = "
+                    r"0{,}0682",
+                    r"\eta_{\text{maqsad}} = 0{,}01",
+                ],
+                steps=[
+                    st(r"\eta \sim n^{-r} "
+                       r"\;\Rightarrow\; "
+                       r"\frac{\eta_1}{\eta_2} = "
+                       r"\left(\frac{n_2}{n_1}"
+                       r"\right)^{r}",
+                       "Darajali qonun "
+                       "taxmini."),
+                    st(r"r = \frac{\ln(\eta_1/"
+                       r"\eta_2)}{\ln(n_2/n_1)} = "
+                       r"\frac{\ln(1{,}2317)}"
+                       r"{\ln 2}",
+                       "Logarifmlash."),
+                    st(r"r = \frac{0{,}2084}"
+                       r"{0{,}6931} = 0{,}3007",
+                       "**Tartib atigi 0,3** — "
+                       "silliq masalada "
+                       "kutilgan 1 o'rniga."),
+                    st(r"\text{(b)}\quad "
+                       r"\frac{\eta_2}"
+                       r"{\eta_{\text{maqsad}}} = "
+                       r"\frac{0{,}0682}{0{,}01} = "
+                       r"6{,}82",
+                       "Kerakli yaxshilanish "
+                       "koeffitsienti."),
+                    st(r"\frac{n}{n_2} = "
+                       r"6{,}82^{1/0{,}3007} = "
+                       r"6{,}82^{3{,}326}",
+                       "Tartibning teskarisi "
+                       "darajaga chiqadi."),
+                    st(r"= e^{3{,}326 \cdot "
+                       r"1{,}9199} = e^{6{,}386} "
+                       r"\approx 594",
+                       "Koeffitsient."),
+                    st(r"n \approx 64 \cdot 594 "
+                       r"\approx 38\,000",
+                       "**Tekis to'rda 38 ming "
+                       "element kerak** — bir "
+                       "o'lchovli masalada!"),
+                    st(r"\text{(c)}\quad r = 1: "
+                       r"\ \frac{n}{n_2} = "
+                       r"6{,}82^{1/1} = 6{,}82",
+                       "Optimal tartibda."),
+                    st(r"n \approx 64 \cdot 6{,}82 "
+                       r"\approx 437",
+                       "**Adaptiv usulda atigi "
+                       "437 element.**"),
+                    st(r"\frac{38\,000}{437} "
+                       r"\approx 87",
+                       "Tejash **87 barobar** — "
+                       "va bu bir o'lchovda. "
+                       "Uch o'lchovda tejash "
+                       "kubga ko'tariladi."),
+                ],
+                answer=(
+                    "(a) $r = 0{,}30$ — "
+                    "singulyarlik tufayli "
+                    "optimal 1 dan uch barobar "
+                    "kichik. "
+                    "(b) Tekis to'rda taxminan "
+                    "**38 000** element. "
+                    "(c) Adaptiv usulda "
+                    "taxminan **437** element — "
+                    "87 barobar kam. Kodda "
+                    "o'lchangan haqiqiy nisbat "
+                    "bundan ham katta chiqadi."
+                ),
+                engineering_note=(
+                    "Bu hisob adaptivlikning "
+                    "nima uchun zarurligini "
+                    "eng aniq ko'rsatadi. "
+                    "0,3 va 1 tartiblar "
+                    "orasidagi farq kichik "
+                    "ko'rinadi, lekin u "
+                    "darajaga chiqadi va "
+                    "natijada 87 barobar "
+                    "farq beradi. Uch "
+                    "o'lchovli masalada "
+                    "esa element soni "
+                    "xotira va vaqtga "
+                    "kubik bog'liq — "
+                    "shuning uchun tejash "
+                    "amalda hisobni "
+                    "'mumkin emas' dan "
+                    "'bir necha daqiqa' ga "
+                    "o'tkazadi. Ammo "
+                    "muhimroq bir xulosa "
+                    "ham bor. Boshlanishdagi "
+                    "180–240–310 MPa "
+                    "ketma-ketligi hech "
+                    "qachon to'xtamaydi, "
+                    "chunki o'tkir "
+                    "burchakdagi aniq "
+                    "kuchlanish "
+                    "**cheksiz**. To'rni "
+                    "qancha "
+                    "zichlashtirmang, "
+                    "raqam o'sib boraveradi "
+                    "va bu sonli xato emas "
+                    "— bu to'g'ri "
+                    "hisoblangan noto'g'ri "
+                    "model. Haqiqiy detalda "
+                    "o'tkir burchak yo'q: "
+                    "u yerda galtel bor "
+                    "yoki material oqib "
+                    "kuchlanishni "
+                    "cheklaydi. Adaptivlik "
+                    "diskretlashtirish "
+                    "xatosini yo'qotadi, "
+                    "model xatosini esa "
+                    "yo'q — bu farqni "
+                    "su-29 da V&V "
+                    "tartibida "
+                    "rasmiylashtiramiz."
+                ),
+            ),
+            computation=Computation(
+                caption=(
+                    "Singulyar masalada "
+                    "yaqinlashish tartibini "
+                    "o'lchash, ZZ "
+                    "ko'rsatkichining sifatini "
+                    "baholash va adaptiv "
+                    "halqani ishga tushirish."
+                ),
+                code='''"""Xatolikni baholash va adaptiv to'r."""
+import numpy as np
+from labkit import PARAMS, note, series, table, value
+from scipy.linalg import solve_banded
+
+s_sing = float(PARAMS.get("s_sing", 0.4))     # EA ~ x^s, alpha = 1 - s
+theta_D = float(PARAMS.get("theta_D", 0.5))   # Dyorfler ulushi
+n_start = int(PARAMS.get("n_start", 8))
+n_cycle = int(PARAMS.get("n_cycle", 22))
+
+EA0, L, N_end = 1000.0, 1.0, 100.0
+
+# Etalon masala: EA(x) = EA0*(x/L)^s bo'lgan konus sterjen, uchida N kuch.
+# Aniq yechim: u' = B x^(-s), B = N L^s / EA0  -> u ~ x^(1-s), alpha = 1-s.
+# Hech qanday hajmiy kuch yo'q, barcha integrallar AYNAN olinadi.
+
+
+def B_of(s):
+    return N_end*L**s/EA0
+
+
+def ke_exact(x1, x2, s):
+    """Element bikrligi - analitik integral, kvadratura xatosi YO'Q."""
+    h = x2 - x1
+    return EA0/L**s*(x2**(s + 1) - x1**(s + 1))/(s + 1)/h**2
+
+
+def fem(xn, s):
+    """Uch diagonalli tizim (su-15: lenta kengligi 2)."""
+    n = len(xn) - 1
+    k = np.array([ke_exact(xn[e], xn[e+1], s) for e in range(n)])
+    ab = np.zeros((3, n))
+    d = np.zeros(n)
+    d[:-1] = k[:-1] + k[1:]
+    d[-1] = k[-1]
+    ab[1, :] = d
+    ab[0, 1:] = -k[1:n]
+    ab[2, :-1] = -k[1:n]
+    rhs = np.zeros(n)
+    rhs[-1] = N_end
+    u = np.zeros(n + 1)
+    u[1:] = solve_banded((1, 1), ab, rhs)
+    return u
+
+
+def err_true(xn, u, s):
+    """AYNAN xatolik: int EA(x)(u' - u_h')^2 dx, hammasi x darajalari."""
+    B = B_of(s)
+    c0 = EA0/L**s
+    out = []
+    for e in range(len(xn) - 1):
+        x1, x2 = xn[e], xn[e+1]
+        c = (u[e+1] - u[e])/(x2 - x1)
+        I1 = (x2**(1 - s) - x1**(1 - s))/(1 - s)
+        I2 = x2 - x1
+        I3 = (x2**(s + 1) - x1**(s + 1))/(s + 1)
+        out.append(c0*(B**2*I1 - 2*B*c*I2 + c**2*I3))
+    return np.array(out)
+
+
+def zz_indicator(xn, u, s):
+    """Tiklashga asoslangan ko'rsatkich (su-16 dagi Barlou nuqtalari)."""
+    n = len(xn) - 1
+    eh = np.array([(u[e+1] - u[e])/(xn[e+1] - xn[e]) for e in range(n)])
+    xc = np.array([(xn[e] + xn[e+1])/2 for e in range(n)])
+    es = np.zeros(n + 1)
+    for i in range(n + 1):
+        if i == 0:
+            es[i] = eh[0] + (eh[0] - eh[1])*(xn[0] - xc[0])/(xc[0] - xc[1])
+        elif i == n:
+            es[i] = eh[-1] + (eh[-1] - eh[-2])*(xn[n] - xc[-1]) / \\
+                (xc[-1] - xc[-2])
+        else:
+            w = (xn[i] - xc[i-1])/(xc[i] - xc[i-1])
+            es[i] = eh[i-1] + w*(eh[i] - eh[i-1])
+    gx, gw = np.polynomial.legendre.leggauss(10)
+    c0 = EA0/L**s
+    out = []
+    for e in range(n):
+        x1, x2 = xn[e], xn[e+1]
+        h = x2 - x1
+        xg = (x1 + x2)/2 + gx*h/2
+        est = (1 - gx)/2*es[e] + (1 + gx)/2*es[e+1]
+        out.append(c0*np.sum(xg**s*(est - eh[e])**2*gw)*h/2)
+    return np.array(out)
+
+
+def rate(ns, es):
+    return -float(np.polyfit(np.log(ns), np.log(es), 1)[0])
+
+
+# --- (1) APRIOR: tekis to'rdagi tartib singulyarlikka qanday bog'liq ---
+ns = [16, 32, 64, 128, 256, 512]
+rows = []
+for s_ in [0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8]:
+    al = 1 - s_
+    es = [np.sqrt(err_true(np.linspace(0, L, n + 1),
+                           fem(np.linspace(0, L, n + 1), s_), s_).sum())
+          for n in ns]
+    r = rate(ns, es)
+    rows.append([f"{s_:.1f}", f"{al:.2f}", f"{r:.5f}", f"{al/2:.4f}",
+                 f"{abs(r - al/2):.1e}"])
+table("Tekis to'rdagi yaqinlashish tartibi va singulyarlik",
+      ["s (EA ~ x^s)", "alpha = 1-s", "o'lchangan tartib",
+       "nazariy alpha/2", "farq"], rows)
+note("Yetti xil singulyarlik darajasi uchun ham o'lchangan tartib "
+     "nazariy alpha/2 bilan to't-besh xonagacha mos tushdi. DIQQAT: "
+     "bu yerda energiya normasi EA(x) = EA0*(x/L)^s bilan OG'IRLANGAN "
+     "va og'irlik singulyarlik nuqtasida nolga intiladi - shu sababli "
+     "tartib klassik og'irlanmagan holdagi (alpha - 1/2) emas, balki "
+     "alpha/2 bo'ladi. O'lchov nazariyani aniqlashtirdi.")
+
+al_c = 1 - s_sing
+es_u = [np.sqrt(err_true(np.linspace(0, L, n + 1),
+                         fem(np.linspace(0, L, n + 1), s_sing),
+                         s_sing).sum()) for n in ns]
+value("Tanlangan masala: alpha", al_c, "—")
+value("Tekis to'r tartibi (o'lchangan)", rate(ns, es_u), "—")
+value("Optimal tartib (p = 1)", 1.0, "—")
+series("Tekis to'r yaqinlashishi", np.log10(ns).tolist(),
+       np.log10(es_u).tolist(), xlabel="log10(n)", ylabel="log10(||e||)")
+
+# --- (2) APOSTERIOR: ZZ ko'rsatkichining sifati ---
+rows2 = []
+for s_, tag in [(s_sing, "singulyar"), (0.05, "deyarli silliq")]:
+    for n in [16, 32, 64, 128]:
+        xn = np.linspace(0, L, n + 1)
+        u = fem(xn, s_)
+        t = err_true(xn, u, s_)
+        z = zz_indicator(xn, u, s_)
+        rt = np.argsort(np.argsort(-t))
+        rz = np.argsort(np.argsort(-z))
+        rho = 1 - 6*np.sum((rt - rz)**2)/(n*(n**2 - 1))
+        rows2.append([tag, n, f"{np.sqrt(z.sum()/t.sum()):.4f}",
+                      f"{rho:.6f}"])
+table("ZZ ko'rsatkichining sifati",
+      ["masala", "n", "samaradorlik theta", "Spirmen rang korrelyatsiyasi"],
+      rows2)
+xn64 = np.linspace(0, L, 65)
+u64 = fem(xn64, s_sing)
+t64 = err_true(xn64, u64, s_sing)
+z64 = zz_indicator(xn64, u64, s_sing)
+value("theta (n = 64)", float(np.sqrt(z64.sum()/t64.sum())), "—")
+rt = np.argsort(np.argsort(-t64))
+rz = np.argsort(np.argsort(-z64))
+value("Spirmen rang korrelyatsiyasi (n = 64)",
+      float(1 - 6*np.sum((rt - rz)**2)/(64*(64**2 - 1))), "—")
+series("Haqiqiy xatolik elementlar bo'yicha", list(range(1, 65)),
+       np.log10(t64).tolist(), xlabel="element", ylabel="log10(e^2)")
+series("ZZ ko'rsatkichi elementlar bo'yicha", list(range(1, 65)),
+       np.log10(z64).tolist(), xlabel="element", ylabel="log10(eta^2)")
+note("ENG MUHIM KUZATUV. Samaradorlik indeksi 0.39 - ya'ni ko'rsatkich "
+     "xatolik KATTALIGINI ikki yarim barobar kam baholaydi. Lekin "
+     "Spirmen rang korrelyatsiyasi 0.99999 ga yaqin: u elementlarni "
+     "deyarli MUKAMMAL saralaydi. Adaptivlik uchun aynan shu kerak - "
+     "belgilash faqat tartibga tayanadi, kattalikka emas. Shuning "
+     "uchun 'yomon' ko'rsatkich ham ishonchli adaptiv halqa quradi; "
+     "kattalik esa barqaror theta orqali kalibrlanishi mumkin.")
+
+# --- (3) TENG TAQSIMLASH prinsipi ---
+rows3 = []
+for tag, xn in [("tekis", np.linspace(0, L, 65)),
+                ("b = 2 zichlangan", L*(np.arange(65)/64)**2),
+                ("b = 5 zichlangan", L*(np.arange(65)/64)**5),
+                ("b = 8 zichlangan", L*(np.arange(65)/64)**8)]:
+    t = err_true(xn, fem(xn, s_sing), s_sing)
+    rows3.append([tag, f"{t.max()/t.min():.3e}", f"{t.std()/t.mean():.4f}",
+                  f"{np.sqrt(t.sum()):.4e}"])
+table("Teng taqsimlash prinsipi (n = 64)",
+      ["to'r", "max/min xatolik", "o'zgaruvchanlik CV", "||e||_E"], rows3)
+note("Tekis to'rda element xatoliklari 400 MING barobar farq qiladi: "
+     "deyarli butun xatolik birinchi elementda to'plangan va qolgan 63 "
+     "element behuda sarflangan. b = 5 da nisbat 6 ga tushadi va "
+     "o'zgaruvchanlik 7.68 dan 0.12 ga kamayadi - xatolik deyarli TENG "
+     "taqsimlanadi. Aynan shu umumiy xatolikni 7.6 barobar kamaytiradi, "
+     "garchi elementlar soni o'zgarmagan bo'lsa ham. b = 8 esa ORTIQCHA "
+     "zichlashtirish: endi silliq sohadagi oxirgi elementlar haddan "
+     "tashqari kattalashadi va nisbat yana o'sadi (CV 0.84). Demak "
+     "optimal b mavjud va u 'imkon qadar katta' emas.")
+
+# --- (4) DARAJA bo'yicha zichlangan to'r: optimal grading ---
+rows4 = []
+for b in [1.0, 2.0, 3.0, 4.0, 5.0, 8.0, 12.0]:
+    es = [np.sqrt(err_true(L*(np.arange(n + 1)/n)**b,
+                           fem(L*(np.arange(n + 1)/n)**b, s_sing),
+                           s_sing).sum()) for n in ns]
+    rows4.append([f"{b:.0f}", f"{rate(ns, es):.4f}", f"{es[-1]:.4e}"])
+table("Daraja bo'yicha zichlangan to'r x = L(i/n)^b",
+      ["b", "yaqinlashish tartibi", "||e||_E (n = 512)"], rows4)
+value("Bashorat: b_opt ~ 3/alpha", 3.0/al_c, "—")
+note(f"Grading tartibni {rate(ns, es_u):.2f} dan deyarli optimal 1 ga "
+     f"ko'taradi. O'lchov bo'yicha eng yaxshi b taxminan 3/alpha = "
+     f"{3.0/al_c:.1f} atrofida; soddagina baho b > 2/alpha ni beradi, "
+     f"lekin amalda bundan biroz kattaroq qiymat yaxshiroq ishlaydi, "
+     f"chunki juda kuchli grading silliq sohani keraksiz "
+     f"dag'allashtiradi. Grading singulyarlik darajasi OLDINDAN ma'lum "
+     f"bo'lgandagina ishlaydi - adaptivlik esa uni o'zi topadi.")
+
+# --- (5) ADAPTIV HALQA: yech - bahola - belgila - zichlashtir ---
+xn = np.linspace(0, L, n_start + 1)
+hist = []
+for it in range(n_cycle):
+    u = fem(xn, s_sing)
+    ind = zz_indicator(xn, u, s_sing)
+    tru = np.sqrt(err_true(xn, u, s_sing).sum())
+    hist.append((len(xn) - 1, tru, float(np.sqrt(ind.sum())),
+                 float(xn[1])))
+    order = np.argsort(ind)[::-1]
+    tot = ind.sum()
+    acc = 0.0
+    mark = set()
+    for e in order:
+        mark.add(int(e))
+        acc += ind[e]
+        if acc >= theta_D*tot:
+            break
+    new = [xn[0]]
+    for e in range(len(xn) - 1):
+        if e in mark:
+            new.append(0.5*(xn[e] + xn[e+1]))
+        new.append(xn[e+1])
+    xn = np.array(new)
+
+table("Adaptiv halqa (Dyorfler belgilashi)",
+      ["aylanish", "elementlar", "||e||_E", "ZZ ko'rsatkichi",
+       "birinchi element o'lchami"],
+      [[i, h[0], f"{h[1]:.4e}", f"{h[2]:.4e}", f"{h[3]:.3e}"]
+       for i, h in enumerate(hist) if i % 3 == 0 or i == len(hist) - 1])
+sel = hist[len(hist)//3:]
+r_ad = rate([h[0] for h in sel], [h[1] for h in sel])
+value("Adaptiv yaqinlashish tartibi", r_ad, "—")
+value("Tekis to'r tartibi", rate(ns, es_u), "—")
+series("Adaptiv yaqinlashish", np.log10([h[0] for h in hist]).tolist(),
+       np.log10([h[1] for h in hist]).tolist(),
+       xlabel="log10(n)", ylabel="log10(||e||)")
+series("Birinchi element o'lchami", list(range(len(hist))),
+       np.log10([h[3] for h in hist]).tolist(),
+       xlabel="aylanish", ylabel="log10(h_1)")
+
+n_ad, e_ad = hist[-1][0], hist[-1][1]
+value("Adaptiv: elementlar soni", n_ad, "—")
+value("Adaptiv: ||e||_E", e_ad, "—")
+rows5 = []
+n_last, e_last = None, None
+for n in [512, 2048, 8192, 32768, 131072]:
+    xu = np.linspace(0, L, n + 1)
+    er = float(np.sqrt(err_true(xu, fem(xu, s_sing), s_sing).sum()))
+    rows5.append([n, f"{er:.4e}", "ha" if er <= e_ad else "yo'q"])
+    n_last, e_last = n, er
+table("Tekis to'r adaptiv natijaga yetadimi?",
+      ["elementlar", "||e||_E", f"adaptiv ({n_ad} element) darajasidami?"],
+      rows5)
+# Eng zich tekis to'r ham yetmadi - o'lchangan tartib bo'yicha
+# ekstrapolyatsiya qilamiz: ||e|| ~ n^(-r)
+r_u = rate(ns, es_u)
+n_need = n_last*(e_last/e_ad)**(1.0/r_u)
+value("Tekis to'rda kerakli element soni (ekstrapolyatsiya)",
+      float(n_need), "—")
+value("Adaptivlikning tejami", float(n_need/n_ad), "barobar")
+note(f"Adaptiv halqa tartibni {r_u:.2f} dan {r_ad:.2f} ga ko'tardi - "
+     f"ya'ni p = 1 uchun OPTIMAL tartibni tikladi, va buni "
+     f"singulyarlik darajasini OLDINDAN BILMASDAN qildi. Natijada "
+     f"{n_ad} ta adaptiv element {131072} ta tekis elementdan ham "
+     f"yaxshiroq javob beradi. Bir xil aniqlikka yetish uchun tekis "
+     f"to'rda taxminan {n_need:.2e} element kerak bo'lardi - "
+     f"{n_need/n_ad:.0f} barobar ko'p. Bir o'lchovda bu shunchaki "
+     f"sekinlik, uch o'lchovda esa hisobni umuman imkonsiz qiladi.")
+
+table("Zichlashtirish strategiyalari",
+      ["Usul", "Nima o'zgaradi", "Yaqinlashish", "Qachon"],
+      [["h-usul", "element o'lchami", "darajali h^p",
+        "singulyarlik bor"],
+       ["p-usul", "element tartibi", "silliq yechimda eksponensial",
+        "yechim silliq"],
+       ["hp-usul", "ikkalasi", "EKSPONENSIAL",
+        "aralash (eng samarali)"],
+       ["r-usul", "tugun joyi", "tartib o'zgarmaydi",
+        "to'r soni qat'iy"]])
+''',
+                parameters=[
+                    p("s_sing", "Singulyarlik: EA ~ x^s", 0.05, 0.85, 0.4,
+                      0.05),
+                    p("theta_D", "Dyorfler belgilash ulushi", 0.2, 0.9,
+                      0.5, 0.05),
+                    p("n_start", "Boshlang'ich elementlar", 4.0, 32.0,
+                      8.0, 1.0),
+                    p("n_cycle", "Adaptiv aylanishlar", 5.0, 26.0, 22.0,
+                      1.0),
+                ],
+                expected_output=(
+                    "Yetti xil singulyarlik "
+                    "darajasi uchun o'lchangan "
+                    "yaqinlashish tartibi "
+                    "nazariy $\\alpha/2$ ga "
+                    "to'rt–besh xonagacha mos "
+                    "keladi. Tanlangan "
+                    "masalada ($\\alpha = "
+                    "0{,}6$) tekis to'r atigi "
+                    "0,30 tartib beradi. ZZ "
+                    "ko'rsatkichining "
+                    "samaradorlik indeksi "
+                    "0,39 — kattalikni ikki "
+                    "yarim barobar kam "
+                    "baholaydi, lekin "
+                    "Spirmen rang "
+                    "korrelyatsiyasi "
+                    "0,99999 ga yaqin, ya'ni "
+                    "elementlarni deyarli "
+                    "mukammal saralaydi. "
+                    "Tekis to'rda element "
+                    "xatoliklari 400 000 "
+                    "barobar farq qiladi "
+                    "($CV = 7{,}68$), "
+                    "zichlangan to'rda esa "
+                    "atigi 6 barobar "
+                    "($CV = 0{,}12$). "
+                    "Grading tartibni 1 ga "
+                    "yaqinlashtiradi, "
+                    "optimal $b \\approx "
+                    "3/\\alpha$. Adaptiv "
+                    "halqa esa tartibni "
+                    "1,01 ga — ya'ni "
+                    "$p = 1$ uchun optimal "
+                    "qiymatga — "
+                    "singulyarlikni "
+                    "oldindan bilmasdan "
+                    "tiklaydi va 312 "
+                    "element bilan "
+                    "131 072 ta tekis "
+                    "elementdan yaxshiroq "
+                    "javob beradi."
+                ),
+            ),
+            visual=vis(
+                kind="Adaptiv to'rning rivojlanishi",
+                tool="React/SVG + Manim",
+                description=(
+                    "Xatolikning elementlar "
+                    "bo'yicha taqsimoti, "
+                    "to'rning aylanishdan "
+                    "aylanishga o'zgarishi va "
+                    "yaqinlashish egri "
+                    "chiziqlari."
+                ),
+                how_to_draw=(
+                    "React/SVG: yuqori panelda "
+                    "sterjen gorizontal chiziq "
+                    "sifatida, tugunlar vertikal "
+                    "shtrixlar bilan. Har bir "
+                    "element ustida uning "
+                    "xatolik ulushi rang "
+                    "intensivligi bilan "
+                    "ko'rsatiladi. "
+                    "'Keyingi aylanish' tugmasi "
+                    "bosilganda belgilangan "
+                    "elementlar qizil "
+                    "yonadi, so'ng ikkiga "
+                    "bo'linadi va yangi "
+                    "shtrixlar paydo bo'ladi. "
+                    "Bir necha aylanishdan "
+                    "keyin chap uchda "
+                    "shtrixlar shu qadar "
+                    "zichlashadiki, "
+                    "kattalashtiruvchi "
+                    "oynacha kerak bo'ladi — "
+                    "u avtomatik ochiladi va "
+                    "logarifmik masshtabda "
+                    "ko'rsatadi. Rang "
+                    "taqsimoti esa "
+                    "asta-sekin bir tekis "
+                    "bo'lib boradi: bu teng "
+                    "taqsimlash prinsipining "
+                    "bevosita tasviri. "
+                    "Pastki panelda "
+                    "log–log yaqinlashish "
+                    "grafigi: tekis to'r "
+                    "uchun yotiq chiziq "
+                    "(qiyalik 0,30) va "
+                    "adaptiv uchun tik "
+                    "chiziq (qiyalik 1,01), "
+                    "ular orasidagi soha "
+                    "'tejalgan hisob' deb "
+                    "shtrixlanadi. Yonida "
+                    "ikkita raqam jonli "
+                    "yangilanadi: joriy "
+                    "element soni va "
+                    "'shu aniqlik uchun "
+                    "tekis to'rda kerak "
+                    "bo'lardi' qiymati."
+                ),
+            ),
+            interp=(
+                "Birinchi jadval nazariyani "
+                "yetti xil parametrda "
+                "tasdiqladi va ayni paytda "
+                "uni aniqlashtirdi: bu "
+                "masalada tartib "
+                "$\\alpha - 1/2$ emas, "
+                "$\\alpha/2$ ga teng, chunki "
+                "energiya normasi "
+                "singulyarlik nuqtasida "
+                "nolga intiluvchi "
+                "$EA(x)$ bilan "
+                "og'irlangan. O'lchov "
+                "nazariyani tuzatdi — "
+                "kutilgan qiymat bilan "
+                "kelishmaslik har doim "
+                "shunday tekshirilishi "
+                "kerak. Amaliy oqibati "
+                "og'ir: 0,30 tartib "
+                "degani, xatolikni ikki "
+                "barobar kamaytirish uchun "
+                "elementlar sonini o'n "
+                "barobar oshirish kerak. "
+                "Ikkinchi jadval bu "
+                "mavzuning eng nozik "
+                "natijasini beradi. "
+                "Samaradorlik indeksi 0,39 "
+                "— ko'rsatkich xatolik "
+                "kattaligini ikki yarim "
+                "barobar kam baholaydi va "
+                "uni 'yomon' deb hisoblash "
+                "mumkin. Lekin Spirmen rang "
+                "korrelyatsiyasi 0,99999 "
+                "ga yaqin: elementlarning "
+                "**tartibi** deyarli "
+                "mukammal. Adaptivlik uchun "
+                "aynan shu kerak, chunki "
+                "belgilash faqat tartibga "
+                "tayanadi. Shuning uchun "
+                "kattaligi noto'g'ri "
+                "ko'rsatkich ham to'liq "
+                "ishonchli adaptiv halqa "
+                "quradi — va bu amalda "
+                "nima uchun ZZ shunchalik "
+                "keng tarqalganini "
+                "tushuntiradi. Teng "
+                "taqsimlash jadvali "
+                "isrofning miqdorini "
+                "ko'rsatadi: tekis to'rda "
+                "element xatoliklari "
+                "400 000 barobar farq "
+                "qiladi, ya'ni deyarli "
+                "butun xatolik bitta "
+                "elementda to'plangan va "
+                "qolgan 63 tasi behuda. "
+                "Zichlangan to'rda nisbat "
+                "6 ga tushadi va o'sha "
+                "element soni bilan "
+                "xatolik 30 barobar "
+                "kamayadi. Eng kuchli "
+                "natija esa oxirgi "
+                "tajribada: adaptiv halqa "
+                "tartibni 0,30 dan 1,01 "
+                "ga ko'tardi — $p = 1$ "
+                "uchun nazariy optimal "
+                "qiymat — va buni "
+                "singulyarlik darajasini "
+                "**oldindan bilmasdan** "
+                "qildi. Grading ham shu "
+                "tartibni beradi, lekin "
+                "faqat $\\alpha$ ma'lum "
+                "bo'lganda; adaptivlik "
+                "esa uni o'zi topadi. "
+                "Natijada 312 ta adaptiv "
+                "element 131 072 ta tekis "
+                "elementdan yaxshiroq "
+                "javob beradi."
+            ),
+            mistakes=[
+                "Kuchlanish to'r bilan "
+                "o'sib borayotganini sonli "
+                "xato deb hisoblash. "
+                "Singulyarlikda aniq "
+                "kuchlanish cheksiz — bu "
+                "model xatosi.",
+                "Ko'rsatkichning "
+                "samaradorlik indeksi 1 "
+                "dan uzoq bo'lgani uchun "
+                "uni rad etish. "
+                "Adaptivlik uchun "
+                "element **tartibi** "
+                "muhim, kattalik emas.",
+                "Butun modelni bir tekis "
+                "zichlashtirish. "
+                "Elementlar soni "
+                "keskin o'sadi, "
+                "yaxshilanish esa arzimas.",
+                "Teng taqsimlashni "
+                "tekshirmaslik. Element "
+                "xatoliklarining katta "
+                "farqi to'r yomon "
+                "ekanining eng oson "
+                "belgisi.",
+                "Adaptivlikni model "
+                "xatosining davosi deb "
+                "bilish. U faqat "
+                "diskretlashtirish "
+                "xatosini kamaytiradi "
+                "(su-29).",
+                "Grading uchun "
+                "$\\alpha$ ni "
+                "taxmin qilish. Noto'g'ri "
+                "$b$ tartibni "
+                "tiklamaydi; "
+                "bilmasangiz adaptivlikni "
+                "ishlating.",
+            ],
+            quiz=[
+                q("Aprior va aposterior "
+                  "baholarning farqi nima?",
+                  "Aprior hisoblashdan oldin "
+                  "tartibni beradi, lekin "
+                  "doimiysi noma'lum; "
+                  "aposterior hisoblangan "
+                  "yechimdan xatolikni "
+                  "baholaydi va amalda "
+                  "ishlatiladi.",
+                  "konseptual"),
+                q("ZZ ko'rsatkichi noma'lum "
+                  "$\\varepsilon$ o'rniga "
+                  "nimani qo'yadi va nega bu "
+                  "ishlaydi?",
+                  "Barlou nuqtalaridan "
+                  "tiklangan "
+                  "$\\varepsilon^*$ ni "
+                  "(su-16). U "
+                  "$\\varepsilon_h$ dan "
+                  "aniqroq, shuning uchun "
+                  "ularning farqi xatolik "
+                  "o'lchovi bo'la oladi.",
+                  "konseptual"),
+                q("$n = 32$ da "
+                  "$\\eta = 0{,}0840$, "
+                  "$n = 64$ da "
+                  "$\\eta = 0{,}0682$. "
+                  "Tartib nechaga teng?",
+                  "$r = \\ln(1{,}2317)/"
+                  "\\ln 2 = 0{,}30$ — "
+                  "singulyarlik tufayli "
+                  "optimal 1 dan uch "
+                  "barobar kichik.",
+                  "hisob"),
+                q("Kodda samaradorlik "
+                  "indeksi 0,39 chiqdi. "
+                  "Bu ko'rsatkich "
+                  "yaroqsiz degani emasmi?",
+                  "Yo'q. Spirmen rang "
+                  "korrelyatsiyasi "
+                  "0,99999 — u "
+                  "elementlarni deyarli "
+                  "mukammal saralaydi, "
+                  "belgilash esa faqat "
+                  "tartibga tayanadi. "
+                  "Kattalik barqaror "
+                  "$\\theta$ orqali "
+                  "kalibrlanadi.", "kod"),
+                q("Teng taqsimlash prinsipi "
+                  "nimani anglatadi va kodda "
+                  "u qanday o'lchanadi?",
+                  "Optimal to'rda xatolik "
+                  "elementlar bo'ylab teng "
+                  "taqsimlanadi. Kodda "
+                  "max/min nisbati va "
+                  "o'zgaruvchanlik CV "
+                  "bilan: tekis to'rda "
+                  "$4\\cdot10^5$ va 7,68, "
+                  "zichlangan to'rda 6 va "
+                  "0,12.", "kod"),
+                q("Adaptivlik grading dan "
+                  "nimasi bilan ustun?",
+                  "Grading singulyarlik "
+                  "darajasi $\\alpha$ "
+                  "oldindan ma'lum "
+                  "bo'lgandagina ishlaydi; "
+                  "adaptivlik uni "
+                  "ko'rsatkich orqali "
+                  "o'zi topadi va bir xil "
+                  "optimal tartibni "
+                  "beradi.", "talqin"),
+                q("hp-usul nima uchun eng "
+                  "samarali?",
+                  "Silliq sohada tartibni "
+                  "oshiradi, "
+                  "singulyarlikda esa "
+                  "elementni maydalaydi; "
+                  "to'g'ri qo'llanganda "
+                  "darajali emas, "
+                  "**eksponensial** "
+                  "yaqinlashish beradi.",
+                  "talqin"),
+                q("To'r zichlashganda "
+                  "kuchlanish to'xtovsiz "
+                  "o'sib borsa, nima "
+                  "qilish kerak?",
+                  "Bu sonli xato emas — "
+                  "singulyarlikda aniq "
+                  "kuchlanish cheksiz. "
+                  "Modelni tuzatish kerak: "
+                  "galtel qo'shish, "
+                  "plastiklikni hisobga "
+                  "olish yoki yorilish "
+                  "mexanikasi "
+                  "parametrlariga "
+                  "(tmm-24) o'tish.",
+                  "talqin"),
+            ],
+            bridge=(
+                "Chekli elementlar usulining "
+                "nazariy asosi to'liq "
+                "qurildi: variatsion asosdan "
+                "adaptiv to'rgacha. Keyingi "
+                "modulda shu apparatni "
+                "oldingi to'rt fandagi "
+                "masalalarga qo'llaymiz — "
+                "ferma va ramkadan boshlab "
+                "plastina, qobiq, xususiy "
+                "qiymat va nochiziqli "
+                "masalalargacha."
+            ),
+            research=(
+                "Adaptivlikning zamonaviy "
+                "yo'nalishlarini o'rganing. "
+                "(1) Maqsadga yo'naltirilgan "
+                "(goal-oriented) "
+                "adaptivlikni ko'rib "
+                "chiqing: qo'shma (dual) "
+                "masala yechiladi va to'r "
+                "aynan kerakli kattalikning "
+                "(masalan bitta nuqtadagi "
+                "ko'chishning) xatosini "
+                "kamaytirish uchun "
+                "zichlashtiriladi — "
+                "energiya normasi bo'yicha "
+                "adaptivlikdan nimasi bilan "
+                "farq qiladi? "
+                "(2) Qoldiqqa asoslangan "
+                "(residual-based) "
+                "ko'rsatkichlarni tiklashga "
+                "asoslanganlar bilan "
+                "taqqoslang: qaysi biri "
+                "kafolatli yuqori chegara "
+                "beradi? "
+                "(3) hp-adaptivlikda "
+                "asosiy qiyinchilikni "
+                "o'rganing: element silliq "
+                "sohadami yoki "
+                "singulyarlik yaqinidami — "
+                "buni avtomatik qanday "
+                "aniqlash mumkin? "
+                "(4) Uch o'lchovli "
+                "adaptiv to'r "
+                "generatsiyasini va "
+                "osilgan tugunlar "
+                "(hanging nodes) "
+                "muammosini ko'rib "
+                "chiqing."
+            ),
+            manim_ref=manim(
+                scene="AdaptiveMeshScene",
+                module="manim/scenes/su_fem.py",
+                title="Adaptiv to'rning rivojlanishi",
+                summary=(
+                    "Sterjen sakkizta teng "
+                    "elementga bo'linadi va "
+                    "har birining ustida "
+                    "xatolik ustuni "
+                    "chiziladi — birinchi "
+                    "ustun qolganlaridan "
+                    "yuz minglab barobar "
+                    "baland. Ko'rsatkich "
+                    "hisoblanadi, eng yomon "
+                    "elementlar qizil "
+                    "yonadi va ikkiga "
+                    "bo'linadi. Aylanish "
+                    "takrorlanadi: "
+                    "ustunlar asta-sekin "
+                    "tenglashadi, chap "
+                    "uchdagi to'r esa "
+                    "logarifmik "
+                    "zichlashadi. Oxirida "
+                    "ikkita yaqinlashish "
+                    "chizig'i "
+                    "taqqoslanadi — "
+                    "tekis to'rning yotiq "
+                    "chizig'i va adaptiv "
+                    "to'rning tik "
+                    "chizig'i."
+                ),
+            ),
+        ),
+    ),
 ]
