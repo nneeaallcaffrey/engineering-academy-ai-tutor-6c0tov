@@ -2988,12 +2988,19 @@ for md in modes[:9]:
         if wn*T_imp > 0 else 1.0    # zarba spektri (yarim sinus)
     w_t += A0*abs(shape)*np.exp(-zt*wn*t)*np.sin(wd*t)*Phi
 
-series("Zarbaviy javob w(t)", (t*1000).tolist(), (w_t*1000).tolist(),
+# HISOB to'liq ruxsatda (40 000 nuqta) qoladi - maksimal qiymat shundan
+# olinadi. CHIZISH uchun esa siyraklashtiramiz: brauzerga 40 000 nuqta
+# yuborish ortiqcha va labkit chegarasidan ham oshadi.
+step = max(1, len(t)//2000)
+series("Zarbaviy javob w(t)", (t[::step]*1000).tolist(),
+       (w_t[::step]*1000).tolist(),
        xlabel="Vaqt t, ms", ylabel="Og'ish w, mm")
+value("Chizishdagi siyraklashtirish qadami", step, "nuqta")
 value("Zarbadan keyin maksimal og'ish", float(np.max(np.abs(w_t)))*1000,
       "mm")
 env = np.abs(w_t).max()*np.exp(-zeta*modes[0]["w"]*t)
-series("So'nish o'ramasi", (t*1000).tolist(), (env*1000).tolist(),
+series("So'nish o'ramasi", (t[::step]*1000).tolist(),
+       (env[::step]*1000).tolist(),
        xlabel="Vaqt t, ms", ylabel="Og'ish w, mm")
 t_half = np.log(2)/(zeta*modes[0]["w"]) if zeta > 0 else np.inf
 value("Amplituda yarmiga tushish vaqti", t_half*1000, "ms")

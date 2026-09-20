@@ -4407,6 +4407,7 @@ table("Tekis masala elementlarining taqqoslanishi",
                 code='''"""Plastina va qobiq elementlari."""
 import numpy as np
 from labkit import PARAMS, note, series, table, value
+from scipy.linalg import LinAlgError, cho_factor, cho_solve
 
 a_pl = float(PARAMS.get("a_pl", 1.0))
 a_over_h = float(PARAMS.get("a_over_h", 100.0))
@@ -4454,6 +4455,12 @@ note(f"Navye qatorida sin(m*pi/2)*sin(n*pi/2) ko'paytuvchilari ISHORANI "
      f"koeffitsienti {alpha_M:.5f} ham adabiyotdagi 0.0479 ga teng.")
 
 
+# Gauss nuqtalari faqat 1- va 2-tartib uchun kerak: bir marta
+# hisoblanadi. Ilgari ular har bir element uchun qayta hisoblanardi
+# (15 000 marta) - bu su-29 dagi samaradorlik saboqining o'zi.
+_GAUSS = {ng: np.polynomial.legendre.leggauss(ng) for ng in (1, 2, 3)}
+
+
 def shp(xi, eta):
     xn = np.array([-1, 1, 1, -1.])
     yn = np.array([-1, -1, 1, 1.])
@@ -4470,7 +4477,7 @@ def ke_plate(xy, h, scheme):
     k = np.zeros((12, 12))
 
     def integrate(ngp, part):
-        g, w = np.polynomial.legendre.leggauss(ngp)
+        g, w = _GAUSS[ngp]
         for ia in range(ngp):
             for ib in range(ngp):
                 N, dN = shp(g[ia], g[ib])
@@ -4536,10 +4543,15 @@ def plate(n, a, h, q, bc="ss", scheme="sri"):
                         fixed.add(3*nn + 1)
     free = np.setdiff1d(np.arange(nd), sorted(fixed))
     Kf = K[np.ix_(free, free)]
-    if np.linalg.matrix_rank(Kf) < Kf.shape[0]:
+    # Maxsuslikni tekshirish uchun SVD (matrix_rank) QIMMAT: O(n^3) katta
+    # koeffitsient bilan. K simmetrik musbat aniq bo'lishi kutilgani uchun
+    # Xolesskiy urinishi ham arzonroq, ham yechimni darhol beradi (su-29).
+    try:
+        cf = cho_factor(Kf, lower=True, check_finite=False)
+    except LinAlgError:
         return None, nodes, nid, None
     u = np.zeros(nd)
-    u[free] = np.linalg.solve(Kf, F[free])
+    u[free] = cho_solve(cf, F[free], check_finite=False)
     return abs(float(u[3*nid[n//2, n//2]])), nodes, nid, u
 
 
