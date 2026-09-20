@@ -6319,4 +6319,1359 @@ table("Tebranish va ustuvorlik: bir xil matematika",
             ),
         ),
     ),
+
+    # ------------------------------------------------------------------ su-24
+    Topic(
+        id="su-24",
+        subject_id=S, module_id=M, order=24,
+        title="Nochiziqli tahlil",
+        description=(
+            "Geometrik va fizik nochiziqlik, urinma bikrlik matritsasi, "
+            "Nyuton–Rafson va uning o'zgartirilgan varianti, yuk va "
+            "siljish nazorati, o'tib ketish hodisasi hamda "
+            "elastoplastik qaytarish algoritmi."
+        ),
+        learning_objective=(
+            "Nochiziqli masalani iterativ yechish, yaqinlashish tartibini "
+            "o'lchash, chegaraviy nuqtadan o'ta oladigan usulni tanlash "
+            "va natijani analitik yechim bilan tekshirish."
+        ),
+        prerequisites=["su-23", "su-02", "mq-08"],
+        mathematical_core=(
+            "$\\mathbf{K}_T\\Delta\\mathbf{u} = "
+            "-\\mathbf{R}(\\mathbf{u})$; "
+            "Nyuton kvadratik, o'zgartirilgani chiziqli; "
+            "$\\sigma = \\sigma^{tr} - E\\Delta\\gamma\\,"
+            "\\mathrm{sign}(\\sigma^{tr})$."
+        ),
+        engineering_application=(
+            "Yassi qobiq va gumbazlarning o'tib ketishi, metall "
+            "shakllantirish, avariya (crash) hisobi, chegaraviy yuk "
+            "ko'taruvchanlik, katta ko'chishli konstruksiyalar."
+        ),
+        computational_component=(
+            "Urinma bikrlikni qurish, Nyuton iteratsiyasini o'lchash, "
+            "o'tib ketishni siljish nazorati bilan bosib o'tish, "
+            "qaytarish algoritmini tekshirish."
+        ),
+        visualization_component=(
+            "Yuk–ko'chish yo'li, chegaraviy nuqtalar, iteratsiyaning "
+            "yaqinlashishi, kuchlanish–deformatsiya sikli."
+        ),
+        research_extension=(
+            "Riks yoy uzunligi usulini o'rganing: u siljish nazorati "
+            "ham yetarli bo'lmagan holatlarda ishlaydi."
+        ),
+        difficulty="murakkab",
+        previous_link=(
+            "su-23 da chiziqli ustuvorlik tahlili ideal konstruksiya "
+            "uchun yuqori baho berishini ko'rdik. Haqiqiy javob esa "
+            "katta ko'chishlarga va material oqishiga bog'liq — "
+            "chiziqlilik taxminini butunlay bekor qilish vaqti keldi."
+        ),
+        next_topic="su-25",
+        estimated_minutes=100,
+        tags=["nochiziqlik", "Nyuton-Rafson", "o'tib ketish",
+              "urinma bikrlik", "plastiklik", "qaytarish algoritmi"],
+        lesson=_lesson(
+            problem=(
+                "Yassi gumbazli tom "
+                "loyihalanmoqda: ko'tarilishi "
+                "oralig'iga nisbatan juda "
+                "kichik. Chiziqli hisob "
+                "bemalol ishlaydi va yuk "
+                "ko'taruvchanlik yetarli "
+                "chiqadi. Lekin qorli qishda "
+                "shunga o'xshash "
+                "konstruksiyalar birdan, "
+                "hech qanday ogohlantirishsiz "
+                "**ichkariga o'pirilib "
+                "tushadi** — go'yo ular "
+                "ag'darilib ketadi. Yuk "
+                "yemirilish kuchidan ancha "
+                "kichik, material esa "
+                "oqmagan. Chiziqli hisob bu "
+                "hodisani umuman ko'rsata "
+                "olmaydi, chunki u "
+                "geometriyani "
+                "o'zgarmas deb hisoblaydi. "
+                "Aynan shu o'zgarish esa "
+                "butun masalaning "
+                "mohiyati."
+            ),
+            concepts=[
+                c("Geometrik nochiziqlik",
+                  "Muvozanat **deformatsiyalangan** "
+                  "holatda yoziladi; katta "
+                  "ko'chishlarda geometriya "
+                  "o'zgaradi."),
+                c("Fizik nochiziqlik",
+                  "Material qonuni chiziqli "
+                  "emas: plastiklik, "
+                  "yemirilish, "
+                  "giperelastiklik."),
+                c("Urinma bikrlik matritsasi",
+                  "$\\mathbf{K}_T = "
+                  "\\partial\\mathbf{R}/"
+                  "\\partial\\mathbf{u}$ — "
+                  "joriy holatdagi bikrlik; "
+                  "u yechim davomida "
+                  "o'zgaradi."),
+                c("Nyuton–Rafson usuli",
+                  "Har iteratsiyada "
+                  "$\\mathbf{K}_T$ qayta "
+                  "hisoblanadi; "
+                  "**kvadratik** "
+                  "yaqinlashadi."),
+                c("Chegaraviy nuqta "
+                  "(limit point)",
+                  "$\\det\\mathbf{K}_T = 0$ "
+                  "bo'lgan nuqta; yuk "
+                  "nazorati u yerda "
+                  "to'xtaydi."),
+                c("O'tib ketish "
+                  "(snap-through)",
+                  "Chegaraviy nuqtada "
+                  "konstruksiya boshqa "
+                  "muvozanat holatiga "
+                  "**sakraydi** — dinamik "
+                  "va xavfli."),
+                c("Qaytarish algoritmi "
+                  "(return mapping)",
+                  "Plastiklikda: sinov "
+                  "kuchlanishi hisoblanadi, "
+                  "so'ng oqish sirtiga "
+                  "qaytariladi."),
+            ],
+            derivation=[
+                d("1. Nochiziqli muvozanat",
+                  r"\mathbf{R}(\mathbf{u}) = "
+                  r"\mathbf{F}_{int}(\mathbf{u}) "
+                  r"- \mathbf{F}_{ext} = "
+                  r"\mathbf{0}",
+                  "Ichki kuchlar endi "
+                  "ko'chishga **nochiziqli** "
+                  "bog'liq, shuning uchun "
+                  "$\\mathbf{K}\\mathbf{u} = "
+                  "\\mathbf{F}$ ishlamaydi."),
+                d("2. Teylor yoyilmasi",
+                  r"\mathbf{R}(\mathbf{u} + "
+                  r"\Delta\mathbf{u}) \approx "
+                  r"\mathbf{R}(\mathbf{u}) + "
+                  r"\frac{\partial\mathbf{R}}"
+                  r"{\partial\mathbf{u}}"
+                  r"\Delta\mathbf{u}",
+                  "su-07 dagi Teylor qatori "
+                  "— endi vektor "
+                  "ko'rinishida."),
+                d("3. Nyuton qadami",
+                  r"\mathbf{K}_T\Delta\mathbf{u} "
+                  r"= -\mathbf{R}(\mathbf{u}), "
+                  r"\qquad \mathbf{u} "
+                  r"\leftarrow \mathbf{u} + "
+                  r"\Delta\mathbf{u}",
+                  "**Asosiy algoritm.** Har "
+                  "qadamda chiziqli tizim "
+                  "yechiladi — ya'ni "
+                  "nochiziqli masala "
+                  "chiziqli masalalar "
+                  "ketma-ketligiga "
+                  "aylantiriladi."),
+                d("4. Kvadratik yaqinlashish",
+                  r"\|\mathbf{R}_{k+1}\| \le "
+                  r"C\|\mathbf{R}_k\|^2",
+                  "**Nyutonning kuchi.** "
+                  "To'g'ri raqamlar soni "
+                  "har iteratsiyada "
+                  "**ikkilanadi** — shuning "
+                  "uchun 5–6 iteratsiya "
+                  "yetarli."),
+                d("5. O'zgartirilgan Nyuton",
+                  r"\mathbf{K}_T^{(0)}"
+                  r"\Delta\mathbf{u} = "
+                  r"-\mathbf{R}(\mathbf{u})",
+                  "Bikrlik bir marta "
+                  "hisoblanadi va qotiriladi. "
+                  "Har iteratsiya arzon, "
+                  "lekin yaqinlashish "
+                  "**chiziqli** — kod "
+                  "buni 0,584 nisbat "
+                  "sifatida o'lchaydi."),
+                d("6. Yassi ferma "
+                  "geometriyasi",
+                  r"L(w) = \sqrt{b^2 + "
+                  r"(h-w)^2}, \qquad N = "
+                  r"\frac{EA(L-L_0)}{L_0}",
+                  "Ikki sterjenli yassi "
+                  "ferma — o'tib ketishning "
+                  "eng sodda modeli."),
+                d("7. Muvozanat shartidan "
+                  "yuk",
+                  r"P(w) = \frac{2EA}{L_0}"
+                  r"\left(1 - \frac{L_0}{L}"
+                  r"\right)(h-w)",
+                  "**Aniq yechim.** Bu "
+                  "nochiziqli funksiya va "
+                  "u monoton emas — aynan "
+                  "shundan o'tib ketish "
+                  "kelib chiqadi."),
+                d("8. Urinma bikrlik "
+                  "analitik",
+                  r"K_T = \frac{dP}{dw} = "
+                  r"\frac{2EA}{L_0}\left[\left("
+                  r"1 - \frac{L_0}{L}\right) + "
+                  r"\frac{(h-w)^2L_0}{L^3}"
+                  r"\right]",
+                  "Birinchi had — material "
+                  "bikrligi, ikkinchisi — "
+                  "**geometrik** bikrlik "
+                  "(su-23 dagi "
+                  "$\\mathbf{K}_G$ ning "
+                  "nochiziqli ko'rinishi)."),
+                d("9. Chegaraviy nuqtalar",
+                  r"K_T = 0 \;\Longrightarrow\; "
+                  r"w_{lim} = 0{,}42361\,h",
+                  "**O'lchangan natija.** "
+                  "Yassi ferma taxminida "
+                  "$w_{lim} \\approx "
+                  "h(1 - 1/\\sqrt3) = "
+                  "0{,}42265\\,h$ — 0,23% "
+                  "farq bilan."),
+                d("10. Yuk nazoratining "
+                  "muvaffaqiyatsizligi",
+                  r"P > P_{lim} "
+                  r"\;\Longrightarrow\; "
+                  r"\text{yechim yo'q "
+                  r"(yaqin atrofda)}",
+                  "Chegaraviy nuqtadan "
+                  "keyin berilgan yuk uchun "
+                  "**yaqin** muvozanat "
+                  "holati mavjud emas — "
+                  "Nyuton yaqinlashmaydi."),
+                d("11. Siljish nazorati",
+                  r"w \ \text{beriladi, } P \ "
+                  r"\text{noma'lum}",
+                  "**Yechim.** Ko'chishni "
+                  "bosqichma-bosqich "
+                  "oshirib, butun yo'lni "
+                  "— jumladan pasayuvchi "
+                  "shoxni ham — bosib "
+                  "o'tish mumkin."),
+                d("12. Qisqarish tuzog'i",
+                  r"L - L_0 = \frac{L^2 - "
+                  r"L_0^2}{L + L_0} = "
+                  r"\frac{w^2 - 2hw}{L + L_0}",
+                  "**Muhim amaliy nozik "
+                  "nuqta.** $L \\approx L_0$ "
+                  "bo'lganda $L - L_0$ ni "
+                  "bevosita hisoblash "
+                  "halokatli qisqarish "
+                  "beradi (su-02); bu "
+                  "ayniyat uni butunlay "
+                  "yo'qotadi."),
+                d("13. Elastoplastik sinov "
+                  "kuchlanishi",
+                  r"\sigma^{tr} = \sigma_n + "
+                  r"E\Delta\varepsilon, \qquad "
+                  r"f = |\sigma^{tr}| - "
+                  r"(\sigma_y + H\alpha_n)",
+                  "Avval to'liq elastik deb "
+                  "qaraymiz, so'ng oqish "
+                  "shartini tekshiramiz."),
+                d("14. Oqish sirtiga qaytarish",
+                  r"\Delta\gamma = "
+                  r"\frac{f}{E + H}, \qquad "
+                  r"\sigma = \sigma^{tr} - "
+                  r"E\Delta\gamma\,"
+                  r"\mathrm{sign}(\sigma^{tr})",
+                  "**Qaytarish algoritmi.** "
+                  "Bir o'lchovda u aynan "
+                  "yechiladi — iteratsiya "
+                  "kerak emas."),
+                d("15. Urinma modul",
+                  r"E_t = \frac{EH}{E + H}",
+                  "Oqishdan keyingi "
+                  "bikrlik. $H \\ll E$ "
+                  "bo'lsa "
+                  "$E_t \\approx H$ — "
+                  "material deyarli "
+                  "ideal plastik."),
+            ],
+            meaning=(
+                "Nochiziqli tahlilning butun "
+                "g'oyasi 3-qadamda: "
+                "nochiziqli masalani "
+                "**chiziqli masalalar "
+                "ketma-ketligiga** "
+                "aylantirish. Har bir Nyuton "
+                "qadami oddiy "
+                "$\\mathbf{K}\\Delta"
+                "\\mathbf{u} = -\\mathbf{R}$ "
+                "tizimi — ya'ni butun "
+                "3-modulda qurilgan apparat "
+                "o'zgarishsiz ishlaydi, "
+                "faqat matritsa har "
+                "iteratsiyada yangilanadi. "
+                "4-qadamdagi kvadratik "
+                "yaqinlashish Nyutonning "
+                "asosiy kuchi va uni "
+                "kodda ko'rish mumkin: "
+                "qoldiq "
+                "$6\\cdot10^3 \\to "
+                "1{,}4\\cdot10^3 \\to "
+                "1{,}8\\cdot10^2 \\to "
+                "4{,}8 \\to "
+                "3{,}9\\cdot10^{-3} \\to "
+                "2{,}6\\cdot10^{-9}$ — "
+                "oxirgi qadamlarda to'g'ri "
+                "raqamlar soni "
+                "ikkilanmoqda. "
+                "O'zgartirilgan Nyuton esa "
+                "chiziqli yaqinlashadi va "
+                "o'sha aniqlikka yetish "
+                "uchun uch barobar ko'p "
+                "iteratsiya talab qiladi — "
+                "lekin har biri arzon, "
+                "shuning uchun tanlov "
+                "masalaga bog'liq. "
+                "Mavzuning fizik markazi "
+                "7- va 9-qadamlarda. "
+                "Yuk–ko'chish egri "
+                "chizig'i **monoton emas**: "
+                "u maksimumga yetadi, "
+                "so'ng pasayadi. Chiziqli "
+                "hisob bu egri chiziqning "
+                "faqat boshidagi urinmani "
+                "ko'radi va shuning uchun "
+                "maksimumni umuman sezmaydi. "
+                "Gumbaz qulashining sababi "
+                "aynan shu: yuk "
+                "$P_{lim}$ dan oshganda "
+                "yaqin atrofda muvozanat "
+                "holati qolmaydi va "
+                "konstruksiya uzoqdagi "
+                "boshqa holatga — "
+                "ag'darilgan shaklga — "
+                "dinamik ravishda "
+                "sakraydi. Kod buni aniq "
+                "o'lchaydi: sakrash "
+                "$0{,}42h$ dan "
+                "$2{,}16h$ ga. "
+                "10- va 11-qadamlar "
+                "amaliy xulosani beradi: "
+                "yuk nazorati chegaraviy "
+                "nuqtadan o'ta olmaydi va "
+                "bu hisoblash usulining "
+                "kamchiligi emas, "
+                "masalaning fizik "
+                "xossasi. Siljish nazorati "
+                "esa butun yo'lni bosib "
+                "o'tadi. Nihoyat 12-qadam "
+                "kutilmagan, lekin juda "
+                "muhim bog'lanishni "
+                "ochadi. Yassi fermada "
+                "$L \\approx L_0$, demak "
+                "$L - L_0$ ni bevosita "
+                "hisoblash su-02 dagi "
+                "halokatli qisqarishga "
+                "olib keladi. Natijada "
+                "Nyuton qoldiqni "
+                "$2\\cdot10^{-10}$ dan "
+                "pastga tushira olmaydi "
+                "va **abadiy** shu yerda "
+                "qoladi — go'yo usul "
+                "ishlamayotgandek. "
+                "Aslida usul benuqson, "
+                "formula noto'g'ri. "
+                "Ayniyat bilan qayta "
+                "yozilganda qoldiq "
+                "**aynan nolga** "
+                "tushadi. Bu kursning "
+                "muhim uslubiy saboqi: "
+                "yaqinlashmayotgan "
+                "iteratsiya har doim "
+                "usulning aybi emas."
+            ),
+            equations=[
+                eq(r"\mathbf{K}_T\Delta\mathbf{u} "
+                   r"= -\mathbf{R}(\mathbf{u}), "
+                   r"\qquad \mathbf{K}_T = "
+                   r"\frac{\partial\mathbf{R}}"
+                   r"{\partial\mathbf{u}}",
+                   "Nyuton–Rafson qadami va "
+                   "urinma bikrlik "
+                   "matritsasi.",
+                   "Nyuton qadami"),
+                eq(r"P(w) = \frac{2EA}{L_0}"
+                   r"\left(1 - \frac{L_0}{L}"
+                   r"\right)(h-w), \qquad "
+                   r"L = \sqrt{b^2 + (h-w)^2}",
+                   "Yassi fermaning aniq "
+                   "yuk–ko'chish yo'li.",
+                   "O'tib ketish yo'li"),
+                eq(r"L - L_0 = \frac{w^2 - 2hw}"
+                   r"{L + L_0}",
+                   "Qisqarishsiz ayniyat — "
+                   "Nyutonni mashina "
+                   "aniqligigacha olib "
+                   "boradi (su-02).",
+                   "Barqaror formula"),
+                eq(r"\Delta\gamma = \frac{f}"
+                   r"{E+H}, \quad \sigma = "
+                   r"\sigma^{tr} - E\Delta\gamma\,"
+                   r"\mathrm{sign}(\sigma^{tr}), "
+                   r"\quad E_t = \frac{EH}{E+H}",
+                   "Elastoplastik qaytarish "
+                   "algoritmi va urinma "
+                   "modul.",
+                   "Qaytarish algoritmi"),
+            ],
+            conditions=(
+                "**Nochiziqlik qachon "
+                "kerak:**\n"
+                "- $w > h/5$ (plastinalar) "
+                "yoki $w > L/50$ "
+                "(balkalar) — geometrik;\n"
+                "- Yassi gumbaz, arka, "
+                "kabel tizimlari — "
+                "**har doim**;\n"
+                "- Kuchlanish oqish "
+                "chegarasiga yaqin — "
+                "fizik;\n"
+                "- Ustuvorlik "
+                "nuqsonlarga sezgir "
+                "bo'lsa (pq-29).\n\n"
+                "**Iteratsiya "
+                "nazorati:**\n"
+                "- Qoldiq mezoni: "
+                "$\\|\\mathbf{R}\\| / "
+                "\\|\\mathbf{F}_{ext}\\| "
+                "< 10^{-4}$;\n"
+                "- Energiya mezoni ham "
+                "tekshirilsin;\n"
+                "- Yaqinlashmasa: qadamni "
+                "kichraytiring, keyin "
+                "formulani tekshiring "
+                "(qisqarish!), so'ng "
+                "usulni o'zgartiring.\n\n"
+                "**Usul tanlash:**\n"
+                "- Monoton yo'l → yuk "
+                "nazorati;\n"
+                "- Chegaraviy nuqta bor → "
+                "siljish nazorati;\n"
+                "- Ham chegaraviy, ham "
+                "qaytuvchi nuqta bor "
+                "(snap-back) → Riks yoy "
+                "uzunligi usuli.\n\n"
+                "**Plastiklikda:** "
+                "qaytarish algoritmi "
+                "qadam kattaligidan "
+                "**mustaqil** aniq "
+                "bo'lishi kerak "
+                "(bir o'lchovda shunday); "
+                "ko'p o'lchovda "
+                "izchil urinma modul "
+                "(consistent tangent) "
+                "ishlatilmasa, Nyuton "
+                "kvadratik "
+                "yaqinlashishni "
+                "**yo'qotadi**.\n\n"
+                "**Ogohlantirish:** o'tib "
+                "ketish dinamik hodisa. "
+                "Statik tahlil sakrash "
+                "sodir bo'lishini "
+                "ko'rsatadi, lekin "
+                "sakrash paytidagi "
+                "inersiya kuchlarini "
+                "hisobga olmaydi."
+            ),
+            worked=WorkedExample(
+                statement=(
+                    "Yassi ikki sterjenli "
+                    "ferma: yarim oraliq "
+                    "$b = 1$ m, ko'tarilish "
+                    "$h = 0{,}1$ m, "
+                    "$EA = 2{,}1\\cdot10^{7}$ N. "
+                    "(a) Chegaraviy nuqta "
+                    "joyini toping; "
+                    "(b) yassi ferma "
+                    "taxminini tekshiring; "
+                    "(c) nima uchun yuk "
+                    "nazorati bu nuqtadan "
+                    "o'ta olmaydi."
+                ),
+                given=[
+                    r"b = 1\ \text{m}, \quad h = "
+                    r"0{,}1\ \text{m}, \quad "
+                    r"L_0 = \sqrt{1 + 0{,}01} = "
+                    r"1{,}004988\ \text{m}",
+                    r"P(w) = \frac{2EA}{L_0}"
+                    r"\left(1 - \frac{L_0}{L}"
+                    r"\right)(h-w)",
+                ],
+                steps=[
+                    st(r"K_T = \frac{dP}{dw} = "
+                       r"\frac{2EA}{L_0}\left[\left("
+                       r"1-\frac{L_0}{L}\right) + "
+                       r"\frac{s^2L_0}{L^3}\right], "
+                       r"\ s = h-w",
+                       "Urinma bikrlik "
+                       "(8-qadam)."),
+                    st(r"K_T = 0 \;\Rightarrow\; "
+                       r"\left(1-\frac{L_0}{L}"
+                       r"\right) = -\frac{s^2L_0}"
+                       r"{L^3}",
+                       "Chegaraviy nuqta "
+                       "sharti."),
+                    st(r"\frac{L - L_0}{L} = "
+                       r"-\frac{s^2L_0}{L^3} "
+                       r"\;\Rightarrow\; "
+                       r"L^2(L-L_0) = -s^2L_0",
+                       "Soddalashtiramiz."),
+                    st(r"\text{Yassi ferma: } "
+                       r"h \ll b \;\Rightarrow\; "
+                       r"L \approx b\left(1 + "
+                       r"\frac{s^2}{2b^2}\right)",
+                       "Teylor yoyilmasi "
+                       "(su-07)."),
+                    st(r"L - L_0 \approx "
+                       r"\frac{s^2 - h^2}{2b}",
+                       "Ikkala uzunlikni "
+                       "yoyib ayiramiz."),
+                    st(r"\frac{s^2-h^2}{2b}\cdot "
+                       r"b^2 = -s^2 b "
+                       r"\;\Rightarrow\; "
+                       r"s^2 - h^2 = -2s^2",
+                       "$L \\approx L_0 "
+                       "\\approx b$ deb "
+                       "qo'yamiz."),
+                    st(r"3s^2 = h^2 "
+                       r"\;\Rightarrow\; s = "
+                       r"\frac{h}{\sqrt3}",
+                       "**Chiroyli natija.**"),
+                    st(r"w_{lim} = h - s = "
+                       r"h\left(1 - "
+                       r"\frac{1}{\sqrt3}\right) "
+                       r"= 0{,}42265\,h",
+                       "Yassi ferma "
+                       "taxminining javobi."),
+                    st(r"\text{(b)}\quad "
+                       r"\text{aniq: } w_{lim} = "
+                       r"0{,}42361\,h",
+                       "Kod $K_T = 0$ ni sonli "
+                       "yechib topadi."),
+                    st(r"\text{farq} = "
+                       r"\frac{0{,}42361 - "
+                       r"0{,}42265}{0{,}42361} "
+                       r"= 0{,}23\%",
+                       "**Taxmin juda "
+                       "yaxshi** — $h/b = "
+                       "0{,}1$ uchun."),
+                    st(r"\text{(c)}\quad P > "
+                       r"P_{lim}: \ P(w) = P "
+                       r"\text{ tenglamasining "
+                       r"yaqin ildizi YO'Q}",
+                       "Egri chiziq "
+                       "maksimumdan past, "
+                       "demak kesishmaydi."),
+                    st(r"\Rightarrow \ "
+                       r"\text{Nyuton "
+                       r"yaqinlashmaydi; "
+                       r"siljish nazorati "
+                       r"kerak}",
+                       "Kod buni "
+                       "$P/P_{lim} = "
+                       "1{,}001$ da "
+                       "ko'rsatadi."),
+                ],
+                answer=(
+                    "(a) $K_T = 0$ dan "
+                    "$w_{lim} = 0{,}42361\\,h "
+                    "= 0{,}042361$ m, "
+                    "$P_{lim} = 8003$ N. "
+                    "(b) Yassi ferma taxmini "
+                    "$w_{lim} = h(1 - "
+                    "1/\\sqrt3) = "
+                    "0{,}42265\\,h$ — "
+                    "0,23% farq bilan. "
+                    "(c) $P > P_{lim}$ da "
+                    "yaqin muvozanat holati "
+                    "mavjud emas, shuning "
+                    "uchun Nyuton "
+                    "yaqinlashmaydi — bu "
+                    "usul emas, masalaning "
+                    "xossasi."
+                ),
+                engineering_note=(
+                    "(c) javobi amaliyotda "
+                    "eng ko'p "
+                    "chalkashtiradigan "
+                    "nuqta. FEM paketi "
+                    "'yaqinlashmadi' deb "
+                    "xabar berganda "
+                    "birinchi o'y — "
+                    "qadamni "
+                    "kichraytirish yoki "
+                    "iteratsiya sonini "
+                    "oshirish. Lekin "
+                    "chegaraviy nuqtada "
+                    "bu **hech qachon** "
+                    "yordam bermaydi: "
+                    "yechim mavjud emas, "
+                    "uni qanchalik "
+                    "tirishib "
+                    "izlamang. To'g'ri "
+                    "javob — nazorat "
+                    "turini "
+                    "o'zgartirish. "
+                    "Ikkinchi muhim "
+                    "nuqta: o'tib ketish "
+                    "**dinamik** hodisa. "
+                    "Statik tahlil "
+                    "sakrash sodir "
+                    "bo'lishini va qayerga "
+                    "sakrashini "
+                    "ko'rsatadi, lekin "
+                    "sakrash paytidagi "
+                    "tezlik va inersiya "
+                    "kuchlarini hisobga "
+                    "olmaydi — haqiqiy "
+                    "konstruksiya "
+                    "o'sha lahzada "
+                    "qo'shimcha zarba "
+                    "yuki oladi va u "
+                    "ko'pincha "
+                    "yemirilishga olib "
+                    "keladi. Uchinchisi, "
+                    "loyihaviy xulosa: "
+                    "yassi gumbaz va "
+                    "arkalarda "
+                    "ko'tarilish "
+                    "oralig'iga nisbatan "
+                    "yetarlicha katta "
+                    "bo'lishi kerak. "
+                    "$P_{lim}$ "
+                    "ko'tarilishning "
+                    "kubiga "
+                    "proporsional — "
+                    "ko'tarilishni ikki "
+                    "barobar oshirish "
+                    "xavfsizlikni "
+                    "sakkiz barobar "
+                    "oshiradi."
+                ),
+            ),
+            computation=Computation(
+                caption=(
+                    "Yassi fermaning o'tib "
+                    "ketishini hisoblash, "
+                    "Nyuton yaqinlashish "
+                    "tartibini o'lchash, yuk va "
+                    "siljish nazoratini "
+                    "taqqoslash, elastoplastik "
+                    "qaytarish algoritmini "
+                    "tekshirish."
+                ),
+                code='''"""Nochiziqli tahlil."""
+import numpy as np
+from labkit import PARAMS, note, series, table, value
+from scipy.optimize import brentq
+
+b_span = float(PARAMS.get("b_span", 1.0))
+h_rise = float(PARAMS.get("h_rise", 0.1))
+EA = float(PARAMS.get("EA", 2.1e7))
+H_hard = float(PARAMS.get("H_hard", 2.1e9))
+
+L0 = float(np.hypot(b_span, h_rise))
+E_mod, sig_y = 2.1e11, 250e6
+
+
+def P_stable(w):
+    """Ichki qarshilik. L - L0 ayniyat bilan - QISQARISHSIZ (su-02)."""
+    s = h_rise - w
+    L = np.hypot(b_span, s)
+    dL = (w*w - 2*h_rise*w)/(L + L0)      # = L - L0, aynan
+    return -2*EA*dL/L0*s/L
+
+
+def P_naive(w):
+    """Sodda ko'rinish: (1 - L0/L) da halokatli qisqarish bor."""
+    s = h_rise - w
+    L = np.hypot(b_span, s)
+    return -2*EA/L0*s*(1 - L0/L)
+
+
+def KT(w):
+    """ANALITIK urinma bikrlik."""
+    s = h_rise - w
+    L = np.hypot(b_span, s)
+    return 2*EA/L0*((1 - L0/L) + s*s*L0/L**3)
+
+
+# --- (0) Urinma bikrlikning tekshiruvi ---
+rows0 = []
+for w in [0.0, 0.05*h_rise, 0.5*h_rise, 1.2*h_rise, 1.9*h_rise]:
+    num = (P_stable(w + 1e-7) - P_stable(w - 1e-7))/2e-7
+    rows0.append([f"{w/h_rise:.2f}", f"{KT(w):.4f}", f"{num:.4f}",
+                  f"{abs(KT(w) - num)/abs(num)*100:.2e}"])
+table("Analitik urinma bikrlik markaziy ayirma bilan tekshiriladi",
+      ["w/h", "K_T analitik", "K_T sonli", "farq %"], rows0)
+note("Urinma bikrlik analitik chiqarildi va markaziy ayirma bilan "
+     "1e-6% aniqlikda tasdiqlandi. Bu muhim: noto'g'ri K_T bilan "
+     "Nyuton kvadratik yaqinlashishni YO'QOTADI va sekin ishlaydi - "
+     "lekin baribir to'g'ri javobga keladi, shuning uchun xato "
+     "yashirin qoladi.")
+
+# --- (1) YUK-KO'CHISH YO'LI va chegaraviy nuqtalar ---
+w_lim = brentq(KT, 1e-9, h_rise - 1e-9)
+w_up = brentq(KT, h_rise + 1e-9, 2*h_rise - 1e-9)
+P_lim = P_stable(w_lim)
+value("Chegaraviy nuqta w_lim", float(w_lim), "m")
+value("Chegaraviy nuqta w_lim / h", float(w_lim/h_rise), "—")
+value("Chegaraviy yuk P_lim", float(P_lim), "N")
+value("Yassi ferma taxmini h(1 - 1/sqrt(3)) / h",
+      float(1 - 1/np.sqrt(3)), "—")
+value("Taxminning xatosi",
+      float(abs(w_lim/h_rise - (1 - 1/np.sqrt(3))) /
+            (w_lim/h_rise)*100), "%")
+value("Antisimmetriya: P(w_up) + P(w_lim)",
+      float(P_stable(w_up) + P_lim), "N")
+ws = np.linspace(0, 2.6*h_rise, 400)
+Ps = [float(P_stable(x)) for x in ws]
+series("Yuk-ko'chish yo'li", (ws/h_rise).tolist(),
+       [p/P_lim for p in Ps], xlabel="w/h", ylabel="P/P_lim")
+series("Chegaraviy yuk darajasi", (ws/h_rise).tolist(),
+       [1.0]*len(ws), xlabel="w/h", ylabel="P/P_lim")
+w_snap = brentq(lambda x: P_stable(x) - P_lim, 2.0*h_rise, 6.0*h_rise)
+value("O'tib ketishdan keyingi holat w/h", float(w_snap/h_rise), "—")
+value("Sakrash kattaligi (w/h bo'yicha)",
+      float((w_snap - w_lim)/h_rise), "—")
+value("sqrt(3) bilan taqqoslash", float(np.sqrt(3)), "—")
+value("Sakrash va sqrt(3) farqi",
+      float(abs((w_snap - w_lim)/h_rise - np.sqrt(3)) /
+            np.sqrt(3)*100), "%")
+rows_j = []
+for hb in [0.05, 0.1, 0.2, 0.4, 0.8]:
+    hh = hb*b_span
+    LL0 = float(np.hypot(b_span, hh))
+
+    def Pr_(w, hh=hh, LL0=LL0):
+        s = hh - w
+        L = np.hypot(b_span, s)
+        return -2*EA*((w*w - 2*hh*w)/(L + LL0))/LL0*s/L
+
+    def KT_(w, hh=hh, LL0=LL0):
+        s = hh - w
+        L = np.hypot(b_span, s)
+        return 2*EA/LL0*((1 - LL0/L) + s*s*LL0/L**3)
+
+    wl_ = brentq(KT_, 1e-12, hh - 1e-12)
+    ws_ = brentq(lambda x: Pr_(x) - Pr_(wl_), 2.0*hh, 20.0*hh)
+    jump = (ws_ - wl_)/hh
+    rows_j.append([f"{hb:.2f}", f"{wl_/hh:.6f}", f"{ws_/hh:.6f}",
+                   f"{jump:.6f}",
+                   f"{abs(jump - np.sqrt(3))/np.sqrt(3)*100:.4f}"])
+table("Sakrash kattaligi yassilikka qanday bog'liq",
+      ["h/b", "w_lim/h", "w_snap/h", "sakrash/h", "sqrt(3) dan farq %"],
+      rows_j)
+note("KUTILMAGAN ANIQ NATIJA. Sakrash kattaligi yassi fermada aynan "
+     "sqrt(3)*h ga teng: h/b = 0.05 da farq 0.0000%, h/b = 0.1 da "
+     "0.0001%. Ferma chuqurlashgani sari (h/b = 0.8 da 0.22%) bu "
+     "ayniyat buziladi - ya'ni u YASSI ferma natijasi va h/b -> 0 da "
+     "asimptotik aniq. Bu w_lim = h(1 - 1/sqrt(3)) taxmini bilan bir "
+     "oilaga kiradi va sonli yechimni yana bir mustaqil yo'ldan "
+     "tekshiradi.")
+note(f"Yuk-ko'chish yo'li MONOTON EMAS: u w = {w_lim/h_rise:.4f}h da "
+     f"maksimumga yetadi, so'ng pasayadi va w = h da nolga tushadi. "
+     f"Chiziqli hisob bu egri chiziqning faqat boshidagi urinmasini "
+     f"ko'radi, shuning uchun maksimumni umuman sezmaydi - gumbaz "
+     f"qulashining sababi aynan shu. Yassi ferma taxmini "
+     f"h(1-1/sqrt(3)) = 0.42265h esa aniq qiymat 0.42361h ga {abs(w_lim/h_rise - (1 - 1/np.sqrt(3)))/(w_lim/h_rise)*100:.2f}% "
+     f"aniqlikda mos keldi. Yo'l w = h atrofida ANTISIMMETRIK - "
+     f"P(w_up) = -P(w_lim) mashina aniqligida.")
+
+# --- (2) NYUTON-RAFSON: kvadratik yaqinlashish va QISQARISH tuzog'i ---
+P_target = 0.8*P_lim
+rows = []
+seqs = {}
+for name, Pf in [("barqaror (ayniyat bilan)", P_stable),
+                 ("sodda (1 - L0/L)", P_naive)]:
+    w = 0.0
+    res = []
+    for it in range(14):
+        r = Pf(w) - P_target
+        res.append(abs(r))
+        if abs(r) < 1e-13:
+            break
+        w -= r/KT(w)
+    seqs[name] = res
+    rows.append([name, len(res)] +
+                [f"{res[i]:.3e}" if i < len(res) else "—"
+                 for i in range(8)])
+table("Nyuton-Rafson qoldiqlari: formulaning ta'siri",
+      ["formula", "iteratsiyalar"] + [f"|R_{i}|" for i in range(8)], rows)
+value("Barqaror formula: yakuniy qoldiq",
+      float(seqs["barqaror (ayniyat bilan)"][-1]), "N")
+value("Sodda formula: yakuniy qoldiq",
+      float(seqs["sodda (1 - L0/L)"][-1]), "N")
+series("Nyuton: barqaror formula",
+       list(range(len(seqs["barqaror (ayniyat bilan)"]))),
+       [np.log10(max(r, 1e-18))
+        for r in seqs["barqaror (ayniyat bilan)"]],
+       xlabel="iteratsiya", ylabel="log10|R|")
+series("Nyuton: sodda formula",
+       list(range(len(seqs["sodda (1 - L0/L)"]))),
+       [np.log10(max(r, 1e-18)) for r in seqs["sodda (1 - L0/L)"]],
+       xlabel="iteratsiya", ylabel="log10|R|")
+note("ENG MUHIM NATIJA. Ikkala hisobda ham AYNAN bir xil Nyuton "
+     "algoritmi va aynan bir xil urinma bikrlik ishlatildi. Yagona "
+     "farq - ichki kuchni hisoblash formulasi. Ayniyat bilan yozilgan "
+     "variant qoldiqni AYNAN NOLGA tushiradi, sodda variant esa "
+     "2e-10 atrofida qotib qoladi va u yerdan hech qachon "
+     "chiqmaydi. Sabab: yassi fermada L ~ L0, demak (1 - L0/L) da "
+     "halokatli qisqarish yuz beradi (su-02). Amaliy xulosa: "
+     "yaqinlashmayotgan iteratsiya HAR DOIM usulning aybi emas - "
+     "avval formulani tekshiring.")
+
+# --- (3) O'ZGARTIRILGAN NYUTON: chiziqli yaqinlashish ---
+w = 0.0
+K0 = KT(0.0)
+res_m = []
+for it in range(40):
+    r = P_stable(w) - P_target
+    res_m.append(abs(r))
+    if abs(r) < 1e-10:
+        break
+    w -= r/K0
+ratios = [res_m[k+1]/res_m[k] for k in range(2, len(res_m) - 1)]
+value("O'zgartirilgan Nyuton: iteratsiyalar soni", len(res_m), "—")
+value("To'liq Nyuton: iteratsiyalar soni",
+      len(seqs["barqaror (ayniyat bilan)"]), "—")
+value("O'zgartirilgan: ketma-ket qoldiq nisbati (chiziqli tartib)",
+      float(np.mean(ratios)) if ratios else float("nan"), "—")
+series("O'zgartirilgan Nyuton", list(range(len(res_m))),
+       [np.log10(max(r, 1e-18)) for r in res_m],
+       xlabel="iteratsiya", ylabel="log10|R|")
+note(f"O'zgartirilgan Nyutonda bikrlik bir marta hisoblanadi va "
+     f"qotiriladi. Natijada qoldiq har iteratsiyada bir xil "
+     f"{np.mean(ratios):.4f} koeffitsientga ko'payadi - bu CHIZIQLI "
+     f"yaqinlashish. Bir xil aniqlikka yetish uchun {len(res_m)} "
+     f"iteratsiya kerak bo'ldi, to'liq Nyutonda esa "
+     f"{len(seqs['barqaror (ayniyat bilan)'])} ta. Lekin har "
+     f"iteratsiya arzon: katta tizimlarda matritsani qayta yoyish "
+     f"eng qimmat amal, shuning uchun tanlov masalaga bog'liq.")
+
+# --- (4) YUK va SILJISH nazorati ---
+rows2 = []
+for frac in [0.5, 0.9, 0.99, 1.001, 1.05, 1.2]:
+    Pt = frac*P_lim
+    w = 0.0
+    conv = False
+    for it in range(100):
+        r = P_stable(w) - Pt
+        if abs(r) < 1e-9:
+            conv = True
+            break
+        k = KT(w)
+        if abs(k) < 1e-6:
+            break
+        w -= r/k
+    rows2.append([f"{frac:.3f}",
+                  "yaqinlashdi" if conv else "YAQINLASHMADI",
+                  f"{w/h_rise:.5f}" if conv else "—"])
+table("Yuk nazorati chegaraviy nuqtadan o'ta oladimi?",
+      ["P/P_lim", "natija", "w/h"], rows2)
+rows3 = []
+for wf in [0.2, 0.42361, 0.7, 1.0, 1.5764, 2.0, 2.3]:
+    ww = wf*h_rise
+    rows3.append([f"{wf:.5f}", f"{P_stable(ww)/P_lim:+.5f}",
+                  f"{KT(ww):+.1f}"])
+table("Siljish nazorati butun yo'lni bosib o'tadi",
+      ["w/h", "P/P_lim", "K_T"], rows3)
+note("Yuk nazorati P > P_lim da YAQINLASHMAYDI va bu hisoblash "
+     "usulining kamchiligi emas: o'sha yuk uchun YAQIN muvozanat "
+     "holati mavjud emas. Qadamni kichraytirish yoki iteratsiya "
+     "sonini oshirish hech qachon yordam bermaydi. Siljish nazorati "
+     "esa butun yo'lni - jumladan K_T manfiy bo'lgan pasayuvchi "
+     "shoxni ham - bemalol bosib o'tadi. Amalda P_lim ga yetganda "
+     "konstruksiya w = 0.4236h dan w = 2.1557h ga DINAMIK ravishda "
+     "sakraydi: bu o'tib ketish (snap-through).")
+
+# --- (5) ELASTOPLASTIK qaytarish algoritmi ---
+def return_map(eps_path):
+    sig, alpha, prev = 0.0, 0.0, 0.0
+    out = []
+    for e in eps_path:
+        de = e - prev
+        prev = e
+        s_tr = sig + E_mod*de
+        f = abs(s_tr) - (sig_y + H_hard*alpha)
+        if f <= 0.0:
+            sig = s_tr
+        else:
+            dg = f/(E_mod + H_hard)
+            sig = s_tr - E_mod*dg*np.sign(s_tr)
+            alpha += dg
+        out.append((e, sig, alpha))
+    return out
+
+
+eps_y = sig_y/E_mod
+E_t = E_mod*H_hard/(E_mod + H_hard)
+value("Oqish deformatsiyasi eps_y", float(eps_y), "—")
+value("Urinma modul E_t = EH/(E+H)", float(E_t/1e9), "GPa")
+value("Elastik modul E", float(E_mod/1e9), "GPa")
+mono = return_map(np.linspace(0, 5*eps_y, 601))
+err = max(abs(s - (E_mod*e if e <= eps_y else sig_y + E_t*(e - eps_y)))
+          for e, s, _ in mono)/sig_y
+value("Monoton yuklashda maks xato (sigma_y ga nisbatan)",
+      float(err), "—")
+series("Kuchlanish-deformatsiya (monoton)",
+       [e/eps_y for e, _, _ in mono],
+       [s/1e6 for _, s, _ in mono],
+       xlabel="eps/eps_y", ylabel="sigma, MPa")
+
+# Qadam kattaligidan mustaqilmi?
+rows4 = []
+for npts in [11, 51, 201, 1001]:
+    r_ = return_map(np.linspace(0, 5*eps_y, npts))
+    rows4.append([npts, f"{r_[-1][1]/1e6:.9f}",
+                  f"{r_[-1][2]:.9e}"])
+table("Qaytarish algoritmi qadam kattaligiga bog'liqmi?",
+      ["qadamlar soni", "yakuniy sigma, MPa", "yakuniy alpha"], rows4)
+
+# Sikl: Bauschinger yo'q (izotrop)
+cyc = np.concatenate([np.linspace(0, 3*eps_y, 300),
+                      np.linspace(3*eps_y, -3*eps_y, 600)])
+rc = return_map(cyc)
+s_max = max(s for _, s, _ in rc)
+s_min = min(s for _, s, _ in rc)
+al_end = rc[-1][2]
+value("Siklda sigma_max", float(s_max/1e6), "MPa")
+value("Siklda sigma_min", float(s_min/1e6), "MPa")
+value("Izotrop bashorat: -(sigma_y + H*alpha)",
+      float(-(sig_y + H_hard*al_end)/1e6), "MPa")
+value("Farq", float(abs(abs(s_min) - (sig_y + H_hard*al_end))/1e6),
+      "MPa")
+series("Kuchlanish-deformatsiya (sikl)",
+       [e/eps_y for e, _, _ in rc], [s/1e6 for _, s, _ in rc],
+       xlabel="eps/eps_y", ylabel="sigma, MPa")
+note("Qaytarish algoritmi bir o'lchovda AYNAN yechiladi - iteratsiya "
+     "kerak emas va natija qadam kattaligiga umuman bog'liq emas "
+     "(11 va 1001 qadam bir xil javob beradi). Monoton yuklashda u "
+     "ikki chiziqli qonunni 5e-16 aniqlikda takrorladi. Siklda esa "
+     "izotrop mustahkamlanish tasdiqlandi: teskari yo'nalishda oqish "
+     "|sigma| = sigma_y + H*alpha da boshlanadi, ya'ni oqish sirti "
+     "BIR TEKIS kengayadi. Kinematik mustahkamlanishda esa sirt "
+     "siljiydi va Baushinger effekti paydo bo'lardi (mq-08).")
+
+table("Nochiziqlik turlari va usullar",
+      ["Tur", "Manbai", "Belgisi", "Usul"],
+      [["Geometrik", "katta ko'chish", "w > h/5", "yangilanuvchi K_T"],
+       ["Material", "oqish, yemirilish", "sigma ~ sigma_y",
+        "qaytarish algoritmi"],
+       ["Kontakt", "o'zgaruvchi chegara", "sirtlar tegishi",
+        "faol to'plam"],
+       ["Chegaraviy nuqta", "det K_T = 0", "yuk nazorati uziladi",
+        "siljish nazorati"],
+       ["Qaytuvchi nuqta", "snap-back", "siljish ham uziladi",
+        "Riks yoy uzunligi"]])
+''',
+                parameters=[
+                    p("b_span", "Yarim oraliq b", 0.2, 5.0, 1.0, 0.1,
+                      "m"),
+                    p("h_rise", "Ko'tarilish h", 0.01, 0.5, 0.1, 0.01,
+                      "m"),
+                    p("EA", "Sterjen bikrligi EA", 1e6, 1e8, 2.1e7, 1e6,
+                      "N"),
+                    p("H_hard", "Mustahkamlanish moduli H", 1e8, 2e10,
+                      2.1e9, 1e8, "Pa"),
+                ],
+                expected_output=(
+                    "Analitik urinma bikrlik "
+                    "markaziy ayirma bilan "
+                    "$10^{-6}$% aniqlikda mos "
+                    "keladi. Chegaraviy nuqta "
+                    "$w_{lim} = 0{,}42361h$, "
+                    "yassi ferma taxmini "
+                    "$h(1-1/\\sqrt3) = "
+                    "0{,}42265h$ bilan 0,23% "
+                    "farq qiladi; yo'l "
+                    "$w = h$ atrofida aynan "
+                    "antisimmetrik. Nyuton "
+                    "qoldiqlari "
+                    "$6{,}4\\cdot10^3 \\to "
+                    "1{,}4\\cdot10^3 \\to "
+                    "1{,}8\\cdot10^2 \\to "
+                    "4{,}8 \\to "
+                    "3{,}9\\cdot10^{-3} \\to "
+                    "2{,}6\\cdot10^{-9} \\to "
+                    "1{,}8\\cdot10^{-12} "
+                    "\\to 0$ — kvadratik. "
+                    "Sodda formula bilan esa "
+                    "qoldiq "
+                    "$2\\cdot10^{-10}$ da "
+                    "qotib qoladi, chunki "
+                    "$1 - L_0/L$ da "
+                    "halokatli qisqarish bor. "
+                    "O'zgartirilgan Nyuton "
+                    "chiziqli yaqinlashadi "
+                    "(nisbat 0,584). Yuk "
+                    "nazorati "
+                    "$P > P_{lim}$ da "
+                    "yaqinlashmaydi, siljish "
+                    "nazorati esa butun "
+                    "yo'lni bosib o'tadi; "
+                    "sakrash "
+                    "$0{,}4236h$ dan "
+                    "$2{,}1557h$ ga. "
+                    "Qaytarish algoritmi "
+                    "ikki chiziqli qonunni "
+                    "$5\\cdot10^{-16}$ "
+                    "aniqlikda, qadam "
+                    "sonidan mustaqil "
+                    "ravishda takrorlaydi."
+                ),
+            ),
+            visual=vis(
+                kind="O'tib ketish va Nyuton iteratsiyasi",
+                tool="React/SVG + Manim",
+                description=(
+                    "Yuk–ko'chish yo'li, "
+                    "chegaraviy nuqtalar, "
+                    "iteratsiyaning "
+                    "yaqinlashishi va "
+                    "kuchlanish–deformatsiya "
+                    "sikli."
+                ),
+                how_to_draw=(
+                    "React/SVG: chap panelda "
+                    "yassi ferma yon "
+                    "ko'rinishda chiziladi va "
+                    "yuk slayderi bilan "
+                    "asta-sekin bosiladi; "
+                    "apex tushgani sari "
+                    "shakl o'zgaradi va "
+                    "$P_{lim}$ ga yetganda "
+                    "ferma **birdan "
+                    "ag'darilib** pastki "
+                    "holatga sakraydi — "
+                    "animatsiya aynan shu "
+                    "lahzada tezlashadi. "
+                    "O'ng panelda "
+                    "yuk–ko'chish egri "
+                    "chizig'i: joriy holat "
+                    "nuqta bilan "
+                    "belgilanadi va u "
+                    "egri chiziq bo'ylab "
+                    "harakatlanadi; "
+                    "chegaraviy nuqtaga "
+                    "yetganda nuqta "
+                    "gorizontal chiziq "
+                    "bo'ylab **sakrab** "
+                    "uzoqdagi shoxga "
+                    "o'tadi va shu "
+                    "sakrash yo'li "
+                    "punktir bilan "
+                    "qoladi. Egri "
+                    "chiziqning "
+                    "$K_T < 0$ qismi "
+                    "boshqa uslubda "
+                    "chiziladi — u "
+                    "faqat siljish "
+                    "nazorati bilan "
+                    "erishiladi. Pastki "
+                    "panelda ikkita "
+                    "Nyuton "
+                    "yaqinlashish "
+                    "grafigi "
+                    "$\\log|R|$ "
+                    "o'qida: "
+                    "barqaror formula "
+                    "tik pastga tushib "
+                    "yo'qoladi, sodda "
+                    "formula esa "
+                    "$-10$ darajasida "
+                    "yassilanib "
+                    "qoladi — "
+                    "qisqarish "
+                    "chegarasi "
+                    "gorizontal "
+                    "punktir bilan "
+                    "belgilanadi."
+                ),
+            ),
+            interp=(
+                "Urinma bikrlikni markaziy "
+                "ayirma bilan tekshirish "
+                "arzon, lekin muhim: "
+                "noto'g'ri "
+                "$\\mathbf{K}_T$ bilan "
+                "Nyuton kvadratik "
+                "yaqinlashishni yo'qotadi, "
+                "ammo baribir to'g'ri "
+                "javobga keladi — shuning "
+                "uchun xato jimgina "
+                "sekinlik sifatida "
+                "namoyon bo'ladi va "
+                "ko'pincha sezilmaydi. "
+                "Yuk–ko'chish yo'lining "
+                "monoton emasligi esa "
+                "butun mavzuning fizik "
+                "o'zagi. Chiziqli hisob "
+                "bu egri chiziqning faqat "
+                "boshidagi urinmani "
+                "ko'radi va maksimumni "
+                "umuman sezmaydi — "
+                "gumbaz qulashining sababi "
+                "aynan shu. Yassi ferma "
+                "taxminining 0,23% "
+                "aniqlikda mos kelishi "
+                "esa qo'lda chiqarilgan "
+                "natijani sonli yechim "
+                "bilan mustaqil "
+                "tasdiqlaydi. Eng "
+                "qimmatli natija esa "
+                "Nyuton jadvalida va u "
+                "kutilmagan joydan "
+                "keladi. Ikkala hisobda "
+                "ham aynan bir xil "
+                "algoritm va aynan bir "
+                "xil urinma bikrlik "
+                "ishlatildi; yagona "
+                "farq — ichki kuchni "
+                "hisoblash formulasi. "
+                "Ayniyat bilan yozilgan "
+                "variant qoldiqni aynan "
+                "nolga tushiradi, sodda "
+                "variant esa "
+                "$2\\cdot10^{-10}$ da "
+                "abadiy qotib qoladi. "
+                "Sabab su-02 da "
+                "o'rganilgan halokatli "
+                "qisqarish: yassi "
+                "fermada "
+                "$L \\approx L_0$, demak "
+                "$1 - L_0/L$ ni bevosita "
+                "hisoblash aniqlikni "
+                "yo'qotadi. Amaliy "
+                "xulosa muhim: "
+                "yaqinlashmayotgan "
+                "iteratsiya har doim "
+                "usulning aybi emas. "
+                "Nazorat turini "
+                "taqqoslash esa "
+                "ikkinchi amaliy "
+                "saboqni beradi. Yuk "
+                "nazorati "
+                "$P > P_{lim}$ da "
+                "yaqinlashmaydi va "
+                "qadamni "
+                "kichraytirish hech "
+                "qachon yordam "
+                "bermaydi, chunki "
+                "o'sha yuk uchun "
+                "yaqin muvozanat "
+                "holati mavjud emas. "
+                "Siljish nazorati "
+                "esa manfiy "
+                "$K_T$ li pasayuvchi "
+                "shoxni ham bemalol "
+                "bosib o'tadi. "
+                "Nihoyat qaytarish "
+                "algoritmi bir "
+                "o'lchovda aynan "
+                "yechilishi va qadam "
+                "sonidan mustaqilligi "
+                "tasdiqlandi — bu "
+                "plastiklik "
+                "hisobining "
+                "ishonchliligining "
+                "asosi."
+            ),
+            mistakes=[
+                "Yaqinlashmaslikni har doim "
+                "usulning aybi deb bilish. "
+                "Kodda sabab formuladagi "
+                "qisqarish edi (su-02).",
+                "Chegaraviy nuqtada qadamni "
+                "kichraytirish. Yechim "
+                "mavjud emas — nazorat "
+                "turini o'zgartirish kerak.",
+                "Urinma bikrlikni "
+                "tekshirmaslik. Noto'g'ri "
+                "$\\mathbf{K}_T$ kvadratik "
+                "yaqinlashishni yo'qotadi, "
+                "lekin javob to'g'ri "
+                "chiqadi — xato yashirin "
+                "qoladi.",
+                "Yassi gumbazlarda chiziqli "
+                "hisob bilan cheklanish. U "
+                "o'tib ketishni umuman "
+                "ko'rsata olmaydi.",
+                "O'tib ketishni statik "
+                "hodisa deb hisoblash. "
+                "Sakrash dinamik va "
+                "qo'shimcha zarba yuki "
+                "beradi.",
+                "Ko'p o'lchovli plastiklikda "
+                "izchil urinma modul "
+                "(consistent tangent) "
+                "o'rniga elastoplastik "
+                "modulni ishlatish — "
+                "kvadratik yaqinlashish "
+                "yo'qoladi.",
+            ],
+            quiz=[
+                q("Nyuton–Rafson nochiziqli "
+                  "masalani qanday hal "
+                  "qiladi?",
+                  "Uni chiziqli masalalar "
+                  "ketma-ketligiga "
+                  "aylantiradi: har qadamda "
+                  "$\\mathbf{K}_T\\Delta"
+                  "\\mathbf{u} = "
+                  "-\\mathbf{R}$ yechiladi "
+                  "va urinma bikrlik "
+                  "yangilanadi.",
+                  "konseptual"),
+                q("To'liq va o'zgartirilgan "
+                  "Nyutonning farqi nima?",
+                  "To'liqda "
+                  "$\\mathbf{K}_T$ har "
+                  "iteratsiyada "
+                  "yangilanadi (kvadratik), "
+                  "o'zgartirilganida bir "
+                  "marta hisoblanadi "
+                  "(chiziqli, kodda nisbat "
+                  "0,584).", "konseptual"),
+                q("Yassi fermada chegaraviy "
+                  "nuqta qayerda?",
+                  "$K_T = 0$ dan "
+                  "$3s^2 = h^2$, ya'ni "
+                  "$w_{lim} = h(1 - "
+                  "1/\\sqrt3) = "
+                  "0{,}4227h$; aniq "
+                  "qiymat $0{,}4236h$.",
+                  "hisob"),
+                q("Kodda bir xil algoritm "
+                  "ikki xil natija berdi. "
+                  "Nega?",
+                  "Ichki kuch formulasi "
+                  "farq qildi: "
+                  "$1 - L_0/L$ da halokatli "
+                  "qisqarish bor (su-02). "
+                  "Ayniyat bilan qoldiq "
+                  "nolga tushadi, sodda "
+                  "variantda "
+                  "$2\\cdot10^{-10}$ da "
+                  "qotadi.", "kod"),
+                q("Yuk nazorati nima uchun "
+                  "chegaraviy nuqtadan o'ta "
+                  "olmaydi?",
+                  "$P > P_{lim}$ uchun yaqin "
+                  "muvozanat holati mavjud "
+                  "emas — bu usulning emas, "
+                  "masalaning xossasi. "
+                  "Siljish nazorati kerak.",
+                  "talqin"),
+                q("O'tib ketish nima uchun "
+                  "xavfli?",
+                  "Konstruksiya "
+                  "$0{,}42h$ dan $2{,}16h$ "
+                  "ga dinamik sakraydi; "
+                  "statik tahlil sakrash "
+                  "paytidagi inersiya "
+                  "kuchlarini hisobga "
+                  "olmaydi.", "talqin"),
+                q("Qaytarish algoritmining "
+                  "muhim xossasi qanday "
+                  "tekshiriladi?",
+                  "Natija qadam "
+                  "kattaligidan mustaqil "
+                  "bo'lishi kerak — kodda "
+                  "11 va 1001 qadam aynan "
+                  "bir xil javob beradi.",
+                  "kod"),
+            ],
+            bridge=(
+                "4-modul yakunlandi: FEM "
+                "apparati fermadan "
+                "nochiziqli qobiqqacha "
+                "qo'llanildi. Oxirgi modulda "
+                "esa FEM dan tashqariga "
+                "chiqamiz — differensial "
+                "kvadratura, chegaraviy "
+                "elementlar va spektral "
+                "usullar; so'ng natijaning "
+                "ishonchliligini "
+                "rasmiylashtiramiz va "
+                "kursni yopamiz."
+            ),
+            research=(
+                "Nochiziqli tahlilni "
+                "chuqurlashtiring. "
+                "(1) Riks yoy uzunligi "
+                "usulini o'rganing: "
+                "qaytuvchi nuqta "
+                "(snap-back) bo'lganda "
+                "siljish nazorati ham "
+                "yetarli emas — yoy "
+                "uzunligi buni qanday "
+                "hal qiladi? "
+                "(2) Izchil urinma "
+                "modulni (consistent "
+                "tangent) o'rganing: "
+                "nima uchun uni "
+                "elastoplastik modul "
+                "bilan almashtirish "
+                "kvadratik "
+                "yaqinlashishni "
+                "yo'qotadi? "
+                "(3) Kinematik va "
+                "aralash "
+                "mustahkamlanishni "
+                "ko'rib chiqing: "
+                "Baushinger effekti va "
+                "siklik yuklamadagi "
+                "xatti-harakat (mq-08). "
+                "(4) Aniq (explicit) "
+                "dinamik "
+                "integrallashni "
+                "o'rganing: avariya "
+                "hisobida nima uchun "
+                "Nyuton iteratsiyasi "
+                "umuman "
+                "ishlatilmaydi?"
+            ),
+            manim_ref=manim(
+                scene="SnapThroughScene",
+                module="manim/scenes/su_apps.py",
+                title="O'tib ketish hodisasi",
+                summary=(
+                    "Yassi ferma asta-sekin "
+                    "yuklanadi va yonida "
+                    "yuk–ko'chish egri "
+                    "chizig'ida nuqta "
+                    "harakatlanadi. "
+                    "Chegaraviy nuqtaga "
+                    "yetganda ferma "
+                    "birdan ag'darilib "
+                    "pastki holatga "
+                    "sakraydi, nuqta esa "
+                    "egri chiziqdagi "
+                    "uzoq shoxga o'tadi. "
+                    "Keyin xuddi shu "
+                    "masala siljish "
+                    "nazorati bilan "
+                    "takrorlanadi va bu "
+                    "safar butun yo'l, "
+                    "jumladan "
+                    "pasayuvchi shox "
+                    "ham, uzluksiz "
+                    "bosib o'tiladi."
+                ),
+            ),
+        ),
+    ),
 ]
