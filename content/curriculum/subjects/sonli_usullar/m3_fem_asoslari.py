@@ -3653,4 +3653,1355 @@ note("100 000 erkinlik darajasida to'la matritsa 80 GB talab qiladi va "
             ),
         ),
     ),
+
+    # ------------------------------------------------------------------ su-16
+    Topic(
+        id="su-16",
+        subject_id=S, module_id=M, order=16,
+        title="Sonli integrallash va qulflanish",
+        description=(
+            "Gauss–Lejandr kvadraturasi, element uchun zarur nuqtalar soni, "
+            "siljish va hajmiy qulflanish, kamaytirilgan integrallash, "
+            "soat mexanizmi rejimlari va Barlou nuqtalari."
+        ),
+        learning_objective=(
+            "Gauss kvadraturasining aniqlik tartibini asoslash, "
+            "qulflanishning ikki turini bir-biridan ajratish va har biriga "
+            "mos davoni tanlash."
+        ),
+        prerequisites=["su-15", "pq-24"],
+        mathematical_core=(
+            "$\\int_{-1}^{1}f\\,d\\xi \\approx \\sum_{g}w_gf(\\xi_g)$, "
+            "$n$ nuqta $2n-1$ darajani aniq oladi; "
+            "$U_{par}/U_{eg} = (a/b)^2/[2(1+\\nu)]$."
+        ),
+        engineering_application=(
+            "Har qanday FEM paketida element turini tanlash; ingichka "
+            "devorli va deyarli siqilmas (rezina, to'yingan tuproq) "
+            "masalalarda natijaning ishonchliligi."
+        ),
+        computational_component=(
+            "Kvadratura aniqligini o'lchash, qulflanishni ikki turda "
+            "ko'rsatish, soat mexanizmi rejimlarini sanash."
+        ),
+        visualization_component=(
+            "Gauss nuqtalari, parazit siljish maydoni, soat mexanizmi "
+            "rejimining shakli, qulflanish egri chiziqlari."
+        ),
+        research_extension=(
+            "Yassilangan deformatsiya (enhanced assumed strain, EAS) va "
+            "aralash (mixed u–p) formulirovkalarni o'rganing: ular "
+            "qulflanishni kvadraturaga tegmasdan qanday yechadi?"
+        ),
+        difficulty="murakkab",
+        previous_link=(
+            "su-15 da element integrallarini Gauss kvadraturasi bilan "
+            "hisobladik, lekin necha nuqta kerakligini asoslamadik. "
+            "Endi shu savolga javob beramiz — va aniqlanadiki, "
+            "'aniqroq' integrallash ba'zan natijani buzadi."
+        ),
+        next_topic="su-17",
+        estimated_minutes=95,
+        tags=["Gauss kvadraturasi", "qulflanish", "kamaytirilgan "
+              "integrallash", "soat mexanizmi", "Barlou nuqtalari"],
+        lesson=_lesson(
+            problem=(
+                "Avtomobil kuzovining "
+                "metall paneli modellashtirilmoqda: "
+                "qalinligi 1 mm, o'lchami 500 mm. "
+                "To'rt tugunli tekis elementlar "
+                "bilan qoplanadi va hisob "
+                "bajariladi. Natija: panel "
+                "kutilganidan o'n barobar "
+                "bikrroq chiqdi — go'yo po'lat "
+                "o'rniga olmos ishlatilgandek. "
+                "To'r zichlashtiriladi, "
+                "natija yaxshilanadi, lekin "
+                "juda sekin. Xato qayerda? "
+                "Material to'g'ri, geometriya "
+                "to'g'ri, yig'ish "
+                "su-15 dagi beshta "
+                "tekshiruvdan o'tdi. Kasallik "
+                "boshqa joyda: elementning "
+                "o'zida va biz integralni "
+                "qanchalik 'aniq' "
+                "hisoblaganimizda."
+            ),
+            concepts=[
+                c("Gauss–Lejandr kvadraturasi",
+                  "$\\int_{-1}^{1}f\\,d\\xi "
+                  "\\approx \\sum_g w_gf(\\xi_g)$ "
+                  "— nuqtalar ham, og'irliklar "
+                  "ham optimal tanlanadi."),
+                c("Aniqlik tartibi",
+                  "$n$ nuqta $2n-1$ darajali "
+                  "ko'phadni **aynan** oladi — "
+                  "$2n$ ta erkin parametr "
+                  "shuncha shartni "
+                  "qanoatlantiradi."),
+                c("To'liq integrallash",
+                  "Element matritsasini aynan "
+                  "beradigan nuqtalar soni; "
+                  "bir o'lchovli $p$-tartibli "
+                  "element uchun $n = p$."),
+                c("Siljish qulflanishi "
+                  "(shear locking)",
+                  "Egilishda paydo bo'ladigan "
+                  "soxta siljish deformatsiyasi "
+                  "elementni haddan tashqari "
+                  "bikr qiladi (pq-24)."),
+                c("Hajmiy qulflanish "
+                  "(volumetric locking)",
+                  "$\\nu \\to 0{,}5$ da "
+                  "siqilmaslik sharti elementni "
+                  "bo'g'ib qo'yadi."),
+                c("Soat mexanizmi rejimi "
+                  "(hourglass mode)",
+                  "Kamaytirilgan "
+                  "integrallashdan kelib "
+                  "chiqadigan nol energiyali "
+                  "soxta deformatsiya shakli."),
+                c("Barlou nuqtalari",
+                  "Element ichida "
+                  "deformatsiya eng aniq "
+                  "bo'ladigan nuqtalar; ular "
+                  "Gauss nuqtalari bilan "
+                  "ustma-ust tushadi."),
+            ],
+            derivation=[
+                d("1. Nima uchun sonli "
+                  "integrallash kerak",
+                  r"k_{ij} = \int_{-1}^{1}"
+                  r"\frac{1}{J}\frac{dN_i}{d\xi}"
+                  r"\,D\,\frac{1}{J}"
+                  r"\frac{dN_j}{d\xi}\,J\,d\xi",
+                  "Buzilgan izoparametrik "
+                  "elementda $J$ o'zgaruvchan, "
+                  "demak integrand **ratsional** "
+                  "funksiya — analitik olinmaydi."),
+                d("2. Aniqlanmagan koeffitsientlar "
+                  "usuli",
+                  r"\int_{-1}^{1}f\,d\xi \approx "
+                  r"w_1f(\xi_1) + \dots + "
+                  r"w_nf(\xi_n)",
+                  "$n$ ta nuqta va $n$ ta "
+                  "og'irlik — jami $2n$ ta erkin "
+                  "parametr. Ularni "
+                  "$1, \\xi, \\xi^2, \\dots$ "
+                  "aynan olinishidan topamiz."),
+                d("3. Bir nuqtali qoida",
+                  r"w_1 = 2,\quad \xi_1 = 0 "
+                  r"\;\Rightarrow\; \int \approx "
+                  r"2f(0)",
+                  "Ikkita shart: "
+                  "$\\int 1 = 2 \\Rightarrow "
+                  "w_1 = 2$; "
+                  "$\\int\\xi = 0 \\Rightarrow "
+                  "\\xi_1 = 0$. Birinchi "
+                  "darajagacha aniq."),
+                d("4. Ikki nuqtali qoida",
+                  r"\int\xi^2: \ 2\xi_1^2 = "
+                  r"\tfrac23 \;\Rightarrow\; "
+                  r"\xi_{1,2} = \pm"
+                  r"\frac{1}{\sqrt3}, \ "
+                  r"w_{1,2} = 1",
+                  "**Klassik natija.** "
+                  "Simmetriyadan "
+                  "$w_1 = w_2 = 1$ va "
+                  "$\\xi_2 = -\\xi_1$; "
+                  "$\\xi^2$ sharti "
+                  "$\\pm 1/\\sqrt3 = "
+                  "\\pm 0{,}5774$ beradi. "
+                  "Uchinchi darajagacha aniq."),
+                d("5. Umumiy natija",
+                  r"n \ \text{nuqta} \ "
+                  r"\Longrightarrow\ 2n-1 \ "
+                  r"\text{darajagacha aniq}",
+                  "$\\xi_g$ — $n$-tartibli "
+                  "Lejandr ko'phadining "
+                  "ildizlari. Nyuton–Kotes "
+                  "qoidalari (nuqtalar tekis) "
+                  "faqat $n-1$ beradi — Gauss "
+                  "ikki barobar samarali."),
+                d("6. Element uchun necha nuqta",
+                  r"\mathbf{B}^T\mathbf{B} \ "
+                  r"\text{darajasi} \ 2(p-1) "
+                  r"\;\Rightarrow\; 2n-1 \ge "
+                  r"2p-2 \;\Rightarrow\; n = p",
+                  "$p$-tartibli element uchun "
+                  "$p$ ta nuqta yetarli. "
+                  "Chiziqli — 1, kvadratik — 2, "
+                  "kubik — 3."),
+                d("7. Ikki o'lchovda: tenzor "
+                  "ko'paytma",
+                  r"\int\!\!\int f\,d\xi\,d\eta "
+                  r"\approx \sum_a\sum_b "
+                  r"w_aw_b f(\xi_a,\eta_b)",
+                  "Q4 uchun $2\\times2 = 4$ "
+                  "nuqta ('to'liq'), "
+                  "$1\\times1 = 1$ nuqta "
+                  "('kamaytirilgan')."),
+                d("8. Q4 elementning egilish "
+                  "rejimi",
+                  r"u = u_0\,\xi\eta, \qquad v = 0",
+                  "Sof egilishda tolalar "
+                  "buriladi: yuqori tola "
+                  "cho'ziladi, pastkisi "
+                  "siqiladi. Q4 buni shu "
+                  "rejim bilan ifodalaydi."),
+                d("9. Haqiqiy va parazit "
+                  "deformatsiyalar",
+                  r"\varepsilon_x = "
+                  r"\frac{u_0\eta}{a} \ "
+                  r"(\text{to'g'ri}), \qquad "
+                  r"\gamma_{xy} = "
+                  r"\frac{u_0\xi}{b} \ "
+                  r"(\textbf{parazit})",
+                  "**Kasallikning ildizi.** "
+                  "Sof egilishda siljish "
+                  "deformatsiyasi nol bo'lishi "
+                  "kerak, lekin Q4 bazisi uni "
+                  "nolga chiqara olmaydi — "
+                  "bu su-14 dagi to'liq "
+                  "bo'lmagan bazisning "
+                  "oqibati."),
+                d("10. Parazit energiyaning "
+                  "ulushi",
+                  r"\frac{U_{par}}{U_{eg}} = "
+                  r"\frac{G}{E}\left(\frac{a}{b}"
+                  r"\right)^2 = "
+                  r"\frac{(a/b)^2}{2(1+\nu)}",
+                  "**Miqdoriy baho.** "
+                  "Nisbat tomonlar nisbatining "
+                  "**kvadratiga** proporsional. "
+                  "$a/b = 8$ da element "
+                  "33 barobar bikrroq bo'ladi."),
+                d("11. Parazit hadning nolga "
+                  "aylanishi",
+                  r"\gamma_{xy}\big|_{\xi=0} = 0",
+                  "**Hal qiluvchi kuzatuv.** "
+                  "Parazit siljish $\\xi$ ga "
+                  "proporsional, demak element "
+                  "markazida **aynan nol**. "
+                  "Bir nuqtali kvadratura uni "
+                  "umuman ko'rmaydi."),
+                d("12. Kamaytirilgan "
+                  "integrallashning narxi",
+                  r"\varepsilon_x\big|_{\xi=\eta=0} "
+                  r"= 0 \quad \text{ham!}",
+                  "**Kutilmagan oqibat.** "
+                  "Markazda haqiqiy egilish "
+                  "deformatsiyasi ham nol. "
+                  "Demak bir nuqtali "
+                  "integrallashda egilish "
+                  "rejimi butunlay nol "
+                  "energiyali bo'lib qoladi — "
+                  "u soat mexanizmi rejimiga "
+                  "aylanadi."),
+                d("13. Rang bo'yicha hisob",
+                  r"\mathrm{rank}(\mathbf{k}^e) "
+                  r"\le n_{gp}\cdot n_\varepsilon "
+                  r"= 1\cdot3 = 3",
+                  "Bitta Gauss nuqtasi uchta "
+                  "deformatsiya komponentasini "
+                  "beradi, demak rang eng ko'pi "
+                  "3. $8 - 3 = 5$ ta nol rejim: "
+                  "3 ta qattiq jism + "
+                  "**2 ta soat mexanizmi**."),
+                d("14. Tanlab kamaytirilgan "
+                  "integrallash (SRI)",
+                  r"\mathbf{k}^e = "
+                  r"\underbrace{\int \mathbf{B}^T"
+                  r"\mathbf{D}_n\mathbf{B}}_{2"
+                  r"\times2} + "
+                  r"\underbrace{\int \mathbf{B}^T"
+                  r"\mathbf{D}_s\mathbf{B}}_{1"
+                  r"\times1}",
+                  "**To'g'ri davo.** Faqat "
+                  "**siljish** hadi kam nuqtada "
+                  "olinadi; normal hadlar "
+                  "to'liq qoladi. Parazit "
+                  "siljish yo'qoladi, egilish "
+                  "bikrligi saqlanadi, soat "
+                  "mexanizmi paydo bo'lmaydi."),
+                d("15. Hajmiy qulflanish va "
+                  "B-bar",
+                  r"\bar{\mathbf{B}}_{vol} = "
+                  r"\mathbf{B}_{vol}"
+                  r"\big|_{\xi=\eta=0}",
+                  "$\\nu \\to 0{,}5$ da hajmiy "
+                  "modul cheksizlashadi va "
+                  "$\\varepsilon_x + "
+                  "\\varepsilon_y = 0$ sharti "
+                  "har bir Gauss nuqtasida "
+                  "bajarilishi talab qilinadi — "
+                  "bu haddan ziyod. B-bar uni "
+                  "faqat element o'rtachasida "
+                  "talab qiladi."),
+                d("16. Barlou nuqtalari",
+                  r"\text{deformatsiya eng aniq: "
+                  r"} \xi = \pm\frac{1}{\sqrt3}",
+                  "**Bonus natija.** Gauss "
+                  "nuqtalari ayni paytda "
+                  "superkonvergent kuchlanish "
+                  "nuqtalari. Shuning uchun "
+                  "FEM paketlari kuchlanishni "
+                  "aynan o'sha yerda hisoblab, "
+                  "keyin tugunlarga "
+                  "ekstrapolyatsiya qiladi."),
+            ],
+            meaning=(
+                "Bu mavzuning markazida "
+                "kutilmagan g'oya turibdi: "
+                "integralni **kamroq** aniqlik "
+                "bilan hisoblash natijani "
+                "**yaxshilashi** mumkin. Sabab "
+                "9- va 11-qadamlarda. Q4 "
+                "elementning bazisi to'liq "
+                "kvadratik emas (su-14, "
+                "13-qadam), shuning uchun sof "
+                "egilishda u soxta siljish "
+                "deformatsiyasi hosil qiladi. "
+                "Bu deformatsiya fizik jihatdan "
+                "yo'q, lekin energiya yutadi va "
+                "element bikrligini oshiradi. "
+                "10-qadam buni miqdoriy "
+                "ifodalaydi va natija "
+                "achinarli: nisbat "
+                "$(a/b)^2$ ga proporsional, "
+                "ya'ni cho'zilgan elementda "
+                "xato kvadratik tezlikda "
+                "o'sadi. Ingichka devorli "
+                "konstruksiyalarda esa "
+                "elementlar aynan shunday "
+                "bo'ladi. Endi 11-qadamning "
+                "nozikligi: parazit siljish "
+                "$\\xi$ ga proporsional, demak "
+                "element markazida aynan nol. "
+                "Agar integralni faqat "
+                "markazda hisoblasak, parazit "
+                "energiya butunlay yo'qoladi. "
+                "Lekin 12-qadam narxini "
+                "ko'rsatadi: o'sha nuqtada "
+                "**haqiqiy** egilish "
+                "deformatsiyasi ham nol. "
+                "Ya'ni bir nuqtali kvadratura "
+                "kasallikni ham, bemorni ham "
+                "yo'q qiladi — egilish rejimi "
+                "nol energiyali bo'lib qoladi "
+                "va element o'sha shaklda "
+                "erkin deformatsiyalanadi. Bu "
+                "soat mexanizmi rejimi va "
+                "13-qadam uning sonini aniq "
+                "beradi: ikkita. Shuning uchun "
+                "to'g'ri davo 14-qadamda — "
+                "faqat **siljish** hadini kam "
+                "nuqtada olish. Shunda parazit "
+                "energiya yo'qoladi, egilish "
+                "bikrligi esa to'liq saqlanadi. "
+                "15-qadam esa ikkinchi "
+                "kasallikni ochadi va u "
+                "birinchisidan jiddiyroq. "
+                "Hajmiy qulflanish "
+                "to'r zichlashtirilganda "
+                "**yo'qolmaydi** — siljish "
+                "qulflanishi esa sekin bo'lsa "
+                "ham yo'qoladi. Va eng muhim "
+                "amaliy xulosa: davo "
+                "kasallikka mos bo'lishi "
+                "kerak. Siljish uchun "
+                "mo'ljallangan SRI hajmiy "
+                "qulflanishga umuman yordam "
+                "bermaydi. Nihoyat 16-qadam "
+                "kutilmagan sovg'a: o'sha "
+                "Gauss nuqtalari "
+                "kuchlanishning eng aniq "
+                "joyi bo'lib chiqadi va bu "
+                "su-14 dagi kuzatuvni "
+                "yopadi."
+            ),
+            equations=[
+                eq(r"\int_{-1}^{1}f(\xi)\,d\xi "
+                   r"\approx \sum_{g=1}^{n}w_g\,"
+                   r"f(\xi_g), \qquad "
+                   r"\text{aniq: } \deg f \le 2n-1",
+                   "Gauss–Lejandr kvadraturasi va "
+                   "uning aniqlik tartibi.",
+                   "Gauss kvadraturasi"),
+                eq(r"\xi_{1,2} = \pm\frac{1}{\sqrt3} "
+                   r"\approx \pm0{,}5774, \qquad "
+                   r"w_1 = w_2 = 1",
+                   "Ikki nuqtali qoida — FEM da "
+                   "eng ko'p ishlatiladigani.",
+                   "Ikki nuqtali qoida"),
+                eq(r"\frac{U_{par}}{U_{eg}} = "
+                   r"\frac{(a/b)^2}{2(1+\nu)}",
+                   "Q4 elementdagi parazit "
+                   "siljish energiyasining "
+                   "ulushi — qulflanishning "
+                   "miqdoriy o'lchovi.",
+                   "Siljish qulflanishi"),
+                eq(r"n_{\text{nol rejim}} = "
+                   r"n_{dof} - n_{gp}\cdot"
+                   r"n_\varepsilon = 8 - 3 = 5 "
+                   r"= \underbrace{3}_{\text{qattiq "
+                   r"jism}} + "
+                   r"\underbrace{2}_{\text{soat "
+                   r"mexanizmi}}",
+                   "Kamaytirilgan integrallashda "
+                   "nol energiyali rejimlar soni.",
+                   "Soat mexanizmi rejimlari"),
+            ],
+            conditions=(
+                "**Kvadratura tanlash:**\n"
+                "- To'liq integrallash: bir "
+                "o'lchovli $p$-tartibli element "
+                "uchun $n = p$; Q4 uchun "
+                "$2\\times2$; Q8 uchun "
+                "$3\\times3$;\n"
+                "- Buzilgan izoparametrik "
+                "elementda integrand ratsional "
+                "bo'ladi va **hech qanday** "
+                "chekli kvadratura uni aynan "
+                "olmaydi — $n = p$ amaliy "
+                "kelishuv.\n\n"
+                "**Qulflanishni tanib olish:**\n"
+                "1. Natija kutilganidan "
+                "**bikrroq** (hech qachon "
+                "yumshoqroq emas);\n"
+                "2. To'r zichlashganda sekin "
+                "yaxshilanadi (siljish) yoki "
+                "umuman yaxshilanmaydi "
+                "(hajmiy);\n"
+                "3. Elementlar cho'zilgan "
+                "($a/b \\gg 1$) yoki "
+                "$\\nu > 0{,}45$.\n\n"
+                "**Davoni tanlash:**\n"
+                "- Siljish qulflanishi → SRI, "
+                "yassilangan deformatsiya "
+                "(EAS) yoki yuqori tartibli "
+                "element;\n"
+                "- Hajmiy qulflanish → B-bar, "
+                "aralash u–p formulirovka yoki "
+                "yuqori tartibli element;\n"
+                "- **Bir turdagi davo "
+                "boshqasiga yordam bermaydi.**\n\n"
+                "**Kamaytirilgan integrallash "
+                "ishlatilsa:** soat mexanizmi "
+                "nazorati (hourglass control) "
+                "majburiy. Aks holda global "
+                "matritsa singulyar bo'ladi "
+                "yoki yechim soxta "
+                "tebranishlarga to'ladi.\n\n"
+                "**Kuchlanishni baholash:** "
+                "har doim Gauss (Barlou) "
+                "nuqtalarida hisoblang va "
+                "keyin ekstrapolyatsiya "
+                "qiling; tugunda bevosita "
+                "hisoblash eng yomon "
+                "variant."
+            ),
+            worked=WorkedExample(
+                statement=(
+                    "(a) Aniqlanmagan "
+                    "koeffitsientlar usuli bilan "
+                    "ikki nuqtali Gauss "
+                    "qoidasini chiqaring; "
+                    "(b) $a/b = 5$ tomonlar "
+                    "nisbatiga ega Q4 element "
+                    "uchun ($\\nu = 0$) parazit "
+                    "siljish tufayli bikrlik "
+                    "necha barobar oshadi; "
+                    "(c) bir nuqtali "
+                    "integrallashda nechta nol "
+                    "energiyali rejim paydo "
+                    "bo'ladi?"
+                ),
+                given=[
+                    r"\int_{-1}^{1}f\,d\xi \approx "
+                    r"w_1f(\xi_1) + w_2f(\xi_2)",
+                    r"a/b = 5, \quad \nu = 0, \quad "
+                    r"\text{Q4: } n_{dof} = 8",
+                ],
+                steps=[
+                    st(r"f = 1:\quad w_1 + w_2 = "
+                       r"\int_{-1}^{1}d\xi = 2",
+                       "Birinchi shart."),
+                    st(r"f = \xi:\quad w_1\xi_1 + "
+                       r"w_2\xi_2 = 0",
+                       "Ikkinchi shart — toq "
+                       "funksiya."),
+                    st(r"f = \xi^2:\quad w_1\xi_1^2 "
+                       r"+ w_2\xi_2^2 = \tfrac23",
+                       "Uchinchi shart."),
+                    st(r"f = \xi^3:\quad w_1\xi_1^3 "
+                       r"+ w_2\xi_2^3 = 0",
+                       "To'rtinchi shart — to'rtta "
+                       "noma'lum, to'rtta "
+                       "tenglama."),
+                    st(r"\text{Simmetriya: } \xi_2 = "
+                       r"-\xi_1 \;\Rightarrow\; "
+                       r"w_1 = w_2 = 1",
+                       "2- va 4-shartlar "
+                       "avtomatik bajariladi, "
+                       "1-shartdan "
+                       "$w_1 = w_2 = 1$."),
+                    st(r"2\xi_1^2 = \tfrac23 "
+                       r"\;\Rightarrow\; \xi_1 = "
+                       r"\frac{1}{\sqrt3} \approx "
+                       r"0{,}577350",
+                       "**Klassik natija.** "
+                       "Ikki nuqta uchinchi "
+                       "darajagacha aniq — "
+                       "$2n-1 = 3$."),
+                    st(r"\text{(b) } "
+                       r"\frac{U_{par}}{U_{eg}} = "
+                       r"\frac{(a/b)^2}{2(1+\nu)} "
+                       r"= \frac{25}{2(1+0)} = "
+                       r"12{,}5",
+                       "Parazit energiya haqiqiy "
+                       "egilish energiyasidan "
+                       "12,5 barobar katta."),
+                    st(r"\frac{U_{jami}}{U_{eg}} = "
+                       r"1 + 12{,}5 = 13{,}5",
+                       "**Element 13,5 barobar "
+                       "bikrroq** — ya'ni "
+                       "ko'chish 13,5 barobar "
+                       "kichik chiqadi, "
+                       "$1/13{,}5 = 7{,}4\\%$."),
+                    st(r"\text{(c) } "
+                       r"\mathrm{rank}(\mathbf{k}^e) "
+                       r"\le n_{gp}\cdot "
+                       r"n_\varepsilon = 1\cdot 3 "
+                       r"= 3",
+                       "Bitta nuqta uchta "
+                       "deformatsiya "
+                       "komponentasini beradi."),
+                    st(r"n_{\text{nol}} = 8 - 3 = 5",
+                       "Beshta nol energiyali "
+                       "rejim."),
+                    st(r"n_{\text{soat}} = 5 - "
+                       r"\underbrace{3}_{\text{qattiq "
+                       r"jism}} = 2",
+                       "**Ikkita soat mexanizmi "
+                       "rejimi.** Ular fizik "
+                       "ma'noga ega emas va "
+                       "nazoratsiz qoldirilsa "
+                       "yechimni buzadi."),
+                ],
+                answer=(
+                    "(a) $\\xi_{1,2} = "
+                    "\\pm1/\\sqrt3 \\approx "
+                    "\\pm0{,}5774$, "
+                    "$w_1 = w_2 = 1$; qoida "
+                    "uchinchi darajagacha aniq. "
+                    "(b) Bikrlik 13,5 barobar "
+                    "oshadi, ya'ni ko'chish "
+                    "to'g'ri javobning atigi "
+                    "7,4% i chiqadi. "
+                    "(c) Beshta nol rejim: "
+                    "uchtasi qattiq jism "
+                    "harakati, **ikkitasi** "
+                    "soat mexanizmi rejimi."
+                ),
+                engineering_note=(
+                    "(b) qismidagi 7,4% raqami "
+                    "qulflanishning naqadar "
+                    "xavfli ekanini ko'rsatadi. "
+                    "Bu kichik xato emas — "
+                    "natija 13 barobar "
+                    "noto'g'ri. Va eng "
+                    "yomoni: hisob hech qanday "
+                    "ogohlantirish bermaydi. "
+                    "Matritsa simmetrik, "
+                    "musbat aniq, qattiq jism "
+                    "tekshiruvi bajariladi, "
+                    "muvozanat saqlanadi — "
+                    "su-15 dagi **beshta "
+                    "tekshiruvning hammasi "
+                    "o'tadi**. Faqat javob "
+                    "noto'g'ri. Shuning uchun "
+                    "qulflanishni tanib olish "
+                    "muhandisning o'z "
+                    "zimmasida qoladi va "
+                    "yagona ishonchli belgi — "
+                    "natijaning kutilganidan "
+                    "bikrroq chiqishi. "
+                    "Qulflanish hech qachon "
+                    "yumshoqroq javob "
+                    "bermaydi, chunki soxta "
+                    "deformatsiya faqat "
+                    "qo'shimcha energiya "
+                    "yutadi. Amaliy maslahat: "
+                    "yangi modelni "
+                    "ishlatishdan oldin sodda "
+                    "etalon masalada "
+                    "(analitik javobi ma'lum "
+                    "konsol balka) elementni "
+                    "sinab ko'ring va tomonlar "
+                    "nisbatini 1 dan 10 gacha "
+                    "o'zgartiring. Agar "
+                    "natija cho'zilgan "
+                    "elementda buzilsa — "
+                    "element qulflanadi va "
+                    "uni bu masalada "
+                    "ishlatmang."
+                ),
+            ),
+            computation=Computation(
+                caption=(
+                    "Gauss kvadraturasining "
+                    "aniqlik tartibini o'lchash, "
+                    "siljish va hajmiy "
+                    "qulflanishni ajratish, soat "
+                    "mexanizmi rejimlarini "
+                    "sanash va Barlou "
+                    "nuqtalarini topish."
+                ),
+                code='''"""Sonli integrallash va qulflanish."""
+import numpy as np
+from labkit import PARAMS, note, series, table, value
+
+nx_c = int(PARAMS.get("nx_c", 8))          # konsol elementlari
+nu_v = float(PARAMS.get("nu_v", 0.4999))   # hajmiy sinov uchun Puasson
+ab_r = float(PARAMS.get("ab_r", 5.0))      # element tomonlar nisbati
+E = 1000.0
+L_c, h_c, P_c = 10.0, 1.0, 1.0
+
+
+def lagrange_N(xi, nodes):
+    n = len(nodes)
+    xi = np.asarray(xi, dtype=float)
+    N = np.ones((n,) + xi.shape)
+    dN = np.zeros((n,) + xi.shape)
+    for i in range(n):
+        for j in range(n):
+            if j == i:
+                continue
+            N[i] *= (xi - nodes[j])/(nodes[i] - nodes[j])
+        for j in range(n):
+            if j == i:
+                continue
+            t = np.ones_like(xi)
+            for k in range(n):
+                if k == i or k == j:
+                    continue
+                t *= (xi - nodes[k])/(nodes[i] - nodes[k])
+            dN[i] += t/(nodes[i] - nodes[j])
+    return N, dN
+
+
+# --- (1) Gauss kvadraturasi n nuqta -> 2n-1 daraja ---
+rows = []
+for n in [1, 2, 3, 4, 5]:
+    gx, gw = np.polynomial.legendre.leggauss(n)
+    first_bad = None
+    cells = []
+    for dgr in range(0, 11):
+        num = float(np.sum(gw*gx**dgr))
+        ex = 0.0 if dgr % 2 else 2.0/(dgr + 1)
+        err = abs(num - ex)
+        if dgr <= 8:
+            cells.append("aniq" if err < 1e-12 else "XATO")
+        if err > 1e-12 and first_bad is None:
+            first_bad = dgr
+    rows.append([n, 2*n - 1, first_bad - 1] + cells[:7])
+table("Gauss kvadraturasining aniqlik tartibi",
+      ["nuqtalar n", "nazariy 2n-1", "o'lchangan"] +
+      [f"d={d}" for d in range(7)], rows)
+value("2 nuqtali qoida: ildiz", float(np.polynomial.legendre.leggauss(2)[0][1]),
+      "—")
+value("1/sqrt(3) (analitik)", float(1/np.sqrt(3)), "—")
+value("2 nuqtali qoida: og'irlik",
+      float(np.polynomial.legendre.leggauss(2)[1][0]), "—")
+note("O'lchangan aniqlik tartibi har bir n uchun nazariy 2n-1 bilan "
+     "aynan mos tushdi. Ikki nuqtali qoidaning ildizi 1/sqrt(3) ga "
+     "mashina aniqligida teng - qo'lda chiqarilgan natija tasdiqlandi. "
+     "Jadvalda TOQ darajalar chegaradan tashqarida ham 'aniq' "
+     "ko'rinadi: ular simmetriya tufayli nolga integrallanadi va "
+     "simmetrik kvadratura buni bepul beradi. Aniqlik tartibini "
+     "belgilaydigan narsa - birinchi XATO ustuni, ya'ni juft daraja.")
+
+# Element matritsasi qancha nuqtada aniq bo'ladi?
+rows2 = []
+for p in [1, 2, 3, 4]:
+    nodes = np.linspace(-1.0, 1.0, p + 1)
+    kes = []
+    for ngp in range(1, 7):
+        gx, gw = np.polynomial.legendre.leggauss(ngp)
+        _, dN = lagrange_N(gx, nodes)
+        ke = np.zeros((p + 1, p + 1))
+        for g_ in range(ngp):
+            B = dN[:, g_]/0.5
+            ke += E*np.outer(B, B)*gw[g_]*0.5
+        kes.append(ke)
+    errs = [float(np.max(np.abs(k - kes[-1]))) for k in kes[:5]]
+    n_need = next(i + 1 for i, e in enumerate(errs) if e < 1e-9)
+    rows2.append([p, p, n_need] + [f"{e:.1e}" for e in errs[:4]])
+table("Element matritsasi necha Gauss nuqtasida AYNAN bo'ladi",
+      ["tartib p", "nazariy n=p", "o'lchangan"] +
+      [f"n={i+1}" for i in range(4)], rows2)
+note("Har bir tartib uchun o'lchangan minimal nuqtalar soni nazariy "
+     "n = p bashoratiga aynan mos keldi. Bundan kam nuqta matritsani "
+     "buzadi, ko'p nuqta esa foydasiz hisob.")
+
+# --- (2) Q4 element: parazit siljish ---
+def q4_dN(xi, eta):
+    xn = np.array([-1.0, 1.0, 1.0, -1.0])
+    yn = np.array([-1.0, -1.0, 1.0, 1.0])
+    return 0.25*xn*(1 + eta*yn), 0.25*(1 + xi*xn)*yn
+
+
+def Dmat(nu, mode):
+    if mode == "stress":
+        return E/(1 - nu**2)*np.array([[1, nu, 0], [nu, 1, 0],
+                                       [0, 0, (1 - nu)/2]])
+    return E/((1 + nu)*(1 - 2*nu))*np.array(
+        [[1 - nu, nu, 0], [nu, 1 - nu, 0], [0, 0, (1 - 2*nu)/2]])
+
+
+def Bmat(xi, eta, xc, yc):
+    dNx, dNe = q4_dN(xi, eta)
+    J = np.array([[dNx @ xc, dNx @ yc], [dNe @ xc, dNe @ yc]])
+    dJ = float(np.linalg.det(J))
+    dN = np.linalg.solve(J, np.vstack([dNx, dNe]))
+    B = np.zeros((3, 8))
+    B[0, 0::2] = dN[0]
+    B[1, 1::2] = dN[1]
+    B[2, 0::2] = dN[1]
+    B[2, 1::2] = dN[0]
+    return B, dJ
+
+
+def ke_q4(xc, yc, D, scheme, t=1.0):
+    K = np.zeros((8, 8))
+    if scheme in ("full", "reduced"):
+        n = 2 if scheme == "full" else 1
+        gx, gw = np.polynomial.legendre.leggauss(n)
+        for a_ in range(n):
+            for b_ in range(n):
+                B, dJ = Bmat(gx[a_], gx[b_], xc, yc)
+                K += B.T @ D @ B*dJ*gw[a_]*gw[b_]*t
+    elif scheme == "sri":          # normal 2x2, siljish 1x1
+        Dn = D.copy()
+        Dn[2, 2] = 0.0
+        Ds = np.zeros((3, 3))
+        Ds[2, 2] = D[2, 2]
+        gx, gw = np.polynomial.legendre.leggauss(2)
+        for a_ in range(2):
+            for b_ in range(2):
+                B, dJ = Bmat(gx[a_], gx[b_], xc, yc)
+                K += B.T @ Dn @ B*dJ*gw[a_]*gw[b_]*t
+        B, dJ = Bmat(0.0, 0.0, xc, yc)
+        K += B.T @ Ds @ B*dJ*4.0*t
+    elif scheme == "bbar":         # hajmiy qism element markazidan
+        B0, _ = Bmat(0.0, 0.0, xc, yc)
+        dil0 = (B0[0] + B0[1])/2
+        gx, gw = np.polynomial.legendre.leggauss(2)
+        for a_ in range(2):
+            for b_ in range(2):
+                B, dJ = Bmat(gx[a_], gx[b_], xc, yc)
+                dil = (B[0] + B[1])/2
+                B = B.copy()
+                B[0] += dil0 - dil
+                B[1] += dil0 - dil
+                K += B.T @ D @ B*dJ*gw[a_]*gw[b_]*t
+    return K
+
+
+# Sof egilish rejimi u = u0*xi*eta bilan parazit energiyani o'lchaymiz
+D0 = Dmat(0.0, "stress")
+rows3 = []
+for ab in [1.0, 2.0, 4.0, 8.0, 16.0]:
+    a_, b_ = ab*0.5, 0.5
+    xc = np.array([-a_, a_, a_, -a_])
+    yc = np.array([-b_, -b_, b_, b_])
+    u0 = 1e-3
+    dvec = np.zeros(8)
+    dvec[0::2] = u0*np.array([-1, 1, 1, -1.])*np.array([-1, -1, 1, 1.])
+    U_full = float(dvec @ ke_q4(xc, yc, D0, "full") @ dvec)/2
+    U_red = float(dvec @ ke_q4(xc, yc, D0, "reduced") @ dvec)/2
+    U_sri = float(dvec @ ke_q4(xc, yc, D0, "sri") @ dvec)/2
+    U_ex = 0.5*E*(u0/a_)**2*(4/3)*a_*b_
+    rows3.append([f"{ab:.0f}", f"{U_full/U_ex:.4f}",
+                  f"{1 + ab**2/2:.4f}", f"{U_red/U_ex:.6f}",
+                  f"{U_sri/U_ex:.6f}"])
+table("Sof egilish rejimidagi energiya (aniq egilish energiyasiga nisbatan)",
+      ["a/b", "to'liq 2x2", "analitik 1+(a/b)^2/2", "kamaytirilgan 1x1",
+       "SRI"], rows3)
+note("MUSTAQIL TASDIQ. To'liq integrallashdagi energiya nisbati "
+     "analitik 1 + (a/b)^2/(2(1+nu)) formulasi bilan AYNAN mos tushdi. "
+     "a/b = 16 da element 129 barobar bikrroq. Kamaytirilgan "
+     "integrallash esa egilish rejimiga AYNAN NOL energiya beradi - "
+     "ya'ni u parazit siljishni yo'qotgani bilan birga haqiqiy egilish "
+     "bikrligini ham yo'qotadi: egilish rejimining o'zi soat mexanizmi "
+     "rejimiga aylanadi. SRI ikkalasini ajratadi: nisbat aynan 1.")
+
+# Rang va nol energiyali rejimlar
+xc1 = np.array([0.0, 1.0, 1.0, 0.0])
+yc1 = np.array([0.0, 0.0, 1.0, 1.0])
+rows4 = []
+for sch in ["full", "reduced", "sri"]:
+    ke = ke_q4(xc1, yc1, D0, sch)
+    w = np.linalg.eigvalsh(ke)
+    nz = int(np.sum(w < 1e-8*w.max()))
+    rows4.append([sch, int(np.linalg.matrix_rank(ke)), nz, 3, nz - 3])
+table("Bitta Q4 elementning rangi va nol energiyali rejimlari",
+      ["sxema", "rang", "nol rejimlar", "qattiq jism", "soat mexanizmi"],
+      rows4)
+ke_r = ke_q4(xc1, yc1, D0, "reduced")
+w_r, V_r = np.linalg.eigh(ke_r)
+hg = V_r[:, 1]
+series("Soat mexanizmi rejimi (x ko'chishlari)", [1, 2, 3, 4],
+       (hg[0::2]/np.max(np.abs(hg))).tolist(),
+       xlabel="tugun", ylabel="normallashgan u")
+series("Soat mexanizmi rejimi (y ko'chishlari)", [1, 2, 3, 4],
+       (hg[1::2]/np.max(np.abs(hg))).tolist(),
+       xlabel="tugun", ylabel="normallashgan v")
+note("Bir nuqtali integrallashda rang 3 ga tushadi (1 Gauss nuqtasi x "
+     "3 deformatsiya komponentasi) va nol rejimlar soni 5 bo'ladi: "
+     "3 ta qattiq jism + 2 ta SOAT MEXANIZMI. To'liq va tanlab "
+     "kamaytirilgan sxemalarda esa faqat 3 ta qattiq jism rejimi bor - "
+     "SRI soat mexanizmi kiritmaydi.")
+
+# --- (3) KONSOL BALKA: siljish qulflanishi ---
+def cantilever(nx, ny, scheme, nu=0.0, mode="stress"):
+    nnx, nny = nx + 1, ny + 1
+    X, Y = np.meshgrid(np.linspace(0, L_c, nnx),
+                       np.linspace(-h_c/2, h_c/2, nny), indexing="ij")
+    nid = np.arange(nnx*nny).reshape(nnx, nny)
+    ndof = 2*nnx*nny
+    K = np.zeros((ndof, ndof))
+    D = Dmat(nu, mode)
+    for i in range(nx):
+        for j in range(ny):
+            nn = [nid[i, j], nid[i+1, j], nid[i+1, j+1], nid[i, j+1]]
+            xc = np.array([X[i, j], X[i+1, j], X[i+1, j+1], X[i, j+1]])
+            yc = np.array([Y[i, j], Y[i+1, j], Y[i+1, j+1], Y[i, j+1]])
+            idx = np.array([[2*k, 2*k + 1] for k in nn]).ravel()
+            K[np.ix_(idx, idx)] += ke_q4(xc, yc, D, scheme)
+    F = np.zeros(ndof)
+    for j in range(nny):
+        F[2*nid[nx, j] + 1] -= P_c/nny
+    fix = [v for j in range(nny) for v in (2*nid[0, j], 2*nid[0, j] + 1)]
+    free = np.setdiff1d(np.arange(ndof), fix)
+    Kf = K[np.ix_(free, free)]
+    rk = int(np.linalg.matrix_rank(Kf))
+    if rk < Kf.shape[0]:
+        return None, Kf.shape[0] - rk
+    u = np.zeros(ndof)
+    u[free] = np.linalg.solve(Kf, F[free])
+    return abs(float(np.mean([u[2*nid[nx, j] + 1] for j in range(nny)]))), 0
+
+
+tip_eb = P_c*L_c**3/(3*E*h_c**3/12)
+tip_ref = tip_eb + P_c*L_c/((5/6)*(E/2)*h_c)
+value("Balka nazariyasi: uch ko'chishi (Timoshenko)", tip_ref, "m")
+rows5 = []
+for nx in [2, 4, 8, 16, 32, 64]:
+    out = []
+    for sch in ["full", "reduced", "sri"]:
+        v, nz = cantilever(nx, 1, sch)
+        out.append(f"{v/tip_ref*100:.2f}%" if v else f"SINGULYAR ({nz})")
+    rows5.append([nx, f"{L_c/nx:.3f}", f"{L_c/nx/h_c:.2f}"] + out)
+table("Siljish qulflanishi: konsol balka (bir qator element)",
+      ["elementlar", "element uzunligi", "a/b", "to'liq 2x2",
+       "kamaytirilgan 1x1", "SRI"], rows5)
+note("To'liq integrallash 2 elementda javobning atigi 7.40% ini beradi "
+     "va 98% ga yetishi uchun 64 element kerak - SILJISH QULFLANISHI. "
+     "Kamaytirilgan integrallash har bir holatda SINGULYAR matritsa "
+     "beradi va nol rejimlar soni aynan elementlar soniga teng: "
+     "mahkamlashdan keyin har bir elementga bittadan soat mexanizmi "
+     "rejimi omon qoladi. SRI esa 2 elementdayoq 93.7% beradi va 8 "
+     "elementdan boshlab 99.5% dan yuqori turadi. Qolgan 0.1% - bu "
+     "sonli xato emas, balki ikki o'lchovli elastiklik bilan balka "
+     "nazariyasi orasidagi haqiqiy farq.")
+
+# --- (4) HAJMIY qulflanish: to'r zichlashtirish yordam beradimi? ---
+rows6 = []
+for nu_t in [0.3, 0.49, nu_v]:
+    ref, _ = cantilever(64, 8, "bbar", nu=nu_t, mode="strain")
+    line = []
+    for nx, ny in [(4, 1), (8, 1), (16, 2), (32, 4), (64, 8)]:
+        v, nz = cantilever(nx, ny, "full", nu=nu_t, mode="strain")
+        line.append(f"{v/ref*100:.2f}%" if v else "SING")
+    rows6.append([f"{nu_t:.4f}", "to'liq 2x2"] + line)
+    line = []
+    for nx, ny in [(4, 1), (8, 1), (16, 2), (32, 4), (64, 8)]:
+        v, nz = cantilever(nx, ny, "bbar", nu=nu_t, mode="strain")
+        line.append(f"{v/ref*100:.2f}%" if v else "SING")
+    rows6.append([f"{nu_t:.4f}", "B-bar"] + line)
+    line = []
+    for nx, ny in [(4, 1), (8, 1), (16, 2), (32, 4), (64, 8)]:
+        v, nz = cantilever(nx, ny, "sri", nu=nu_t, mode="strain")
+        line.append(f"{v/ref*100:.2f}%" if v else "SING")
+    rows6.append([f"{nu_t:.4f}", "SRI (siljish)"] + line)
+table("Hajmiy qulflanish: to'r zichlashtirish davolaydimi? "
+      "(tekis deformatsiya, o'sha nu dagi zich B-bar yechimiga nisbatan)",
+      ["nu", "sxema", "4x1", "8x1", "16x2", "32x4", "64x8"], rows6)
+note("HAL QILUVCHI FARQ. nu = 0.3 da to'liq integrallash to'r "
+     "zichlashganda 98.6% ga yetadi - siljish qulflanishi sekin bo'lsa "
+     "ham YO'QOLADI. nu = 0.4999 da esa u 1.08% dan boshlanib eng zich "
+     "to'rda ham atigi 5.42% ga yetadi - HAJMIY QULFLANISH "
+     "ZICHLASHTIRISH BILAN DAVOLANMAYDI. Yana bir muhim kuzatuv: SRI "
+     "nu = 0.4999 da to'liq integrallash bilan deyarli bir xil natija "
+     "beradi, chunki u siljish uchun mo'ljallangan. Davo kasallikka "
+     "MOS bo'lishi kerak. B-bar esa har uchala nu uchun ham "
+     "yaqinlashadi: dag'al to'rda u oshirib yuboradi (8x1 da 157% "
+     "gacha), lekin keyin bir tekis 100% ga tushadi - to'liq "
+     "integrallash esa nu = 0.4999 da umuman yaqinlashmaydi.")
+
+# --- (5) BARLOU nuqtalari ---
+def bar_fem(n_el, p):
+    """q = q0*x/L yuklamasi - aniq yechim kubik."""
+    EA_, q0_, Lb = 1000.0, 100.0, 1.0
+    nodes = np.linspace(-1.0, 1.0, p + 1)
+    h = Lb/n_el
+    gx, gw = np.polynomial.legendre.leggauss(p + 3)
+    N, dN = lagrange_N(gx, nodes)
+    J = h/2
+    ke = np.zeros((p + 1, p + 1))
+    for g_ in range(len(gx)):
+        B = dN[:, g_]/J
+        ke += EA_*np.outer(B, B)*gw[g_]*J
+    nd = n_el*p + 1
+    K = np.zeros((nd, nd))
+    F = np.zeros(nd)
+    for e in range(n_el):
+        idx = np.arange(e*p, e*p + p + 1)
+        K[np.ix_(idx, idx)] += ke
+        xg = e*h + h/2*(1 + gx)
+        F[idx] += np.sum(N*(q0_*xg/Lb)*gw, axis=1)*J
+    u = np.concatenate([[0.0], np.linalg.solve(K[1:, 1:], F[1:])])
+    return u, h, nodes
+
+
+def eps_exact(x):
+    return 100.0/(1000.0*1.0)*(1.0/2 - x**2/2)
+
+
+p_b, n_b = 2, 4
+u_b, h_b, nodes_b = bar_fem(n_b, p_b)
+rows7 = []
+xi_scan = np.linspace(0.0, 1.0, 51)
+errs_scan = []
+for s in xi_scan:
+    errs = []
+    for sg in ([-s, s] if s > 0 else [0.0]):
+        Ns, dNs = lagrange_N(np.array([sg]), nodes_b)
+        for e in range(n_b):
+            idx = np.arange(e*p_b, e*p_b + p_b + 1)
+            xe = np.linspace(e*h_b, (e + 1)*h_b, p_b + 1)
+            x = float(np.sum(Ns[:, 0]*xe))
+            ep = float(np.sum(dNs[:, 0]/(h_b/2)*u_b[idx]))
+            errs.append(abs(ep - eps_exact(x)))
+    errs_scan.append(max(errs))
+series("Deformatsiya xatosi element ichida", xi_scan.tolist(),
+       [np.log10(max(e, 1e-18)) for e in errs_scan],
+       xlabel="|xi|", ylabel="log10(xato)")
+for s in [0.0, 0.3, 1/np.sqrt(3), 0.7, 1.0]:
+    errs = []
+    for sg in ([-s, s] if s > 0 else [0.0]):
+        Ns, dNs = lagrange_N(np.array([sg]), nodes_b)
+        for e in range(n_b):
+            idx = np.arange(e*p_b, e*p_b + p_b + 1)
+            xe = np.linspace(e*h_b, (e + 1)*h_b, p_b + 1)
+            x = float(np.sum(Ns[:, 0]*xe))
+            ep = float(np.sum(dNs[:, 0]/(h_b/2)*u_b[idx]))
+            errs.append(abs(ep - eps_exact(x)))
+    tag = "  <-- GAUSS NUQTASI" if abs(s - 1/np.sqrt(3)) < 1e-9 else ""
+    rows7.append([f"+-{s:.6f}", f"{max(errs):.4e}", tag])
+table("Barlou nuqtalari: deformatsiya xatosi element ichida",
+      ["xi", "maks xato", "izoh"], rows7)
+i_min = int(np.argmin(errs_scan))
+value("Xato minimal bo'lgan |xi|", float(xi_scan[i_min]), "—")
+value("Gauss 2-nuqtasi 1/sqrt(3)", float(1/np.sqrt(3)), "—")
+value("Tugundagi (xi = 1) xato", float(errs_scan[-1]), "—")
+note("Kvadratik elementda deformatsiya xatosi xi = +-1/sqrt(3) da "
+     "mashina noliga tushadi (3e-16), tugunda esa 5.2e-4 - farq 12 "
+     "tartib. Bu nuqtalar aynan ikki nuqtali Gauss kvadraturasining "
+     "nuqtalari: BARLOU (superkonvergent) nuqtalari. su-14 da chiziqli "
+     "element uchun topilgan element markazi ham aynan bir nuqtali "
+     "Gauss nuqtasi edi. Shuning uchun FEM paketlari kuchlanishni "
+     "Gauss nuqtalarida hisoblab, keyin tugunlarga ekstrapolyatsiya "
+     "qiladi - tugunda bevosita hisoblash eng yomon variant.")
+
+table("Qulflanish turlari va ularga mos davolar",
+      ["Tur", "Sababi", "Belgisi", "Zichlashtirish", "Davo"],
+      [["Siljish", "parazit gamma, (a/b)^2", "cho'zilgan element",
+        "sekin yordam beradi", "SRI, EAS, yuqori p"],
+       ["Hajmiy", "nu -> 0.5 siqilmaslik", "nu > 0.45",
+        "YORDAM BERMAYDI", "B-bar, aralash u-p"],
+       ["Membranali", "egri qobiq elementi", "yupqa qobiq",
+        "sekin yordam beradi", "SRI, assumed strain"]])
+''',
+                parameters=[
+                    p("nx_c", "Konsol elementlari soni", 2.0, 64.0, 8.0,
+                      1.0),
+                    p("nu_v", "Puasson koeffitsienti (hajmiy sinov)",
+                      0.3, 0.4999, 0.4999, 0.0001),
+                    p("ab_r", "Element tomonlar nisbati a/b", 1.0, 20.0,
+                      5.0, 0.5),
+                ],
+                expected_output=(
+                    "Gauss kvadraturasining "
+                    "o'lchangan aniqlik tartibi "
+                    "har bir $n$ uchun nazariy "
+                    "$2n-1$ ga aynan teng, "
+                    "ikki nuqtali qoidaning "
+                    "ildizi esa $1/\\sqrt3$ ga "
+                    "mashina aniqligida mos "
+                    "keladi. Element matritsasi "
+                    "aynan $n = p$ nuqtada "
+                    "aniq bo'ladi. Sof egilish "
+                    "rejimida to'liq "
+                    "integrallashning energiya "
+                    "nisbati analitik "
+                    "$1 + (a/b)^2/2$ ni aynan "
+                    "takrorlaydi (1,5; 3; 9; "
+                    "33; 129), kamaytirilgan "
+                    "integrallash esa o'sha "
+                    "rejimga **aynan nol** "
+                    "energiya beradi. Bitta Q4 "
+                    "elementda kamaytirilgan "
+                    "sxema rangni 3 ga "
+                    "tushiradi va 2 ta soat "
+                    "mexanizmi rejimi hosil "
+                    "qiladi. Konsol balkada "
+                    "to'liq integrallash 2 "
+                    "elementda 7,40%, 64 "
+                    "elementda 98,70% beradi; "
+                    "SRI 2 elementdayoq 93,7%. "
+                    "$\\nu = 0{,}4999$ da esa "
+                    "to'liq integrallash eng "
+                    "zich to'rda ham atigi "
+                    "5,42% da qoladi — hajmiy "
+                    "qulflanish "
+                    "zichlashtirish bilan "
+                    "davolanmaydi. "
+                    "Deformatsiya xatosi "
+                    "$\\xi = \\pm1/\\sqrt3$ "
+                    "da $3\\cdot10^{-16}$, "
+                    "tugunda esa "
+                    "$5{,}2\\cdot10^{-4}$."
+                ),
+            ),
+            visual=vis(
+                kind="Qulflanish va soat mexanizmi rejimlari",
+                tool="React/SVG + Manim",
+                description=(
+                    "Parazit siljish maydoni, "
+                    "soat mexanizmi rejimining "
+                    "shakli va qulflanish "
+                    "egri chiziqlari."
+                ),
+                how_to_draw=(
+                    "React/SVG: yuqori chap "
+                    "panelda bitta Q4 element "
+                    "sof egilish rejimida "
+                    "ko'rsatiladi — to'rtburchak "
+                    "parallelogrammga aylanadi "
+                    "va ichidagi to'r chiziqlari "
+                    "egiladi. Element ustiga "
+                    "to'rtta Gauss nuqtasi "
+                    "qo'yiladi va har birida "
+                    "$\\gamma_{xy}$ qiymati "
+                    "rang bilan ko'rsatiladi: "
+                    "markazdan uzoqlashgan sari "
+                    "to'qlashadi, markazda esa "
+                    "**aynan oq** — parazit "
+                    "hadning $\\xi$ ga "
+                    "proporsionalligi shunda "
+                    "ko'rinadi. Tomonlar "
+                    "nisbati slayderi "
+                    "cho'zilganda ranglar "
+                    "keskin to'qlashadi va yon "
+                    "tomonda "
+                    "$1 + (a/b)^2/2$ "
+                    "ko'rsatkichi o'sib "
+                    "boradi. Yuqori o'ng "
+                    "panelda soat mexanizmi "
+                    "rejimi animatsiya bilan: "
+                    "to'rtburchak qarama-qarshi "
+                    "tomonlarga 'qum soati' "
+                    "shaklida deformatsiyalanadi "
+                    "va markazdagi Gauss "
+                    "nuqtasi butunlay "
+                    "qimirlamaydi — nol energiya "
+                    "shundan. Pastki panelda "
+                    "konsol balkaning "
+                    "yaqinlashish egri "
+                    "chiziqlari: uchta sxema "
+                    "uchun element soniga "
+                    "qarab aniqlik foizi; "
+                    "$\\nu$ slayderi 0,3 dan "
+                    "0,4999 ga surilganda "
+                    "to'liq integrallash "
+                    "egri chizig'i pastga "
+                    "tushib yassilanadi — "
+                    "hajmiy qulflanishning "
+                    "zichlashtirish bilan "
+                    "davolanmasligi aynan shu "
+                    "yassilanishda ko'rinadi."
+                ),
+            ),
+            interp=(
+                "Kvadratura o'lchovlari "
+                "nazariyani aynan tasdiqladi: "
+                "$n$ nuqta $2n-1$ darajani "
+                "oladi va element matritsasi "
+                "$n = p$ da aniq bo'ladi. "
+                "Bulardan keyin asosiy natija "
+                "keladi va u analitik "
+                "formulani mustaqil "
+                "tasdiqlaydi: sof egilish "
+                "rejimidagi energiya nisbati "
+                "$1 + (a/b)^2/[2(1+\\nu)]$ "
+                "bilan aynan mos tushdi — "
+                "1,5; 3; 9; 33; 129. Ya'ni "
+                "$a/b = 16$ da element 129 "
+                "barobar bikrroq. Eng muhim "
+                "kuzatuv esa kamaytirilgan "
+                "integrallash ustunida: u "
+                "egilish rejimiga **aynan nol** "
+                "energiya beradi. Bu shunchaki "
+                "'parazit hadni yo'qotish' "
+                "emas — egilish rejimining "
+                "o'zi soat mexanizmi rejimiga "
+                "aylanib qoladi, chunki "
+                "element markazida haqiqiy "
+                "egilish deformatsiyasi ham "
+                "nolga teng. Rang jadvali "
+                "buni tasdiqlaydi: "
+                "kamaytirilgan sxemada rang "
+                "3 ga tushadi va 2 ta soxta "
+                "rejim paydo bo'ladi. Konsol "
+                "balka tajribasi buni global "
+                "miqyosda ko'rsatadi — "
+                "kamaytirilgan integrallash "
+                "har bir to'rda singulyar "
+                "matritsa beradi va nol "
+                "rejimlar soni aynan element "
+                "ustunlari soniga teng. "
+                "SRI esa ikkalasini ajratadi "
+                "va 2 elementdayoq 93,7% "
+                "beradi. Ammo eng qimmatli "
+                "xulosa oxirgi jadvalda. "
+                "$\\nu = 0{,}3$ da "
+                "zichlashtirish siljish "
+                "qulflanishini davolaydi "
+                "(98,6% ga yetadi), "
+                "$\\nu = 0{,}4999$ da esa "
+                "to'liq integrallash eng zich "
+                "to'rda ham 5,42% da qolib "
+                "ketadi. Hajmiy qulflanish "
+                "to'r bilan davolanmaydi. Va "
+                "bundan ham nozigi: SRI "
+                "$\\nu = 0{,}4999$ da to'liq "
+                "integrallash bilan deyarli "
+                "bir xil natija beradi, "
+                "chunki u siljish uchun "
+                "mo'ljallangan. Davo "
+                "kasallikka mos bo'lishi "
+                "kerak — bu mavzuning asosiy "
+                "amaliy saboqi. Nihoyat "
+                "Barlou nuqtalari su-14 "
+                "dagi kuzatuvni yopadi: "
+                "deformatsiya xatosi "
+                "$\\pm1/\\sqrt3$ da mashina "
+                "noliga tushadi, tugunda esa "
+                "12 tartib katta."
+            ),
+            mistakes=[
+                "Qulflanishni material yoki "
+                "yig'ish xatosi deb izlash. "
+                "su-15 dagi beshta tekshiruv "
+                "ham o'tadi — kasallik "
+                "elementning o'zida.",
+                "Bir tekis kamaytirilgan "
+                "integrallashni soat mexanizmi "
+                "nazoratisiz ishlatish. "
+                "Matritsa singulyar bo'ladi "
+                "yoki yechim soxta "
+                "tebranishlarga to'ladi.",
+                "Siljish uchun mo'ljallangan "
+                "davoni hajmiy qulflanishga "
+                "qo'llash. Kodda SRI "
+                "$\\nu = 0{,}4999$ da "
+                "hech narsani yaxshilamadi.",
+                "Hajmiy qulflanishni to'r "
+                "zichlashtirish bilan "
+                "yengishga urinish. U "
+                "zichlashtirish bilan "
+                "yo'qolmaydi.",
+                "Kuchlanishni tugunlarda "
+                "bevosita hisoblash. Gauss "
+                "(Barlou) nuqtalarida "
+                "hisoblab, keyin "
+                "ekstrapolyatsiya qilish "
+                "kerak.",
+                "Cho'zilgan elementlarni "
+                "e'tiborsiz qoldirish. Xato "
+                "$(a/b)^2$ kabi o'sadi: "
+                "$a/b = 8$ da 33 barobar.",
+            ],
+            quiz=[
+                q("$n$ nuqtali Gauss qoidasi "
+                  "necha darajali ko'phadni "
+                  "aynan oladi va nega?",
+                  "$2n-1$: $n$ ta nuqta va "
+                  "$n$ ta og'irlik — jami "
+                  "$2n$ ta erkin parametr, "
+                  "shuncha shartni "
+                  "qanoatlantiradi.",
+                  "konseptual"),
+                q("Q4 elementda sof egilishda "
+                  "parazit siljish qanday "
+                  "paydo bo'ladi?",
+                  "$u = u_0\\xi\\eta$ "
+                  "rejimida $\\gamma_{xy} = "
+                  "u_0\\xi/b \\ne 0$, holbuki "
+                  "sof egilishda u nol "
+                  "bo'lishi kerak. Sabab — "
+                  "Q4 bazisining to'liq "
+                  "kvadratik emasligi.",
+                  "konseptual"),
+                q("$a/b = 5$, $\\nu = 0$ "
+                  "bo'lgan Q4 element necha "
+                  "barobar bikrroq bo'ladi?",
+                  "$1 + 25/2 = 13{,}5$ "
+                  "barobar, ya'ni ko'chish "
+                  "to'g'ri javobning 7,4% i.",
+                  "hisob"),
+                q("Kamaytirilgan integrallash "
+                  "nima uchun soat mexanizmi "
+                  "rejimlarini keltirib "
+                  "chiqaradi?",
+                  "Bitta Gauss nuqtasi rangni "
+                  "$1\\times3 = 3$ ga "
+                  "cheklaydi, $8-3 = 5$ nol "
+                  "rejim qoladi; uchtasi "
+                  "qattiq jism, ikkitasi "
+                  "soxta.", "hisob"),
+                q("Kod egilish rejimida "
+                  "kamaytirilgan integrallash "
+                  "uchun qanday energiya "
+                  "beradi va bu nimani "
+                  "anglatadi?",
+                  "Aynan nol. Demak "
+                  "kamaytirilgan sxema "
+                  "parazit siljish bilan "
+                  "birga haqiqiy egilish "
+                  "bikrligini ham yo'qotadi — "
+                  "egilish rejimi soat "
+                  "mexanizmi rejimiga "
+                  "aylanadi.", "kod"),
+                q("Siljish va hajmiy "
+                  "qulflanishning eng muhim "
+                  "amaliy farqi nima?",
+                  "To'r zichlashtirish "
+                  "siljish qulflanishini "
+                  "(sekin) davolaydi, hajmiy "
+                  "qulflanishni esa umuman "
+                  "davolamaydi: kodda "
+                  "$\\nu = 0{,}4999$ da eng "
+                  "zich to'rda ham 5,42% "
+                  "qoldi.", "talqin"),
+                q("Kodda SRI nima uchun "
+                  "$\\nu = 0{,}4999$ da "
+                  "yordam bermadi?",
+                  "SRI faqat **siljish** "
+                  "hadini kamaytiradi, hajmiy "
+                  "hadga tegmaydi. Davo "
+                  "kasallikka mos bo'lishi "
+                  "kerak; bu yerda B-bar "
+                  "kerak.", "kod"),
+                q("Barlou nuqtalari nima va "
+                  "ular amalda nima uchun "
+                  "muhim?",
+                  "Element ichida "
+                  "deformatsiya "
+                  "superkonvergent bo'ladigan "
+                  "nuqtalar; ular Gauss "
+                  "nuqtalari bilan mos "
+                  "tushadi. Shuning uchun "
+                  "kuchlanish o'sha yerda "
+                  "hisoblanib, tugunlarga "
+                  "ekstrapolyatsiya qilinadi.",
+                  "talqin"),
+            ],
+            bridge=(
+                "Element matritsalari to'g'ri "
+                "quriladi va qulflanish "
+                "tuzoqlari ma'lum bo'ldi. "
+                "Endi tizimni yechishga "
+                "o'tamiz: chegaraviy "
+                "shartlarni qanday qo'llash, "
+                "yechimdan keyin reaksiya va "
+                "kuchlanishni qanday tiklash "
+                "va natijani qanday "
+                "tekshirish."
+            ),
+            research=(
+                "Qulflanishni yengishning "
+                "zamonaviy usullarini "
+                "o'rganing. "
+                "(1) Yassilangan deformatsiya "
+                "(enhanced assumed strain, "
+                "EAS) usulini ko'rib chiqing: "
+                "u elementga qo'shimcha ichki "
+                "deformatsiya rejimlarini "
+                "kiritadi — kvadraturaga "
+                "tegmasdan qulflanishni "
+                "qanday yechadi? "
+                "(2) Aralash (mixed u–p) "
+                "formulirovkani o'rganing va "
+                "Babushka–Brezzi (inf–sup) "
+                "shartini tushuning: nima "
+                "uchun ko'chish va bosim "
+                "uchun **turli** tartibli "
+                "bazislar kerak? "
+                "(3) Flanagan–Belytschko soat "
+                "mexanizmi nazoratini ko'rib "
+                "chiqing: u aniq echilish "
+                "uchun mo'ljallangan "
+                "paketlarda (LS-DYNA, "
+                "Abaqus/Explicit) qanday "
+                "ishlaydi va qanday "
+                "sun'iy bikrlik kiritadi? "
+                "(4) Assumed Natural Strain "
+                "(ANS/MITC) usulini qobiq "
+                "elementlari uchun o'rganing "
+                "(pq-24) va uni SRI bilan "
+                "taqqoslang."
+            ),
+            manim_ref=manim(
+                scene="LockingScene",
+                module="manim/scenes/su_fem.py",
+                title="Qulflanish va soat mexanizmi",
+                summary=(
+                    "Q4 element sof egilish "
+                    "rejimida deformatsiyalanadi "
+                    "va parazit siljish "
+                    "burchagi qizil yoy bilan "
+                    "ko'rsatiladi — u markazda "
+                    "yo'qolib, chetlarda "
+                    "kattalashadi. Element "
+                    "cho'zilganda yoylar "
+                    "keskin o'sadi va "
+                    "$1 + (a/b)^2/2$ "
+                    "ko'rsatkichi 1,5 dan 129 "
+                    "gacha ko'tariladi. Keyin "
+                    "kamaytirilgan "
+                    "integrallashga o'tiladi: "
+                    "yoylar yo'qoladi, lekin "
+                    "element qum soati "
+                    "shaklida erkin "
+                    "tebranib ketadi — "
+                    "markazdagi yagona Gauss "
+                    "nuqtasi qimirlamaydi."
+                ),
+            ),
+        ),
+    ),
 ]
