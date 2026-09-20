@@ -5036,4 +5036,973 @@ table("Verifikatsiya va validatsiya: tuzilma",
             ),
         ),
     ),
+    # ------------------------------------------------------------------ su-29
+    Topic(
+        id="su-29",
+        subject_id=S, module_id=M, order=29,
+        title="Hisoblash samaradorligi: tartiblash, xotira va usul tanlovi",
+        description=(
+            "Amallar sonini va xotirani baholash, tugunlarni tartiblash "
+            "(RCM, AMD) va to'ldirilish, to'g'ri va iterativ usullar "
+            "orasidagi tanlov, oldindan shartlash hamda o'lchangan va "
+            "nazariy masshtablanishning farqi."
+        ),
+        learning_objective=(
+            "Katta FEM tizimining narxini oldindan baholash, tartiblash "
+            "va usul tanlovi orqali uni kamaytirish va tanlovni amallar "
+            "hamda xotira hisobi bilan asoslash."
+        ),
+        prerequisites=["su-28", "su-05", "su-06", "su-15"],
+        mathematical_core=(
+            "Lentali yechish: $\\mathcal{O}(Nb^2)$ amal, "
+            "$\\mathcal{O}(Nb)$ xotira; "
+            "$b \\sim N^{1/2}$ (2D), $b \\sim N^{2/3}$ (3D). "
+            "CG: $k \\le \\tfrac{1}{2}\\sqrt{\\kappa}\\,"
+            "\\ln\\tfrac{2}{\\varepsilon}$, "
+            "$\\kappa \\sim h^{-2}$."
+        ),
+        engineering_application=(
+            "Sanoat FEM paketlarida yechuvchi tanlash, katta modelni "
+            "mavjud xotiraga sig'dirish, parametrik tahlil va "
+            "optimallashtirish uchun hisob vaqtini rejalashtirish."
+        ),
+        computational_component=(
+            "Lenta kengligini RCM bilan kamaytirish, AMD tartiblashda "
+            "to'ldirilishni o'lchash, CG iteratsiyalarini sanash, "
+            "Yakobi oldindan shartlashning foydasini konstrast bo'yicha "
+            "baholash va masshtablanish darajasini o'lchash."
+        ),
+        visualization_component=(
+            "Matritsa portreti (spy) uch tartiblashda, to'ldirilish "
+            "xaritasi, log-log masshtablanish grafigi nazariy qiyalik "
+            "uchburchagi bilan, to'g'ri va iterativ usul narxining "
+            "kesishish nuqtasi."
+        ),
+        research_extension=(
+            "Ko'p to'rli (multigrid) usullar N ga proporsional "
+            "murakkablikka erishadi va bugungi kunda eng katta 3D "
+            "masalalarning asosiy yechuvchisi hisoblanadi. Tadqiqot "
+            "yo'nalishlari: algebraik multigrid (AMG) ning "
+            "geterogen va anizotrop masalalarga moslashuvi, domenlarga "
+            "ajratish (domain decomposition) usullari va ularning "
+            "parallel masshtablanishi, GPU uchun siyrak yechuvchilar, "
+            "hamda matritsasiz (matrix-free) formulirovkalar — bu yerda "
+            "K umuman saqlanmaydi, faqat K·v ko'paytma hisoblanadi, "
+            "bu esa xotira devorini butunlay chetlab o'tadi."
+        ),
+        difficulty="chuqurlashtirilgan",
+        previous_link=(
+            "su-28 natijaning ishonchliligini rasmiylashtirdi: MMS bilan "
+            "kod verifikatsiyasi, Richardson ekstrapolyatsiyasi va GCI "
+            "bilan xatolik chegarasi. Lekin bu tartib to'rni bir necha "
+            "marta maydalashni talab qiladi — ya'ni ishonchlilik "
+            "hisoblash resursi evaziga sotib olinadi. Shu yerda tabiiy "
+            "savol tug'iladi: bu resurs qanchaga tushadi va uni "
+            "qanday kamaytirish mumkin? su-05 va su-06 da LU, Cholesky "
+            "va CG algoritmlari alohida o'rganilgan edi, su-15 da esa "
+            "yig'ish va lenta tushunchasi kiritilgan edi. Endi ular "
+            "bitta muhandislik qaroriga birlashtiriladi."
+        ),
+        next_topic="su-30",
+        estimated_minutes=100,
+        tags=["samaradorlik", "tartiblash", "RCM", "AMD", "to'ldirilish",
+              "oldindan shartlash", "masshtablanish"],
+        lesson=_lesson(
+            problem=(
+                "Aviatsiya kronshteyni geksaedr elementlar bilan "
+                "modellashtirilgan: 500 000 erkinlik darajasi. Muhandis "
+                "uni odatdagi ish stansiyasida (32 GB operativ xotira) "
+                "yechmoqchi. To'la matritsa sifatida saqlansa, K uchun "
+                "$N^2 \\cdot 8 = 2{,}0$ TB kerak bo'ladi — bu mavjud "
+                "xotiradan 60 baravar ko'p. Model kichraytirilsinmi, "
+                "yoki boshqa yechuvchi tanlansinmi?\n\n"
+                "Bu masala butun kursdagi eng amaliy savolni qo'yadi. "
+                "su-13 dan su-28 gacha biz aniqlikni oshirishni "
+                "o'rgandik: yuqori tartibli elementlar, adaptiv to'r, "
+                "GCI bilan xatolik chegarasi. Ularning har biri N ni "
+                "oshiradi. Lekin N ning o'sishi bilan narx CHIZIQLI "
+                "o'smaydi: to'la yechishda u $N^3$ kabi, xotira esa "
+                "$N^2$ kabi o'sadi. Shuning uchun aniqlikni oshirish "
+                "muqarrar ravishda hisoblash devoriga (computational "
+                "wall) urilalib qoladi.\n\n"
+                "Yaxshi xabar shundaki, bu devor algoritm tanlovi bilan "
+                "juda uzoqqa suriladi. Bir xil masala, bir xil "
+                "kompyuter: to'la matritsa 2 TB va $8{,}3\\cdot10^{16}$ "
+                "amal talab qiladi; siyrak saqlash va to'g'ri tartiblash "
+                "bilan xotira 0,32 GB ga, iterativ yechuvchi bilan esa "
+                "amallar $1{,}6\\cdot10^{10}$ ga tushadi. Bu amallar "
+                "bo'yicha besh million baravar farq — hech qanday "
+                "apparat yangilanishi bunday tezlanishni bermaydi."
+            ),
+            concepts=[
+                c("Amallar soni (operation count, flop)",
+                  "Algoritm bajaradigan ko'paytirish va qo'shishlar "
+                  "soni. Odatda N ning darajasi sifatida yoziladi: "
+                  "to'la LU uchun 2N^3/3, lentali uchun 2Nb^2. Bu "
+                  "vaqtni to'g'ridan-to'g'ri bermaydi, lekin N "
+                  "ikkilanganda vaqt necha marta oshishini beradi."),
+                c("Lenta kengligi (bandwidth)",
+                  "b = max|i - j|, bu yerda K_ij nolmas. Lentali "
+                  "faktorizatsiya faqat lenta ichida ishlaydi, shuning "
+                  "uchun narx to'g'ridan-to'g'ri b ga bog'liq. "
+                  "Tuzilgan to'rda b to'rning eng qisqa kesimiga teng."),
+                c("To'ldirilish (fill-in)",
+                  "Faktorizatsiya davomida K da nol bo'lgan joyda "
+                  "L yoki U da nolmas paydo bo'lishi. Siyrak "
+                  "yechishning asosiy narxi — to'ldirilish, chunki u "
+                  "ham xotirani, ham amallar sonini belgilaydi."),
+                c("Tartiblash (ordering, renumbering)",
+                  "Tugunlarni qayta raqamlash, ya'ni K ni P K P^T ga "
+                  "almashtirish. Yechimni o'zgartirmaydi, lekin lenta "
+                  "kengligini va to'ldirilishni tubdan o'zgartiradi. "
+                  "RCM lentani toraytiradi, AMD to'ldirilishni "
+                  "kamaytiradi."),
+                c("Teskari Katxill-Makki (RCM, reverse Cuthill-McKee)",
+                  "Grafni kenglik bo'yicha aylanib chiqib, tugunlarni "
+                  "qatlam-qatlam raqamlaydigan evristika. Natijada "
+                  "lenta kengligi to'rning kesimi tartibiga tushadi."),
+                c("Minimal daraja (AMD, approximate minimum degree)",
+                  "Har qadamda eng kam qo'shniga ega tugunni "
+                  "chiqaradigan evristika. Lentani qaramaydi, "
+                  "to'ldirilishni to'g'ridan-to'g'ri kamaytiradi va "
+                  "shuning uchun RCM dan yaxshiroq natija beradi."),
+                c("Uyalangan ajratish (nested dissection)",
+                  "Sohani ajratuvchi (separator) bilan ikkiga bo'lib, "
+                  "ajratuvchini oxirida raqamlash va buni rekursiv "
+                  "takrorlash. 2D da nnz(L) ~ N log N, amallar ~ "
+                  "N^{3/2}; 3D da nnz(L) ~ N^{4/3}, amallar ~ N^2."),
+                c("Oldindan shartlash (preconditioning)",
+                  "K u = f o'rniga M^{-1}K u = M^{-1}f yechish, bu "
+                  "yerda M ni qurish arzon va M^{-1}K ning "
+                  "shartlanganligi yaxshiroq. Iteratsiya soni "
+                  "sqrt(kappa) ga bog'liq bo'lgani uchun kappa ni "
+                  "kamaytirish to'g'ridan-to'g'ri vaqtni kamaytiradi."),
+                c("Xotira devori (memory wall)",
+                  "Katta masalalarda cheklovchi omil ko'pincha "
+                  "amallar soni emas, balki xotira hajmi va unga "
+                  "murojaat tezligi. Iterativ usullarning asosiy "
+                  "ustunligi ham shu: ular K dan boshqa hech narsa "
+                  "saqlamaydi."),
+            ],
+            derivation=[
+                d("Lentali faktorizatsiyaning narxi",
+                  "K_{ij} = 0,\\quad |i-j| > b \;\\Longrightarrow\; "
+                  "\\text{amallar} \\approx 2Nb^2,\\quad "
+                  "\\text{xotira} \\approx Nb",
+                  "Gauss chiqarishning k-qadamida faqat k-ustundagi "
+                  "lenta ichidagi b ta satr yangilanadi, har birida b "
+                  "ta element. Demak bitta qadam ~b^2 amal, N ta qadam "
+                  "~Nb^2 amal beradi (ko'paytirish va qo'shish bilan "
+                  "2Nb^2). Muhim xususiyat: lentali faktorizatsiya "
+                  "lentadan tashqariga hech qachon chiqmaydi, ya'ni "
+                  "to'ldirilish lenta bilan chegaralangan."),
+                d("Tuzilgan to'rda lenta kengligi kesim bilan belgilanadi",
+                  "b = \\min(\\text{kesim})\;\\Longrightarrow\; "
+                  "b \\sim N^{1/2}\\ (\\text{2D}),\\qquad "
+                  "b \\sim N^{2/3}\\ (\\text{3D})",
+                  "Besh nuqtali shablonda (i,j) tuguni (i,j±1) bilan "
+                  "bog'langan; agar raqamlash i bo'yicha tez yursa, "
+                  "bu qo'shnilarning nomeri n_x ga farq qiladi, demak "
+                  "b = n_x. Shuning uchun HAR DOIM qisqa yo'nalish "
+                  "bo'ylab raqamlash kerak: m×m to'rda b = m = "
+                  "sqrt(N), 3D m×m×m to'rda esa butun kesim b = m^2 = "
+                  "N^{2/3}. Bu oddiy qoida 16×64 to'rda amallar sonini "
+                  "aynan (64/16)^2 = 16 marta o'zgartiradi."),
+                d("2D va 3D uchun to'g'ri yechishning narxi",
+                  "\\text{2D}: 2Nb^2 \\sim 2N\\cdot N = N^2;\\qquad "
+                  "\\text{3D}: 2Nb^2 \\sim 2N\\cdot N^{4/3} = N^{7/3}",
+                  "Lenta kengligini oldingi qadamdan qo'yamiz. Xotira "
+                  "esa 2D da Nb ~ N^{3/2}, 3D da Nb ~ N^{5/3}. "
+                  "Uyalangan ajratish bu ko'rsatkichlarni yaxshilaydi: "
+                  "2D da amallar N^{3/2}, xotira N log N; 3D da "
+                  "amallar N^2, xotira N^{4/3}. Ikkala holatda ham "
+                  "3D 2D dan sezilarli qimmatroq — sabab geometrik: "
+                  "3D da ajratuvchi yuza, 2D da esa chiziq."),
+                d("CG iteratsiyalari shartlanganlik orqali",
+                  "\\frac{\\|e_k\\|_A}{\\|e_0\\|_A} \\le "
+                  "2\\left(\\frac{\\sqrt{\\kappa}-1}"
+                  "{\\sqrt{\\kappa}+1}\\right)^{k} "
+                  "\;\\Longrightarrow\; k \\le \\tfrac{1}{2}"
+                  "\\sqrt{\\kappa}\\,\\ln\\frac{2}{\\varepsilon}",
+                  "su-06 dagi CG bahosi. Chegaraviy masala uchun "
+                  "kappa ~ h^{-2} (su-04), demak 2D da kappa ~ N va "
+                  "k ~ sqrt(N) = N^{1/2}; 3D da kappa ~ N^{2/3} va "
+                  "k ~ N^{1/3}. E'tibor bering: o'lchov qancha yuqori "
+                  "bo'lsa, CG uchun SHUNCHA YAXSHI — bu to'g'ri "
+                  "usullardagi holatning aynan teskarisi."),
+                d("Kesishish: qaysi usul qachon yutadi",
+                  "\\text{CG amallari} = 2\\,\\mathrm{nnz}\\cdot k "
+                  "\\sim N\\cdot N^{1/2} = N^{3/2}\\ (\\text{2D}), "
+                  "\\qquad N\\cdot N^{1/3} = N^{4/3}\\ (\\text{3D})",
+                  "nnz ~ N, chunki har satrda qo'shnilar soni "
+                  "chegaralangan. Endi taqqoslaymiz. 2D: to'g'ri "
+                  "N^{3/2}, CG N^{3/2} — DARAJALAR TENG, tanlov "
+                  "o'zgarmas koeffitsientlar, xotira va o'ng "
+                  "tomonlar soniga qarab qilinadi (bitta "
+                  "faktorizatsiya ko'p yuk holati uchun qayta "
+                  "ishlatiladi). 3D: to'g'ri N^2, CG N^{4/3} — "
+                  "farq N^{2/3}, ya'ni N = 10^6 da o'n ming baravar. "
+                  "Xulosa qat'iy: katta 3D masalada iterativ "
+                  "yechuvchi yagona amaliy yo'l."),
+                d("Oldindan shartlash nimani o'zgartiradi",
+                  "\\kappa(\\mathbf{M}^{-1}\\mathbf{K}) \\ll "
+                  "\\kappa(\\mathbf{K}) \;\\Longrightarrow\; "
+                  "k \\downarrow, \\qquad "
+                  "\\mathbf{M} = \\mathrm{diag}(\\mathbf{K})\\ "
+                  "(\\text{Yakobi})",
+                  "Yakobi eng arzon variant: faqat diagonalga bo'lish. "
+                  "Lekin u FAQAT diagonal tarqoq bo'lganda ishlaydi. "
+                  "Bir jinsli materialdagi besh nuqtali shablonda "
+                  "diagonal aynan o'zgarmas (hamma joyda 4), shuning "
+                  "uchun unga bo'lish — o'zgarmasga ko'paytirish, "
+                  "kappa esa umuman o'zgarmaydi. Hisobda bu 1,00x "
+                  "tezlanish sifatida ko'rinadi. Material konstrasti "
+                  "oshgan sari foyda paydo bo'ladi: 10 da 1,39x, "
+                  "100 da 2,29x, 1000 da 5,89x."),
+            ],
+            meaning=(
+                "**$2Nb^2$ — lentali yechishning narxi.** Bu ifodada N "
+                "chiziqli, b esa KVADRAT ko'rinishda qatnashadi. "
+                "Amaliy xulosa: masalani ikki baravar maydalashdan "
+                "ko'ra, lenta kengligini ikki baravar toraytirish to'rt "
+                "baravar ko'p foyda beradi. Aynan shuning uchun "
+                "tartiblash — bu bepul optimallashtirish: u yechimni "
+                "zarracha o'zgartirmaydi, faqat xotiradagi joylashuvni "
+                "o'zgartiradi.\n\n"
+                "**$b \\sim N^{1/2}$ va $b \\sim N^{2/3}$ — o'lchovning "
+                "jazosi.** Lenta kengligi — to'rni ikkiga bo'luvchi "
+                "eng kichik kesimdagi tugunlar soni. 2D da bu chiziq, "
+                "3D da esa yuza. Yuza chiziqdan tezroq o'sadi, "
+                "shuning uchun uch o'lchovli masala ikki o'lchovlidan "
+                "nafaqat kattaroq, balki har bir noma'lum uchun ham "
+                "qimmatroq.\n\n"
+                "**$k \\le \\tfrac12\\sqrt{\\kappa}\\ln(2/\\varepsilon)$ "
+                "— iterativ usulning narxi.** Bu yerda kappa ning "
+                "KVADRAT ILDIZI turibdi, bu CG ning oddiy iteratsiyaga "
+                "nisbatan asosiy yutug'i (su-06). Natijada CG ning "
+                "narxi o'lchov oshishi bilan YAXSHILANADI: 2D da "
+                "N^{1/2}, 3D da N^{1/3}. Sabab shundaki, bir xil N da "
+                "3D to'r har bir yo'nalishda maydaroq emas, balki "
+                "qo'polroq (m = N^{1/3}), demak h kattaroq va kappa "
+                "kichikroq.\n\n"
+                "**Xotira ifodalarini amallardan alohida o'qish kerak.** "
+                "Ko'pincha masala amallar soni tufayli emas, xotira "
+                "tufayli yechilmaydi. Kronshteyn misolida to'la "
+                "matritsa 2 TB talab qiladi — bu 32 GB li mashinada "
+                "ishlamaydi, amallar soni qanday bo'lishidan qat'i "
+                "nazar. Iterativ usulning eng kuchli tomoni ham shu: "
+                "uning xotirasi $\\mathcal{O}(N)$, ya'ni K dan tashqari "
+                "faqat bir nechta vektor."
+            ),
+            equations=[
+                eq("W_{\\text{to'la}} = \\tfrac{2}{3}N^3, \\qquad "
+                   "M_{\\text{to'la}} = 8N^2\\ \\text{bayt}",
+                   "To'la (zich) LU faktorizatsiyasining amallar soni "
+                   "va xotirasi. Hech qanday siyraklikdan "
+                   "foydalanilmaydi — bu yuqori chegara.",
+                   "To'la yechishning narxi"),
+                eq("W_{\\text{lenta}} \\approx 2Nb^2, \\qquad "
+                   "M_{\\text{lenta}} \\approx 8Nb\\ \\text{bayt}",
+                   "Lentali faktorizatsiya. b — lenta kengligi; "
+                   "tartiblash aynan shu kattalikni kamaytiradi.",
+                   "Lentali yechishning narxi"),
+                eq("b_{\\text{2D}} \\sim N^{1/2}, \\qquad "
+                   "b_{\\text{3D}} \\sim N^{2/3}",
+                   "Tuzilgan to'rda lenta kengligi eng kichik kesimga "
+                   "teng: 2D da chiziq, 3D da yuza.",
+                   "Lenta kengligining o'lchovga bog'liqligi"),
+                eq("\\text{2D}:\\ \\mathrm{nnz}(L) \\sim N\\log N, \\ "
+                   "W \\sim N^{3/2}; \\qquad "
+                   "\\text{3D}:\\ \\mathrm{nnz}(L) \\sim N^{4/3}, \\ "
+                   "W \\sim N^{2}",
+                   "Uyalangan ajratish tartiblashi uchun nazariy "
+                   "baholar. AMD bu chegaraga yaqinlashadi, lekin "
+                   "evristika bo'lgani uchun undan biroz yomonroq.",
+                   "Uyalangan ajratishning baholari"),
+                eq("\\frac{\\|\\mathbf{e}_k\\|_A}"
+                   "{\\|\\mathbf{e}_0\\|_A} \\le "
+                   "2\\left(\\frac{\\sqrt{\\kappa}-1}"
+                   "{\\sqrt{\\kappa}+1}\\right)^{k}",
+                   "CG ning yaqinlashish bahosi (su-06). Xatolik "
+                   "energiya normasida o'lchanadi.",
+                   "CG yaqinlashish bahosi"),
+                eq("\\kappa(\\mathbf{K}) \\sim h^{-2} "
+                   "\;\\Longrightarrow\; "
+                   "k \\sim N^{1/2}\\ (\\text{2D}), \\quad "
+                   "k \\sim N^{1/3}\\ (\\text{3D})",
+                   "Chegaraviy masala matritsasining shartlanganligi "
+                   "va undan kelib chiqadigan iteratsiya soni.",
+                   "Iteratsiya sonining masshtablanishi"),
+                eq("W_{\\text{CG}} = 2\\,\\mathrm{nnz}\\cdot k "
+                   "\\sim N^{3/2}\\ (\\text{2D}), \\quad "
+                   "N^{4/3}\\ (\\text{3D}), \\qquad "
+                   "M_{\\text{CG}} = \\mathcal{O}(N)",
+                   "Iterativ yechishning to'liq narxi. Xotira "
+                   "o'lchovdan qat'i nazar chiziqli.",
+                   "CG ning umumiy narxi"),
+            ],
+            conditions=(
+                "Bu mavzuda 'chegaraviy shartlar' o'rnini ALGORITM "
+                "QO'LLANISH SHARTLARI egallaydi — har bir baho faqat "
+                "ma'lum farazlar ostida o'rinli.\n\n"
+                "**Lentali baho uchun:** matritsa haqiqatan ham lenta "
+                "tuzilishiga ega bo'lishi kerak. Bitta uzoq bog'lanish "
+                "(masalan, ikki uzoq tugunni bog'laydigan MPC yoki "
+                "davriy chegaraviy shart, su-17) lenta kengligini "
+                "butun tizim o'lchamigacha ko'taradi va bahoni "
+                "buzadi. Bunday bog'lanishlar alohida "
+                "(Lagranj ko'paytuvchisi yoki chegara ajratish bilan) "
+                "ishlatilishi kerak.\n\n"
+                "**Cholesky uchun:** K simmetrik musbat aniq bo'lishi "
+                "shart. Chegaraviy shartlar qo'yilmagan tizim "
+                "qattiq jism harakatlari tufayli yarim aniq bo'ladi "
+                "(su-15), nochiziqli masalada esa chegaraviy nuqtadan "
+                "keyin tangensial matritsa aniqligini yo'qotadi "
+                "(su-24). Ikkala holatda ham Cholesky ishlamaydi va "
+                "LDL^T yoki boshqa strategiya kerak.\n\n"
+                "**CG uchun:** K simmetrik musbat aniq bo'lishi shart. "
+                "Nosimmetrik masalalarda (konveksiya, kontakt) "
+                "GMRES yoki BiCGSTAB kerak, ularning bahosi esa "
+                "sqrt(kappa) emas. Bundan tashqari CG ning "
+                "to'xtatish mezoni QOLDIQ bo'yicha o'lchanadi, "
+                "xatolik bo'yicha emas: ||r||/||f|| <= eps dan "
+                "||e|| <= kappa*eps*||u|| kelib chiqadi, ya'ni yomon "
+                "shartlangan tizimda qoldiq kichik bo'lsa ham xatolik "
+                "katta bo'lishi mumkin (su-04).\n\n"
+                "**Masshtablanish o'lchovi uchun:** o'lchangan daraja "
+                "nazariyga faqat ASIMPTOTIK rejimda yaqinlashadi. "
+                "Kichik N da kesh iyerarxiyasi va BLAS parallelligi "
+                "natijani buzadi. Shuning uchun global log-log "
+                "moslash emas, ketma-ket o'lchamlar orasidagi lokal "
+                "qiyalik qaraladi va uning barqarorlashuvi kutiladi."
+            ),
+            worked=WorkedExample(
+                statement=(
+                    "Aviatsiya kronshteyni geksaedr elementlar bilan "
+                    "modellashtirilgan: N = 500 000 erkinlik darajasi, "
+                    "har bir satrda o'rtacha 81 ta nolmas (27 qo'shni "
+                    "tugun × 3 erkinlik darajasi). Mavjud ish "
+                    "stansiyasida 32 GB operativ xotira bor. "
+                    "To'rt variant uchun xotira va amallar sonini "
+                    "baholang va yechuvchini tanlang: (a) to'la "
+                    "matritsa, (b) lentali, (c) siyrak + AMD "
+                    "tartiblash, (d) oldindan shartlangan CG."
+                ),
+                given=[
+                    "N = 500 000 erkinlik darajasi",
+                    "Satrdagi o'rtacha nolmaslar soni: 81",
+                    "Mavjud xotira: 32 GB",
+                    "Haqiqiy son: 8 bayt (double)",
+                    "3D uchun b ~ N^(2/3), nnz(L) ~ N^(4/3)",
+                    "CG uchun k ~ c·N^(1/3), c ≈ 2,47 (o'lchangan)",
+                ],
+                steps=[
+                    st("M_{\\text{to'la}} = 8N^2 = 8\\cdot(5\\cdot10^5)^2 "
+                       "= 8 \\cdot 2{,}5\\cdot10^{11} = 2{,}0\\cdot10^{12}"
+                       "\\ \\text{bayt} = 2{,}0\\ \\text{TB}",
+                       "(a) To'la matritsa. 2 TB — mavjud 32 GB dan "
+                       "62 baravar ko'p. Variant BEKOR QILINADI, "
+                       "amallar sonini hisoblashning ham hojati yo'q. "
+                       "Ma'lumot uchun: 2N^3/3 = 8,3·10^16 amal, bu "
+                       "10 Gflop/s li mashinada ~100 kun."),
+                    st("b \\sim N^{2/3} = (5\\cdot10^5)^{2/3} "
+                       "\\approx 6300, \\qquad "
+                       "M = 8Nb = 8\\cdot5\\cdot10^5\\cdot6300 "
+                       "= 2{,}52\\cdot10^{10}\\ \\text{bayt} "
+                       "= 25{,}2\\ \\text{GB}",
+                       "(b) Lentali. 25,2 GB — 32 GB ga rasmiy "
+                       "sig'adi, lekin operatsion tizim va dastur "
+                       "uchun joy qolmaydi; amalda bu ishlamaydi. "
+                       "Amallar: 2Nb^2 = 2·5·10^5·6300^2 = "
+                       "4,0·10^13 flop, ya'ni ~1 soat. Chegaraviy "
+                       "variant, ishonchsiz."),
+                    st("\\mathrm{nnz}(L+U) \\sim N^{4/3} = "
+                       "(5\\cdot10^5)^{4/3} \\approx 3{,}97\\cdot10^7, "
+                       "\\qquad M = 8\\cdot3{,}97\\cdot10^7 "
+                       "\\approx 0{,}32\\ \\text{GB}",
+                       "(c) Siyrak + AMD. Atigi 0,32 GB — xotira "
+                       "bo'yicha muammo YO'Q, lentaliga nisbatan 79 "
+                       "baravar kam. Amallar esa 3D da ~N^2 = "
+                       "2,5·10^11 flop, ya'ni ~25 sekund. Bu ishlaydigan "
+                       "variant."),
+                    st("\\mathrm{nnz}(K) = 81N = 4{,}05\\cdot10^7, "
+                       "\\qquad M \\approx 4{,}05\\cdot10^7 \\cdot 12 "
+                       "\\approx 0{,}49\\ \\text{GB}",
+                       "(d) CG uchun xotira: qiymatlar (8 bayt) va "
+                       "ustun indekslari (4 bayt) — satr boshiga "
+                       "12 bayt, jami ~0,49 GB, ustiga bir nechta "
+                       "vektor (har biri 4 MB). Xotira bo'yicha "
+                       "muammo yo'q."),
+                    st("k \\approx 2{,}47\\cdot N^{1/3} = "
+                       "2{,}47 \\cdot 79{,}4 \\approx 196, \\qquad "
+                       "W = 2\\,\\mathrm{nnz}\\cdot k = "
+                       "2\\cdot4{,}05\\cdot10^7\\cdot196 "
+                       "= 1{,}59\\cdot10^{10}\\ \\text{flop}",
+                       "(d) CG uchun amallar. 1,6·10^10 flop — "
+                       "siyrak to'g'ri usuldan 15,8 baravar kam, "
+                       "ya'ni ~2 sekund. Koeffitsient c = 2,47 "
+                       "quyidagi hisobda 3D Puasson uchun "
+                       "o'lchangan (N = 32768 da 79 iteratsiya)."),
+                    st("\\text{to'la} : \\text{CG} \\ \\text{xotira} "
+                       "= \\frac{2{,}0\\cdot10^{12}}{4{,}9\\cdot10^{8}} "
+                       "\\approx 4100\\times, \\qquad "
+                       "\\text{to'g'ri} : \\text{CG}\\ \\text{amallar} "
+                       "\\approx 15{,}8\\times",
+                       "Yakuniy taqqoslash. Bir xil masala va bir xil "
+                       "kompyuterda faqat saqlash formati va algoritm "
+                       "tanlovi xotirani 4100 marta, amallarni esa "
+                       "(to'la usulga nisbatan) besh million marta "
+                       "kamaytirdi."),
+                ],
+                answer=(
+                    "Tanlov: **oldindan shartlangan CG**. Xotira "
+                    "~0,5 GB (32 GB dan juda kichik), amallar "
+                    "1,6·10^10 flop (~2 sekund). Siyrak to'g'ri "
+                    "usul (AMD) ham ishlaydi — 0,32 GB va ~25 sekund — "
+                    "va agar KO'P YUK HOLATI yechilishi kerak bo'lsa, "
+                    "aynan u afzal: faktorizatsiya bir marta "
+                    "qilinadi, keyin har bir yuk uchun faqat "
+                    "oldinga-orqaga yurish (~2·nnz(L) = 8·10^7 amal) "
+                    "kerak. To'la va lentali variantlar bekor "
+                    "qilinadi."
+                ),
+                engineering_note=(
+                    "Bu yerda eng muhim amaliy xulosa: TANLOV BITTA "
+                    "EMAS, u savolga bog'liq. Bitta statik tahlil uchun "
+                    "CG aniq yutadi. Yuzta yuk holati uchun siyrak "
+                    "to'g'ri usul yutadi, chunki uning qimmat qismi "
+                    "(faktorizatsiya) bir marta to'lanadi. Xususiy "
+                    "qiymat masalasida (su-23) ham to'g'ri usul afzal, "
+                    "chunki teskari iteratsiya bir xil matritsani "
+                    "qayta-qayta ishlatadi. Nochiziqli tahlilda "
+                    "(su-24) esa tangensial matritsa har qadamda "
+                    "o'zgaradi, demak yana iterativ usul tomonga "
+                    "og'adi. Shuning uchun sanoat paketlarida "
+                    "yechuvchi tanlovi foydalanuvchiga qoldiriladi — "
+                    "va uni to'g'ri tanlash muhandisning vazifasi."
+                ),
+            ),
+            computation=Computation(
+                caption=(
+                    "Tartiblash, to'ldirilish, oldindan shartlash va "
+                    "masshtablanishni bitta hisobda o'lchash: RCM "
+                    "lenta kengligini qanday tiklaydi, AMD "
+                    "to'ldirilishni qancha kamaytiradi, Yakobi "
+                    "qachon foyda beradi va o'lchangan daraja "
+                    "nazariyga qachon yaqinlashadi."
+                ),
+                parameters=[
+                    p("m", "To'r o'lchami (yo'nalish bo'yicha)",
+                      8, 64, 20, 4, "tugun"),
+                    p("dim", "Fazo o'lchovi (2 yoki 3)", 2, 3, 2, 1, ""),
+                    p("seed", "Tasodifiy raqamlash urug'i", 1, 50, 1, 1, ""),
+                ],
+                code='''"""Hisoblash samaradorligi: tartiblash, xotira va usul tanlovi."""
+import numpy as np
+from scipy.sparse import coo_matrix, csc_matrix, diags, identity, kron
+from scipy.sparse.csgraph import reverse_cuthill_mckee
+from scipy.sparse.linalg import LinearOperator, cg, splu
+from labkit import PARAMS, note, series, table, value
+
+m = int(PARAMS.get("m", 20))
+dim = int(PARAMS.get("dim", 2))
+seed = int(PARAMS.get("seed", 1))
+if dim == 3:                       # 3D da N = m^3 — resursni cheklaymiz
+    m = min(m, 16)
+
+# ---------------------------------------------------------------- to'r
+def lap(mm, dd):
+    """dd o'lchovli Puasson operatori, Dirixle chegara (su-11)."""
+    T = diags([-1.0, 2.0, -1.0], [-1, 0, 1], shape=(mm, mm))
+    I = identity(mm, format="csr")
+    if dd == 2:
+        return csc_matrix(kron(I, T) + kron(T, I))
+    return csc_matrix(kron(I, kron(I, T)) + kron(I, kron(T, I))
+                      + kron(T, kron(I, I)))
+
+def het2d(mm, contrast, sd=1):
+    """Heterogen material: har katakda o'z E si, yuz bo'yicha o'rtacha.
+
+    DIQQAT: bu A = D K D emas. Diagonal masshtablash Yakobi bilan aynan
+    qaytariladi va soxta tezlanish beradi; bu yerda E element darajasida
+    yig'iladi, shuning uchun natija fizik ma'noga ega.
+    """
+    r = np.random.default_rng(sd)
+    E = contrast ** r.uniform(-1.0, 1.0, size=(mm, mm))
+    idx = np.arange(mm * mm).reshape(mm, mm)
+    I, J, V = [], [], []
+    dg = np.zeros((mm, mm))
+    for sl_a, sl_b in ((np.s_[:-1, :], np.s_[1:, :]),
+                       (np.s_[:, :-1], np.s_[:, 1:])):
+        e = 0.5 * (E[sl_a] + E[sl_b])
+        a, b, ev = idx[sl_a].ravel(), idx[sl_b].ravel(), e.ravel()
+        I += [a, b]; J += [b, a]; V += [-ev, -ev]
+        dg[sl_a] += e; dg[sl_b] += e
+    dg[0, :] += E[0, :]; dg[-1, :] += E[-1, :]      # Dirixle tashqi yuzlar
+    dg[:, 0] += E[:, 0]; dg[:, -1] += E[:, -1]
+    I.append(idx.ravel()); J.append(idx.ravel()); V.append(dg.ravel())
+    return csc_matrix(coo_matrix(
+        (np.concatenate(V), (np.concatenate(I), np.concatenate(J))),
+        shape=(mm * mm, mm * mm)))
+
+bw = lambda A: int(np.max(np.abs(A.tocoo().row - A.tocoo().col)))
+perm = lambda A, pr: csc_matrix(A[pr, :][:, pr])
+g = lambda f: f.L.nnz + f.U.nnz
+
+def n_iter(A, M=None):
+    it = [0]
+    cg(A, np.ones(A.shape[0]), rtol=1e-8, maxiter=50000,
+       callback=lambda x: it.__setitem__(0, it[0] + 1), M=M)
+    return it[0]
+
+K = lap(m, dim)
+N = K.shape[0]
+value("N", N, "noma'lum")
+value("nnz(K)", K.nnz, "dona")
+value("Zichlik", 100.0 * K.nnz / N**2, "%")
+
+# --- 1. Tartiblash lenta kengligini qanday o'zgartiradi -----------------
+rng = np.random.default_rng(seed)
+Krand = perm(K, rng.permutation(N))
+Krcm = perm(Krand, reverse_cuthill_mckee(Krand, symmetric_mode=True))
+rows = []
+for nm, A in (("tabiiy", K), ("tasodifiy", Krand), ("RCM", Krcm)):
+    b = bw(A)
+    rows.append([nm, b, f"{2.0 * N * b**2:.2e}", f"{N * b * 8 / 1e6:.2f}"])
+table("Lenta kengligi va lentali yechish narxi",
+      ["Tartiblash", "b", "amallar ~ 2Nb^2", "xotira, MB"], rows)
+value("RCM tejashi", (bw(Krand) / bw(Krcm)) ** 2, "marta")
+note(
+    "Tabiiy raqamlash allaqachon optimal bo'lgani uchun RCM uni "
+    "yaxshilamaydi — ba'zan bir-ikki birlikka yomonlashtiradi ham. "
+    "RCM ning foydasi to'r generatori bergan tartibsiz raqamlashda "
+    "ko'rinadi: lenta kengligi N ga yaqin qiymatdan yana sqrt(N) "
+    "atrofiga tushadi."
+)
+
+# --- 2. To'ldirilish -----------------------------------------------------
+fills = {"tasodifiy": g(splu(Krand, permc_spec="NATURAL")),
+         "RCM": g(splu(Krcm, permc_spec="NATURAL")),
+         "AMD": g(splu(K, permc_spec="MMD_AT_PLUS_A"))}
+rows = [[nm, v, f"{v / K.nnz:.1f}x", f"{v * 8 / 1e6:.2f}"]
+        for nm, v in fills.items()]
+rows.append(["to'la matritsa", N * N, f"{N * N / K.nnz:.1f}x",
+             f"{N * N * 8 / 1e6:.2f}"])
+table("Faktorizatsiyadagi to'ldirilish (fill-in)",
+      ["Tartiblash", "nnz(L+U)", "K ga nisbatan", "xotira, MB"], rows)
+value("AMD/RCM nisbati", fills["RCM"] / fills["AMD"], "marta")
+
+# --- 3. Iterativ yechish -------------------------------------------------
+it0 = n_iter(K)
+value("CG iteratsiyalari", it0, "dona")
+value("CG amallari", 2.0 * K.nnz * it0, "amal")
+value("CG xotirasi", K.nnz * 8 / 1e6 + N * 4 * 8 / 1e6, "MB")
+
+# --- 4. Yakobi oldindan shartlash qachon foyda beradi ---------------------
+A1 = het2d(m, 1.0, seed)
+K2 = lap(m, 2)
+value("Nazorat: het(E=1) - K", float(abs(A1 - K2).max()), "-")
+rows = []
+for cst in (1.0, 10.0, 100.0, 1000.0):
+    Ac = het2d(m, cst, seed)
+    dg = Ac.diagonal()
+    Mj = LinearOperator(Ac.shape, matvec=lambda x, dd=dg: x / dd)
+    i1, i2 = n_iter(Ac), n_iter(Ac, Mj)
+    rows.append([f"{cst:.0f}", f"{dg.max() / dg.min():.1f}", i1, i2,
+                 f"{i1 / i2:.2f}x"])
+table("Yakobi oldindan shartlash: material konstrastiga bog'liqlik",
+      ["E_max/E_min", "diagonal farqi", "CG", "Yakobi-CG", "tezlanish"], rows)
+note(
+    "Bir jinsli materialda Yakobi mutlaqo foyda bermaydi (1,00x): "
+    "besh nuqtali shablonning diagonali o'zgarmas, shuning uchun "
+    "unga bo'lish — o'zgarmasga ko'paytirish, shartlanganlik soni esa "
+    "o'zgarmaydi (su-04). Yakobi faqat diagonal tarqoq bo'lganda "
+    "ishlaydi: turli material, keskin o'zgaruvchan element o'lchami "
+    "yoki aralash birliklar."
+)
+
+# --- 5. Masshtablanish: o'lchangan daraja nazariyga qarshi ---------------
+ms = [m // 2, m, 2 * m] if dim == 2 else [max(4, m // 2), m, min(2 * m, 24)]
+Ns, its, fl = [], [], []
+for mm in ms:
+    A = lap(mm, dim)
+    Ns.append(A.shape[0]); its.append(n_iter(A))
+    fl.append(g(splu(A, permc_spec="MMD_AT_PLUS_A")))
+lN = np.log(Ns)
+q_it = float(np.polyfit(lN, np.log(its), 1)[0])
+p_fl = float(np.polyfit(lN, np.log(fl), 1)[0])
+value("CG darajasi q", q_it, "-")
+value("Nazariy q", 0.5 if dim == 2 else 1.0 / 3.0, "-")
+value("To'ldirilish darajasi p", p_fl, "-")
+series("CG iteratsiyalari", Ns, its, "N", "iteratsiya")
+series("To'ldirilish nnz(L+U)", Ns, fl, "N", "nolmas")
+table("To'g'ri va iterativ usullarning o'sishi",
+      ["O'lchov", "CG amallari (o'lchangan)", "To'g'ri xotira (o'lchangan)",
+       "To'g'ri amallar (nazariy)", "CG xotirasi"],
+      [[f"{dim}D", f"N^{1.0 + q_it:.2f}", f"N^{p_fl:.2f}",
+        "N^1.50" if dim == 2 else "N^2.00", "N^1.00"]])
+note(
+    "Ikki o'lchovda to'g'ri va iterativ usul amallar bo'yicha deyarli "
+    "teng (ikkalasi ham ~N^1.5): tanlov xotira va o'ng tomonlar soniga "
+    "qarab qilinadi. Uch o'lchovda farq keskin — to'g'ri usul ~N^2, CG "
+    "esa ~N^1.33. Katta 3D masalada iterativ usul yagona amaliy yo'l."
+)
+note(
+    "O'lchangan daraja nazariyga faqat asimptotik rejimda yaqinlashadi. "
+    "Kichik N da kesh va BLAS parallelligi uni pasaytiradi: to'la LU "
+    "uchun 500-4000 oraliqda o'lchangan daraja 2,6-2,9, nazariy 3 emas. "
+    "Shuning uchun global moslash emas, ketma-ket o'lchamlar orasidagi "
+    "lokal qiyalik qaraladi."
+)''',
+                expected_output=(
+                    "m = 20, dim = 2 (N = 400) da: tabiiy raqamlashda "
+                    "lenta kengligi 20, tasodifiy raqamlashda 392, "
+                    "RCM dan keyin yana 20 — ya'ni RCM amallar sonini "
+                    "384 marta kamaytiradi. To'ldirilish: tasodifiy "
+                    "32934, RCM 11820, AMD 7344 (to'la matritsada "
+                    "160000). Nazorat tekshiruvi het(E=1) - K = 0 "
+                    "aynan nolga teng. Yakobi tezlanishi konstrast "
+                    "bo'yicha 1,00x / 1,39x / 2,29x / 5,89x. "
+                    "CG darajasi q = 0,58 (m = 40 da 0,51), nazariy 0,5."
+                ),
+            ),
+            visual=vis(
+                kind="Matritsa portreti va masshtablanish grafiklari",
+                tool="React/SVG + Matplotlib",
+                description=(
+                    "To'rtta bog'liq ko'rinish: (1) uchta matritsa "
+                    "portreti (tabiiy, tasodifiy, RCM) yonma-yon; "
+                    "(2) faktorizatsiyadan keyingi to'ldirilish "
+                    "xaritasi uchta tartiblash uchun; (3) log-log "
+                    "masshtablanish grafigi nazariy qiyalik "
+                    "uchburchagi bilan; (4) to'g'ri va iterativ "
+                    "usul narxining N bo'yicha kesishishi."
+                ),
+                how_to_draw=(
+                    "Portret uchun nolmas elementlarning (i, j) "
+                    "koordinatalarini nuqta sifatida chizish; uchta "
+                    "panel bir xil o'lchamda bo'lsin, shunda "
+                    "tasodifiy holatdagi 'chang bulut' va RCM dan "
+                    "keyingi tor diagonal tasma keskin farq qilsin. "
+                    "To'ldirilish xaritasida K ning asl nolmaslari "
+                    "bir rangda, faktorizatsiya qo'shgan yangi "
+                    "nolmaslar boshqa rangda ko'rsatiladi — "
+                    "to'ldirilishning ma'nosi shunda darhol "
+                    "ko'rinadi. Masshtablanish grafigida o'qlar "
+                    "logarifmik, nuqtalar ustiga qiyaligi 1,5 va 1,0 "
+                    "bo'lgan mos uchburchaklar qo'yiladi. Kesishish "
+                    "grafigida ikkita chiziq (to'g'ri va CG) va "
+                    "ularning kesishgan nuqtasi vertikal chiziq bilan "
+                    "belgilanadi; 2D va 3D uchun alohida panel "
+                    "chiziladi, shunda 2D da chiziqlar deyarli "
+                    "parallel, 3D da esa keskin ajralishi ko'rinadi."
+                ),
+            ),
+            interp=(
+                "**Tartiblash bepul, lekin hal qiluvchi.** Hisobda "
+                "tasodifiy raqamlash lenta kengligini 20 dan 392 ga "
+                "ko'tardi — ya'ni amallar soni 384 marta oshdi, "
+                "matritsaning o'zi esa umuman o'zgarmadi. RCM uni "
+                "yana 20 ga tushirdi. Bu shuni anglatadiki, to'r "
+                "generatori bergan tartib bilan to'g'ridan-to'g'ri "
+                "yechish — bu yuzlab baravar ortiqcha ish.\n\n"
+                "**Lekin RCM yaxshi tartibni yaxshilamaydi.** "
+                "Tuzilgan to'rning tabiiy raqamlashi allaqachon "
+                "optimal (b = 20), va RCM undan oshib keta olmaydi; "
+                "cho'zinchoq to'rlarda u hatto bir-ikki birlikka "
+                "yomonroq natija beradi. Bu muhim tuzatish: "
+                "tartiblash — bu har doim yoqiladigan 'tezlatgich' "
+                "emas, balki yomon tartibni tuzatadigan vosita.\n\n"
+                "**AMD lentani emas, to'ldirilishni kamaytiradi.** "
+                "Jadvalda RCM 11820, AMD esa 7344 nolmas berdi — "
+                "1,6 baravar kam, garchi AMD lenta kengligi haqida "
+                "umuman qayg'urmasa ham. Sabab: lenta — bu "
+                "to'ldirilishning YUQORI CHEGARASI, aniq o'lchovi "
+                "emas. Lentani toraytirish to'ldirilishni bilvosita "
+                "kamaytiradi, AMD esa unga to'g'ridan-to'g'ri "
+                "hujum qiladi va shuning uchun yutadi.\n\n"
+                "**Yakobi oldindan shartlash bir jinsli masalada "
+                "MUTLAQO foydasiz.** Jadvaldagi birinchi satr "
+                "1,00x beradi — 36 iteratsiya oldin ham, keyin ham. "
+                "Bu xato emas: besh nuqtali shablonning diagonali "
+                "hamma joyda 4 ga teng, demak M = diag(K) = 4I, "
+                "unga bo'lish esa shartlanganlik sonini "
+                "o'zgartirmaydi (su-04). Foyda faqat diagonal "
+                "tarqoq bo'lganda paydo bo'ladi, va u konstrast "
+                "bilan bir tekis o'sadi: 1,39x, 2,29x, 5,89x. "
+                "Amaliyotda diagonalni tarqoq qiladigan narsalar — "
+                "turli material, keskin o'zgaruvchan element "
+                "o'lchami va aralash birliklar (siljish va burilish "
+                "bitta vektorda, su-20).\n\n"
+                "**O'lchangan daraja nazariyga sekin yaqinlashadi.** "
+                "m = 20 da CG darajasi q = 0,58, m = 40 da 0,51, "
+                "nazariy qiymat esa 0,5. Xuddi shu hol to'la LU da "
+                "ham kuzatiladi: N = 500...4000 oralig'ida o'lchangan "
+                "daraja 2,6-2,9 chiqadi, nazariy 3 emas — chunki "
+                "kichik matritsalar keshga sig'adi va BLAS ularni "
+                "samaraliroq qayta ishlaydi. Xulosa metodologik: "
+                "masshtablanishni o'lchaganda global log-log moslash "
+                "aldaydi, ketma-ket o'lchamlar orasidagi lokal "
+                "qiyalikka qarash kerak — bu su-28 dagi kuzatilgan "
+                "tartib (p_obs) g'oyasining aynan o'zi.\n\n"
+                "**O'lchov to'g'ri va iterativ usullarga TESKARI "
+                "ta'sir qiladi.** To'g'ri usul uchun 3D 2D dan "
+                "qimmatroq (N^2 va N^{3/2}), iterativ usul uchun esa "
+                "ARZONROQ (N^{4/3} va N^{3/2}). Bu bitta geometrik "
+                "sababdan kelib chiqadi: bir xil N da 3D to'r har "
+                "yo'nalishda qo'polroq (m = N^{1/3}), demak h "
+                "kattaroq, kappa kichikroq, iteratsiyalar kam. "
+                "To'g'ri usulda esa ajratuvchi yuza bo'lgani uchun "
+                "to'ldirilish tezroq o'sadi. Shu bitta kuzatish "
+                "butun sanoat amaliyotini tushuntiradi: kichik 2D "
+                "masalalarda to'g'ri yechuvchi standart, katta 3D "
+                "masalalarda esa iterativ."
+            ),
+            mistakes=[
+                "Tartiblash yechimni o'zgartiradi deb o'ylash. "
+                "P K P^T u' = P f tizimi bir xil yechimni beradi, "
+                "faqat komponentlar tartibi boshqa. Natijani qaytarib "
+                "tartiblashni (u = P^T u') unutish esa — haqiqiy "
+                "xato, va u sezilmay qolishi mumkin, chunki "
+                "siljishlar 'ishonarli' ko'rinadi.",
+                "RCM ni har doim yoqish va undan foyda kutish. "
+                "Tuzilgan to'rning tabiiy raqamlashi allaqachon "
+                "optimal; RCM u yerda hech narsa bermaydi va "
+                "cho'zinchoq sohada natijani bir oz yomonlashtiradi. "
+                "RCM ning o'rni — to'r generatori bergan tartibsiz "
+                "raqamlashni tuzatish.",
+                "To'ldirilishni lenta kengligi bilan tenglashtirish. "
+                "Lenta — to'ldirilishning yuqori chegarasi, aniq "
+                "o'lchovi emas. Shuning uchun lentani "
+                "minimallashtiruvchi RCM to'ldirilishni "
+                "minimallashtiruvchi AMD dan yomonroq ishlaydi "
+                "(hisobda 1,6 baravar).",
+                "Yakobi oldindan shartlashni 'har doim biroz "
+                "yordam beradi' deb hisoblash. Bir jinsli materialda "
+                "diagonal o'zgarmas, demak Yakobi — o'zgarmasga "
+                "ko'paytirish va kappa umuman o'zgarmaydi (aynan "
+                "1,00x). Foyda faqat diagonal tarqoq bo'lganda bor.",
+                "Heterogenlikni A = D K D ko'rinishida modellashtirib, "
+                "Yakobining foydasini o'lchash. Bunday matritsada "
+                "Yakobi aynan D ni qaytaradi va soxta ulkan "
+                "tezlanish beradi. Heterogenlik material darajasida, "
+                "element matritsalari orqali kiritilishi kerak.",
+                "To'g'ri usulning narxini faqat amallar soni bilan "
+                "baholash. Ko'pincha masala amallar tufayli emas, "
+                "XOTIRA tufayli yechilmaydi: kronshteyn misolida "
+                "lentali variant amallar bo'yicha maqbul (~1 soat), "
+                "lekin 25 GB talab qiladi va amalda ishlamaydi.",
+                "CG ning to'xtatish mezonini xatolik deb tushunish. "
+                "CG qoldiqni o'lchaydi; ||r||/||f|| <= eps dan "
+                "xatolik uchun kappa marta yomonroq baho kelib "
+                "chiqadi. Yomon shartlangan tizimda 'yaqinlashdi' "
+                "degan xabar aniq yechimni kafolatlamaydi (su-04).",
+                "O'lchangan masshtablanish darajasini global log-log "
+                "moslash bilan aniqlash. Kichik N nuqtalari kesh "
+                "effekti tufayli qiyalikni pasaytiradi; natijada "
+                "to'la LU uchun 3 o'rniga 2,4 chiqadi va 'nazariya "
+                "noto'g'ri' degan noto'g'ri xulosa qilinadi. Lokal "
+                "qiyalikka qarash kerak.",
+                "Faktorizatsiyani har bir yuk holati uchun qaytadan "
+                "bajarish. To'g'ri usulning butun ustunligi shunda: "
+                "K bir marta faktorlanadi, keyin har bir f uchun "
+                "faqat oldinga-orqaga yurish (~2·nnz(L) amal) "
+                "kerak. Buni sezmaslik ko'p yuklik masalada o'nlab "
+                "baravar ortiqcha vaqt beradi.",
+            ],
+            quiz=[
+                q("Lenta kengligi b ikki baravar toraytirilsa, "
+                  "lentali faktorizatsiyaning amallari va xotirasi "
+                  "necha marta kamayadi?",
+                  "Amallar 2Nb^2 ga proporsional bo'lgani uchun "
+                  "TO'RT marta kamayadi; xotira esa Nb ga "
+                  "proporsional, shuning uchun IKKI marta kamayadi. "
+                  "Aynan shu assimetriya tartiblashni shunday "
+                  "foydali qiladi: b ni toraytirish amallarga "
+                  "kvadratik ta'sir ko'rsatadi.",
+                  kind="hisob",
+                  options=["Amallar 2x, xotira 2x",
+                           "Amallar 4x, xotira 2x",
+                           "Amallar 4x, xotira 4x",
+                           "Amallar 8x, xotira 4x"],
+                  correct_index=1),
+                q("Tuzilgan 16×64 to'rda tugunlar uzun yo'nalish "
+                  "bo'ylab raqamlangan. Qisqa yo'nalishga "
+                  "o'tkazilsa, lentali yechishning amallari necha "
+                  "marta kamayadi?",
+                  "Lenta kengligi raqamlash tez yuradigan "
+                  "yo'nalishdagi tugunlar soniga teng: uzun bo'ylab "
+                  "b = 64, qisqa bo'ylab b = 16. Amallar b^2 ga "
+                  "proporsional, demak (64/16)^2 = 16 marta "
+                  "kamayadi. Bu hisobda aynan o'lchangan.",
+                  kind="hisob",
+                  options=["4 marta", "8 marta", "16 marta", "64 marta"],
+                  correct_index=2),
+                q("Nima uchun lenta kengligini minimallashtiruvchi "
+                  "RCM to'ldirilish bo'yicha AMD dan yomonroq "
+                  "ishlaydi?",
+                  "Chunki lenta — to'ldirilishning YUQORI CHEGARASI, "
+                  "aniq o'lchovi emas. Lenta ichida ham ko'p nol "
+                  "qolishi mumkin, va RCM ularni saqlashga harakat "
+                  "qilmaydi. AMD esa to'ldirilishga to'g'ridan-"
+                  "to'g'ri hujum qiladi: har qadamda eng kam "
+                  "qo'shniga ega tugunni chiqaradi. Hisobda AMD "
+                  "7344, RCM 11820 nolmas berdi — 1,6 baravar farq.",
+                  kind="konseptual"),
+                q("Bir jinsli materialdagi besh nuqtali Puasson "
+                  "masalasida Yakobi oldindan shartlash CG "
+                  "iteratsiyalarini necha marta kamaytiradi?",
+                  "UMUMAN kamaytirmaydi — aynan 1,00x. Diagonal "
+                  "hamma joyda 4 ga teng, demak M = 4I va "
+                  "M^{-1}K = K/4. O'zgarmasga ko'paytirish "
+                  "shartlanganlik sonini o'zgartirmaydi, CG esa "
+                  "faqat kappa ga sezgir. Yakobi foydasi diagonal "
+                  "tarqoq bo'lgandagina paydo bo'ladi.",
+                  kind="konseptual",
+                  options=["~1,0 marta (umuman yordam bermaydi)",
+                           "~1,4 marta", "~2,3 marta",
+                           "~4 marta"],
+                  correct_index=0),
+                q("Nima uchun uch o'lchovli masala to'g'ri usul "
+                  "uchun qimmatroq, iterativ usul uchun esa "
+                  "arzonroq?",
+                  "Ikkalasi bitta geometrik sabab bilan "
+                  "tushuntiriladi. To'g'ri usulda narx sohani "
+                  "ikkiga bo'luvchi ajratuvchining kattaligiga "
+                  "bog'liq: 2D da bu chiziq (~N^{1/2}), 3D da yuza "
+                  "(~N^{2/3}) — 3D da tezroq o'sadi. Iterativ "
+                  "usulda narx kappa ~ h^{-2} orqali to'r "
+                  "qadamiga bog'liq: bir xil N da 3D to'r har "
+                  "yo'nalishda QO'POLROQ (m = N^{1/3}, 2D da esa "
+                  "N^{1/2}), demak h kattaroq, kappa kichikroq va "
+                  "iteratsiyalar kam. Natijada to'g'ri usul "
+                  "N^{3/2} → N^2 ga, CG esa N^{3/2} → N^{4/3} ga "
+                  "o'tadi.",
+                  kind="konseptual"),
+                q("500 000 erkinlik darajali 3D modelda to'la "
+                  "matritsa uchun qancha xotira kerak?",
+                  "M = 8N^2 = 8·(5·10^5)^2 = 8·2,5·10^11 = "
+                  "2,0·10^12 bayt = 2,0 TB. Bu odatdagi ish "
+                  "stansiyasidan (32 GB) 62 baravar ko'p, shuning "
+                  "uchun variant amallar sonini hisoblamasdanoq "
+                  "bekor qilinadi.",
+                  kind="hisob",
+                  options=["2,0 GB", "25 GB", "200 GB", "2,0 TB"],
+                  correct_index=3),
+                q("Yuzta turli yuk holati uchun bitta konstruksiya "
+                  "yechilishi kerak. Qaysi usul afzal va nima "
+                  "uchun?",
+                  "Siyrak TO'G'RI usul afzal. Uning qimmat qismi — "
+                  "faktorizatsiya — bir marta bajariladi, keyin har "
+                  "bir yuk uchun faqat oldinga-orqaga yurish kerak, "
+                  "bu ~2·nnz(L) amal, ya'ni faktorizatsiyadan "
+                  "yuzlab marta arzon. CG esa har bir o'ng tomon "
+                  "uchun to'liq qaytadan ishlaydi, demak narx yuk "
+                  "holatlari soniga to'g'ri proporsional o'sadi.",
+                  kind="talqin"),
+                q("Hisobda CG darajasi m = 20 da q = 0,58, m = 40 "
+                  "da esa 0,51 chiqdi, nazariy qiymat 0,5. Bu "
+                  "nazariyaning xatosimi?",
+                  "Yo'q. Bu asimptotik rejimga sekin kirishning "
+                  "belgisi: kichik N da chegaraviy effektlar va "
+                  "kesh xatti-harakati o'lchovni buzadi, N ortgani "
+                  "sari o'lchangan daraja nazariyga yaqinlashadi. "
+                  "Shuning uchun global log-log moslash emas, "
+                  "ketma-ket o'lchamlar orasidagi LOKAL qiyalik "
+                  "qaralishi kerak — bu su-28 dagi kuzatilgan "
+                  "tartib g'oyasining aynan o'zi.",
+                  kind="talqin"),
+                q("Konstruksiyaga ikkita uzoq tugunni bog'laydigan "
+                  "MPC qo'shildi. Bu lentali yechuvchiga qanday "
+                  "ta'sir qiladi?",
+                  "Bitta uzoq bog'lanish lenta kengligini shu ikki "
+                  "tugun nomerlari farqigacha, ya'ni amalda butun "
+                  "tizim o'lchamigacha ko'taradi. Natijada 2Nb^2 "
+                  "bahosi buziladi va lentali yechuvchi to'la "
+                  "yechuvchiga aylanadi. Shuning uchun bunday "
+                  "bog'lanishlar chegara ajratish yoki Lagranj "
+                  "ko'paytuvchisi bilan alohida ishlanadi (su-17).",
+                  kind="talqin"),
+                q("To'la LU ning o'lchangan masshtablanish darajasi "
+                  "N = 500...4000 oralig'ida 2,6-2,9 chiqdi, "
+                  "nazariy 3 emas. Sabab nima?",
+                  "Kichik matritsalar protsessor keshiga sig'adi va "
+                  "BLAS ularni blokli algoritmlar bilan nisbatan "
+                  "samaraliroq qayta ishlaydi; bundan tashqari "
+                  "chaqiruv qo'shimcha xarajatlari kichik N da "
+                  "sezilarli ulush egallaydi. Natijada vaqt N "
+                  "bo'yicha nazariy N^3 dan sekinroq o'sadi. "
+                  "N ortgani sari lokal qiyalik 3 ga yaqinlashadi "
+                  "(o'lchovda 2,62 → 2,65 → 2,85).",
+                  kind="kod"),
+            ],
+            bridge=(
+                "Kurs endi to'liq: su-01 da sonli usulning nima "
+                "uchun kerakligi qo'yilgan edi, su-29 da esa uning "
+                "narxi qanday hisoblanishi va kamaytirilishi "
+                "ko'rsatildi. Oralig'ida beshta fan — nazariy "
+                "mexanikadan boshlab, materiallar qarshiligi, "
+                "tutash muhitlar mexanikasi, plastinalar va "
+                "qobiqlar nazariyasi orqali — har biri keyingisiga "
+                "tenglama berib keldi. su-30 shu zanjirni yopadi: "
+                "bitta real konstruksiya elementi ustida "
+                "modellashtirish qarori, diskretlashtirish, "
+                "yechish, xatolik baholash, validatsiya va "
+                "resurs rejalashtirish bitta uzluksiz ish "
+                "oqimiga birlashtiriladi — ya'ni butun kurs "
+                "bitta masalada takrorlanadi."
+            ),
+            research=(
+                "Ko'p to'rli (multigrid) usullar N ga PROPORSIONAL "
+                "murakkablikka erishadi — bu chegaraviy masalalar "
+                "uchun nazariy jihatdan optimal natija, chunki har "
+                "bir noma'lumni hech bo'lmaganda bir marta "
+                "o'qish kerak. G'oya: xatolikning silliq qismi "
+                "qo'pol to'rda arzon yo'qotiladi, tebranuvchi "
+                "qismi esa maydan to'rda bir necha silliqlash "
+                "qadami bilan. Zamonaviy tadqiqot yo'nalishlari: "
+                "algebraik multigrid (AMG) — bu yerda qo'pol "
+                "darajalar geometriyadan emas, matritsaning o'zidan "
+                "quriladi, bu esa tartibsiz to'r va anizotrop "
+                "materiallarga yo'l ochadi; domenlarga ajratish "
+                "(FETI, BDDC) usullarining parallel masshtablanishi "
+                "o'n minglab yadroda; GPU uchun siyrak "
+                "yechuvchilar va ularda xotira o'tkazuvchanligining "
+                "hal qiluvchi roli; matritsasiz (matrix-free) "
+                "formulirovkalar, bu yerda K umuman yig'ilmaydi va "
+                "faqat K·v ko'paytma element darajasida hisoblanadi "
+                "— yuqori tartibli elementlarda bu xotirani va "
+                "vaqtni bir vaqtda tejaydi. Alohida yo'nalish — "
+                "aralash aniqlik (mixed precision): "
+                "faktorizatsiyani 32 bitda bajarib, natijani 64 "
+                "bitli iterativ yaxshilash bilan tuzatish, bu esa "
+                "zamonaviy apparatda ikki baravar tezlanish beradi "
+                "(su-02 dagi yaxlitlash tahlili bevosita shu yerda "
+                "ishlaydi)."
+            ),
+            manim_ref=manim(
+                scene="OrderingAndFillIn",
+                module="manim/scenes/su29_samaradorlik.py",
+                title="Tartiblash, to'ldirilish va usul tanlovi",
+                summary=(
+                    "Sahna bir xil to'rning uchta raqamlanishini "
+                    "ko'rsatadi va har biri uchun matritsa portreti "
+                    "yonida quriladi: tabiiy raqamlashda tor "
+                    "diagonal tasma, tasodifiy raqamlashda butun "
+                    "maydonga sochilgan nuqtalar, RCM dan keyin esa "
+                    "yana tasma. Keyin faktorizatsiya animatsiya "
+                    "qilinadi: L va U to'lib borar ekan, yangi "
+                    "paydo bo'lgan nolmaslar boshqa rangda "
+                    "yonadi — to'ldirilishning ma'nosi shunda "
+                    "ko'rinadi. Uchta holat uchun hisoblagich "
+                    "nolmaslar sonini sanaydi va oxirida 32934 / "
+                    "11820 / 7344 qiymatlari yonma-yon qoladi. "
+                    "Yakunda log-log grafik chiziladi: to'g'ri va "
+                    "iterativ usulning narxi 2D da deyarli "
+                    "parallel, 3D ga o'tilganda esa ular keskin "
+                    "ajraladi va kesishish nuqtasi chapga suriladi."
+                ),
+            ),
+        ),
+    ),
 ]
