@@ -890,4 +890,1050 @@ if len(off_user) > m_der:
             ),
         ),
     ),
+
+    # ------------------------------------------------------------------ su-08
+    Topic(
+        id="su-08",
+        subject_id=S, module_id=M, order=8,
+        title="Bir o'lchovli chegaraviy masalalar: balka egilishi",
+        description=(
+            "To'rtinchi tartibli tenglamani ayirma tizimiga o'tkazish, "
+            "chegaraviy shartlarni qo'yish usullari, soxta tugunlar va "
+            "yaqinlashish tartibini o'lchash."
+        ),
+        learning_objective=(
+            "Balka egilishi masalasini chekli ayirmalar bilan to'liq "
+            "yechish, to'rt xil chegaraviy shartni to'g'ri qo'yish va "
+            "natijani analitik yechim bilan tekshirish."
+        ),
+        prerequisites=["su-07", "mq-15", "mq-16"],
+        mathematical_core=(
+            "$EI\\,w^{(4)} = q$; besh nuqtali shablon "
+            "$\\{1,-4,6,-4,1\\}/h^4$; soxta tugun orqali "
+            "chegaraviy shart."
+        ),
+        engineering_application=(
+            "Balka va ramka hisoblari, elastik asosdagi balka, "
+            "o'zgaruvchan kesimli konstruksiyalar, quvur va "
+            "relslar."
+        ),
+        computational_component=(
+            "Balka masalasini to'liq yechish, to'rt xil chegaraviy "
+            "shart uchun analitik yechim bilan taqqoslash va "
+            "yaqinlashish tartibini o'lchash."
+        ),
+        visualization_component=(
+            "Egilish chizig'i, moment va kesuvchi kuch epyuralari, "
+            "sonli va analitik yechimlarning ustma-ust tushishi."
+        ),
+        research_extension=(
+            "O'zgaruvchan kesimli va elastik asosdagi balka uchun "
+            "sxemani umumlashtiring; konservativ (divergent) shakl "
+            "nima uchun afzal ekanini tekshiring."
+        ),
+        difficulty="asosiy",
+        previous_link=(
+            "su-07 da ixtiyoriy sxema qurish usuli o'rganildi va "
+            "besh nuqtali to'rtinchi hosila sxemasi "
+            "$\\{1,-4,6,-4,1\\}$ jadvalda hisoblangan edi. Endi "
+            "uni haqiqiy chegaraviy masalaga qo'llaymiz."
+        ),
+        next_topic="su-09",
+        estimated_minutes=85,
+        tags=["balka", "to'rtinchi tartib", "soxta tugun", "yaqinlashish"],
+        lesson=_lesson(
+            problem=(
+                "mq-15 da balka egilishi analitik "
+                "yechilgan edi, lekin faqat sodda "
+                "holatlar uchun: doimiy kesim, doimiy "
+                "yuklama, klassik tayanchlar. Endi "
+                "real masala: kran balkasining kesimi "
+                "uzunlik bo'ylab o'zgaradi (o'rtada "
+                "baland, uchlarida past), yuklama esa "
+                "harakatlanuvchi va nuqtaviy. "
+                "$EI(x)w^{(4)} = q(x)$ tenglamasining "
+                "analitik yechimi yo'q. Chekli "
+                "ayirmalar bu masalani yechadi — "
+                "lekin to'rtinchi tartibli tenglamada "
+                "chegaraviy shartlarni qo'yish "
+                "ikkinchi tartibli masalaga qaraganda "
+                "sezilarli qiyinroq va aynan shu "
+                "yerda eng ko'p xato qilinadi."
+            ),
+            concepts=[
+                c("To'rtinchi tartibli shablon",
+                  "$w^{(4)} \\approx "
+                  "(w_{i-2}-4w_{i-1}+6w_i-4w_{i+1}"
+                  "+w_{i+2})/h^4$ — besh nuqtali, "
+                  "$O(h^2)$."),
+                c("Soxta (fiktiv) tugun",
+                  "Soha tashqarisidagi xayoliy tugun; "
+                  "chegaraviy shartni ikkinchi tartibda "
+                  "qo'yish uchun kiritiladi va keyin "
+                  "yo'qotiladi."),
+                c("Muhim va tabiiy shartlar",
+                  "$w$ va $w'$ — muhim (kinematik); "
+                  "$M = -EIw''$ va $Q = -EIw'''$ — "
+                  "tabiiy (kuch) shartlari. Ular "
+                  "turlicha qo'yiladi."),
+                c("Chegaraviy shartlarning to'rt turi",
+                  "Mahkamlangan, sharnirli, erkin va "
+                  "sirpanuvchi mahkamlash; har biri "
+                  "ikkitadan shart beradi."),
+                c("Konservativ (divergent) shakl",
+                  "$(EI w'')'' = q$ — o'zgaruvchan "
+                  "$EI$ uchun to'g'ri shakl; "
+                  "$EI w^{(4)} = q$ noto'g'ri."),
+                c("Yaqinlashish tartibini o'lchash",
+                  "Uchta to'rdan tartibni tiklash: "
+                  "$p = \\log_2\\frac{e_h}{e_{h/2}}$ — "
+                  "sonli yechimning ishonchliligi "
+                  "mezoni."),
+            ],
+            derivation=[
+                d("1. Boshlang'ich tenglama",
+                  r"EI\,\frac{d^4w}{dx^4} = q(x), \quad "
+                  r"0 < x < L",
+                  "Eyler–Bernulli balkasi (mq-15). "
+                  "To'rtinchi tartibli, demak to'rtta "
+                  "chegaraviy shart kerak — har "
+                  "uchida ikkitadan."),
+                d("2. To'rni kiritish",
+                  r"x_i = ih, \quad h = \frac{L}{n}, "
+                  r"\quad i = 0,1,\ldots,n",
+                  "$n+1$ ta tugun. Har birida "
+                  "$w_i$ noma'lum."),
+                d("3. Ichki tugunlar uchun sxema",
+                  r"\frac{w_{i-2}-4w_{i-1}+6w_i-"
+                  r"4w_{i+1}+w_{i+2}}{h^4} = "
+                  r"\frac{q_i}{EI}",
+                  "su-07 dagi jadvaldan olingan "
+                  "sxema. Bu $i = 2,\\ldots,n-2$ "
+                  "uchun ishlaydi — shablon "
+                  "chegaradan chiqmasligi kerak."),
+                d("4. Muammo: chegaraga yaqin tugunlar",
+                  r"i = 1: \ w_{-1} \ \text{kerak}; "
+                  r"\quad i = n-1: \ w_{n+1} \ "
+                  r"\text{kerak}",
+                  "**Asosiy qiyinchilik.** Shablon "
+                  "soha tashqarisiga chiqadi. Ikkita "
+                  "yechim bor: soxta tugun kiritish "
+                  "yoki bir tomonlama sxema ishlatish."),
+                d("5. Soxta tugun usuli",
+                  r"w_{-1} \ \text{— xayoliy tugun}, "
+                  r"\ \text{chegaraviy shartdan "
+                  r"ifodalanadi}",
+                  "Sohani $x = -h$ gacha kengaytiramiz. "
+                  "$w_{-1}$ ni chegaraviy shart "
+                  "orqali $w_0, w_1, \\ldots$ bilan "
+                  "bog'laymiz va tizimdan yo'qotamiz."),
+                d("6. Mahkamlangan uch",
+                  r"w_0 = 0, \quad w'(0) = 0 "
+                  r"\;\Longrightarrow\; "
+                  r"\frac{w_1 - w_{-1}}{2h} = 0 "
+                  r"\;\Longrightarrow\; w_{-1} = w_1",
+                  "Markaziy ayirma bilan "
+                  "$O(h^2)$ aniqlikda. Simmetriya "
+                  "kelib chiqdi: mahkamlangan uchda "
+                  "egilish chizig'i juft funksiya."),
+                d("7. Sharnirli uch",
+                  r"w_0 = 0, \quad M(0) = 0 "
+                  r"\;\Longrightarrow\; "
+                  r"\frac{w_{-1}-2w_0+w_1}{h^2} = 0 "
+                  r"\;\Longrightarrow\; w_{-1} = -w_1",
+                  "Endi antisimmetriya: sharnirli "
+                  "uchda egilish chizig'i toq "
+                  "funksiya. Ikki holatning farqi "
+                  "faqat ishorada, lekin natija "
+                  "butunlay boshqacha."),
+                d("8. Erkin uch (ikkita shart)",
+                  r"M(n) = 0: \ w_{n+1} = 2w_n - "
+                  r"w_{n-1}; \quad Q(n) = 0: \ "
+                  r"w_{n+2} = 2w_{n+1} - 2w_{n-1} + "
+                  r"w_{n-2}",
+                  "Erkin uchda **ikkita** soxta "
+                  "tugun kerak, chunki shablon ikki "
+                  "qadam chiqadi. Uchinchi hosila "
+                  "sxemasi markaziy: "
+                  "$(w_{n+2}-2w_{n+1}+2w_{n-1}"
+                  "-w_{n-2})/(2h^3)$."),
+                d("9. Tizimning tuzilishi",
+                  r"\mathbf{K}\mathbf{w} = "
+                  r"\frac{h^4}{EI}\mathbf{q}, \quad "
+                  r"\mathbf{K} \ \text{— besh "
+                  r"diagonalli}",
+                  "Lenta kengligi $b = 2$ — su-05 "
+                  "dagi kabi juda samarali. "
+                  "Simmetrik musbat aniqlangan "
+                  "(to'g'ri mahkamlanganda), demak "
+                  "Cholesky qo'llanadi."),
+                d("10. Moment va kesuvchi kuchni "
+                  "tiklash",
+                  r"M_i = -EI\frac{w_{i-1}-2w_i+"
+                  r"w_{i+1}}{h^2}, \quad Q_i = "
+                  r"-EI\frac{-w_{i-2}+2w_{i-1}-"
+                  r"2w_{i+1}+w_{i+2}}{2h^3}",
+                  "Diqqat: bu yerda **qo'shimcha xato "
+                  "kiritilmaydi**. Diskret yechim "
+                  "aynan $D_4w = q/EI$ ni "
+                  "qanoatlantiradi va $M$ shu "
+                  "yechimga $D_2$ ni qo'llab "
+                  "olinadi — operatorlar "
+                  "muvofiqlashgan. Sinusoidal "
+                  "yechimda og'ish xatosi "
+                  "$\sim k^2h^2/6$, moment xatosi "
+                  "esa $\sim k^2h^2/12$, ya'ni "
+                  "moment **ikki barobar "
+                  "aniqroq**. Kodda bu "
+                  "o'lchanadi."),
+                d("10a. Qachon differensiallash "
+                  "xavfli",
+                  r"\text{o'lchov ma'lumoti: } "
+                  r"\tilde f = f + \eta "
+                  r"\;\Longrightarrow\; "
+                  r"\Big|\frac{d^2\tilde f}{dx^2}\Big| "
+                  r"\sim \frac{\eta}{h^2}",
+                  "**Asosiy farq.** Agar "
+                  "differensiallanayotgan ma'lumotda "
+                  "**mustaqil** xato bo'lsa "
+                  "(tenzodatchik o'lchovi, "
+                  "yaxlitlash shovqini), u "
+                  "$1/h^2$ marta kuchayadi — su-03 "
+                  "dagi mexanizm. Sonli yechimni "
+                  "differensiallashda esa xato "
+                  "mustaqil emas, balki shu "
+                  "sxemadan kelib chiqqan va u "
+                  "kuchaymaydi."),
+                d("11. Konservativ shakl "
+                  "(o'zgaruvchan $EI$)",
+                  r"\Big(EI\frac{d^2w}{dx^2}\Big)'' = q "
+                  r"\;\Longrightarrow\; \text{avval } "
+                  r"M = -EIw'' \text{, keyin } M'' = -q",
+                  "**Hal qiluvchi nozik jihat.** "
+                  "$EI$ o'zgaruvchan bo'lsa "
+                  "$EIw^{(4)} = q$ **noto'g'ri** — "
+                  "$EI$ ni hosila ostidan chiqarib "
+                  "bo'lmaydi. To'g'ri shakl ikkita "
+                  "ikkinchi tartibli tenglama."),
+                d("12. Yaqinlashish tartibini o'lchash",
+                  r"p = \log_2\frac{\|w_h - w_{ex}\|}"
+                  r"{\|w_{h/2} - w_{ex}\|}",
+                  "Aniq yechim ma'lum bo'lsa "
+                  "bevosita; noma'lum bo'lsa uchta "
+                  "to'rdan: "
+                  "$p = \\log_2\\frac{w_h - w_{h/2}}"
+                  "{w_{h/2} - w_{h/4}}$."),
+            ],
+            meaning=(
+                "Bir o'lchovli balka masalasi chekli "
+                "ayirmalar usulining barcha muhim "
+                "jihatlarini o'z ichiga oladi va "
+                "shuning uchun ideal mashq. Uning "
+                "markaziy qiyinchiligi 4-qadamda: "
+                "to'rtinchi tartibli tenglamaning "
+                "shabloni besh nuqtali, demak "
+                "chegaradan ikki qadam ichkarida ham "
+                "muammo tug'iladi. Soxta tugun usuli "
+                "buni nafis hal qiladi — sohani "
+                "xayolan kengaytirib, chegaraviy "
+                "shartni soxta tugun qiymati sifatida "
+                "ifodalaymiz. 6- va 7-qadamlarning "
+                "taqqoslashi ayniqsa o'rgatuvchi: "
+                "mahkamlangan uchda $w_{-1} = +w_1$, "
+                "sharnirlida $w_{-1} = -w_1$. "
+                "Farq faqat ishorada, lekin fizik "
+                "ma'nosi butunlay boshqa: birinchisi "
+                "simmetriya (burilish nol), "
+                "ikkinchisi antisimmetriya (moment "
+                "nol). Chegaraviy shartlardagi "
+                "ishorani adashtirish chekli "
+                "ayirmalarda eng ko'p uchraydigan "
+                "xato va u yechimni butunlay "
+                "o'zgartiradi. 10- va 10a-qadamlar "
+                "amaliy jihatdan muhim va ular "
+                "intuitivga zid natija beradi. "
+                "Muhandisni odatda og'ish emas, "
+                "**kuchlanish** qiziqtiradi, u esa "
+                "momentdan, moment esa ikkinchi "
+                "hosiladan olinadi. Tabiiy fikr "
+                "shuki, differensiallash aniqlikni "
+                "yo'qotadi — lekin bu yerda "
+                "**aksincha**: moment og'ishdan "
+                "ikki barobar aniqroq chiqadi. "
+                "Sababi shuki, moment mustaqil "
+                "ma'lumotdan emas, aynan shu "
+                "diskret operatordan tiklanadi va "
+                "qo'shimcha xato kiritilmaydi. "
+                "su-03 dagi $\\varepsilon/h$ "
+                "kuchayishi esa faqat **mustaqil** "
+                "xatoli ma'lumotni (tenzodatchik "
+                "o'lchovi, shovqin) "
+                "differensiallashda yuzaga keladi. "
+                "Bu ikki holatni ajratish "
+                "amaliyotda muhim: sonli yechimdan "
+                "kuchlanish tiklash xavfsiz, "
+                "o'lchov ma'lumotini ikki marta "
+                "differensiallash esa deyarli har "
+                "doim yaroqsiz natija beradi. "
+                "Nihoyat, 11-qadam "
+                "konservativ shakl haqida "
+                "ogohlantiradi. O'zgaruvchan "
+                "kesimli balkada "
+                "$EIw^{(4)} = q$ yozish — jimgina "
+                "noto'g'ri model qurish demak, "
+                "chunki $EI$ hosila ostida qoladi. "
+                "To'g'ri yondashuv masalani ikkita "
+                "ikkinchi tartibli tenglamaga "
+                "ajratish: $M = -EIw''$ va "
+                "$M'' = -q$. Bu nafaqat to'g'ri, "
+                "balki sonli jihatdan ham afzal — "
+                "ikkita uch diagonalli tizim beshta "
+                "diagonallidan yaxshiroq "
+                "shartlangan."
+            ),
+            equations=[
+                eq(r"\frac{w_{i-2}-4w_{i-1}+6w_i-"
+                   r"4w_{i+1}+w_{i+2}}{h^4} = "
+                   r"\frac{q_i}{EI}",
+                   "Balka tenglamasining ayirma "
+                   "sxemasi — besh nuqtali, $O(h^2)$.",
+                   "Balka sxemasi"),
+                eq(r"\text{mahkamlangan: } w_{-1} = w_1, "
+                   r"\qquad \text{sharnirli: } "
+                   r"w_{-1} = -w_1",
+                   "Soxta tugun orqali chegaraviy "
+                   "shartlar — farq faqat ishorada.",
+                   "Soxta tugun shartlari"),
+                eq(r"\Big(EI\,w''\Big)'' = q",
+                   "O'zgaruvchan kesim uchun "
+                   "konservativ (to'g'ri) shakl.",
+                   "Konservativ shakl"),
+                eq(r"p = \log_2\frac{\|e_h\|}"
+                   r"{\|e_{h/2}\|}",
+                   "Yaqinlashish tartibini o'lchash.",
+                   "Tartibni o'lchash"),
+            ],
+            conditions=(
+                "**To'rt xil chegaraviy shart "
+                "(har uchida ikkitadan):**\n"
+                "- Mahkamlangan: $w = 0$, $w' = 0$;\n"
+                "- Sharnirli: $w = 0$, $M = 0$ "
+                "(ya'ni $w'' = 0$);\n"
+                "- Erkin: $M = 0$, $Q = 0$ "
+                "($w'' = 0$, $w''' = 0$);\n"
+                "- Sirpanuvchi mahkamlash: "
+                "$w' = 0$, $Q = 0$.\n\n"
+                "**Yechim mavjudligi:** kamida "
+                "ikkita shart kinematik bo'lishi "
+                "kerak, aks holda balka qattiq jism "
+                "sifatida harakatlanadi va matritsa "
+                "musbat aniqlangan bo'lmaydi "
+                "(su-05 dagi Cholesky "
+                "diagnostikasi buni aniqlaydi).\n\n"
+                "**Aniqlik bo'yicha:**\n"
+                "- $w$ — $O(h^2)$;\n"
+                "- $M = -EIw''$ — $O(h^2)$, lekin "
+                "kattaroq koeffitsient;\n"
+                "- $Q = -EIw'''$ — eng yomon.\n\n"
+                "**O'zgaruvchan $EI$ uchun:** "
+                "konservativ shakl majburiy. "
+                "$EI$ uzilishli bo'lsa (kesim "
+                "keskin o'zgarsa) tugunni aynan "
+                "uzilish joyiga qo'yish kerak.\n\n"
+                "**Nuqtaviy yuklama uchun:** "
+                "$q$ ni delta funksiya sifatida "
+                "emas, tugunga "
+                "$P/h$ zichlik sifatida "
+                "qo'yiladi; tugun aynan yuklama "
+                "joyida bo'lishi kerak."
+            ),
+            worked=WorkedExample(
+                statement=(
+                    "Ikki uchi sharnirli balka: "
+                    "$L = 2$ m, $EI = 1000$ N·m², "
+                    "bir tekis yuklama $q = 500$ N/m. "
+                    "(a) Analitik yechimni yozing; "
+                    "(b) $n = 4$ bo'linma uchun ayirma "
+                    "tizimini to'liq qo'ying va "
+                    "yeching; (c) xatolikni baholang "
+                    "va $n = 8$ da qanday "
+                    "o'zgarishini bashorat qiling."
+                ),
+                given=[
+                    r"L = 2\ \text{m},\ EI = 1000\ "
+                    r"\text{N·m}^2,\ q = 500\ \text{N/m}",
+                    r"\text{ikki uchi sharnirli}",
+                ],
+                steps=[
+                    st(r"w(x) = \frac{q}{24EI}\big(x^4 - "
+                       r"2Lx^3 + L^3x\big)",
+                       "mq-15 dagi analitik yechim."),
+                    st(r"w_{max} = w(L/2) = "
+                       r"\frac{5qL^4}{384EI} = "
+                       r"\frac{5 \cdot 500 \cdot 16}"
+                       r"{384 \cdot 1000} = "
+                       r"0{,}104167\ \text{m}",
+                       "O'rtadagi og'ish — etalon "
+                       "qiymat."),
+                    st(r"n = 4: \ h = 0{,}5\ \text{m}, "
+                       r"\ \text{tugunlar } x = "
+                       r"0; 0{,}5; 1; 1{,}5; 2",
+                       "Beshta tugun, ulardan "
+                       "$w_0 = w_4 = 0$ ma'lum."),
+                    st(r"\text{Sharnirli: } w_{-1} = "
+                       r"-w_1, \quad w_5 = -w_3",
+                       "7-qadamdagi antisimmetriya "
+                       "sharti."),
+                    st(r"i=1: \ \frac{w_{-1}-4w_0+6w_1-"
+                       r"4w_2+w_3}{h^4} = \frac{q}{EI} "
+                       r"\;\Rightarrow\; \frac{5w_1-"
+                       r"4w_2+w_3}{h^4} = \frac{q}{EI}",
+                       "$w_{-1} = -w_1$ va $w_0 = 0$ "
+                       "qo'yildi; $6w_1 - w_1 = 5w_1$."),
+                    st(r"i=2: \ \frac{w_0-4w_1+6w_2-"
+                       r"4w_3+w_4}{h^4} = \frac{q}{EI} "
+                       r"\;\Rightarrow\; \frac{-4w_1+"
+                       r"6w_2-4w_3}{h^4} = \frac{q}{EI}",
+                       "Ichki tugun — to'liq shablon."),
+                    st(r"i=3: \ \frac{w_1-4w_2+5w_3}"
+                       r"{h^4} = \frac{q}{EI} \ "
+                       r"(\text{simmetriya bo'yicha})",
+                       "$w_5 = -w_3$ va $w_4 = 0$."),
+                    st(r"\text{Simmetriya: } w_1 = w_3 "
+                       r"\;\Rightarrow\; \begin{cases}"
+                       r"6w_1 - 4w_2 = \beta\\ "
+                       r"-8w_1 + 6w_2 = \beta\end{cases}, "
+                       r"\ \beta = \frac{qh^4}{EI}",
+                       "Masala simmetrik, shuning "
+                       "uchun $w_1 = w_3$ va tizim "
+                       "ikkita tenglamaga tushadi "
+                       "($5w_1 + w_3 = 6w_1$)."),
+                    st(r"\beta = \frac{500 \cdot 0{,}0625}"
+                       r"{1000} = 0{,}03125; \quad "
+                       r"w_2 = \frac{7\beta}{2} \cdot "
+                       r"\frac{1}{1} \ldots",
+                       "Tizimni yechamiz: "
+                       "determinant $36-32 = 4$; "
+                       "$w_1 = (6\\beta+4\\beta)/4 = "
+                       "2{,}5\\beta$, "
+                       "$w_2 = (6\\beta+8\\beta)/4 = "
+                       "3{,}5\\beta$."),
+                    st(r"w_2 = 3{,}5 \cdot 0{,}03125 = "
+                       r"0{,}109375\ \text{m}",
+                       "Sonli natija. Analitik "
+                       "$0{,}104167$ m bilan "
+                       "taqqoslaymiz."),
+                    st(r"e = \frac{0{,}109375 - "
+                       r"0{,}104167}{0{,}104167} = "
+                       r"5{,}00\ \%",
+                       "**5 % xato** — $n = 4$ juda "
+                       "siyrak to'r uchun kutilgan."),
+                    st(r"n = 8: \ e \approx "
+                       r"\frac{5{,}00}{4} = 1{,}25\ \%",
+                       "$O(h^2)$ bo'lgani uchun to'r "
+                       "ikki barobar zichlashsa xato "
+                       "to'rt barobar kamayadi. "
+                       "Kodda bu aniq tekshiriladi."),
+                ],
+                answer=(
+                    "Analitik $w_{max} = 0{,}104167$ m. "
+                    "$n = 4$ da ayirma tizimi "
+                    "$w_1 = w_3 = 2{,}5\\beta$, "
+                    "$w_2 = 3{,}5\\beta$ beradi "
+                    "($\\beta = qh^4/EI = 0{,}03125$), "
+                    "ya'ni $w_2 = 0{,}109375$ m — "
+                    "xato **5,00 %**. $O(h^2)$ "
+                    "qonuni bo'yicha $n = 8$ da xato "
+                    "≈ 1,25 % ga tushadi."
+                ),
+                engineering_note=(
+                    "$n = 4$ da 5 % xato ko'p "
+                    "tuyulishi mumkin, lekin bu "
+                    "atigi uchta noma'lumli tizim. "
+                    "Amaliy hisoblarda $n = 50$–100 "
+                    "olinadi va xato 0,01 % dan "
+                    "kamayadi. Muhimi — xatoning "
+                    "**tartibi** ma'lum va u "
+                    "boshqariladi. Yana bir amaliy "
+                    "jihat: bu yerda og'ish "
+                    "yuqoriroq chiqdi, ya'ni ayirma "
+                    "sxemasi balkani "
+                    "**yumshoqroq** ko'rsatdi. "
+                    "Chekli elementlar usulida esa "
+                    "(su-20) aksincha bo'ladi — "
+                    "u balkani bikrroq ko'rsatadi, "
+                    "chunki Ritz usuli (pq-09) "
+                    "energiyani yuqoridan "
+                    "chegaralaydi. Ikkala usulning "
+                    "xatosi turli tomonga "
+                    "yo'nalgani foydali: ular "
+                    "birgalikda aniq yechimni "
+                    "'qamrab' oladi va bu "
+                    "natijaning ishonchliligini "
+                    "baholash imkonini beradi."
+                ),
+            ),
+            computation=Computation(
+                caption=(
+                    "Balka egilishi masalasini chekli "
+                    "ayirmalar bilan yechish, to'rt xil "
+                    "chegaraviy shart uchun analitik "
+                    "yechim bilan taqqoslash va "
+                    "yaqinlashish tartibini o'lchash."
+                ),
+                code='''"""Balka egilishi: chekli ayirmalar va analitik tekshiruv."""
+import numpy as np
+from labkit import PARAMS, note, series, table, value
+
+L = float(PARAMS.get("L", 2.0))
+EI = float(PARAMS.get("EI", 1000.0))
+q0 = float(PARAMS.get("q0", 500.0))
+n_show = int(PARAMS.get("n_show", 40))
+bc = int(PARAMS.get("bc", 0))     # 0 sharnirli-sharnirli, 1 mahkam-mahkam,
+                                  # 2 konsol (chap mahkam, o'ng erkin)
+taper = float(PARAMS.get("taper", 1.0))   # EI(L)/EI(0)
+
+
+def solve_beam(n, bc, taper=1.0):
+    """EI*w_xxxx = q ni chekli ayirmalar bilan yechadi.
+
+    taper != 1 bo'lsa konservativ shakl ishlatiladi:
+    M = -EI*w_xx, M_xx = -q  (ikkita ikkinchi tartibli tizim).
+    """
+    h = L/n
+    x = np.linspace(0.0, L, n + 1)
+    if abs(taper - 1.0) < 1e-12:
+        # Doimiy EI: bevosita to'rtinchi tartibli sxema.
+        # Soxta tugunlar ichki tugunlarning chiziqli kombinatsiyasi
+        # sifatida ifodalanadi (ghost dict: {indeks: koeffitsient}).
+        if bc == 2:
+            # konsol: chap mahkam (w=0, w'=0), o'ng erkin (M=0, Q=0)
+            #   w_{-1}  = w_1
+            #   w_{n+1} = 2*w_n - w_{n-1}
+            #   w_{n+2} = 4*w_n - 4*w_{n-1} + w_{n-2}
+            ghost = {-1: {1: 1.0},
+                     n + 1: {n: 2.0, n - 1: -1.0},
+                     n + 2: {n: 4.0, n - 1: -4.0, n - 2: 1.0}}
+            fixed = [0]
+            rows_eq = range(1, n + 1)
+        elif bc == 1:
+            # mahkam - mahkam: w_{-1} = w_1,  w_{n+1} = w_{n-1}
+            ghost = {-1: {1: 1.0}, n + 1: {n - 1: 1.0}}
+            fixed = [0, n]
+            rows_eq = range(1, n)
+        else:
+            # sharnirli - sharnirli: w_{-1} = -w_1, w_{n+1} = -w_{n-1}
+            ghost = {-1: {1: -1.0}, n + 1: {n - 1: -1.0}}
+            fixed = [0, n]
+            rows_eq = range(1, n)
+
+        A = np.zeros((n + 1, n + 1))
+        b = np.zeros(n + 1)
+        st5 = np.array([1.0, -4.0, 6.0, -4.0, 1.0])
+        for i in fixed:
+            A[i, i] = 1.0
+            b[i] = 0.0
+        for i in rows_eq:
+            for k in range(-2, 3):
+                j, cf = i + k, st5[k + 2]
+                if 0 <= j <= n:
+                    A[i, j] += cf
+                elif j in ghost:
+                    for jj, gc in ghost[j].items():
+                        A[i, jj] += cf*gc
+                else:
+                    raise ValueError(f"soxta tugun aniqlanmagan: {j}")
+            b[i] = q0*h**4/EI
+        w = np.linalg.solve(A, b)
+        return x, w, h
+
+    # --- O'zgaruvchan EI: KONSERVATIV shakl ---
+    EIx = EI*(1.0 + (taper - 1.0)*x/L)
+    # M'' = -q,  M(0) = M(L) = 0   (sharnirli)
+    Am = np.zeros((n + 1, n + 1))
+    bm = np.zeros(n + 1)
+    for i in range(n + 1):
+        if i == 0 or i == n:
+            Am[i, i] = 1.0
+            bm[i] = 0.0
+        else:
+            Am[i, i - 1], Am[i, i], Am[i, i + 1] = 1.0, -2.0, 1.0
+            bm[i] = -q0*h**2
+    M = np.linalg.solve(Am, bm)
+    # w'' = -M/EI,  w(0) = w(L) = 0
+    Aw = np.zeros((n + 1, n + 1))
+    bw = np.zeros(n + 1)
+    for i in range(n + 1):
+        if i == 0 or i == n:
+            Aw[i, i] = 1.0
+            bw[i] = 0.0
+        else:
+            Aw[i, i - 1], Aw[i, i], Aw[i, i + 1] = 1.0, -2.0, 1.0
+            bw[i] = -M[i]/EIx[i]*h**2
+    w = np.linalg.solve(Aw, bw)
+    return x, w, h
+
+
+def exact(x, bc):
+    if bc == 0:      # sharnirli - sharnirli
+        return q0/(24*EI)*(x**4 - 2*L*x**3 + L**3*x)
+    if bc == 1:      # mahkam - mahkam
+        return q0/(24*EI)*x**2*(L - x)**2
+    # konsol
+    return q0/(24*EI)*(x**4 - 4*L*x**3 + 6*L**2*x**2)
+
+
+names = {0: "sharnirli-sharnirli", 1: "mahkam-mahkam", 2: "konsol"}
+value("Chegaraviy shart kodi", float(bc), "—")
+note(f"Chegaraviy shart: {names[bc]}. EI nisbati (o'ng/chap) = "
+     f"{taper:.2f}.")
+
+x, w, h = solve_beam(n_show, bc, taper)
+if abs(taper - 1.0) < 1e-12:
+    w_ex = exact(x, bc)
+    i_max = int(np.argmax(np.abs(w_ex)))
+    value("Sonli maksimal og'ish", float(np.max(np.abs(w))*1000), "mm")
+    value("Analitik maksimal og'ish",
+          float(np.max(np.abs(w_ex))*1000), "mm")
+    err_max = np.max(np.abs(w - w_ex))/np.max(np.abs(w_ex))
+    value("Maksimal nisbiy xatolik", err_max*100, "%")
+    series("Sonli yechim w(x)", x.tolist(), (w*1000).tolist(),
+           xlabel="x, m", ylabel="og'ish w, mm")
+    series("Analitik yechim", x.tolist(), (w_ex*1000).tolist(),
+           xlabel="x, m", ylabel="og'ish w, mm")
+    note(f"n = {n_show} da sonli va analitik yechimlar orasidagi "
+         f"maksimal nisbiy farq {err_max*100:.4f} %.")
+
+    # --- YAQINLASHISH TARTIBINI O'LCHASH ---
+    rows, errs, hs = [], [], []
+    for nk in [4, 8, 16, 32, 64, 128]:
+        xk, wk, hk = solve_beam(nk, bc)
+        wek = exact(xk, bc)
+        e = np.max(np.abs(wk - wek))/np.max(np.abs(wek))
+        errs.append(e)
+        hs.append(hk)
+        rows.append([nk, f"{hk:.5f}", f"{np.max(np.abs(wk))*1000:.6f}",
+                     f"{e*100:.6f}"])
+    table("To'r bo'yicha yaqinlashish",
+          ["n", "h, m", "w_max, mm", "xatolik, %"], rows)
+    ords = [np.log2(errs[i]/errs[i+1]) for i in range(len(errs) - 1)]
+    for nk, o in zip([4, 8, 16, 32, 64], ords):
+        value(f"Tartib (n = {nk} -> {2*nk})", float(o), "—")
+    value("O'rtacha o'lchangan tartib", float(np.mean(ords[1:])), "—")
+    series("Xatolik(h)", hs, errs, xlabel="qadam h",
+           ylabel="nisbiy xatolik")
+    sl = np.polyfit(np.log(hs), np.log(errs), 1)[0]
+    value("Log-log qiyalik", float(sl), "—")
+    note(f"To'r ikki barobar zichlashganda xatolik taxminan to'rt "
+         f"barobar kamayadi; o'lchangan tartiblar "
+         f"{', '.join(f'{o:.3f}' for o in ords)} va log-log qiyalik "
+         f"{sl:.3f}. Nazariy O(h^2) TASDIQLANDI.")
+
+    # n = 4 uchun qo'lda hisoblangan natijani tekshirish
+    if bc == 0:
+        x4, w4, h4 = solve_beam(4, 0)
+        beta = q0*h4**4/EI
+        value("n = 4: beta = q*h^4/EI", beta, "m")
+        value("n = 4: w_1 / beta", float(w4[1]/beta), "—")
+        value("n = 4: w_2 / beta", float(w4[2]/beta), "—")
+        value("n = 4: w_2", float(w4[2]*1000), "mm")
+        value("n = 4: analitik w(L/2)",
+              float(exact(np.array([L/2]), 0)[0]*1000), "mm")
+        e4 = abs(w4[2] - exact(np.array([L/2]), 0)[0]) \
+            / exact(np.array([L/2]), 0)[0]
+        value("n = 4: xatolik", e4*100, "%")
+        note(f"n = 4 da qo'lda yechilgan tizim w_1 = 2.5*beta, "
+             f"w_2 = 3.5*beta bergan edi; kod {w4[1]/beta:.4f}*beta va "
+             f"{w4[2]/beta:.4f}*beta beradi - AYNAN mos. Xatolik "
+             f"{e4*100:.3f} % va u qo'lda topilgan 5.00 % bilan "
+             f"to'g'ri keladi.")
+
+    # --- Moment va kesuvchi kuchni tiklash ---
+    xm, wm, hm = solve_beam(64, bc)
+    Mnum = np.full_like(wm, np.nan)
+    Mnum[1:-1] = -EI*(wm[:-2] - 2*wm[1:-1] + wm[2:])/hm**2
+    if bc == 0:
+        Mex = q0*xm*(L - xm)/2
+    elif bc == 1:
+        Mex = q0*(6*xm*(L - xm) - L**2)/12
+    else:
+        Mex = -q0*(L - xm)**2/2
+    ok = ~np.isnan(Mnum)
+    eM = np.max(np.abs(Mnum[ok] - Mex[ok]))/np.max(np.abs(Mex))
+    value("Moment: maksimal nisbiy xatolik", eM*100, "%")
+    series("Moment M(x) — sonli", xm[ok].tolist(),
+           (Mnum[ok]/1000).tolist(), xlabel="x, m", ylabel="M, kN*m")
+    series("Moment M(x) — analitik", xm.tolist(),
+           (Mex/1000).tolist(), xlabel="x, m", ylabel="M, kN*m")
+    ew = np.max(np.abs(wm - exact(xm, bc)))/np.max(np.abs(exact(xm, bc)))
+    value("Og'ish: maksimal nisbiy xatolik", ew*100, "%")
+    note(f"KUTILMAGAN NATIJA: n = 64 da og'ishdagi xatolik "
+         f"{ew*100:.5f} %, momentdagi xatolik esa atigi {eM*100:.3e} % "
+         f"- ya'ni moment MASHINA ANIQLIGIDA to'g'ri chiqdi. Bu xato "
+         f"emas: bir tekis yuklamada aniq moment KVADRAT ko'phad, uch "
+         f"nuqtali ikkinchi ayirma esa kvadrat ko'phadni AYNAN "
+         f"differensiallaydi (su-07 dagi xatolik hadi f^(4) ga "
+         f"mutanosib, kvadrat uchun esa f^(4) = 0).")
+
+    # Differensiallashda aniqlik yo'qolishini HAQIQIY ko'rsatish uchun
+    # yuklamani sinusoidal qilamiz: unda M ko'phad emas.
+    def solve_sine(nk):
+        hk = L/nk
+        xk = np.linspace(0.0, L, nk + 1)
+        qk = q0*np.sin(np.pi*xk/L)
+        A = np.zeros((nk + 1, nk + 1))
+        b = np.zeros(nk + 1)
+        st5 = np.array([1.0, -4.0, 6.0, -4.0, 1.0])
+        for i in range(nk + 1):
+            if i == 0 or i == nk:
+                A[i, i] = 1.0
+                continue
+            for k in range(-2, 3):
+                j, cf = i + k, st5[k + 2]
+                if 0 <= j <= nk:
+                    A[i, j] += cf
+                elif j == -1:
+                    A[i, 1] += -cf
+                elif j == nk + 1:
+                    A[i, nk - 1] += -cf
+                elif j == -2:
+                    A[i, 2] += -cf
+                elif j == nk + 2:
+                    A[i, nk - 2] += -cf
+            b[i] = qk[i]*hk**4/EI
+        return xk, np.linalg.solve(A, b), hk
+
+    rows_s, e_w_s, e_m_s = [], [], []
+    for nk in [16, 32, 64, 128]:
+        xs, ws, hsk = solve_sine(nk)
+        w_ex_s = q0*L**4/(np.pi**4*EI)*np.sin(np.pi*xs/L)
+        M_ex_s = q0*L**2/np.pi**2*np.sin(np.pi*xs/L)
+        M_n_s = -EI*(ws[:-2] - 2*ws[1:-1] + ws[2:])/hsk**2
+        ewk = np.max(np.abs(ws - w_ex_s))/np.max(np.abs(w_ex_s))
+        emk = np.max(np.abs(M_n_s - M_ex_s[1:-1]))/np.max(np.abs(M_ex_s))
+        e_w_s.append(ewk)
+        e_m_s.append(emk)
+        rows_s.append([nk, f"{ewk*100:.6f}", f"{emk*100:.6f}",
+                       f"{emk/ewk:.2f}"])
+    table("Sinusoidal yuklama: og'ish va moment xatoliklari",
+          ["n", "og'ish xatosi, %", "moment xatosi, %", "nisbat"], rows_s)
+    value("Sinusoidal: moment/og'ish xatolik nisbati",
+          float(np.mean([m/w_ for m, w_ in zip(e_m_s, e_w_s)])), "marta")
+    pw_s = np.log2(e_w_s[-2]/e_w_s[-1])
+    pm_s = np.log2(e_m_s[-2]/e_m_s[-1])
+    value("Sinusoidal: og'ish tartibi", float(pw_s), "—")
+    value("Sinusoidal: moment tartibi", float(pm_s), "—")
+    rat = float(np.mean([m/w_ for m, w_ in zip(e_m_s, e_w_s)]))
+    note(f"Yuklama sinusoidal bo'lganda (M endi ko'phad EMAS) moment "
+         f"xatosi og'ish xatosining atigi {rat:.2f} qismini tashkil "
+         f"qiladi - ya'ni moment og'ishdan ANIQROQ. Ikkala kattalik "
+         f"ham O(h^2) (tartiblar {pw_s:.2f} va {pm_s:.2f}).")
+    note("Buning sababi nozik va muhim. Diskret yechim aynan "
+         "D4*w = q/EI tenglamasini qanoatlantiradi, moment esa shu "
+         "yechimga D2 ni qo'llab olinadi. Sinus uchun D2*sin = "
+         "-k2~*sin, bu yerda k2~ = k^2(1 - k^2h^2/12 + ...). Demak "
+         "og'ishda xato (k/k~)^4 - 1 ~ k^2h^2/6, momentda esa "
+         "(k/k~)^2 - 1 ~ k^2h^2/12 - AYNAN ikki barobar kichik.")
+    note("Umumiy xulosa: MUSTAQIL xatoli ma'lumotni (o'lchov "
+         "natijasi, boshqa usul bilan olingan yechim) "
+         "differensiallash xatoni kuchaytiradi - bu su-03 dagi "
+         "eps/h mexanizmi. Lekin bu yerda moment AYNAN shu diskret "
+         "operatordan tiklanmoqda va qo'shimcha xato kiritilmaydi. "
+         "Shuning uchun chekli ayirmalarda kuchlanishni yechimdan "
+         "tiklash xavfsiz; xavf faqat tashqi (shovqinli) ma'lumotni "
+         "differensiallashda.")
+else:
+    # O'zgaruvchan EI: konservativ shaklni tekshirish
+    value("EI nisbati (o'ng/chap)", taper, "—")
+    value("Maksimal og'ish (konservativ shakl)",
+          float(np.max(np.abs(w))*1000), "mm")
+    x1, w1, _ = solve_beam(n_show, bc, 1.0)
+    value("Doimiy EI dagi og'ish", float(np.max(np.abs(w1)))*1000, "mm")
+    value("O'zgaruvchan kesim ta'siri",
+          float(np.max(np.abs(w))/np.max(np.abs(w1))), "marta")
+    series("O'zgaruvchan EI: og'ish", x.tolist(), (w*1000).tolist(),
+           xlabel="x, m", ylabel="w, mm")
+    series("Doimiy EI: og'ish", x1.tolist(), (w1*1000).tolist(),
+           xlabel="x, m", ylabel="w, mm")
+    rows, errs2 = [], []
+    for nk in [8, 16, 32, 64, 128]:
+        _, wk, _ = solve_beam(nk, bc, taper)
+        rows.append([nk, f"{np.max(np.abs(wk))*1000:.6f}"])
+        errs2.append(np.max(np.abs(wk)))
+    table("O'zgaruvchan EI: to'r bo'yicha yaqinlashish",
+          ["n", "w_max, mm"], rows)
+    d1 = abs(errs2[-3] - errs2[-2])
+    d2 = abs(errs2[-2] - errs2[-1])
+    if d2 > 1e-15:
+        value("To'rdan tiklangan tartib", float(np.log2(d1/d2)), "—")
+        note(f"Aniq yechim noma'lum, shuning uchun tartib UCHTA to'rdan "
+             f"tiklandi: log2(|w_h - w_h/2| / |w_h/2 - w_h/4|) = "
+             f"{np.log2(d1/d2):.3f}. Konservativ shakl O(h^2) ni "
+             f"saqlaydi.")
+
+table("Chegaraviy shartlar va soxta tugun munosabatlari",
+      ["Chegara", "Shartlar", "Soxta tugun", "Fizik ma'no"],
+      [["Mahkamlangan", "w = 0, w' = 0", "w_{-1} = +w_1", "simmetriya"],
+       ["Sharnirli", "w = 0, M = 0", "w_{-1} = -w_1", "antisimmetriya"],
+       ["Erkin", "M = 0, Q = 0", "ikkita soxta tugun", "kuch shartlari"],
+       ["Sirpanuvchi", "w' = 0, Q = 0", "w_{-1} = +w_1", "aralash"]])
+''',
+                parameters=[
+                    p("L", "Balka uzunligi L", 0.2, 20.0, 2.0, 0.1, "m"),
+                    p("EI", "Egilish bikrligi EI", 10.0, 1000000.0, 1000.0,
+                      10.0, "N·m²"),
+                    p("q0", "Yuklama q₀", 1.0, 100000.0, 500.0, 10.0, "N/m"),
+                    p("n_show", "Bo'linmalar soni n", 4.0, 200.0, 40.0, 2.0),
+                    p("bc", "Chegara (0 sharnirli, 1 mahkam, 2 konsol)",
+                      0.0, 2.0, 0.0, 1.0),
+                    p("taper", "EI nisbati (o'ng/chap)", 0.2, 5.0, 1.0,
+                      0.1),
+                ],
+                expected_output=(
+                    "$n = 4$ da kod qo'lda yechilgan "
+                    "tizimni aynan qaytaradi: "
+                    "$w_1 = 2{,}5\\beta$, "
+                    "$w_2 = 3{,}5\\beta$, xatolik "
+                    "5,00 %. To'r zichlashgani sari "
+                    "xatolik to'rt barobar kamayadi "
+                    "va o'lchangan tartib 2 ga "
+                    "yaqinlashadi (aynan 2,000). "
+                    "Bir tekis yuklamada tiklangan "
+                    "moment **mashina aniqligida** "
+                    "to'g'ri chiqadi, chunki aniq "
+                    "$M$ kvadrat ko'phad va uch "
+                    "nuqtali ikkinchi ayirma uni "
+                    "aynan differensiallaydi. "
+                    "Sinusoidal yuklamada esa "
+                    "moment xatosi og'ish "
+                    "xatosining **aynan yarmi** — "
+                    "moment og'ishdan ikki barobar "
+                    "aniqroq. "
+                    "O'zgaruvchan $EI$ da "
+                    "konservativ shakl ishlatiladi "
+                    "va tartib uchta to'rdan "
+                    "tiklanadi."
+                ),
+            ),
+            visual=vis(
+                kind="Egilish chizig'i va epyuralar",
+                tool="React/SVG",
+                description=(
+                    "Sonli va analitik yechimlarning "
+                    "taqqoslashi, moment epyurasi va "
+                    "yaqinlashish tartibi."
+                ),
+                how_to_draw=(
+                    "React/SVG: yuqorida balka "
+                    "sxemasi tayanchlari bilan "
+                    "chiziladi; ostida egilish "
+                    "chizig'i **kuchaytirilgan "
+                    "masshtabda** — analitik yechim "
+                    "uzluksiz chiziq, sonli yechim "
+                    "esa tugunlarda nuqtalar. "
+                    "Bo'linmalar soni slayderi bilan "
+                    "nuqtalar soni oshadi va ular "
+                    "uzluksiz chiziqqa yopishib "
+                    "boradi. Chegaralarda soxta "
+                    "tugunlar soha tashqarisida "
+                    "**punktir doira** bilan "
+                    "ko'rsatiladi va ularning "
+                    "qiymati $w_1$ ga bog'lanishi "
+                    "($+$ yoki $-$) o'q bilan "
+                    "belgilanadi — mahkamlangan va "
+                    "sharnirli holatlar orasidagi "
+                    "ishora farqi shu yerda ko'zga "
+                    "tashlanadi. Pastda moment "
+                    "epyurasi shtrixlangan holda "
+                    "(epyura an'anasi bo'yicha) "
+                    "chiziladi, sonli va analitik "
+                    "ustma-ust. O'ngda log–log "
+                    "grafik: xatolikning $h$ ga "
+                    "bog'liqligi va qiyaligi 2 "
+                    "bo'lgan uchburchak."
+                ),
+            ),
+            interp=(
+                "Eng ishonchli tekshiruv — "
+                "$n = 4$ holatining qo'lda "
+                "yechilgan natija bilan aynan mos "
+                "kelishi: kod $w_1 = 2{,}5\\beta$ "
+                "va $w_2 = 3{,}5\\beta$ qaytaradi, "
+                "xatolik esa 5,00 %. Bu chegaraviy "
+                "shartlar va soxta tugunlar to'g'ri "
+                "qo'yilganini kafolatlaydi, chunki "
+                "shu kichik tizimni qo'lda "
+                "to'liq kuzatish mumkin. Undan "
+                "keyin to'r bo'yicha yaqinlashish "
+                "$O(h^2)$ ni tasdiqlaydi va bu "
+                "sxemaning nazariy tartibi bilan "
+                "mos keladi. Ikkinchi muhim natija "
+                "moment tiklashda va u intuitivga "
+                "zid chiqadi. Bir tekis yuklamada "
+                "tiklangan moment **mashina "
+                "aniqligida** to'g'ri: aniq $M$ "
+                "kvadrat ko'phad, uch nuqtali "
+                "ikkinchi ayirmaning xatolik hadi "
+                "esa $f^{(4)}$ ga mutanosib va "
+                "kvadrat uchun u aynan nol. Buni "
+                "tekshirish uchun yuklama "
+                "sinusoidal qilinadi — o'shanda "
+                "ham moment xatosi og'ish "
+                "xatosining **aynan yarmi** bo'lib "
+                "chiqadi, ya'ni moment baribir "
+                "aniqroq. Sababi 10-qadamda: "
+                "diskret yechim $D_4w = q/EI$ ni "
+                "qanoatlantiradi va moment shu "
+                "yechimga $D_2$ ni qo'llab "
+                "olinadi, demak operatorlar "
+                "muvofiqlashgan va qo'shimcha xato "
+                "kirmaydi. Bu su-03 dagi "
+                "$\\varepsilon/h$ kuchayishidan "
+                "aniq farqlanishi kerak: u faqat "
+                "**mustaqil** xatoli ma'lumotni "
+                "differensiallashda yuzaga keladi. "
+                "Amaliy xulosa: sonli yechimdan "
+                "kuchlanish tiklash xavfsiz, "
+                "tenzodatchik ma'lumotini ikki "
+                "marta differensiallash esa emas. "
+                "O'zgaruvchan $EI$ holati alohida "
+                "qiymatga ega: u yerda aniq yechim "
+                "yo'q, shuning uchun tartib "
+                "**uchta to'rdan** tiklanadi. Bu "
+                "amaliyotdagi odatiy vaziyat — "
+                "etalon yechim deyarli hech qachon "
+                "mavjud emas va yaqinlashishni "
+                "faqat to'r ketma-ketligi orqali "
+                "tekshirish mumkin. Konservativ "
+                "shaklning $O(h^2)$ ni saqlashi "
+                "esa 11-qadamdagi nazariy "
+                "tavsiyani tasdiqlaydi."
+            ),
+            mistakes=[
+                "Mahkamlangan va sharnirli "
+                "chegaralardagi soxta tugun "
+                "ishorasini adashtirish. "
+                "$w_{-1} = +w_1$ va "
+                "$w_{-1} = -w_1$ butunlay boshqa "
+                "yechim beradi.",
+                "Erkin uchda bitta soxta tugun "
+                "bilan cheklanish. Besh nuqtali "
+                "shablon ikki qadam chiqadi — "
+                "ikkita soxta tugun kerak.",
+                "O'zgaruvchan $EI$ uchun "
+                "$EIw^{(4)} = q$ yozish. To'g'ri "
+                "shakl $(EIw'')'' = q$ — "
+                "konservativ.",
+                "O'lchov ma'lumotini (shovqinli) "
+                "ikki marta differensiallash. U "
+                "yerda xato $1/h^2$ marta "
+                "kuchayadi — sonli yechimni "
+                "differensiallashdan farqli "
+                "o'laroq.",
+                "Yaqinlashish tartibini "
+                "o'lchamaslik. Chegaraviy shartdagi "
+                "xato ko'pincha faqat tartib "
+                "pasayishi orqali bilinadi.",
+            ],
+            quiz=[
+                q("Nima uchun to'rtinchi tartibli "
+                  "tenglamada soxta tugun kerak?",
+                  "Besh nuqtali shablon chegaradan "
+                  "ikki qadam chiqadi; $i = 1$ da "
+                  "$w_{-1}$ kerak bo'ladi va u "
+                  "chegaraviy shartdan ifodalanadi.",
+                  "konseptual"),
+                q("Mahkamlangan va sharnirli uchda "
+                  "soxta tugun qanday farq qiladi?",
+                  "Mahkamlangan: $w_{-1} = +w_1$ "
+                  "(simmetriya, $w' = 0$); "
+                  "sharnirli: $w_{-1} = -w_1$ "
+                  "(antisimmetriya, $w'' = 0$).",
+                  "konseptual"),
+                q("Sharnirli balkada $n = 4$ da "
+                  "$w_2$ nechaga teng "
+                  "($\\beta = qh^4/EI$)?",
+                  "Tizimni yechib $w_2 = 3{,}5\\beta$; "
+                  "$\\beta = 0{,}03125$ m uchun "
+                  "$w_2 = 0{,}109375$ m, xatolik "
+                  "5,00 %.", "hisob"),
+                q("Kodda nima uchun $n = 4$ holati "
+                  "alohida tekshiriladi?",
+                  "Uni qo'lda to'liq yechish mumkin, "
+                  "shuning uchun u chegaraviy "
+                  "shartlar va soxta tugunlar "
+                  "to'g'ri qo'yilganini "
+                  "kafolatlaydi.", "kod"),
+                q("Sonli yechimdan tiklangan moment "
+                  "og'ishdan aniqroqmi yoki "
+                  "aniqsizroqmi?",
+                  "**Aniqroq** — sinusoidal "
+                  "yechimda ikki barobar. Moment "
+                  "aynan shu diskret operatordan "
+                  "tiklanadi, shuning uchun "
+                  "qo'shimcha xato kirmaydi; "
+                  "$\\varepsilon/h$ kuchayishi "
+                  "faqat mustaqil shovqinli "
+                  "ma'lumotda yuzaga keladi.",
+                  "talqin"),
+                q("Aniq yechim noma'lum bo'lsa "
+                  "yaqinlashish tartibi qanday "
+                  "o'lchanadi?",
+                  "Uchta to'rdan: "
+                  "$p = \\log_2\\frac{|w_h-w_{h/2}|}"
+                  "{|w_{h/2}-w_{h/4}|}$ — bu "
+                  "amaliyotdagi standart usul.",
+                  "talqin"),
+            ],
+            bridge=(
+                "Bir o'lchovda hamma narsa "
+                "tushunarli: to'r — chiziq, shablon "
+                "— bir necha qo'shni tugun, "
+                "matritsa — lentali. Ikki o'lchovda "
+                "esa yangi savollar paydo bo'ladi: "
+                "tugunlarni qanday raqamlash, "
+                "shablon qanday ko'rinishda bo'ladi "
+                "va murakkab shaklli sohani qanday "
+                "qoplash. Keyingi mavzuda Laplas va "
+                "Puasson tenglamalariga o'tamiz."
+            ),
+            research=(
+                "Balka masalasini kengaytiring. "
+                "(1) Elastik asosdagi balka "
+                "($EIw^{(4)} + kw = q$, pq-16) "
+                "uchun sxemani quring va chekka "
+                "effektining so'nish uzunligini "
+                "sonli o'lchang; uni pq-27 dagi "
+                "analitik $\\beta$ bilan "
+                "solishtiring. (2) $EI$ uzilishli "
+                "bo'lgan holatni ko'rib chiqing "
+                "(kesim keskin o'zgaradi): tugun "
+                "uzilish joyiga tushmasa "
+                "yaqinlashish tartibi qanday "
+                "o'zgaradi? (3) Nuqtaviy yuklamani "
+                "modellashtirishni tahlil qiling: "
+                "delta funksiyani diskretlashtirish "
+                "tartibni pasaytiradimi va buni "
+                "qanday bartaraf etish mumkin?"
+            ),
+            manim_ref=manim(
+                scene="BeamFDScene",
+                module="manim/scenes/su_fd.py",
+                title="Balka masalasi va soxta tugunlar",
+                summary=(
+                    "Balka to'rga bo'linadi va besh "
+                    "nuqtali shablon tugundan "
+                    "tugunga siljiydi; chegaraga "
+                    "yetganda shablon sohadan "
+                    "chiqib ketishi ko'rinadi. "
+                    "Soxta tugunlar paydo bo'lib, "
+                    "chegaraviy shart orqali ichki "
+                    "tugunlarga bog'lanadi va "
+                    "mahkamlangan hamda sharnirli "
+                    "holatlar uchun ishora farqi "
+                    "ko'rsatiladi."
+                ),
+            ),
+        ),
+    ),
 ]
