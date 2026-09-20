@@ -1201,4 +1201,1276 @@ table("Ferma elementining xossalari",
             ),
         ),
     ),
+
+    # ------------------------------------------------------------------ su-20
+    Topic(
+        id="su-20",
+        subject_id=S, module_id=M, order=20,
+        title="Balka va ramka elementlari",
+        description=(
+            "Ermit shakl funksiyalari, balka elementining bikrlik "
+            "matritsasi, mahkamlangan uch kuchlari, ramka elementi va "
+            "ichki kuchlarni muvozanat orqali tiklash."
+        ),
+        learning_objective=(
+            "Balka va ramka masalalarini FEM bilan yechish, ichki "
+            "kuchlarni aniq tiklash va siljish deformatsiyasining "
+            "qachon muhimligini baholash."
+        ),
+        prerequisites=["su-19", "mq-13", "mq-16"],
+        mathematical_core=(
+            "$C^1$ Ermit bazisi; "
+            "$\\mathbf{k} = \\frac{EI}{L^3}"
+            "[\\,12,\\,6L;\\ 6L,\\,4L^2\\,]$; "
+            "uch kuchlari $\\mathbf{S} = \\mathbf{k}\\mathbf{u}_e - "
+            "\\mathbf{f}_e$."
+        ),
+        engineering_application=(
+            "Ko'p qavatli binolar karkasi, ko'prik ustqurmasi, kran "
+            "va estakada ramkalar, quvur tizimlari."
+        ),
+        computational_component=(
+            "Balka va ramka yechuvchisi, ichki kuch epyuralari, "
+            "siljish deformatsiyasining ta'siri."
+        ),
+        visualization_component=(
+            "Ermit shakl funksiyalari, deformatsiyalangan ramka, "
+            "moment va ko'ndalang kuch epyuralari."
+        ),
+        research_extension=(
+            "Plastik sharnirlar usulini o'rganing: ramkaning chegaraviy "
+            "yuk ko'taruvchanligi va progressiv yemirilish tahlili."
+        ),
+        difficulty="orta",
+        previous_link=(
+            "su-19 dagi ferma elementi faqat o'q bo'ylab kuch uzatardi va "
+            "yuk faqat tugunlarga qo'yilardi. Endi burilish erkinlik "
+            "darajasini qo'shamiz — shu bilan oraliqqa tushadigan yukni "
+            "va payvandlangan tugunlarni modellashtira olamiz."
+        ),
+        next_topic="su-21",
+        estimated_minutes=90,
+        tags=["Ermit funksiyalari", "balka elementi", "ramka",
+              "mahkamlangan uch kuchlari", "Timoshenko"],
+        lesson=_lesson(
+            problem=(
+                "Ko'p qavatli binoning po'lat "
+                "karkasi shamol yukiga "
+                "hisoblanmoqda. Ferma modeli "
+                "yaramaydi: tugunlar "
+                "payvandlangan va moment "
+                "uzatadi, yuk esa rigellarning "
+                "**oraliqiga** tushadi. "
+                "Bundan tashqari hisobot "
+                "uchun har bir elementning "
+                "moment epyurasi kerak — "
+                "ya'ni faqat ko'chish emas, "
+                "ichki kuchlar ham. Lekin "
+                "moment ko'chishning "
+                "**ikkinchi hosilasi**, ya'ni "
+                "eng kam aniq kattalik "
+                "(su-17). Uni ishonchli "
+                "qilib qanday olish mumkin? "
+                "Va yana bir savol: qisqa, "
+                "yo'g'on rigellarda siljish "
+                "deformatsiyasi hisobga "
+                "olinishi kerakmi?"
+            ),
+            concepts=[
+                c("$C^1$ uzluksizlik",
+                  "Balka tenglamasi to'rtinchi "
+                  "tartibli, shuning uchun zaif "
+                  "shaklda ikkinchi hosila "
+                  "qatnashadi va bazis "
+                  "**hosilasi bilan birga** "
+                  "uzluksiz bo'lishi kerak."),
+                c("Ermit shakl funksiyalari",
+                  "Har bir tugunda ikkita "
+                  "erkinlik darajasi — ko'chish "
+                  "$w$ va burilish "
+                  "$\\theta = w'$; to'rtta "
+                  "kubik funksiya."),
+                c("Mahkamlangan uch kuchlari "
+                  "(fixed-end forces)",
+                  "Oraliq yukning ekvivalent "
+                  "tugun yuklari: "
+                  "$qL/2$ va $qL^2/12$ — bu "
+                  "su-15 dagi moslashgan yuk "
+                  "vektorining balka "
+                  "ko'rinishi."),
+                c("Ramka elementi",
+                  "O'q (ferma) va egilish "
+                  "(balka) birlashtiriladi: "
+                  "tugunda uchta erkinlik "
+                  "darajasi."),
+                c("Ichki kuchlarni tiklash",
+                  "$\\mathbf{S} = \\mathbf{k}"
+                  "\\mathbf{u}_e - \\mathbf{f}_e$ "
+                  "— muvozanatga asoslangan va "
+                  "**aynan** to'g'ri."),
+                c("Timoshenko balkasi",
+                  "Siljish deformatsiyasini "
+                  "hisobga oladi; qisqa "
+                  "balkalarda muhim "
+                  "(pq-24 bilan bir xil "
+                  "g'oya)."),
+            ],
+            derivation=[
+                d("1. Nima uchun $C^1$ kerak",
+                  r"\Pi = \int_0^L \frac{EI}{2}"
+                  r"(w'')^2dx - \int_0^L qw\,dx",
+                  "Energiyada **ikkinchi** "
+                  "hosila bor, shuning uchun "
+                  "$w'$ uzluksiz bo'lishi "
+                  "shart — aks holda "
+                  "$w''$ da delta-funksiya "
+                  "paydo bo'lib, energiya "
+                  "cheksizlashadi."),
+                d("2. Erkinlik darajalarini "
+                  "tanlash",
+                  r"\mathbf{u}_e = \{w_1,\ "
+                  r"\theta_1,\ w_2,\ "
+                  r"\theta_2\}^T",
+                  "**Hal qiluvchi qadam.** "
+                  "Burilishni ham tugun "
+                  "noma'lumi qilsak, "
+                  "qo'shni elementlarda u "
+                  "avtomatik mos tushadi — "
+                  "$C^1$ ta'minlanadi."),
+                d("3. Ermit shakl funksiyalari",
+                  r"N_1 = 1 - 3\xi^2 + 2\xi^3, "
+                  r"\quad N_2 = L(\xi - 2\xi^2 "
+                  r"+ \xi^3)",
+                  "$\\xi = x/L$. "
+                  "$N_3 = 3\\xi^2 - 2\\xi^3$, "
+                  "$N_4 = L(-\\xi^2 + "
+                  "\\xi^3)$. To'rtta shart: "
+                  "har bir funksiya o'z "
+                  "erkinlik darajasida 1, "
+                  "qolganlarida 0."),
+                d("4. Egrilik matritsasi",
+                  r"\mathbf{B} = "
+                  r"\frac{d^2\mathbf{N}}{dx^2} "
+                  r"= \frac{1}{L^2}"
+                  r"\frac{d^2\mathbf{N}}{d\xi^2}",
+                  "Ferma elementidagi "
+                  "birinchi hosila o'rniga "
+                  "ikkinchi hosila. "
+                  "$\\mathbf{B}$ — $\\xi$ ga "
+                  "chiziqli, demak egrilik "
+                  "element ichida chiziqli "
+                  "o'zgaradi."),
+                d("5. Bikrlik matritsasi",
+                  r"\mathbf{k} = \frac{EI}{L^3}"
+                  r"\begin{bmatrix} 12 & 6L & "
+                  r"-12 & 6L\\ 6L & 4L^2 & -6L "
+                  r"& 2L^2\\ -12 & -6L & 12 & "
+                  r"-6L\\ 6L & 2L^2 & -6L & "
+                  r"4L^2\end{bmatrix}",
+                  "Klassik balka element "
+                  "matritsasi. Rangi 2 — "
+                  "ikkita qattiq jism rejimi "
+                  "(ko'chish va burilish)."),
+                d("6. Mahkamlangan uch kuchlari",
+                  r"\mathbf{f}_e = \left\{"
+                  r"\frac{qL}{2},\ "
+                  r"\frac{qL^2}{12},\ "
+                  r"\frac{qL}{2},\ "
+                  r"-\frac{qL^2}{12}"
+                  r"\right\}^T",
+                  "**Diqqat.** Bu su-15 dagi "
+                  "$\\int\\mathbf{N}^Tq$ ning "
+                  "aynan o'zi va u "
+                  "$\\{qL/2,\\ 0\\}$ dan "
+                  "**farq qiladi** — moment "
+                  "hadlari bor."),
+                d("7. Nodal aniqlik",
+                  r"w_h(x_i) = w_{exact}(x_i) \ "
+                  r"\text{(aynan)}",
+                  "**Ajoyib xossa.** "
+                  "Moslashgan yuk vektori "
+                  "bilan tugun ko'chishlari "
+                  "va burilishlari "
+                  "**aynan** to'g'ri — "
+                  "hatto bitta elementda "
+                  "ham. Kod buni to'rtta "
+                  "klassik masalada "
+                  "tasdiqlaydi."),
+                d("8. Ichki kuchlarni "
+                  "tiklashning noto'g'ri "
+                  "yo'li",
+                  r"M = EI\,w_h'' \quad "
+                  r"(\text{xato } 2-6\%)",
+                  "Tabiiy ko'rinadi, lekin "
+                  "$w_h''$ bo'lakli "
+                  "chiziqli, aniq moment "
+                  "esa parabolik — tugunda "
+                  "ham xato qoladi."),
+                d("9. To'g'ri yo'l: muvozanat",
+                  r"\mathbf{S}_e = \mathbf{k}_e"
+                  r"\mathbf{u}_e - \mathbf{f}_e",
+                  "**Asosiy amaliy natija.** "
+                  "Element uchi kuchlari "
+                  "muvozanatdan kelib "
+                  "chiqadi va tugunlarda "
+                  "**aynan** to'g'ri. "
+                  "Barcha FEM paketlari "
+                  "shunday hisoblaydi."),
+                d("10. Ramka elementi",
+                  r"\mathbf{u}_e = \{u_1, w_1, "
+                  r"\theta_1, u_2, w_2, "
+                  r"\theta_2\}^T",
+                  "O'q va egilish "
+                  "**bog'lanmagan** (chiziqli "
+                  "nazariyada), shuning "
+                  "uchun ikkita matritsa "
+                  "shunchaki birlashtiriladi."),
+                d("11. Ramka elementining "
+                  "almashtirilishi",
+                  r"\mathbf{k}_{gl} = "
+                  r"\mathbf{T}^T\mathbf{k}_{loc}"
+                  r"\mathbf{T}, \quad "
+                  r"\mathbf{R} = \begin{bmatrix} "
+                  r"c & s & 0\\ -s & c & 0\\ "
+                  r"0 & 0 & 1\end{bmatrix}",
+                  "Burilish **skalyar** — u "
+                  "burilishda o'zgarmaydi, "
+                  "shuning uchun $\\mathbf{R}$ "
+                  "ning uchinchi qatori "
+                  "birlik."),
+                d("12. Siljish deformatsiyasi",
+                  r"\phi = \frac{12EI}"
+                  r"{\kappa GAL^2}, \qquad "
+                  r"\mathbf{k} \propto "
+                  r"\frac{EI}{L^3(1+\phi)}",
+                  "Timoshenko balkasi. "
+                  "$\\phi \\sim (h/L)^2$, "
+                  "demak ingichka balkada "
+                  "u yo'qoladi."),
+                d("13. Qachon muhim",
+                  r"\frac{\Delta w}{w} \approx "
+                  r"\phi \sim \left(\frac{h}{L}"
+                  r"\right)^2",
+                  "**O'lchangan natija.** "
+                  "$L/h = 10$ da farq 0,8%, "
+                  "$L/h = 2$ da esa 16%. "
+                  "Ingichka balkada "
+                  "Eyler–Bernulli yetarli."),
+            ],
+            meaning=(
+                "Balka elementining butun "
+                "nozikligi 1- va 2-qadamlarda. "
+                "Egilish energiyasida ikkinchi "
+                "hosila borligi bazisdan "
+                "$C^1$ uzluksizlikni talab "
+                "qiladi va bu oddiy Lagranj "
+                "funksiyalari bilan "
+                "erishilmaydi. Yechim "
+                "chiroyli: burilishni ham "
+                "tugun noma'lumi qilsak, "
+                "qo'shni elementlarda u "
+                "o'z-o'zidan mos tushadi. "
+                "Shuning uchun balka "
+                "elementida tugunga ikkita "
+                "erkinlik darajasi to'g'ri "
+                "keladi va bazis Ermit "
+                "kubiklaridan iborat. Bu "
+                "yondashuvning cheklovi ham "
+                "shu yerdan kelib chiqadi: "
+                "plastinalarda $C^1$ ni "
+                "ta'minlash ancha qiyin "
+                "(pq-24) va aynan shu sababdan "
+                "plastina elementlari "
+                "tarixan muammoli bo'lgan. "
+                "7-qadamdagi nodal aniqlik "
+                "ferma elementidagiga "
+                "o'xshaydi, lekin sababi "
+                "boshqacha. Ferma elementida "
+                "aniq yechimning o'zi "
+                "chiziqli edi; bu yerda esa "
+                "taqsimlangan yuk ostida "
+                "aniq yechim to'rtinchi "
+                "darajali, kubik bazis uni "
+                "ifodalay olmaydi — va "
+                "shunga qaramay **tugun "
+                "qiymatlari aynan to'g'ri** "
+                "chiqadi. Bu su-13 dagi bir "
+                "o'lchovli "
+                "superkonvergensiyaning "
+                "balka varianti va u faqat "
+                "moslashgan yuk vektori "
+                "bilan ishlaydi. Jamlangan "
+                "vektorga o'tsangiz, bitta "
+                "elementda xato darhol 33% "
+                "ga chiqadi. Eng muhim "
+                "amaliy dars esa 8- va "
+                "9-qadamlarda. Momentni "
+                "$EI\\,w_h''$ orqali olish "
+                "tabiiy ko'rinadi, lekin "
+                "natija tugunlarda ham "
+                "xato beradi, chunki "
+                "kubik bazisning ikkinchi "
+                "hosilasi bo'lakli chiziqli, "
+                "aniq moment esa parabolik. "
+                "To'g'ri yo'l — muvozanatdan "
+                "foydalanish: "
+                "$\\mathbf{k}\\mathbf{u}_e - "
+                "\\mathbf{f}_e$ element "
+                "uchidagi haqiqiy kuchlarni "
+                "beradi va ular **aynan** "
+                "to'g'ri. Bu su-17 dagi "
+                "kuchlanishni tiklash "
+                "g'oyasining davomi: "
+                "hosilani bevosita olish "
+                "eng yomon variant, "
+                "muvozanat yoki "
+                "superkonvergent "
+                "nuqtalardan tiklash esa "
+                "eng yaxshisi."
+            ),
+            equations=[
+                eq(r"N_1 = 1 - 3\xi^2 + 2\xi^3, "
+                   r"\ N_2 = L(\xi - 2\xi^2 + "
+                   r"\xi^3), \ \xi = x/L",
+                   "Ermit shakl funksiyalari "
+                   "(birinchi tugun).",
+                   "Ermit bazisi"),
+                eq(r"\mathbf{k} = \frac{EI}{L^3}"
+                   r"\begin{bmatrix} 12 & 6L & "
+                   r"-12 & 6L\\ 6L & 4L^2 & "
+                   r"-6L & 2L^2\\ -12 & -6L & "
+                   r"12 & -6L\\ 6L & 2L^2 & "
+                   r"-6L & 4L^2\end{bmatrix}",
+                   "Balka elementining bikrlik "
+                   "matritsasi.",
+                   "Element matritsasi"),
+                eq(r"\mathbf{f}_e = \left\{"
+                   r"\tfrac{qL}{2},\ "
+                   r"\tfrac{qL^2}{12},\ "
+                   r"\tfrac{qL}{2},\ "
+                   r"-\tfrac{qL^2}{12}"
+                   r"\right\}^T",
+                   "Tekis taqsimlangan yukning "
+                   "mahkamlangan uch kuchlari.",
+                   "Ekvivalent yuk"),
+                eq(r"\mathbf{S}_e = \mathbf{k}_e"
+                   r"\mathbf{u}_e - \mathbf{f}_e "
+                   r"\quad (\text{aynan}), "
+                   r"\qquad M = EI w_h'' \quad "
+                   r"(\text{taqribiy})",
+                   "Ichki kuchlarni tiklashning "
+                   "to'g'ri va noto'g'ri yo'li.",
+                   "Kuchlarni tiklash"),
+            ],
+            conditions=(
+                "**Balka modelining "
+                "taxminlari:**\n"
+                "1. Tekis kesimlar tekis "
+                "qoladi va o'qqa "
+                "perpendikulyar "
+                "(Eyler–Bernulli);\n"
+                "2. Siljish deformatsiyasi "
+                "e'tiborsiz — "
+                "$L/h > 10$ bo'lsa "
+                "o'rinli;\n"
+                "3. Ko'chishlar kichik, "
+                "o'q kuchi egilishga ta'sir "
+                "qilmaydi (su-23 da bekor "
+                "qilinadi).\n\n"
+                "**Element sonini tanlash:**\n"
+                "- Tugun ko'chishlari uchun "
+                "**bitta** element yetarli "
+                "(nodal aniqlik);\n"
+                "- Silliq epyura uchun "
+                "3–5 element;\n"
+                "- Yuk yoki kesim "
+                "o'zgarishida albatta "
+                "tugun bo'lsin;\n"
+                "- Dinamikada (su-23) "
+                "yuqori shakllar uchun "
+                "ko'proq kerak.\n\n"
+                "**Ichki kuchlarni olishda:** "
+                "har doim "
+                "$\\mathbf{k}\\mathbf{u}_e - "
+                "\\mathbf{f}_e$ dan "
+                "foydalaning; "
+                "$EI\\,w''$ dan emas.\n\n"
+                "**Siljish deformatsiyasi "
+                "kerak bo'ladigan "
+                "hollar:** qisqa va yo'g'on "
+                "rigellar ($L/h < 10$), "
+                "qatlamli kompozitlar "
+                "(qatlamlararo siljish "
+                "moduli kichik), "
+                "devor-balkalar. "
+                "Timoshenko elementida "
+                "esa su-16 dagi siljish "
+                "qulflanishi paydo "
+                "bo'ladi — SRI kerak.\n\n"
+                "**Ogohlantirish:** ramka "
+                "elementi tugunni "
+                "**nuqta** deb qaraydi. "
+                "Haqiqiy tugun zonasi "
+                "o'lchamga ega va bikr — "
+                "buni qattiq uchlar "
+                "(rigid end offsets) "
+                "bilan modellashtirish "
+                "mumkin."
+            ),
+            worked=WorkedExample(
+                statement=(
+                    "Uzunligi $L$ bo'lgan "
+                    "konsol balka tekis "
+                    "taqsimlangan $q$ yuk "
+                    "ostida. **Bitta** balka "
+                    "elementi bilan uch "
+                    "ko'chishini toping va "
+                    "analitik yechim bilan "
+                    "solishtiring. Keyin "
+                    "mahkamlangan uch "
+                    "momentini hisoblang."
+                ),
+                given=[
+                    r"EI = \text{const}, \quad "
+                    r"q = \text{const}, \quad "
+                    r"\text{bitta element}",
+                    r"\text{Chap uch mahkam: } "
+                    r"w_1 = \theta_1 = 0",
+                ],
+                steps=[
+                    st(r"\mathbf{f}_e = \left\{"
+                       r"\tfrac{qL}{2},\ "
+                       r"\tfrac{qL^2}{12},\ "
+                       r"\tfrac{qL}{2},\ "
+                       r"-\tfrac{qL^2}{12}"
+                       r"\right\}^T",
+                       "Moslashgan yuk vektori. "
+                       "Faqat 3- va "
+                       "4-komponentalar "
+                       "qoladi."),
+                    st(r"\frac{EI}{L^3}"
+                       r"\begin{bmatrix} 12 & "
+                       r"-6L\\ -6L & 4L^2"
+                       r"\end{bmatrix}"
+                       r"\begin{Bmatrix} w_2\\ "
+                       r"\theta_2\end{Bmatrix} = "
+                       r"\begin{Bmatrix} "
+                       r"\tfrac{qL}{2}\\ "
+                       r"-\tfrac{qL^2}{12}"
+                       r"\end{Bmatrix}",
+                       "1- va 2-qatorlar "
+                       "o'chirildi (yo'q qilish "
+                       "usuli, su-17)."),
+                    st(r"\det = \frac{EI}{L^3}"
+                       r"\cdot\frac{EI}{L^3}"
+                       r"\left(48L^2 - 36L^2"
+                       r"\right) = "
+                       r"\frac{12E^2I^2}{L^4}",
+                       "Determinant."),
+                    st(r"w_2 = \frac{L^3}{12EI}"
+                       r"\left[4L^2\cdot"
+                       r"\frac{qL}{2} + 6L\cdot"
+                       r"\left(-\frac{qL^2}{12}"
+                       r"\right)\right]\frac{1}"
+                       r"{L^2}",
+                       "Kramer qoidasi bilan."),
+                    st(r"= \frac{L}{12EI}\left["
+                       r"2qL^3 - \frac{qL^3}{2}"
+                       r"\right] = "
+                       r"\frac{L}{12EI}\cdot"
+                       r"\frac{3qL^3}{2}",
+                       "Qavs ichini "
+                       "soddalashtiramiz."),
+                    st(r"w_2 = \frac{qL^4}{8EI} "
+                       r"\quad \checkmark",
+                       "**Analitik yechim bilan "
+                       "AYNAN bir xil** — "
+                       "bitta element bilan!"),
+                    st(r"\theta_2 = "
+                       r"\frac{qL^3}{6EI} \quad "
+                       r"\checkmark",
+                       "Burilish ham aynan "
+                       "to'g'ri."),
+                    st(r"\mathbf{S}_e = "
+                       r"\mathbf{k}_e\mathbf{u}_e "
+                       r"- \mathbf{f}_e",
+                       "Endi mahkamlangan uch "
+                       "kuchlari."),
+                    st(r"S_2 = \frac{EI}{L^3}"
+                       r"\left(-6L\,w_2 + "
+                       r"2L^2\theta_2\right) - "
+                       r"\frac{qL^2}{12}",
+                       "Ikkinchi komponenta — "
+                       "chap uchdagi moment."),
+                    st(r"= \frac{EI}{L^3}\left("
+                       r"-\frac{6qL^5}{8EI} + "
+                       r"\frac{2qL^5}{6EI}"
+                       r"\right) - "
+                       r"\frac{qL^2}{12}",
+                       "Qiymatlarni "
+                       "qo'yamiz."),
+                    st(r"= qL^2\left(-\frac{3}{4} "
+                       r"+ \frac13 - \frac{1}{12}"
+                       r"\right) = qL^2\left("
+                       r"\frac{-9 + 4 - 1}{12}"
+                       r"\right)",
+                       "Umumiy maxrajga "
+                       "keltiramiz."),
+                    st(r"S_2 = -\frac{qL^2}{2} "
+                       r"\quad \checkmark",
+                       "**Konsolning "
+                       "mahkamlash momenti** — "
+                       "analitik "
+                       "$qL^2/2$ bilan "
+                       "aynan mos."),
+                ],
+                answer=(
+                    "$w_2 = qL^4/(8EI)$, "
+                    "$\\theta_2 = qL^3/(6EI)$ — "
+                    "ikkalasi ham "
+                    "**bitta element** bilan "
+                    "aynan to'g'ri. "
+                    "Mahkamlash momenti "
+                    "$|M| = qL^2/2$, u ham "
+                    "aniq. Kod bu natijalarni "
+                    "$10^{-14}$% aniqlikda "
+                    "takrorlaydi."
+                ),
+                engineering_note=(
+                    "Bitta element bilan "
+                    "aniq javob olish "
+                    "ta'sirli, lekin uni "
+                    "noto'g'ri tushunmaslik "
+                    "kerak. Aynan to'g'ri "
+                    "bo'lgani — faqat "
+                    "**tugun** qiymatlari. "
+                    "Element ichida "
+                    "ko'chish kubik "
+                    "yaqinlashish bo'lib "
+                    "qoladi, holbuki aniq "
+                    "yechim to'rtinchi "
+                    "darajali; moment "
+                    "epyurasi esa chiziqli "
+                    "chiqadi, aniqda "
+                    "parabolik. Shuning "
+                    "uchun epyura chizish "
+                    "uchun bitta element "
+                    "yetarli emas — "
+                    "3–5 ta kerak. "
+                    "Ikkinchi muhim nuqta: "
+                    "$qL^2/12$ hadini "
+                    "tushirib qoldirish "
+                    "(ya'ni yukni "
+                    "shunchaki ikkiga "
+                    "bo'lib tugunlarga "
+                    "qo'yish) bitta "
+                    "elementda 33% xato "
+                    "beradi. Bu xato "
+                    "jimgina o'tadi, "
+                    "chunki muvozanat "
+                    "buzilmaydi — faqat "
+                    "taqsimot noto'g'ri "
+                    "(su-15). Uchinchisi: "
+                    "ichki kuchlarni har "
+                    "doim "
+                    "$\\mathbf{k}\\mathbf{u} "
+                    "- \\mathbf{f}$ dan "
+                    "oling. Ko'pchilik "
+                    "talaba $EI\\,w''$ ni "
+                    "hisoblaydi va 2–6% "
+                    "xato oladi — "
+                    "hisobot uchun bu "
+                    "keraksiz yo'qotish, "
+                    "chunki to'g'ri usul "
+                    "ham xuddi shunchalik "
+                    "sodda."
+                ),
+            ),
+            computation=Computation(
+                caption=(
+                    "Ermit balka elementini "
+                    "klassik yechimlar bilan "
+                    "tekshirish, ichki "
+                    "kuchlarni ikki usulda "
+                    "tiklash, ramka va siljish "
+                    "deformatsiyasi."
+                ),
+                code='''"""Balka va ramka elementlari."""
+import numpy as np
+from labkit import PARAMS, note, series, table, value
+
+n_el = int(PARAMS.get("n_el", 4))
+L_b = float(PARAMS.get("L_b", 3.0))
+q_kNm = float(PARAMS.get("q_kNm", 5.0))
+h_col = float(PARAMS.get("h_col", 4.0))
+b_beam = float(PARAMS.get("b_beam", 6.0))
+
+E = 2.1e11
+I_sec = 8e-6
+A_sec = 6e-3
+EI = E*I_sec
+G = E/2.6
+q = q_kNm*1e3
+
+
+def ke_beam(EI_, Le):
+    return EI_/Le**3*np.array([
+        [12, 6*Le, -12, 6*Le],
+        [6*Le, 4*Le*Le, -6*Le, 2*Le*Le],
+        [-12, -6*Le, 12, -6*Le],
+        [6*Le, 2*Le*Le, -6*Le, 4*Le*Le]], dtype=float)
+
+
+def fe_udl(qq, Le):
+    """Mahkamlangan uch kuchlari - su-15 dagi moslashgan yuk vektori."""
+    return np.array([qq*Le/2, qq*Le*Le/12, qq*Le/2, -qq*Le*Le/12])
+
+
+def beam(n, Lb, qq=0.0, P=None, bc="cantilever", lumped=False):
+    h = Lb/n
+    nd = 2*(n + 1)
+    K = np.zeros((nd, nd))
+    F = np.zeros(nd)
+    for e in range(n):
+        idx = [2*e, 2*e + 1, 2*e + 2, 2*e + 3]
+        K[np.ix_(idx, idx)] += ke_beam(EI, h)
+        F[idx] += (np.array([qq*h/2, 0.0, qq*h/2, 0.0]) if lumped
+                   else fe_udl(qq, h))
+    if P:
+        for dof, v in P.items():
+            F[dof] += v
+    fixed = {"cantilever": [0, 1], "simply": [0, 2*n],
+             "fixed-fixed": [0, 1, 2*n, 2*n + 1]}[bc]
+    free = np.setdiff1d(np.arange(nd), fixed)
+    u = np.zeros(nd)
+    u[free] = np.linalg.solve(K[np.ix_(free, free)], F[free])
+    return u, K, F, h
+
+
+# --- (1) NODAL ANIQLIK: to'rtta klassik masala ---
+P_pt = 10e3
+rows = []
+for n in [1, 2, 4, 8]:
+    u1, _, _, _ = beam(n, L_b, P={2*n: -P_pt}, bc="cantilever")
+    e1 = -P_pt*L_b**3/(3*EI)
+    u2, _, _, _ = beam(n, L_b, qq=-q, bc="cantilever")
+    e2 = -q*L_b**4/(8*EI)
+    rows.append([n, f"{abs(u1[2*n] - e1)/abs(e1)*100:.3e}",
+                 f"{abs(u2[2*n] - e2)/abs(e2)*100:.3e}"])
+table("Konsol balka: bitta element ham aniq javob beradimi?",
+      ["elementlar", "uchida P: xato %", "tarqalgan q: xato %"], rows)
+value("Konsol + P: aniq w(L)", -P_pt*L_b**3/(3*EI), "m")
+value("Konsol + q: aniq w(L)", -q*L_b**4/(8*EI), "m")
+
+rows2 = []
+for n in [2, 4, 8]:
+    u3, _, _, _ = beam(n, L_b, qq=-q, bc="simply")
+    e3 = -5*q*L_b**4/(384*EI)
+    u4, K4, F4, _ = beam(n, L_b, qq=-q, bc="fixed-fixed")
+    R4 = K4 @ u4 - F4
+    e4 = q*L_b**2/12
+    rows2.append([n, f"{abs(u3[n] - e3)/abs(e3)*100:.3e}",
+                  f"{abs(abs(R4[1]) - e4)/e4*100:.3e}"])
+table("Sharnirli va ikki uchi mahkam balka",
+      ["elementlar", "sharnirli w_mid: xato %",
+       "mahkam tayanch momenti: xato %"], rows2)
+value("Sharnirli aniq w_mid (5qL^4/384EI)",
+      -5*q*L_b**4/(384*EI), "m")
+value("Mahkam tayanch momenti (qL^2/12)", q*L_b**2/12, "N*m")
+note("Ermit balka elementi TO'RTTA klassik masalada ham tugun "
+     "qiymatlarini mashina aniqligida beradi - hatto BITTA element "
+     "bilan. Bu ferma elementidagidan boshqacha hodisa: u yerda aniq "
+     "yechimning o'zi chiziqli edi, bu yerda esa tarqalgan yuk ostida "
+     "aniq yechim TO'RTINCHI darajali va kubik bazis uni ifodalay "
+     "olmaydi. Shunga qaramay tugun qiymatlari aynan to'g'ri - bu "
+     "su-13 dagi bir o'lchovli superkonvergensiyaning balka "
+     "ko'rinishi.")
+
+# --- (2) MOSLASHGAN va JAMLANGAN yuk vektori ---
+rows3 = []
+ex_c = -q*L_b**4/(8*EI)
+for n in [1, 2, 4, 8, 16]:
+    uc, _, _, _ = beam(n, L_b, qq=-q, bc="cantilever", lumped=False)
+    ul, _, _, _ = beam(n, L_b, qq=-q, bc="cantilever", lumped=True)
+    rows3.append([n, f"{abs(uc[2*n] - ex_c)/abs(ex_c)*100:.3e}",
+                  f"{abs(ul[2*n] - ex_c)/abs(ex_c)*100:.4f}"])
+table("Moslashgan (qL^2/12 bilan) va jamlangan yuk vektori",
+      ["elementlar", "moslashgan xato, %", "jamlangan xato, %"], rows3)
+note("Mahkamlangan uch momentlarini (qL^2/12) tushirib qoldirish "
+     "bitta elementda 33.33% xato beradi va u to'r zichlashganda "
+     "aynan TO'RT barobar kamayadi - ikkinchi tartib. Muvozanat esa "
+     "ikkala holatda ham buzilmaydi, shuning uchun bu xato jimgina "
+     "o'tadi (su-15). Balkada u fermadagidan ancha jiddiyroq: u yerda "
+     "6.25% edi, bu yerda 33%.")
+
+# --- (3) ICHKI KUCHLARNI TIKLASH: ikki usul ---
+n_m = n_el
+u_m, K_m, F_m, h_m = beam(n_m, L_b, qq=-q, bc="simply")
+
+
+def M_exact(x):
+    return q*x*(L_b - x)/2
+
+
+def M_curv(e, xi):
+    """EI*w'' - 'sodda' yo'l."""
+    idx = [2*e, 2*e + 1, 2*e + 2, 2*e + 3]
+    d2 = np.array([6*xi/h_m**2, (3*xi - 1)/h_m,
+                   -6*xi/h_m**2, (3*xi + 1)/h_m])
+    return EI*float(d2 @ u_m[idx])
+
+
+rows4 = []
+for e in range(n_m):
+    idx = [2*e, 2*e + 1, 2*e + 2, 2*e + 3]
+    S = ke_beam(EI, h_m) @ u_m[idx] - fe_udl(-q, h_m)
+    for x, M_eq, xi in [(e*h_m, -S[1], -1.0), ((e + 1)*h_m, S[3], 1.0)]:
+        Me = M_exact(x)
+        if abs(Me) < 1.0:
+            continue
+        Mc = M_curv(e, xi)
+        rows4.append([f"{x/L_b:.3f}", f"{Me:.2f}", f"{M_eq:.2f}",
+                      f"{abs(M_eq - Me)/abs(Me)*100:.2e}", f"{Mc:.2f}",
+                      f"{abs(Mc - Me)/abs(Me)*100:.3f}"])
+table(f"Tugunlardagi moment ({n_m} element, sharnirli balka)",
+      ["x/L", "aniq M", "muvozanatdan k*u-f", "xato %",
+       "EI*w'' dan", "xato %"], rows4)
+
+xs_eq, Ms_eq, xs_cv, Ms_cv, Ms_ex = [], [], [], [], []
+for e in range(n_m):
+    idx = [2*e, 2*e + 1, 2*e + 2, 2*e + 3]
+    S = ke_beam(EI, h_m) @ u_m[idx] - fe_udl(-q, h_m)
+    xs_eq += [e*h_m, (e + 1)*h_m]
+    Ms_eq += [float(-S[1]), float(S[3])]
+    for xi in np.linspace(-1, 1, 9):
+        x = e*h_m + h_m*(1 + xi)/2
+        xs_cv.append(x)
+        Ms_cv.append(M_curv(e, xi))
+        Ms_ex.append(M_exact(x))
+series("Aniq moment", xs_cv, Ms_ex, xlabel="x, m", ylabel="M, N*m")
+series("Muvozanatdan (k*u - f)", xs_eq, Ms_eq,
+       xlabel="x, m", ylabel="M, N*m")
+series("EI*w'' dan", xs_cv, Ms_cv, xlabel="x, m", ylabel="M, N*m")
+
+# Element ichida xato minimal bo'lgan nuqta - yana Barlou
+xis = np.linspace(-1, 1, 401)
+errs = [abs(M_curv(0, xi) - M_exact(h_m*(1 + xi)/2)) for xi in xis]
+i_min = int(np.argmin(errs))
+value("EI*w'' xatosi minimal bo'lgan |xi|", abs(float(xis[i_min])), "—")
+value("Gauss nuqtasi 1/sqrt(3)", float(1/np.sqrt(3)), "—")
+note("HAL QILUVCHI FARQ. Muvozanatdan tiklangan uch momentlari "
+     "tugunlarda MASHINA ANIQLIGIDA to'g'ri, EI*w'' esa 2-6% xato "
+     "beradi - va bu xato tugunlarda ham yo'qolmaydi, chunki kubik "
+     "bazisning ikkinchi hosilasi bo'lakli chiziqli, aniq moment esa "
+     "parabolik. Element ICHIDA esa EI*w'' xatosi |xi| = 1/sqrt(3) "
+     "atrofida minimal bo'ladi: bu yana su-16 dagi Barlou nuqtasi. "
+     "Xulosa: ichki kuchlarni har doim k*u - f dan oling.")
+
+# --- (4) RAMKA elementi: burilish invariantligi ---
+def ke_frame(EA_, EI_, Le):
+    k = np.zeros((6, 6))
+    k[0, 0] = k[3, 3] = EA_/Le
+    k[0, 3] = k[3, 0] = -EA_/Le
+    ix = [1, 2, 4, 5]
+    k[np.ix_(ix, ix)] += ke_beam(EI_, Le)
+    return k
+
+
+def frame(nodes, elems, EA_, EI_, fixed, loads):
+    nodes = np.asarray(nodes, dtype=float)
+    nn = len(nodes)
+    nd = 3*nn
+    K = np.zeros((nd, nd))
+    F = np.zeros(nd)
+    Ts, Ls = [], []
+    for (i, j) in elems:
+        dx, dy = nodes[j] - nodes[i]
+        Le = float(np.hypot(dx, dy))
+        cc, ss = dx/Le, dy/Le
+        R = np.array([[cc, ss, 0.0], [-ss, cc, 0.0], [0.0, 0.0, 1.0]])
+        T = np.zeros((6, 6))
+        T[:3, :3] = R
+        T[3:, 3:] = R
+        Ts.append(T)
+        Ls.append(Le)
+        idx = [3*i, 3*i + 1, 3*i + 2, 3*j, 3*j + 1, 3*j + 2]
+        K[np.ix_(idx, idx)] += T.T @ ke_frame(EA_, EI_, Le) @ T
+    for dof, v in loads.items():
+        F[dof] += v
+    free = np.setdiff1d(np.arange(nd), fixed)
+    u = np.zeros(nd)
+    u[free] = np.linalg.solve(K[np.ix_(free, free)], F[free])
+    return u, K, F, Ts, Ls
+
+
+rows5 = []
+ex_rot = P_pt*L_b**3/(3*EI)
+for ang in [0.0, 30.0, 45.0, 90.0, 180.0, 247.0]:
+    aa = np.radians(ang)
+    ndr = np.array([[0.0, 0.0], [L_b*np.cos(aa), L_b*np.sin(aa)]])
+    Fx, Fy = -P_pt*np.sin(aa), P_pt*np.cos(aa)   # o'qqa perpendikulyar
+    ur, _, _, _, _ = frame(ndr, [(0, 1)], E*A_sec, EI, [0, 1, 2],
+                           {3: Fx, 4: Fy})
+    w_perp = -ur[3]*np.sin(aa) + ur[4]*np.cos(aa)
+    rows5.append([f"{ang:.0f}", f"{w_perp:.10e}",
+                  f"{abs(w_perp - ex_rot)/ex_rot*100:.3e}"])
+table("Ramka elementining burilishga nisbatan invariantligi",
+      ["burchak, °", "ko'ndalang ko'chish, m", "aniq yechimdan xato %"],
+      rows5)
+note("Bir xil konsol turli burchaklarda joylashtirildi va har safar "
+     "o'qqa perpendikulyar kuch qo'yildi. Ko'ndalang ko'chish barcha "
+     "burchaklarda bir xil chiqdi - almashtirish matritsasi to'g'ri "
+     "qurilgan. Bu ramka kodini tekshirishning eng oson va eng "
+     "ishonchli usuli: natija koordinata tizimini tanlashga bog'liq "
+     "bo'lmasligi SHART.")
+
+# --- (5) PORTAL RAMKA: klassik burchak-ko'chish yechimi bilan ---
+H_load = 20e3
+rows6 = []
+for hc, bb in [(h_col, b_beam), (3.0, 6.0), (4.0, 4.0), (5.0, 8.0)]:
+    ndp = np.array([[0.0, 0.0], [0.0, hc], [bb, hc], [bb, 0.0]])
+    elp = [(0, 1), (1, 2), (2, 3)]
+    # o'qi cho'zilmaydigan deb olamiz - klassik formulaning sharti
+    up, Kp, Fp, _, _ = frame(ndp, elp, E*A_sec*1e6, EI,
+                             [0, 1, 2, 9, 10, 11], {3: H_load})
+    kk = (I_sec/bb)/(I_sec/hc)
+    d_ex = H_load*hc**3*(2 + 3*kk)/(12*EI*(1 + 6*kk))
+    rows6.append([f"{hc:.0f}", f"{bb:.0f}", f"{kk:.4f}",
+                  f"{up[3]*1e3:.6f}", f"{d_ex*1e3:.6f}",
+                  f"{abs(up[3] - d_ex)/d_ex*100:.2e}"])
+table("Portal ramka: yon siljish (o'qi cho'zilmaydigan holat)",
+      ["h", "b", "k = (I_b/b)/(I_c/h)", "FEM, mm", "formula, mm",
+       "xato %"], rows6)
+
+ndp = np.array([[0.0, 0.0], [0.0, h_col], [b_beam, h_col],
+                [b_beam, 0.0]])
+elp = [(0, 1), (1, 2), (2, 3)]
+up, Kp, Fp, _, _ = frame(ndp, elp, E*A_sec, EI,
+                         [0, 1, 2, 9, 10, 11], {3: H_load})
+Rp = Kp @ up - Fp
+value("Portal: yon siljish (haqiqiy EA bilan)", float(up[3])*1e3, "mm")
+value("Portal: gorizontal muvozanat",
+      float(Rp[0] + Rp[9] + H_load), "N")
+value("Portal: vertikal muvozanat", float(Rp[1] + Rp[10]), "N")
+M_tot = (Rp[2] + Rp[11] + (ndp[3][0]*Rp[10] - ndp[3][1]*Rp[9])
+         + (ndp[0][0]*Rp[1] - ndp[0][1]*Rp[0]) - ndp[1][1]*H_load)
+value("Portal: moment muvozanati (koordinata boshiga)",
+      float(M_tot), "N*m")
+note("Klassik burchak-ko'chish formulasi delta = H h^3 (2+3k) / "
+     "(12 EI (1+6k)) to'rtta turli geometriyada ham FEM bilan 1e-6% "
+     "aniqlikda mos tushdi. DIQQAT: formula sterjenlar "
+     "CHO'ZILMAYDIGAN deb faraz qiladi, shuning uchun taqqoslashda EA "
+     "juda katta olindi. Haqiqiy EA bilan siljish biroz boshqacha "
+     "chiqadi - o'q deformatsiyasi qo'shimcha moslashuvchanlik beradi. "
+     "Uchala muvozanat tenglamasi ham mashina aniqligida bajariladi.")
+
+# --- (6) SILJISH DEFORMATSIYASI: Timoshenko va Eyler-Bernulli ---
+def ke_timo(EI_, GA_, Le):
+    phi = 12*EI_/(GA_*Le**2)
+    cf = EI_/(Le**3*(1 + phi))
+    return cf*np.array([
+        [12, 6*Le, -12, 6*Le],
+        [6*Le, (4 + phi)*Le**2, -6*Le, (2 - phi)*Le**2],
+        [-12, -6*Le, 12, -6*Le],
+        [6*Le, (2 - phi)*Le**2, -6*Le, (4 + phi)*Le**2]], dtype=float)
+
+
+rows7 = []
+hh, bb_ = 0.2, 0.1
+Ib = bb_*hh**3/12
+Ab = bb_*hh
+P_t = 1e3
+for slend in [2, 5, 10, 20, 50, 100]:
+    Lt = slend*hh
+    w_eb = P_t*Lt**3/(3*E*Ib)
+    Kt = ke_timo(E*Ib, (5/6)*G*Ab, Lt)
+    ut = np.linalg.solve(Kt[2:, 2:], np.array([P_t, 0.0]))
+    phi = 12*E*Ib/((5/6)*G*Ab*Lt**2)
+    rows7.append([slend, f"{w_eb:.6e}", f"{ut[0]:.6e}",
+                  f"{abs(ut[0] - w_eb)/ut[0]*100:.3f}", f"{phi:.5f}"])
+table("Siljish deformatsiyasi: Eyler-Bernulli va Timoshenko",
+      ["L/h", "EB ko'chish", "Timoshenko", "farq %", "phi"], rows7)
+series("Siljish ulushi", [2, 5, 10, 20, 50, 100],
+       [float(r[3]) for r in rows7], xlabel="L/h", ylabel="farq, %")
+note("Siljish deformatsiyasining ulushi (h/L)^2 kabi kamayadi: L/h = 2 "
+     "da 16.3%, L/h = 10 da 0.77%, L/h = 100 da 0.008%. Shuning uchun "
+     "ingichka balkalarda Eyler-Bernulli yetarli, qisqa va yo'g'on "
+     "rigellarda esa Timoshenko kerak. Bu pq-24 dagi Mindlin-Reyssner "
+     "plastinasi bilan BIR XIL g'oya va u yerdagi kabi bu yerda ham "
+     "siljish qulflanishi xavfi bor (su-16).")
+
+table("Balka va ramka elementlarining xossalari",
+      ["Xossa", "Ferma (su-19)", "Balka", "Ramka"],
+      [["Erkinlik darajasi/tugun", "2 yoki 3", "2 (w, theta)",
+        "3 (u, w, theta)"],
+       ["Bazis", "chiziqli", "Ermit kubik", "chiziqli + kubik"],
+       ["Uzluksizlik", "C0", "C1", "C1 (egilish)"],
+       ["Tugun aniqligi", "aynan", "aynan", "aynan"],
+       ["Epyura element ichida", "doimiy", "moment chiziqli",
+        "moment chiziqli"],
+       ["Oraliq yuk", "MUMKIN EMAS", "mahkamlangan uch kuchlari",
+        "mahkamlangan uch kuchlari"]])
+''',
+                parameters=[
+                    p("n_el", "Elementlar soni", 1.0, 20.0, 4.0, 1.0),
+                    p("L_b", "Balka uzunligi", 1.0, 12.0, 3.0, 0.5, "m"),
+                    p("q_kNm", "Tarqalgan yuk", 1.0, 50.0, 5.0, 1.0,
+                      "kN/m"),
+                    p("h_col", "Portal ramka balandligi", 2.0, 10.0, 4.0,
+                      0.5, "m"),
+                    p("b_beam", "Portal ramka oralig'i", 2.0, 15.0, 6.0,
+                      0.5, "m"),
+                ],
+                expected_output=(
+                    "Ermit balka elementi "
+                    "to'rtta klassik masalada "
+                    "ham tugun qiymatlarini "
+                    "$10^{-14}$% aniqlikda "
+                    "beradi — hatto bitta "
+                    "element bilan. "
+                    "Mahkamlangan uch "
+                    "momentini "
+                    "($qL^2/12$) tushirib "
+                    "qoldirish bitta "
+                    "elementda 33,33% xato "
+                    "beradi va u to'r "
+                    "zichlashganda aynan "
+                    "to'rt barobar "
+                    "kamayadi. Ichki "
+                    "kuchlarni "
+                    "$\\mathbf{k}\\mathbf{u} "
+                    "- \\mathbf{f}$ dan "
+                    "tiklash tugunlarda "
+                    "mashina aniqligini "
+                    "beradi, $EI\\,w''$ esa "
+                    "2–6% xato qoldiradi; "
+                    "element ichida "
+                    "$EI\\,w''$ xatosi "
+                    "$|\\xi| \\approx "
+                    "1/\\sqrt3$ da minimal "
+                    "bo'ladi. Ramka "
+                    "elementi burilishga "
+                    "nisbatan invariant "
+                    "($10^{-11}$% "
+                    "darajasida), portal "
+                    "ramka esa klassik "
+                    "burchak-ko'chish "
+                    "formulasi bilan "
+                    "to'rtta geometriyada "
+                    "$10^{-6}$% aniqlikda "
+                    "mos tushadi. Siljish "
+                    "deformatsiyasining "
+                    "ulushi $L/h = 2$ da "
+                    "16,3%, $L/h = 100$ da "
+                    "0,008%."
+                ),
+            ),
+            visual=vis(
+                kind="Ermit funksiyalari va ichki kuch epyuralari",
+                tool="React/SVG + Manim",
+                description=(
+                    "Ermit shakl funksiyalari, "
+                    "deformatsiyalangan ramka va "
+                    "moment epyurasining ikki "
+                    "usulda tiklanishi."
+                ),
+                how_to_draw=(
+                    "React/SVG: yuqori panelda "
+                    "to'rtta Ermit funksiyasi "
+                    "chiziladi. Ularning "
+                    "ma'nosini ko'rsatish uchun "
+                    "har birining yonida "
+                    "kichik balka eskizi "
+                    "turadi: $N_1$ uchun chap "
+                    "uch birlik ko'chgan va "
+                    "**burilmagan** balka, "
+                    "$N_2$ uchun chap uch "
+                    "birlik burilgan va "
+                    "**ko'chmagan** balka. "
+                    "Shu bilan 'erkinlik "
+                    "darajasi' tushunchasi "
+                    "ko'rinadi. O'rta panelda "
+                    "ramka chiziladi va "
+                    "deformatsiyalangan shakl "
+                    "kuchaytirilgan holda "
+                    "ustiga qo'yiladi; "
+                    "tugunlardagi burchaklar "
+                    "**saqlanishi** "
+                    "($C^1$) alohida "
+                    "belgilanadi — ferma "
+                    "modelidagi sharnirdan "
+                    "farqi shunda. Pastki "
+                    "panel eng muhimi: "
+                    "moment epyurasi uchta "
+                    "chiziq bilan — aniq "
+                    "parabola, "
+                    "$EI\\,w''$ dan olingan "
+                    "zinapoyasimon-chiziqli "
+                    "egri va muvozanatdan "
+                    "olingan tugun "
+                    "qiymatlari. Tugun "
+                    "nuqtalarida "
+                    "muvozanat qiymatlari "
+                    "parabolaga **aynan** "
+                    "tegib turadi, "
+                    "$EI\\,w''$ egri chizig'i "
+                    "esa undan ajralib "
+                    "qoladi va farq "
+                    "shtrixlanadi. Element "
+                    "sonini oshirish "
+                    "slayderi bilan "
+                    "shtrixlangan soha "
+                    "qisqaradi."
+                ),
+            ),
+            interp=(
+                "Birinchi jadvalning natijasi "
+                "ta'sirli: bitta balka "
+                "elementi ham tugun "
+                "ko'chishini va burilishini "
+                "aynan beradi. Lekin bu "
+                "ferma elementidagidan "
+                "boshqacha hodisa. U yerda "
+                "aniq yechimning o'zi "
+                "chiziqli edi va bazis uni "
+                "to'liq ifodalardi; bu "
+                "yerda esa tarqalgan yuk "
+                "ostida aniq yechim "
+                "to'rtinchi darajali va "
+                "kubik bazis uni "
+                "ifodalay olmaydi — shunga "
+                "qaramay **tugun "
+                "qiymatlari** aynan "
+                "to'g'ri. Bu su-13 dagi "
+                "superkonvergensiyaning "
+                "balka varianti va u faqat "
+                "moslashgan yuk vektori "
+                "bilan ishlaydi: "
+                "$qL^2/12$ hadini tushirib "
+                "qoldirsangiz, bitta "
+                "elementda xato darhol "
+                "33% ga chiqadi. Fermada "
+                "xuddi shu xato 6,25% edi "
+                "— balkada u besh barobar "
+                "jiddiyroq, chunki "
+                "burilish erkinlik "
+                "darajasi butunlay "
+                "yuklanmay qoladi. "
+                "Mavzuning eng qimmatli "
+                "amaliy natijasi esa "
+                "uchinchi jadvalda. "
+                "Momentni "
+                "$EI\\,w_h''$ orqali olish "
+                "2–6% xato beradi va bu "
+                "xato tugunlarda ham "
+                "yo'qolmaydi. "
+                "Muvozanatdan tiklangan "
+                "uch kuchlari esa "
+                "tugunlarda mashina "
+                "aniqligida to'g'ri. Farq "
+                "sababi aniq: "
+                "$\\mathbf{k}\\mathbf{u}_e "
+                "- \\mathbf{f}_e$ "
+                "elementning haqiqiy "
+                "muvozanatini ifodalaydi, "
+                "$EI\\,w_h''$ esa "
+                "yaqinlashtirilgan "
+                "maydonning hosilasi. "
+                "Element ichida esa "
+                "$EI\\,w_h''$ xatosi "
+                "$|\\xi| \\approx "
+                "1/\\sqrt3$ da minimal — "
+                "su-16 dagi Barlou "
+                "nuqtasi yana paydo "
+                "bo'ldi. Ramka "
+                "tajribalari kodning "
+                "to'g'riligini ikki "
+                "mustaqil yo'ldan "
+                "tasdiqlaydi: burilishga "
+                "nisbatan invariantlik "
+                "va klassik "
+                "burchak-ko'chish "
+                "formulasi bilan to'rtta "
+                "geometriyadagi "
+                "kelishuv. Nihoyat "
+                "siljish tajribasi "
+                "chegarani belgilaydi: "
+                "$L/h > 10$ bo'lsa "
+                "Eyler–Bernulli yetarli, "
+                "aks holda Timoshenko "
+                "kerak — va bu pq-24 "
+                "dagi Mindlin–Reyssner "
+                "plastinasi bilan bir "
+                "xil g'oya."
+            ),
+            mistakes=[
+                "Oraliq yukni shunchaki "
+                "ikkiga bo'lib tugunlarga "
+                "qo'yish. $qL^2/12$ moment "
+                "hadlari kerak; ularsiz "
+                "bitta elementda 33% xato.",
+                "Momentni $EI\\,w''$ dan "
+                "olish. To'g'ri yo'l — "
+                "$\\mathbf{k}\\mathbf{u}_e - "
+                "\\mathbf{f}_e$, u tugunlarda "
+                "aynan to'g'ri.",
+                "Bitta element bilan epyura "
+                "chizish. Tugun qiymatlari "
+                "aniq, lekin element "
+                "ichidagi moment chiziqli "
+                "— epyura uchun 3–5 element "
+                "kerak.",
+                "Ferma va ramka modelini "
+                "adashtirish. Payvandlangan "
+                "tugun moment uzatadi; "
+                "sharnirli model uni "
+                "e'tiborsiz qoldiradi.",
+                "Qisqa rigellarda siljish "
+                "deformatsiyasini "
+                "unutish. $L/h < 10$ da "
+                "farq 1% dan oshadi.",
+                "Timoshenko elementini "
+                "to'liq integrallash bilan "
+                "ishlatish — siljish "
+                "qulflanishi paydo bo'ladi "
+                "(su-16).",
+            ],
+            quiz=[
+                q("Balka elementida nima uchun "
+                  "$C^1$ uzluksizlik kerak?",
+                  "Egilish energiyasida "
+                  "ikkinchi hosila "
+                  "$(w'')^2$ qatnashadi; "
+                  "$w'$ uzilsa "
+                  "$w''$ da delta-funksiya "
+                  "paydo bo'lib energiya "
+                  "cheksizlashadi.",
+                  "konseptual"),
+                q("$C^1$ qanday "
+                  "ta'minlanadi?",
+                  "Burilish ham tugun "
+                  "noma'lumi qilinadi, "
+                  "shunda qo'shni "
+                  "elementlarda u "
+                  "avtomatik mos tushadi "
+                  "— shundan Ermit "
+                  "bazisi kelib chiqadi.",
+                  "konseptual"),
+                q("Konsol balkada bitta "
+                  "element bilan $w(L)$ "
+                  "nechaga teng chiqadi?",
+                  "$qL^4/(8EI)$ — analitik "
+                  "yechim bilan aynan bir "
+                  "xil. Burilish ham aynan: "
+                  "$qL^3/(6EI)$.", "hisob"),
+                q("Kod momentni ikki usulda "
+                  "tiklaydi. Natijalari "
+                  "qanday farq qiladi?",
+                  "$\\mathbf{k}\\mathbf{u} - "
+                  "\\mathbf{f}$ tugunlarda "
+                  "mashina aniqligida "
+                  "to'g'ri, $EI\\,w''$ esa "
+                  "2–6% xato beradi — "
+                  "tugunlarda ham.", "kod"),
+                q("Ramka kodini tekshirishning "
+                  "eng oson usuli qaysi?",
+                  "Burilishga nisbatan "
+                  "invariantlik: bir xil "
+                  "masalani turli burchaklarda "
+                  "joylashtirib, natija "
+                  "o'zgarmasligini tekshirish. "
+                  "Kodda xato $10^{-11}$% "
+                  "darajasida.", "kod"),
+                q("Siljish deformatsiyasi "
+                  "qachon hisobga "
+                  "olinishi kerak?",
+                  "$L/h < 10$ bo'lganda. "
+                  "Ulush $(h/L)^2$ kabi "
+                  "kamayadi: $L/h = 2$ da "
+                  "16,3%, $L/h = 10$ da "
+                  "0,77%, $L/h = 100$ da "
+                  "0,008%.", "talqin"),
+                q("Bitta element aniq javob "
+                  "bersa, nega ko'proq "
+                  "element kerak bo'ladi?",
+                  "Aniqlik faqat tugun "
+                  "qiymatlariga tegishli. "
+                  "Element ichida ko'chish "
+                  "kubik, moment esa "
+                  "chiziqli yaqinlashish — "
+                  "epyura uchun zichroq "
+                  "to'r kerak.", "talqin"),
+            ],
+            bridge=(
+                "Ferma, balka va ramka "
+                "elementlari bir o'lchovli "
+                "edi: ular uzun va ingichka "
+                "konstruksiyalarga mos. "
+                "Keyingi mavzuda ikki "
+                "o'lchovga o'tamiz — tekis "
+                "kuchlanish va tekis "
+                "deformatsiya masalalari, "
+                "CST, Q4 va Q8 elementlari "
+                "hamda kuchlanish "
+                "konsentratsiyasi hisobi."
+            ),
+            research=(
+                "Sterjenli tizimlar tahlilini "
+                "chuqurlashtiring. "
+                "(1) Plastik sharnirlar "
+                "usulini o'rganing: ramkaning "
+                "chegaraviy yuk "
+                "ko'taruvchanligi qanday "
+                "topiladi va u chiziqli "
+                "hisobdan qanchalik "
+                "farq qiladi? "
+                "(2) Geometrik bikrlik "
+                "matritsasini ko'rib chiqing: "
+                "o'q kuchi egilish bikrligini "
+                "o'zgartiradi va bu "
+                "ustuvorlik masalasiga olib "
+                "keladi (su-23). "
+                "(3) Burama-egilish "
+                "(warping torsion) "
+                "nazariyasini o'rganing: "
+                "ochiq yupqa devorli "
+                "kesimlarda ettinchi "
+                "erkinlik darajasi paydo "
+                "bo'ladi. "
+                "(4) Qattiq uchlar (rigid "
+                "end offsets) va yarim "
+                "bikr tugunlarni ko'rib "
+                "chiqing: haqiqiy "
+                "payvandlangan tugunning "
+                "bikrligi cheksiz emas."
+            ),
+            manim_ref=manim(
+                scene="BeamFrameScene",
+                module="manim/scenes/su_apps.py",
+                title="Ermit bazisi va moment epyurasi",
+                summary=(
+                    "To'rtta Ermit funksiyasi "
+                    "birin-ketin chiziladi va "
+                    "har biri mos keladigan "
+                    "balka deformatsiyasi "
+                    "bilan ko'rsatiladi. Keyin "
+                    "sharnirli balka "
+                    "yuklanadi va ikkita "
+                    "moment epyurasi "
+                    "qo'yiladi: "
+                    "$EI\\,w''$ dan olingan "
+                    "siniq chiziq aniq "
+                    "paraboladan ajralib "
+                    "turadi, muvozanatdan "
+                    "olingan tugun "
+                    "nuqtalari esa "
+                    "parabolaga aynan "
+                    "tushadi. Oxirida "
+                    "portal ramka shamol "
+                    "yuki ostida "
+                    "deformatsiyalanadi."
+                ),
+            ),
+        ),
+    ),
 ]
