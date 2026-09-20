@@ -2891,17 +2891,16 @@ note(f"Laminar: u_max/V = 2.00; turbulent (1/7): u_max/V = "
      f"aralashuv markaz va devor orasidagi farqni tekislaydi.")
 
 # --- Mudi diagrammasi ---
-Re_range = np.logspace(3.3, 8, 250)
+# Laminar va turbulent sohalar ALOHIDA chiziladi. 2300 < Re < 4000
+# o'tish sohasida ishonchli korrelyatsiya yo'q, shuning uchun u umuman
+# chizilmaydi - "teshik"ni NaN bilan to'ldirish natijani soxtalashtiradi.
+Re_lam = np.logspace(3.3, np.log10(2300.0), 40)
+series("Mudi: laminar 64/Re", Re_lam.tolist(), (64.0/Re_lam).tolist(),
+       xlabel="Reynolds soni Re", ylabel="Darsi koeffitsienti f")
+Re_turb = np.logspace(np.log10(4000.0), 8, 210)
 for rr_i in [0.0, 1e-5, 1e-4, 1e-3, 5e-3, 2e-2]:
-    fs = []
-    for Re_i in Re_range:
-        if Re_i < 2300:
-            fs.append(64/Re_i)
-        elif Re_i < 4000:
-            fs.append(float("nan"))
-        else:
-            fs.append(colebrook(Re_i, rr_i)[0])
-    series(f"Mudi: eps/D = {rr_i:g}", Re_range.tolist(), fs,
+    fs = [float(colebrook(Re_i, rr_i)[0]) for Re_i in Re_turb]
+    series(f"Mudi: eps/D = {rr_i:g}", Re_turb.tolist(), fs,
            xlabel="Reynolds soni Re", ylabel="Darsi koeffitsienti f")
 
 # To'liq turbulent (g'adir-budirlik hukmron) asimptota

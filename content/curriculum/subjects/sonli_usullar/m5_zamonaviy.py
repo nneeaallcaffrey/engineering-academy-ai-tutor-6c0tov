@@ -5550,10 +5550,15 @@ perm = lambda A, pr: csc_matrix(A[pr, :][:, pr])
 g = lambda f: f.L.nnz + f.U.nnz
 
 def n_iter(A, M=None):
-    it = [0]
+    """CG iteratsiyalarini sanaydi."""
+    count = [0]
+
+    def bump(_xk):
+        count[0] += 1
+
     cg(A, np.ones(A.shape[0]), rtol=1e-8, maxiter=50000,
-       callback=lambda x: it.__setitem__(0, it[0] + 1), M=M)
-    return it[0]
+       callback=bump, M=M)
+    return count[0]
 
 K = lap(m, dim)
 N = K.shape[0]

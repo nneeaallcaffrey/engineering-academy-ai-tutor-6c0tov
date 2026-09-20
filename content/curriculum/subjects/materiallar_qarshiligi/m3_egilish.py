@@ -1688,13 +1688,18 @@ table("Kesim samaradorligi",
 
 # Balandlikning massaga ta'siri
 hh = np.linspace(0.3, 1.2, 60)
-masses = []
+h_ok, masses = [], []
 for hi in hh:
     cons_h = cons + [{"type": "eq", "fun": lambda p, hv=hi: p[0]-hv}]
     r = minimize(objective, [hi, 0.008, 0.2, 0.012], bounds=bounds,
                  constraints=cons_h, method="SLSQP")
-    masses.append(section(r.x)[0]*7850 if r.success else np.nan)
-series("Massa(h)", (hh*1000).tolist(), masses, xlabel="Balandlik h, mm", ylabel="Massa, kg/m")
+    # yaqinlashmagan nuqta CHIZILMAYDI - NaN qo'yish natijani soxtalashtiradi
+    if r.success:
+        h_ok.append(float(hi*1000))
+        masses.append(float(section(r.x)[0]*7850))
+value("Optimallashtirish yaqinlashgan nuqtalar", len(h_ok), "dona")
+value("Yaqinlashish ulushi", 100.0*len(h_ok)/len(hh), "%")
+series("Massa(h)", h_ok, masses, xlabel="Balandlik h, mm", ylabel="Massa, kg/m")
 
 # Teng qarshilikli balka profili
 x = np.linspace(0.01, L/2, 100)
