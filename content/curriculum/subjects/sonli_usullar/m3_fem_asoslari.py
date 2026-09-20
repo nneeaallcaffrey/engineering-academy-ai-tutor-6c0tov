@@ -5004,4 +5004,1207 @@ table("Qulflanish turlari va ularga mos davolar",
             ),
         ),
     ),
+
+    # ------------------------------------------------------------------ su-17
+    Topic(
+        id="su-17",
+        subject_id=S, module_id=M, order=17,
+        title="Chegaraviy shartlar, tizimni yechish va natijani qayta ishlash",
+        description=(
+            "Berilgan ko'chishlarni qo'llashning uch usuli, ko'p nuqtali "
+            "bog'lanishlar, reaksiyalarni tiklash, kuchlanishni "
+            "superkonvergent nuqtalardan qayta tiklash va yechimning "
+            "ishonchliligini tekshirish."
+        ),
+        learning_objective=(
+            "Chegaraviy shartlarni to'g'ri qo'llash usulini tanlash, "
+            "reaksiyalarni va kuchlanishni aniq tiklash hamda natijani "
+            "muvozanat bo'yicha tekshirish."
+        ),
+        prerequisites=["su-16"],
+        mathematical_core=(
+            "Yo'q qilish, jarima ($\\beta$) va Lagranj ko'paytuvchilari; "
+            "$\\mathbf{R} = \\mathbf{K}\\mathbf{u} - \\mathbf{F}$; "
+            "$\\boldsymbol\\lambda = -\\mathbf{R}$; "
+            "$\\kappa(\\mathbf{K}) \\sim h^{-2}$."
+        ),
+        engineering_application=(
+            "Simmetriya shartlari, qiya tayanchlar, qattiq bog'lovchilar, "
+            "tayanch reaksiyalari va kuchlanish diagrammalari — "
+            "muhandislik hisobotining asosiy natijalari."
+        ),
+        computational_component=(
+            "Uch usulni taqqoslash, jarima koeffitsientining "
+            "aniqlik–shartlanganlik almashuvini o'lchash, kuchlanishni "
+            "to'rt xil usulda tiklash."
+        ),
+        visualization_component=(
+            "Jarima koeffitsientining ikki tomonlama ta'siri, "
+            "kuchlanishni tiklash usullarining taqqoslanishi."
+        ),
+        research_extension=(
+            "Zienkiewicz–Zhu superkonvergent yamoq tiklashini (SPR) "
+            "o'rganing: u su-18 dagi adaptivlikning asosiy vositasi."
+        ),
+        difficulty="orta",
+        previous_link=(
+            "su-16 da element matritsalari to'g'ri quriladigan bo'ldi va "
+            "qulflanish tuzoqlari ma'lum. Endi yig'ilgan tizimni "
+            "yechishga o'tamiz: chegaraviy shartlarni qanday qo'llash va "
+            "yechimdan foydali natijalarni qanday chiqarish."
+        ),
+        next_topic="su-18",
+        estimated_minutes=85,
+        tags=["chegaraviy shart", "Lagranj ko'paytuvchisi", "reaksiya",
+              "kuchlanishni tiklash", "shartlanganlik"],
+        lesson=_lesson(
+            problem=(
+                "Ko'prik tayanchining hisobi "
+                "tugadi va endi hisobotga "
+                "kerakli raqamlar chiqarilishi "
+                "lozim: tayanch reaksiyalari "
+                "(fundament loyihasi uchun), "
+                "maksimal kuchlanish (mustahkamlik "
+                "uchun) va uning joyi. Lekin "
+                "yechuvchi faqat tugun "
+                "ko'chishlarini berdi. Bundan "
+                "tashqari konstruksiyada "
+                "qiya tayanch bor — u faqat "
+                "o'z tekisligi bo'ylab "
+                "siljishi mumkin, va ikkita "
+                "tugun qattiq bog'lovchi "
+                "bilan ulangan. Bunday "
+                "shartlarni tizimga qanday "
+                "kiritish mumkin? Va eng "
+                "muhimi: chiqqan "
+                "kuchlanishga ishonsa "
+                "bo'ladimi — axir u "
+                "ko'chishning **hosilasi**, "
+                "ya'ni eng kam aniq "
+                "kattalik?"
+            ),
+            concepts=[
+                c("Asosiy (Dirixle) shart",
+                  "Ko'chish berilgan: "
+                  "$u_i = \\bar{u}_i$. Tizimga "
+                  "majburan kiritiladi."),
+                c("Tabiiy (Neyman) shart",
+                  "Kuch berilgan. Zaif "
+                  "formulirovkada **o'z-o'zidan** "
+                  "bajariladi (su-13) — alohida "
+                  "chora kerak emas."),
+                c("Yo'q qilish usuli "
+                  "(elimination)",
+                  "Mahkamlangan erkinlik "
+                  "darajalariga mos qator va "
+                  "ustunlar chiqarib "
+                  "tashlanadi; eng aniq va eng "
+                  "tejamli."),
+                c("Jarima usuli (penalty)",
+                  "Diagonalga katta "
+                  "$\\beta K_{max}$ qo'shiladi; "
+                  "sodda, lekin aniqlik "
+                  "va shartlanganlik "
+                  "qarama-qarshi tomonga "
+                  "tortadi."),
+                c("Lagranj ko'paytuvchilari",
+                  "Shart alohida noma'lum "
+                  "sifatida kiritiladi; "
+                  "$\\lambda$ bevosita "
+                  "reaksiyani beradi."),
+                c("Ko'p nuqtali bog'lanish "
+                  "(MPC)",
+                  "$\\sum_i c_iu_i = g$ "
+                  "ko'rinishidagi shart: "
+                  "simmetriya, qiya tayanch, "
+                  "qattiq bog'lovchi."),
+                c("Kuchlanishni tiklash "
+                  "(recovery)",
+                  "Ko'chishdan kuchlanishga "
+                  "o'tish; superkonvergent "
+                  "nuqtalardan "
+                  "ekstrapolyatsiya eng "
+                  "aniq."),
+            ],
+            derivation=[
+                d("1. Bo'lingan tizim",
+                  r"\begin{bmatrix}\mathbf{K}_{ff} "
+                  r"& \mathbf{K}_{fp}\\ "
+                  r"\mathbf{K}_{pf} & "
+                  r"\mathbf{K}_{pp}\end{bmatrix}"
+                  r"\begin{Bmatrix}\mathbf{u}_f\\ "
+                  r"\mathbf{u}_p\end{Bmatrix} = "
+                  r"\begin{Bmatrix}\mathbf{F}_f\\ "
+                  r"\mathbf{F}_p + \mathbf{R}"
+                  r"\end{Bmatrix}",
+                  "$f$ — erkin, $p$ — berilgan "
+                  "(prescribed) erkinlik "
+                  "darajalari. $\\mathbf{R}$ — "
+                  "noma'lum reaksiyalar."),
+                d("2. Yo'q qilish usuli",
+                  r"\mathbf{K}_{ff}\mathbf{u}_f = "
+                  r"\mathbf{F}_f - "
+                  r"\mathbf{K}_{fp}\mathbf{u}_p",
+                  "**Asosiy usul.** Birinchi "
+                  "qator yechiladi. "
+                  "$\\mathbf{u}_p \\ne 0$ "
+                  "bo'lsa o'ng tomonga "
+                  "tuzatish kiradi — bu ko'p "
+                  "unutiladigan had."),
+                d("3. Reaksiyalarni tiklash",
+                  r"\mathbf{R} = "
+                  r"\mathbf{K}_{pf}\mathbf{u}_f "
+                  r"+ \mathbf{K}_{pp}"
+                  r"\mathbf{u}_p - \mathbf{F}_p",
+                  "Ikkinchi qator. Umumiy "
+                  "shaklda "
+                  "$\\mathbf{R} = "
+                  "\\mathbf{K}\\mathbf{u} - "
+                  "\\mathbf{F}$ va u faqat "
+                  "mahkamlangan tugunlarda "
+                  "nolmas bo'ladi."),
+                d("4. Muvozanat tekshiruvi",
+                  r"\sum_i R_i + \sum_i F_i = 0",
+                  "**Eng muhim tekshiruv.** "
+                  "Reaksiyalar yig'indisi "
+                  "tashqi yukni "
+                  "muvozanatlashi shart. Bu "
+                  "yechimning to'g'riligining "
+                  "eng ishonchli global "
+                  "belgisi."),
+                d("5. Jarima usuli",
+                  r"K_{ii} \leftarrow K_{ii} + "
+                  r"\beta K_{max}, \qquad "
+                  r"F_i \leftarrow F_i + "
+                  r"\beta K_{max}\bar{u}_i",
+                  "Juda katta prujina "
+                  "qo'shiladi. "
+                  "$\\beta \\to \\infty$ da "
+                  "$u_i \\to \\bar{u}_i$."),
+                d("6. Jarima usulining xatosi",
+                  r"\frac{|u_i - \bar{u}_i|}"
+                  r"{|\bar{u}_i|} \sim "
+                  r"\frac{1}{\beta}",
+                  "Xato $\\beta$ ga teskari "
+                  "proporsional — kattaroq "
+                  "$\\beta$ aniqroq."),
+                d("7. Jarima usulining narxi",
+                  r"\kappa(\mathbf{K}) \sim \beta",
+                  "**Qarama-qarshi ta'sir.** "
+                  "Shartlanganlik soni "
+                  "$\\beta$ bilan o'sadi va "
+                  "yaxlitlash xatosi "
+                  "(su-02, su-05) "
+                  "kuchayadi. Optimal "
+                  "$\\beta \\approx "
+                  "10^6\\!-\\!10^8$."),
+                d("8. Lagranj ko'paytuvchilari",
+                  r"\begin{bmatrix}\mathbf{K} & "
+                  r"\mathbf{C}^T\\ \mathbf{C} & "
+                  r"\mathbf{0}\end{bmatrix}"
+                  r"\begin{Bmatrix}\mathbf{u}\\ "
+                  r"\boldsymbol\lambda"
+                  r"\end{Bmatrix} = "
+                  r"\begin{Bmatrix}\mathbf{F}\\ "
+                  r"\mathbf{g}\end{Bmatrix}",
+                  "Shart aynan bajariladi. "
+                  "Narxi: tizim kattalashadi "
+                  "va **musbat aniq "
+                  "bo'lmay qoladi** (egar "
+                  "nuqtali tizim)."),
+                d("9. Ko'paytuvchining fizik "
+                  "ma'nosi",
+                  r"\boldsymbol\lambda = "
+                  r"-\mathbf{R}",
+                  "**Chiroyli natija.** "
+                  "Lagranj ko'paytuvchisi — "
+                  "shartni ushlab turish "
+                  "uchun kerak bo'lgan kuch, "
+                  "ya'ni reaksiyaning o'zi. "
+                  "Bog'lanish uchun esa u "
+                  "bog'lovchidagi ichki "
+                  "kuch."),
+                d("10. Ko'p nuqtali bog'lanish",
+                  r"\sum_i c_iu_i = g "
+                  r"\;\Longrightarrow\; "
+                  r"\mathbf{C}\mathbf{u} = "
+                  r"\mathbf{g}",
+                  "Bir xil apparat. Qiya "
+                  "tayanch: "
+                  "$u\\sin\\alpha - "
+                  "v\\cos\\alpha = 0$; "
+                  "simmetriya: "
+                  "$u_i - u_j = 0$."),
+                d("11. Kuchlanishni tiklash "
+                  "muammosi",
+                  r"\sigma = E\,\mathbf{B}"
+                  r"\mathbf{u} \quad "
+                  r"(\text{bir tartib past "
+                  r"aniqlik})",
+                  "Ko'chish $O(h^{p+1})$, "
+                  "hosilasi esa "
+                  "$O(h^{p})$ — kuchlanish "
+                  "har doim aniqligi "
+                  "kamroq kattalik."),
+                d("12. Superkonvergent "
+                  "nuqtalardan tiklash",
+                  r"\sigma_{\text{tugun}} = "
+                  r"\text{ekstrapolyatsiya}"
+                  r"\left(\sigma"
+                  r"\big|_{\xi = \pm 1/\sqrt3}"
+                  r"\right)",
+                  "**To'g'ri yo'l.** su-16 "
+                  "dagi Barlou nuqtalarida "
+                  "kuchlanish bir tartib "
+                  "aniqroq; tugun qiymatini "
+                  "o'sha yerdan "
+                  "ekstrapolyatsiya qilish "
+                  "kerak."),
+                d("13. O'rtachalash",
+                  r"\sigma_i = \frac{1}{n_i}"
+                  r"\sum_{e \ni i}\sigma^e_i",
+                  "Qo'shni elementlar "
+                  "qiymatlarining o'rtachasi. "
+                  "Ichki tugunlarda juda "
+                  "yaxshi ishlaydi, "
+                  "**chegarada esa yo'q** — "
+                  "u yerda bir tomondan "
+                  "ma'lumot yetishmaydi."),
+                d("14. Shartlanganlikning "
+                  "o'sishi",
+                  r"\kappa(\mathbf{K}_{ff}) "
+                  r"\sim h^{-2}",
+                  "To'r ikki barobar "
+                  "zichlashsa $\\kappa$ "
+                  "to'rt barobar o'sadi. "
+                  "Iterativ yechuvchida "
+                  "(su-06) iteratsiyalar "
+                  "soni $\\sqrt{\\kappa} "
+                  "\\sim 1/h$ kabi "
+                  "ko'payadi — shuning "
+                  "uchun oldindan "
+                  "shartlash "
+                  "(preconditioning) "
+                  "muhim."),
+            ],
+            meaning=(
+                "Bu mavzuda uchta amaliy "
+                "qaror bor va ularning har "
+                "biri o'z almashuviga ega. "
+                "Birinchisi — chegaraviy "
+                "shartni qanday qo'llash. "
+                "Yo'q qilish usuli aniq va "
+                "tejamli, lekin dasturlashda "
+                "indekslarni qayta raqamlashni "
+                "talab qiladi. Jarima usuli "
+                "eng sodda — bir qator kod — "
+                "lekin 6- va 7-qadamlar "
+                "uning ikki tomonlama "
+                "tabiatini ko'rsatadi: xato "
+                "$1/\\beta$ kabi kamayadi, "
+                "shartlanganlik esa $\\beta$ "
+                "kabi o'sadi. Ikkalasi "
+                "qarama-qarshi tortadi va "
+                "shuning uchun optimal "
+                "$\\beta$ mavjud, cheksiz "
+                "katta emas. Bu su-05 dagi "
+                "xatolik byudjeti g'oyasining "
+                "aniq ko'rinishi: bir "
+                "xatoni kamaytirish "
+                "boshqasini oshiradi. "
+                "Lagranj usuli shartni aynan "
+                "bajaradi, lekin tizimni "
+                "musbat aniqlikdan "
+                "mahrum qiladi — Xoleskiy "
+                "yoyilmasi (su-05) endi "
+                "ishlamaydi. Buning evaziga "
+                "9-qadamdagi sovg'a "
+                "keladi: ko'paytuvchi "
+                "bevosita reaksiyani beradi, "
+                "uni alohida hisoblash "
+                "kerak emas. Ikkinchi qaror "
+                "— kuchlanishni qanday "
+                "tiklash, va bu yerda "
+                "11-qadam asosiy "
+                "qiyinchilikni belgilaydi: "
+                "kuchlanish ko'chishning "
+                "hosilasi, demak u har doim "
+                "bir tartib kam aniq. "
+                "Ammo 12-qadam yo'l "
+                "ko'rsatadi — su-16 dagi "
+                "Barlou nuqtalarida "
+                "kuchlanish o'sha yo'qotilgan "
+                "tartibni qaytarib oladi. "
+                "13-qadamdagi o'rtachalash "
+                "esa amaliyotda eng keng "
+                "tarqalgan usul va u ichki "
+                "tugunlarda ajoyib ishlaydi, "
+                "lekin chegarada "
+                "ishlamaydi — aynan "
+                "chegarada esa maksimal "
+                "kuchlanish bo'ladi. Bu "
+                "jimgina xato va uni bilish "
+                "kerak. Uchinchi masala "
+                "14-qadamda: "
+                "shartlanganlik "
+                "$h^{-2}$ kabi o'sadi. "
+                "To'g'ri yechuvchi uchun bu "
+                "aniqlik yo'qotishini, "
+                "iterativ yechuvchi uchun "
+                "esa iteratsiyalar sonining "
+                "o'sishini anglatadi. "
+                "Zichroq to'r har doim "
+                "yaxshiroq emas — o'z "
+                "narxi bor."
+            ),
+            equations=[
+                eq(r"\mathbf{K}_{ff}\mathbf{u}_f = "
+                   r"\mathbf{F}_f - \mathbf{K}_{fp}"
+                   r"\mathbf{u}_p",
+                   "Yo'q qilish usuli; berilgan "
+                   "ko'chish o'ng tomonga "
+                   "tuzatish kiritadi.",
+                   "Yo'q qilish"),
+                eq(r"\mathbf{R} = \mathbf{K}"
+                   r"\mathbf{u} - \mathbf{F}, "
+                   r"\qquad \sum R_i + \sum F_i "
+                   r"= 0",
+                   "Reaksiyalarni tiklash va "
+                   "global muvozanat tekshiruvi.",
+                   "Reaksiyalar"),
+                eq(r"\frac{\Delta u}{\bar u} \sim "
+                   r"\frac{1}{\beta}, \qquad "
+                   r"\kappa \sim \beta",
+                   "Jarima usulidagi "
+                   "aniqlik–shartlanganlik "
+                   "almashuvi.", "Jarima usuli"),
+                eq(r"\begin{bmatrix}\mathbf{K} & "
+                   r"\mathbf{C}^T\\ \mathbf{C} & "
+                   r"\mathbf{0}\end{bmatrix}"
+                   r"\begin{Bmatrix}\mathbf{u}\\ "
+                   r"\boldsymbol\lambda"
+                   r"\end{Bmatrix} = "
+                   r"\begin{Bmatrix}\mathbf{F}\\ "
+                   r"\mathbf{g}\end{Bmatrix}, "
+                   r"\quad \boldsymbol\lambda = "
+                   r"-\mathbf{R}",
+                   "Lagranj ko'paytuvchilari; "
+                   "ko'paytuvchi reaksiyaga "
+                   "teng.", "Lagranj usuli"),
+            ],
+            conditions=(
+                "**Usul tanlash:**\n"
+                "- Oddiy mahkamlash "
+                "($u = 0$) → yo'q qilish;\n"
+                "- Tez prototip, sodda kod → "
+                "jarima, "
+                "$\\beta = 10^6\\!-\\!10^8$;\n"
+                "- Bog'lanishlar, qiya "
+                "tayanchlar, kontakt → "
+                "Lagranj yoki kengaytirilgan "
+                "Lagranj.\n\n"
+                "**Yechimdan keyin majburiy "
+                "tekshiruvlar:**\n"
+                "1. $\\sum R_i + \\sum F_i = 0$ "
+                "— global muvozanat;\n"
+                "2. Mahkamlangan tugunlarda "
+                "$u_i = \\bar{u}_i$ "
+                "bajarilganmi;\n"
+                "3. Erkin tugunlarda qoldiq "
+                "$\\|\\mathbf{K}\\mathbf{u} - "
+                "\\mathbf{F}\\|$ mashina "
+                "aniqligidami;\n"
+                "4. Deformatsiyalangan shakl "
+                "fizik jihatdan "
+                "ishonarlimi.\n\n"
+                "**Kuchlanishni baholashda:**\n"
+                "- Gauss (Barlou) nuqtalarida "
+                "hisoblang;\n"
+                "- Chegara tugunlarida "
+                "o'rtachalashga **ishonmang** "
+                "— ekstrapolyatsiya qiling;\n"
+                "- Elementlararo sakrash "
+                "kattaligi xatolik "
+                "ko'rsatkichi sifatida "
+                "ishlatiladi (su-18).\n\n"
+                "**Yetarli mahkamlash:** "
+                "qattiq jism rejimlari "
+                "to'liq yo'qotilishi kerak "
+                "(1D da 1 ta, tekis "
+                "masalada 3 ta, fazoda "
+                "6 ta). Kam bo'lsa tizim "
+                "singulyar, ko'p bo'lsa "
+                "soxta bikrlik kiradi."
+            ),
+            worked=WorkedExample(
+                statement=(
+                    "$EA = 1000$ N, $L = 1$ m "
+                    "sterjen $q_0 = 100$ N/m "
+                    "bo'ylama yuk ostida. Chap "
+                    "uchi mahkam "
+                    "($u = 0$), o'ng uchiga "
+                    "$\\bar{u} = 2$ mm ko'chish "
+                    "berilgan. Ikkala tayanch "
+                    "reaksiyasini toping va "
+                    "muvozanatni tekshiring."
+                ),
+                given=[
+                    r"EA = 1000\ \text{N}, \quad "
+                    r"L = 1\ \text{m}, \quad "
+                    r"q_0 = 100\ \text{N/m}",
+                    r"u(0) = 0, \quad u(L) = "
+                    r"0{,}002\ \text{m}",
+                ],
+                steps=[
+                    st(r"EA\,u'' = -q_0 "
+                       r"\;\Rightarrow\; u = "
+                       r"-\frac{q_0x^2}{2EA} + "
+                       r"Ax + B",
+                       "Umumiy yechim."),
+                    st(r"u(0) = 0 \;\Rightarrow\; "
+                       r"B = 0",
+                       "Birinchi shart."),
+                    st(r"u(L) = -\frac{100 \cdot 1}"
+                       r"{2000} + A = 0{,}002",
+                       "Ikkinchi shart."),
+                    st(r"A = 0{,}002 + 0{,}05 = "
+                       r"0{,}052",
+                       "Integrallash doimiysi "
+                       "topildi."),
+                    st(r"N(x) = EA\,u' = "
+                       r"EA\left(-\frac{q_0x}{EA} "
+                       r"+ A\right) = -q_0x + "
+                       r"EA\cdot A",
+                       "Bo'ylama kuch."),
+                    st(r"N(x) = -100x + 1000 \cdot "
+                       r"0{,}052 = -100x + 52",
+                       "**Kuch taqsimoti "
+                       "chiziqli.**"),
+                    st(r"N(0) = 52\ \text{N}, "
+                       r"\qquad N(L) = -48\ "
+                       r"\text{N}",
+                       "Uchlardagi qiymatlar."),
+                    st(r"R_0 = -N(0) = -52\ "
+                       r"\text{N}",
+                       "Chap tayanch reaksiyasi "
+                       "(kesim muvozanatidan)."),
+                    st(r"R_L = N(L) = -48\ "
+                       r"\text{N}",
+                       "O'ng tayanch "
+                       "reaksiyasi."),
+                    st(r"R_0 + R_L + q_0L = -52 - "
+                       r"48 + 100 = 0 \quad "
+                       r"\checkmark",
+                       "**Muvozanat "
+                       "tekshiruvi bajarildi.**"),
+                    st(r"\lambda_1 = 52, \quad "
+                       r"\lambda_2 = 48 \quad "
+                       r"(= -R_i)",
+                       "Lagranj usulida "
+                       "ko'paytuvchilar aynan "
+                       "shu qiymatlarni "
+                       "beradi — kod buni "
+                       "tasdiqlaydi."),
+                ],
+                answer=(
+                    "$N(x) = -100x + 52$ N; "
+                    "$R_0 = -52$ N, "
+                    "$R_L = -48$ N. "
+                    "Yig'indisi tashqi yuk "
+                    "$q_0L = 100$ N ni aynan "
+                    "muvozanatlaydi. Lagranj "
+                    "ko'paytuvchilari "
+                    "$\\lambda = \\{52,\\ 48\\}$ "
+                    "— reaksiyalarning "
+                    "qarama-qarshi ishorali "
+                    "qiymati."
+                ),
+                engineering_note=(
+                    "Reaksiyalarning teng "
+                    "bo'lmasligiga e'tibor "
+                    "bering: 52 va 48, "
+                    "garchi yuk bir tekis "
+                    "taqsimlangan bo'lsa ham. "
+                    "Sabab — o'ng uchdagi "
+                    "berilgan ko'chish. Agar "
+                    "$\\bar{u} = 0$ bo'lsa, "
+                    "ikkalasi ham 50 N "
+                    "bo'lardi. Ya'ni 2 mm "
+                    "ko'chish reaksiyalarni "
+                    "4 N ga qayta "
+                    "taqsimlaydi. Amalda bu "
+                    "juda muhim: tayanchning "
+                    "cho'kishi (fundament "
+                    "o'tirishi, "
+                    "temperatura "
+                    "kengayishi, montaj "
+                    "noaniqligi) statik "
+                    "aniqlanmaydigan "
+                    "tizimda kuchlarni "
+                    "sezilarli qayta "
+                    "taqsimlaydi — bu "
+                    "mq-27 dagi asosiy "
+                    "g'oya. Ko'prik "
+                    "tayanchining bir necha "
+                    "santimetr cho'kishi "
+                    "ba'zan loyihaviy "
+                    "yukdan kattaroq "
+                    "kuchlanish beradi. "
+                    "Shuning uchun FEM "
+                    "hisobida berilgan "
+                    "ko'chishlarni yuk "
+                    "holati sifatida "
+                    "alohida ko'rib chiqish "
+                    "kerak va "
+                    "$\\mathbf{K}_{fp}"
+                    "\\mathbf{u}_p$ hadini "
+                    "hech qachon unutmang — "
+                    "u tushib qolsa hisob "
+                    "jimgina noto'g'ri "
+                    "javob beradi."
+                ),
+            ),
+            computation=Computation(
+                caption=(
+                    "Chegaraviy shartlarning uch "
+                    "usulini taqqoslash, jarima "
+                    "koeffitsientining ikki "
+                    "tomonlama ta'sirini "
+                    "o'lchash, bog'lanishlarni "
+                    "qo'llash va kuchlanishni "
+                    "to'rt usulda tiklash."
+                ),
+                code='''"""Chegaraviy shartlar, yechish va natijani qayta ishlash."""
+import numpy as np
+from labkit import PARAMS, note, series, table, value
+
+n_el = int(PARAMS.get("n_el", 6))
+u_pres = float(PARAMS.get("u_pres", 0.002))    # o'ng uchdagi ko'chish
+beta_p = float(PARAMS.get("beta_p", 1e6))      # jarima koeffitsienti
+
+EA, L, q0 = 1000.0, 1.0, 100.0
+
+
+def assemble(n):
+    h = L/n
+    ke = EA/h*np.array([[1.0, -1.0], [-1.0, 1.0]])
+    K = np.zeros((n + 1, n + 1))
+    F = np.zeros(n + 1)
+    for e in range(n):
+        K[e:e+2, e:e+2] += ke
+        F[e:e+2] += q0*h/2
+    return K, F
+
+
+K, F = assemble(n_el)
+fixed = {0: 0.0, n_el: u_pres}
+
+
+def m_elim(K, F, fixed):
+    idx_p = sorted(fixed)
+    up = np.array([fixed[i] for i in idx_p])
+    free = np.setdiff1d(np.arange(len(F)), idx_p)
+    rhs = F[free] - K[np.ix_(free, idx_p)] @ up
+    u = np.zeros(len(F))
+    u[idx_p] = up
+    u[free] = np.linalg.solve(K[np.ix_(free, free)], rhs)
+    return u
+
+
+def m_penalty(K, F, fixed, beta):
+    Kp, Fp = K.copy(), F.copy()
+    k = beta*np.max(np.abs(np.diag(K)))
+    for i, v in fixed.items():
+        Kp[i, i] += k
+        Fp[i] += k*v
+    return np.linalg.solve(Kp, Fp), float(np.linalg.cond(Kp))
+
+
+def m_lagrange(K, F, fixed, mpcs=()):
+    nn = len(F)
+    rows, g = [], []
+    for i, v in fixed.items():
+        r = np.zeros(nn)
+        r[i] = 1.0
+        rows.append(r)
+        g.append(v)
+    for coef, rhs in mpcs:
+        r = np.zeros(nn)
+        for i, cc in coef.items():
+            r[i] = cc
+        rows.append(r)
+        g.append(rhs)
+    C = np.array(rows)
+    m = len(g)
+    A = np.block([[K, C.T], [C, np.zeros((m, m))]])
+    s = np.linalg.solve(A, np.concatenate([F, np.array(g)]))
+    return s[:nn], s[nn:]
+
+
+# --- (1) Uch usulni taqqoslash ---
+u_e = m_elim(K, F, fixed)
+u_p, cond_p = m_penalty(K, F, fixed, beta_p)
+u_l, lam = m_lagrange(K, F, fixed)
+value("Yo'q qilish va Lagranj farqi",
+      float(np.max(np.abs(u_e - u_l))), "m")
+value("Jarima usuli farqi (beta = %.0e)" % beta_p,
+      float(np.max(np.abs(u_e - u_p))), "m")
+value("Lagranj ko'paytuvchisi lambda_0", float(lam[0]), "N")
+value("Lagranj ko'paytuvchisi lambda_L", float(lam[1]), "N")
+
+R = K @ u_e - F
+value("Reaksiya R_0", float(R[0]), "N")
+value("Reaksiya R_L", float(R[n_el]), "N")
+value("Analitik R_0 = -N(0)", -(EA*(u_pres/L + q0*L/(2*EA))), "N")
+value("Analitik R_L = N(L)", -(q0*L - EA*(u_pres/L + q0*L/(2*EA))), "N")
+value("MUVOZANAT: sum(R) + q0*L", float(np.sum(R) + q0*L), "N")
+value("Erkin tugunlardagi qoldiq",
+      float(np.max(np.abs(R[1:n_el]))), "N")
+value("lambda + R (nol bo'lishi kerak)",
+      float(abs(lam[0] + R[0]) + abs(lam[1] + R[n_el])), "N")
+note(f"Uch usul ham bir xil yechim beradi: yo'q qilish va Lagranj "
+     f"{np.max(np.abs(u_e - u_l)):.1e} m gacha mos tushdi. Lagranj "
+     f"ko'paytuvchilari ({lam[0]:.1f}, {lam[1]:.1f}) reaksiyalarning "
+     f"qarama-qarshi ishorali qiymati bo'lib chiqdi - ya'ni lambda = "
+     f"-R. Analitik yechim N(x) = -100x + 52 dan R_0 = -52 N, "
+     f"R_L = -48 N kutilgandi va aynan shunday chiqdi. Muvozanat "
+     f"{abs(np.sum(R) + q0*L):.1e} N aniqlikda saqlanadi.")
+
+# --- (2) Jarima koeffitsientining IKKI TOMONLAMA ta'siri ---
+rows = []
+for be in [1e2, 1e4, 1e6, 1e8, 1e10, 1e12, 1e14, 1e16]:
+    up_, cond_ = m_penalty(K, F, fixed, be)
+    err_bc = abs(up_[n_el] - u_pres)/u_pres*100
+    err_fr = float(np.max(np.abs(up_[1:n_el] - u_e[1:n_el])) /
+                   np.max(np.abs(u_e)))
+    rows.append([f"{be:.0e}", f"{err_bc:.3e}", f"{err_fr:.3e}",
+                 f"{cond_:.3e}"])
+table("Jarima koeffitsientining ikki tomonlama ta'siri",
+      ["beta", "chegaraviy shart xatosi, %", "erkin tugun nisbiy xatosi",
+       "shartlanganlik soni"], rows)
+bet = np.array([1e2, 1e4, 1e6, 1e8, 1e10, 1e12])
+errs, conds = [], []
+for be in bet:
+    up_, cond_ = m_penalty(K, F, fixed, be)
+    errs.append(abs(up_[n_el] - u_pres)/u_pres)
+    conds.append(cond_)
+series("Jarima: chegaraviy shart xatosi", np.log10(bet).tolist(),
+       np.log10(errs).tolist(), xlabel="log10(beta)", ylabel="log10(xato)")
+series("Jarima: shartlanganlik soni", np.log10(bet).tolist(),
+       np.log10(conds).tolist(), xlabel="log10(beta)",
+       ylabel="log10(kappa)")
+sl_e = float(np.polyfit(np.log10(bet), np.log10(errs), 1)[0])
+sl_c = float(np.polyfit(np.log10(bet), np.log10(conds), 1)[0])
+value("Xato ~ beta^m, m =", sl_e, "—")
+value("kappa ~ beta^m, m =", sl_c, "—")
+note(f"Xato beta^{sl_e:.3f} kabi kamayadi, shartlanganlik esa "
+     f"beta^{sl_c:.3f} kabi o'sadi - ya'ni aniq 1/beta va beta. Ular "
+     f"QARAMA-QARSHI tortadi: beta = 1e16 da chegaraviy shart "
+     f"mashina aniqligida bajariladi, lekin kappa = 7.7e16 bo'lib "
+     f"qoladi va bu ikkilangan aniqlik chegarasidan oshadi. Optimal "
+     f"oraliq beta = 1e6...1e8: shart yetarlicha aniq, shartlanganlik "
+     f"esa hali xavfsiz.")
+
+# --- (3) KO'P NUQTALI BOG'LANISH (MPC) ---
+i_a, i_b = n_el//2, n_el
+u_m, lam_m = m_lagrange(K, F, {0: 0.0}, [({i_a: 1.0, i_b: -1.0}, 0.0)])
+value(f"MPC: u_{i_a} - u_{i_b}", float(u_m[i_a] - u_m[i_b]), "m")
+value("MPC: bog'lovchidagi ichki kuch", float(lam_m[1]), "N")
+R_m = K @ u_m - F
+value("MPC: reaksiya R_0", float(R_m[0]), "N")
+value("MPC: muvozanat sum(R) + q0*L",
+      float(np.sum(R_m) + q0*L), "N")
+value(f"MPC: qoldiqlar R_{i_a} + R_{i_b}",
+      float(R_m[i_a] + R_m[i_b]), "N")
+value(f"MPC: |R_{i_a}| va |lambda| farqi",
+      float(abs(abs(R_m[i_a]) - abs(lam_m[1]))), "N")
+series("MPC bilan ko'chish", np.linspace(0, L, n_el + 1).tolist(),
+       (u_m*1e3).tolist(), xlabel="x, m", ylabel="u, mm")
+series("MPC siz ko'chish (konsol)", np.linspace(0, L, n_el + 1).tolist(),
+       (m_elim(K, F, {0: 0.0})*1e3).tolist(),
+       xlabel="x, m", ylabel="u, mm")
+note(f"Bog'lanish u_{i_a} = u_{i_b} mashina aniqligida bajarildi. "
+     f"Lagranj ko'paytuvchisi {lam_m[1]:.1f} N - bu bog'lovchidagi "
+     f"ICHKI KUCH va uni alohida hisoblash kerak emas. Bog'langan "
+     f"ikki tugundagi qoldiqlar teng va qarama-qarshi "
+     f"(yig'indisi {R_m[i_a] + R_m[i_b]:.1e} N), kattaligi esa aynan "
+     f"lambda ga teng: bog'lovchi kuchni bir tugundan ikkinchisiga "
+     f"uzatadi, tizimga yangi tashqi kuch kiritmaydi - shuning uchun "
+     f"global muvozanat buzilmaydi.")
+
+# --- (4) KUCHLANISHNI TIKLASH: to'rt usul ---
+u_c = m_elim(K, F, {0: 0.0})       # sof konsol - analitik javobi sodda
+h = L/n_el
+N_el = EA*np.diff(u_c)/h           # element bo'ylab doimiy
+x_c = np.array([(e + 0.5)*h for e in range(n_el)])
+x_n = np.linspace(0.0, L, n_el + 1)
+
+
+def N_exact(x):
+    return q0*(L - x)
+
+
+scale = q0*L
+err_gauss = float(np.max(np.abs(N_el - N_exact(x_c))))/scale*100
+N_direct = np.concatenate([[N_el[0]], N_el])
+err_direct = float(np.max(np.abs(N_direct - N_exact(x_n))))/scale*100
+N_avg = np.zeros(n_el + 1)
+cnt = np.zeros(n_el + 1)
+for e in range(n_el):
+    N_avg[e] += N_el[e]
+    N_avg[e+1] += N_el[e]
+    cnt[e] += 1
+    cnt[e+1] += 1
+N_avg /= cnt
+err_avg = float(np.max(np.abs(N_avg - N_exact(x_n))))/scale*100
+err_avg_in = float(np.max(np.abs(N_avg[1:-1] -
+                                 N_exact(x_n[1:-1]))))/scale*100
+N_ext = np.zeros(n_el + 1)
+for i in range(n_el + 1):
+    if i == 0:
+        N_ext[i] = N_el[0] + (N_el[0] - N_el[1])*0.5
+    elif i == n_el:
+        N_ext[i] = N_el[-1] + (N_el[-1] - N_el[-2])*0.5
+    else:
+        N_ext[i] = 0.5*(N_el[i-1] + N_el[i])
+err_ext = float(np.max(np.abs(N_ext - N_exact(x_n))))/scale*100
+table("Kuchlanishni tiklashning to'rt usuli",
+      ["usul", "qayerda", "maks xato, %"],
+      [["Gauss (Barlou) nuqtasida", "element markazi",
+        f"{err_gauss:.4e}"],
+       ["Tugunda bevosita", "tugun", f"{err_direct:.4f}"],
+       ["O'rtachalash", "barcha tugunlar", f"{err_avg:.4f}"],
+       ["O'rtachalash", "faqat ichki tugunlar", f"{err_avg_in:.4e}"],
+       ["Barlou ekstrapolyatsiyasi", "tugun", f"{err_ext:.4e}"]])
+series("Aniq N(x)", x_n.tolist(), N_exact(x_n).tolist(),
+       xlabel="x, m", ylabel="N, N")
+series("Element markazida (Barlou)", x_c.tolist(), N_el.tolist(),
+       xlabel="x, m", ylabel="N, N")
+series("Tugunda bevosita", x_n.tolist(), N_direct.tolist(),
+       xlabel="x, m", ylabel="N, N")
+series("Barlou ekstrapolyatsiyasi", x_n.tolist(), N_ext.tolist(),
+       xlabel="x, m", ylabel="N, N")
+note(f"Element markazida kuchlanish MASHINA ANIQLIGIDA to'g'ri "
+     f"({err_gauss:.1e}%) - bu su-16 dagi Barlou nuqtasi. Tugunda "
+     f"bevosita olinsa {err_direct:.2f}% xato. O'rtachalash ichki "
+     f"tugunlarda kuchlanishni deyarli aynan tiklaydi "
+     f"({err_avg_in:.1e}%), lekin CHEGARADA yordam bermaydi va umumiy "
+     f"xato {err_avg:.2f}% bo'lib qoladi - chunki chegara tugunida "
+     f"o'rtachalash uchun bir tomondan ma'lumot yo'q. Barlou "
+     f"nuqtalaridan ekstrapolyatsiya esa chegarani ham to'g'ri "
+     f"tiklaydi ({err_ext:.1e}%). Amaliyotda maksimal kuchlanish "
+     f"aynan chegarada bo'ladi, shuning uchun bu farq hal qiluvchi.")
+
+# --- (5) SHARTLANGANLIK to'r bilan qanday o'sadi ---
+rows2 = []
+prev = None
+for n_ in [4, 8, 16, 32, 64, 128]:
+    Kn, Fn = assemble(n_)
+    c = float(np.linalg.cond(Kn[1:, 1:]))
+    ratio = "—" if prev is None else f"{c/prev:.3f}"
+    rows2.append([n_, f"{L/n_:.4f}", f"{c:.4e}", ratio,
+                  f"{np.sqrt(c):.1f}"])
+    prev = c
+table("Shartlanganlik sonining to'r bilan o'sishi",
+      ["elementlar", "h", "kappa", "oldingisiga nisbat",
+       "sqrt(kappa) ~ CG iteratsiyalari"], rows2)
+ns = np.array([4, 8, 16, 32, 64, 128], dtype=float)
+cs = []
+for n_ in ns.astype(int):
+    Kn, Fn = assemble(n_)
+    cs.append(float(np.linalg.cond(Kn[1:, 1:])))
+slope = float(np.polyfit(np.log(ns), np.log(cs), 1)[0])
+value("kappa ~ n^m, m =", slope, "—")
+value("kappa ~ h^m, m =", -slope, "—")
+series("log(kappa) va log(n)", np.log10(ns).tolist(),
+       np.log10(cs).tolist(), xlabel="log10(n)", ylabel="log10(kappa)")
+note(f"Shartlanganlik soni n^{slope:.3f} kabi o'sadi, ya'ni h^(-2). "
+     f"To'r ikki barobar zichlashsa kappa TO'RT barobar o'sadi - "
+     f"jadvaldagi nisbatlar 4 ga yaqinlashadi. Bu ikki oqibatga ega: "
+     f"to'g'ri yechuvchida yaxlitlash xatosi kappa ga proporsional "
+     f"o'sadi (su-05), iterativ yechuvchida esa iteratsiyalar soni "
+     f"sqrt(kappa) ~ 1/h kabi ko'payadi (su-06). Shuning uchun katta "
+     f"masalalarda oldindan shartlash majburiy va zichroq to'r har "
+     f"doim ham 'bepul yaxshilanish' emas.")
+''',
+                parameters=[
+                    p("n_el", "Elementlar soni", 2.0, 40.0, 6.0, 1.0),
+                    p("u_pres", "O'ng uchdagi berilgan ko'chish",
+                      0.0, 0.01, 0.002, 0.0005, "m"),
+                    p("beta_p", "Jarima koeffitsienti beta",
+                      100.0, 1e12, 1e6, 100.0),
+                ],
+                expected_output=(
+                    "Uch usul ham bir xil "
+                    "yechim beradi; yo'q qilish "
+                    "va Lagranj "
+                    "$7\\cdot10^{-18}$ m gacha "
+                    "mos tushadi. Lagranj "
+                    "ko'paytuvchilari "
+                    "$\\{52,\\ 48\\}$ N — "
+                    "reaksiyalarning "
+                    "($-52$, $-48$ N) "
+                    "qarama-qarshi ishorali "
+                    "qiymati, va ular qo'lda "
+                    "chiqarilgan "
+                    "$N(x) = -100x + 52$ dan "
+                    "kutilgan qiymatlarga "
+                    "aynan teng. Jarima "
+                    "usulida xato "
+                    "$\\beta^{-1}$, "
+                    "shartlanganlik esa "
+                    "$\\beta^{+1}$ kabi "
+                    "o'zgaradi. Bog'lanish "
+                    "mashina aniqligida "
+                    "bajariladi va "
+                    "ko'paytuvchi "
+                    "bog'lovchidagi ichki "
+                    "kuchni beradi. "
+                    "Kuchlanish element "
+                    "markazida mashina "
+                    "aniqligida to'g'ri, "
+                    "tugunda bevosita olinsa "
+                    "aynan $h/(2L) = 1/(2n)$ "
+                    "xato beradi (6 element "
+                    "uchun 8,33%); "
+                    "o'rtachalash ichki "
+                    "tugunlarni tuzatadi, "
+                    "chegarani esa yo'q; "
+                    "Barlou "
+                    "ekstrapolyatsiyasi "
+                    "hamma joyda mashina "
+                    "aniqligini beradi. "
+                    "Shartlanganlik soni "
+                    "$n^2$ kabi o'sadi."
+                ),
+            ),
+            visual=vis(
+                kind="Chegaraviy shartlar va kuchlanishni tiklash",
+                tool="React/SVG + Manim",
+                description=(
+                    "Jarima koeffitsientining "
+                    "ikki tomonlama ta'siri va "
+                    "kuchlanishni tiklash "
+                    "usullarining taqqoslanishi."
+                ),
+                how_to_draw=(
+                    "React/SVG: yuqori panelda "
+                    "ikkita egri chiziq bitta "
+                    "logarifmik o'qda — "
+                    "$\\beta$ ga qarab "
+                    "chegaraviy shart xatosi "
+                    "(pastga tushadi) va "
+                    "shartlanganlik soni "
+                    "(yuqoriga ko'tariladi). "
+                    "Ular **kesishadi** va "
+                    "kesishish atrofidagi "
+                    "soha yashil bilan "
+                    "belgilanadi — optimal "
+                    "$\\beta$ oralig'i. "
+                    "$\\kappa = 10^{16}$ "
+                    "chizig'i qizil punktir "
+                    "bilan 'ikkilangan "
+                    "aniqlik chegarasi' deb "
+                    "belgilanadi. $\\beta$ "
+                    "slayderi surilganda "
+                    "ikkala qiymat ham jonli "
+                    "yangilanadi. Pastki "
+                    "panelda kuchlanish "
+                    "diagrammasi: aniq "
+                    "$N(x)$ uzluksiz chiziq, "
+                    "element bo'ylab doimiy "
+                    "FEM qiymatlari "
+                    "zinapoyasimon, har bir "
+                    "zina markazida katta "
+                    "nuqta (Barlou nuqtasi) "
+                    "va u aniq chiziqqa "
+                    "**aynan** tegib turadi. "
+                    "Uchta tiklash usuli "
+                    "uchta rang bilan "
+                    "ustma-ust qo'yiladi; "
+                    "chegara tugunlari "
+                    "kattalashtirilgan "
+                    "oynachada ko'rsatiladi "
+                    "va u yerda o'rtachalash "
+                    "aniq chiziqdan uzilib "
+                    "qolgani, "
+                    "ekstrapolyatsiya esa "
+                    "unga tushgani ayon "
+                    "bo'ladi."
+                ),
+            ),
+            interp=(
+                "Uch usulning bir xil yechim "
+                "berishi kutilgan edi, lekin "
+                "Lagranj ko'paytuvchilarining "
+                "aynan reaksiyalarga teng "
+                "chiqishi bu mavzuning eng "
+                "chiroyli natijasi: "
+                "$\\lambda = -\\mathbf{R}$. "
+                "Bu tasodif emas — "
+                "ko'paytuvchi shartni ushlab "
+                "turish uchun kerak bo'lgan "
+                "kuch va reaksiya aynan "
+                "shu. Qo'lda chiqarilgan "
+                "$N(x) = -100x + 52$ dan "
+                "kutilgan $-52$ va $-48$ N "
+                "qiymatlari kod tomonidan "
+                "aynan takrorlandi — "
+                "analitik va sonli "
+                "yechimning mustaqil "
+                "kelishuvi. Jarima "
+                "usulidagi o'lchov ikkita "
+                "aniq darajali qonunni "
+                "berdi: xato "
+                "$\\beta^{-1}$, "
+                "shartlanganlik "
+                "$\\beta^{+1}$. Ular bir "
+                "biriga qarama-qarshi "
+                "tortadi va shuning uchun "
+                "'$\\beta$ ni imkon qadar "
+                "katta oling' maslahati "
+                "noto'g'ri: "
+                "$\\beta = 10^{16}$ da "
+                "$\\kappa$ ham "
+                "$10^{16}$ ga chiqadi va "
+                "ikkilangan aniqlik "
+                "butunlay yeyiladi. "
+                "Bog'lanish tajribasi "
+                "muhim nozik jihatni "
+                "ochadi: bog'langan ikki "
+                "tugundagi qoldiqlar teng "
+                "va qarama-qarshi, "
+                "kattaligi esa aynan "
+                "$\\lambda$ ga teng. Demak "
+                "bog'lovchi kuchni bir "
+                "tugundan ikkinchisiga "
+                "uzatadi, tizimga yangi "
+                "tashqi kuch kiritmaydi — "
+                "shuning uchun global "
+                "muvozanat buzilmaydi. Eng "
+                "amaliy natija esa "
+                "kuchlanishni tiklashda. "
+                "Element markazidagi "
+                "qiymat mashina aniqligida "
+                "to'g'ri, tugunda bevosita "
+                "olingani esa aynan "
+                "$h/(2L) = 1/(2n)$ xato "
+                "beradi — 6 elementda "
+                "8,33%, va u faqat "
+                "birinchi tartibda "
+                "kamayadi. O'rtachalash ichki "
+                "tugunlarni deyarli aynan "
+                "tuzatadi, lekin chegarada "
+                "ishlamaydi — va aynan "
+                "chegarada maksimal "
+                "kuchlanish bo'ladi. Bu "
+                "jimgina xato: diagramma "
+                "silliq va ishonarli "
+                "ko'rinadi, faqat eng muhim "
+                "nuqtada noto'g'ri. "
+                "Nihoyat shartlanganlik "
+                "$h^{-2}$ kabi o'sadi va "
+                "bu zichroq to'rning "
+                "yashirin narxini "
+                "ko'rsatadi."
+            ),
+            mistakes=[
+                "$\\mathbf{K}_{fp}"
+                "\\mathbf{u}_p$ hadini "
+                "unutish. Berilgan ko'chish "
+                "nolmas bo'lsa, o'ng tomonga "
+                "tuzatish kiritilishi shart.",
+                "Jarima koeffitsientini "
+                "'imkon qadar katta' olish. "
+                "$\\beta = 10^{16}$ da "
+                "shartlanganlik ikkilangan "
+                "aniqlik chegarasiga "
+                "yetadi.",
+                "Reaksiyalarni faqat "
+                "mahkamlangan tugunlardan "
+                "emas, butun "
+                "$\\mathbf{K}\\mathbf{u} - "
+                "\\mathbf{F}$ dan olish va "
+                "muvozanatni "
+                "tekshirmaslik.",
+                "Kuchlanishni chegara "
+                "tugunlarida o'rtachalash "
+                "bilan olish. U yerda "
+                "ekstrapolyatsiya kerak — "
+                "aks holda eng muhim "
+                "nuqtada xato qoladi.",
+                "Lagranj usulida Xoleskiy "
+                "yoyilmasini ishlatishga "
+                "urinish. Tizim musbat aniq "
+                "emas (egar nuqtali).",
+                "Yetarsiz mahkamlash. Qattiq "
+                "jism rejimlari to'liq "
+                "yo'qotilmasa tizim "
+                "singulyar qoladi.",
+            ],
+            quiz=[
+                q("Nima uchun tabiiy (kuch) "
+                  "shartlari uchun alohida "
+                  "chora kerak emas?",
+                  "Zaif formulirovkada ular "
+                  "chegaraviy hadlar "
+                  "sifatida o'z-o'zidan "
+                  "paydo bo'ladi (su-13); "
+                  "faqat asosiy (ko'chish) "
+                  "shartlari majburan "
+                  "kiritiladi.", "konseptual"),
+                q("Lagranj ko'paytuvchisining "
+                  "fizik ma'nosi nima?",
+                  "Shartni ushlab turish "
+                  "uchun kerak bo'lgan kuch: "
+                  "mahkamlashda reaksiya "
+                  "($\\lambda = -R$), "
+                  "bog'lanishda esa "
+                  "bog'lovchidagi ichki "
+                  "kuch.", "konseptual"),
+                q("Masaladagi reaksiyalar "
+                  "nega 50–50 emas, 52–48 "
+                  "bo'ldi?",
+                  "O'ng uchdagi 2 mm "
+                  "berilgan ko'chish tufayli. "
+                  "$\\bar{u} = 0$ bo'lsa "
+                  "ikkalasi 50 N bo'lardi — "
+                  "tayanch cho'kishi "
+                  "kuchlarni qayta "
+                  "taqsimlaydi (mq-27).",
+                  "hisob"),
+                q("Kod jarima koeffitsienti "
+                  "uchun qanday ikkita "
+                  "darajali qonunni "
+                  "o'lchaydi?",
+                  "Xato "
+                  "$\\sim\\beta^{-1}$ va "
+                  "shartlanganlik "
+                  "$\\sim\\beta^{+1}$. Ular "
+                  "qarama-qarshi tortadi, "
+                  "shuning uchun optimal "
+                  "$\\beta \\approx "
+                  "10^6\\!-\\!10^8$.", "kod"),
+                q("Nima uchun o'rtachalash "
+                  "chegara tugunlarida "
+                  "ishlamaydi?",
+                  "Chegarada faqat bitta "
+                  "qo'shni element bor, "
+                  "demak o'rtachalash uchun "
+                  "ikkinchi tomondan "
+                  "ma'lumot yo'q. Kodda "
+                  "ichki tugunlarda xato "
+                  "$10^{-14}$%, umumiy xato "
+                  "esa chegara tufayli "
+                  "$1/(2n)$ bo'lib qoladi "
+                  "(6 elementda 8,33%).",
+                  "kod"),
+                q("Kuchlanishni tiklashning "
+                  "eng aniq usuli qaysi va "
+                  "nega?",
+                  "Barlou (Gauss) "
+                  "nuqtalaridan "
+                  "ekstrapolyatsiya: o'sha "
+                  "nuqtalarda kuchlanish "
+                  "bir tartib aniqroq "
+                  "(su-16), shuning uchun "
+                  "ulardan tiklangan tugun "
+                  "qiymati ham aniq "
+                  "bo'ladi.", "talqin"),
+                q("Shartlanganlik soni to'r "
+                  "zichlashganda qanday "
+                  "o'zgaradi va bu nimani "
+                  "anglatadi?",
+                  "$\\kappa \\sim h^{-2}$ — "
+                  "to'r ikki barobar "
+                  "zichlashsa $\\kappa$ "
+                  "to'rt barobar o'sadi. "
+                  "To'g'ri yechuvchida "
+                  "aniqlik yo'qoladi, "
+                  "iterativda esa "
+                  "iteratsiyalar "
+                  "$\\sqrt{\\kappa} \\sim "
+                  "1/h$ kabi ko'payadi.",
+                  "talqin"),
+            ],
+            bridge=(
+                "To'liq FEM zanjiri tayyor: "
+                "zaif formulirovkadan "
+                "kuchlanish diagrammasigacha. "
+                "Lekin bitta savol ochiq "
+                "qoldi — natija qanchalik "
+                "aniq? Keyingi mavzuda "
+                "xatolikni aniq yechimni "
+                "bilmasdan baholashni va "
+                "to'rni avtomatik "
+                "yaxshilashni o'rganamiz."
+            ),
+            research=(
+                "Natijani qayta ishlashni "
+                "chuqurlashtiring. "
+                "(1) Zienkiewicz–Zhu "
+                "superkonvergent yamoq "
+                "tiklashini (superconvergent "
+                "patch recovery, SPR) "
+                "o'rganing: u bir necha "
+                "elementdan iborat yamoqqa "
+                "eng kichik kvadratlar "
+                "bilan ko'phad moslaydi — "
+                "su-18 dagi adaptivlikning "
+                "asosiy vositasi. "
+                "(2) Kengaytirilgan Lagranj "
+                "(augmented Lagrangian) "
+                "usulini ko'rib chiqing: u "
+                "jarima va Lagranj "
+                "usullarining "
+                "afzalliklarini "
+                "birlashtiradi — qanday? "
+                "(3) Kontakt masalalarini "
+                "o'rganing: u yerda "
+                "bog'lanishlar "
+                "**oldindan noma'lum** va "
+                "yechim davomida "
+                "o'zgaradi (faol to'plam "
+                "usuli). "
+                "(4) Domenni ajratish "
+                "(domain decomposition) va "
+                "FETI usullarini ko'ring: "
+                "ular Lagranj "
+                "ko'paytuvchilarini "
+                "parallel hisoblashda "
+                "qanday ishlatadi?"
+            ),
+            manim_ref=manim(
+                scene="BoundaryRecoveryScene",
+                module="manim/scenes/su_fem.py",
+                title="Chegaraviy shartlar va kuchlanishni tiklash",
+                summary=(
+                    "Avval uchta usul "
+                    "ko'rsatiladi: yo'q qilish "
+                    "matritsadan qator va "
+                    "ustunni o'chiradi, jarima "
+                    "diagonalga katta prujina "
+                    "qo'shadi, Lagranj esa "
+                    "matritsani chegara "
+                    "qatorlari bilan "
+                    "kengaytiradi. Keyin "
+                    "kuchlanish diagrammasi "
+                    "quriladi: element "
+                    "bo'ylab doimiy "
+                    "zinapoyalar paydo "
+                    "bo'ladi, ularning "
+                    "markazidagi nuqtalar "
+                    "aniq egri chiziqqa "
+                    "tegadi va ulardan "
+                    "chiziq o'tkazilib "
+                    "tugun qiymatlari "
+                    "tiklanadi. Chegarada "
+                    "o'rtachalash "
+                    "yetishmay qolgani "
+                    "alohida "
+                    "ta'kidlanadi."
+                ),
+            ),
+        ),
+    ),
 ]
