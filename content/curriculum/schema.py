@@ -160,7 +160,8 @@ class Visualization:
     """Vizualizatsiya spetsifikatsiyasi — nima chiziladi va qaysi vosita bilan."""
 
     kind: str
-    tool: Literal["React/SVG", "Canvas", "Matplotlib", "Manim", "React/SVG + Matplotlib"]
+    tool: Literal["React/SVG", "Canvas", "Matplotlib", "Manim",
+                  "React/SVG + Matplotlib", "React/SVG + Manim"]
     description: str
     how_to_draw: str
 

@@ -1,0 +1,15 @@
+# Backend
+fastapi==0.141.1
+uvicorn[standard]==0.53.0
+sqlalchemy==2.0.54
+pydantic==2.13.5
+pydantic-settings==2.13.1
+
+# Sandbox ichidagi hisob-kitob (mavzu kodlari shularga tayanadi)
+numpy==2.4.6
+scipy==1.17.1
+sympy==1.14.0
+
+# Testlar
+pytest==9.1.1
+httpx==0.28.1
