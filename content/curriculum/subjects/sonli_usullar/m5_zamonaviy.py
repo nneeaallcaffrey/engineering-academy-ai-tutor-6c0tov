@@ -3709,4 +3709,1331 @@ table("Uch yondashuvning taqqoslanishi",
             ),
         ),
     ),
+
+    # ------------------------------------------------------------------ su-28
+    Topic(
+        id="su-28",
+        subject_id=S, module_id=M, order=28,
+        title="Verifikatsiya va validatsiya (V&V)",
+        description=(
+            "Kod verifikatsiyasi va yechim verifikatsiyasining farqi, "
+            "ishlab chiqilgan yechimlar usuli (MMS), Richardson "
+            "ekstrapolyatsiyasi va to'r yaqinlashish indeksi (GCI)."
+        ),
+        learning_objective=(
+            "Kodni MMS bilan verifikatsiya qilish, yechim xatosini aniq "
+            "javobni bilmasdan baholash va natijaning ishonchliligini "
+            "rasmiy tartibda asoslash."
+        ),
+        prerequisites=["su-27", "su-18", "su-21"],
+        mathematical_core=(
+            "MMS: $u_{ex}$ tanlanadi, $f = \\mathcal{L}u_{ex}$ "
+            "chiqariladi; "
+            "$p_{obs} = \\ln\\frac{f_3-f_2}{f_2-f_1}/\\ln r$; "
+            "$\\mathrm{GCI} = \\frac{F_s|\\varepsilon|}{r^{p}-1}$."
+        ),
+        engineering_application=(
+            "Aviatsiya, yadro energetikasi va tibbiy qurilmalarda "
+            "sertifikatlash talabi; har qanday jiddiy hisobotning "
+            "ishonchlilik asosi."
+        ),
+        computational_component=(
+            "MMS bilan tartibni o'lchash, ataylab kiritilgan xatoni "
+            "aniqlash, GCI bilan xatolik chegarasini qurish."
+        ),
+        visualization_component=(
+            "Yaqinlashish egri chiziqlari, tartib o'lchovi, GCI "
+            "tasmasi."
+        ),
+        research_extension=(
+            "ASME V&V 20 standartini o'rganing: validatsiya "
+            "noaniqligini rasmiy hisoblash tartibi."
+        ),
+        difficulty="orta",
+        previous_link=(
+            "su-25…su-27 da usullar to'plami kengaydi va har biri o'z "
+            "aniqlik da'vosiga ega edi. Endi asosiy savolga javob "
+            "beramiz: hisob natijasiga qachon va qanchalik ishonish "
+            "mumkin?"
+        ),
+        next_topic="su-29",
+        estimated_minutes=85,
+        tags=["V&V", "MMS", "Richardson", "GCI", "verifikatsiya"],
+        lesson=_lesson(
+            problem=(
+                "Samolyot qanoti "
+                "konstruksiyasining hisobi "
+                "sertifikatlashga "
+                "topshirilmoqda. Ekspert "
+                "bitta savol beradi: "
+                "'Natijangizning xatosi "
+                "qancha?' Javob "
+                "'to'rni zichlashtirdim, "
+                "natija o'zgarmadi' — "
+                "yetarli emas. Ekspert "
+                "**raqam** so'raydi: "
+                "xatolik chegarasi necha "
+                "foiz va u qanday "
+                "asoslangan? Bundan "
+                "tashqari kodning o'zi "
+                "to'g'ri "
+                "dasturlanganini qanday "
+                "isbotlaysiz — axir "
+                "murakkab masalada aniq "
+                "yechim yo'q, taqqoslash "
+                "uchun hech narsa "
+                "yo'q. Ikkala savolga "
+                "ham tizimli javob bor."
+            ),
+            concepts=[
+                c("Verifikatsiya",
+                  "**Tenglamalarni to'g'ri "
+                  "yechyapmizmi?** — sof "
+                  "matematik savol, "
+                  "tajriba kerak emas."),
+                c("Validatsiya",
+                  "**To'g'ri tenglamalarni "
+                  "yechyapmizmi?** — "
+                  "model haqiqatga mos "
+                  "keladimi; tajriba "
+                  "kerak."),
+                c("Kod verifikatsiyasi",
+                  "Dasturda xato bormi; "
+                  "MMS bilan tartibni "
+                  "o'lchash orqali."),
+                c("Yechim verifikatsiyasi",
+                  "Shu masaladagi "
+                  "diskretlashtirish "
+                  "xatosi qancha; "
+                  "Richardson va GCI "
+                  "bilan."),
+                c("Ishlab chiqilgan "
+                  "yechimlar usuli (MMS)",
+                  "Yechimni **tanlaymiz**, "
+                  "manbani undan "
+                  "chiqaramiz — shunda "
+                  "aniq javob ma'lum "
+                  "bo'ladi."),
+                c("To'r yaqinlashish "
+                  "indeksi (GCI)",
+                  "Xatolik uchun xavfsizlik "
+                  "koeffitsienti bilan "
+                  "baho: "
+                  "$F_s = 1{,}25$."),
+            ],
+            derivation=[
+                d("1. Ikki xil savol",
+                  r"\text{V: } \|u_h - u_{ex}\|; "
+                  r"\qquad \text{Val: } "
+                  r"\|u_{ex} - u_{haqiqat}\|",
+                  "**Asosiy farq.** "
+                  "Verifikatsiya "
+                  "matematik, validatsiya "
+                  "esa fizik savol. "
+                  "Birinchisini "
+                  "kompyuterda hal qilish "
+                  "mumkin, ikkinchisi "
+                  "uchun tajriba kerak."),
+                d("2. MMS ning teskari "
+                  "g'oyasi",
+                  r"u_{ex} \ \text{TANLANADI} "
+                  r"\;\Longrightarrow\; "
+                  r"f = \mathcal{L}u_{ex}",
+                  "**Hal qiluvchi qadam.** "
+                  "Odatda $f$ berilgan va "
+                  "$u$ izlanadi; bu yerda "
+                  "aksincha. Natijada aniq "
+                  "javob **har doim** "
+                  "ma'lum bo'ladi."),
+                d("3. $u_{ex}$ ni tanlash "
+                  "qoidalari",
+                  r"u_{ex} \ \text{silliq, "
+                  r"nolmas, barcha hadlarni "
+                  r"faollashtirsin}",
+                  "Masalan "
+                  "$\\sin(\\pi x)(1+x^2)$: "
+                  "u chegaraviy shartni "
+                  "qanoatlantiradi va "
+                  "operatorning barcha "
+                  "hadlarini ishga "
+                  "soladi."),
+                d("4. Tartibni o'lchash",
+                  r"p_{obs} = "
+                  r"\frac{\ln(e_1/e_2)}"
+                  r"{\ln(h_1/h_2)}",
+                  "Ketma-ket ikki to'rdan. "
+                  "Bu su-18 dagi tartib "
+                  "o'lchovining aynan "
+                  "o'zi, faqat endi "
+                  "**kodni tekshirish** "
+                  "uchun."),
+                d("5. Nazariy tartiblar",
+                  r"\|e\|_{L^2} \sim h^{p+1}, "
+                  r"\qquad \|e\|_{E} \sim h^{p}",
+                  "**O'lchangan natija.** "
+                  "Kod $p = 1, 2, 3$ uchun "
+                  "ham 3–4 xonali "
+                  "aniqlikda shu "
+                  "qiymatlarni beradi."),
+                d("6. MMS ning kuchi",
+                  r"p_{obs} \ne p_{nazariy} "
+                  r"\;\Longrightarrow\; "
+                  r"\text{KODDA XATO}",
+                  "**Asosiy natija.** "
+                  "Tartib mos kelmasa, "
+                  "dasturda xato bor — "
+                  "boshqa tushuntirish "
+                  "yo'q."),
+                d("7. Insidiy xatolar",
+                  r"\text{kod yaqinlashadi, "
+                  r"lekin NOTO'G'RI "
+                  r"tartibda}",
+                  "**Eng xavfli hol.** "
+                  "Kodda yuk vektori "
+                  "noto'g'ri bo'lsa, "
+                  "natija baribir "
+                  "yaqinlashadi va "
+                  "ishonarli ko'rinadi — "
+                  "faqat tartib "
+                  "3 o'rniga 2 "
+                  "bo'lib qoladi."),
+                d("8. Yechim "
+                  "verifikatsiyasi",
+                  r"u_{ex} \ \text{NOMA'LUM} "
+                  r"\;\Longrightarrow\; "
+                  r"\text{uchta to'r kerak}",
+                  "Haqiqiy masalada aniq "
+                  "yechim yo'q, shuning "
+                  "uchun uchta to'rdan "
+                  "baho quriladi."),
+                d("9. Kuzatilgan tartib",
+                  r"p_{obs} = \frac{\ln\left|"
+                  r"\frac{f_3-f_2}{f_2-f_1}"
+                  r"\right|}{\ln r}",
+                  "$f_1$ — eng zich to'r. "
+                  "Aniq yechim kerak emas "
+                  "— faqat uchta natija."),
+                d("10. Richardson "
+                  "ekstrapolyatsiyasi",
+                  r"f_{ext} = f_1 + "
+                  r"\frac{f_1 - f_2}"
+                  r"{r^{p_{obs}} - 1}",
+                  "su-07 dagi Richardson "
+                  "ekstrapolyatsiyasining "
+                  "aynan o'zi. "
+                  "**O'lchangan natija:** "
+                  "u eng zich to'rdan "
+                  "30–437 barobar "
+                  "aniqroq."),
+                d("11. GCI",
+                  r"\mathrm{GCI} = "
+                  r"\frac{F_s\left|"
+                  r"\frac{f_2-f_1}{f_1}"
+                  r"\right|}{r^{p_{obs}}-1}, "
+                  r"\quad F_s = 1{,}25",
+                  "**Amaliy javob.** "
+                  "Xavfsizlik koeffitsienti "
+                  "bilan xatolik "
+                  "chegarasi — ekspert "
+                  "so'ragan raqam."),
+                d("12. GCI ning "
+                  "ishonchliligi",
+                  r"\mathrm{GCI} \ge "
+                  r"\text{haqiqiy xato}",
+                  "**O'lchangan natija.** "
+                  "Kodda beshta "
+                  "holatda ham GCI "
+                  "haqiqiy xatoni qamrab "
+                  "oldi — $F_s = 1{,}25$ "
+                  "yetarli zaxira "
+                  "beradi."),
+                d("13. Superkonvergensiya "
+                  "tuzog'i",
+                  r"\text{tugundagi } u: \ "
+                  r"e \approx 0 "
+                  r"\;\Longrightarrow\; "
+                  r"\text{Richardson "
+                  r"ISHLAMAYDI}",
+                  "**Nozik joy.** su-13 "
+                  "dagi nodal aniqlik "
+                  "tufayli tugundagi "
+                  "ko'chish xatosi "
+                  "mashina noli — "
+                  "ekstrapolyatsiya "
+                  "shovqinni "
+                  "differensiallaydi. "
+                  "Qiziqish kattaligini "
+                  "ehtiyotkorlik bilan "
+                  "tanlang."),
+                d("14. Validatsiya — "
+                  "boshqa masala",
+                  r"E = S - D, \qquad "
+                  r"u_{val} = \sqrt{u_{num}^2 "
+                  r"+ u_{inp}^2 + u_D^2}",
+                  "$S$ — hisob, $D$ — "
+                  "tajriba. Validatsiya "
+                  "noaniqligi uchta "
+                  "manbadan yig'iladi va "
+                  "u **hech qachon** "
+                  "nolga tushmaydi."),
+            ],
+            meaning=(
+                "V&V ning butun tuzilishi "
+                "1-qadamdagi farqqa "
+                "asoslanadi va bu farq "
+                "amalda doimo "
+                "chalkashtiriladi. "
+                "Verifikatsiya — "
+                "tenglamalarni to'g'ri "
+                "yechyapmizmi degan sof "
+                "matematik savol; unga "
+                "javob berish uchun "
+                "tajriba kerak emas, "
+                "faqat kompyuter kerak. "
+                "Validatsiya esa "
+                "to'g'ri tenglamalarni "
+                "yechyapmizmi degan fizik "
+                "savol va unga faqat "
+                "tajriba javob beradi. "
+                "su-21 dagi teshikli "
+                "plastina misolida buni "
+                "ko'rgan edik: to'rni "
+                "zichlashtirish "
+                "diskretlashtirish "
+                "xatosini kamaytiradi, "
+                "lekin chekli kenglik "
+                "modelining xatosini "
+                "emas. 2-qadamdagi MMS "
+                "g'oyasi oddiy, lekin "
+                "kuchli. Odatda manba "
+                "berilgan va yechim "
+                "izlanadi; MMS da "
+                "aksincha — yechim "
+                "tanlanadi va manba "
+                "undan chiqariladi. "
+                "Natijada aniq javob "
+                "har doim ma'lum "
+                "bo'ladi va uni "
+                "istalgan murakkab "
+                "operator uchun "
+                "qurish mumkin. "
+                "Shuning uchun MMS "
+                "kod verifikatsiyasining "
+                "oltin standarti. "
+                "Uning haqiqiy "
+                "qimmati esa "
+                "6- va 7-qadamlarda. "
+                "Kod noto'g'ri "
+                "javob berib, ayni "
+                "paytda ishonarli "
+                "ko'rinishi mumkin — "
+                "bu eng xavfli hol. "
+                "Kodda ataylab "
+                "kiritilgan xato "
+                "aynan shunday: yuk "
+                "vektori teng "
+                "bo'lingan variant "
+                "yaqinlashadi, "
+                "natija silliq va "
+                "mantiqiy, lekin "
+                "tartib 3 o'rniga "
+                "2. Faqat tartib "
+                "o'lchovi buni "
+                "ochadi — hech "
+                "qanday 'ko'z bilan "
+                "tekshirish' "
+                "yordam bermaydi. "
+                "Ikkinchi ataylab "
+                "kiritilgan xato "
+                "esa qo'polroq: "
+                "tartib nolga "
+                "tushadi va xato "
+                "to'r "
+                "zichlashganda "
+                "umuman "
+                "o'zgarmaydi. "
+                "8–12-qadamlar "
+                "esa ekspertning "
+                "savoliga raqam "
+                "bilan javob "
+                "beradi. Uchta "
+                "to'rdan "
+                "kuzatilgan "
+                "tartib, "
+                "Richardson "
+                "ekstrapolyatsiyasi "
+                "va GCI "
+                "hisoblanadi — "
+                "aniq yechimni "
+                "bilmasdan. "
+                "Kodda GCI "
+                "beshta holatda "
+                "ham haqiqiy "
+                "xatoni qamrab "
+                "oldi. "
+                "13-qadam esa "
+                "muhim "
+                "ogohlantirish: "
+                "qiziqish "
+                "kattaligini "
+                "noto'g'ri "
+                "tanlasangiz "
+                "butun tartib "
+                "yiqiladi. "
+                "Tugundagi "
+                "ko'chish su-13 "
+                "dagi "
+                "superkonvergensiya "
+                "tufayli aynan "
+                "to'g'ri, demak "
+                "Richardson "
+                "shovqinni "
+                "ekstrapolyatsiya "
+                "qiladi va "
+                "ma'nosiz tartib "
+                "beradi."
+            ),
+            equations=[
+                eq(r"u_{ex} \ \text{tanlanadi}, "
+                   r"\quad f = \mathcal{L}u_{ex} "
+                   r"\;\Longrightarrow\; "
+                   r"p_{obs} \overset{?}{=} "
+                   r"p_{nazariy}",
+                   "Ishlab chiqilgan yechimlar "
+                   "usuli — kod "
+                   "verifikatsiyasi.", "MMS"),
+                eq(r"p_{obs} = \frac{\ln\left|"
+                   r"(f_3-f_2)/(f_2-f_1)\right|}"
+                   r"{\ln r}",
+                   "Uchta to'rdan kuzatilgan "
+                   "tartib — aniq yechim "
+                   "kerak emas.",
+                   "Kuzatilgan tartib"),
+                eq(r"f_{ext} = f_1 + "
+                   r"\frac{f_1-f_2}"
+                   r"{r^{p_{obs}}-1}",
+                   "Richardson "
+                   "ekstrapolyatsiyasi "
+                   "(su-07).", "Ekstrapolyatsiya"),
+                eq(r"\mathrm{GCI} = \frac{1{,}25\,"
+                   r"\left|(f_2-f_1)/f_1\right|}"
+                   r"{r^{p_{obs}}-1}",
+                   "To'r yaqinlashish indeksi "
+                   "— hisobotga "
+                   "yoziladigan raqam.",
+                   "GCI"),
+            ],
+            conditions=(
+                "**MMS uchun $u_{ex}$ "
+                "tanlash:**\n"
+                "1. Silliq va analitik "
+                "differensiallanadigan;\n"
+                "2. Operatorning **barcha** "
+                "hadlarini faollashtirsin "
+                "— aks holda xato "
+                "yashirin qoladi;\n"
+                "3. Hech bir hosilasi "
+                "aynan nol bo'lmasin;\n"
+                "4. Chegaraviy shartlarni "
+                "qanoatlantirsin (yoki "
+                "ularni ham "
+                "'ishlab chiqing').\n\n"
+                "**Tartib o'lchovi "
+                "ishonchli bo'lishi "
+                "uchun:**\n"
+                "- To'rlar **asimptotik "
+                "sohada** bo'lsin — "
+                "dag'al to'rda tartib "
+                "ma'nosiz;\n"
+                "- Kamida uchta to'r;\n"
+                "- Yaxlitlash xatosi "
+                "diskretlashtirish "
+                "xatosidan ancha kichik "
+                "bo'lsin (su-02).\n\n"
+                "**GCI hisobotida "
+                "ko'rsatilsin:**\n"
+                "1. Uchta to'rning "
+                "o'lchamlari va "
+                "$r$;\n"
+                "2. Qiziqish kattaligi "
+                "va uning uchta "
+                "qiymati;\n"
+                "3. $p_{obs}$ va u "
+                "nazariyga mos "
+                "kelishi;\n"
+                "4. GCI foizda.\n\n"
+                "**Qiziqish kattaligini "
+                "tanlash:** "
+                "superkonvergent "
+                "nuqtalardan "
+                "**qoching** — "
+                "tugundagi ko'chish, "
+                "Barlou nuqtasidagi "
+                "kuchlanish. Ular "
+                "haqiqiy xatoni "
+                "yashiradi.\n\n"
+                "**Validatsiya "
+                "alohida:** "
+                "verifikatsiyasiz "
+                "validatsiya "
+                "ma'nosiz — "
+                "tajriba bilan "
+                "mos kelish "
+                "ikkita xatoning "
+                "bir-birini "
+                "qoplashi bo'lishi "
+                "mumkin."
+            ),
+            worked=WorkedExample(
+                statement=(
+                    "Uchta to'rda oqim "
+                    "hisoblandi: "
+                    "$f_3 = 0{,}9880$ "
+                    "($n = 16$), "
+                    "$f_2 = 0{,}9970$ "
+                    "($n = 32$), "
+                    "$f_1 = 0{,}99925$ "
+                    "($n = 64$). "
+                    "(a) Kuzatilgan tartibni "
+                    "toping; (b) Richardson "
+                    "ekstrapolyatsiyasini "
+                    "hisoblang; (c) GCI ni "
+                    "aniqlang."
+                ),
+                given=[
+                    r"r = 2, \quad F_s = 1{,}25",
+                    r"f_1 = 0{,}99925,\ f_2 = "
+                    r"0{,}9970,\ f_3 = 0{,}9880",
+                ],
+                steps=[
+                    st(r"f_2 - f_1 = 0{,}9970 - "
+                       r"0{,}99925 = -0{,}00225",
+                       "Zich to'rlar farqi."),
+                    st(r"f_3 - f_2 = 0{,}9880 - "
+                       r"0{,}9970 = -0{,}0090",
+                       "Dag'al to'rlar farqi."),
+                    st(r"\frac{f_3-f_2}{f_2-f_1} = "
+                       r"\frac{-0{,}0090}"
+                       r"{-0{,}00225} = 4{,}00",
+                       "Nisbat — u tartibni "
+                       "beradi."),
+                    st(r"p_{obs} = "
+                       r"\frac{\ln 4{,}00}"
+                       r"{\ln 2} = "
+                       r"\frac{1{,}3863}"
+                       r"{0{,}6931} = 2{,}00",
+                       "**Ikkinchi tartib** — "
+                       "$p = 2$ element "
+                       "uchun oqimda "
+                       "kutilgan qiymat."),
+                    st(r"\text{(b)}\quad "
+                       r"r^{p_{obs}} - 1 = "
+                       r"2^2 - 1 = 3",
+                       "Maxraj."),
+                    st(r"f_{ext} = f_1 + "
+                       r"\frac{f_1 - f_2}{3} = "
+                       r"0{,}99925 + "
+                       r"\frac{0{,}00225}{3}",
+                       "Ekstrapolyatsiya "
+                       "formulasi."),
+                    st(r"= 0{,}99925 + "
+                       r"0{,}00075 = 1{,}0000",
+                       "**Aniq qiymatga "
+                       "juda yaqin** — "
+                       "eng zich to'rdan "
+                       "ancha yaxshi."),
+                    st(r"\text{(c)}\quad "
+                       r"\left|\frac{f_2-f_1}"
+                       r"{f_1}\right| = "
+                       r"\frac{0{,}00225}"
+                       r"{0{,}99925} = "
+                       r"0{,}002252",
+                       "Nisbiy farq."),
+                    st(r"\mathrm{GCI} = "
+                       r"\frac{1{,}25 \cdot "
+                       r"0{,}002252}{3} = "
+                       r"0{,}000938",
+                       "GCI formulasi."),
+                    st(r"\mathrm{GCI} = "
+                       r"0{,}094\%",
+                       "**Hisobotga "
+                       "yoziladigan raqam.**"),
+                    st(r"\text{haqiqiy xato} = "
+                       r"\frac{|0{,}99925 - 1|}"
+                       r"{1} = 0{,}075\%",
+                       "Bu misolda aniq "
+                       "javob ma'lum edi."),
+                    st(r"0{,}094\% > 0{,}075\% "
+                       r"\quad \checkmark",
+                       "**GCI haqiqiy xatoni "
+                       "qamrab oldi** — "
+                       "$F_s = 1{,}25$ "
+                       "zaxirasi ishladi."),
+                ],
+                answer=(
+                    "(a) $p_{obs} = 2{,}00$ — "
+                    "nazariy qiymatga mos, "
+                    "demak kod va to'rlar "
+                    "asimptotik sohada; "
+                    "(b) $f_{ext} = "
+                    "1{,}0000$; "
+                    "(c) $\\mathrm{GCI} = "
+                    "0{,}094\\%$ va u "
+                    "haqiqiy 0,075% "
+                    "xatoni qamrab oladi. "
+                    "Kod bu tartibni "
+                    "beshta to'rlar "
+                    "uchligida ham "
+                    "takrorlaydi va "
+                    "GCI har safar "
+                    "haqiqiy xatodan "
+                    "katta chiqadi."
+                ),
+                engineering_note=(
+                    "(a) qismidagi "
+                    "tekshiruv eng ko'p "
+                    "o'tkazib "
+                    "yuboriladigan, "
+                    "lekin eng muhim "
+                    "qadam. "
+                    "$p_{obs}$ nazariy "
+                    "qiymatga mos "
+                    "kelmasa, GCI "
+                    "**ma'nosiz** — "
+                    "chunki uning "
+                    "butun asosi "
+                    "xatoning "
+                    "$Ch^p$ "
+                    "ko'rinishida "
+                    "bo'lishi. "
+                    "Amalda "
+                    "$p_{obs}$ mos "
+                    "kelmasligining "
+                    "uchta sababi "
+                    "bor: to'rlar "
+                    "hali asimptotik "
+                    "sohada emas "
+                    "(eng keng "
+                    "tarqalgani), "
+                    "kodda xato bor, "
+                    "yoki qiziqish "
+                    "kattaligi "
+                    "superkonvergent "
+                    "nuqtada "
+                    "olingan. "
+                    "Uchinchisi "
+                    "ayniqsa "
+                    "yashirin: kodda "
+                    "tugundagi "
+                    "ko'chishni "
+                    "tanlaganimizda "
+                    "xato mashina "
+                    "noliga teng "
+                    "chiqdi va "
+                    "Richardson "
+                    "shovqinni "
+                    "ekstrapolyatsiya "
+                    "qildi, natijada "
+                    "$p_{obs}$ "
+                    "manfiy va "
+                    "ma'nosiz "
+                    "bo'ldi. "
+                    "Shuning uchun "
+                    "qiziqish "
+                    "kattaligini "
+                    "tanlashda "
+                    "ehtiyot "
+                    "bo'ling: "
+                    "oqim, maksimal "
+                    "kuchlanish yoki "
+                    "integral "
+                    "kattalik — "
+                    "lekin "
+                    "superkonvergent "
+                    "nuqtadagi "
+                    "qiymat emas."
+                ),
+            ),
+            computation=Computation(
+                caption=(
+                    "MMS bilan kodni "
+                    "verifikatsiya qilish, "
+                    "ataylab kiritilgan "
+                    "xatolarni aniqlash va GCI "
+                    "bilan xatolik chegarasini "
+                    "qurish."
+                ),
+                code='''"""Verifikatsiya va validatsiya (V&V)."""
+import numpy as np
+from labkit import PARAMS, note, series, table, value
+from numpy.polynomial.legendre import leggauss
+
+p_ord = int(PARAMS.get("p_ord", 2))
+n_base = int(PARAMS.get("n_base", 16))
+x_qoi = float(PARAMS.get("x_qoi", 0.5))
+
+EA = 1.0
+
+# --- ISHLAB CHIQILGAN YECHIM: uni TANLAYMIZ ---
+# u_ex = sin(pi x) (1 + x^2) - silliq, chegarada nol, barcha hadlar faol
+
+
+def u_ex(x):
+    return np.sin(np.pi*x)*(1 + x**2)
+
+
+def du_ex(x):
+    return np.pi*np.cos(np.pi*x)*(1 + x**2) + np.sin(np.pi*x)*2*x
+
+
+def d2u_ex(x):
+    return (-np.pi**2*np.sin(np.pi*x)*(1 + x**2)
+            + 4*np.pi*np.cos(np.pi*x)*x + 2*np.sin(np.pi*x))
+
+
+def f_src(x):
+    """Manba ANIQ YECHIMDAN chiqariladi - MMS ning mohiyati."""
+    return -EA*d2u_ex(x)
+
+
+# manba to'g'ri chiqarilganini tekshiramiz
+xt = np.linspace(0.05, 0.95, 19)
+num_d2 = (u_ex(xt + 1e-5) - 2*u_ex(xt) + u_ex(xt - 1e-5))/1e-10
+value("Manba tekshiruvi: analitik va sonli d2u farqi",
+      float(np.max(np.abs(d2u_ex(xt) - num_d2))), "—")
+value("u_ex(0) chegaraviy shart", float(u_ex(0.0)), "—")
+value("u_ex(1) chegaraviy shart", float(u_ex(1.0)), "—")
+
+
+def lag(xi, nd):
+    m = len(nd)
+    xi = np.atleast_1d(np.asarray(xi, dtype=float))
+    N = np.ones((m,) + xi.shape)
+    dN = np.zeros((m,) + xi.shape)
+    for i in range(m):
+        for j in range(m):
+            if j != i:
+                N[i] *= (xi - nd[j])/(nd[i] - nd[j])
+        for j in range(m):
+            if j != i:
+                t = np.ones_like(xi)
+                for k in range(m):
+                    if k != i and k != j:
+                        t *= (xi - nd[k])/(nd[i] - nd[k])
+                dN[i] += t/(nd[i] - nd[j])
+    return N, dN
+
+
+def fem(n, p=2, bug="none"):
+    h = 1.0/n
+    nodes = np.linspace(-1.0, 1.0, p + 1)
+    gx, gw = leggauss(p + 3)
+    N_, dN_ = lag(gx, nodes)
+    nd_ = n*p + 1
+    K = np.zeros((nd_, nd_))
+    F = np.zeros(nd_)
+    J = h/2
+    Jb = h if bug == "jac" else J          # XATO: Yakobian h/2 emas, h
+    for e in range(n):
+        idx = np.arange(e*p, e*p + p + 1)
+        xg = e*h + h/2*(1 + gx)
+        for qq in range(len(gx)):
+            B = dN_[:, qq]/Jb
+            K[np.ix_(idx, idx)] += EA*np.outer(B, B)*gw[qq]*J
+            if bug != "load":
+                F[idx] += f_src(xg[qq])*N_[:, qq]*gw[qq]*J
+        if bug == "load":                  # XATO: yukni teng bo'lish
+            tot = float(np.sum(f_src(xg)*gw)*J)
+            F[idx] += tot/(p + 1)
+    u = np.zeros(nd_)
+    free = np.arange(1, nd_ - 1)
+    u[free] = np.linalg.solve(K[np.ix_(free, free)], F[free])
+    return u, h, nodes
+
+
+def norms(n, p=2, bug="none"):
+    u, h, nodes = fem(n, p, bug)
+    gx2, gw2 = leggauss(p + 5)
+    N2, dN2 = lag(gx2, nodes)
+    J = h/2
+    l2 = 0.0
+    en = 0.0
+    for e in range(n):
+        idx = np.arange(e*p, e*p + p + 1)
+        xg = e*h + h/2*(1 + gx2)
+        uh = np.sum(N2*u[idx][:, None], axis=0)
+        eh = np.sum((dN2/J)*u[idx][:, None], axis=0)
+        l2 += float(np.sum((uh - u_ex(xg))**2*gw2)*J)
+        en += EA*float(np.sum((eh - du_ex(xg))**2*gw2)*J)
+    return np.sqrt(l2), np.sqrt(en)
+
+
+# --- (1) KOD VERIFIKATSIYASI: tartib nazariyga mos keladimi? ---
+rows = []
+for p in [1, 2, 3]:
+    prev = None
+    for n in [4, 8, 16, 32, 64]:
+        l2, en = norms(n, p)
+        if prev is None:
+            rows.append([p, n, f"{l2:.4e}", "—", f"{en:.4e}", "—",
+                         p + 1, p])
+        else:
+            r1 = np.log(prev[0]/l2)/np.log(2)
+            r2 = np.log(prev[1]/en)/np.log(2)
+            rows.append([p, n, f"{l2:.4e}", f"{r1:.3f}", f"{en:.4e}",
+                         f"{r2:.3f}", p + 1, p])
+        prev = (l2, en)
+table("MMS: o'lchangan tartib nazariyga mos keladimi?",
+      ["p", "n", "L2 normasi", "L2 tartibi", "energiya normasi",
+       "energiya tartibi", "nazariy L2", "nazariy energiya"], rows)
+for p in [1, 2, 3]:
+    a, _ = norms(32, p)
+    b, _ = norms(64, p)
+    value(f"p = {p}: o'lchangan L2 tartibi (32 -> 64)",
+          float(np.log(a/b)/np.log(2)), "—")
+note("KOD VERIFIKATSIYASI BAJARILDI. Uchala tartib uchun ham "
+     "o'lchangan yaqinlashish tartibi nazariy qiymatga (L2 da p+1, "
+     "energiyada p) uch-to'rt xonali aniqlikda mos keldi. Bu MMS "
+     "ning asosiy natijasi: manba ANIQ YECHIMDAN chiqarilgani uchun "
+     "aniq javob har doim ma'lum va tartibni to'g'ridan-to'g'ri "
+     "o'lchash mumkin. Hech qanday tajriba yoki adabiyot qiymati "
+     "kerak emas.")
+
+# --- (2) MMS ATAYLAB KIRITILGAN XATONI TOPADIMI? ---
+rows2 = []
+for bug, nm in [("none", "xatosiz kod"),
+                ("load", "yuk vektori teng bo'lingan"),
+                ("jac", "Yakobian h/2 o'rniga h")]:
+    prev = None
+    line = [nm]
+    rates = []
+    for n in [8, 16, 32, 64, 128]:
+        l2, _ = norms(n, 2, bug)
+        if prev is not None:
+            rates.append(np.log(prev/l2)/np.log(2))
+        prev = l2
+    line += [f"{r:+.3f}" for r in rates]
+    rows2.append(line)
+table("MMS ataylab kiritilgan xatoni topadimi? (p = 2, nazariy 3)",
+      ["kod holati", "8->16", "16->32", "32->64", "64->128"], rows2)
+e_clean = [norms(n, 2, "none")[0] for n in [8, 16, 32, 64, 128]]
+e_load = [norms(n, 2, "load")[0] for n in [8, 16, 32, 64, 128]]
+e_jac = [norms(n, 2, "jac")[0] for n in [8, 16, 32, 64, 128]]
+series("Xatosiz kod", [8, 16, 32, 64, 128],
+       [np.log10(v) for v in e_clean],
+       xlabel="elementlar", ylabel="log10(L2 xatosi)")
+series("Yuk vektori xatosi", [8, 16, 32, 64, 128],
+       [np.log10(v) for v in e_load],
+       xlabel="elementlar", ylabel="log10(L2 xatosi)")
+series("Yakobian xatosi", [8, 16, 32, 64, 128],
+       [np.log10(v) for v in e_jac],
+       xlabel="elementlar", ylabel="log10(L2 xatosi)")
+value("Yuk xatosi bilan: 128 elementdagi xato", float(e_load[-1]), "—")
+value("Xatosiz kod: 128 elementdagi xato", float(e_clean[-1]), "—")
+value("Farq necha barobar", float(e_load[-1]/e_clean[-1]), "barobar")
+note("MMS NING HAQIQIY QIYMATI SHU YERDA. Yuk vektorini teng bo'lish "
+     "xatosi kodni BUZMAYDI: natija baribir yaqinlashadi, silliq va "
+     "mantiqiy ko'rinadi. Faqat tartib 3 o'rniga 2 bo'lib qoladi va "
+     "buni faqat o'lchov ochadi - hech qanday 'ko'z bilan tekshirish' "
+     "yordam bermaydi. Yakobian xatosi esa qo'polroq: tartib NOLGA "
+     "tushadi va xato to'r zichlashganda umuman o'zgarmaydi. Demak "
+     "tartib o'lchovi ikkala turdagi xatoni ham aniqlaydi.")
+
+# --- (3) YECHIM VERIFIKATSIYASI: aniq javob NOMA'LUM deb ---
+def qoi_flux(n, p=2, xq=0.5):
+    """Oqim EA*u'(xq) - superkonvergent EMAS."""
+    u, h, nodes = fem(n, p)
+    e = min(int(xq/h), n - 1)
+    xi = 2*(xq - e*h)/h - 1
+    idx = np.arange(e*p, e*p + p + 1)
+    _, dNq = lag(np.array([xi]), nodes)
+    return float(EA*np.sum(dNq[:, 0]/(h/2)*u[idx]))
+
+
+def qoi_disp(n, p=2):
+    """Tugundagi ko'chish - SUPERKONVERGENT (su-13)."""
+    u, h, nodes = fem(n, p)
+    return float(u[(n*p + 1)//2])
+
+
+ex_flux = du_ex(x_qoi)
+value("Aniq oqim EA*u'(x)", float(ex_flux), "—")
+rows3 = []
+r_ref = 2.0
+for n1 in [4, 8, 16, 32, 64]:
+    f3, f2, f1 = (qoi_flux(n1, 2, x_qoi), qoi_flux(2*n1, 2, x_qoi),
+                  qoi_flux(4*n1, 2, x_qoi))
+    e21, e32 = f2 - f1, f3 - f2
+    pobs = np.log(abs(e32/e21))/np.log(r_ref)
+    fext = f1 + (f1 - f2)/(r_ref**pobs - 1)
+    gci = 1.25*abs((f2 - f1)/f1)/(r_ref**pobs - 1)
+    real = abs(f1 - ex_flux)/abs(ex_flux)
+    rows3.append([f"{n1}/{2*n1}/{4*n1}", f"{pobs:.4f}", f"{fext:.8f}",
+                  f"{gci*100:.4f}", f"{real*100:.5f}",
+                  "HA" if gci >= real else "YO'Q"])
+table("Yechim verifikatsiyasi: GCI (aniq yechim ishlatilmaydi)",
+      ["to'rlar uchligi", "p_kuzatilgan", "ekstrapolyatsiya", "GCI %",
+       "haqiqiy xato %", "GCI qamradimi"], rows3)
+note("GCI beshta holatda ham haqiqiy xatoni QAMRAB oldi va kuzatilgan "
+     "tartib nazariy 2 ga yaqinlashdi (1.81 -> 1.999). DIQQAT: bu "
+     "hisobda ANIQ YECHIM UMUMAN ISHLATILMADI - faqat uchta to'rdagi "
+     "natija. Aynan shuning uchun GCI haqiqiy masalalarda ishlaydi, "
+     "u yerda aniq yechim yo'q. Xavfsizlik koeffitsienti Fs = 1.25 "
+     "zaxira beradi, lekin u kafolat emas: asimptotik sohada "
+     "bo'lmasangiz GCI ham ishonchsiz.")
+
+rows4 = []
+for n1 in [8, 16, 32]:
+    f3, f2, f1 = (qoi_flux(n1, 2, x_qoi), qoi_flux(2*n1, 2, x_qoi),
+                  qoi_flux(4*n1, 2, x_qoi))
+    pobs = np.log(abs((f3 - f2)/(f2 - f1)))/np.log(r_ref)
+    fext = f1 + (f1 - f2)/(r_ref**pobs - 1)
+    e_fine = abs(f1 - ex_flux)/abs(ex_flux)
+    e_ext = abs(fext - ex_flux)/abs(ex_flux)
+    rows4.append([4*n1, f"{e_fine*100:.6f}", f"{e_ext*100:.6f}",
+                  f"{e_fine/max(e_ext, 1e-18):.1f}"])
+table("Richardson ekstrapolyatsiyasi qancha yutuq beradi?",
+      ["eng zich to'r", "uning xatosi %", "ekstrapolyatsiya xatosi %",
+       "necha barobar yaxshi"], rows4)
+note("Richardson ekstrapolyatsiyasi eng zich to'rdan 30 dan 437 "
+     "barobargacha aniqroq natija beradi - va bu BEPUL, chunki uchta "
+     "hisob allaqachon bajarilgan. Bu su-07 dagi ekstrapolyatsiyaning "
+     "aynan o'zi, faqat endi to'r bo'yicha.")
+
+# --- (4) SUPERKONVERGENSIYA TUZOG'I ---
+rows5 = []
+for n1 in [4, 8, 16]:
+    d3, d2_, d1 = (qoi_disp(n1), qoi_disp(2*n1), qoi_disp(4*n1))
+    e21, e32 = d2_ - d1, d3 - d2_
+    if abs(e21) < 1e-16:
+        pobs_s = float("nan")
+    else:
+        pobs_s = np.log(abs(e32/e21) + 1e-300)/np.log(r_ref)
+    rows5.append([f"{n1}/{2*n1}/{4*n1}", f"{d1:.12f}",
+                  f"{abs(e21):.3e}",
+                  "aniqlanmaydi" if not np.isfinite(pobs_s)
+                  else f"{pobs_s:.3f}"])
+table("TUZOQ: qiziqish kattaligi superkonvergent nuqtada olinsa",
+      ["to'rlar uchligi", "tugundagi u", "to'rlar farqi", "p_kuzatilgan"],
+      rows5)
+value("Tugundagi ko'chish xatosi (n = 64)",
+      float(abs(qoi_disp(64) - u_ex(x_qoi))), "—")
+value("Oqim xatosi (n = 64)",
+      float(abs(qoi_flux(64, 2, x_qoi) - ex_flux)), "—")
+note("MUHIM TUZOQ. Tugundagi ko'chish su-13 dagi bir o'lchovli "
+     "superkonvergensiya tufayli MASHINA ANIQLIGIDA to'g'ri. "
+     "Natijada to'rlar orasidagi farq shovqin darajasida qoladi va "
+     "Richardson ekstrapolyatsiyasi SHOVQINNI ekstrapolyatsiya "
+     "qiladi - kuzatilgan tartib ma'nosiz chiqadi. Shuning uchun "
+     "qiziqish kattaligini tanlashda superkonvergent nuqtalardan "
+     "qochish kerak: oqim, maksimal kuchlanish yoki integral "
+     "kattalik oling, tugundagi ko'chishni emas.")
+
+table("Verifikatsiya va validatsiya: tuzilma",
+      ["Bosqich", "Savol", "Vosita", "Nima kerak"],
+      [["Kod verifikatsiyasi", "Dasturda xato bormi?",
+        "MMS, tartib o'lchovi", "faqat kompyuter"],
+       ["Yechim verifikatsiyasi", "Diskretlashtirish xatosi qancha?",
+        "Richardson, GCI", "uchta to'r"],
+       ["Validatsiya", "Model haqiqatga mos keladimi?",
+        "tajriba bilan taqqoslash", "TAJRIBA"],
+       ["Noaniqlik tahlili", "Kirish ma'lumotlari qanchalik aniq?",
+        "sezgirlik, Monte-Karlo", "statistika"]])
+''',
+                parameters=[
+                    p("p_ord", "Element tartibi", 1.0, 3.0, 2.0, 1.0),
+                    p("n_base", "Boshlang'ich to'r", 4.0, 64.0, 16.0,
+                      4.0),
+                    p("x_qoi", "Qiziqish nuqtasi", 0.1, 0.9, 0.5, 0.05),
+                ],
+                expected_output=(
+                    "MMS uchala element "
+                    "tartibi uchun ham "
+                    "o'lchangan "
+                    "yaqinlashish tartibini "
+                    "nazariy qiymatga "
+                    "($L^2$ da $p+1$, "
+                    "energiyada $p$) "
+                    "uch-to'rt xonali "
+                    "aniqlikda "
+                    "tasdiqlaydi. Ataylab "
+                    "kiritilgan yuk "
+                    "vektori xatosi "
+                    "kodni buzmaydi — "
+                    "natija baribir "
+                    "yaqinlashadi — "
+                    "lekin tartib 3 "
+                    "o'rniga 2 bo'lib "
+                    "qoladi; Yakobian "
+                    "xatosida esa tartib "
+                    "nolga tushadi. "
+                    "Yechim "
+                    "verifikatsiyasida "
+                    "kuzatilgan tartib "
+                    "1,81 dan 1,999 ga "
+                    "yaqinlashadi va GCI "
+                    "beshta holatda ham "
+                    "haqiqiy xatoni "
+                    "qamrab oladi, "
+                    "aniq yechim "
+                    "umuman "
+                    "ishlatilmagan "
+                    "holda. Richardson "
+                    "ekstrapolyatsiyasi "
+                    "eng zich to'rdan "
+                    "30–437 barobar "
+                    "aniqroq. "
+                    "Superkonvergent "
+                    "nuqtadagi "
+                    "kattalik esa "
+                    "tartib o'lchovini "
+                    "buzadi."
+                ),
+            ),
+            visual=vis(
+                kind="Yaqinlashish tartibi va GCI tasmasi",
+                tool="React/SVG + Manim",
+                description=(
+                    "Log–log yaqinlashish "
+                    "grafigi, tartib o'lchovi "
+                    "va GCI ishonch tasmasi."
+                ),
+                how_to_draw=(
+                    "React/SVG: asosiy panel — "
+                    "log–log grafik, unda "
+                    "uchta chiziq: xatosiz "
+                    "kod (qiyaligi 3), yuk "
+                    "vektori xatosi bilan "
+                    "(qiyaligi 2) va "
+                    "Yakobian xatosi bilan "
+                    "(**yotiq**, qiyaligi "
+                    "0). Yonida nazariy "
+                    "qiyalikni ko'rsatuvchi "
+                    "uchburchak "
+                    "chiziladi va har bir "
+                    "chiziqning "
+                    "o'lchangan qiyaligi "
+                    "yozib qo'yiladi. "
+                    "Asosiy g'oya shu "
+                    "yerda ko'rinadi: "
+                    "xato chiziqlari "
+                    "**parallel emas** va "
+                    "aynan shu farq "
+                    "xatoni ochadi. "
+                    "Pastki panelda "
+                    "yechim "
+                    "verifikatsiyasi: "
+                    "uchta to'rdagi "
+                    "qiziqish kattaligi "
+                    "nuqta sifatida "
+                    "qo'yiladi, "
+                    "Richardson "
+                    "ekstrapolyatsiyasi "
+                    "gorizontal chiziq "
+                    "bilan, GCI esa "
+                    "uning atrofidagi "
+                    "**tasma** bilan "
+                    "ko'rsatiladi. "
+                    "Aniq qiymat "
+                    "(bu sinov "
+                    "masalasida "
+                    "ma'lum) alohida "
+                    "belgilanadi va u "
+                    "tasma ichiga "
+                    "tushishi "
+                    "ko'rinadi. To'r "
+                    "qo'shilganda "
+                    "tasma torayadi. "
+                    "Yon tomonda "
+                    "'superkonvergent "
+                    "kattalikni tanlash' "
+                    "tugmasi bor: "
+                    "bosilganda "
+                    "nuqtalar "
+                    "ustma-ust tushadi "
+                    "va tasma "
+                    "ma'nosiz "
+                    "bo'lib qoladi."
+                ),
+            ),
+            interp=(
+                "MMS ning birinchi jadvali "
+                "kod verifikatsiyasining "
+                "to'liq namunasi: uchta "
+                "element tartibi uchun ham "
+                "o'lchangan yaqinlashish "
+                "nazariy qiymatga uch-to'rt "
+                "xonali aniqlikda mos "
+                "keldi. Buning uchun na "
+                "tajriba, na adabiyot "
+                "qiymati, na boshqa kod "
+                "kerak bo'ldi — faqat "
+                "yechimni tanlab, manbani "
+                "undan chiqarish kifoya. "
+                "Ammo mavzuning eng "
+                "qimmatli qismi ikkinchi "
+                "jadval. Yuk vektorini "
+                "teng bo'lish xatosi kodni "
+                "buzmaydi: natija "
+                "yaqinlashadi, silliq va "
+                "mantiqiy ko'rinadi, "
+                "muvozanat ham saqlanadi "
+                "(su-15). Bu xatoni "
+                "'natijaga qarab' aniqlash "
+                "mumkin emas. Faqat tartib "
+                "o'lchovi uni ochadi: 3 "
+                "o'rniga 2. Yakobian xatosi "
+                "esa qo'polroq va tartib "
+                "nolga tushadi — xato to'r "
+                "zichlashganda umuman "
+                "o'zgarmaydi. Demak bitta "
+                "o'lchov ikkala turdagi "
+                "xatoni ham aniqlaydi va "
+                "aynan shu MMS ni oltin "
+                "standart qiladi. Yechim "
+                "verifikatsiyasi qismida "
+                "esa eng muhimi — aniq "
+                "yechim **umuman "
+                "ishlatilmagani**. GCI "
+                "faqat uchta to'rdagi "
+                "natijadan quriladi va "
+                "shuning uchun haqiqiy "
+                "masalalarda ham "
+                "ishlaydi. Beshta "
+                "holatda ham u haqiqiy "
+                "xatoni qamrab oldi, "
+                "kuzatilgan tartib esa "
+                "1,81 dan 1,999 ga "
+                "yaqinlashdi — bu "
+                "to'rlar asimptotik "
+                "sohaga kirganining "
+                "belgisi. Richardson "
+                "ekstrapolyatsiyasi "
+                "qo'shimcha 30–437 "
+                "barobar aniqlik "
+                "beradi va bu bepul, "
+                "chunki hisoblar "
+                "allaqachon "
+                "bajarilgan. Oxirgi "
+                "jadval esa "
+                "ogohlantirish. "
+                "Tugundagi ko'chishni "
+                "qiziqish kattaligi "
+                "sifatida tanlasak, "
+                "su-13 dagi "
+                "superkonvergensiya "
+                "tufayli xato mashina "
+                "noliga teng chiqadi, "
+                "to'rlar orasidagi "
+                "farq shovqin "
+                "darajasida qoladi va "
+                "Richardson shovqinni "
+                "ekstrapolyatsiya "
+                "qiladi. Natijada "
+                "kuzatilgan tartib "
+                "ma'nosiz bo'ladi. "
+                "Bu nozik, lekin "
+                "amalda uchraydigan "
+                "tuzoq va u "
+                "kursdagi oldingi "
+                "natija — "
+                "superkonvergensiya — "
+                "bu yerda "
+                "kamchilikka "
+                "aylanganini "
+                "ko'rsatadi."
+            ),
+            mistakes=[
+                "Verifikatsiya va "
+                "validatsiyani "
+                "adashtirish. Birinchisi "
+                "matematik, ikkinchisi "
+                "fizik savol.",
+                "Tajriba bilan mos "
+                "kelishni "
+                "verifikatsiya o'rniga "
+                "qabul qilish. Ikkita "
+                "xato bir-birini "
+                "qoplashi mumkin.",
+                "$p_{obs}$ ni "
+                "tekshirmasdan GCI "
+                "hisoblash. Tartib mos "
+                "kelmasa GCI "
+                "ma'nosiz.",
+                "Asimptotik sohada "
+                "bo'lmagan to'rlardan "
+                "tartib o'lchash. "
+                "Dag'al to'rda natija "
+                "ishonchsiz.",
+                "Qiziqish kattaligini "
+                "superkonvergent "
+                "nuqtada olish. Xato "
+                "yashirin qoladi va "
+                "tartib buziladi.",
+                "MMS uchun juda sodda "
+                "$u_{ex}$ tanlash. "
+                "Agar u operatorning "
+                "ba'zi hadlarini "
+                "faollashtirmasa, "
+                "o'sha hadlardagi "
+                "xato "
+                "topilmaydi.",
+            ],
+            quiz=[
+                q("Verifikatsiya va "
+                  "validatsiyaning farqi "
+                  "nima?",
+                  "Verifikatsiya — "
+                  "tenglamalarni to'g'ri "
+                  "yechyapmizmi (matematik, "
+                  "tajribasiz); "
+                  "validatsiya — to'g'ri "
+                  "tenglamalarni "
+                  "yechyapmizmi (fizik, "
+                  "tajriba kerak).",
+                  "konseptual"),
+                q("MMS ning asosiy g'oyasi "
+                  "nima?",
+                  "Yechim **tanlanadi**, "
+                  "manba esa undan "
+                  "chiqariladi — shunda "
+                  "aniq javob har doim "
+                  "ma'lum va tartibni "
+                  "o'lchash mumkin.",
+                  "konseptual"),
+                q("$f_1 = 0{,}99925$, "
+                  "$f_2 = 0{,}9970$, "
+                  "$f_3 = 0{,}9880$, "
+                  "$r = 2$. GCI nechaga "
+                  "teng?",
+                  "$p_{obs} = \\ln 4/"
+                  "\\ln 2 = 2$; "
+                  "$\\mathrm{GCI} = "
+                  "1{,}25\\cdot"
+                  "0{,}002252/3 = "
+                  "0{,}094\\%$.", "hisob"),
+                q("Kodda ataylab kiritilgan "
+                  "yuk vektori xatosi "
+                  "qanday namoyon "
+                  "bo'ladi?",
+                  "Natija baribir "
+                  "yaqinlashadi va "
+                  "ishonarli ko'rinadi, "
+                  "lekin tartib 3 o'rniga "
+                  "2 bo'lib qoladi — "
+                  "faqat o'lchov buni "
+                  "ochadi.", "kod"),
+                q("Nima uchun tugundagi "
+                  "ko'chish GCI uchun "
+                  "yaroqsiz?",
+                  "su-13 dagi "
+                  "superkonvergensiya "
+                  "tufayli xato mashina "
+                  "noliga teng; Richardson "
+                  "shovqinni "
+                  "ekstrapolyatsiya qiladi "
+                  "va tartib ma'nosiz "
+                  "chiqadi.", "kod"),
+                q("GCI hisoblash uchun aniq "
+                  "yechim kerakmi?",
+                  "Yo'q — faqat uchta "
+                  "to'rdagi natija. Aynan "
+                  "shuning uchun u haqiqiy "
+                  "masalalarda ishlaydi.",
+                  "talqin"),
+                q("Richardson "
+                  "ekstrapolyatsiyasi "
+                  "qancha yutuq beradi?",
+                  "Kodda eng zich to'rdan "
+                  "30–437 barobar aniqroq, "
+                  "va bu bepul — uchta "
+                  "hisob allaqachon "
+                  "bajarilgan.", "talqin"),
+            ],
+            bridge=(
+                "Natijaning ishonchliligi "
+                "rasmiylashtirildi. Endi "
+                "oxirgi amaliy savol "
+                "qoladi: bu ishonchlilikka "
+                "qancha hisoblash "
+                "resursi sarflanadi va "
+                "uni qanday kamaytirish "
+                "mumkin?"
+            ),
+            research=(
+                "V&V ni "
+                "chuqurlashtiring. "
+                "(1) ASME V&V 20 "
+                "standartini o'rganing: "
+                "validatsiya "
+                "noaniqligini "
+                "$u_{val} = "
+                "\\sqrt{u_{num}^2 + "
+                "u_{inp}^2 + u_D^2}$ "
+                "sifatida rasmiy "
+                "hisoblash. "
+                "(2) Chegaraviy "
+                "shartlarni ham "
+                "'ishlab chiqish' "
+                "usulini ko'rib "
+                "chiqing: "
+                "$u_{ex}$ chegaraviy "
+                "shartni "
+                "qanoatlantirmasa "
+                "nima qilish "
+                "kerak? "
+                "(3) Nochiziqli va "
+                "vaqtga bog'liq "
+                "masalalarda MMS ni "
+                "o'rganing: "
+                "manba endi "
+                "vaqtga ham "
+                "bog'liq "
+                "bo'ladi. "
+                "(4) Noaniqlik "
+                "tarqalishini "
+                "(uncertainty "
+                "propagation) "
+                "ko'rib chiqing: "
+                "kirish "
+                "ma'lumotlaridagi "
+                "tarqoqlik "
+                "natijaga qanday "
+                "o'tadi — "
+                "Monte-Karlo va "
+                "polinomial xaos."
+            ),
+            manim_ref=manim(
+                scene="VerificationScene",
+                module="manim/scenes/su_modern.py",
+                title="MMS va tartib o'lchovi",
+                summary=(
+                    "Avval MMS g'oyasi "
+                    "ko'rsatiladi: yechim "
+                    "tanlanadi, operator "
+                    "qo'llanadi va manba "
+                    "chiqadi — o'qlar "
+                    "odatdagiga teskari "
+                    "yo'nalishda. Keyin "
+                    "log–log grafikda "
+                    "uchta chiziq "
+                    "chiziladi va "
+                    "ularning "
+                    "qiyaliklari "
+                    "o'lchanadi: 3, 2 va "
+                    "0. Nazariy qiyalik "
+                    "uchburchagi "
+                    "ustiga "
+                    "qo'yilganda "
+                    "faqat bittasi mos "
+                    "tushadi. Oxirida "
+                    "GCI tasmasi "
+                    "quriladi va aniq "
+                    "qiymat uning "
+                    "ichiga tushishi "
+                    "ko'rsatiladi."
+                ),
+            ),
+        ),
+    ),
 ]
