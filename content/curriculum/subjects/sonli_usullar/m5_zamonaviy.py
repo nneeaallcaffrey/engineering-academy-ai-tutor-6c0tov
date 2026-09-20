@@ -1255,4 +1255,1232 @@ table("DQM va boshqa usullarning taqqoslanishi",
             ),
         ),
     ),
+
+    # ------------------------------------------------------------------ su-26
+    Topic(
+        id="su-26",
+        subject_id=S, module_id=M, order=26,
+        title="Chegaraviy elementlar usuli (BEM)",
+        description=(
+            "Fundamental yechim, chegaraviy integral tenglama, o'lcham "
+            "kamayishi, diskretlashtirish va yig'ish, ichki nuqtada "
+            "yechim hamda degenerat masshtab muammosi."
+        ),
+        learning_objective=(
+            "Chegaraviy integral tenglamani qurish va yechish, BEM ning "
+            "FEM dan qachon afzal ekanini asoslash va uning o'ziga xos "
+            "tuzoqlarini tanib olish."
+        ),
+        prerequisites=["su-25", "tmm-10"],
+        mathematical_core=(
+            "$c_iu_i + \\int_\\Gamma q^*u\\,d\\Gamma = "
+            "\\int_\\Gamma u^*q\\,d\\Gamma$; "
+            "$u^* = -\\frac{1}{2\\pi}\\ln r$; "
+            "$\\mathbf{H}\\mathbf{u} = \\mathbf{G}\\mathbf{q}$."
+        ),
+        engineering_application=(
+            "Cheksiz va yarim cheksiz sohalar (tuproq, akustika), "
+            "yorilish mexanikasi, elektromagnit va issiqlik masalalari, "
+            "shakl optimallashtirish."
+        ),
+        computational_component=(
+            "Chegaraviy integrallarni hisoblash, matritsalarni yig'ish, "
+            "ichki nuqtada yechimni tiklash, degenerat masshtabni "
+            "aniqlash."
+        ),
+        visualization_component=(
+            "Chegaraviy diskretlashtirish, fundamental yechim, ichki "
+            "nuqtadagi maydon."
+        ),
+        research_extension=(
+            "Tez ko'p qutbli usulni (FMM) o'rganing: u BEM ning "
+            "$O(N^2)$ narxini $O(N\\log N)$ ga tushiradi."
+        ),
+        difficulty="murakkab",
+        previous_link=(
+            "su-25 dagi DQM butun sohani tugunlar bilan to'ldirdi. "
+            "BEM esa butunlay boshqa yo'l tutadi: faqat **chegarani** "
+            "diskretlashtiradi va soha ichiga umuman tegmaydi."
+        ),
+        next_topic="su-27",
+        estimated_minutes=90,
+        tags=["BEM", "chegaraviy integral", "fundamental yechim",
+              "degenerat masshtab", "cheksiz soha"],
+        lesson=_lesson(
+            problem=(
+                "Yerto'la devoriga tuproq "
+                "bosimi hisoblanmoqda. "
+                "Tuproq — **cheksiz** muhit: "
+                "u har tomonga cheksiz "
+                "davom etadi. FEM bilan "
+                "modellashtirish uchun "
+                "sun'iy chegara qo'yish "
+                "kerak va u yetarlicha uzoq "
+                "bo'lishi lozim — natijada "
+                "to'rning katta qismi "
+                "hech qanday qiziqarli "
+                "narsa sodir bo'lmaydigan "
+                "bo'sh tuproqqa sarflanadi. "
+                "Bundan tashqari sun'iy "
+                "chegara to'lqinlarni "
+                "qaytaradi va dinamik "
+                "masalada soxta aks-sado "
+                "beradi. Cheksizlikni "
+                "kesmasdan, uni "
+                "**aynan** hisobga oladigan "
+                "usul bormi?"
+            ),
+            concepts=[
+                c("Fundamental yechim $u^*$",
+                  "Nuqtaviy manba javobi: "
+                  "ikki o'lchovda "
+                  "$u^* = -\\frac{1}{2\\pi}"
+                  "\\ln r$ — u "
+                  "differensial tenglamani "
+                  "**aynan** "
+                  "qanoatlantiradi."),
+                c("Chegaraviy integral "
+                  "tenglama",
+                  "Grin ayniyati bilan sohaviy "
+                  "integral chegaraviy "
+                  "integralga aylantiriladi."),
+                c("O'lcham kamayishi",
+                  "2D masala 1D chegaraga, 3D "
+                  "masala 2D sirtga tushadi — "
+                  "noma'lumlar soni keskin "
+                  "kamayadi."),
+                c("$\\mathbf{H}$ va "
+                  "$\\mathbf{G}$ matritsalari",
+                  "$\\mathbf{H}\\mathbf{u} = "
+                  "\\mathbf{G}\\mathbf{q}$; "
+                  "ikkalasi **to'la** va "
+                  "umuman **nosimmetrik**."),
+                c("Qattiq jism usuli",
+                  "$\\mathbf{H}$ ning "
+                  "diagonali "
+                  "$u = \\text{const}$ "
+                  "yechim bo'lishi "
+                  "shartidan topiladi."),
+                c("Degenerat masshtab",
+                  "Chegaraning logarifmik "
+                  "sig'imi 1 ga teng "
+                  "bo'lganda "
+                  "$\\mathbf{G}$ singulyar "
+                  "bo'lib qoladi — "
+                  "birliklar tanloviga "
+                  "bog'liq tuzoq."),
+            ],
+            derivation=[
+                d("1. Fundamental yechim",
+                  r"\nabla^2u^* + \delta(\xi) = "
+                  r"0 \;\Longrightarrow\; "
+                  r"u^* = -\frac{1}{2\pi}\ln r",
+                  "Nuqtaviy manba javobi. "
+                  "**Hal qiluvchi xossa:** u "
+                  "tenglamani soha ichida "
+                  "aynan qanoatlantiradi, "
+                  "shuning uchun sohani "
+                  "diskretlashtirish kerak "
+                  "emas."),
+                d("2. Grinning ikkinchi "
+                  "ayniyati",
+                  r"\int_\Omega\left(u\nabla^2v "
+                  r"- v\nabla^2u\right)d\Omega "
+                  r"= \int_\Gamma\left(u"
+                  r"\frac{\partial v}"
+                  r"{\partial n} - v"
+                  r"\frac{\partial u}"
+                  r"{\partial n}\right)d\Gamma",
+                  "**Asosiy vosita.** Sohaviy "
+                  "integralni chegaraviy "
+                  "integralga aylantiradi "
+                  "(tmm-10)."),
+                d("3. $v = u^*$ tanlash",
+                  r"\nabla^2u = 0, \ "
+                  r"\nabla^2u^* = -\delta "
+                  r"\;\Longrightarrow\; "
+                  r"\int_\Omega u\,\delta\,"
+                  r"d\Omega = u(\xi)",
+                  "Chap tomon delta-funksiya "
+                  "tufayli bitta qiymatga "
+                  "yig'iladi — bu BEM ning "
+                  "butun sehri."),
+                d("4. Chegaraviy integral "
+                  "tenglama",
+                  r"c_i u_i + \int_\Gamma q^*u"
+                  r"\,d\Gamma = \int_\Gamma "
+                  r"u^*q\,d\Gamma",
+                  "$q = \\partial u/"
+                  "\\partial n$, "
+                  "$q^* = \\partial u^*/"
+                  "\\partial n$. "
+                  "$c_i$ — erkin had: silliq "
+                  "chegarada $1/2$."),
+                d("5. Diskretlashtirish",
+                  r"\mathbf{H}\mathbf{u} = "
+                  r"\mathbf{G}\mathbf{q}",
+                  "Chegara elementlarga "
+                  "bo'linadi; har bir tugunda "
+                  "$u$ yoki $q$ ma'lum, "
+                  "ikkinchisi noma'lum."),
+                d("6. Diagonal hadlar "
+                  "muammosi",
+                  r"r \to 0 \;\Longrightarrow\; "
+                  r"\ln r \to -\infty",
+                  "O'z-o'ziga ta'sirda "
+                  "integrand singulyar. "
+                  "$\\mathbf{G}$ uchun u "
+                  "**zaif** singulyarlik "
+                  "va analitik olinadi; "
+                  "$\\mathbf{H}$ uchun esa "
+                  "kuchliroq."),
+                d("7. Qattiq jism usuli",
+                  r"u = \text{const} "
+                  r"\;\Longrightarrow\; "
+                  r"\mathbf{H}\mathbf{1} = "
+                  r"\mathbf{0} "
+                  r"\;\Longrightarrow\; "
+                  r"H_{ii} = -\sum_{j\ne i}"
+                  r"H_{ij}",
+                  "**Chiroyli yechim.** "
+                  "Eng qiyin integralni "
+                  "umuman hisoblamaymiz — "
+                  "uni fizik shartdan "
+                  "topamiz. Bu su-15 dagi "
+                  "qator yig'indisi "
+                  "tekshiruvining aynan "
+                  "o'zi."),
+                d("8. Ichki nuqtada yechim",
+                  r"u(\xi) = \int_\Gamma u^*q"
+                  r"\,d\Gamma - \int_\Gamma "
+                  r"q^*u\,d\Gamma",
+                  "**To'rsiz baholash.** "
+                  "Chegara yechilgandan "
+                  "keyin soha ichidagi "
+                  "**istalgan** nuqtada "
+                  "yechim bitta integral "
+                  "bilan topiladi."),
+                d("9. Cheksiz soha",
+                  r"u^* \to 0 \ (r \to \infty) "
+                  r"\;\Longrightarrow\; "
+                  r"\text{tashqi chegara "
+                  r"KERAK EMAS}",
+                  "**BEM ning asosiy "
+                  "afzalligi.** "
+                  "Fundamental yechim "
+                  "cheksizlikdagi shartni "
+                  "avtomatik "
+                  "qanoatlantiradi — "
+                  "sun'iy chegara va "
+                  "undan qaytish muammosi "
+                  "yo'q."),
+                d("10. Matritsalarning "
+                  "xossalari",
+                  r"\mathbf{H}, \mathbf{G} - "
+                  r"\text{TO'LA va "
+                  r"NOSIMMETRIK}",
+                  "**BEM ning narxi.** "
+                  "FEM matritsalari siyrak "
+                  "va simmetrik, BEM "
+                  "niki esa 100% to'la; "
+                  "yechish narxi "
+                  "$O(N^3)$, xotira "
+                  "$O(N^2)$."),
+                d("11. Aniqlik tartibi",
+                  r"\|e\| \sim O(h^2) \quad "
+                  r"(\text{doimiy elementlar, "
+                  r"silliq chegara})",
+                  "**O'lchangan natija.** "
+                  "Doimiy elementlar odatda "
+                  "$O(h)$ berardi, lekin "
+                  "markazda kollokatsiya "
+                  "silliq chegarada "
+                  "superkonvergensiya "
+                  "beradi."),
+                d("12. Degenerat masshtab",
+                  r"\text{log sig'im} = 1 "
+                  r"\;\Longrightarrow\; "
+                  r"\mathbf{G} \ "
+                  r"\text{singulyar}",
+                  "**Kutilmagan tuzoq.** "
+                  "$\\ln r$ da $r = 1$ "
+                  "nolga aylanadi, shuning "
+                  "uchun chegaraning "
+                  "o'lchami birlikka mos "
+                  "kelganda tizim "
+                  "buziladi. Ellips uchun "
+                  "log sig'im "
+                  "$(a+b)/2$."),
+            ],
+            meaning=(
+                "BEM ning butun kuchi 1- va "
+                "3-qadamlarda. Fundamental "
+                "yechim differensial "
+                "tenglamani soha ichida "
+                "**aynan** qanoatlantiradi, "
+                "shuning uchun uni bazis "
+                "sifatida ishlatganda soha "
+                "ichida hech narsani "
+                "diskretlashtirish kerak "
+                "emas. Grin ayniyati esa "
+                "sohaviy integralni "
+                "chegaraviy integralga "
+                "aylantiradi va "
+                "delta-funksiya chap "
+                "tomonni bitta qiymatga "
+                "yig'adi. Natijada 2D "
+                "masala 1D chegaraga, 3D "
+                "masala esa 2D sirtga "
+                "tushadi — bu shunchaki "
+                "tejamkorlik emas, "
+                "o'lchamning haqiqiy "
+                "kamayishi. Kod buni "
+                "raqamlashtiradi: "
+                "$h = 0{,}0125$ da FEM "
+                "6400 noma'lum talab "
+                "qiladi, BEM esa 502 ta, "
+                "va bu nisbat "
+                "$1/h$ kabi o'sib "
+                "boraveradi. 9-qadam esa "
+                "mavzu boshidagi savolga "
+                "javob beradi. "
+                "Fundamental yechim "
+                "cheksizlikda nolga "
+                "intiladi, demak "
+                "cheksizlikdagi shart "
+                "**avtomatik** "
+                "bajariladi. Tuproq, "
+                "akustika yoki "
+                "elektromagnit "
+                "masalalarida sun'iy "
+                "chegara qo'yish va "
+                "undan qaytishni "
+                "bostirish muammosi "
+                "butunlay yo'qoladi. "
+                "7-qadam amaliy jihatdan "
+                "eng chiroyli: eng qiyin "
+                "integral — o'z-o'ziga "
+                "ta'sir — umuman "
+                "hisoblanmaydi, balki "
+                "fizik shartdan "
+                "topiladi. Bu su-15 dagi "
+                "qator yig'indisi "
+                "tekshiruvining aynan "
+                "o'zi, faqat u yerda "
+                "tekshiruv edi, bu "
+                "yerda esa **hisoblash "
+                "vositasi**. Ammo BEM "
+                "bepul emas. 10-qadam "
+                "narxini aytadi: "
+                "matritsalar to'la va "
+                "nosimmetrik, shuning "
+                "uchun katta "
+                "masalalarda FEM ning "
+                "siyrak matritsalari "
+                "ustun keladi — "
+                "buni faqat tez ko'p "
+                "qutbli usul (FMM) "
+                "o'zgartira oladi. "
+                "12-qadam esa BEM ga "
+                "xos, boshqa hech "
+                "qayerda uchramaydigan "
+                "tuzoqni ochadi. "
+                "$\\ln r$ funksiyasi "
+                "$r = 1$ da nolga "
+                "aylanadi, shuning "
+                "uchun chegaraning "
+                "o'lchami birlikka mos "
+                "kelganda "
+                "$\\mathbf{G}$ "
+                "singulyar bo'lib "
+                "qoladi. Bu "
+                "**birliklar "
+                "tanloviga** bog'liq "
+                "xato: xuddi shu "
+                "masalani metrda "
+                "yechsangiz buziladi, "
+                "santimetrda esa "
+                "ishlaydi. Kod buni "
+                "uchta butunlay "
+                "boshqacha shaklda "
+                "tasdiqlaydi va "
+                "davosi ham sodda — "
+                "masshtabni "
+                "o'zgartirish."
+            ),
+            equations=[
+                eq(r"u^* = -\frac{1}{2\pi}\ln r, "
+                   r"\qquad q^* = "
+                   r"\frac{\partial u^*}"
+                   r"{\partial n} = "
+                   r"-\frac{1}{2\pi r}"
+                   r"\frac{\partial r}"
+                   r"{\partial n}",
+                   "Ikki o'lchovli Laplas "
+                   "tenglamasining fundamental "
+                   "yechimi.",
+                   "Fundamental yechim"),
+                eq(r"c_iu_i + \int_\Gamma q^*u"
+                   r"\,d\Gamma = \int_\Gamma "
+                   r"u^*q\,d\Gamma",
+                   "Chegaraviy integral "
+                   "tenglama.",
+                   "Integral tenglama"),
+                eq(r"\mathbf{H}\mathbf{u} = "
+                   r"\mathbf{G}\mathbf{q}, "
+                   r"\qquad H_{ii} = "
+                   r"-\sum_{j\ne i}H_{ij}",
+                   "Diskret tizim va qattiq "
+                   "jism usuli.",
+                   "Diskret tizim"),
+                eq(r"\text{log sig'im}(\Gamma) = "
+                   r"1 \;\Longrightarrow\; "
+                   r"\mathbf{G} \ "
+                   r"\text{singulyar}",
+                   "Degenerat masshtab — "
+                   "birliklarga bog'liq "
+                   "tuzoq.",
+                   "Degenerat masshtab"),
+            ],
+            conditions=(
+                "**BEM qachon afzal:**\n"
+                "- Cheksiz yoki yarim cheksiz "
+                "soha (tuproq, akustika, "
+                "to'lqin tarqalishi);\n"
+                "- Faqat chegaradagi natija "
+                "kerak;\n"
+                "- Yorilish mexanikasi — "
+                "singulyarlik fundamental "
+                "yechimda aynan "
+                "ifodalanadi;\n"
+                "- Shakl "
+                "optimallashtirish — har "
+                "iteratsiyada faqat "
+                "chegara qayta "
+                "quriladi.\n\n"
+                "**BEM qachon mos emas:**\n"
+                "- Nobir jinsli yoki "
+                "nochiziqli material — "
+                "fundamental yechim "
+                "mavjud emas;\n"
+                "- Sohaviy yuklar "
+                "(og'irlik, termik) — "
+                "sohaviy integral "
+                "qaytib keladi;\n"
+                "- Juda katta $N$ — "
+                "to'la matritsa "
+                "$O(N^2)$ xotira "
+                "talab qiladi;\n"
+                "- Yupqa qobiqlar — "
+                "qarama-qarshi sirtlar "
+                "yaqinlashib, "
+                "integrallar "
+                "buziladi.\n\n"
+                "**Majburiy "
+                "tekshiruvlar:**\n"
+                "1. "
+                "$\\mathbf{H}\\mathbf{1} = "
+                "\\mathbf{0}$ — qattiq "
+                "jism sharti;\n"
+                "2. Chegara o'lchami "
+                "degenerat masshtabdan "
+                "uzoqmi (2D da log "
+                "sig'im $\\ne 1$);\n"
+                "3. Ichki nuqtadagi "
+                "yechim chegaraga "
+                "yaqinlashganda "
+                "chegaraviy qiymatga "
+                "intiladimi;\n"
+                "4. Analitik yechimi "
+                "ma'lum etalonda "
+                "sinov.\n\n"
+                "**Degenerat masshtabdan "
+                "qochish:** 2D Laplas "
+                "masalasida chegarani "
+                "shunday "
+                "masshtablangki, "
+                "logarifmik sig'im 1 "
+                "dan uzoq bo'lsin; "
+                "ellips uchun u "
+                "$(a+b)/2$ ga teng. "
+                "Eng sodda davo — "
+                "barcha "
+                "koordinatalarni "
+                "o'nga ko'paytirish."
+            ),
+            worked=WorkedExample(
+                statement=(
+                    "Radiusi $R$ bo'lgan "
+                    "doiraviy sohada "
+                    "$u = x$ harmonik "
+                    "funksiyasi berilgan. "
+                    "(a) Chegarada "
+                    "$q = \\partial u/"
+                    "\\partial n$ ni toping; "
+                    "(b) BEM $N$ ta doimiy "
+                    "element bilan buni "
+                    "qanday aniqlikda "
+                    "tiklashini baholang; "
+                    "(c) degenerat masshtab "
+                    "qayerda paydo bo'ladi."
+                ),
+                given=[
+                    r"u = x = R\cos\theta, \quad "
+                    r"\mathbf{n} = "
+                    r"(\cos\theta, \sin\theta)",
+                    r"\mathbf{H}\mathbf{u} = "
+                    r"\mathbf{G}\mathbf{q}",
+                ],
+                steps=[
+                    st(r"\nabla^2 u = "
+                       r"\frac{\partial^2x}"
+                       r"{\partial x^2} + "
+                       r"\frac{\partial^2x}"
+                       r"{\partial y^2} = 0 "
+                       r"\quad \checkmark",
+                       "$u = x$ harmonik — "
+                       "BEM uchun yaroqli "
+                       "etalon."),
+                    st(r"q = \nabla u \cdot "
+                       r"\mathbf{n} = (1, 0)"
+                       r"\cdot(\cos\theta, "
+                       r"\sin\theta)",
+                       "Gradient va normal "
+                       "skalyar ko'paytmasi."),
+                    st(r"q = \cos\theta",
+                       "**Analitik javob** — "
+                       "sonli yechim shunga "
+                       "intilishi kerak."),
+                    st(r"\text{(b)}\quad "
+                       r"\mathbf{q} = "
+                       r"\mathbf{G}^{-1}"
+                       r"\mathbf{H}\mathbf{u}",
+                       "Dirixle masalasi: "
+                       "$u$ ma'lum, $q$ "
+                       "noma'lum."),
+                    st(r"h = \frac{2\pi R}{N} "
+                       r"\;\Longrightarrow\; "
+                       r"\|e\| \sim O(h^2) = "
+                       r"O(N^{-2})",
+                       "Doimiy elementlar, "
+                       "markazda "
+                       "kollokatsiya."),
+                    st(r"N: 8 \to 16 "
+                       r"\;\Longrightarrow\; "
+                       r"\text{xato } 4 "
+                       r"\text{ barobar "
+                       r"kamayadi}",
+                       "Kod: 4,6% → 1,2% → "
+                       "0,31% → 0,079% — "
+                       "har safar aynan "
+                       "to'rtdan bir."),
+                    st(r"\text{(c)}\quad u^* = "
+                       r"-\frac{1}{2\pi}\ln r",
+                       "Fundamental yechim."),
+                    st(r"r = 1 "
+                       r"\;\Longrightarrow\; "
+                       r"\ln r = 0 "
+                       r"\;\Longrightarrow\; "
+                       r"u^* = 0",
+                       "**Tuzoqning ildizi.** "
+                       "Fundamental yechim "
+                       "birlik masofada "
+                       "nolga aylanadi."),
+                    st(r"R = 1 \ \text{da } "
+                       r"\mathbf{G} \ "
+                       r"\text{deyarli "
+                       r"singulyar}",
+                       "Butun chegara birlik "
+                       "masofada yotsa, "
+                       "$\\mathbf{G}$ ning "
+                       "bir xos qiymati "
+                       "nolga intiladi."),
+                    st(r"\text{Ellips uchun: "
+                       r"log sig'im} = "
+                       r"\frac{a+b}{2} = 1",
+                       "Umumiy shart — "
+                       "faqat doira uchun "
+                       "emas."),
+                    st(r"\text{Davo: } x "
+                       r"\leftarrow 10x, \ "
+                       r"\text{keyin natijani "
+                       r"qaytarib "
+                       r"masshtablash}",
+                       "Bir qator kod; "
+                       "muammo butunlay "
+                       "yo'qoladi."),
+                ],
+                answer=(
+                    "(a) $q = \\cos\\theta$; "
+                    "(b) xato "
+                    "$O(N^{-2})$ — kodda "
+                    "$N$ ikkilanganda aynan "
+                    "to'rt barobar kamayadi "
+                    "(4,6% → 1,2% → 0,31% → "
+                    "0,079%); "
+                    "(c) $R = 1$ da, chunki "
+                    "$\\ln 1 = 0$. Umumiy "
+                    "shart — logarifmik "
+                    "sig'im 1 ga teng; "
+                    "ellips uchun "
+                    "$(a+b)/2 = 1$. Kod "
+                    "buni uchta boshqacha "
+                    "shaklda tasdiqlaydi."
+                ),
+                engineering_note=(
+                    "(c) qismidagi tuzoq "
+                    "BEM ga xos va boshqa "
+                    "hech qayerda "
+                    "uchramaydi. Uning "
+                    "xavfliligi shundaki, "
+                    "u **birliklar "
+                    "tanloviga** bog'liq: "
+                    "radiusi 1 m bo'lgan "
+                    "quvurni metrda "
+                    "hisoblasangiz tizim "
+                    "buziladi, "
+                    "santimetrda "
+                    "(R = 100) esa "
+                    "bemalol ishlaydi. "
+                    "Hech qanday fizik "
+                    "o'zgarish yo'q — "
+                    "faqat sonlar "
+                    "boshqacha. Bundan "
+                    "ham yomoni, "
+                    "degenerat "
+                    "masshtabga "
+                    "**yaqin** bo'lsangiz "
+                    "tizim singulyar "
+                    "bo'lmaydi, lekin "
+                    "shartlanganlik "
+                    "keskin oshadi va "
+                    "natija jimgina "
+                    "noaniqlashadi. "
+                    "Kodda "
+                    "$R = 1$ da cond "
+                    "502 ga sakraydi, "
+                    "$R = 1{,}05$ da esa "
+                    "atigi 27. Shuning "
+                    "uchun 2D BEM "
+                    "kodida masshtabni "
+                    "tekshirish "
+                    "standart amaliyot "
+                    "bo'lishi kerak. "
+                    "Uch o'lchovda bu "
+                    "muammo yo'q, "
+                    "chunki u yerda "
+                    "fundamental yechim "
+                    "$1/(4\\pi r)$ va u "
+                    "hech qayerda nolga "
+                    "aylanmaydi — tuzoq "
+                    "aynan "
+                    "logarifmning "
+                    "xossasidan kelib "
+                    "chiqadi."
+                ),
+            ),
+            computation=Computation(
+                caption=(
+                    "Chegaraviy element "
+                    "matritsalarini qurish, "
+                    "analitik yechimlar bilan "
+                    "tekshirish, ichki nuqtada "
+                    "yechimni tiklash va "
+                    "degenerat masshtabni "
+                    "aniqlash."
+                ),
+                code='''"""Chegaraviy elementlar usuli (BEM)."""
+import numpy as np
+from labkit import PARAMS, note, series, table, value
+
+N_el = int(PARAMS.get("N_el", 64))
+a_ax = float(PARAMS.get("a_ax", 2.0))
+b_ax = float(PARAMS.get("b_ax", 1.0))
+
+
+def bem(N, a=1.0, b=1.0):
+    """Ellips (a = b bo'lsa doira) chegarasida doimiy elementlar."""
+    th = np.linspace(0, 2*np.pi, N + 1)[:-1]
+    dth = 2*np.pi/N
+    x1, y1 = a*np.cos(th), b*np.sin(th)
+    x2, y2 = a*np.cos(th + dth), b*np.sin(th + dth)
+    xc, yc = 0.5*(x1 + x2), 0.5*(y1 + y2)
+    tx, ty = x2 - x1, y2 - y1
+    Le = np.hypot(tx, ty)
+    nx, ny = ty/Le, -tx/Le
+    if np.mean(nx*xc + ny*yc) < 0:          # tashqi normal
+        nx, ny = -nx, -ny
+    G = np.zeros((N, N))
+    H = np.zeros((N, N))
+    gp, gw = np.polynomial.legendre.leggauss(12)
+    for i in range(N):
+        for j in range(N):
+            if i == j:
+                # zaif (logarifmik) singulyarlik - ANALITIK
+                G[i, j] = Le[j]/(2*np.pi)*(1 - np.log(Le[j]/2))
+            else:
+                xs = 0.5*(x1[j] + x2[j]) + 0.5*(x2[j] - x1[j])*gp
+                ys = 0.5*(y1[j] + y2[j]) + 0.5*(y2[j] - y1[j])*gp
+                rx, ry = xs - xc[i], ys - yc[i]
+                r = np.hypot(rx, ry)
+                G[i, j] = float(np.sum(-np.log(r)/(2*np.pi)*gw))*Le[j]/2
+                drdn = (rx*nx[j] + ry*ny[j])/r
+                H[i, j] = float(np.sum(-drdn/(2*np.pi*r)*gw))*Le[j]/2
+    # QATTIQ JISM usuli: u = const yechim bo'lishi shartidan (su-15)
+    for i in range(N):
+        H[i, i] = -np.sum([H[i, j] for j in range(N) if j != i])
+    return G, H, xc, yc, nx, ny, Le, x1, y1, x2, y2
+
+
+# --- (1) QATTIQ JISM sharti va erkin had ---
+rows = []
+for N in [8, 16, 32, 64, 128]:
+    G, H, *_ = bem(N, 1.0, 1.0)
+    rows.append([N, f"{float(np.max(np.abs(H @ np.ones(N)))):.2e}",
+                 f"{H[0, 0]:.6f}", "0.500000"])
+table("Qattiq jism sharti va erkin had c_i",
+      ["N", "max|H @ 1|", "H[0,0] (hisoblangan)", "nazariy c_i"], rows)
+note("Diagonal hadni qattiq jism usuli bilan topish - BEM ning eng "
+     "chiroyli amaliy hiylasi: eng QIYIN integralni umuman "
+     "hisoblamaymiz, balki u = const yechim bo'lishi shartidan "
+     "topamiz. Natijada H @ 1 = 0 mashina aniqligida bajariladi. "
+     "Hisoblangan diagonal esa N oshgani sari nazariy 0.5 ga "
+     "intiladi (0.4375 -> 0.4922 -> ...) - ya'ni u egrilikni ham "
+     "avtomatik hisobga oladi. Bu su-15 dagi qator yig'indisi "
+     "tekshiruvining aynan o'zi, faqat u yerda tekshiruv edi, bu "
+     "yerda esa HISOBLASH VOSITASI.")
+
+# --- (2) ANALITIK TEKSHIRUV: ikkita harmonik funksiya ---
+rows2 = []
+prev = {}
+for N in [8, 16, 32, 64, 128]:
+    G, H, xc, yc, nx, ny, *_ = bem(N, 1.0, 1.0)
+    line = [N]
+    for nm, uf, qf in [("u = x", lambda X, Y: X,
+                        lambda X, Y, NX, NY: NX),
+                       ("u = x^2 - y^2", lambda X, Y: X**2 - Y**2,
+                        lambda X, Y, NX, NY: 2*(X*NX - Y*NY))]:
+        u = uf(xc, yc)
+        q_ex = qf(xc, yc, nx, ny)
+        q = np.linalg.solve(G, H @ u)
+        e = float(np.max(np.abs(q - q_ex))/np.max(np.abs(q_ex)))
+        ratio = "—" if nm not in prev else f"{prev[nm]/e:.2f}"
+        prev[nm] = e
+        line += [f"{e:.4e}", ratio]
+    rows2.append(line)
+table("Analitik yechimlar bilan tekshirish (doira R = 1)",
+      ["N", "u = x xato", "nisbat", "u = x^2-y^2 xato", "nisbat"], rows2)
+note("Ikkala harmonik funksiya uchun ham xato N ikkilanganda aynan "
+     "TO'RT barobar kamayadi - ya'ni O(h^2). Doimiy elementlar odatda "
+     "faqat O(h) beradi, lekin element MARKAZIDA kollokatsiya qilish "
+     "silliq chegarada superkonvergensiya beradi. Bu su-16 dagi "
+     "Barlou nuqtalari bilan bir oiladagi hodisa: to'g'ri nuqtada "
+     "baholash bir tartib yutuq beradi.")
+
+# --- (3) ICHKI NUQTADA yechim: TO'RSIZ ---
+G, H, xc, yc, nx, ny, Le, x1, y1, x2, y2 = bem(N_el, 1.0, 1.0)
+u_b = xc**2 - yc**2
+q_b = np.linalg.solve(G, H @ u_b)
+
+
+def interior(px, py):
+    """Soha ichidagi istalgan nuqtada yechim - to'r kerak emas."""
+    gp, gw = np.polynomial.legendre.leggauss(12)
+    tot = 0.0
+    for j in range(N_el):
+        xs = 0.5*(x1[j] + x2[j]) + 0.5*(x2[j] - x1[j])*gp
+        ys = 0.5*(y1[j] + y2[j]) + 0.5*(y2[j] - y1[j])*gp
+        rx, ry = xs - px, ys - py
+        r = np.hypot(rx, ry)
+        Gij = float(np.sum(-np.log(r)/(2*np.pi)*gw))*Le[j]/2
+        drdn = (rx*nx[j] + ry*ny[j])/r
+        Hij = float(np.sum(-drdn/(2*np.pi*r)*gw))*Le[j]/2
+        tot += Gij*q_b[j] - Hij*u_b[j]
+    return tot
+
+
+rows3 = []
+for px, py in [(0.0, 0.0), (0.3, 0.2), (0.5, -0.5), (0.7, 0.0),
+               (0.0, 0.9)]:
+    v = interior(px, py)
+    ex = px**2 - py**2
+    rows3.append([f"({px:.2f}, {py:.2f})", f"{v:+.8f}", f"{ex:+.8f}",
+                  f"{abs(v - ex):.2e}"])
+table(f"Ichki nuqtada yechim ({N_el} chegaraviy element, to'r YO'Q)",
+      ["nuqta", "BEM", "aniq", "xato"], rows3)
+xs_line = np.linspace(-0.95, 0.95, 40)
+series("BEM: u(x, 0)", xs_line.tolist(),
+       [interior(float(x), 0.0) for x in xs_line],
+       xlabel="x", ylabel="u")
+series("Aniq: x^2", xs_line.tolist(), (xs_line**2).tolist(),
+       xlabel="x", ylabel="u")
+note("Chegara yechilgandan keyin soha ichidagi ISTALGAN nuqtada "
+     "yechim bitta integral bilan topiladi - hech qanday sohaviy "
+     "to'r kerak emas. Aniqlik 1e-5 darajasida va nuqta chegaraga "
+     "yaqinlashgani sari biroz yomonlashadi (integrand deyarli "
+     "singulyar bo'lib qoladi). FEM da esa yechim faqat to'r "
+     "tugunlarida ma'lum va oradagi qiymatlar interpolyatsiya "
+     "qilinadi.")
+
+# --- (4) MATRITSA XOSSALARI: doira MAXSUS hol ---
+rows4 = []
+for nm, (aa, bb) in [("doira (1, 1)", (1.0, 1.0)),
+                     ("ellips (2, 1)", (2.0, 1.0)),
+                     ("ellips (3, 1)", (3.0, 1.0))]:
+    Gx, Hx, *_ = bem(48, aa, bb)
+    sG = float(np.max(np.abs(Gx - Gx.T))/np.max(np.abs(Gx)))
+    sH = float(np.max(np.abs(Hx - Hx.T))/np.max(np.abs(Hx)))
+    dens = np.count_nonzero(np.abs(Gx) > 1e-14)/Gx.size*100
+    rows4.append([nm, f"{sG:.4f}", f"{sH:.4f}", f"{dens:.1f}"])
+table("Matritsalar simmetrikmi?",
+      ["shakl", "G nosimmetrikligi", "H nosimmetrikligi", "zichlik %"],
+      rows4)
+note("DIQQAT: doirada G va H simmetrik chiqadi, lekin bu DOIRANING "
+     "aylanma simmetriyasi tufayli - umumiy qoida emas. Ellipsda "
+     "nosimmetriya darhol paydo bo'ladi (a = 2 da 16%, a = 3 da 33%). "
+     "Demak BEM matritsalari umuman NOSIMMETRIK va bu FEM dan jiddiy "
+     "farq: Xoleskiy yoyilmasi ishlamaydi, xotira ikki barobar ko'p "
+     "kerak. Bundan tashqari matritsa 100% TO'LA - FEM da u su-15 "
+     "dagi kabi lentali edi.")
+
+# --- (5) O'LCHAM KAMAYISHI ---
+rows5 = []
+for h in [0.2, 0.1, 0.05, 0.025, 0.0125]:
+    nf = int((1.0/h)**2)
+    nb = int(2*np.pi/h)
+    rows5.append([f"{h:.4f}", nf, nb, f"{nf/nb:.1f}"])
+table("2D masala: FEM (sohaviy to'r) va BEM (chegaraviy to'r)",
+      ["h", "FEM noma'lumlari ~ 1/h^2", "BEM ~ 1/h", "nisbat"], rows5)
+note("BEM ning asosiy afzalligi - O'LCHAM KAMAYISHI. 2D masala 1D "
+     "chegaraga tushadi, shuning uchun noma'lumlar soni 1/h^2 "
+     "o'rniga 1/h kabi o'sadi va nisbat 1/h kabi kattalashadi. Uch "
+     "o'lchovda yutuq yanada katta. LEKIN matritsa to'la, shuning "
+     "uchun yechish narxi O(N^3) va xotira O(N^2) - FEM ning siyrak "
+     "matritsasi katta N da baribir ustun keladi. Aynan shu "
+     "cheklovni tez ko'p qutbli usul (FMM) O(N log N) ga tushiradi.")
+
+# --- (6) DEGENERAT MASSHTAB: BEM ga xos tuzoq ---
+rows6 = []
+for R in [0.5, 0.8, 0.95, 0.99, 1.0, 1.01, 1.05, 1.3, 2.0]:
+    Gx, *_ = bem(64, R, R)
+    ev = np.linalg.eigvals(Gx)
+    rows6.append([f"{R:.2f}", f"{np.linalg.cond(Gx):.3e}",
+                  f"{float(np.min(np.abs(ev))):.3e}"])
+table("Doira radiusi va G matritsasining shartlanganligi",
+      ["R", "cond(G)", "eng kichik |xos qiymat|"], rows6)
+rows7 = []
+for aa, bb in [(2.0, 1.0), (3.0, 1.0), (1.5, 0.5), (1.2, 0.8),
+               (1.0, 1.0), (0.5, 0.5)]:
+    Gx, *_ = bem(64, aa, bb)
+    cap = (aa + bb)/2
+    rows7.append([f"({aa:.1f}, {bb:.1f})", f"{cap:.3f}",
+                  f"{np.linalg.cond(Gx):.3e}",
+                  "DEGENERAT" if abs(cap - 1.0) < 1e-9 else "normal"])
+table("Logarifmik sig'im (a+b)/2 va degenerat masshtab",
+      ["(a, b)", "log sig'im", "cond(G)", "holat"], rows7)
+value("R = 1.00 da cond(G)", float(np.linalg.cond(bem(64, 1.0, 1.0)[0])),
+      "—")
+value("R = 1.05 da cond(G)", float(np.linalg.cond(bem(64, 1.05, 1.05)[0])),
+      "—")
+series("cond(G) va radius", [0.5, 0.8, 0.95, 0.99, 1.0, 1.01, 1.05, 1.3,
+                             2.0],
+       [np.log10(np.linalg.cond(bem(48, R, R)[0]))
+        for R in [0.5, 0.8, 0.95, 0.99, 1.0, 1.01, 1.05, 1.3, 2.0]],
+       xlabel="R", ylabel="log10 cond(G)")
+note("BEM GA XOS TUZOQ. Fundamental yechim ln(r) bo'lgani uchun u "
+     "r = 1 da NOLGA aylanadi. Natijada chegaraning logarifmik "
+     "sig'imi 1 ga teng bo'lsa, G matritsasi singulyar bo'lib "
+     "qoladi. Jadval buni uchta BUTUNLAY BOSHQACHA shaklda "
+     "tasdiqlaydi: doira (1,1), ellips (1.5,0.5) va ellips (1.2,0.8) "
+     "- uchalasining ham (a+b)/2 = 1 va uchalasida ham cond keskin "
+     "sakraydi (500-760), boshqa shakllarda esa atigi 27-81. "
+     "Eng xavflisi - bu BIRLIKLAR tanloviga bog'liq: radiusi 1 m "
+     "bo'lgan quvurni metrda hisoblasangiz buziladi, santimetrda "
+     "ishlaydi. Davosi sodda: koordinatalarni masshtablang. Uch "
+     "o'lchovda bu muammo YO'Q, chunki u yerda u* = 1/(4 pi r) va u "
+     "hech qayerda nolga aylanmaydi.")
+
+table("BEM va FEM: qachon qaysi biri",
+      ["Jihat", "FEM", "BEM"],
+      [["Diskretlashtirish", "butun soha", "faqat chegara"],
+       ["Noma'lumlar (2D)", "~1/h^2", "~1/h"],
+       ["Matritsa", "siyrak, simmetrik", "TO'LA, nosimmetrik"],
+       ["Cheksiz soha", "sun'iy chegara kerak", "AVTOMATIK"],
+       ["Nobir jinsli material", "OSON", "qiyin yoki mumkin emas"],
+       ["Sohaviy yuk", "tabiiy", "sohaviy integral qaytadi"],
+       ["Nochiziqlik", "OSON", "qiyin"],
+       ["Ichki nuqtada yechim", "to'r tugunlarida", "ISTALGAN nuqtada"]])
+''',
+                parameters=[
+                    p("N_el", "Chegaraviy elementlar soni", 8.0, 128.0,
+                      64.0, 8.0),
+                    p("a_ax", "Ellipsning katta yarim o'qi", 0.5, 4.0,
+                      2.0, 0.1),
+                    p("b_ax", "Ellipsning kichik yarim o'qi", 0.3, 3.0,
+                      1.0, 0.1),
+                ],
+                expected_output=(
+                    "Qattiq jism usuli "
+                    "$\\mathbf{H}\\mathbf{1} = "
+                    "\\mathbf{0}$ ni mashina "
+                    "aniqligida ta'minlaydi va "
+                    "hisoblangan diagonal "
+                    "nazariy 0,5 ga intiladi. "
+                    "Ikkala harmonik etalon "
+                    "uchun ham xato $N$ "
+                    "ikkilanganda aynan to'rt "
+                    "barobar kamayadi — "
+                    "$O(h^2)$. Ichki nuqtada "
+                    "yechim to'rsiz, "
+                    "$10^{-5}$ aniqlikda "
+                    "topiladi. Doirada "
+                    "matritsalar simmetrik "
+                    "chiqadi, lekin bu "
+                    "doiraning maxsus "
+                    "holati: ellipsda "
+                    "nosimmetriya 16% va "
+                    "33% ga yetadi; zichlik "
+                    "100%. Eng muhimi — "
+                    "degenerat masshtab: "
+                    "logarifmik sig'im "
+                    "$(a+b)/2 = 1$ bo'lgan "
+                    "uchta turli shaklda "
+                    "ham $\\mathrm{cond}(G)$ "
+                    "500–760 ga sakraydi, "
+                    "boshqa shakllarda esa "
+                    "27–81 bo'lib qoladi."
+                ),
+            ),
+            visual=vis(
+                kind="BEM: chegaraviy diskretlashtirish",
+                tool="React/SVG + Manim",
+                description=(
+                    "Chegaraviy elementlar, "
+                    "fundamental yechim va "
+                    "to'rsiz ichki maydon."
+                ),
+                how_to_draw=(
+                    "React/SVG: chap panelda "
+                    "ikki xil "
+                    "diskretlashtirish "
+                    "yonma-yon — FEM uchun "
+                    "butun sohani "
+                    "to'ldirgan uchburchak "
+                    "to'r, BEM uchun esa "
+                    "faqat chegaradagi "
+                    "kesmalar zanjiri. "
+                    "Ikkalasining ostida "
+                    "noma'lumlar soni "
+                    "turadi va $h$ "
+                    "slayderi surilganda "
+                    "FEM raqami "
+                    "kvadratik, BEM "
+                    "raqami chiziqli "
+                    "o'sadi — o'lcham "
+                    "kamayishi shunda "
+                    "ko'rinadi. O'ng "
+                    "panelda tanlangan "
+                    "chegara nuqtasidan "
+                    "fundamental yechim "
+                    "tarqaladi: "
+                    "$\\ln r$ ning "
+                    "darajali chiziqlari "
+                    "konsentrik "
+                    "aylanalar sifatida "
+                    "chiziladi va "
+                    "$r = 1$ aylanasi "
+                    "alohida "
+                    "belgilanadi — "
+                    "aynan u yerda "
+                    "$u^* = 0$. "
+                    "Pastki panelda "
+                    "soha ichidagi "
+                    "maydon rang bilan "
+                    "to'ldiriladi, "
+                    "lekin to'r YO'Q: "
+                    "sichqoncha "
+                    "bosilgan har "
+                    "qanday nuqtada "
+                    "qiymat "
+                    "hisoblanadi va "
+                    "aniq javob bilan "
+                    "yonma-yon "
+                    "ko'rsatiladi. "
+                    "Yonida radius "
+                    "slayderi bor va "
+                    "$R = 1$ ga "
+                    "yaqinlashganda "
+                    "$\\mathrm{cond}(G)$ "
+                    "ko'rsatkichi "
+                    "keskin qizarib "
+                    "ko'tariladi."
+                ),
+            ),
+            interp=(
+                "Qattiq jism usuli BEM ning "
+                "eng chiroyli amaliy "
+                "hiylasi: eng qiyin "
+                "integral — o'z-o'ziga "
+                "ta'sir — umuman "
+                "hisoblanmaydi, balki "
+                "$u = \\text{const}$ yechim "
+                "bo'lishi shartidan "
+                "topiladi. Natija ikki "
+                "tomonlama foydali: "
+                "$\\mathbf{H}\\mathbf{1} = "
+                "\\mathbf{0}$ mashina "
+                "aniqligida bajariladi va "
+                "hisoblangan diagonal "
+                "egrilikni avtomatik "
+                "hisobga oladi, $N$ "
+                "oshgani sari nazariy "
+                "0,5 ga intilib. Bu su-15 "
+                "dagi qator yig'indisi "
+                "tekshiruvi bilan aynan "
+                "bir xil ayniyat, faqat u "
+                "yerda tekshiruv, bu "
+                "yerda esa hisoblash "
+                "vositasi edi. "
+                "Yaqinlashish "
+                "o'lchovlari ikkita "
+                "mustaqil harmonik "
+                "etalonda $O(h^2)$ "
+                "berdi — doimiy "
+                "elementlar uchun "
+                "kutilganidan bir "
+                "tartib yaxshi. Sabab "
+                "su-16 dagi Barlou "
+                "nuqtalari bilan bir "
+                "oilada: element "
+                "markazida kollokatsiya "
+                "qilish silliq "
+                "chegarada "
+                "superkonvergensiya "
+                "beradi. Ichki nuqta "
+                "tajribasi esa BEM ning "
+                "eng o'ziga xos "
+                "xossasini ko'rsatadi: "
+                "chegara yechilgandan "
+                "keyin soha ichidagi "
+                "istalgan nuqtada "
+                "yechim bitta integral "
+                "bilan topiladi va "
+                "hech qanday sohaviy "
+                "to'r kerak emas. "
+                "Simmetriya jadvali "
+                "muhim ogohlantirish "
+                "beradi. Doirada "
+                "matritsalar simmetrik "
+                "chiqadi va bu "
+                "noto'g'ri umumlashmaga "
+                "olib kelishi mumkin — "
+                "aslida bu doiraning "
+                "aylanma simmetriyasi "
+                "tufayli, ellipsda esa "
+                "nosimmetriya darhol "
+                "33% gacha yetadi. "
+                "Bitta shaklda "
+                "o'tkazilgan sinov "
+                "yetarli emasligiga "
+                "yana bir misol. Eng "
+                "qimmatli natija esa "
+                "degenerat masshtab. "
+                "Logarifmik sig'imi 1 "
+                "ga teng uchta "
+                "butunlay boshqacha "
+                "shakl — doira "
+                "$(1,1)$, ellips "
+                "$(1{,}5,\\ 0{,}5)$ va "
+                "ellips "
+                "$(1{,}2,\\ 0{,}8)$ — "
+                "uchalasida ham "
+                "shartlanganlik "
+                "sakraydi. Bu "
+                "tasodif emas, "
+                "nazariyaning aniq "
+                "bashorati va u "
+                "birliklar tanloviga "
+                "bog'liq xato "
+                "ekanligi bilan "
+                "ayniqsa xavfli."
+            ),
+            mistakes=[
+                "Diagonal hadni to'g'ridan "
+                "to'g'ri integrallashga "
+                "urinish. Qattiq jism usuli "
+                "ham oson, ham aniqroq.",
+                "Degenerat masshtabni "
+                "e'tiborsiz qoldirish. "
+                "2D da logarifmik sig'im "
+                "1 dan uzoq bo'lsin — "
+                "aks holda tizim jimgina "
+                "buziladi.",
+                "BEM matritsalarini "
+                "simmetrik deb hisoblash. "
+                "Doira maxsus hol; "
+                "umumiy shaklda ular "
+                "nosimmetrik.",
+                "Nobir jinsli yoki "
+                "nochiziqli masalada BEM "
+                "ishlatishga urinish. "
+                "Fundamental yechim "
+                "mavjud emas.",
+                "Sohaviy yuk borligini "
+                "unutish. Og'irlik yoki "
+                "termik yuk sohaviy "
+                "integralni qaytaradi va "
+                "BEM ning asosiy "
+                "afzalligi yo'qoladi.",
+                "Katta $N$ da BEM "
+                "ishlatish. To'la "
+                "matritsa $O(N^2)$ "
+                "xotira va $O(N^3)$ "
+                "vaqt talab qiladi.",
+            ],
+            quiz=[
+                q("BEM nima uchun sohani "
+                  "diskretlashtirmaydi?",
+                  "Fundamental yechim "
+                  "differensial tenglamani "
+                  "soha ichida **aynan** "
+                  "qanoatlantiradi, shuning "
+                  "uchun faqat chegaraviy "
+                  "shartlarni qanoatlantirish "
+                  "qoladi.", "konseptual"),
+                q("Cheksiz soha BEM da "
+                  "qanday hisobga olinadi?",
+                  "Fundamental yechim "
+                  "$r \\to \\infty$ da nolga "
+                  "intiladi, demak "
+                  "cheksizlikdagi shart "
+                  "avtomatik bajariladi — "
+                  "sun'iy chegara kerak "
+                  "emas.", "konseptual"),
+                q("$u = x$ uchun doirada "
+                  "$q$ nechaga teng?",
+                  "$q = \\nabla u\\cdot"
+                  "\\mathbf{n} = "
+                  "(1,0)\\cdot"
+                  "(\\cos\\theta,"
+                  "\\sin\\theta) = "
+                  "\\cos\\theta$.", "hisob"),
+                q("Kod diagonal hadni qanday "
+                  "topadi va bu nima uchun "
+                  "yaxshi?",
+                  "Qattiq jism usuli bilan: "
+                  "$H_{ii} = -\\sum_{j\\ne i}"
+                  "H_{ij}$. Eng qiyin "
+                  "integral hisoblanmaydi va "
+                  "$\\mathbf{H}\\mathbf{1} = "
+                  "\\mathbf{0}$ aynan "
+                  "bajariladi.", "kod"),
+                q("Degenerat masshtab nima "
+                  "va u qachon paydo "
+                  "bo'ladi?",
+                  "$\\ln r$ $r = 1$ da nolga "
+                  "aylanadi, shuning uchun "
+                  "logarifmik sig'im 1 ga "
+                  "teng bo'lsa "
+                  "$\\mathbf{G}$ singulyar "
+                  "bo'ladi. Ellips uchun "
+                  "sig'im $(a+b)/2$.",
+                  "kod"),
+                q("Nima uchun doirada "
+                  "matritsalar simmetrik "
+                  "chiqdi?",
+                  "Doiraning aylanma "
+                  "simmetriyasi tufayli — "
+                  "bu maxsus hol. Ellipsda "
+                  "nosimmetriya 16–33% ga "
+                  "yetadi va umumiy holda "
+                  "BEM matritsalari "
+                  "nosimmetrik.", "talqin"),
+                q("BEM qachon FEM dan "
+                  "afzal?",
+                  "Cheksiz soha, faqat "
+                  "chegaradagi natija, "
+                  "yorilish mexanikasi va "
+                  "shakl "
+                  "optimallashtirishda. "
+                  "Nobir jinsli material, "
+                  "sohaviy yuk yoki "
+                  "nochiziqlik bo'lsa esa "
+                  "FEM afzal.", "talqin"),
+            ],
+            bridge=(
+                "DQM butun sohani, BEM esa "
+                "faqat chegarani "
+                "diskretlashtirdi. Keyingi "
+                "mavzuda uchinchi yo'lni "
+                "ko'ramiz: to'rni umuman "
+                "qurmaslik. Spektral va "
+                "to'rsiz usullar "
+                "diskretlashtirishning "
+                "o'zini qayta "
+                "o'ylab ko'radi."
+            ),
+            research=(
+                "BEM ni chuqurlashtiring. "
+                "(1) Tez ko'p qutbli usulni "
+                "(FMM) o'rganing: u to'la "
+                "matritsani saqlamasdan "
+                "ko'paytirishni "
+                "$O(N\\log N)$ da "
+                "bajaradi — qanday? "
+                "(2) Ikkilangan "
+                "o'zaro ta'sir usulini "
+                "(DRM) ko'rib chiqing: "
+                "sohaviy yuklarni "
+                "chegaraga qanday "
+                "keltiradi? "
+                "(3) Yorilish mexanikasida "
+                "ikkilangan BEM ni "
+                "(dual BEM) o'rganing: "
+                "yoriqning ikki sirti "
+                "ustma-ust tushganda "
+                "tizim buziladi — "
+                "giperchisingulyar "
+                "tenglama buni qanday "
+                "hal qiladi (tmm-24)? "
+                "(4) Degenerat "
+                "masshtabni nazariy "
+                "o'rganing: logarifmik "
+                "sig'im tushunchasi va "
+                "uni turli shakllar "
+                "uchun hisoblash."
+            ),
+            manim_ref=manim(
+                scene="BEMScene",
+                module="manim/scenes/su_modern.py",
+                title="O'lcham kamayishi",
+                summary=(
+                    "Avval sohaviy to'r "
+                    "quriladi va tugunlar "
+                    "sanaladi. Keyin "
+                    "ichki tugunlar "
+                    "birin-ketin "
+                    "yo'qoladi va faqat "
+                    "chegara qoladi — "
+                    "hisoblagich keskin "
+                    "tushadi. Tanlangan "
+                    "chegara nuqtasidan "
+                    "fundamental yechim "
+                    "to'lqin kabi "
+                    "tarqaladi va "
+                    "$r = 1$ aylanasi "
+                    "yonib, u yerda "
+                    "$u^*$ nolga "
+                    "aylanishi "
+                    "ko'rsatiladi. "
+                    "Oxirida soha "
+                    "ichida ixtiyoriy "
+                    "nuqtalar "
+                    "tanlanadi va "
+                    "har birida "
+                    "yechim to'rsiz "
+                    "hisoblanadi."
+                ),
+            ),
+        ),
+    ),
 ]
