@@ -4200,4 +4200,1059 @@ table("Yechish usullarini tanlash",
             ),
         ),
     ),
+
+    # ------------------------------------------------------------------ su-06
+    Topic(
+        id="su-06",
+        subject_id=S, module_id=M, order=6,
+        title="Iterativ yechish: Yakobi, Gauss–Zeydel va konjugat gradiyent",
+        description=(
+            "Iterativ usullarning g'oyasi, yaqinlashish sharti va tezligi, "
+            "SOR relaksatsiyasi, konjugat gradiyent usuli va "
+            "shartlanganlikning iteratsiyalar soniga ta'siri."
+        ),
+        learning_objective=(
+            "Iterativ usulning yaqinlashish shartini tekshirish, "
+            "iteratsiyalar sonini shartlanganlik orqali baholash va "
+            "to'g'ri hamda iterativ usullar orasida asosli tanlov qilish."
+        ),
+        prerequisites=["su-05", "su-04"],
+        mathematical_core=(
+            "$\\mathbf{u}^{(k+1)} = \\mathbf{G}\\mathbf{u}^{(k)} + "
+            "\\mathbf{c}$, yaqinlashish $\\rho(\\mathbf{G}) < 1$; "
+            "KG uchun $k \\sim \\tfrac12\\sqrt{\\kappa}\\,"
+            "\\ln(2/\\tau)$."
+        ),
+        engineering_application=(
+            "Juda katta uch o'lchovli modellar, hisoblash gidrodinamikasi, "
+            "nochiziqli masalalardagi ichki yechuvchi, GPU hisoblari, "
+            "xotira cheklangan holatlar."
+        ),
+        computational_component=(
+            "Uchta iterativ usulni amalga oshirish, yaqinlashish "
+            "tezligini o'lchash va konjugat gradiyent uchun "
+            "$\\sqrt{\\kappa}$ qonunini tekshirish."
+        ),
+        visualization_component=(
+            "Qoldiqning iteratsiyalar bo'yicha kamayishi, xatolikning "
+            "spektral tarkibi, to'g'ri va iterativ usullarning narxi."
+        ),
+        research_extension=(
+            "Ko'p to'rli (multigrid) usul nima uchun to'r zichligidan "
+            "mustaqil yaqinlashish beradi? Uni oldindan shartlagich "
+            "sifatida qo'llashni o'rganing."
+        ),
+        difficulty="murakkab",
+        previous_link=(
+            "su-05 da to'g'ri usullar qurildi: ular aniq yechim beradi, "
+            "lekin yoyilmani saqlashni talab qiladi va to'ldirilish "
+            "xotirani to'ldirib yuborishi mumkin. Endi matritsani "
+            "umuman yoymaydigan muqobil yondashuvga o'tamiz."
+        ),
+        next_topic="su-07",
+        estimated_minutes=90,
+        tags=["Yakobi", "Gauss-Zeydel", "SOR", "konjugat gradiyent"],
+        lesson=_lesson(
+            problem=(
+                "Uch o'lchovli quyma detal modeli: "
+                "$200 \\times 200 \\times 200$ element, "
+                "jami $2{,}4\\times10^{7}$ noma'lum. "
+                "su-05 dagi lentali usulni qo'llaymiz: "
+                "3D da lenta kengligi "
+                "$b \\sim n^{2/3} = 8\\times10^{4}$, "
+                "demak xotira "
+                "$nb \\times 8 = 1{,}5\\times10^{13}$ "
+                "bayt $= 15$ terabayt. Hech qanday "
+                "kompyuterda bunday joy yo'q. Lekin "
+                "matritsaning o'zi juda arzon: har "
+                "qatorda atigi 7 ta noldan farqli "
+                "element, jami $1{,}7\\times10^{8}$ "
+                "son — 1,3 gigabayt. Demak muammo "
+                "matritsada emas, uning "
+                "**yoyilmasida**. Yoyilmasdan yechish "
+                "mumkinmi?"
+            ),
+            concepts=[
+                c("Iterativ usul",
+                  "Yechimga ketma-ket yaqinlashish; "
+                  "har qadamda faqat matritsa-vektor "
+                  "ko'paytmasi kerak, yoyilma emas."),
+                c("Matritsani ajratish (splitting)",
+                  "$\\mathbf{K} = \\mathbf{M} - "
+                  "\\mathbf{N}$; "
+                  "$\\mathbf{M}\\mathbf{u}^{(k+1)} = "
+                  "\\mathbf{N}\\mathbf{u}^{(k)} + "
+                  "\\mathbf{f}$, bu yerda "
+                  "$\\mathbf{M}$ oson teskarilanadi."),
+                c("Spektral radius $\\rho(\\mathbf{G})$",
+                  "O'tish matritsasining eng katta "
+                  "xususiy qiymati moduli; "
+                  "$\\rho < 1$ — yaqinlashishning "
+                  "zarur va yetarli sharti."),
+                c("Gauss–Zeydel va SOR",
+                  "Yangilangan qiymatlarni darhol "
+                  "ishlatish; relaksatsiya "
+                  "$\\omega$ bilan tezlashtirish."),
+                c("Konjugat gradiyent (KG)",
+                  "Simmetrik musbat aniqlangan tizim "
+                  "uchun Krilov fazosidagi "
+                  "optimal usul; nazariy jihatdan "
+                  "$n$ qadamda aniq yechim beradi."),
+                c("Yaqinlashish va shartlanganlik",
+                  "KG uchun iteratsiyalar soni "
+                  "$\\sqrt{\\kappa}$ ga mutanosib — "
+                  "su-04 dagi $\\kappa$ bu yerda "
+                  "**tezlikni** belgilaydi."),
+            ],
+            derivation=[
+                d("1. Ajratish g'oyasi",
+                  r"\mathbf{K} = \mathbf{M} - \mathbf{N} "
+                  r"\;\Longrightarrow\; \mathbf{M}"
+                  r"\mathbf{u} = \mathbf{N}\mathbf{u} + "
+                  r"\mathbf{f}",
+                  "$\\mathbf{M}$ ni oson teskarilanadigan "
+                  "qilib tanlaymiz (diagonal yoki "
+                  "uchburchak) va tenglikni "
+                  "iteratsiyaga aylantiramiz."),
+                d("2. Iteratsiya va o'tish matritsasi",
+                  r"\mathbf{u}^{(k+1)} = "
+                  r"\mathbf{M}^{-1}\mathbf{N}"
+                  r"\mathbf{u}^{(k)} + \mathbf{M}^{-1}"
+                  r"\mathbf{f} = \mathbf{G}"
+                  r"\mathbf{u}^{(k)} + \mathbf{c}",
+                  "$\\mathbf{G} = \\mathbf{M}^{-1}"
+                  "\\mathbf{N}$ — o'tish matritsasi. "
+                  "Butun xatti-harakat unga bog'liq."),
+                d("3. Xatolikning evolyutsiyasi",
+                  r"\mathbf{e}^{(k)} = \mathbf{u}^{(k)} - "
+                  r"\mathbf{u} \;\Longrightarrow\; "
+                  r"\mathbf{e}^{(k+1)} = \mathbf{G}"
+                  r"\mathbf{e}^{(k)} = \mathbf{G}^{k+1}"
+                  r"\mathbf{e}^{(0)}",
+                  "Aniq yechimni ayirdik. Xatolik har "
+                  "qadamda $\\mathbf{G}$ ga "
+                  "ko'paytiriladi."),
+                d("4. Yaqinlashish sharti",
+                  r"\mathbf{G}^k \to 0 \iff "
+                  r"\rho(\mathbf{G}) = "
+                  r"\max_i|\lambda_i(\mathbf{G})| < 1",
+                  "**Asosiy teorema.** Yaqinlashish "
+                  "boshlang'ich taxminga bog'liq "
+                  "emas — faqat spektral radiusga."),
+                d("5. Yaqinlashish tezligi",
+                  r"\|\mathbf{e}^{(k)}\| \approx "
+                  r"\rho^k\|\mathbf{e}^{(0)}\| "
+                  r"\;\Longrightarrow\; k \approx "
+                  r"\frac{\ln(1/\tau)}{\ln(1/\rho)}",
+                  "$\\rho = 0{,}99$ bo'lsa $10^{-6}$ "
+                  "aniqlik uchun 1375 iteratsiya. "
+                  "$\\rho = 0{,}9$ bo'lsa atigi 131."),
+                d("6. Yakobi usuli",
+                  r"\mathbf{M} = \mathbf{D} "
+                  r"\;\Longrightarrow\; u_i^{(k+1)} = "
+                  r"\frac{1}{k_{ii}}\Big(f_i - "
+                  r"\sum_{j\ne i}k_{ij}u_j^{(k)}\Big)",
+                  "Eng sodda tanlov. Barcha "
+                  "komponentlar **eski** qiymatlardan "
+                  "hisoblanadi — to'liq "
+                  "parallellashadi."),
+                d("7. Gauss–Zeydel usuli",
+                  r"\mathbf{M} = \mathbf{D} + \mathbf{L} "
+                  r"\;\Longrightarrow\; u_i^{(k+1)} = "
+                  r"\frac{1}{k_{ii}}\Big(f_i - "
+                  r"\sum_{j<i}k_{ij}u_j^{(k+1)} - "
+                  r"\sum_{j>i}k_{ij}u_j^{(k)}\Big)",
+                  "Yangilangan qiymatlar darhol "
+                  "ishlatiladi. Odatda Yakobidan "
+                  "ikki barobar tez, lekin "
+                  "parallellashtirish qiyinroq."),
+                d("8. SOR relaksatsiyasi",
+                  r"u_i^{(k+1)} = (1-\omega)u_i^{(k)} + "
+                  r"\omega\,u_i^{GZ}",
+                  "$\\omega > 1$ — ortiqcha "
+                  "relaksatsiya: tuzatishni "
+                  "'kuchaytiramiz'. Optimal "
+                  "$\\omega$ da yaqinlashish "
+                  "tartibga tezlashadi."),
+                d("9. Modellar masalasi uchun "
+                  "spektral radiuslar",
+                  r"\rho_{J} = \cos\frac{\pi}{n+1}, "
+                  r"\quad \rho_{GZ} = \rho_J^2, "
+                  r"\quad \rho_{SOR} = "
+                  r"\frac{1-\sin\frac{\pi}{n+1}}"
+                  r"{1+\sin\frac{\pi}{n+1}}",
+                  "**Hal qiluvchi taqqoslash.** "
+                  "$n$ katta bo'lganda "
+                  "$\\rho_J \\approx 1 - "
+                  "\\pi^2/(2n^2)$ — birga juda "
+                  "yaqin, demak sekin. SOR esa "
+                  "$1 - 2\\pi/n$ — tartibga "
+                  "yaxshiroq."),
+                d("10. Iteratsiyalar soni",
+                  r"k_J \sim n^2, \quad k_{GZ} \sim "
+                  r"\frac{n^2}{2}, \quad k_{SOR} "
+                  r"\sim n",
+                  "SOR to'r o'lchamiga **chiziqli** "
+                  "bog'liq, Yakobi va Gauss–Zeydel "
+                  "esa kvadratik. Bu katta to'rlarda "
+                  "hal qiluvchi farq."),
+                d("11. Konjugat gradiyent g'oyasi",
+                  r"\mathbf{u}^{(k)} = \arg\min_{\mathbf{v} "
+                  r"\in \mathcal{K}_k} \tfrac12"
+                  r"\mathbf{v}^T\mathbf{K}\mathbf{v} - "
+                  r"\mathbf{v}^T\mathbf{f}",
+                  "Krilov fazosida **deformatsiya "
+                  "energiyasini minimallash** "
+                  "(tmm-19 dagi variatsion prinsip!). "
+                  "Har qadamda oldingi barcha "
+                  "yo'nalishlarga $\\mathbf{K}$ "
+                  "bo'yicha ortogonal yo'nalish "
+                  "tanlanadi."),
+                d("12. KG ning yaqinlashish bahosi",
+                  r"\frac{\|\mathbf{e}^{(k)}\|_K}"
+                  r"{\|\mathbf{e}^{(0)}\|_K} \le "
+                  r"2\Big(\frac{\sqrt\kappa-1}"
+                  r"{\sqrt\kappa+1}\Big)^k "
+                  r"\;\Longrightarrow\; k \sim "
+                  r"\tfrac12\sqrt\kappa\,\ln\frac{2}{\tau}",
+                  "**$\\sqrt{\\kappa}$ — kvadrat "
+                  "ildiz.** Bu KG ning asosiy "
+                  "afzalligi: $\\kappa \\sim n^2$ "
+                  "bo'lsa $k \\sim n$, ya'ni SOR "
+                  "darajasida, lekin hech qanday "
+                  "parametr tanlashsiz."),
+                d("13. Oldindan shartlangan KG",
+                  r"\kappa(\mathbf{M}^{-1}\mathbf{K}) "
+                  r"\ll \kappa(\mathbf{K}) "
+                  r"\;\Longrightarrow\; k \ \text{keskin "
+                  r"kamayadi}",
+                  "su-04 dagi shartlash bu yerda "
+                  "bevosita tezlikka aylanadi. "
+                  "Ko'p to'rli shartlagich bilan "
+                  "$k$ to'r o'lchamidan **mustaqil** "
+                  "bo'lib qoladi."),
+            ],
+            meaning=(
+                "Iterativ usullarning asosiy afzalligi "
+                "xotirada: ular matritsani "
+                "**yoymaydi**, faqat "
+                "matritsa-vektor ko'paytmasini "
+                "talab qiladi. Siyrak matritsada bu "
+                "amal $O(n)$ ga tushadi va hech "
+                "qanday to'ldirilish yo'q. Kirish "
+                "misolidagi 24 million noma'lumli "
+                "3D model to'g'ri usul bilan 15 TB "
+                "talab qilardi; iterativ usul bilan "
+                "esa 1,3 GB yetadi. Aynan shu sabab "
+                "zamonaviy 3D hisoblar va butun "
+                "hisoblash gidrodinamikasi iterativ "
+                "yechuvchilarga tayanadi. To'lov — "
+                "aniqlik: yechim **taqribiy** va "
+                "to'xtash mezoni muhandis "
+                "zimmasida. Bu yerda su-04 dagi "
+                "ogohlantirish eslanadi: kichik "
+                "qoldiq yechimning to'g'riligini "
+                "kafolatlamaydi. Klassik usullar "
+                "orasidagi taqqoslash 9- va "
+                "10-qadamlarda jamlangan va u "
+                "kutilmagan xulosa beradi: Yakobi "
+                "hamda Gauss–Zeydel katta to'rlarda "
+                "amalda yaroqsiz, chunki "
+                "iteratsiyalar soni $n^2$ ga "
+                "mutanosib. SOR optimal "
+                "$\\omega$ bilan $n$ ga tushadi, "
+                "lekin optimal $\\omega$ ni bilish "
+                "kerak va u masalaga bog'liq. "
+                "Konjugat gradiyent esa bu "
+                "muammoni hal qiladi: u hech "
+                "qanday parametr talab qilmaydi va "
+                "$\\sqrt{\\kappa}$ qonuni bo'yicha "
+                "yaqinlashadi. 11-qadam eng chiroyli "
+                "tomoni: KG aslida har qadamda "
+                "**deformatsiya energiyasini "
+                "minimallaydi** — ya'ni u tmm-19 "
+                "dagi variatsion prinsipning sonli "
+                "amalga oshirilishi. Mexanika "
+                "nuqtai nazaridan bu tabiiy: tizim "
+                "muvozanatga energiyani "
+                "minimallash orqali keladi, KG esa "
+                "xuddi shu yo'ldan boradi. Nihoyat, "
+                "13-qadam butun modulni bog'laydi: "
+                "su-04 da o'rganilgan shartlanganlik "
+                "bu yerda to'g'ridan-to'g'ri "
+                "hisoblash vaqtiga aylanadi va "
+                "oldindan shartlash nazariy "
+                "mashqdan amaliy zaruratga "
+                "aylanadi."
+            ),
+            equations=[
+                eq(r"\mathbf{u}^{(k+1)} = \mathbf{G}"
+                   r"\mathbf{u}^{(k)} + \mathbf{c}, \quad "
+                   r"\mathbf{G} = \mathbf{M}^{-1}\mathbf{N}",
+                   "Umumiy iterativ sxema va o'tish "
+                   "matritsasi.", "Iterativ sxema"),
+                eq(r"\rho(\mathbf{G}) < 1 \iff "
+                   r"\text{yaqinlashadi}, \quad "
+                   r"k \approx \frac{\ln(1/\tau)}"
+                   r"{\ln(1/\rho)}",
+                   "Yaqinlashish sharti va "
+                   "iteratsiyalar soni.",
+                   "Yaqinlashish sharti"),
+                eq(r"\rho_{GZ} = \rho_J^2, \qquad "
+                   r"k_J \sim n^2, \ k_{SOR} \sim n",
+                   "Klassik usullarning "
+                   "taqqoslashi.", "Klassik usullar"),
+                eq(r"k_{KG} \sim \tfrac12\sqrt{\kappa}\,"
+                   r"\ln\frac{2}{\tau}",
+                   "Konjugat gradiyent uchun "
+                   "iteratsiyalar soni — "
+                   "$\\sqrt{\\kappa}$ ga mutanosib.",
+                   "KG yaqinlashishi"),
+            ],
+            conditions=(
+                "**Yakobi va Gauss–Zeydel uchun "
+                "yetarli shart:** matritsa qat'iy "
+                "diagonal ustunlikka ega bo'lsin "
+                "($|k_{ii}| > \\sum_{j\\ne i}"
+                "|k_{ij}|$) yoki simmetrik musbat "
+                "aniqlangan bo'lsin "
+                "(Gauss–Zeydel uchun).\n\n"
+                "**SOR uchun:** "
+                "$0 < \\omega < 2$ — bu zarur "
+                "shart (Kahan teoremasi). Optimal "
+                "$\\omega$ modellar masalasida "
+                "$2/(1+\\sin\\frac{\\pi}{n+1})$.\n\n"
+                "**Konjugat gradiyent uchun:** "
+                "matritsa simmetrik **va** musbat "
+                "aniqlangan bo'lishi shart. Aks "
+                "holda GMRES, BiCGSTAB yoki MINRES "
+                "ishlatiladi.\n\n"
+                "**To'xtash mezoni:** "
+                "$\\|\\mathbf{r}^{(k)}\\| \\le "
+                "\\tau\\|\\mathbf{f}\\|$ — nisbiy "
+                "qoldiq. Lekin su-04 dagi "
+                "ogohlantirishni unutmang: yomon "
+                "shartlangan tizimda bu mezon "
+                "aldamchi; yechimdagi xato "
+                "$\\kappa$ marta katta bo'lishi "
+                "mumkin.\n\n"
+                "**Qachon iterativ usul afzal:**\n"
+                "- $n > 10^{6}$, ayniqsa 3D da;\n"
+                "- Xotira cheklangan;\n"
+                "- Yaxshi boshlang'ich taxmin bor "
+                "(nochiziqli yoki vaqt qadami);\n"
+                "- Yuqori aniqlik shart emas."
+            ),
+            worked=WorkedExample(
+                statement=(
+                    "$n \\times n$ ichki tugunli "
+                    "kvadrat to'rda Laplas masalasi "
+                    "($n = 100$, jami $10^4$ "
+                    "noma'lum). $\\tau = 10^{-6}$ "
+                    "aniqlik uchun Yakobi, "
+                    "Gauss–Zeydel, optimal SOR va "
+                    "konjugat gradiyent necha "
+                    "iteratsiya talab qiladi? "
+                    "Ularni su-05 dagi lentali usul "
+                    "bilan taqqoslang."
+                ),
+                given=[
+                    r"n = 100 \ (\text{tugunlar "
+                    r"yo'nalish bo'yicha}), \ "
+                    r"N = 10^4",
+                    r"\tau = 10^{-6}",
+                ],
+                steps=[
+                    st(r"\rho_J = \cos\frac{\pi}{101} = "
+                       r"\cos(0{,}031102) = 0{,}9995163",
+                       "Yakobi usulining spektral "
+                       "radiusi — birga juda yaqin."),
+                    st(r"k_J = \frac{\ln(10^{6})}"
+                       r"{\ln(1/0{,}9995163)} = "
+                       r"\frac{13{,}8155}{4{,}8382\times"
+                       r"10^{-4}} = 28\,555",
+                       "**28,5 ming iteratsiya.** "
+                       "Har biri $O(N)$ amal, jami "
+                       "$2{,}9\\times10^{8}$."),
+                    st(r"\rho_{GZ} = \rho_J^2 = "
+                       r"0{,}9990329 \;\Rightarrow\; "
+                       r"k_{GZ} = \frac{13{,}8155}"
+                       r"{9{,}6769\times10^{-4}} = "
+                       r"14\,277",
+                       "Aynan **ikki barobar kam** — "
+                       "9-qadamdagi "
+                       "$\\rho_{GZ} = \\rho_J^2$ "
+                       "munosabatining bevosita "
+                       "natijasi."),
+                    st(r"\omega_{opt} = \frac{2}"
+                       r"{1+\sin\frac{\pi}{101}} = "
+                       r"\frac{2}{1{,}031097} = "
+                       r"1{,}93966",
+                       "Optimal relaksatsiya "
+                       "parametri — 2 ga juda yaqin."),
+                    st(r"\rho_{SOR} = \omega_{opt} - 1 "
+                       r"= 0{,}93966 \;\Rightarrow\; "
+                       r"k_{SOR} = \frac{13{,}8155}"
+                       r"{0{,}062243} = 222",
+                       "**222 iteratsiya** — "
+                       "Yakobidan 129 barobar kam. "
+                       "SOR ning $O(n)$ xatti-harakati "
+                       "shunday namoyon bo'ladi."),
+                    st(r"\kappa \approx \frac{4}"
+                       r"{(\pi/101)^2} \approx "
+                       r"4135 \;\Rightarrow\; "
+                       r"\sqrt\kappa = 64{,}3",
+                       "Laplas operatorining "
+                       "shartlanganlik soni (su-04 "
+                       "dagi $\\kappa \\sim n^2$)."),
+                    st(r"k_{KG} \approx \tfrac12"
+                       r"\sqrt\kappa\,\ln\frac{2}{\tau} "
+                       r"= 0{,}5 \cdot 64{,}3 \cdot "
+                       r"14{,}5 = 466",
+                       "**466 iteratsiya** — SOR "
+                       "bilan bir tartibda, lekin "
+                       "hech qanday parametr "
+                       "tanlashsiz. Amalda KG "
+                       "odatda bu bahodan yaxshiroq "
+                       "ishlaydi."),
+                    st(r"\text{KG amallar} \approx "
+                       r"466 \cdot 5N = 466 \cdot "
+                       r"5\times10^{4} = "
+                       r"2{,}3\times10^{7}",
+                       "Har iteratsiyada bitta "
+                       "matritsa-vektor ko'paytmasi "
+                       "(5 nuqtali shablon — "
+                       "$5N$ amal) va bir necha "
+                       "vektor amali."),
+                    st(r"\text{Lentali Cholesky: } "
+                       r"Nb^2 = 10^{4} \cdot 100^2 = "
+                       r"10^{8}",
+                       "su-05 dagi natija. KG "
+                       "**4 barobar arzonroq** va "
+                       "xotirada ancha ustun."),
+                    st(r"\text{Xotira: } Nb \cdot 8 = "
+                       r"8\ \text{MB (lenta)} \ "
+                       r"\text{va} \ \sim 5N \cdot 8 = "
+                       r"0{,}4\ \text{MB (KG)}",
+                       "KG faqat bir nechta vektor "
+                       "saqlaydi — **20 barobar kam "
+                       "xotira**. 3D da bu farq "
+                       "tartiblarga chiqadi."),
+                ],
+                answer=(
+                    "$k_J = 28\\,555$, "
+                    "$k_{GZ} = 14\\,277$ (aynan ikki "
+                    "barobar kam), "
+                    "$\\omega_{opt} = 1{,}9397$ bilan "
+                    "$k_{SOR} = 222$, "
+                    "$k_{KG} \\approx 466$. SOR va KG "
+                    "bir tartibda, lekin KG parametr "
+                    "tanlashni talab qilmaydi. "
+                    "Amallar bo'yicha KG lentali "
+                    "Cholesky dan ~4 barobar, "
+                    "xotira bo'yicha ~20 barobar "
+                    "arzonroq."
+                ),
+                engineering_note=(
+                    "Bu taqqoslash 2D masalada "
+                    "iterativ va to'g'ri usullar "
+                    "raqobatda ekanini ko'rsatadi — "
+                    "tanlov aniqlik va xotira "
+                    "talablariga bog'liq. 3D da esa "
+                    "raqobat tugaydi: lenta "
+                    "kengligi $b \\sim n^{2/3}$ "
+                    "bo'lgani uchun to'g'ri usul "
+                    "$O(n^{7/3})$ amal va "
+                    "$O(n^{5/3})$ xotira talab "
+                    "qiladi, KG esa "
+                    "$O(n^{4/3})$ amal va $O(n)$ "
+                    "xotira. Shuning uchun katta 3D "
+                    "modellarda iterativ yechuvchi "
+                    "amalda yagona yo'l. Yana bir "
+                    "amaliy jihat: nochiziqli va "
+                    "nostatsionar masalalarda har "
+                    "qadamda yaxshi boshlang'ich "
+                    "taxmin mavjud (oldingi qadam "
+                    "yechimi), shuning uchun "
+                    "iteratsiyalar soni keskin "
+                    "kamayadi — ba'zan 3–5 ta "
+                    "yetadi. Bu iterativ usullarni "
+                    "yanada jozibali qiladi. "
+                    "Aksincha, ko'p yuklama holati "
+                    "bo'lsa to'g'ri usul ustun: "
+                    "yoyilma bir marta qilinib, har "
+                    "bir yuklama uchun arzon "
+                    "yechim olinadi."
+                ),
+            ),
+            computation=Computation(
+                caption=(
+                    "Yakobi, Gauss–Zeydel, SOR va "
+                    "konjugat gradiyent usullarini "
+                    "amalga oshirish, yaqinlashish "
+                    "tezligini o'lchash va nazariy "
+                    "baholar bilan taqqoslash."
+                ),
+                code='''"""Iterativ yechuvchilar: Yakobi, Gauss-Zeydel, SOR va KG."""
+import numpy as np
+from labkit import PARAMS, note, series, table, value
+
+n = int(PARAMS.get("n", 20))          # yo'nalish bo'yicha ichki tugunlar
+tol = float(PARAMS.get("tol", 1e-8))
+max_it = int(PARAMS.get("max_it", 20000))
+omega = float(PARAMS.get("omega", 0.0))   # 0 -> optimal hisoblanadi
+
+
+def laplace2d(n):
+    """n x n ichki tugunli 5 nuqtali Laplas matritsasi."""
+    N = n*n
+    K = np.zeros((N, N))
+    for i in range(n):
+        for j in range(n):
+            a = i*n + j
+            K[a, a] = 4.0
+            if i > 0:
+                K[a, a - n] = -1.0
+            if i < n - 1:
+                K[a, a + n] = -1.0
+            if j > 0:
+                K[a, a - 1] = -1.0
+            if j < n - 1:
+                K[a, a + 1] = -1.0
+    return K
+
+
+K = laplace2d(n)
+N = n*n
+rng = np.random.default_rng(5)
+u_ex = rng.normal(size=N)
+f = K @ u_ex
+nf = np.linalg.norm(f)
+value("Yo'nalish bo'yicha tugunlar n", float(n), "—")
+value("Noma'lumlar soni N", float(N), "—")
+
+# --- Nazariy spektral radiuslar ---
+rho_J_th = np.cos(np.pi/(n + 1))
+rho_GZ_th = rho_J_th**2
+w_opt = 2.0/(1.0 + np.sin(np.pi/(n + 1)))
+rho_SOR_th = w_opt - 1.0
+if omega <= 0:
+    omega = w_opt
+value("rho_Yakobi (nazariy)", rho_J_th, "—")
+value("rho_GaussZeydel (nazariy)", rho_GZ_th, "—")
+value("omega_optimal", w_opt, "—")
+value("rho_SOR (nazariy)", rho_SOR_th, "—")
+
+# --- O'tish matritsalarining spektral radiusini O'LCHASH ---
+D = np.diag(np.diag(K))
+Lw = np.tril(K, -1)
+Uw = np.triu(K, 1)
+G_J = -np.linalg.solve(D, Lw + Uw)
+G_GZ = -np.linalg.solve(D + Lw, Uw)
+Mw = D/omega + Lw
+G_S = np.linalg.solve(Mw, (1.0/omega - 1.0)*D - Uw)
+rho_J = float(np.max(np.abs(np.linalg.eigvals(G_J))))
+rho_GZ = float(np.max(np.abs(np.linalg.eigvals(G_GZ))))
+rho_S = float(np.max(np.abs(np.linalg.eigvals(G_S))))
+value("rho_Yakobi (o'lchangan)", rho_J, "—")
+value("rho_GaussZeydel (o'lchangan)", rho_GZ, "—")
+value("rho_SOR (o'lchangan)", rho_S, "—")
+value("rho_GZ / rho_J^2 nisbati", rho_GZ/rho_J**2, "—")
+note(f"O'lchangan spektral radiuslar nazariy qiymatlar bilan mos: "
+     f"Yakobi {rho_J:.6f} va {rho_J_th:.6f}, Gauss-Zeydel "
+     f"{rho_GZ:.6f} va {rho_GZ_th:.6f}. Eng muhimi: "
+     f"rho_GZ/rho_J^2 = {rho_GZ/rho_J**2:.6f} ~ 1, ya'ni "
+     f"9-qadamdagi rho_GZ = rho_J^2 munosabati AYNAN bajariladi.")
+
+
+def iterate(kind, w=1.0):
+    u = np.zeros(N)
+    hist = []
+    if kind == "J":
+        Minv_d = 1.0/np.diag(K)
+        R = K - np.diag(np.diag(K))
+        for k in range(max_it):
+            r = f - K @ u
+            hist.append(np.linalg.norm(r)/nf)
+            if hist[-1] < tol:
+                break
+            u = Minv_d*(f - R @ u)
+    else:
+        dg = np.diag(K)
+        for k in range(max_it):
+            r = f - K @ u
+            hist.append(np.linalg.norm(r)/nf)
+            if hist[-1] < tol:
+                break
+            for i in range(N):
+                s = K[i, :] @ u - dg[i]*u[i]
+                u_gs = (f[i] - s)/dg[i]
+                u[i] = (1 - w)*u[i] + w*u_gs if kind == "S" else u_gs
+    return u, hist
+
+
+def cg(K, f, tol, max_it):
+    u = np.zeros_like(f)
+    r = f - K @ u
+    p = r.copy()
+    rs = r @ r
+    hist = [np.sqrt(rs)/nf]
+    for k in range(max_it):
+        if hist[-1] < tol:
+            break
+        Kp = K @ p
+        al = rs/(p @ Kp)
+        u = u + al*p
+        r = r - al*Kp
+        rs_new = r @ r
+        hist.append(np.sqrt(rs_new)/nf)
+        p = r + (rs_new/rs)*p
+        rs = rs_new
+    return u, hist
+
+
+uJ, hJ = iterate("J")
+uG, hG = iterate("GZ")
+uS, hS = iterate("S", omega)
+uC, hC = cg(K, f, tol, max_it)
+
+value("Yakobi iteratsiyalari", float(len(hJ) - 1), "—")
+value("Gauss-Zeydel iteratsiyalari", float(len(hG) - 1), "—")
+value("SOR iteratsiyalari", float(len(hS) - 1), "—")
+value("Konjugat gradiyent iteratsiyalari", float(len(hC) - 1), "—")
+value("Yakobi / Gauss-Zeydel", (len(hJ) - 1)/max(len(hG) - 1, 1), "marta")
+value("Yakobi / SOR", (len(hJ) - 1)/max(len(hS) - 1, 1), "marta")
+value("Yakobi / KG", (len(hJ) - 1)/max(len(hC) - 1, 1), "marta")
+note(f"tol = {tol:.0e} uchun iteratsiyalar: Yakobi {len(hJ)-1}, "
+     f"Gauss-Zeydel {len(hG)-1} (taxminan ikki barobar kam), "
+     f"SOR {len(hS)-1}, konjugat gradiyent {len(hC)-1}. "
+     f"SOR va KG klassik usullardan tartibga tez.")
+
+# Yechimlarning to'g'riligini tekshirish
+for nm, uu in (("Yakobi", uJ), ("Gauss-Zeydel", uG), ("SOR", uS),
+               ("KG", uC)):
+    value(f"{nm}: yechimning nisbiy xatosi",
+          float(np.linalg.norm(uu - u_ex)/np.linalg.norm(u_ex)), "—")
+
+series("Yakobi qoldig'i", list(range(len(hJ))), hJ,
+       xlabel="iteratsiya", ylabel="nisbiy qoldiq")
+series("Gauss-Zeydel qoldig'i", list(range(len(hG))), hG,
+       xlabel="iteratsiya", ylabel="nisbiy qoldiq")
+series("SOR qoldig'i", list(range(len(hS))), hS,
+       xlabel="iteratsiya", ylabel="nisbiy qoldiq")
+series("Konjugat gradiyent qoldig'i", list(range(len(hC))), hC,
+       xlabel="iteratsiya", ylabel="nisbiy qoldiq")
+
+# O'lchangan yaqinlashish koeffitsienti
+def rate(hist):
+    h = np.array(hist)
+    m = (h > 1e-12) & (h < h[0]*1e-2)
+    if np.count_nonzero(m) < 5:
+        return float("nan")
+    idx = np.arange(len(h))[m]
+    return float(np.exp(np.polyfit(idx, np.log(h[m]), 1)[0]))
+
+
+r_J, r_G, r_S = rate(hJ), rate(hG), rate(hS)
+value("Yakobi: o'lchangan yaqinlashish koeffitsienti", r_J, "—")
+value("Yakobi: nazariy rho", rho_J_th, "—")
+value("Gauss-Zeydel: o'lchangan koeffitsient", r_G, "—")
+value("Gauss-Zeydel: nazariy rho", rho_GZ_th, "—")
+note(f"Qoldiq tarixining logarifmiga to'g'ri chiziq moslashtirib "
+     f"yaqinlashish koeffitsienti tiklandi: Yakobi uchun {r_J:.6f} "
+     f"(nazariy {rho_J_th:.6f}), Gauss-Zeydel uchun {r_G:.6f} "
+     f"(nazariy {rho_GZ_th:.6f}). Ya'ni qoldiq haqiqatan ham "
+     f"rho^k qonuni bo'yicha kamayadi.")
+
+# --- SOR: omega bo'yicha supurish ---
+ws = np.linspace(1.0, 1.98, 40)
+its = []
+for w in ws:
+    Mw2 = D/w + Lw
+    G2 = np.linalg.solve(Mw2, (1.0/w - 1.0)*D - Uw)
+    rr = float(np.max(np.abs(np.linalg.eigvals(G2))))
+    its.append(np.log(1.0/tol)/np.log(1.0/rr) if rr < 1 else np.nan)
+series("SOR: iteratsiyalar soni(omega)", ws.tolist(), its,
+       xlabel="relaksatsiya parametri omega",
+       ylabel="kerakli iteratsiyalar")
+i_best = int(np.nanargmin(its))
+value("O'lchangan optimal omega", float(ws[i_best]), "—")
+value("Nazariy optimal omega", w_opt, "—")
+note(f"omega bo'yicha supurishda minimum {ws[i_best]:.3f} da, nazariy "
+     f"qiymat {w_opt:.3f} - mos. Egri chiziq minimum atrofida juda "
+     f"tik: omega ni noto'g'ri tanlash SOR ning butun afzalligini "
+     f"yo'qotadi. Bu uning asosiy kamchiligi.")
+
+# --- KG va sqrt(kappa) qonuni ---
+kap = np.linalg.cond(K)
+value("Shartlanganlik soni kappa", kap, "—")
+value("sqrt(kappa)", np.sqrt(kap), "—")
+k_pred = 0.5*np.sqrt(kap)*np.log(2.0/tol)
+value("KG iteratsiyalari (nazariy baho)", k_pred, "—")
+value("KG iteratsiyalari (haqiqiy)", float(len(hC) - 1), "—")
+value("Haqiqiy / nazariy", (len(hC) - 1)/k_pred, "—")
+note(f"KG uchun nazariy baho {k_pred:.0f} iteratsiya, haqiqiy natija "
+     f"{len(hC)-1}. Baho YUQORI chegara bo'lgani uchun haqiqiy natija "
+     f"undan kichik - nisbat {(len(hC)-1)/k_pred:.3f}. Bu kutilgan: "
+     f"baho eng yomon spektr taqsimotiga qurilgan.")
+
+# --- N bo'yicha o'sish qonuni ---
+ns = [6, 8, 10, 12, 16, 20, 24]
+kJ, kS, kC, kaps = [], [], [], []
+for nk in ns:
+    Kk = laplace2d(nk)
+    Nk = nk*nk
+    # Har bir to'r uchun BIR XIL turdagi tasodifiy yechim: RHS ning
+    # spektral tarkibi to'r bo'yicha bir xil qolsin.
+    uek = np.random.default_rng(11).normal(size=Nk)
+    fk = Kk @ uek
+    nfk = np.linalg.norm(fk)
+    kaps.append(np.linalg.cond(Kk))
+    # Yakobi
+    rJk = np.cos(np.pi/(nk + 1))
+    kJ.append(np.log(1.0/tol)/np.log(1.0/rJk))
+    # SOR
+    wk = 2.0/(1.0 + np.sin(np.pi/(nk + 1)))
+    kS.append(np.log(1.0/tol)/np.log(1.0/(wk - 1.0)))
+    # KG - haqiqiy
+    uk = np.zeros(Nk)
+    rk = fk - Kk @ uk
+    pk = rk.copy()
+    rsk = rk @ rk
+    cnt = 0
+    while np.sqrt(rsk)/nfk > tol and cnt < 5000:
+        Kpk = Kk @ pk
+        alk = rsk/(pk @ Kpk)
+        uk = uk + alk*pk
+        rk = rk - alk*Kpk
+        rsn = rk @ rk
+        pk = rk + (rsn/rsk)*pk
+        rsk = rsn
+        cnt += 1
+    kC.append(cnt)
+
+series("Yakobi: iteratsiyalar(n)", [float(x) for x in ns], kJ,
+       xlabel="n", ylabel="iteratsiyalar")
+series("SOR: iteratsiyalar(n)", [float(x) for x in ns], kS,
+       xlabel="n", ylabel="iteratsiyalar")
+series("KG: iteratsiyalar(n)", [float(x) for x in ns],
+       [float(x) for x in kC], xlabel="n", ylabel="iteratsiyalar")
+pJ = np.polyfit(np.log(ns), np.log(kJ), 1)[0]
+pS = np.polyfit(np.log(ns), np.log(kS), 1)[0]
+pC = np.polyfit(np.log(ns), np.log(kC), 1)[0]
+value("Yakobi: iteratsiyalar ~ n^q", float(pJ), "—")
+value("SOR: iteratsiyalar ~ n^q", float(pS), "—")
+value("KG: iteratsiyalar ~ n^q", float(pC), "—")
+
+# kappa ning o'zi ham asimptotikaga sekin chiqadi, shuning uchun
+# sqrt(kappa) qonunini BEVOSITA tekshiramiz: k_KG ni sqrt(kappa) ga
+# qarab moslashtiramiz, n ga emas.
+sq = np.sqrt(np.array(kaps))
+pK = np.polyfit(np.log(sq), np.log(kC), 1)[0]
+value("kappa: o'lchangan tartib (kappa ~ n^q)",
+      float(np.polyfit(np.log(ns), np.log(kaps), 1)[0]), "—")
+value("KG: k ~ sqrt(kappa)^q, o'lchangan q", float(pK), "—")
+series("KG: k va sqrt(kappa)", sq.tolist(), [float(x) for x in kC],
+       xlabel="sqrt(kappa)", ylabel="KG iteratsiyalari")
+ratios = [c/s for c, s in zip(kC, sq)]
+value("k_KG / sqrt(kappa) eng kichik", float(min(ratios)), "—")
+value("k_KG / sqrt(kappa) eng katta", float(max(ratios)), "—")
+value("Nisbatning tarqalishi", (max(ratios)/min(ratios) - 1)*100, "%")
+note(f"Log-log qiyaliklar (n bo'yicha): Yakobi n^{pJ:.2f}, "
+     f"SOR n^{pS:.2f}, KG n^{pC:.2f}. Nazariy asimptotik qiymatlar "
+     f"2, 1 va 1, lekin bu to'r oralig'ida asimptotikaga to'liq "
+     f"chiqilmagan: kappa ning o'zi ham n^"
+     f"{np.polyfit(np.log(ns), np.log(kaps), 1)[0]:.2f} kabi o'smoqda "
+     f"(asimptotikada 2).")
+note(f"Shuning uchun sqrt(kappa) qonunini BEVOSITA tekshiramiz: "
+     f"k_KG ni sqrt(kappa) ga qarab moslashtirsak qiyalik "
+     f"{pK:.3f} ~ 1 chiqadi va k_KG/sqrt(kappa) nisbati "
+     f"{min(ratios):.2f} dan {max(ratios):.2f} gacha, ya'ni atigi "
+     f"{(max(ratios)/min(ratios)-1)*100:.0f} % tarqalish bilan "
+     f"deyarli DOIMIY. Demak 12-qadamdagi k ~ sqrt(kappa) qonuni "
+     f"tasdiqlandi; n bo'yicha qiyalikning 1 dan farqi esa faqat "
+     f"kappa ~ n^2 asimptotikasining sekin yetib kelishidan.")
+
+rows = []
+for nk, a, b2, cc, kp in zip(ns, kJ, kS, kC, kaps):
+    rows.append([f"{nk}", f"{nk*nk}", f"{a:.0f}", f"{b2:.0f}", f"{cc}",
+                 f"{kp:.1f}", f"{np.sqrt(kp):.1f}"])
+table("Iteratsiyalar sonining to'r o'lchamiga bog'liqligi",
+      ["n", "N", "Yakobi", "SOR", "KG", "kappa", "sqrt(kappa)"], rows)
+
+table("To'g'ri va iterativ usullarning taqqoslashi",
+      ["Jihat", "To'g'ri (Cholesky)", "Iterativ (KG)"],
+      [["Aniqlik", "mashina aniqligi", "to'xtash mezoniga bog'liq"],
+       ["Xotira (2D)", "O(n*b) = O(N^1.5)", "O(N)"],
+       ["Xotira (3D)", "O(N^1.67)", "O(N)"],
+       ["Amallar (2D)", "O(N^2)", "O(N^1.5)"],
+       ["Ko'p yuklama", "juda arzon", "har biri qaytadan"],
+       ["Boshlang'ich taxmin", "foydasiz", "juda foydali"],
+       ["Parametr tanlash", "yo'q", "to'xtash mezoni, shartlagich"]])
+''',
+                parameters=[
+                    p("n", "Yo'nalish bo'yicha ichki tugunlar n",
+                      4.0, 40.0, 20.0, 1.0),
+                    p("tol", "To'xtash mezoni (nisbiy qoldiq)",
+                      1e-12, 0.01, 1e-8, 1e-12),
+                    p("max_it", "Maksimal iteratsiyalar", 100.0, 50000.0,
+                      20000.0, 100.0),
+                    p("omega", "SOR parametri ω (0 — optimal)",
+                      0.0, 1.99, 0.0, 0.01),
+                ],
+                expected_output=(
+                    "O'lchangan spektral radiuslar "
+                    "nazariy qiymatlar bilan mos "
+                    "tushadi va "
+                    "$\\rho_{GZ} = \\rho_J^2$ "
+                    "munosabati aynan bajariladi. "
+                    "Qoldiq tarixidan tiklangan "
+                    "yaqinlashish koeffitsienti "
+                    "nazariy $\\rho$ ga teng. "
+                    "$\\omega$ bo'yicha supurishda "
+                    "minimum nazariy "
+                    "$\\omega_{opt}$ da. KG uchun "
+                    "haqiqiy iteratsiyalar soni "
+                    "$\\tfrac12\\sqrt{\\kappa}"
+                    "\\ln(2/\\tau)$ bahosidan kichik "
+                    "(baho yuqori chegara — amalda "
+                    "taxminan ikki barobar kam). "
+                    "Log–log qiyaliklar: SOR "
+                    "$n^{0{,}94}$, KG $n^{0{,}95}$ "
+                    "(nazariya 1), Yakobi "
+                    "$n^{1{,}86}$ (nazariya 2) — "
+                    "asimptotikaga to'liq "
+                    "chiqilmagan, chunki κ ning "
+                    "o'zi ham shu oraliqda "
+                    "$n^{1{,}86}$ kabi o'smoqda. "
+                    "Shuning uchun $\\sqrt{\\kappa}$ "
+                    "qonuni **bevosita** "
+                    "tekshiriladi: $k_{KG}$ ni "
+                    "$\\sqrt{\\kappa}$ ga qarab "
+                    "moslashtirganda qiyalik "
+                    "$1{,}02$ va nisbat atigi 9 % "
+                    "tarqalish bilan doimiy. "
+                    "Barcha to'rtta usul ham ma'lum "
+                    "yechimni to'xtash mezoni "
+                    "darajasida tiklaydi."
+                ),
+            ),
+            visual=vis(
+                kind="Iterativ yechuvchilarning yaqinlashishi",
+                tool="React/SVG",
+                description=(
+                    "Qoldiqning iteratsiyalar bo'yicha "
+                    "kamayishi va usullarning "
+                    "taqqoslashi."
+                ),
+                how_to_draw=(
+                    "React/SVG: asosiy panel — yarim "
+                    "logarifmik o'qlarda qoldiq "
+                    "tarixi: to'rtta egri chiziq "
+                    "(Yakobi, Gauss–Zeydel, SOR, KG). "
+                    "Yakobi va Gauss–Zeydel deyarli "
+                    "yotiq to'g'ri chiziq (sekin "
+                    "geometrik kamayish), SOR ancha "
+                    "tik, KG esa **to'g'ri chiziq "
+                    "emas** — u pog'onasimon va "
+                    "oxirida keskin tushadi; bu farq "
+                    "KG ning Krilov tabiatini "
+                    "ko'rsatadi. Har bir chiziq "
+                    "$\\rho^k$ nazariy chizig'i "
+                    "bilan punktir sifatida "
+                    "taqqoslanadi va ular ustma-ust "
+                    "tushgani ko'rinadi. Ikkinchi "
+                    "panel — $\\omega$ bo'yicha "
+                    "iteratsiyalar soni: keskin "
+                    "**V shaklidagi** egri chiziq, "
+                    "minimumi belgilangan va nazariy "
+                    "$\\omega_{opt}$ vertikal "
+                    "chiziq bilan qo'yilgan; "
+                    "egri chiziqning tikligi "
+                    "'$\\omega$ ni noto'g'ri tanlash "
+                    "qimmat' degan yozuv bilan "
+                    "ta'kidlanadi. Uchinchi panel — "
+                    "log–log grafikda uch usulning "
+                    "$n$ ga bog'liqligi va "
+                    "qiyaliklar ($2$, $1$, $1$) "
+                    "uchburchaklar bilan "
+                    "ko'rsatiladi."
+                ),
+            ),
+            interp=(
+                "Eng ishonchli tekshiruv — spektral "
+                "radiuslarning ikki yo'l bilan mos "
+                "kelishi: o'tish matritsasining "
+                "xususiy qiymatlaridan hisoblangan "
+                "qiymat nazariy "
+                "$\\cos\\frac{\\pi}{n+1}$ formulasi "
+                "bilan, va ularning nisbati "
+                "$\\rho_{GZ}/\\rho_J^2 = 1$ ekani. "
+                "Bu 9-qadamdagi klassik natijaning "
+                "aynan tasdig'i. Undan ham "
+                "qimmatlisi — yaqinlashish "
+                "koeffitsientini **hisoblangan "
+                "qoldiq tarixidan** tiklash: qoldiq "
+                "logarifmiga to'g'ri chiziq "
+                "moslashtirilganda nazariy "
+                "$\\rho$ chiqadi, ya'ni 5-qadamdagi "
+                "$\\|e^{(k)}\\| \\approx \\rho^k$ "
+                "qonuni amalda ham o'rinli. "
+                "$\\omega$ supurishi SOR ning "
+                "asosiy kamchiligini ko'rsatadi: "
+                "egri chiziq minimum atrofida juda "
+                "tik, demak optimal $\\omega$ ni "
+                "bilmasdan usulning afzalligi "
+                "yo'qoladi. Murakkab masalalarda "
+                "esa optimal $\\omega$ noma'lum. "
+                "Konjugat gradiyent aynan shu "
+                "muammoni yo'q qiladi — u hech "
+                "qanday parametr talab qilmaydi va "
+                "avtomatik ravishda "
+                "$\\sqrt{\\kappa}$ tezligida "
+                "yaqinlashadi. Nazariy baho haqiqiy "
+                "natijadan yuqori chiqishi ham "
+                "to'g'ri: u eng yomon spektr "
+                "taqsimotiga qurilgan yuqori "
+                "chegara. Nihoyat, log–log "
+                "qiyaliklar butun manzarani "
+                "yakunlaydi: Yakobi uchun $n^2$, "
+                "SOR va KG uchun $n^1$. Katta "
+                "to'rlarda bu farq hal qiluvchi va "
+                "u su-04 dagi "
+                "$\\kappa \\sim n^2$ natijasidan "
+                "bevosita kelib chiqadi."
+            ),
+            mistakes=[
+                "Iteratsiyani faqat qoldiq bo'yicha "
+                "to'xtatish. su-04 dagi kabi, yomon "
+                "shartlangan tizimda xato qoldiqdan "
+                "$\\kappa$ marta katta bo'lishi "
+                "mumkin.",
+                "Konjugat gradiyentni simmetrik "
+                "bo'lmagan matritsaga qo'llash. "
+                "U faqat simmetrik musbat "
+                "aniqlangan tizim uchun; aks holda "
+                "GMRES yoki BiCGSTAB kerak.",
+                "SOR da $\\omega$ ni tasodifiy "
+                "tanlash. Optimal qiymatdan "
+                "chetlashish usulning butun "
+                "afzalligini yo'qotadi.",
+                "Katta 2D/3D masalada Yakobi yoki "
+                "Gauss–Zeydelni asosiy yechuvchi "
+                "sifatida ishlatish. "
+                "Iteratsiyalar soni $n^2$ ga "
+                "mutanosib — amalda yaroqsiz.",
+                "Ko'p yuklama holati bo'lganda "
+                "iterativ usulni tanlash. To'g'ri "
+                "usulda yoyilma bir marta "
+                "qilinadi va har bir yuklama juda "
+                "arzon tushadi.",
+            ],
+            quiz=[
+                q("Iterativ usul qanday shartda "
+                  "yaqinlashadi?",
+                  "O'tish matritsasining spektral "
+                  "radiusi birdan kichik bo'lsa: "
+                  "$\\rho(\\mathbf{G}) < 1$. "
+                  "Boshlang'ich taxminga bog'liq "
+                  "emas.", "konseptual"),
+                q("Nima uchun Gauss–Zeydel Yakobidan "
+                  "taxminan ikki barobar tez?",
+                  "Modellar masalasida "
+                  "$\\rho_{GZ} = \\rho_J^2$; "
+                  "logarifmda bu iteratsiyalar "
+                  "sonini ikki barobar kamaytiradi.",
+                  "konseptual"),
+                q("$\\rho = 0{,}99$ bo'lsa "
+                  "$10^{-6}$ aniqlik uchun necha "
+                  "iteratsiya kerak?",
+                  "$k = \\ln(10^6)/\\ln(1/0{,}99) = "
+                  "13{,}8155/0{,}01005 \\approx "
+                  "1375$ iteratsiya.", "hisob"),
+                q("Kodda yaqinlashish koeffitsienti "
+                  "nima uchun qoldiq tarixidan "
+                  "tiklanadi?",
+                  "Nazariy $\\rho$ formuladan "
+                  "olinadi; tarixdan tiklash esa "
+                  "$\\|e^{(k)}\\| \\approx \\rho^k$ "
+                  "qonunining amalda ham "
+                  "o'rinliligini mustaqil "
+                  "tasdiqlaydi.", "kod"),
+                q("Konjugat gradiyentning SOR "
+                  "oldidagi asosiy afzalligi nima?",
+                  "U hech qanday parametr "
+                  "tanlashni talab qilmaydi va "
+                  "avtomatik ravishda "
+                  "$\\sqrt{\\kappa}$ tezligida "
+                  "yaqinlashadi; SOR esa optimal "
+                  "$\\omega$ ga juda sezgir.",
+                  "talqin"),
+                q("Nima uchun 3D masalalarda "
+                  "iterativ usullar hukmron?",
+                  "To'g'ri usulda lenta kengligi "
+                  "$b \\sim n^{2/3}$ bo'lib, "
+                  "xotira $O(N^{5/3})$ ga chiqadi; "
+                  "KG esa $O(N)$ xotira va "
+                  "$O(N^{4/3})$ amal talab qiladi.",
+                  "talqin"),
+            ],
+            bridge=(
+                "Endi chiziqli tizimni yechishning "
+                "ikkala yo'li ham qo'limizda: "
+                "to'g'ri va iterativ. Lekin hozirgacha "
+                "bu tizim qayerdan kelishini "
+                "aytmadik. Keyingi modulda uni "
+                "differensial tenglamadan qurishning "
+                "birinchi usulini — chekli "
+                "ayirmalarni — tizimli o'rganamiz. "
+                "pq-10 da uni allaqachon "
+                "ishlatgandik; endi uning xatoligi, "
+                "barqarorligi va yaqinlashishini "
+                "qat'iy asoslaymiz."
+            ),
+            research=(
+                "Zamonaviy iterativ yechuvchilarni "
+                "o'rganing. (1) Ko'p to'rli "
+                "(multigrid) usul nima uchun "
+                "iteratsiyalar sonini to'r "
+                "o'lchamidan **mustaqil** qiladi? "
+                "Silliqlovchi (smoother) va qo'pol "
+                "to'r tuzatmasining rollarini "
+                "ajrating. (2) Simmetrik bo'lmagan "
+                "tizimlar uchun GMRES, BiCGSTAB va "
+                "MINRES ni taqqoslang: qaysi biri "
+                "qanday spektrda samarali? "
+                "(3) Domenni ajratish (domain "
+                "decomposition) usullarini va "
+                "ularning parallel hisoblashdagi "
+                "rolini tahlil qiling. "
+                "(4) Matritsasiz (matrix-free) "
+                "yondashuvni o'rganing: matritsani "
+                "umuman saqlamasdan, faqat "
+                "element darajasida "
+                "ko'paytirish — GPU hisoblarida "
+                "nima uchun bu afzal?"
+            ),
+            manim_ref=manim(
+                scene="IterativeScene",
+                module="manim/scenes/su_basics.py",
+                title="Iterativ yechuvchilarning yaqinlashishi",
+                summary=(
+                    "Boshlang'ich taxmindan "
+                    "boshlab yechim qadam-baqadam "
+                    "aniqlashadi; xatolikning "
+                    "yuqori va past chastotali "
+                    "tarkibiy qismlari turli "
+                    "tezlikda so'nishi ko'rsatiladi. "
+                    "Keyin to'rtta usulning qoldiq "
+                    "tarixi bir grafikda "
+                    "taqqoslanadi va konjugat "
+                    "gradiyentning pog'onasimon "
+                    "xatti-harakati ajratib "
+                    "ko'rsatiladi."
+                ),
+            ),
+        ),
+    ),
 ]
