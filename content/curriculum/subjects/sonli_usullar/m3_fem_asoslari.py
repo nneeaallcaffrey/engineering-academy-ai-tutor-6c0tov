@@ -1138,4 +1138,1280 @@ table("Kuchli va zaif formulirovkalarning taqqoslashi",
             ),
         ),
     ),
+
+    # ------------------------------------------------------------------ su-14
+    Topic(
+        id="su-14",
+        subject_id=S, module_id=M, order=14,
+        title="Shakl funksiyalari va izoparametrik elementlar",
+        description=(
+            "Lagranj shakl funksiyalari, to'liqlik va moslik talablari, "
+            "tabiiy koordinatalar, izoparametrik almashtirish va Yakobian "
+            "matritsasi."
+        ),
+        learning_objective=(
+            "Ixtiyoriy tartibli shakl funksiyalarini qurish, ularning "
+            "yaqinlashish talablarini tekshirish va izoparametrik "
+            "almashtirish orqali egri elementni qurish."
+        ),
+        prerequisites=["su-13"],
+        mathematical_core=(
+            "$N_i(\\xi_j) = \\delta_{ij}$, $\\sum_i N_i = 1$; "
+            "izoparametrik: $x = \\sum N_i x_i$, "
+            "$J = \\partial x/\\partial\\xi$, "
+            "$\\mathbf{B} = \\mathbf{J}^{-1}\\partial\\mathbf{N}/"
+            "\\partial\\boldsymbol\\xi$."
+        ),
+        engineering_application=(
+            "Egri chegarali detallar, galtellar, teshiklar atrofidagi "
+            "to'r, qobiq elementlari — barcha zamonaviy FEM "
+            "paketlarining asosi."
+        ),
+        computational_component=(
+            "Shakl funksiyalarini qurish va tekshirish, Yakobianning "
+            "buzilishini o'lchash, element sifatining natijaga "
+            "ta'sirini baholash."
+        ),
+        visualization_component=(
+            "Shakl funksiyalarining grafigi, izoparametrik "
+            "almashtirish, buzilgan elementdagi Yakobian xaritasi."
+        ),
+        research_extension=(
+            "Ierarxik (p-tipdagi) shakl funksiyalarini o'rganing: "
+            "ular tartibni oshirishda oldingi bazisni saqlaydi — "
+            "bu adaptivlikda nima uchun afzal?"
+        ),
+        difficulty="murakkab",
+        previous_link=(
+            "su-13 da zaif formulirovka bazisning mahalliy va "
+            "bo'lakli-ko'phad bo'lishiga ruxsat berdi. Endi shu "
+            "bazisni tizimli quramiz va uni egri geometriyaga "
+            "moslashtiramiz — aynan shu FEM ni chekli ayirmalardan "
+            "ustun qiladi."
+        ),
+        next_topic="su-15",
+        estimated_minutes=90,
+        tags=["shakl funksiyasi", "izoparametrik", "Yakobian", "Lagranj"],
+        lesson=_lesson(
+            problem=(
+                "Kuchlanish konsentratsiyasini "
+                "hisoblash kerak: plastinadagi "
+                "doiraviy teshik atrofida "
+                "(tmm-17 dagi Kirsh masalasi). "
+                "Teshik chegarasi — aylana. "
+                "To'g'ri chiziqli elementlar bilan "
+                "uni qoplasak, chegara ko'pburchak "
+                "bo'lib qoladi va har bir "
+                "burchakda soxta kuchlanish "
+                "konsentratsiyasi paydo bo'ladi — "
+                "aynan biz o'lchamoqchi bo'lgan "
+                "kattalik buziladi. To'rni "
+                "zichlashtirish yordam beradi, "
+                "lekin sekin: xato "
+                "$O(h)$ bo'lib qoladi. Kerak "
+                "bo'lgan narsa — chegarasi "
+                "**egri** bo'lgan element. Uni "
+                "qanday qurish mumkin va ayni "
+                "paytda integrallashni qanday "
+                "sodda saqlash mumkin?"
+            ),
+            concepts=[
+                c("Shakl funksiyasi $N_i$",
+                  "$N_i(\\xi_j) = \\delta_{ij}$ — "
+                  "o'z tugunida 1, qolganlarida 0; "
+                  "tugun qiymatini element ichiga "
+                  "interpolyatsiya qiladi."),
+                c("To'liqlik (completeness)",
+                  "$\\sum_i N_i = 1$ va bazis "
+                  "chiziqli ko'phadlarni aynan "
+                  "ifodalay olishi kerak — qattiq "
+                  "jism harakati va doimiy "
+                  "deformatsiya uchun."),
+                c("Moslik (compatibility, $C^0$)",
+                  "Qo'shni elementlar chegarasida "
+                  "ko'chish uzluksiz bo'lishi "
+                  "kerak; aks holda 'yoriq' "
+                  "paydo bo'ladi."),
+                c("Tabiiy koordinatalar $\\xi$",
+                  "Etalon element "
+                  "$[-1, 1]$ da aniqlanadi; "
+                  "barcha elementlar bir xil "
+                  "formuladan olinadi."),
+                c("Izoparametrik almashtirish",
+                  "Geometriya **va** ko'chish bir "
+                  "xil shakl funksiyalari bilan "
+                  "ifodalanadi: "
+                  "$x = \\sum N_ix_i$, "
+                  "$u = \\sum N_iu_i$."),
+                c("Yakobian $J$",
+                  "$J = \\partial x/\\partial\\xi$ — "
+                  "etalon va haqiqiy element "
+                  "orasidagi cho'zilish; "
+                  "$\\det J > 0$ bo'lishi shart."),
+            ],
+            derivation=[
+                d("1. Lagranj shakl funksiyalari",
+                  r"N_i(\xi) = \prod_{j \ne i}"
+                  r"\frac{\xi - \xi_j}{\xi_i - \xi_j}",
+                  "Klassik interpolyatsiya "
+                  "ko'phadlari. Ular avtomatik "
+                  "ravishda "
+                  "$N_i(\\xi_j) = \\delta_{ij}$ "
+                  "shartini qanoatlantiradi."),
+                d("2. Chiziqli element (2 tugun)",
+                  r"N_1 = \frac{1-\xi}{2}, \quad "
+                  r"N_2 = \frac{1+\xi}{2}, \quad "
+                  r"\xi \in [-1, 1]",
+                  "Eng sodda element. "
+                  "$N_1 + N_2 = 1$ — to'liqlik "
+                  "sharti bajarilgan."),
+                d("3. Kvadratik element (3 tugun)",
+                  r"N_1 = \frac{\xi(\xi-1)}{2}, \ "
+                  r"N_2 = 1-\xi^2, \ "
+                  r"N_3 = \frac{\xi(\xi+1)}{2}",
+                  "O'rta tugun qo'shildi. Endi "
+                  "element ichida ko'chish "
+                  "kvadratik, deformatsiya esa "
+                  "chiziqli — su-13 dagi asosiy "
+                  "kamchilik yumshatiladi."),
+                d("4. To'liqlik shartining ma'nosi",
+                  r"u = a + bx \;\Longrightarrow\; "
+                  r"\text{bazis uni AYNAN "
+                  r"ifodalashi kerak}",
+                  "**Zarur shart.** $a$ — qattiq "
+                  "jism ko'chishi (deformatsiyasiz), "
+                  "$bx$ — doimiy deformatsiya. "
+                  "Agar element bularni aynan "
+                  "ifodalay olmasa, to'r "
+                  "zichlashganda ham "
+                  "yaqinlashmaydi."),
+                d("5. Yig'indi sharti",
+                  r"\sum_i N_i(\xi) = 1 \quad "
+                  r"\forall \xi",
+                  "Qattiq jism ko'chishi "
+                  "$u = a$ uchun: "
+                  "$u_h = \\sum N_i a = "
+                  "a\\sum N_i = a$ — faqat "
+                  "yig'indi 1 bo'lsa. Bu eng "
+                  "sodda, lekin eng muhim "
+                  "tekshiruv."),
+                d("6. Izoparametrik g'oya",
+                  r"x(\xi) = \sum_i N_i(\xi)x_i, "
+                  r"\qquad u(\xi) = \sum_i "
+                  r"N_i(\xi)u_i",
+                  "**Hal qiluvchi qadam.** Bir "
+                  "xil funksiyalar ikkala vazifani "
+                  "bajaradi. Kvadratik shakl "
+                  "funksiyalari bilan element "
+                  "chegarasi **parabola** bo'ladi "
+                  "— egri chegara shundan."),
+                d("7. Yakobian",
+                  r"J = \frac{dx}{d\xi} = \sum_i "
+                  r"\frac{dN_i}{d\xi}x_i",
+                  "Etalon elementdan haqiqiy "
+                  "elementga o'tishdagi cho'zilish. "
+                  "Chiziqli elementda "
+                  "$J = h/2$ — doimiy."),
+                d("8. Hosilalarni almashtirish",
+                  r"\frac{dN_i}{dx} = "
+                  r"\frac{dN_i}{d\xi}\cdot"
+                  r"\frac{d\xi}{dx} = "
+                  r"\frac{1}{J}\frac{dN_i}{d\xi}",
+                  "Deformatsiya matritsasi "
+                  "$\\mathbf{B}$ aynan shu "
+                  "hosilalardan quriladi. "
+                  "$J$ nolga teng bo'lsa — "
+                  "falokat."),
+                d("9. Integrallashning "
+                  "almashtirilishi",
+                  r"\int_{x_1}^{x_2}(\cdot)\,dx = "
+                  r"\int_{-1}^{1}(\cdot)\,J\,d\xi",
+                  "**Katta qulaylik.** Barcha "
+                  "integrallar bir xil "
+                  "$[-1,1]$ oralig'ida "
+                  "hisoblanadi — Gauss "
+                  "kvadraturasi (su-16) shundan "
+                  "kelib chiqadi."),
+                d("10. Ikki o'lchovli element",
+                  r"N_i(\xi,\eta) = \frac14"
+                  r"(1+\xi\xi_i)(1+\eta\eta_i), "
+                  r"\quad i = 1..4",
+                  "To'rt tugunli element (Q4). "
+                  "Bir o'lchovli funksiyalarning "
+                  "ko'paytmasi — 'tenzor "
+                  "ko'paytma' bazis."),
+                d("11. Ikki o'lchovli Yakobian",
+                  r"\mathbf{J} = \begin{bmatrix}"
+                  r"\partial x/\partial\xi & "
+                  r"\partial y/\partial\xi\\ "
+                  r"\partial x/\partial\eta & "
+                  r"\partial y/\partial\eta"
+                  r"\end{bmatrix}, \quad "
+                  r"dA = \det\mathbf{J}\,d\xi\,d\eta",
+                  "$2\\times2$ matritsa. "
+                  "$\\det\\mathbf{J}$ — yuza "
+                  "nisbati."),
+                d("12. Element sifatining mezoni",
+                  r"\det\mathbf{J} > 0 \ \text{hamma "
+                  r"joyda}; \quad \frac{\max\det"
+                  r"\mathbf{J}}{\min\det\mathbf{J}} "
+                  r"\ \text{kichik bo'lsin}",
+                  "**Amaliy mezon.** "
+                  "$\\det\\mathbf{J} \\le 0$ "
+                  "bo'lsa element 'ag'darilgan' "
+                  "va hisob ma'nosiz. Nisbat "
+                  "katta bo'lsa element cho'zilgan "
+                  "va aniqlik tushadi."),
+                d("13. Q4 elementning cheklovi",
+                  r"u = \alpha_0 + \alpha_1\xi + "
+                  r"\alpha_2\eta + \alpha_3\xi\eta",
+                  "Q4 bazisi to'liq kvadratik "
+                  "emas: unda $\\xi^2$ va "
+                  "$\\eta^2$ yo'q, lekin "
+                  "$\\xi\\eta$ bor. Shuning uchun "
+                  "u sof egilishni yomon "
+                  "ifodalaydi — bu su-16 dagi "
+                  "qulflanish muammosining "
+                  "manbasi."),
+            ],
+            meaning=(
+                "Izoparametrik g'oya 6-qadamda va "
+                "u FEM ning muhandislikdagi "
+                "hukmronligini tushuntiradi. "
+                "Fikr sodda: geometriyani ham, "
+                "noma'lum maydonni ham "
+                "**bir xil** funksiyalar bilan "
+                "ifodalash. Natijada kvadratik "
+                "shakl funksiyalari bilan element "
+                "chegarasi parabolaga aylanadi va "
+                "aylanani ancha yaxshi "
+                "yaqinlashtiradi. Teshik atrofida "
+                "endi soxta burchaklar yo'q. "
+                "Bundan ham muhimi — 9-qadamdagi "
+                "qulaylik: barcha integrallar "
+                "etalon elementda, bir xil "
+                "$[-1,1]$ oralig'ida hisoblanadi. "
+                "Element qanchalik egri va "
+                "buzilgan bo'lmasin, kod bir xil "
+                "qoladi; butun geometrik "
+                "murakkablik Yakobianga "
+                "to'planadi. Bu dasturlash "
+                "nuqtai nazaridan hal qiluvchi: "
+                "bitta element kodi million "
+                "turli shakldagi elementga "
+                "yaraydi. To'liqlik va moslik "
+                "shartlari (4- va 5-qadamlar) "
+                "esa yaqinlashishning "
+                "kafolatidir. Ular intuitiv: "
+                "element kamida qattiq jism "
+                "harakatini va doimiy "
+                "deformatsiyani aynan ifodalay "
+                "olishi kerak. Agar shunday "
+                "bo'lmasa, to'rni qancha "
+                "zichlashtirmang, yechim aniq "
+                "javobga yaqinlashmaydi — chunki "
+                "eng sodda holatni ham to'g'ri "
+                "bera olmaydi. "
+                "$\\sum N_i = 1$ tekshiruvi bir "
+                "qator kod, lekin u butun "
+                "elementning yaroqliligini "
+                "aniqlaydi va har qanday yangi "
+                "element yozilganda birinchi "
+                "bajariladigan test bo'lishi "
+                "kerak. Yakobian esa amaliy "
+                "jihatdan eng ko'p muammo "
+                "keltiradigan joy. "
+                "$\\det\\mathbf{J} \\le 0$ — "
+                "element ag'darilgan degani va "
+                "bu to'r generatori xatosining "
+                "eng keng tarqalgan ko'rinishi. "
+                "FEM paketlari buni tekshiradi "
+                "va 'distorted element' "
+                "ogohlantirishini beradi. Nihoyat "
+                "13-qadam muhim ogohlantirish: "
+                "Q4 elementning bazisi to'liq "
+                "kvadratik emas. U sof egilishni "
+                "ifodalay olmaydi va bu keyingi "
+                "mavzudagi qulflanish "
+                "muammosining ildizi."
+            ),
+            equations=[
+                eq(r"N_i(\xi_j) = \delta_{ij}, \qquad "
+                   r"\sum_i N_i(\xi) = 1",
+                   "Shakl funksiyalarining "
+                   "asosiy xossalari.",
+                   "Shakl funksiyalari"),
+                eq(r"x = \sum_i N_i(\xi)\,x_i, \qquad "
+                   r"u = \sum_i N_i(\xi)\,u_i",
+                   "Izoparametrik almashtirish — "
+                   "geometriya va maydon bir xil "
+                   "bazisda.", "Izoparametrik"),
+                eq(r"\frac{dN_i}{dx} = "
+                   r"\frac{1}{J}\frac{dN_i}{d\xi}, "
+                   r"\qquad \int_{x_1}^{x_2}dx = "
+                   r"\int_{-1}^{1}J\,d\xi",
+                   "Yakobian orqali hosila va "
+                   "integralning almashtirilishi.",
+                   "Yakobian almashtirish"),
+                eq(r"\det\mathbf{J} > 0 \ "
+                   r"\text{hamma joyda}",
+                   "Element yaroqliligining "
+                   "majburiy sharti.",
+                   "Element sifati"),
+            ],
+            conditions=(
+                "**Yaqinlashish uchun zarur "
+                "shartlar:**\n"
+                "1. **To'liqlik:** element "
+                "qattiq jism harakatini va "
+                "doimiy deformatsiyani aynan "
+                "ifodalay olsin "
+                "($\\sum N_i = 1$ va chiziqli "
+                "hadlar bazisda);\n"
+                "2. **Moslik ($C^0$):** "
+                "elementlar chegarasida ko'chish "
+                "uzluksiz. Plastina "
+                "elementlarida $C^1$ kerak — "
+                "bu ancha qiyin (pq-24).\n\n"
+                "**Yakobian bo'yicha:**\n"
+                "- $\\det\\mathbf{J} > 0$ barcha "
+                "integrallash nuqtalarida — "
+                "majburiy;\n"
+                "- $\\max/\\min$ nisbati < 5–10 "
+                "— tavsiya;\n"
+                "- Burchak 45°–135° oralig'ida;\n"
+                "- Tomonlar nisbati (aspect "
+                "ratio) < 5 (kuchlanish uchun), "
+                "< 20 (ko'chish uchun).\n\n"
+                "**O'rta tugun joylashuvi:** "
+                "kvadratik elementda o'rta "
+                "tugun chekkaning o'rtasidan "
+                "chorak uzunlikdan ko'p "
+                "siljimasin, aks holda element "
+                "ichida $\\det\\mathbf{J}$ "
+                "ishorasini o'zgartiradi.\n\n"
+                "**Maxsus hol:** chorak nuqtali "
+                "(quarter-point) element — o'rta "
+                "tugun ataylab chorakka "
+                "siljitiladi va "
+                "$1/\\sqrt{r}$ singulyarligi "
+                "hosil qilinadi; yorilish "
+                "mexanikasida ishlatiladi "
+                "(tmm-24)."
+            ),
+            worked=WorkedExample(
+                statement=(
+                    "(a) Uch tugunli kvadratik "
+                    "elementning shakl "
+                    "funksiyalarini yozing va "
+                    "$\\sum N_i = 1$ ni "
+                    "tekshiring; (b) tugunlari "
+                    "$x = \\{0, 0{,}5, 2\\}$ "
+                    "bo'lgan element uchun "
+                    "Yakobianni toping va "
+                    "yaroqliligini baholang; "
+                    "(c) o'rta tugun qayerdan "
+                    "boshlab elementni "
+                    "buzadi?"
+                ),
+                given=[
+                    r"N_1 = \tfrac{\xi(\xi-1)}{2}, \ "
+                    r"N_2 = 1-\xi^2, \ "
+                    r"N_3 = \tfrac{\xi(\xi+1)}{2}",
+                    r"x_1 = 0,\ x_2 = 0{,}5,\ x_3 = 2",
+                ],
+                steps=[
+                    st(r"\sum N_i = \frac{\xi^2-\xi}{2} "
+                       r"+ 1 - \xi^2 + "
+                       r"\frac{\xi^2+\xi}{2}",
+                       "Uchta hadni qo'shamiz."),
+                    st(r"= \frac{\xi^2-\xi+\xi^2+\xi}{2} "
+                       r"+ 1 - \xi^2 = \xi^2 + 1 - "
+                       r"\xi^2 = 1 \quad \checkmark",
+                       "**To'liqlik sharti "
+                       "bajarildi** — har qanday "
+                       "$\\xi$ uchun."),
+                    st(r"N_1(-1) = \frac{(-1)(-2)}{2} "
+                       r"= 1, \ N_2(-1) = 0, \ "
+                       r"N_3(-1) = 0 \quad \checkmark",
+                       "$\\delta_{ij}$ xossasi "
+                       "birinchi tugunda "
+                       "tekshirildi."),
+                    st(r"\text{(b) } \frac{dN_1}{d\xi} "
+                       r"= \xi - \tfrac12, \ "
+                       r"\frac{dN_2}{d\xi} = -2\xi, \ "
+                       r"\frac{dN_3}{d\xi} = "
+                       r"\xi + \tfrac12",
+                       "Hosilalar."),
+                    st(r"J(\xi) = \sum\frac{dN_i}"
+                       r"{d\xi}x_i = 0 + "
+                       r"(-2\xi)(0{,}5) + "
+                       r"(\xi+\tfrac12)(2)",
+                       "$x_1 = 0$ bo'lgani uchun "
+                       "birinchi had tushdi."),
+                    st(r"= -\xi + 2\xi + 1 = "
+                       r"\xi + 1",
+                       "Yakobian $\\xi$ ga "
+                       "**chiziqli** bog'liq — "
+                       "o'rta tugun markazda "
+                       "emasligi shundan."),
+                    st(r"J(-1) = 0, \quad J(0) = 1, "
+                       r"\quad J(+1) = 2",
+                       "**$J(-1) = 0$** — element "
+                       "chap uchida "
+                       "singulyar! Bu chegaraviy "
+                       "holat."),
+                    st(r"\text{(c) o'rta tugun } "
+                       r"x_2 = \alpha \cdot 2: \ "
+                       r"J = \sum\frac{dN_i}{d\xi}x_i "
+                       r"= (\xi+\tfrac12)(2) - "
+                       r"2\xi\alpha \cdot 2",
+                       "Umumiy holat: $x_3 = 2$ "
+                       "qat'iy, $x_2 = 2\\alpha$."),
+                    st(r"J = 2\xi + 1 - 4\alpha\xi = "
+                       r"1 + 2\xi(1 - 2\alpha)",
+                       "$\\alpha = 1/2$ (markaz) "
+                       "bo'lsa $J = 1$ — doimiy va "
+                       "ideal."),
+                    st(r"J(-1) = 1 - 2(1-2\alpha) = "
+                       r"4\alpha - 1 > 0 "
+                       r"\;\Rightarrow\; \alpha > "
+                       r"\frac14",
+                       "**Chorak qoidasi.** O'rta "
+                       "tugun chekkaning chorak "
+                       "nuqtasidan tashqariga "
+                       "chiqsa, $J$ ishorasini "
+                       "o'zgartiradi."),
+                    st(r"\text{Shu masalada } "
+                       r"\alpha = \frac{0{,}5}{2} = "
+                       r"\frac14 \;\Rightarrow\; "
+                       r"J(-1) = 0",
+                       "Element aynan chegarada — "
+                       "bu **chorak nuqtali "
+                       "element** va u yorilish "
+                       "mexanikasida ataylab "
+                       "ishlatiladi: "
+                       "$1/\\sqrt{r}$ "
+                       "singulyarligini hosil "
+                       "qiladi (tmm-24)."),
+                ],
+                answer=(
+                    "(a) $\\sum N_i = 1$ aynan "
+                    "bajariladi va "
+                    "$N_i(\\xi_j) = \\delta_{ij}$ "
+                    "ham. (b) $J(\\xi) = \\xi + 1$: "
+                    "$J(-1) = 0$, $J(0) = 1$, "
+                    "$J(1) = 2$ — element chap "
+                    "uchida singulyar. (c) O'rta "
+                    "tugun chekkaning "
+                    "**chorak nuqtasidan** "
+                    "tashqariga chiqsa "
+                    "($\\alpha < 1/4$) Yakobian "
+                    "ishorasini o'zgartiradi. "
+                    "Berilgan element aynan shu "
+                    "chegarada — bu ataylab "
+                    "qurilgan chorak nuqtali "
+                    "element."
+                ),
+                engineering_note=(
+                    "Chorak qoidasi FEM "
+                    "amaliyotidagi eng aniq "
+                    "sonli mezonlardan biri va "
+                    "to'r generatorlari uni "
+                    "tekshiradi. Odatda u "
+                    "cheklov sifatida qaraladi: "
+                    "o'rta tugunni chorakdan "
+                    "nariga siljitmang. Lekin "
+                    "yorilish mexanikasida u "
+                    "**imkoniyat**: o'rta tugunni "
+                    "ataylab aynan chorak "
+                    "nuqtaga qo'yib, "
+                    "$1/\\sqrt{r}$ "
+                    "singulyarligini hosil "
+                    "qilish mumkin. Bu aynan "
+                    "yorilish uchida kutilgan "
+                    "kuchlanish maydoni "
+                    "(tmm-24 dagi $K_I$), "
+                    "shuning uchun bunday "
+                    "element yorilish uchini "
+                    "juda samarali "
+                    "modellashtiradi — to'rni "
+                    "zichlashtirmasdan. Bu "
+                    "izoparametrik g'oyaning "
+                    "kutilmagan foydasi: "
+                    "geometriyani buzish orqali "
+                    "kerakli matematik "
+                    "xatti-harakatni qurish "
+                    "mumkin. Amaliy jihatdan "
+                    "esa yana bir maslahat: FEM "
+                    "hisobidan keyin element "
+                    "sifati hisobotini "
+                    "albatta ko'ring. "
+                    "$\\det\\mathbf{J}$ nolga "
+                    "yaqin elementlar "
+                    "kuchlanish natijalarini "
+                    "buzadi va ular odatda "
+                    "murakkab geometriyaning "
+                    "o'tkir burchaklarida "
+                    "to'planadi."
+                ),
+            ),
+            computation=Computation(
+                caption=(
+                    "Shakl funksiyalarini qurish "
+                    "va tekshirish, Yakobianni "
+                    "hisoblash, element "
+                    "buzilishining aniqlikka "
+                    "ta'sirini o'lchash."
+                ),
+                code='''"""Shakl funksiyalari va izoparametrik elementlar."""
+import numpy as np
+from labkit import PARAMS, note, series, table, value
+
+p_ord = int(PARAMS.get("p_ord", 2))       # element tartibi
+alpha = float(PARAMS.get("alpha", 0.5))   # o'rta tugun joyi (0..1)
+skew = float(PARAMS.get("skew", 0.0))     # Q4 tugunini ichkariga tortish
+L_el = float(PARAMS.get("L_el", 2.0))
+
+
+def lagrange_N(xi, nodes):
+    """Lagranj shakl funksiyalari va ularning hosilalari."""
+    n = len(nodes)
+    xi = np.asarray(xi, dtype=float)
+    N = np.ones((n,) + xi.shape)
+    dN = np.zeros((n,) + xi.shape)
+    for i in range(n):
+        for j in range(n):
+            if j == i:
+                continue
+            N[i] *= (xi - nodes[j])/(nodes[i] - nodes[j])
+        # hosila: ko'paytma qoidasi bo'yicha yig'indi
+        for j in range(n):
+            if j == i:
+                continue
+            term = np.ones_like(xi)
+            for k in range(n):
+                if k == i or k == j:
+                    continue
+                term *= (xi - nodes[k])/(nodes[i] - nodes[k])
+            dN[i] += term/(nodes[i] - nodes[j])
+    return N, dN
+
+
+# --- (1) Shakl funksiyalarini qurish va TEKSHIRISH ---
+rows = []
+for order in [1, 2, 3, 4]:
+    nodes = np.linspace(-1.0, 1.0, order + 1)
+    xi = np.linspace(-1.0, 1.0, 501)
+    N, dN = lagrange_N(xi, nodes)
+    # (a) delta xossasi
+    Nn, _ = lagrange_N(nodes, nodes)
+    delta_err = np.max(np.abs(Nn - np.eye(order + 1)))
+    # (b) birlik yig'indi
+    sum_err = np.max(np.abs(np.sum(N, axis=0) - 1.0))
+    # (c) hosilalar yig'indisi nol
+    dsum_err = np.max(np.abs(np.sum(dN, axis=0)))
+    # (d) chiziqli funksiyani aynan tiklash
+    lin = np.sum(N*nodes[:, None], axis=0) - xi
+    lin_err = np.max(np.abs(lin))
+    rows.append([order, order + 1, f"{delta_err:.2e}", f"{sum_err:.2e}",
+                 f"{dsum_err:.2e}", f"{lin_err:.2e}"])
+table("Shakl funksiyalarining tekshiruvi",
+      ["tartib p", "tugunlar", "delta xossasi", "sum(N) - 1",
+       "sum(dN)", "chiziqli tiklash"], rows)
+note("Barcha tartiblar uchun to'rtta shart ham mashina aniqligida "
+     "bajarildi: N_i(xi_j) = delta_ij, sum(N) = 1, sum(dN) = 0 va "
+     "chiziqli funksiya AYNAN tiklanadi. Oxirgi ikkitasi to'liqlik "
+     "shartining bevosita ifodasi - qattiq jism harakati va doimiy "
+     "deformatsiya to'g'ri ifodalanadi.")
+
+nodes_p = np.linspace(-1.0, 1.0, p_ord + 1)
+xi_plot = np.linspace(-1.0, 1.0, 301)
+Np, dNp = lagrange_N(xi_plot, nodes_p)
+for i in range(p_ord + 1):
+    series(f"N_{i+1} (p = {p_ord})", xi_plot.tolist(), Np[i].tolist(),
+           xlabel="tabiiy koordinata xi", ylabel="N")
+series("sum(N_i)", xi_plot.tolist(), np.sum(Np, axis=0).tolist(),
+       xlabel="tabiiy koordinata xi", ylabel="N")
+
+# Yuqori tartibli elementlarda Runge hodisasi
+rows2 = []
+for order in [2, 4, 8, 16, 24, 32]:
+    nodes_u = np.linspace(-1.0, 1.0, order + 1)
+    xi = np.linspace(-1.0, 1.0, 2001)
+    Nu, _ = lagrange_N(xi, nodes_u)
+    # Runge funksiyasi
+    fr = 1.0/(1.0 + 25.0*xi**2)
+    fn = 1.0/(1.0 + 25.0*nodes_u**2)
+    interp = np.sum(Nu*fn[:, None], axis=0)
+    err_u = np.max(np.abs(interp - fr))
+    # Chebishev tugunlari
+    nodes_c = np.cos(np.pi*np.arange(order + 1)/order)
+    Nc, _ = lagrange_N(xi, nodes_c)
+    fc = 1.0/(1.0 + 25.0*nodes_c**2)
+    interp_c = np.sum(Nc*fc[:, None], axis=0)
+    err_c = np.max(np.abs(interp_c - fr))
+    rows2.append([order, f"{err_u:.4f}", f"{err_c:.5f}"])
+table("Runge hodisasi: tekis va Chebishev tugunlari",
+      ["tartib", "tekis tugunlar xatosi", "Chebishev xatosi"], rows2)
+note("Kichik tartiblarda (p <= 4) ikkala joylashuv ham bir xil, lekin "
+     "p >= 8 dan boshlab yo'llar keskin ajraladi: tekis tugunlarda xato "
+     "PORTLAYDI (p = 32 da 5059 ga yetadi - Runge hodisasi), Chebishev "
+     "tugunlarida esa bir tekis kamayadi (0.0016). Shuning uchun yuqori "
+     "tartibli elementlarda tugunlar tekis emas, Gauss-Lobatto "
+     "nuqtalariga joylashtiriladi.")
+
+# --- (2) YAKOBIAN: bir o'lchovli kvadratik element ---
+x_nodes = np.array([0.0, alpha*L_el, L_el])
+nodes3 = np.array([-1.0, 0.0, 1.0])
+xi = np.linspace(-1.0, 1.0, 401)
+N3, dN3 = lagrange_N(xi, nodes3)
+J = np.sum(dN3*x_nodes[:, None], axis=0)
+series("Yakobian J(xi)", xi.tolist(), J.tolist(),
+       xlabel="xi", ylabel="J")
+series("J = 0 chegarasi", xi.tolist(), [0.0]*len(xi),
+       xlabel="xi", ylabel="J")
+value("O'rta tugun nisbiy joyi alpha", alpha, "—")
+value("J(-1)", float(J[0]), "—")
+value("J(0)", float(J[len(J)//2]), "—")
+value("J(+1)", float(J[-1]), "—")
+value("min J", float(np.min(J)), "—")
+value("max/min J nisbati",
+      float(np.max(J)/np.min(J)) if np.min(J) > 1e-12 else float("inf"),
+      "—")
+# Analitik: J = L/2 * (1 + 2*xi*(1 - 2*alpha))
+J_an = L_el/2*(1 + 2*xi*(1 - 2*alpha))
+value("Analitik formuladan maks farq",
+      float(np.max(np.abs(J - J_an))), "—")
+note(f"Yakobian J(xi) = (L/2)*(1 + 2*xi*(1-2*alpha)) analitik "
+     f"formulasi bilan {np.max(np.abs(J - J_an)):.2e} farq qiladi. "
+     f"alpha = {alpha:.3f} da J(-1) = {J[0]:.4f}.")
+
+rows3 = []
+for al in [0.50, 0.40, 0.30, 0.25, 0.20, 0.15]:
+    xn = np.array([0.0, al*L_el, L_el])
+    Jk = np.sum(dN3*xn[:, None], axis=0)
+    ok = "ha" if np.min(Jk) > 1e-12 else "YO'Q"
+    rows3.append([f"{al:.2f}", f"{np.min(Jk):+.4f}", f"{np.max(Jk):.4f}",
+                  ok])
+table("O'rta tugun joyining Yakobianga ta'siri",
+      ["alpha", "min J", "max J", "yaroqlimi?"], rows3)
+note("alpha = 0.25 (CHORAK NUQTA) da min J aynan nolga aylanadi va "
+     "undan kichik qiymatlarda MANFIY bo'ladi - element ag'dariladi. "
+     "Bu FEM dagi 'o'rta tugun chorakdan nariga chiqmasin' "
+     "qoidasining aniq manbai.")
+
+# --- (2b) CHORAK NUQTALI element 1/sqrt(r) ni HOSIL QILADIMI? ---
+# Mustaqil tekshiruv: alpha = 1/4 da geometriya x = (L/4)(1+xi)^2 bo'ladi,
+# demak (1+xi) ~ sqrt(x) va deformatsiya 1/sqrt(x) kabi singulyar bo'ladi.
+xi_q = np.linspace(-0.999, 1.0, 2000)
+Nq, dNq = lagrange_N(xi_q, nodes3)
+u_nod = np.array([0.0, 0.5, 1.0])          # ixtiyoriy tugun ko'chishlari
+
+xq_qp = np.sum(Nq*np.array([0.0, L_el/4, L_el])[:, None], axis=0)
+Jq_qp = np.sum(dNq*np.array([0.0, L_el/4, L_el])[:, None], axis=0)
+eps_qp = np.sum(dNq*u_nod[:, None], axis=0)/Jq_qp
+value("x(xi) va (L/4)(1+xi)^2 farqi",
+      float(np.max(np.abs(xq_qp - (L_el/4)*(1 + xi_q)**2))), "m")
+slope = float(np.polyfit(np.log(xq_qp[:400]),
+                         np.log(np.abs(eps_qp[:400])), 1)[0])
+value("Chorak nuqtali element: log-log qiyaligi", slope, "—")
+value("eps*sqrt(x) ning o'zgarishi (maks - min)",
+      float(np.max(eps_qp*np.sqrt(xq_qp)) -
+            np.min(eps_qp*np.sqrt(xq_qp))), "—")
+
+xq_md = np.sum(Nq*np.array([0.0, L_el/2, L_el])[:, None], axis=0)
+Jq_md = np.sum(dNq*np.array([0.0, L_el/2, L_el])[:, None], axis=0)
+eps_md = np.sum(dNq*u_nod[:, None], axis=0)/Jq_md
+value("Markaziy tugunli element: eps o'zgarishi",
+      float(np.max(eps_md) - np.min(eps_md)), "—")
+series("Deformatsiya: chorak nuqtali", xq_qp.tolist(), eps_qp.tolist(),
+       xlabel="x, m", ylabel="eps")
+series("Deformatsiya: markaziy tugunli", xq_md.tolist(), eps_md.tolist(),
+       xlabel="x, m", ylabel="eps")
+note(f"Chorak nuqtali elementda deformatsiya log-log o'lchovda "
+     f"{slope:.4f} qiyalikka ega - ya'ni AYNAN 1/sqrt(x). "
+     f"eps*sqrt(x) ko'paytmasi butun element bo'ylab "
+     f"{np.max(eps_qp*np.sqrt(xq_qp)) - np.min(eps_qp*np.sqrt(xq_qp)):.2e} "
+     f"gacha aniqlikda doimiy. Aynan shu tmm-24 dagi yorilish uchidagi "
+     f"kuchlanish maydoni. O'rta tugun markazda bo'lsa (alpha = 0.5) "
+     f"xuddi shu tugun qiymatlari deformatsiyani DOIMIY beradi. Demak "
+     f"geometriyani buzish orqali kerakli matematik xatti-harakat "
+     f"hosil qilindi.")
+
+# --- (3) IKKI O'LCHOVLI Q4 element va uning buzilishi ---
+def q4_shape(xi, eta):
+    xn = np.array([-1.0, 1.0, 1.0, -1.0])
+    yn = np.array([-1.0, -1.0, 1.0, 1.0])
+    N = 0.25*(1 + xi*xn[:, None, None])*(1 + eta*yn[:, None, None])
+    dNx = 0.25*xn[:, None, None]*(1 + eta*yn[:, None, None])
+    dNe = 0.25*(1 + xi*xn[:, None, None])*yn[:, None, None]
+    return N, dNx, dNe
+
+
+g = np.linspace(-1, 1, 61)
+XI, ETA = np.meshgrid(g, g, indexing="ij")
+N4, dN4x, dN4e = q4_shape(XI, ETA)
+value("Q4: sum(N) dan maks chetlanish",
+      float(np.max(np.abs(np.sum(N4, axis=0) - 1.0))), "—")
+
+
+def q4_detJ(xc, yc, dx, de):
+    Jxx = np.sum(dx*xc[:, None, None], axis=0)
+    Jxy = np.sum(dx*yc[:, None, None], axis=0)
+    Jyx = np.sum(de*xc[:, None, None], axis=0)
+    Jyy = np.sum(de*yc[:, None, None], axis=0)
+    return Jxx*Jyy - Jxy*Jyx
+
+
+# Yuzani 2x2 Gauss bilan hisoblaymiz - Q4 uchun AYNAN
+gx2, gw2 = np.polynomial.legendre.leggauss(2)
+GX, GE = np.meshgrid(gx2, gx2, indexing="ij")
+_, dg4x, dg4e = q4_shape(GX, GE)
+
+
+def q4_area(xc, yc):
+    return float(np.sum(q4_detJ(xc, yc, dg4x, dg4e)*np.outer(gw2, gw2)))
+
+
+def shoelace(xc, yc):
+    return 0.5*abs(sum(xc[i]*yc[(i + 1) % 4] - xc[(i + 1) % 4]*yc[i]
+                       for i in range(4)))
+
+
+# (a) Trapetsiya: uchinchi tugun o'ngga suriladi - det J o'zgaruvchan,
+#     lekin hamma joyda musbat
+rows4 = []
+for sk in [0.0, 0.5, 1.0, 2.0, 4.0]:
+    xc = np.array([0.0, 1.0, 1.0 + sk, 0.0])
+    yc = np.array([0.0, 0.0, 1.0, 1.0])
+    dJ = q4_detJ(xc, yc, dN4x, dN4e)
+    rows4.append([f"{sk:.1f}", f"{np.min(dJ):+.5f}", f"{np.max(dJ):.5f}",
+                  f"{np.max(dJ)/np.min(dJ):.2f}",
+                  f"{q4_area(xc, yc):.6f}", f"{shoelace(xc, yc):.6f}"])
+table("Q4: trapetsiyaga cho'zilish (det J musbat qoladi)",
+      ["surilish", "min det J", "max det J", "nisbat",
+       "Gauss yuzasi", "aniq yuza"], rows4)
+note("Trapetsiyada det(J) endi DOIMIY emas va max/min nisbati "
+     "surilish bilan chiziqli o'sadi. Yuza esa 2x2 Gauss bilan "
+     "mashina aniqligida aynan chiqadi - Q4 uchun ikki nuqtali "
+     "kvadratura yetarli (su-16 da asoslanadi).")
+
+# (b) Uchinchi tugunni ICHKARIGA tortamiz - element botiq bo'ladi
+rows5b = []
+for sk in [0.0, 0.3, 0.5, 0.6, 0.9, 1.1]:
+    xc = np.array([0.0, 1.0, 1.0 - sk, 0.0])
+    yc = np.array([0.0, 0.0, 1.0 - sk, 1.0])
+    dJ = q4_detJ(xc, yc, dN4x, dN4e)
+    # geometrik mezon: tugun 2-4 diagonalidan o'tganmi?
+    # diagonal: x + y = 1; tugun 3: 2(1-sk)
+    d3 = 2*(1.0 - sk) - 1.0
+    rows5b.append([f"{sk:.1f}", f"{np.min(dJ):+.5f}", f"{d3:+.4f}",
+                   f"{q4_area(xc, yc):+.5f}",
+                   "ha" if np.min(dJ) > 1e-12 else "YO'Q"])
+table("Q4: uchinchi tugunni ichkariga tortish (ag'darilish)",
+      ["tortish", "min det J", "diagonaldan masofa", "Gauss yuzasi",
+       "yaroqlimi?"], rows5b)
+note("MUSTAQIL TEKSHIRUV. Yakobian bo'yicha element tortish 0.5 da "
+     "ag'dariladi (min det J = 0.25 - 0.5*s, nol nuqtasi s = 0.5). "
+     "Geometrik mezon esa boshqa yo'ldan boradi: uchinchi tugun 2- va "
+     "4-tugunlarni tutashtirgan diagonaldan o'tganda to'rtburchak "
+     "BOTIQ bo'ladi, ya'ni 2(1-s) = 1 dan s = 0.5. Ikki mustaqil "
+     "mezon bir xil chegarani berdi - det J botiqlikni aynan "
+     "aniqlaydi. s > 1 da yuza manfiy: element o'z ustiga o'raladi.")
+
+xc = np.array([0.0, 1.0, 1.0 - skew, 0.0])
+yc = np.array([0.0, 0.0, 1.0 - skew, 1.0])
+detJ = q4_detJ(xc, yc, dN4x, dN4e)
+value("Q4: min det(J)", float(np.min(detJ)), "—")
+value("Q4: max/min det(J) nisbati",
+      float(np.max(detJ)/np.min(detJ)) if np.min(detJ) > 1e-12
+      else float("inf"), "—")
+value("Q4: yuza (2x2 Gauss)", q4_area(xc, yc), "m^2")
+value("Q4: yuza (aniq, Gauss formulasi)",
+      float(shoelace(xc, yc)), "m^2")
+series("det(J) diagonal bo'ylab", g.tolist(),
+       np.diagonal(detJ).tolist(), xlabel="xi = eta", ylabel="det J")
+
+# --- (4) TO'LIQLIK: patch test ---
+# Har bir element chiziqli maydonni AYNAN tiklashi kerak
+rows5 = []
+for order in [1, 2, 3]:
+    nodes_t = np.linspace(-1.0, 1.0, order + 1)
+    xi_t = np.linspace(-1.0, 1.0, 101)
+    Nt, dNt = lagrange_N(xi_t, nodes_t)
+    xe = np.array([0.0, L_el])
+    # element geometriyasi: tekis taqsimlangan tugunlar
+    xg_n = np.linspace(0.0, L_el, order + 1)
+    xg = np.sum(Nt*xg_n[:, None], axis=0)
+    Jt = np.sum(dNt*xg_n[:, None], axis=0)
+    for test, fn in [("doimiy (a)", lambda t: 3.0*np.ones_like(t)),
+                     ("chiziqli (a+bx)", lambda t: 3.0 + 2.0*t),
+                     ("kvadratik (x^2)", lambda t: t**2)]:
+        un = fn(xg_n)
+        uh = np.sum(Nt*un[:, None], axis=0)
+        err = np.max(np.abs(uh - fn(xg)))
+        rows5.append([order, test, f"{err:.3e}"])
+table("Patch test: element qaysi maydonlarni AYNAN tiklaydi",
+      ["tartib p", "sinov maydoni", "xatolik"], rows5)
+note("Har qanday tartibdagi element doimiy va chiziqli maydonni "
+     "AYNAN tiklaydi - to'liqlik sharti bajarilgan. Kvadratik "
+     "maydonni esa faqat p >= 2 aynan tiklaydi; p = 1 da xato "
+     "qoladi. Bu yaqinlashish tartibini belgilaydi: p-tartibli "
+     "element O(h^(p+1)) ko'chish aniqligini beradi.")
+
+# --- (5) Element tartibining aniqlikka ta'siri ---
+# u'' = -f ni turli tartibli elementlar bilan yechamiz
+def fem_order(n_el, p):
+    """p-tartibli elementlar bilan sterjen masalasi."""
+    EA_, f_, Lb = 1000.0, 100.0, 1.0
+    nodes_e = np.linspace(-1.0, 1.0, p + 1)
+    ndof = n_el*p + 1
+    K = np.zeros((ndof, ndof))
+    F = np.zeros(ndof)
+    he = Lb/n_el
+    # Gauss nuqtalari (p+1 nuqta - aniq integrallash uchun yetarli)
+    ng = p + 1
+    gx, gw = np.polynomial.legendre.leggauss(ng)
+    Ng, dNg = lagrange_N(gx, nodes_e)
+    for e in range(n_el):
+        idx = np.arange(e*p, e*p + p + 1)
+        Je = he/2
+        ke = np.zeros((p + 1, p + 1))
+        fe = np.zeros(p + 1)
+        for q_ in range(ng):
+            B = dNg[:, q_]/Je
+            ke += EA_*np.outer(B, B)*gw[q_]*Je
+            fe += f_*Ng[:, q_]*gw[q_]*Je
+        K[np.ix_(idx, idx)] += ke
+        F[idx] += fe
+    Kr, Fr = K[1:, 1:], F[1:]
+    u = np.concatenate([[0.0], np.linalg.solve(Kr, Fr)])
+    return u[-1], ndof - 1
+
+
+rows6 = []
+u_ex_tip = 100.0*1.0**2/(2*1000.0)
+for p in [1, 2, 3]:
+    for n_el in [1, 2, 4, 8]:
+        ut, ndof = fem_order(n_el, p)
+        rows6.append([p, n_el, ndof, f"{ut:.10f}",
+                      f"{abs(ut-u_ex_tip)/u_ex_tip*100:.3e}"])
+table("Element tartibi va aniqlik (uch ko'chishi)",
+      ["p", "elementlar", "erkinlik darajalari", "u(L)", "xato, %"],
+      rows6)
+value("Aniq u(L)", u_ex_tip, "m")
+note("Bu masalada barcha tartiblar tugunda aniq yechimni beradi "
+     "(1D superkonvergensiya, su-13). Yuqori tartibli elementlarning "
+     "afzalligi element ICHIDA va kuchlanishda namoyon bo'ladi - "
+     "keyingi jadvalga qarang.")
+
+# Element ichidagi aniqlik: deformatsiya
+rows7 = []
+for p in [1, 2, 3]:
+    n_el = 4
+    EA_, f_, Lb = 1000.0, 100.0, 1.0
+    nodes_e = np.linspace(-1.0, 1.0, p + 1)
+    he = Lb/n_el
+    ut, _ = fem_order(n_el, p)
+    # to'liq yechimni qayta qurish
+    ng = p + 1
+    gx, gw = np.polynomial.legendre.leggauss(ng)
+    ndof = n_el*p + 1
+    K = np.zeros((ndof, ndof))
+    F = np.zeros(ndof)
+    Ng, dNg = lagrange_N(gx, nodes_e)
+    for e in range(n_el):
+        idx = np.arange(e*p, e*p + p + 1)
+        Je = he/2
+        for q_ in range(ng):
+            B = dNg[:, q_]/Je
+            K[np.ix_(idx, idx)] += EA_*np.outer(B, B)*gw[q_]*Je
+            F[idx] += f_*Ng[:, q_]*gw[q_]*Je
+    u = np.concatenate([[0.0], np.linalg.solve(K[1:, 1:], F[1:])])
+    # deformatsiyani element ichida bir necha nuqtada baholaymiz
+    xs_all, eps_all, eps_ex_all = [], [], []
+    xi_s = np.linspace(-1, 1, 21)
+    Ns, dNs = lagrange_N(xi_s, nodes_e)
+    for e in range(n_el):
+        idx = np.arange(e*p, e*p + p + 1)
+        Je = he/2
+        xe_loc = np.linspace(e*he, (e+1)*he, p + 1)
+        xs = np.sum(Ns*xe_loc[:, None], axis=0)
+        eps = np.sum((dNs/Je)*u[idx][:, None], axis=0)
+        xs_all.extend(xs)
+        eps_all.extend(eps)
+        eps_ex_all.extend(f_/EA_*(Lb - xs))
+    eps_all = np.array(eps_all)
+    eps_ex_all = np.array(eps_ex_all)
+    err_eps = np.max(np.abs(eps_all - eps_ex_all))/np.max(np.abs(eps_ex_all))
+    rows7.append([p, n_el, n_el*p + 1, f"{err_eps*100:.4e}"])
+    series(f"Deformatsiya, p = {p}", list(xs_all),
+           (eps_all*1e6).tolist(), xlabel="x, m", ylabel="eps x 1e6")
+table("Element ICHIDAGI deformatsiya xatosi (4 element)",
+      ["p", "elementlar", "erkinlik darajalari", "maks xato, %"], rows7)
+note("Element ichidagi deformatsiya xatosi tartib oshgani sari "
+     "keskin kamayadi: p = 1 da deformatsiya bo'lakli DOIMIY, "
+     "p = 2 da chiziqli. Bu masalada aniq deformatsiya chiziqli, "
+     "shuning uchun p = 2 uni AYNAN tiklaydi. Erkinlik darajalari "
+     "soni esa atigi ikki barobar oshdi - yuqori tartibli "
+     "elementlarning afzalligi shunda.")
+
+table("Element turlari va ularning xossalari",
+      ["Element", "Tugunlar", "Ko'chish", "Deformatsiya", "Chegara"],
+      [["Chiziqli (L2)", "2", "chiziqli", "DOIMIY", "to'g'ri"],
+       ["Kvadratik (L3)", "3", "kvadratik", "chiziqli", "PARABOLA"],
+       ["Kubik (L4)", "4", "kubik", "kvadratik", "kubik egri"],
+       ["Q4 (2D)", "4", "bichiziqli", "chiziqli", "to'g'ri"],
+       ["Q8 (2D)", "8", "kvadratik", "chiziqli", "PARABOLA"],
+       ["Chorak nuqtali", "3", "kvadratik", "1/sqrt(r)", "singulyar"]])
+''',
+                parameters=[
+                    p("p_ord", "Element tartibi p", 1.0, 4.0, 2.0, 1.0),
+                    p("alpha", "O'rta tugun nisbiy joyi", 0.1, 0.9, 0.5,
+                      0.05),
+                    p("skew", "Q4: uchinchi tugunni ichkariga tortish",
+                      0.0, 1.2, 0.0, 0.05),
+                    p("L_el", "Element uzunligi", 0.1, 10.0, 2.0, 0.1, "m"),
+                ],
+                expected_output=(
+                    "Barcha tartiblar uchun "
+                    "$N_i(\\xi_j) = \\delta_{ij}$, "
+                    "$\\sum N_i = 1$, "
+                    "$\\sum dN_i = 0$ va chiziqli "
+                    "funksiyaning aynan tiklanishi "
+                    "mashina aniqligida "
+                    "bajariladi. Runge sinovida "
+                    "$p \\le 4$ da farq yo'q, "
+                    "lekin $p = 32$ da tekis "
+                    "tugunlar xatosi 5059 ga "
+                    "chiqadi, Chebishev esa "
+                    "0,0016 ga tushadi. O'rta "
+                    "tugun $\\alpha = 0{,}25$ "
+                    "(chorak nuqta) da "
+                    "$\\min J = 0$ va undan "
+                    "kichik qiymatlarda manfiy. "
+                    "Shu nuqtada deformatsiyaning "
+                    "log-log qiyaligi aynan "
+                    "$-0{,}5$ — ya'ni "
+                    "$1/\\sqrt{x}$ singulyarligi "
+                    "hosil bo'ladi. Q4 "
+                    "elementda tortish 0,5 ga "
+                    "yetganda $\\det J$ nolga "
+                    "aylanadi va bu tugunning "
+                    "diagonaldan o'tish nuqtasi "
+                    "bilan aynan mos tushadi; "
+                    "yuza $2\\times2$ Gauss "
+                    "bilan aynan chiqadi. Patch "
+                    "test barcha elementlar "
+                    "doimiy va chiziqli maydonni "
+                    "aynan tiklashini, kvadratik "
+                    "maydonni esa faqat "
+                    "$p \\ge 2$ tiklashini "
+                    "ko'rsatadi; element ichidagi "
+                    "deformatsiya xatosi "
+                    "$p = 1$ da 12,5%, "
+                    "$p = 2$ da esa nolga teng."
+                ),
+            ),
+            visual=vis(
+                kind="Shakl funksiyalari va izoparametrik almashtirish",
+                tool="React/SVG + Manim",
+                description=(
+                    "Shakl funksiyalarining "
+                    "grafigi, etalon va haqiqiy "
+                    "element, Yakobian xaritasi."
+                ),
+                how_to_draw=(
+                    "React/SVG: yuqori chap panelda "
+                    "shakl funksiyalari "
+                    "$N_i(\\xi)$ chiziladi; har "
+                    "biri o'z tugunida aynan 1 ga "
+                    "yetib, qolganlarida nolga "
+                    "tushishi nuqtalar bilan "
+                    "belgilanadi. Ularning ustiga "
+                    "$\\sum N_i$ chizig'i "
+                    "qo'yiladi va u **aynan 1** "
+                    "bo'lgan gorizontal chiziq "
+                    "ekani ko'rinadi — to'liqlik "
+                    "shartining eng aniq tasviri. "
+                    "Tartib slayderi bilan "
+                    "funksiyalar soni o'zgaradi. "
+                    "O'ng panelda izoparametrik "
+                    "almashtirish: chapda etalon "
+                    "kvadrat "
+                    "$[-1,1]\\times[-1,1]$ "
+                    "to'r chiziqlari bilan, "
+                    "o'ngda esa uning haqiqiy "
+                    "elementga aylangani — to'r "
+                    "chiziqlari egri bo'lib "
+                    "qoladi. Tugunlarni sichqoncha "
+                    "bilan sudrab element "
+                    "buziladi va **det J "
+                    "xaritasi** rang bilan "
+                    "ko'rsatiladi: yashildan "
+                    "qizilga, manfiy sohalar esa "
+                    "qora shtrix bilan "
+                    "'ag'darilgan' deb "
+                    "belgilanadi. Pastda "
+                    "bir o'lchovli $J(\\xi)$ "
+                    "grafigi va $J = 0$ chizig'i; "
+                    "o'rta tugun slayderi "
+                    "$\\alpha = 0{,}25$ ga "
+                    "yetganda $J$ chap uchida "
+                    "aynan nolga tegadi va bu "
+                    "moment alohida "
+                    "ta'kidlanadi."
+                ),
+            ),
+            interp=(
+                "Shakl funksiyalarining to'rtta "
+                "xossasi mashina aniqligida "
+                "tekshiriladi va bu har qanday "
+                "yangi element uchun birinchi "
+                "bajariladigan test bo'lishi "
+                "kerak. Ayniqsa $\\sum N_i = 1$ "
+                "va chiziqli funksiyaning aynan "
+                "tiklanishi muhim: ular "
+                "to'liqlik shartining bevosita "
+                "ifodasi va ularsiz element "
+                "yaqinlashmaydi. Runge hodisasi "
+                "jadvali esa kutilmagan "
+                "ogohlantirish beradi: tekis "
+                "tugunlarda tartib oshgani sari "
+                "interpolyatsiya xatosi "
+                "**o'sadi**. Shuning uchun "
+                "yuqori tartibli elementlarda "
+                "tugunlar tekis emas, "
+                "Gauss–Lobatto nuqtalariga "
+                "joylashtiriladi — bu "
+                "amaliyotda ko'pincha "
+                "e'tibordan chetda qoladi. "
+                "Yakobian tajribasi eng aniq "
+                "sonli natijani beradi: "
+                "$\\alpha = 0{,}25$ da "
+                "$\\min J$ aynan nolga aylanadi. "
+                "Bu 'o'rta tugun chorakdan "
+                "nariga chiqmasin' qoidasining "
+                "manbai va uning aniq chegarasi. "
+                "Chorak nuqtali element sinovi "
+                "esa buni kutilmagan tomondan "
+                "ko'rsatadi: o'sha nuqtada "
+                "deformatsiyaning log-log "
+                "qiyaligi aynan $-0{,}5$ va "
+                "$\\varepsilon\\sqrt{x}$ "
+                "ko'paytmasi butun element "
+                "bo'ylab $4\\cdot10^{-14}$ "
+                "gacha aniqlikda doimiy — "
+                "ya'ni $1/\\sqrt{x}$ "
+                "singulyarligi **aynan** hosil "
+                "bo'ldi. Xuddi shu tugun "
+                "qiymatlari bilan o'rta tugun "
+                "markazda bo'lsa, deformatsiya "
+                "doimiy chiqadi. Demak bir xil "
+                "shakl funksiyalari va bir xil "
+                "tugun qiymatlari, faqat "
+                "geometriya boshqacha — natija "
+                "esa tubdan farq qiladi. "
+                "Q4 tajribasi ikki o'lchovga "
+                "ko'chiradi va u yerda mustaqil "
+                "tekshiruv o'rnatildi: "
+                "Yakobian bo'yicha "
+                "ag'darilish chegarasi "
+                "$s = 0{,}5$ "
+                "($\\min\\det J = 0{,}25 - "
+                "0{,}5s$) va sof geometrik "
+                "mezon — tugunning qarshi "
+                "diagonaldan o'tishi — bir xil "
+                "qiymatni berdi. Ya'ni "
+                "$\\det J$ to'rtburchakning "
+                "botiq bo'lishini aynan "
+                "aniqlaydi; bu 'element "
+                "sifati' tekshiruvining "
+                "matematik asosi. Yuza esa "
+                "$2\\times2$ Gauss bilan "
+                "mashina aniqligida chiqdi — "
+                "Q4 uchun to'rt nuqta yetarli "
+                "ekanining bevosita isboti. "
+                "Nihoyat, "
+                "element tartibi tajribasi "
+                "muhim xulosaga olib keladi: "
+                "ko'chishda barcha tartiblar "
+                "tugunda aniq (1D "
+                "superkonvergensiya), lekin "
+                "element **ichidagi** "
+                "deformatsiyada farq keskin. "
+                "$p = 2$ bu masalada "
+                "deformatsiyani aynan tiklaydi, "
+                "$p = 1$ esa bo'lakli doimiy "
+                "beradi. Erkinlik darajalari "
+                "soni atigi ikki barobar "
+                "oshgani hisobga olinsa, yuqori "
+                "tartibli elementlarning "
+                "samaradorligi ayon bo'ladi."
+            ),
+            mistakes=[
+                "$\\sum N_i = 1$ ni "
+                "tekshirmaslik. Bu bir qator "
+                "kod, lekin u butun elementning "
+                "yaroqliligini aniqlaydi.",
+                "O'rta tugunni chorak "
+                "nuqtasidan nariga siljitish. "
+                "$\\det J$ ishorasini "
+                "o'zgartiradi va element "
+                "ag'dariladi.",
+                "Yuqori tartibli elementda "
+                "tugunlarni tekis joylashtirish. "
+                "Runge hodisasi tufayli aniqlik "
+                "tushadi; Gauss–Lobatto "
+                "nuqtalari kerak.",
+                "Q4 elementni sof egilish "
+                "masalasida ishlatish. Uning "
+                "bazisi to'liq kvadratik emas — "
+                "qulflanish paydo bo'ladi "
+                "(su-16).",
+                "$\\det J$ hisobotini "
+                "e'tiborsiz qoldirish. Buzilgan "
+                "elementlar kuchlanish "
+                "natijalarini jimgina buzadi.",
+            ],
+            quiz=[
+                q("Shakl funksiyalarining ikkita "
+                  "asosiy xossasi qanday?",
+                  "$N_i(\\xi_j) = \\delta_{ij}$ "
+                  "(o'z tugunida 1, qolganlarida "
+                  "0) va $\\sum_i N_i = 1$ "
+                  "(to'liqlik).", "konseptual"),
+                q("Izoparametrik almashtirishning "
+                  "mohiyati nima?",
+                  "Geometriya va noma'lum maydon "
+                  "**bir xil** shakl funksiyalari "
+                  "bilan ifodalanadi; natijada "
+                  "kvadratik elementning "
+                  "chegarasi parabola bo'ladi.",
+                  "konseptual"),
+                q("Uch tugunli element "
+                  "$x = \\{0, 0{,}5, 2\\}$ uchun "
+                  "$J(-1)$ nechaga teng?",
+                  "$J = \\xi + 1$, demak "
+                  "$J(-1) = 0$ — element chap "
+                  "uchida singulyar (chorak "
+                  "nuqtali element).", "hisob"),
+                q("Kodda nima uchun Runge "
+                  "hodisasi tekshiriladi?",
+                  "Tekis tugunlarda tartib "
+                  "oshgani sari interpolyatsiya "
+                  "xatosi o'sishini ko'rsatish "
+                  "uchun; bu yuqori tartibli "
+                  "elementlarda tugun "
+                  "joylashuvi muhimligini "
+                  "asoslaydi.", "kod"),
+                q("Patch test nimani tekshiradi "
+                  "va u nima uchun muhim?",
+                  "Element doimiy va chiziqli "
+                  "maydonni aynan tiklay "
+                  "oladimi — ya'ni to'liqlik "
+                  "shartini. Bu bajarilmasa "
+                  "to'r zichlashganda ham "
+                  "yaqinlashish yo'q.", "talqin"),
+                q("$\\det\\mathbf{J} \\le 0$ nima "
+                  "degani va u qachon yuzaga "
+                  "keladi?",
+                  "Element ag'darilgan — etalon "
+                  "va haqiqiy element orasidagi "
+                  "moslik buzilgan. Odatda "
+                  "o'rta tugun juda siljiganda "
+                  "yoki to'rt burchakli element "
+                  "botiq bo'lganda.", "talqin"),
+                q("Kod Q4 elementning ag'darilish "
+                  "chegarasini ikki mustaqil "
+                  "yo'l bilan topadi. Ular "
+                  "qanday va natija qanday?",
+                  "Birinchisi — $\\min\\det J$ "
+                  "ning nolga aylanishi, "
+                  "ikkinchisi — tugunning qarshi "
+                  "diagonaldan o'tishi (sof "
+                  "geometrik mezon). Ikkalasi "
+                  "ham $s = 0{,}5$ ni beradi, "
+                  "demak $\\det J$ botiqlikni "
+                  "aynan aniqlaydi.", "kod"),
+                q("Chorak nuqtali elementda "
+                  "deformatsiya nima uchun "
+                  "$1/\\sqrt{x}$ kabi o'zgaradi?",
+                  "$\\alpha = 1/4$ da geometriya "
+                  "$x = (L/4)(1+\\xi)^2$ bo'ladi, "
+                  "ya'ni $1+\\xi \\propto "
+                  "\\sqrt{x}$. Deformatsiya "
+                  "$\\varepsilon = "
+                  "(du/d\\xi)/J$ va "
+                  "$J \\propto (1+\\xi)$, demak "
+                  "$\\varepsilon \\propto "
+                  "1/\\sqrt{x}$ — kod buni "
+                  "log-log qiyaligi $-0{,}5$ "
+                  "bilan tasdiqlaydi.", "hisob"),
+            ],
+            bridge=(
+                "Shakl funksiyalari va "
+                "izoparametrik almashtirish "
+                "tayyor. Endi ularni bikrlik "
+                "matritsasini qurishda "
+                "ishlatamiz. Bu yerda ikkita "
+                "yangi savol paydo bo'ladi: "
+                "element integrallarini qanday "
+                "hisoblash va alohida element "
+                "matritsalarini global tizimga "
+                "qanday yig'ish."
+            ),
+            research=(
+                "Element texnologiyasini "
+                "chuqurlashtiring. "
+                "(1) Ierarxik (p-tipdagi) shakl "
+                "funksiyalarini o'rganing: ular "
+                "tartibni oshirishda oldingi "
+                "bazisni saqlaydi, shuning uchun "
+                "matritsaning bir qismi qayta "
+                "hisoblanmaydi — adaptivlikda "
+                "(su-18) bu qanday "
+                "ishlatiladi? (2) Serendipiti "
+                "(Q8) va Lagranj (Q9) "
+                "elementlarini taqqoslang: "
+                "markaziy tugunning bo'lishi "
+                "aniqlikka va samaradorlikka "
+                "qanday ta'sir qiladi? "
+                "(3) Uchburchak elementlar "
+                "uchun maydon koordinatalarini "
+                "(area coordinates) o'rganing "
+                "va ularning to'rtburchak "
+                "elementlardan afzalligini "
+                "murakkab geometriyada "
+                "baholang. (4) NURBS asosidagi "
+                "izogeometrik tahlilni (IGA) "
+                "ko'rib chiqing: u CAD "
+                "geometriyasini AYNAN "
+                "ishlatadi — bu izoparametrik "
+                "g'oyaning tabiiy davomi."
+            ),
+            manim_ref=manim(
+                scene="IsoparametricScene",
+                module="manim/scenes/su_fem.py",
+                title="Izoparametrik almashtirish",
+                summary=(
+                    "Etalon kvadrat "
+                    "$[-1,1]^2$ to'r chiziqlari "
+                    "bilan ko'rsatiladi va "
+                    "asta-sekin haqiqiy "
+                    "elementga aylanadi: to'r "
+                    "chiziqlari egriladi, "
+                    "chegara parabolaga aylanadi. "
+                    "Keyin tugun siljitilib "
+                    "element buziladi va "
+                    "$\\det J$ xaritasi qizarib "
+                    "boradi; chorak nuqtada u "
+                    "nolga tegadi va undan "
+                    "keyin element o'z ustiga "
+                    "o'ralib qoladi."
+                ),
+            ),
+        ),
+    ),
 ]
