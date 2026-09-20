@@ -3964,4 +3964,1026 @@ table("Uchta tushunchaning farqi",
             ),
         ),
     ),
+
+    # ------------------------------------------------------------------ su-11
+    Topic(
+        id="su-11",
+        subject_id=S, module_id=M, order=11,
+        title="Vaqt bo'yicha integrallash: Nyumark oilasi va dinamik masalalar",
+        description=(
+            "Ikkinchi tartibli vaqt hosilasi, markaziy ayirma usuli, "
+            "Nyumark parametrlari, amplituda va davr xatoliklari hamda "
+            "sonli demflash."
+        ),
+        learning_objective=(
+            "Nyumark oilasining parametrlarini tanlash, barqarorlik "
+            "shartini aniqlash va sonli demflash hamda davr "
+            "cho'zilishini o'lchash."
+        ),
+        prerequisites=["su-10", "nm-26", "pq-23"],
+        mathematical_core=(
+            "$\\mathbf{M}\\ddot{\\mathbf{u}} + \\mathbf{C}"
+            "\\dot{\\mathbf{u}} + \\mathbf{K}\\mathbf{u} = "
+            "\\mathbf{F}$; Nyumark $\\gamma \\ge 1/2$, "
+            "$\\beta \\ge (\\gamma+1/2)^2/4$."
+        ),
+        engineering_application=(
+            "Zilzila tahlili, zarba va urilish, mashina tebranishlari, "
+            "transport yuklamasi, akustik javob, krash-testlar."
+        ),
+        computational_component=(
+            "Markaziy ayirma va Nyumark sxemalarini bir erkinlik "
+            "darajali tizimda taqqoslash, sonli demflash va davr "
+            "xatoligini o'lchash."
+        ),
+        visualization_component=(
+            "Fazaviy portret, amplituda so'nishi, davr cho'zilishi, "
+            "barqarorlik sohasi."
+        ),
+        research_extension=(
+            "HHT-α va umumlashgan-α usullarini o'rganing: ular yuqori "
+            "chastotalarni qanday so'ndiradi va past chastotalarni "
+            "qanday saqlaydi?"
+        ),
+        difficulty="murakkab",
+        previous_link=(
+            "su-10 da birinchi tartibli vaqt hosilasi (issiqlik "
+            "tenglamasi) uchun barqarorlik tahlili qurildi. "
+            "Mexanikaning dinamik masalalarida esa ikkinchi tartibli "
+            "hosila turadi va bu butunlay boshqa xatti-harakat beradi: "
+            "yechim so'nmaydi, tebranadi."
+        ),
+        next_topic="su-12",
+        estimated_minutes=90,
+        tags=["Nyumark", "dinamika", "sonli demflash", "davr xatoligi"],
+        lesson=_lesson(
+            problem=(
+                "pq-23 da plastinaning majburiy "
+                "tebranishi modal superpozitsiya "
+                "bilan yechilgan edi — lekin bu "
+                "faqat chiziqli va doimiy "
+                "koeffitsientli tizimda ishlaydi. "
+                "Zilzila ta'siridagi bino, urilish "
+                "paytidagi avtomobil yoki plastik "
+                "deformatsiyaga kiradigan "
+                "konstruksiya uchun modal usul "
+                "yaroqsiz: xususiy shakllar "
+                "o'zgarib turadi. Bunday "
+                "hollarda harakat tenglamasi "
+                "vaqt bo'yicha **bevosita** "
+                "integrallanadi. Lekin bu yerda "
+                "su-10 dagi barqarorlik "
+                "muammosidan tashqari yangi va "
+                "nozikroq xavf bor: sxema "
+                "barqaror bo'lishi mumkin, lekin "
+                "tebranish amplitudasini sekin "
+                "so'ndirib yoki davrini "
+                "cho'zib yuborishi mumkin — "
+                "va buni sezish qiyin."
+            ),
+            concepts=[
+                c("Harakat tenglamasi",
+                  "$\\mathbf{M}\\ddot{\\mathbf{u}} + "
+                  "\\mathbf{C}\\dot{\\mathbf{u}} + "
+                  "\\mathbf{K}\\mathbf{u} = "
+                  "\\mathbf{F}(t)$ — ikkinchi "
+                  "tartibli vaqt hosilasi."),
+                c("Markaziy ayirma usuli",
+                  "Oshkor sxema: "
+                  "$\\ddot u \\approx (u^{n-1}-2u^n"
+                  "+u^{n+1})/\\Delta t^2$; "
+                  "shartli barqaror."),
+                c("Nyumark oilasi",
+                  "$\\gamma$ va $\\beta$ "
+                  "parametrlari bilan boshqariladigan "
+                  "sxemalar oilasi; "
+                  "$\\gamma = 1/2$, $\\beta = 1/4$ — "
+                  "o'rtacha tezlanish usuli."),
+                c("Sonli demflash "
+                  "(numerical damping)",
+                  "$\\gamma > 1/2$ da sxema "
+                  "amplitudani sun'iy so'ndiradi — "
+                  "fizik demflash emas, sxema "
+                  "artefakti."),
+                c("Davr cho'zilishi "
+                  "(period elongation)",
+                  "Sonli yechimning davri haqiqiy "
+                  "davrdan uzunroq bo'lishi; "
+                  "$\\Delta T/T \\sim "
+                  "(\\omega\\Delta t)^2$."),
+                c("Kritik vaqt qadami",
+                  "Oshkor sxema uchun "
+                  "$\\Delta t \\le 2/\\omega_{max}$ — "
+                  "eng **yuqori** xususiy chastota "
+                  "belgilaydi."),
+            ],
+            derivation=[
+                d("1. Bir erkinlik darajali tizim",
+                  r"m\ddot u + c\dot u + ku = F(t), "
+                  r"\quad \omega = \sqrt{k/m}, \ "
+                  r"\zeta = \frac{c}{2\sqrt{km}}",
+                  "Tahlilni bitta erkinlik darajasida "
+                  "olib boramiz; ko'p erkinlikli "
+                  "tizim modal ajratishdan keyin "
+                  "shunday tenglamalar to'plamiga "
+                  "aylanadi (pq-23)."),
+                d("2. Nyumark taxminlari",
+                  r"\dot u^{n+1} = \dot u^n + \Delta t"
+                  r"\big[(1-\gamma)\ddot u^n + "
+                  r"\gamma\ddot u^{n+1}\big]",
+                  "Tezlik uchun: $\\gamma$ yangi va "
+                  "eski tezlanishlarning nisbatini "
+                  "belgilaydi. $\\gamma = 1/2$ — "
+                  "o'rtacha qiymat."),
+                d("3. Ko'chish uchun taxmin",
+                  r"u^{n+1} = u^n + \Delta t\,\dot u^n "
+                  r"+ \Delta t^2\Big[\Big(\frac{1}{2}-"
+                  r"\beta\Big)\ddot u^n + \beta"
+                  r"\ddot u^{n+1}\Big]",
+                  "$\\beta$ ko'chishdagi tezlanish "
+                  "taqsimotini belgilaydi. "
+                  "$\\beta = 1/4$ — doimiy o'rtacha "
+                  "tezlanish, $\\beta = 1/6$ — "
+                  "chiziqli tezlanish."),
+                d("4. Samarali bikrlik",
+                  r"\hat k = k + \frac{\gamma}"
+                  r"{\beta\Delta t}c + "
+                  r"\frac{1}{\beta\Delta t^2}m",
+                  "3-taxminni harakat tenglamasiga "
+                  "qo'yib, $u^{n+1}$ uchun "
+                  "algebraik tenglama olamiz. "
+                  "Ko'p erkinlikli tizimda bu "
+                  "matritsa bo'ladi va u bir "
+                  "marta yoyiladi (su-05)."),
+                d("5. Maxsus hollar",
+                  r"\beta = 0, \gamma = \tfrac12: \ "
+                  r"\text{markaziy ayirma (oshkor)}; "
+                  r"\quad \beta = \tfrac14, "
+                  r"\gamma = \tfrac12: \ "
+                  r"\text{o'rtacha tezlanish}",
+                  "$\\beta = 0$ bo'lsa "
+                  "$\\hat k$ da $\\ddot u^{n+1}$ "
+                  "yo'qoladi va sxema oshkor "
+                  "bo'ladi (agar $\\mathbf{M}$ "
+                  "diagonal bo'lsa)."),
+                d("6. Kuchayish matritsasi",
+                  r"\begin{bmatrix}u^{n+1}\\ "
+                  r"\Delta t\dot u^{n+1}\end{bmatrix} "
+                  r"= \mathbf{A}\begin{bmatrix}u^n\\ "
+                  r"\Delta t\dot u^n\end{bmatrix}",
+                  "Ikki komponentli holat vektori. "
+                  "Barqarorlik "
+                  "$\\rho(\\mathbf{A}) \\le 1$ "
+                  "bilan aniqlanadi — su-06 dagi "
+                  "spektral radius bilan bir xil "
+                  "g'oya."),
+                d("7. Barqarorlik shartlari",
+                  r"\gamma \ge \frac12 \ \text{va} \ "
+                  r"\beta \ge \frac{1}{4}\Big("
+                  r"\gamma+\frac12\Big)^2 "
+                  r"\;\Longrightarrow\; "
+                  r"\text{shartsiz barqaror}",
+                  "**Asosiy natija.** "
+                  "$\\gamma = 1/2$, "
+                  "$\\beta = 1/4$ chegarada "
+                  "yotadi va shartsiz barqaror. "
+                  "$\\beta = 0$ (markaziy ayirma) "
+                  "esa shartli."),
+                d("8. Oshkor sxemaning kritik qadami",
+                  r"\Delta t_{cr} = "
+                  r"\frac{2}{\omega_{max}} = "
+                  r"\frac{T_{min}}{\pi}",
+                  "**Eng yuqori** chastota "
+                  "belgilaydi. FEM da "
+                  "$\\omega_{max} \\sim c/h$ "
+                  "(elastik to'lqin tezligi), "
+                  "demak $\\Delta t \\sim h/c$ — "
+                  "bu su-12 dagi CFL sharti."),
+                d("9. Amplituda xatoligi",
+                  r"|\xi| = 1 - \frac{1}{2}\Big("
+                  r"\gamma-\frac12\Big)(\omega"
+                  r"\Delta t)^2 + O(\Delta t^4)",
+                  "$\\gamma = 1/2$ da amplituda "
+                  "**aynan saqlanadi** — sonli "
+                  "demflash yo'q. $\\gamma > 1/2$ "
+                  "da esa amplituda kamayadi va "
+                  "bu $\\Delta t^2$ ga mutanosib."),
+                d("10. Davr xatoligi",
+                  r"\frac{\Delta T}{T} = \frac{1}{2}\Big("
+                  r"\beta - \frac{1}{12}\Big)"
+                  r"(\omega\Delta t)^2 + O(\Delta t^4)",
+                  "$\\beta = 1/12$ da davr "
+                  "xatoligi ikkinchi tartibda "
+                  "yo'qoladi (Foks–Gudvin sxemasi), "
+                  "lekin u shartli barqaror. "
+                  "$\\beta = 1/4$ da "
+                  "$\\Delta T/T = "
+                  "(\\omega\\Delta t)^2/12$ — davr "
+                  "**cho'ziladi**. Kodda bu "
+                  "formula o'lchash bilan "
+                  "tekshiriladi."),
+                d("11. Aniqlik va demflashning "
+                  "raqobati",
+                  r"\gamma = \tfrac12: \ \text{2-tartib, "
+                  r"demflash yo'q}; \quad "
+                  r"\gamma > \tfrac12: \ "
+                  r"\text{1-tartib, demflash bor}",
+                  "**Muhim kelishuv.** Sonli "
+                  "demflash kerak bo'lsa "
+                  "($\\gamma > 1/2$), aniqlik "
+                  "ikkinchi tartibdan birinchiga "
+                  "tushadi. HHT-α usullari bu "
+                  "muammoni hal qiladi: ular "
+                  "ikkinchi tartibni saqlab, "
+                  "faqat yuqori chastotalarni "
+                  "so'ndiradi."),
+                d("12. Nima uchun demflash kerak",
+                  r"\omega_{max}\Delta t \gg 1 "
+                  r"\;\Longrightarrow\; \text{yuqori "
+                  r"rejimlar SOXTA javob beradi}",
+                  "FEM to'rida eng yuqori "
+                  "chastotalar fizik ma'noga ega "
+                  "emas (ular to'r artefakti, "
+                  "pq-30 dagi spektr zichligiga "
+                  "qarang), lekin ular javobni "
+                  "ifloslantiradi. Ularni "
+                  "so'ndirish foydali."),
+            ],
+            meaning=(
+                "Dinamik masalalarda vaqt "
+                "integrallashning markaziy "
+                "kelishuvi 11-qadamda: aniqlik va "
+                "sonli demflash bir-biriga zid. "
+                "$\\gamma = 1/2$ tanlansa sxema "
+                "ikkinchi tartibli va amplitudani "
+                "aynan saqlaydi — energiya "
+                "yo'qolmaydi. Bu uzoq vaqtli "
+                "tebranish tahlili uchun ideal. "
+                "Lekin FEM to'rida yuqori "
+                "chastotali rejimlar mavjud va "
+                "ular fizik ma'noga ega emas: "
+                "$\\omega_{max} \\sim c/h$ "
+                "to'r o'lchamiga bog'liq, ya'ni "
+                "u modelning xossasi emas, "
+                "diskretlashtirish artefakti. "
+                "Bunday rejimlar "
+                "$\\omega\\Delta t \\gg 1$ "
+                "sohasida yotadi va ularning "
+                "javobi butunlay noto'g'ri. "
+                "Shuning uchun ularni so'ndirish "
+                "kerak — bu sonli demflashning "
+                "maqsadi. To'lov esa aniqlik: "
+                "$\\gamma > 1/2$ da tartib "
+                "birinchiga tushadi va **past** "
+                "chastotalar ham so'na boshlaydi. "
+                "Bu 'bolani suv bilan birga "
+                "to'kib yuborish' muammosi va "
+                "uni HHT-α hamda umumlashgan-α "
+                "usullari hal qiladi: ular "
+                "ikkinchi tartibni saqlagan holda "
+                "so'ndirishni faqat yuqori "
+                "chastotalarga yo'naltiradi. "
+                "Ikkinchi muhim tushuncha — davr "
+                "cho'zilishi. $\\beta = 1/4$ "
+                "(eng ko'p ishlatiladigan tanlov) "
+                "da sonli yechimning davri "
+                "haqiqiydan uzun bo'ladi va xato "
+                "$(\\omega\\Delta t)^2/6$ ga "
+                "mutanosib. Amalda bu shuni "
+                "anglatadiki, uzoq hisobda sonli "
+                "yechim haqiqiydan **fazada "
+                "orqada qoladi** va bu siljish "
+                "to'planib boradi. Zilzila "
+                "tahlilida 20 soniyalik hisobda "
+                "bir necha tebranish davriga "
+                "yetib qolishi mumkin. Shuning "
+                "uchun qadam tanlashda odatda "
+                "$\\Delta t \\le T_{min}/20$ "
+                "qoidasi ishlatiladi — bu "
+                "barqarorlikdan emas, "
+                "**aniqlikdan** kelib chiqadi. "
+                "Nihoyat, 8-qadamdagi kritik "
+                "qadam mexanika uchun xarakterli "
+                "xususiyatni ochadi: oshkor "
+                "sxemani eng yuqori chastota "
+                "cheklaydi va u eng kichik "
+                "elementga bog'liq. Bitta juda "
+                "mayda element butun modelning "
+                "vaqt qadamini belgilaydi — "
+                "shuning uchun oshkor dinamikada "
+                "(krash-testlar) to'r sifati "
+                "alohida e'tibor talab qiladi."
+            ),
+            equations=[
+                eq(r"\dot u^{n+1} = \dot u^n + "
+                   r"\Delta t\big[(1-\gamma)\ddot u^n "
+                   r"+ \gamma\ddot u^{n+1}\big]",
+                   "Nyumark tezlik taxmini.",
+                   "Nyumark: tezlik"),
+                eq(r"u^{n+1} = u^n + \Delta t\dot u^n "
+                   r"+ \Delta t^2\big[(\tfrac12-\beta)"
+                   r"\ddot u^n + \beta\ddot u^{n+1}\big]",
+                   "Nyumark ko'chish taxmini.",
+                   "Nyumark: ko'chish"),
+                eq(r"\gamma \ge \tfrac12, \quad "
+                   r"\beta \ge \tfrac14(\gamma+\tfrac12)^2 "
+                   r"\;\Rightarrow\; \text{shartsiz barqaror}",
+                   "Nyumark oilasining barqarorlik "
+                   "shartlari.", "Barqarorlik"),
+                eq(r"\frac{\Delta T}{T} = \frac{1}{2}\Big(\beta - "
+                   r"\frac{1}{12}\Big)(\omega\Delta t)^2",
+                   "Davr cho'zilishi — aniqlik "
+                   "bo'yicha qadam tanlashning "
+                   "asosi.", "Davr xatoligi"),
+            ],
+            conditions=(
+                "**Barqarorlik:**\n"
+                "- $\\gamma \\ge 1/2$ va "
+                "$\\beta \\ge (\\gamma+1/2)^2/4$ "
+                "— shartsiz barqaror;\n"
+                "- $\\beta = 0$, $\\gamma = 1/2$ "
+                "(markaziy ayirma): "
+                "$\\Delta t \\le 2/\\omega_{max}$;\n"
+                "- $\\gamma < 1/2$ — sxema "
+                "**energiya qo'shadi** va har "
+                "doim nobarqaror.\n\n"
+                "**Aniqlik bo'yicha qadam "
+                "tanlash** (barqarorlikdan "
+                "qat'i nazar):\n"
+                "- $\\Delta t \\le T_{min}/20$ — "
+                "qiziqtiradigan eng yuqori "
+                "chastota uchun;\n"
+                "- Zarba masalalarida "
+                "$\\Delta t \\le T_{impact}/50$;\n"
+                "- Davr xatoligi 1 % dan kam "
+                "bo'lishi uchun "
+                "$\\omega\\Delta t \\le 0{,}25$.\n\n"
+                "**Boshlang'ich shartlar:** "
+                "$u^0$, $\\dot u^0$ berilgan; "
+                "$\\ddot u^0$ harakat "
+                "tenglamasidan hisoblanadi: "
+                "$\\ddot u^0 = m^{-1}(F^0 - "
+                "c\\dot u^0 - ku^0)$. Buni "
+                "unutish birinchi qadamlarda "
+                "katta xato beradi.\n\n"
+                "**Nochiziqli masalalarda:** "
+                "har qadamda Nyuton iteratsiyasi "
+                "(su-24) kerak va "
+                "$\\hat{\\mathbf{K}}$ qayta "
+                "hisoblanadi."
+            ),
+            worked=WorkedExample(
+                statement=(
+                    "Bir erkinlik darajali tizim: "
+                    "$m = 1$ kg, $k = 100$ N/m, "
+                    "demflashsiz. Boshlang'ich "
+                    "ko'chish $u_0 = 0{,}01$ m, "
+                    "tezlik nol. "
+                    "(a) Xususiy chastota va davrni "
+                    "toping; (b) markaziy ayirma "
+                    "uchun kritik qadamni "
+                    "hisoblang; (c) "
+                    "$\\Delta t = T/10$ da "
+                    "$\\beta = 1/4$, "
+                    "$\\gamma = 1/2$ sxemasining "
+                    "davr xatoligini baholang; "
+                    "(d) $\\gamma = 0{,}6$ da 10 "
+                    "davrdan keyin amplituda "
+                    "qancha qoladi?"
+                ),
+                given=[
+                    r"m = 1\ \text{kg},\ k = 100\ "
+                    r"\text{N/m},\ c = 0",
+                    r"u_0 = 0{,}01\ \text{m},\ "
+                    r"\dot u_0 = 0",
+                ],
+                steps=[
+                    st(r"\omega = \sqrt{k/m} = "
+                       r"\sqrt{100} = 10\ "
+                       r"\text{rad/s}",
+                       "Xususiy chastota."),
+                    st(r"T = \frac{2\pi}{\omega} = "
+                       r"\frac{6{,}2832}{10} = "
+                       r"0{,}62832\ \text{s}",
+                       "Tebranish davri."),
+                    st(r"\text{(b) } \Delta t_{cr} = "
+                       r"\frac{2}{\omega} = "
+                       r"\frac{2}{10} = 0{,}2\ "
+                       r"\text{s} = \frac{T}{\pi}",
+                       "Markaziy ayirma uchun "
+                       "kritik qadam — davrning "
+                       "uchdan biriga yaqin."),
+                    st(r"\text{(c) } \Delta t = "
+                       r"\frac{T}{10} = 0{,}062832\ "
+                       r"\text{s} "
+                       r"\;\Rightarrow\; "
+                       r"\omega\Delta t = 0{,}62832",
+                       "$\\omega\\Delta t = "
+                       "2\\pi/10$."),
+                    st(r"\frac{\Delta T}{T} = \frac12\Big("
+                       r"\frac14 - \frac{1}{12}\Big)"
+                       r"(0{,}62832)^2 = "
+                       r"\frac{1}{12} \cdot 0{,}39478",
+                       "$\\frac12(1/4 - 1/12) = "
+                       "\\frac12 \\cdot \\frac16 = "
+                       "\\frac{1}{12}$."),
+                    st(r"= 0{,}032898 "
+                       r"\;\Rightarrow\; "
+                       r"\textbf{3{,}29 \%}",
+                       "Davr **3,3 % ga "
+                       "cho'ziladi**. 10 davrdan "
+                       "keyin faza siljishi "
+                       "0,33 davrga yetadi — "
+                       "ya'ni yechim fazada "
+                       "sezilarli adashadi."),
+                    st(r"\Delta t = \frac{T}{20}: \ "
+                       r"\omega\Delta t = 0{,}31416 "
+                       r"\;\Rightarrow\; "
+                       r"\frac{\Delta T}{T} = "
+                       r"\frac{0{,}098696}{12} = "
+                       r"0{,}82\ \%",
+                       "Qadam ikki barobar "
+                       "kichrayganda xato to'rt "
+                       "barobar kamayadi — "
+                       "$O(\\Delta t^2)$."),
+                    st(r"\text{(d) } \gamma = 0{,}6: \ "
+                       r"|\xi| \approx 1 - "
+                       r"\frac{1}{2}(0{,}1)"
+                       r"(\omega\Delta t)^2",
+                       "9-qadamdagi formula; "
+                       "$\\gamma - 1/2 = 0{,}1$."),
+                    st(r"\omega\Delta t = 0{,}62832: \ "
+                       r"|\xi| = 1 - 0{,}05 \cdot "
+                       r"0{,}39478 = 1 - "
+                       r"0{,}019739 = 0{,}98026",
+                       "Har qadamda amplituda "
+                       "1,97 % kamayadi."),
+                    st(r"\text{10 davr} = 100\ "
+                       r"\text{qadam}: \ "
+                       r"0{,}98026^{100} = "
+                       r"e^{100\ln 0{,}98026} = "
+                       r"e^{-1{,}9936} = 0{,}136",
+                       "**Amplitudaning atigi "
+                       "13,6 % i qoladi** — "
+                       "86 % sun'iy so'ngan. "
+                       "Fizik demflash esa "
+                       "umuman yo'q edi."),
+                ],
+                answer=(
+                    "(a) $\\omega = 10$ rad/s, "
+                    "$T = 0{,}62832$ s; "
+                    "(b) $\\Delta t_{cr} = 0{,}2$ s; "
+                    "(c) $\\Delta t = T/10$ da davr "
+                    "**3,29 %** ga cho'ziladi, "
+                    "$T/20$ da esa 0,82 % — "
+                    "$O(\\Delta t^2)$; "
+                    "(d) $\\gamma = 0{,}6$ da har "
+                    "qadamda amplituda 1,97 % "
+                    "kamayadi va 10 davrdan keyin "
+                    "atigi **13,6 %** qoladi — "
+                    "fizik demflash bo'lmasa ham."
+                ),
+                engineering_note=(
+                    "(d) natijasi sonli demflashning "
+                    "qanchalik kuchli ekanini "
+                    "ko'rsatadi: $\\gamma$ ni "
+                    "0,5 dan 0,6 ga o'zgartirish "
+                    "amplitudani 10 davrda yetti "
+                    "barobar kamaytirdi. Agar "
+                    "muhandis buni bilmasdan "
+                    "$\\gamma = 0{,}6$ olsa va "
+                    "natijada tebranish so'nganini "
+                    "ko'rsa, u konstruksiyani "
+                    "xavfsiz deb xulosa qilishi "
+                    "mumkin — aslida so'nish "
+                    "butunlay sun'iy. Bu ayniqsa "
+                    "zilzila tahlilida xavfli. "
+                    "(c) natijasi esa qadam "
+                    "tanlash qoidasini asoslaydi: "
+                    "$T/10$ da davr xatoligi 3,3 % "
+                    "va 10 davrdan keyin yechim "
+                    "fazada sezilarli adashadi. "
+                    "Shuning uchun standart tavsiya "
+                    "$\\Delta t \\le T_{min}/20$ "
+                    "va muhim hisoblarda $T/50$. "
+                    "Diqqat: bu **eng yuqori** "
+                    "qiziqtiradigan chastota uchun, "
+                    "eng pasti uchun emas. "
+                    "Zilzila tahlilida odatda "
+                    "0–33 Hz diapazoni "
+                    "qiziqtiradi, demak "
+                    "$T_{min} = 1/33 = 0{,}03$ s "
+                    "va $\\Delta t \\le 1{,}5$ ms."
+                ),
+            ),
+            computation=Computation(
+                caption=(
+                    "Nyumark oilasini bir erkinlik "
+                    "darajali tizimda sinash: "
+                    "barqarorlik, sonli demflash va "
+                    "davr cho'zilishini o'lchash."
+                ),
+                code='''"""Nyumark oilasi: barqarorlik, sonli demflash, davr xatoligi."""
+import numpy as np
+from labkit import PARAMS, note, series, table, value
+
+m = float(PARAMS.get("m", 1.0))
+k = float(PARAMS.get("k", 100.0))
+zeta = float(PARAMS.get("zeta", 0.0))
+gam = float(PARAMS.get("gamma", 0.5))
+bet = float(PARAMS.get("beta", 0.25))
+n_per = float(PARAMS.get("n_per", 10.0))
+dt_ratio = float(PARAMS.get("dt_ratio", 10.0))   # dt = T/dt_ratio
+
+w = np.sqrt(k/m)
+T = 2*np.pi/w
+c = 2*zeta*np.sqrt(k*m)
+u0, v0 = 0.01, 0.0
+value("Xususiy chastota omega", w, "rad/s")
+value("Tebranish davri T", T, "s")
+value("Markaziy ayirma kritik qadami 2/omega", 2.0/w, "s")
+
+
+def newmark(dt, nt, gam, bet, m, c, k, u0, v0):
+    u = np.zeros(nt + 1)
+    v = np.zeros(nt + 1)
+    a = np.zeros(nt + 1)
+    u[0], v[0] = u0, v0
+    a[0] = (0.0 - c*v0 - k*u0)/m          # boshlang'ich tezlanish
+    if bet > 0:
+        kh = k + gam/(bet*dt)*c + m/(bet*dt**2)
+        for n in range(nt):
+            rhs = (m*(u[n]/(bet*dt**2) + v[n]/(bet*dt)
+                      + (1/(2*bet) - 1)*a[n])
+                   + c*(gam/(bet*dt)*u[n] + (gam/bet - 1)*v[n]
+                        + dt*(gam/(2*bet) - 1)*a[n]))
+            u[n+1] = rhs/kh
+            a[n+1] = ((u[n+1] - u[n])/(bet*dt**2) - v[n]/(bet*dt)
+                      - (1/(2*bet) - 1)*a[n])
+            v[n+1] = v[n] + dt*((1 - gam)*a[n] + gam*a[n+1])
+    else:
+        # beta = 0: oshkor (markaziy ayirma)
+        for n in range(nt):
+            u[n+1] = u[n] + dt*v[n] + dt**2/2*a[n]
+            a[n+1] = (0.0 - c*(v[n] + (1 - gam)*dt*a[n]) - k*u[n+1]) \
+                / (m + gam*dt*c)
+            v[n+1] = v[n] + dt*((1 - gam)*a[n] + gam*a[n+1])
+    return u, v, a
+
+
+def amplification(dt, gam, bet, m, c, k):
+    """Kuchayish matritsasining spektral radiusi."""
+    A = np.zeros((3, 3))
+    if bet > 0:
+        kh = k + gam/(bet*dt)*c + m/(bet*dt**2)
+        # [u, dt*v, dt^2*a] holat vektori uchun
+        for j, e in enumerate(np.eye(3)):
+            uu, vv, aa = e[0], e[1]/dt, e[2]/dt**2
+            rhs = (m*(uu/(bet*dt**2) + vv/(bet*dt)
+                      + (1/(2*bet) - 1)*aa)
+                   + c*(gam/(bet*dt)*uu + (gam/bet - 1)*vv
+                        + dt*(gam/(2*bet) - 1)*aa))
+            un = rhs/kh
+            an = ((un - uu)/(bet*dt**2) - vv/(bet*dt)
+                  - (1/(2*bet) - 1)*aa)
+            vn = vv + dt*((1 - gam)*aa + gam*an)
+            A[:, j] = [un, dt*vn, dt**2*an]
+    else:
+        for j, e in enumerate(np.eye(3)):
+            uu, vv, aa = e[0], e[1]/dt, e[2]/dt**2
+            un = uu + dt*vv + dt**2/2*aa
+            an = (-c*(vv + (1 - gam)*dt*aa) - k*un)/(m + gam*dt*c)
+            vn = vv + dt*((1 - gam)*aa + gam*an)
+            A[:, j] = [un, dt*vn, dt**2*an]
+    return float(np.max(np.abs(np.linalg.eigvals(A))))
+
+
+# --- (1) Barqarorlik sohasini tekshirish ---
+wdt = np.unique(np.concatenate([np.logspace(-2, 1.5, 160),
+                                np.linspace(1.90, 2.15, 60)]))
+rows = []
+schemes = [("Markaziy ayirma", 0.0, 0.5),
+           ("O'rtacha tezlanish", 0.25, 0.5),
+           ("Chiziqli tezlanish", 1.0/6.0, 0.5),
+           ("Demflangan (g=0.6)", 0.3025, 0.6),
+           ("Fox-Goodwin", 1.0/12.0, 0.5)]
+for name, bb, gg in schemes:
+    rhos = [amplification(wd/w, gg, bb, m, 0.0, k) for wd in wdt]
+    series(f"rho: {name}", wdt.tolist(), rhos,
+           xlabel="omega*dt", ylabel="spektral radius")
+    lim = [wd for wd, rr in zip(wdt, rhos) if rr > 1.0 + 1e-10]
+    bcrit = 0.25*(gg + 0.5)**2
+    uncond = "ha" if bb >= bcrit - 1e-12 and gg >= 0.5 - 1e-12 else "yo'q"
+    rows.append([name, f"{bb:.4f}", f"{gg:.2f}", f"{bcrit:.4f}", uncond,
+                 f"{min(lim):.3f}" if lim else "cheksiz"])
+table("Nyumark oilasi: barqarorlik",
+      ["Sxema", "beta", "gamma", "beta_krit", "shartsiz barqaror?",
+       "omega*dt chegarasi"], rows)
+series("Barqarorlik chegarasi rho = 1", wdt.tolist(),
+       [1.0]*len(wdt), xlabel="omega*dt", ylabel="spektral radius")
+
+rho_cd = [amplification(wd/w, 0.5, 0.0, m, 0.0, k) for wd in wdt]
+lim_cd = [wd for wd, rr in zip(wdt, rho_cd) if rr > 1.0 + 1e-10]
+if lim_cd:
+    value("Markaziy ayirma: sonli chegara (omega*dt)",
+          float(min(lim_cd)), "—")
+    value("Nazariy chegara", 2.0, "—")
+    value("Farq", abs(min(lim_cd) - 2.0)/2.0*100, "%")
+    note(f"Markaziy ayirma sxemasining barqarorlik chegarasi sonli "
+         f"topildi: omega*dt = {min(lim_cd):.4f}, nazariy qiymat 2.0 - "
+         f"farq {abs(min(lim_cd)-2.0)/2.0*100:.2f} %. 8-qadamdagi "
+         f"dt_cr = 2/omega tasdiqlandi.")
+note("O'rtacha tezlanish (beta = 1/4, gamma = 1/2) va demflangan "
+     "sxema shartsiz barqaror: spektral radius hech qachon 1 dan "
+     "oshmaydi. Markaziy ayirma, chiziqli tezlanish va Fox-Goodwin "
+     "esa shartli.")
+
+# --- (2) SONLI DEMFLASH: amplituda so'nishini o'lchash ---
+dt = T/dt_ratio
+nt = int(round(n_per*T/dt))
+rows2 = []
+for gg in [0.50, 0.55, 0.60, 0.70]:
+    bb = 0.25*(gg + 0.5)**2
+    u, v, a = newmark(dt, nt, gg, bb, m, 0.0, k, u0, v0)
+    # Cho'qqilarni topib amplituda so'nishini o'lchash
+    pk = [i for i in range(1, len(u) - 1)
+          if u[i] > u[i-1] and u[i] >= u[i+1] and u[i] > 0]
+    if len(pk) >= 2:
+        decay = (u[pk[-1]]/u[pk[0]])**(1.0/(len(pk) - 1))
+        # nazariy: |xi| = 1 - 0.5*(gam-0.5)*(w*dt)^2 har QADAMDA
+        xi_step = 1.0 - 0.5*(gg - 0.5)*(w*dt)**2
+        steps_per_period = T/dt
+        xi_per = xi_step**steps_per_period
+        rows2.append([f"{gg:.2f}", f"{bb:.4f}",
+                      f"{u[pk[-1]]/u0*100:.2f}",
+                      f"{decay:.6f}", f"{xi_per:.6f}"])
+    else:
+        rows2.append([f"{gg:.2f}", f"{bb:.4f}", "-", "-", "-"])
+table(f"Sonli demflash ({n_per:.0f} davrdan keyin, dt = T/{dt_ratio:.0f})",
+      ["gamma", "beta", "qolgan amplituda, %", "o'lchangan/davr",
+       "nazariy/davr"], rows2)
+
+u5, _, _ = newmark(dt, nt, 0.5, 0.25, m, 0.0, k, u0, v0)
+u6, _, _ = newmark(dt, nt, 0.6, 0.3025, m, 0.0, k, u0, v0)
+tt = np.arange(nt + 1)*dt
+series("gamma = 0.50 (demflashsiz)", tt.tolist(),
+       (u5*1000).tolist(), xlabel="vaqt t, s", ylabel="u, mm")
+series("gamma = 0.60 (sonli demflash)", tt.tolist(),
+       (u6*1000).tolist(), xlabel="vaqt t, s", ylabel="u, mm")
+series("Aniq yechim", tt.tolist(),
+       (u0*np.cos(w*tt)*1000).tolist(),
+       xlabel="vaqt t, s", ylabel="u, mm")
+value("gamma = 0.5: oxirgi amplituda / boshlang'ich",
+      float(np.max(np.abs(u5[-int(T/dt):]))/u0), "—")
+value("gamma = 0.6: oxirgi amplituda / boshlang'ich",
+      float(np.max(np.abs(u6[-int(T/dt):]))/u0), "—")
+note(f"Fizik demflash YO'Q (zeta = 0), lekin gamma = 0.6 da "
+     f"{n_per:.0f} davrdan keyin amplitudaning atigi "
+     f"{np.max(np.abs(u6[-int(T/dt):]))/u0*100:.1f} % i qoldi. "
+     f"gamma = 0.5 da esa {np.max(np.abs(u5[-int(T/dt):]))/u0*100:.1f} % "
+     f"- amplituda deyarli aynan saqlanadi. Demak so'nish butunlay "
+     f"SXEMA ARTEFAKTI.")
+
+# --- (3) DAVR CHO'ZILISHINI o'lchash ---
+rows3 = []
+for ratio in [5, 10, 20, 40, 80]:
+    dtk = T/ratio
+    ntk = int(round(8*T/dtk))
+    u, _, _ = newmark(dtk, ntk, 0.5, 0.25, m, 0.0, k, u0, v0)
+    # nolinchi kesishuvlardan davrni o'lchash
+    sgn = np.sign(u)
+    cross = np.where(np.diff(sgn) != 0)[0]
+    if len(cross) >= 3:
+        # chiziqli interpolyatsiya bilan aniq nol nuqtalari
+        zs = []
+        for ci in cross:
+            f0, f1 = u[ci], u[ci+1]
+            zs.append((ci + f0/(f0 - f1))*dtk)
+        Tn = 2.0*np.mean(np.diff(zs))
+        err = (Tn - T)/T
+        th = 0.5*(0.25 - 1.0/12.0)*(w*dtk)**2
+        rows3.append([f"T/{ratio}", f"{w*dtk:.5f}", f"{Tn:.6f}",
+                      f"{err*100:.4f}", f"{th*100:.4f}"])
+table("Davr cho'zilishi (beta = 1/4, gamma = 1/2)",
+      ["dt", "omega*dt", "o'lchangan T, s", "xatolik, %",
+       "nazariy, %"], rows3)
+meas = [float(r[3]) for r in rows3]
+theo = [float(r[4]) for r in rows3]
+value("O'lchangan va nazariy davr xatoligi nisbati (dt = T/10)",
+      meas[1]/theo[1], "—")
+p_T = np.log2(meas[1]/meas[2])
+value("Davr xatoligining tartibi", float(p_T), "—")
+note(f"Davr xatoligi o'lchandi va nazariy (beta - 1/12)*(omega*dt)^2 "
+     f"formulasi bilan taqqoslandi: dt = T/10 da o'lchangan "
+     f"{meas[1]:.4f} %, nazariy {theo[1]:.4f} % - nisbat "
+     f"{meas[1]/theo[1]:.4f}. Qadam ikki barobar kamayganda xatolik "
+     f"{meas[1]/meas[2]:.2f} marta kamayadi (tartib {p_T:.2f} ~ 2) - "
+     f"10-qadamdagi O(dt^2) TASDIQLANDI.")
+
+# beta = 1/12 (Fox-Goodwin) da davr xatoligi yo'qolishi
+rows4 = []
+for bb, nm in [(0.25, "o'rtacha tezlanish"),
+               (1.0/6.0, "chiziqli tezlanish"),
+               (1.0/12.0, "Fox-Goodwin")]:
+    dtk = T/10
+    ntk = int(round(8*T/dtk))
+    u, _, _ = newmark(dtk, ntk, 0.5, bb, m, 0.0, k, u0, v0)
+    sgn = np.sign(u)
+    cross = np.where(np.diff(sgn) != 0)[0]
+    zs = [(ci + u[ci]/(u[ci] - u[ci+1]))*dtk for ci in cross]
+    Tn = 2.0*np.mean(np.diff(zs))
+    rows4.append([nm, f"{bb:.5f}", f"{(Tn-T)/T*100:.5f}",
+                  f"{0.5*(bb - 1.0/12.0)*(w*dtk)**2*100:.5f}"])
+table("beta ning davr xatoligiga ta'siri (dt = T/10)",
+      ["Sxema", "beta", "o'lchangan xato, %", "nazariy, %"], rows4)
+note("beta = 1/12 (Fox-Goodwin) da davr xatoligi ikkinchi tartibda "
+     "YO'QOLADI - nazariy formula (beta - 1/12) ni beradi. Lekin bu "
+     "sxema shartli barqaror, shuning uchun amalda kam ishlatiladi.")
+
+# --- (4) Qadam tanlash tavsiyasi ---
+rows5 = []
+for ratio in [5, 10, 20, 50, 100]:
+    wdt_k = 2*np.pi/ratio
+    perr = 0.5*(0.25 - 1.0/12.0)*wdt_k**2*100
+    drift = perr/100*8      # 8 davrdan keyin faza siljishi (davrlarda)
+    rows5.append([f"T/{ratio}", f"{wdt_k:.4f}", f"{perr:.3f}",
+                  f"{drift:.4f}"])
+table("Qadam tanlash: davr xatoligi va faza siljishi",
+      ["dt", "omega*dt", "davr xatoligi, %",
+       "8 davrdan keyingi siljish (davrlarda)"], rows5)
+note("dt = T/10 da 8 davrdan keyin faza siljishi yarim davrga "
+     "yaqinlashadi - yechim deyarli qarama-qarshi fazada bo'ladi. "
+     "Shuning uchun standart tavsiya dt <= T_min/20, muhim "
+     "hisoblarda esa T_min/50.")
+
+table("Nyumark oilasining asosiy a'zolari",
+      ["Sxema", "beta", "gamma", "Tartib", "Barqarorlik", "Izoh"],
+      [["Markaziy ayirma", "0", "1/2", "2", "shartli",
+        "oshkor, krash-testlar"],
+       ["Fox-Goodwin", "1/12", "1/2", "4 (davr)", "shartli",
+        "eng aniq davr"],
+       ["Chiziqli tezlanish", "1/6", "1/2", "2", "shartli", "klassik"],
+       ["O'rtacha tezlanish", "1/4", "1/2", "2", "SHARTSIZ",
+        "eng keng ishlatiladi"],
+       ["Demflangan", ">1/4", ">1/2", "1", "SHARTSIZ",
+        "yuqori rejimlarni so'ndiradi"]])
+''',
+                parameters=[
+                    p("m", "Massa m", 0.01, 1000.0, 1.0, 0.01, "kg"),
+                    p("k", "Bikrlik k", 1.0, 100000.0, 100.0, 1.0, "N/m"),
+                    p("zeta", "Fizik demflash ζ", 0.0, 0.5, 0.0, 0.01),
+                    p("gamma", "Nyumark γ", 0.5, 1.0, 0.5, 0.05),
+                    p("beta", "Nyumark β", 0.0, 0.5, 0.25, 0.01),
+                    p("n_per", "Hisoblanadigan davrlar soni", 1.0, 50.0,
+                      10.0, 1.0),
+                    p("dt_ratio", "Qadam T/dt_ratio", 4.0, 100.0, 10.0,
+                      1.0),
+                ],
+                expected_output=(
+                    "Markaziy ayirma sxemasining "
+                    "barqarorlik chegarasi sonli "
+                    "topilganda nazariy "
+                    "$\\omega\\Delta t = 2$ ga "
+                    "juda yaqin chiqadi. "
+                    "$\\beta \\ge (\\gamma+1/2)^2/4$ "
+                    "shartini qanoatlantiruvchi "
+                    "sxemalarda spektral radius "
+                    "hech qachon 1 dan oshmaydi. "
+                    "Fizik demflash nol bo'lsa ham "
+                    "$\\gamma = 0{,}6$ da "
+                    "amplituda keskin so'nadi, "
+                    "$\\gamma = 0{,}5$ da esa "
+                    "deyarli aynan saqlanadi. "
+                    "O'lchangan davr xatoligi "
+                    "nazariy "
+                    "$(\\beta-1/12)(\\omega"
+                    "\\Delta t)^2$ formulasi bilan "
+                    "mos keladi va $O(\\Delta t^2)$ "
+                    "bo'yicha kamayadi; "
+                    "$\\beta = 1/12$ da esa u "
+                    "deyarli yo'qoladi."
+                ),
+            ),
+            visual=vis(
+                kind="Sonli demflash va davr cho'zilishi",
+                tool="React/SVG + Manim",
+                description=(
+                    "Tebranish tarixi, aniq yechim "
+                    "bilan taqqoslash va spektral "
+                    "radius grafigi."
+                ),
+                how_to_draw=(
+                    "React/SVG: asosiy panel — "
+                    "ko'chishning vaqt bo'yicha "
+                    "grafigi. Uchta chiziq: aniq "
+                    "yechim (uzluksiz), "
+                    "$\\gamma = 0{,}5$ (deyarli "
+                    "ustma-ust tushadi) va "
+                    "$\\gamma = 0{,}6$ (amplitudasi "
+                    "ko'rinarli so'nadi). "
+                    "Cho'qqilarni bog'lovchi "
+                    "**o'rama** (envelope) "
+                    "punktir bilan chiziladi — "
+                    "sonli demflash shu orqali "
+                    "aniq ko'rinadi. Vaqt o'qining "
+                    "oxirgi qismida aniq va sonli "
+                    "yechimlarning **fazada "
+                    "ajralishi** ko'rinadi va "
+                    "siljish o'lchov chizig'i "
+                    "bilan belgilanadi. $\\gamma$ "
+                    "va $\\Delta t$ slayderlari "
+                    "bilan ikkala effekt "
+                    "alohida boshqariladi. "
+                    "Ikkinchi panel — spektral "
+                    "radiusning "
+                    "$\\omega\\Delta t$ ga "
+                    "bog'liqligi log o'qda; "
+                    "$\\rho = 1$ chizig'i qizil "
+                    "bilan, shartsiz barqaror "
+                    "sxemalar undan pastda "
+                    "qoladi, markaziy ayirma esa "
+                    "$\\omega\\Delta t = 2$ da "
+                    "uni kesib o'tadi. Uchinchi "
+                    "panel — fazaviy portret "
+                    "($u$ va $\\dot u$): aniq "
+                    "yechim yopiq ellips, "
+                    "$\\gamma > 1/2$ esa ichkariga "
+                    "buraladigan spiral."
+                ),
+            ),
+            interp=(
+                "Kodning eng muhim natijasi — sonli "
+                "demflashning o'lchangan "
+                "kattaligi. Fizik demflash aynan "
+                "nolga teng, ya'ni tizim energiyani "
+                "yo'qotmasligi kerak; lekin "
+                "$\\gamma = 0{,}6$ da 10 davrdan "
+                "keyin amplitudaning faqat kichik "
+                "qismi qoladi. $\\gamma = 0{,}5$ "
+                "da esa amplituda deyarli aynan "
+                "saqlanadi. Bu 9-qadamdagi "
+                "formulaning bevosita tasdig'i va "
+                "u amaliy jihatdan jiddiy "
+                "ogohlantirish: sxema parametri "
+                "natijani fizik effekt kabi "
+                "ko'rinadigan tarzda o'zgartiradi. "
+                "Ikkinchi natija — davr "
+                "cho'zilishining o'lchangan va "
+                "nazariy qiymatlarining mos "
+                "kelishi. $(\\beta - 1/12)"
+                "(\\omega\\Delta t)^2$ formulasi "
+                "tajribada tasdiqlanadi va xato "
+                "$O(\\Delta t^2)$ bo'yicha "
+                "kamayadi. $\\beta = 1/12$ "
+                "(Fox–Goodwin) holati alohida "
+                "qiziq: u yerda davr xatoligi "
+                "ikkinchi tartibda **yo'qoladi** "
+                "va o'lchash ham shuni ko'rsatadi. "
+                "Lekin bu sxema shartli barqaror, "
+                "shuning uchun amalda "
+                "$\\beta = 1/4$ afzal ko'riladi — "
+                "bu aniqlik va barqarorlik "
+                "o'rtasidagi tipik kelishuv. "
+                "Barqarorlik grafigi esa su-10 "
+                "dagi apparatning ikkinchi "
+                "tartibli tenglamaga "
+                "ko'chirilishini ko'rsatadi: "
+                "spektral radius $\\rho \\le 1$ "
+                "sharti aynan bir xil, faqat "
+                "endi kuchayish matritsasi "
+                "$3\\times3$. Markaziy ayirma "
+                "uchun sonli topilgan chegara "
+                "nazariy $\\omega\\Delta t = 2$ "
+                "ga mos kelishi bu apparatning "
+                "to'g'ri qurilganini "
+                "tasdiqlaydi."
+            ),
+            mistakes=[
+                "Sonli demflashni fizik demflash "
+                "deb qabul qilish. "
+                "$\\gamma > 1/2$ da amplituda "
+                "sun'iy so'nadi va bu "
+                "konstruksiyani xavfsiz "
+                "ko'rsatishi mumkin.",
+                "Qadamni faqat barqarorlik "
+                "bo'yicha tanlash. Shartsiz "
+                "barqaror sxemada ham davr "
+                "xatoligi katta bo'lishi mumkin; "
+                "$\\Delta t \\le T_{min}/20$ "
+                "kerak.",
+                "Boshlang'ich tezlanishni "
+                "hisoblashni unutish. "
+                "$\\ddot u^0$ harakat "
+                "tenglamasidan olinadi, nolga "
+                "teng emas.",
+                "Oshkor sxemada eng kichik "
+                "elementni e'tiborsiz qoldirish. "
+                "Bitta mayda element butun "
+                "modelning qadamini belgilaydi.",
+                "$\\gamma < 1/2$ tanlash. Bunday "
+                "sxema energiya **qo'shadi** va "
+                "har qanday qadamda nobarqaror.",
+            ],
+            quiz=[
+                q("Nyumark oilasida $\\gamma$ va "
+                  "$\\beta$ nimani boshqaradi?",
+                  "$\\gamma$ — tezlikdagi "
+                  "tezlanish taqsimoti (va sonli "
+                  "demflash), $\\beta$ — "
+                  "ko'chishdagi taqsimot (va davr "
+                  "xatoligi).", "konseptual"),
+                q("Shartsiz barqarorlik shartlari "
+                  "qanday?",
+                  "$\\gamma \\ge 1/2$ va "
+                  "$\\beta \\ge (\\gamma+1/2)^2/4$. "
+                  "$\\beta = 1/4$, "
+                  "$\\gamma = 1/2$ aynan "
+                  "chegarada.", "konseptual"),
+                q("$\\omega = 10$ rad/s, "
+                  "$\\Delta t = T/10$ da "
+                  "$\\beta = 1/4$ uchun davr "
+                  "xatoligi qancha?",
+                  "$\\omega\\Delta t = 0{,}6283$; "
+                  "$(1/4-1/12)(0{,}6283)^2 = "
+                  "0{,}3948/6 = 6{,}58$ %.",
+                  "hisob"),
+                q("Kodda nima uchun fizik "
+                  "demflash nolga teng olinadi?",
+                  "Shunda amplitudaning har "
+                  "qanday so'nishi faqat "
+                  "**sxemadan** kelib chiqadi va "
+                  "sonli demflash sof holda "
+                  "o'lchanadi.", "kod"),
+                q("Oshkor sxemada kritik qadamni "
+                  "nima belgilaydi?",
+                  "Eng **yuqori** xususiy chastota: "
+                  "$\\Delta t \\le 2/\\omega_{max}$. "
+                  "FEM da u eng kichik elementga "
+                  "bog'liq.", "talqin"),
+                q("Nima uchun ba'zan sonli "
+                  "demflash **foydali**?",
+                  "FEM to'ridagi eng yuqori "
+                  "chastotali rejimlar fizik "
+                  "ma'noga ega emas (to'r "
+                  "artefakti) va javobni "
+                  "ifloslantiradi; ularni "
+                  "so'ndirish kerak.", "talqin"),
+            ],
+            bridge=(
+                "Nyumark sxemalari tebranish "
+                "masalalarida yaxshi ishlaydi. "
+                "Lekin to'lqin tarqalishida — "
+                "zarba, portlash, ultratovush — "
+                "yangi talab paydo bo'ladi: "
+                "to'lqin **to'g'ri tezlikda** "
+                "harakatlanishi kerak. Keyingi "
+                "mavzuda to'lqin tenglamasiga "
+                "o'tamiz, CFL shartini quramiz va "
+                "sonli dispersiya hodisasini "
+                "ko'ramiz."
+            ),
+            research=(
+                "Zamonaviy vaqt integrallash "
+                "usullarini o'rganing. "
+                "(1) HHT-α va umumlashgan-α "
+                "usullarini tahlil qiling: ular "
+                "ikkinchi tartibni saqlab, "
+                "so'ndirishni faqat yuqori "
+                "chastotalarga qanday "
+                "yo'naltiradi? Spektral radiusni "
+                "$\\omega\\Delta t \\to \\infty$ "
+                "da hisoblang. (2) Energiyani "
+                "saqlovchi (energy-conserving) va "
+                "simplektik integratorlarni "
+                "o'rganing: uzoq vaqtli "
+                "hisoblarda ular nima uchun "
+                "afzal? (3) Aniq massa "
+                "matritsasi va to'plangan "
+                "(lumped) massa matritsasining "
+                "farqini tahlil qiling: "
+                "to'plangan massa oshkor "
+                "sxemani nima uchun mumkin "
+                "qiladi va u aniqlikka qanday "
+                "ta'sir qiladi?"
+            ),
+            manim_ref=manim(
+                scene="NewmarkScene",
+                module="manim/scenes/su_fd.py",
+                title="Sonli demflash va davr cho'zilishi",
+                summary=(
+                    "Prujinali massa tebranadi va "
+                    "yonida sonli yechim aniq "
+                    "yechim bilan birga "
+                    "chiziladi. $\\gamma$ ni "
+                    "oshirganda sonli yechim "
+                    "amplitudasi sekin so'nadi, "
+                    "$\\Delta t$ ni oshirganda esa "
+                    "u fazada orqada qola "
+                    "boshlaydi. Ikkala effekt "
+                    "alohida-alohida "
+                    "ko'rsatiladi."
+                ),
+            ),
+        ),
+    ),
 ]
