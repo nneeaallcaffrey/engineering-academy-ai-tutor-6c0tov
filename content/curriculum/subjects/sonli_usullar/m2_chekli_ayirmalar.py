@@ -1936,4 +1936,955 @@ table("Chegaraviy shartlar va soxta tugun munosabatlari",
             ),
         ),
     ),
+
+    # ------------------------------------------------------------------ su-09
+    Topic(
+        id="su-09",
+        subject_id=S, module_id=M, order=9,
+        title="Ikki o'lchovli masalalar: Laplas va Puasson tenglamalari",
+        description=(
+            "Besh nuqtali shablon, tugunlarni raqamlash, Dirixle va "
+            "Neyman shartlari, buralishdagi kuchlanish funksiyasi va "
+            "notekis chegaralar."
+        ),
+        learning_objective=(
+            "Ikki o'lchovli Puasson masalasini chekli ayirmalar bilan "
+            "yechish, Neyman shartini to'g'ri qo'yish va natijani "
+            "analitik qator yechimi bilan tekshirish."
+        ),
+        prerequisites=["su-08", "mq-19", "tmm-16"],
+        mathematical_core=(
+            "$\\nabla^2\\phi = -2G\\theta$; besh nuqtali shablon "
+            "$\\dfrac{\\phi_{i-1,j}+\\phi_{i+1,j}+\\phi_{i,j-1}+"
+            "\\phi_{i,j+1}-4\\phi_{ij}}{h^2}$."
+        ),
+        engineering_application=(
+            "Ixtiyoriy kesimli sterjenning buralishi, issiqlik "
+            "o'tkazuvchanlik, filtratsiya, potensial oqim, "
+            "membrana tarangligi."
+        ),
+        computational_component=(
+            "Buralish masalasini yechish, buralish bikrligini "
+            "hisoblash va analitik qator yechimi bilan taqqoslash."
+        ),
+        visualization_component=(
+            "Kuchlanish funksiyasining sath chiziqlari, siljish "
+            "kuchlanishi vektorlari, membrana analogiyasi."
+        ),
+        research_extension=(
+            "To'qqiz nuqtali (Mehrstellen) shablonni o'rganing: u "
+            "bir xil shablon o'lchami bilan $O(h^4)$ beradi. "
+            "Notekis chegaralarni qamrab olish usullarini solishtiring."
+        ),
+        difficulty="murakkab",
+        previous_link=(
+            "su-08 da bir o'lchovli masala to'liq yechildi: shablon, "
+            "chegaraviy shartlar, soxta tugunlar va yaqinlashish "
+            "tartibi. Endi xuddi shu apparat ikki o'lchovga "
+            "ko'chiriladi va yangi savol qo'shiladi — tugunlarni "
+            "qanday raqamlash."
+        ),
+        next_topic="su-10",
+        estimated_minutes=90,
+        tags=["Puasson", "buralish", "Neyman", "besh nuqtali shablon"],
+        lesson=_lesson(
+            problem=(
+                "mq-19 da doiraviy va yupqa devorli "
+                "kesimlarning buralishi analitik "
+                "yechilgan edi. To'rtburchak kesim "
+                "uchun esa yechim cheksiz qator "
+                "ko'rinishida va u sekin "
+                "yaqinlashadi. Haqiqiy profil — "
+                "masalan, ikkitavrli yoki "
+                "burchakli — uchun analitik yechim "
+                "umuman yo'q. Lekin barcha bu "
+                "holatlarda bir xil tenglama "
+                "ishlaydi: $\\nabla^2\\phi = "
+                "-2G\\theta$, ya'ni Puasson "
+                "tenglamasi. Uni ixtiyoriy shaklda "
+                "yechish mumkinmi? Va nima uchun "
+                "aynan shu tenglama issiqlik "
+                "o'tkazuvchanlikda, filtratsiyada "
+                "va membrana tarangligida ham "
+                "paydo bo'ladi?"
+            ),
+            concepts=[
+                c("Besh nuqtali shablon",
+                  "$\\nabla^2\\phi \\approx "
+                  "(\\phi_W+\\phi_E+\\phi_S+\\phi_N-"
+                  "4\\phi_P)/h^2$ — tekis kvadrat "
+                  "to'rda $O(h^2)$."),
+                c("Prandtl kuchlanish funksiyasi",
+                  "$\\tau_{xz} = \\partial\\phi/"
+                  "\\partial y$, $\\tau_{yz} = "
+                  "-\\partial\\phi/\\partial x$ — "
+                  "muvozanat avtomatik bajariladi "
+                  "(mq-19)."),
+                c("Membrana analogiyasi",
+                  "$\\phi$ bir xil konturga "
+                  "tortilgan membrananing "
+                  "og'ishiga o'xshaydi; buralish "
+                  "bikrligi membrana ostidagi "
+                  "hajmga mutanosib."),
+                c("Dirixle sharti",
+                  "$\\phi = 0$ chegarada — "
+                  "qiymat berilgan; eng sodda "
+                  "qo'yiladi."),
+                c("Neyman sharti",
+                  "$\\partial\\phi/\\partial n = g$ "
+                  "— normal bo'yicha hosila "
+                  "berilgan; soxta tugun yoki "
+                  "bir tomonlama sxema kerak."),
+                c("Tugunlarni raqamlash",
+                  "Ikki indeks $(i,j)$ bitta "
+                  "nomerga o'tkaziladi: "
+                  "$k = j n_x + i$; bu lenta "
+                  "kengligini belgilaydi (su-05)."),
+            ],
+            derivation=[
+                d("1. Buralish masalasining qo'yilishi",
+                  r"\nabla^2\phi = \frac{\partial^2\phi}"
+                  r"{\partial x^2} + \frac{\partial^2\phi}"
+                  r"{\partial y^2} = -2G\theta \ "
+                  r"\text{sohada}, \quad \phi = 0 \ "
+                  r"\text{konturda}",
+                  "mq-19 dagi Prandtl formulirovkasi. "
+                  "$\\theta$ — birlik uzunlikka "
+                  "to'g'ri keladigan buralish "
+                  "burchagi."),
+                d("2. To'rni kiritish",
+                  r"x_i = ih_x, \ y_j = jh_y, \quad "
+                  r"i = 0..n_x, \ j = 0..n_y",
+                  "Tekis to'rtburchak to'r. "
+                  "Soddalik uchun $h_x = h_y = h$."),
+                d("3. Har bir hosilani almashtirish",
+                  r"\frac{\partial^2\phi}{\partial x^2}"
+                  r"\Big|_{ij} \approx "
+                  r"\frac{\phi_{i-1,j}-2\phi_{ij}+"
+                  r"\phi_{i+1,j}}{h^2}",
+                  "su-07 dagi uch nuqtali sxema "
+                  "$x$ yo'nalishi bo'ylab. "
+                  "$y$ uchun ham xuddi shunday."),
+                d("4. Besh nuqtali shablon",
+                  r"\frac{\phi_{i-1,j}+\phi_{i+1,j}+"
+                  r"\phi_{i,j-1}+\phi_{i,j+1}-"
+                  r"4\phi_{ij}}{h^2} = -2G\theta",
+                  "**Asosiy sxema.** Har bir tugun "
+                  "faqat to'rtta qo'shnisi bilan "
+                  "bog'langan — matritsa juda "
+                  "siyrak (su-05 dagi 3,24 % "
+                  "to'ldirilganlik)."),
+                d("5. Kesish xatoligi",
+                  r"E = \frac{h^2}{12}\Big("
+                  r"\frac{\partial^4\phi}{\partial x^4} + "
+                  r"\frac{\partial^4\phi}{\partial y^4}"
+                  r"\Big) + O(h^4)",
+                  "Har bir yo'nalishdan su-07 dagi "
+                  "$h^2/12$ hadi keladi. Demak sxema "
+                  "$O(h^2)$ va aralash hosilalar "
+                  "kirmaydi."),
+                d("6. Tugunlarni bir o'lchovli "
+                  "raqamlash",
+                  r"k = j\,(n_x+1) + i "
+                  r"\;\Longrightarrow\; \text{qo'shnilar: } "
+                  r"k\pm 1 \ \text{va} \ k \pm (n_x+1)",
+                  "Ikki indeksdan bitta nomerga "
+                  "o'tish. Lenta kengligi "
+                  "$b = n_x+1$ — su-05 dagi kabi "
+                  "qisqa tomon bo'ylab raqamlash "
+                  "afzal."),
+                d("7. Dirixle shartini qo'yish",
+                  r"\phi_k = 0 \;\Longrightarrow\; "
+                  r"\text{qator} \ k: \ A_{kk} = 1, "
+                  r"\ b_k = 0",
+                  "Eng sodda usul: qatorni "
+                  "almashtirish. Simmetriyani "
+                  "saqlash uchun ustunni ham "
+                  "tozalash va o'ng tomonga "
+                  "ko'chirish afzal."),
+                d("8. Neyman shartini qo'yish",
+                  r"\frac{\partial\phi}{\partial n} = 0 "
+                  r"\;\Longrightarrow\; \phi_{-1,j} = "
+                  r"\phi_{1,j}",
+                  "Soxta tugun orqali — su-08 dagi "
+                  "mahkamlangan uch bilan bir xil "
+                  "g'oya. Natijada shablonda "
+                  "qo'shni ikki barobar og'irlik "
+                  "bilan kiradi."),
+                d("9. Simmetriyadan foydalanish",
+                  r"\text{to'rtburchak kesim: chorak "
+                  r"qismni yechish yetarli}",
+                  "Simmetriya o'qlarida Neyman "
+                  "sharti ($\\partial\\phi/"
+                  "\\partial n = 0$) o'rinli. "
+                  "Noma'lumlar soni to'rt barobar "
+                  "kamayadi."),
+                d("10. Buralish momenti",
+                  r"T = 2\iint_A \phi\,dA \approx "
+                  r"2h^2\sum_{ij}\phi_{ij}",
+                  "**Membrana analogiyasi.** "
+                  "Moment kuchlanish funksiyasi "
+                  "ostidagi hajmning ikki "
+                  "barobariga teng. Integral "
+                  "trapetsiya yoki Simpson bilan "
+                  "hisoblanadi."),
+                d("11. Buralish bikrligi",
+                  r"J_t = \frac{T}{G\theta} = "
+                  r"\frac{2}{G\theta}\iint_A\phi\,dA",
+                  "Geometrik xarakteristika — "
+                  "materialga bog'liq emas. "
+                  "Doiraviy kesimda "
+                  "$J_t = I_p$, boshqa "
+                  "shakllarda esa $J_t < I_p$."),
+                d("12. Maksimal siljish kuchlanishi",
+                  r"\tau_{max} = \max\Big|"
+                  r"\nabla\phi\Big| = "
+                  r"\max\sqrt{\phi_{,x}^2 + "
+                  r"\phi_{,y}^2}",
+                  "Konturda va uzun tomonning "
+                  "o'rtasida maksimal bo'ladi. "
+                  "Burchaklarda esa $\\tau = 0$ — "
+                  "membrana analogiyasi buni "
+                  "darhol tushuntiradi."),
+                d("13. Analitik qator bilan "
+                  "taqqoslash",
+                  r"J_t = \beta\,a b^3, \quad "
+                  r"\beta = \frac{1}{3} - "
+                  r"\frac{64}{\pi^5}\frac{b}{a}"
+                  r"\sum_{n=1,3,5}\frac{1}{n^5}"
+                  r"\tanh\frac{n\pi a}{2b}",
+                  "To'rtburchak kesim uchun "
+                  "klassik qator (Timoshenko). "
+                  "U sonli yechimning "
+                  "**mustaqil tekshiruvi** bo'lib "
+                  "xizmat qiladi."),
+            ],
+            meaning=(
+                "Ikki o'lchovga o'tish tenglamaning "
+                "**mohiyatini o'zgartirmaydi** — "
+                "shablon shunchaki to'rtta qo'shnini "
+                "o'z ichiga oladi. Lekin ikkita "
+                "yangi amaliy savol paydo bo'ladi. "
+                "Birinchisi 6-qadamda: ikki "
+                "indeksdan bitta nomerga o'tish. "
+                "Bu sof texnik masala, lekin u "
+                "lenta kengligini belgilaydi va "
+                "su-05 da ko'rganimizdek hisoblash "
+                "hajmiga tartiblar bilan ta'sir "
+                "qiladi. Qoida oddiy: **qisqa tomon "
+                "bo'ylab** raqamlang. Ikkinchi savol "
+                "chegaralarda: to'rtburchak sohada "
+                "hammasi oson, lekin doiraviy yoki "
+                "burchakli konturda to'r tugunlari "
+                "chegaraga aniq tushmaydi. Bu "
+                "chekli ayirmalarning asosiy "
+                "kamchiligi va aynan shu sabab "
+                "chekli elementlar usuli "
+                "muhandislikda hukmron bo'lib "
+                "qoldi: FEM da elementlar "
+                "chegaraga moslashadi. Mazmun "
+                "jihatidan eng qiziqarlisi — "
+                "10-qadamdagi membrana "
+                "analogiyasi. Prandtl kuchlanish "
+                "funksiyasi bir xil konturga "
+                "tortilgan va bosim ostidagi "
+                "membrananing og'ishi bilan bir xil "
+                "tenglamani qanoatlantiradi. "
+                "Bundan bir nechta muhim xulosa "
+                "darhol kelib chiqadi: buralish "
+                "momenti membrana ostidagi hajmga "
+                "mutanosib; siljish kuchlanishi "
+                "membrananing qiyaligiga "
+                "mutanosib; burchaklarda membrana "
+                "yassilashadi, demak "
+                "$\\tau = 0$. Oxirgisi "
+                "muhandislik uchun muhim va "
+                "intuitivga zid: to'rtburchak "
+                "valning burchaklarida siljish "
+                "kuchlanishi nolga teng, maksimum "
+                "esa uzun tomonning o'rtasida. "
+                "Nihoyat, bu tenglamaning "
+                "universalligi e'tiborga loyiq. "
+                "Xuddi shu $\\nabla^2 u = f$ "
+                "issiqlik o'tkazuvchanlikda, "
+                "gruntdagi filtratsiyada, "
+                "elektrostatikada va potensial "
+                "oqimda paydo bo'ladi. Bir marta "
+                "yozilgan yechuvchi bu "
+                "masalalarning hammasiga yaraydi "
+                "— bu hisoblash mexanikasining "
+                "asosiy tejam manbalaridan biri."
+            ),
+            equations=[
+                eq(r"\frac{\phi_{i-1,j}+\phi_{i+1,j}+"
+                   r"\phi_{i,j-1}+\phi_{i,j+1}-"
+                   r"4\phi_{ij}}{h^2} = -2G\theta",
+                   "Besh nuqtali shablon — ikki "
+                   "o'lchovli Puasson tenglamasi.",
+                   "Besh nuqtali shablon"),
+                eq(r"E = \frac{h^2}{12}\big(\phi_{,xxxx} "
+                   r"+ \phi_{,yyyy}\big)",
+                   "Kesish xatoligi — $O(h^2)$.",
+                   "Kesish xatoligi"),
+                eq(r"T = 2\iint_A\phi\,dA, \qquad "
+                   r"J_t = \frac{T}{G\theta}",
+                   "Buralish momenti va bikrligi — "
+                   "membrana ostidagi hajm.",
+                   "Buralish bikrligi"),
+                eq(r"\tau_{xz} = \frac{\partial\phi}"
+                   r"{\partial y}, \quad \tau_{yz} = "
+                   r"-\frac{\partial\phi}{\partial x}",
+                   "Siljish kuchlanishlari — "
+                   "kuchlanish funksiyasining "
+                   "gradiyenti.", "Kuchlanishlar"),
+            ],
+            conditions=(
+                "**Buralish masalasi uchun:**\n"
+                "- Konturda $\\phi = 0$ (bir "
+                "bog'lamli kesim);\n"
+                "- Ichki teshik bo'lsa, u yerda "
+                "$\\phi = \\text{const}$ (noma'lum "
+                "doimiy) va qo'shimcha shart kerak;\n"
+                "- Simmetriya o'qlarida "
+                "$\\partial\\phi/\\partial n = 0$.\n\n"
+                "**Neyman masalasining xosligi:** "
+                "agar **barcha** chegarada Neyman "
+                "sharti bo'lsa, yechim doimiygacha "
+                "aniqlanadi va matritsa singulyar "
+                "bo'ladi. Qo'shimcha shart kerak "
+                "(masalan, $\\iint u\\,dA = 0$ "
+                "yoki bitta tugunni "
+                "mahkamlash). Bundan tashqari "
+                "muvofiqlik sharti "
+                "$\\iint f\\,dA = -\\oint g\\,ds$ "
+                "bajarilishi kerak.\n\n"
+                "**To'r bo'yicha:**\n"
+                "- Chegara tugunlarga tushishi "
+                "kerak, aks holda tartib "
+                "pasayadi;\n"
+                "- $h_x \\ne h_y$ bo'lsa shablon "
+                "koeffitsientlari o'zgaradi;\n"
+                "- Burchakli sohada "
+                "singulyarlik bor "
+                "($\\phi \\sim r^{\\pi/\\alpha}$) "
+                "va u tartibni pasaytiradi.\n\n"
+                "**Matritsa xossalari:** simmetrik, "
+                "musbat aniqlangan, siyrak, "
+                "diagonal ustunlikka ega — demak "
+                "su-05 dagi Cholesky ham, su-06 "
+                "dagi konjugat gradiyent ham "
+                "ishlaydi."
+            ),
+            worked=WorkedExample(
+                statement=(
+                    "Kvadrat kesimli val: tomoni "
+                    "$a = 100$ mm, $G = 80$ GPa, "
+                    "buralish burchagi "
+                    "$\\theta = 0{,}01$ rad/m. "
+                    "(a) Buralish bikrligi $J_t$ ni "
+                    "analitik qatordan toping; "
+                    "(b) uni $I_p$ bilan solishtiring; "
+                    "(c) $4\\times4$ ichki tugunli "
+                    "to'rda sonli yechimning "
+                    "xatoligini bashorat qiling."
+                ),
+                given=[
+                    r"a = b = 0{,}1\ \text{m},\ "
+                    r"G = 80\ \text{GPa}",
+                    r"\theta = 0{,}01\ \text{rad/m}",
+                ],
+                steps=[
+                    st(r"\beta = \frac{1}{3} - "
+                       r"\frac{64}{\pi^5}\sum_{n=1,3,5..}"
+                       r"\frac{1}{n^5}\tanh\frac{n\pi}{2}",
+                       "Kvadrat uchun $a/b = 1$; "
+                       "qator juda tez yaqinlashadi."),
+                    st(r"n=1: \ \frac{1}{1}\tanh(1{,}5708) "
+                       r"= 0{,}91715",
+                       "$\\tanh(\\pi/2) = 0{,}91715$."),
+                    st(r"n=3: \ \frac{1}{243}"
+                       r"\tanh(4{,}7124) = "
+                       r"\frac{0{,}99983}{243} = "
+                       r"0{,}0041145",
+                       "Uchinchi had allaqachon 220 "
+                       "barobar kichik."),
+                    st(r"n=5: \ \frac{1}{3125} \cdot 1 = "
+                       r"0{,}00032; \quad \sum \approx "
+                       r"0{,}921594",
+                       "Yig'indi amalda uchta had "
+                       "bilan aniqlanadi."),
+                    st(r"\frac{64}{\pi^5} = "
+                       r"\frac{64}{306{,}02} = "
+                       r"0{,}209139",
+                       "$\\pi^5 = 306{,}0197$."),
+                    st(r"\beta = 0{,}333333 - "
+                       r"0{,}209139 \cdot 0{,}921594 = "
+                       r"0{,}333333 - 0{,}192741 = "
+                       r"0{,}140592",
+                       "Klassik qiymat "
+                       "$\\beta = 0{,}1406$ "
+                       "(Timoshenko jadvali)."),
+                    st(r"J_t = \beta a^4 = 0{,}140592 "
+                       r"\cdot 10^{-4} = "
+                       r"1{,}40592\times10^{-5}\ "
+                       r"\text{m}^4",
+                       "Buralish bikrligi."),
+                    st(r"I_p = \frac{a^4}{6} = "
+                       r"\frac{10^{-4}}{6} = "
+                       r"1{,}66667\times10^{-5}\ "
+                       r"\text{m}^4",
+                       "Kvadrat uchun qutb inersiya "
+                       "momenti."),
+                    st(r"\frac{J_t}{I_p} = "
+                       r"\frac{1{,}40592}{1{,}66667} = "
+                       r"0{,}8436",
+                       "**$J_t < I_p$** — kesim "
+                       "tekis qolmaydi (deplanatsiya, "
+                       "mq-19). Faqat doiraviy "
+                       "kesimda ular teng."),
+                    st(r"T = GJ_t\theta = 80\times10^{9} "
+                       r"\cdot 1{,}40592\times10^{-5} "
+                       r"\cdot 0{,}01 = 11\,247\ "
+                       r"\text{N·m}",
+                       "Buralish momenti."),
+                    st(r"n = 4: \ h = a/5 = 20\ "
+                       r"\text{mm}, \ E \sim "
+                       r"\frac{h^2}{12}\phi^{(4)} "
+                       r"\;\Rightarrow\; \text{bir "
+                       r"necha foiz}",
+                       "$O(h^2)$ bo'lgani uchun "
+                       "siyrak to'rda xato sezilarli. "
+                       "Kodda aniq o'lchanadi va "
+                       "to'r zichlashgani sari "
+                       "to'rt barobar kamayadi."),
+                ],
+                answer=(
+                    "$\\beta = 0{,}140592$, "
+                    "$J_t = 1{,}40592\\times10^{-5}$ m⁴, "
+                    "$I_p = 1{,}66667\\times10^{-5}$ m⁴, "
+                    "nisbat $J_t/I_p = 0{,}8436$ — "
+                    "kvadrat kesim doiraviydan "
+                    "sezilarli yumshoqroq. "
+                    "$T = 11\\,247$ N·m. Sonli "
+                    "yechim $O(h^2)$ bo'yicha "
+                    "yaqinlashadi."
+                ),
+                engineering_note=(
+                    "$J_t/I_p = 0{,}844$ nisbati "
+                    "muhandislik uchun muhim "
+                    "ogohlantirish: buralishda "
+                    "$I_p$ ni ishlatish **faqat "
+                    "doiraviy kesim** uchun "
+                    "o'rinli. Kvadrat uchun xato "
+                    "16 %, ingichka to'rtburchak "
+                    "uchun esa u tartiblarga "
+                    "chiqadi — $a/b = 10$ da "
+                    "$J_t/I_p \\approx 0{,}03$. "
+                    "Sababi deplanatsiya: "
+                    "doiraviy bo'lmagan kesim "
+                    "buralganda tekis qolmaydi va "
+                    "bu bikrlikni keskin "
+                    "kamaytiradi. Ochiq profilli "
+                    "sterjenlarda (ikkitavrli, "
+                    "shveller) vaziyat yanada "
+                    "yomon va u yerda buralish "
+                    "deyarli har doim kritik "
+                    "holat bo'ladi. Membrana "
+                    "analogiyasi buni "
+                    "ko'rsatishning eng oson "
+                    "yo'li: ingichka to'rtburchak "
+                    "konturga tortilgan membrana "
+                    "juda kam hajm o'raydi, demak "
+                    "moment ham kichik."
+                ),
+            ),
+            computation=Computation(
+                caption=(
+                    "To'rtburchak kesimning buralish "
+                    "masalasini yechish, buralish "
+                    "bikrligini hisoblash va analitik "
+                    "qator bilan taqqoslash."
+                ),
+                code='''"""Ikki o'lchovli Puasson: to'rtburchak kesimning buralishi."""
+import numpy as np
+from labkit import PARAMS, note, series, table, value
+
+a = float(PARAMS.get("a", 100.0))/1000.0
+b = float(PARAMS.get("b", 100.0))/1000.0
+G = float(PARAMS.get("G", 80.0))*1e9
+theta = float(PARAMS.get("theta", 0.01))
+n_show = int(PARAMS.get("n_show", 30))
+
+
+def beta_series(a, b, nmax=99):
+    """To'rtburchak kesim uchun klassik qator (Timoshenko)."""
+    aa, bb = max(a, b), min(a, b)
+    s = 0.0
+    for n in range(1, nmax + 1, 2):
+        s += np.tanh(n*np.pi*aa/(2*bb))/n**5
+    return 1.0/3.0 - 64.0/np.pi**5*(bb/aa)*s
+
+
+def solve_torsion(nx, ny, a, b):
+    """nabla^2 phi = -2*G*theta, phi = 0 konturda."""
+    hx, hy = a/(nx + 1), b/(ny + 1)
+    N = nx*ny
+    A = np.zeros((N, N))
+    rhs = np.full(N, -2.0*G*theta)
+    for j in range(ny):
+        for i in range(nx):
+            k = j*nx + i
+            A[k, k] = -2.0/hx**2 - 2.0/hy**2
+            if i > 0:
+                A[k, k - 1] = 1.0/hx**2
+            if i < nx - 1:
+                A[k, k + 1] = 1.0/hx**2
+            if j > 0:
+                A[k, k - nx] = 1.0/hy**2
+            if j < ny - 1:
+                A[k, k + nx] = 1.0/hy**2
+    phi = np.linalg.solve(A, rhs)
+    P = np.zeros((ny + 2, nx + 2))
+    P[1:-1, 1:-1] = phi.reshape(ny, nx)
+    return P, hx, hy
+
+
+# --- Analitik etalon ---
+beta_an = beta_series(a, b)
+Jt_an = beta_an*max(a, b)*min(a, b)**3
+Ip = a*b*(a**2 + b**2)/12.0
+value("Analitik beta (qator)", beta_an, "—")
+value("Analitik J_t", Jt_an, "m^4")
+value("Qutb inersiya momenti I_p", Ip, "m^4")
+value("J_t / I_p", Jt_an/Ip, "—")
+value("Buralish momenti T", G*Jt_an*theta, "N*m")
+note(f"Analitik qator beta = {beta_an:.6f} beradi (kvadrat uchun "
+     f"klassik qiymat 0.1406). J_t/I_p = {Jt_an/Ip:.4f} < 1 - "
+     f"deplanatsiya tufayli kesim doiraviydan yumshoqroq.")
+
+# --- Sonli yechim va to'r bo'yicha yaqinlashish ---
+rows, errs, hs = [], [], []
+for nk in [4, 8, 16, 32, 64]:
+    P, hx, hy = solve_torsion(nk, nk, a, b)
+    # T = 2 * integral(phi dA), trapetsiya (chegarada phi = 0)
+    T_num = 2.0*np.sum(P)*hx*hy
+    Jt_num = T_num/(G*theta)
+    e = abs(Jt_num - Jt_an)/Jt_an
+    errs.append(e)
+    hs.append(hx)
+    rows.append([nk, f"{hx*1000:.3f}", f"{Jt_num*1e6:.6f}",
+                 f"{e*100:.4f}"])
+table("Buralish bikrligi: to'r bo'yicha yaqinlashish",
+      ["ichki tugunlar n", "h, mm", "J_t x 1e6, m^4", "xatolik, %"], rows)
+value("Analitik J_t x 1e6", Jt_an*1e6, "m^4")
+ords = [np.log2(errs[i]/errs[i+1]) for i in range(len(errs) - 1)]
+for nk, o in zip([4, 8, 16, 32], ords):
+    value(f"Tartib (n = {nk} -> {2*nk})", float(o), "—")
+value("O'rtacha tartib (oxirgi ikkitasi)",
+      float(np.mean(ords[-2:])), "—")
+series("J_t xatoligi(h)", hs, errs, xlabel="qadam h, m",
+       ylabel="nisbiy xatolik")
+sl = np.polyfit(np.log(hs), np.log(errs), 1)[0]
+value("Log-log qiyalik", float(sl), "—")
+note(f"To'r zichlashgani sari J_t xatoligi kamayadi; o'lchangan "
+     f"tartiblar {', '.join(f'{o:.3f}' for o in ords)} va log-log "
+     f"qiyalik {sl:.3f}. Sonli yechim MUSTAQIL analitik qatorga "
+     f"yaqinlashmoqda - bu ikkala hisobning ham to'g'riligini "
+     f"tasdiqlaydi.")
+
+# --- Batafsil yechim ---
+P, hx, hy = solve_torsion(n_show, n_show, a, b)
+value("Maksimal phi (markazda)", float(np.max(P)), "Pa*m")
+i_c = (n_show + 2)//2
+xs = np.linspace(0, a, n_show + 2)
+ys = np.linspace(0, b, n_show + 2)
+series("phi markaziy kesimda (y = b/2)", xs.tolist(),
+       P[i_c, :].tolist(), xlabel="x, m", ylabel="phi, Pa*m")
+
+# Siljish kuchlanishlari: tau = |grad phi|
+dpdy, dpdx = np.gradient(P, hy, hx)
+tau = np.sqrt(dpdx**2 + dpdy**2)
+value("Maksimal siljish kuchlanishi", float(np.max(tau))/1e6, "MPa")
+# Konturda: uzun tomon o'rtasi
+tau_mid = float(tau[i_c, 0])
+tau_corner = float(tau[0, 0])
+value("tau uzun tomon o'rtasida", tau_mid/1e6, "MPa")
+value("tau burchakda", tau_corner/1e6, "MPa")
+note(f"Maksimal siljish kuchlanishi {np.max(tau)/1e6:.3f} MPa va u "
+     f"tomon O'RTASIDA joylashgan; burchakda esa "
+     f"{tau_corner/1e6:.3f} MPa ~ 0. Membrana analogiyasi buni "
+     f"darhol tushuntiradi: burchakda membrana yassilashadi, demak "
+     f"qiyalik (va kuchlanish) nol.")
+
+# Analitik tau_max. Kvadrat uchun T = G*J_t*theta va
+# tau_max = T/(alpha*a*b^2), alpha = 0.2082  =>  tau_max = 0.6753*G*theta*a
+if abs(a - b) < 1e-12:
+    tau_an = beta_an/0.2082*G*theta*a
+    value("Analitik tau_max (kvadrat)", tau_an/1e6, "MPa")
+    value("Koeffitsient tau_max/(G*theta*a)", beta_an/0.2082, "—")
+
+    # Chegaradagi gradiyentni IKKINCHI tartibli bir tomonlama sxema
+    # bilan qayta hisoblaymiz: phi_0 = 0, (-3*phi_0 + 4*phi_1 - phi_2)/(2h)
+    jm = (n_show + 2)//2
+    tau_b1 = abs(P[jm, 1] - P[jm, 0])/hx                 # 1-tartibli
+    tau_b2 = abs(4.0*P[jm, 1] - P[jm, 2])/(2.0*hx)       # 2-tartibli
+    value("tau chegarada (1-tartibli sxema)", tau_b1/1e6, "MPa")
+    value("tau chegarada (2-tartibli sxema)", tau_b2/1e6, "MPa")
+    value("1-tartibli sxema xatosi", abs(tau_b1 - tau_an)/tau_an*100, "%")
+    value("2-tartibli sxema xatosi", abs(tau_b2 - tau_an)/tau_an*100, "%")
+    note(f"Kvadrat kesim uchun klassik qiymat tau_max = "
+         f"{beta_an/0.2082:.4f}*G*theta*a = {tau_an/1e6:.3f} MPa. "
+         f"Chegarada birinchi tartibli gradiyent {tau_b1/1e6:.3f} MPa "
+         f"({abs(tau_b1-tau_an)/tau_an*100:.2f} % xato), ikkinchi "
+         f"tartibli bir tomonlama sxema esa {tau_b2/1e6:.3f} MPa "
+         f"({abs(tau_b2-tau_an)/tau_an*100:.2f} % xato) beradi.")
+    note("Bu su-07 dagi xulosaning bevosita tasdig'i: CHEGARADAGI "
+         "sxema butun natijaning aniqligini belgilaydi. np.gradient "
+         "chekkada birinchi tartibli bir tomonlama ayirma ishlatadi, "
+         "shuning uchun ichkarida O(h^2) bo'lsa ham chegarada "
+         "aniqlik tushadi - va muhandisni aynan chegaradagi "
+         "kuchlanish qiziqtiradi.")
+
+    # Chegaradagi ikki sxemaning tartibini o'lchash
+    rows_t = []
+    for nk in [8, 16, 32, 64]:
+        Pk, hxk, _ = solve_torsion(nk, nk, a, b)
+        jk = (nk + 2)//2
+        t1 = abs(Pk[jk, 1] - Pk[jk, 0])/hxk
+        t2 = abs(4.0*Pk[jk, 1] - Pk[jk, 2])/(2.0*hxk)
+        rows_t.append([nk, f"{t1/1e6:.4f}", f"{t2/1e6:.4f}",
+                       f"{abs(t1-tau_an)/tau_an*100:.3f}",
+                       f"{abs(t2-tau_an)/tau_an*100:.3f}"])
+    table("Chegaradagi tau: bir va ikki tartibli sxemalar",
+          ["n", "tau (1-tartib), MPa", "tau (2-tartib), MPa",
+           "xato 1, %", "xato 2, %"], rows_t)
+
+series("tau markaziy kesimda", xs.tolist(),
+       (tau[i_c, :]/1e6).tolist(), xlabel="x, m", ylabel="tau, MPa")
+series("tau diagonal bo'ylab",
+       np.linspace(0, np.hypot(a, b), n_show + 2).tolist(),
+       (np.diagonal(tau)/1e6).tolist(),
+       xlabel="diagonal bo'ylab masofa, m", ylabel="tau, MPa")
+
+# --- Tomonlar nisbatining ta'siri ---
+rows2 = []
+for ar in [1.0, 1.5, 2.0, 3.0, 5.0, 10.0]:
+    aa, bb = ar*0.05, 0.05
+    be = beta_series(aa, bb)
+    Jt = be*aa*bb**3
+    Ipp = aa*bb*(aa**2 + bb**2)/12.0
+    P2, hx2, hy2 = solve_torsion(24, max(4, int(24/ar)), aa, bb)
+    Jt_n = 2.0*np.sum(P2)*hx2*hy2/(G*theta)
+    rows2.append([f"{ar:.1f}", f"{be:.5f}", f"{Jt*1e6:.5f}",
+                  f"{Jt_n*1e6:.5f}", f"{abs(Jt_n-Jt)/Jt*100:.2f}",
+                  f"{Jt/Ipp:.4f}"])
+table("Tomonlar nisbatining ta'siri",
+      ["a/b", "beta", "J_t analitik x1e6", "J_t sonli x1e6",
+       "farq, %", "J_t/I_p"], rows2)
+note("Tomonlar nisbati oshgani sari J_t/I_p keskin kamayadi: "
+     "ingichka to'rtburchak buralishga juda yomon qarshilik "
+     "ko'rsatadi. Bu ochiq profilli sterjenlarda buralishning "
+     "nima uchun kritik ekanini tushuntiradi.")
+beta_lim = beta_series(1000.0, 1.0)
+value("beta, a/b -> cheksiz (nazariy 1/3)", beta_lim, "—")
+note(f"a/b juda katta bo'lganda beta -> 1/3 = 0.3333 ga intiladi "
+     f"(qator {beta_lim:.6f} beradi) va J_t -> a*b^3/3 - bu yupqa "
+     f"to'rtburchak uchun klassik formula (mq-19).")
+
+# --- Matritsa xossalari (su-05, su-06 bilan bog'lanish) ---
+P4, _, _ = solve_torsion(12, 12, a, b)
+nx = ny = 12
+Nn = nx*ny
+Am = np.zeros((Nn, Nn))
+hx3, hy3 = a/(nx + 1), b/(ny + 1)
+for j in range(ny):
+    for i in range(nx):
+        k = j*nx + i
+        Am[k, k] = -2.0/hx3**2 - 2.0/hy3**2
+        if i > 0:
+            Am[k, k - 1] = 1.0/hx3**2
+        if i < nx - 1:
+            Am[k, k + 1] = 1.0/hx3**2
+        if j > 0:
+            Am[k, k - nx] = 1.0/hy3**2
+        if j < ny - 1:
+            Am[k, k + nx] = 1.0/hy3**2
+nz = int(np.count_nonzero(np.abs(Am) > 1e-14))
+value("Matritsa o'lchami N", float(Nn), "—")
+value("Noldan farqli elementlar", float(nz), "—")
+value("To'ldirilganlik", nz/Nn**2*100, "%")
+value("Har qatordagi o'rtacha element", nz/Nn, "—")
+value("Simmetriya xatosi", float(np.max(np.abs(Am - Am.T))), "—")
+value("Shartlanganlik soni kappa", float(np.linalg.cond(Am)), "—")
+lam = np.linalg.eigvalsh(Am)
+value("Barcha xususiy qiymatlar manfiymi",
+      1.0 if np.all(lam < 0) else 0.0, "—")
+note(f"Matritsa {nz/Nn**2*100:.2f} % to'ldirilgan (har qatorda "
+     f"o'rtacha {nz/Nn:.1f} element), aynan simmetrik va barcha "
+     f"xususiy qiymatlari bir ishorali - demak -A musbat "
+     f"aniqlangan. Shuning uchun su-05 dagi Cholesky ham, su-06 "
+     f"dagi konjugat gradiyent ham to'g'ridan-to'g'ri qo'llanadi. "
+     f"kappa = {np.linalg.cond(Am):.3e}.")
+
+table("Bir xil tenglama - turli fizika",
+      ["Masala", "Noma'lum u", "Manba f", "Chegara"],
+      [["Buralish", "kuchlanish funksiyasi phi", "-2*G*theta",
+        "phi = 0"],
+       ["Issiqlik", "harorat T", "-Q/k", "T yoki oqim"],
+       ["Filtratsiya", "napor H", "-q/k", "H yoki oqim"],
+       ["Membrana", "og'ish w", "-p/S", "w = 0"],
+       ["Elektrostatika", "potensial V", "-rho/eps", "V yoki zaryad"]])
+''',
+                parameters=[
+                    p("a", "Kesim tomoni a", 5.0, 1000.0, 100.0, 1.0, "mm"),
+                    p("b", "Kesim tomoni b", 5.0, 1000.0, 100.0, 1.0, "mm"),
+                    p("G", "Siljish moduli G", 1.0, 200.0, 80.0, 1.0, "GPa"),
+                    p("theta", "Buralish burchagi θ", 0.0001, 1.0, 0.01,
+                      0.0001, "rad/m"),
+                    p("n_show", "Ichki tugunlar soni", 4.0, 60.0, 30.0, 2.0),
+                ],
+                expected_output=(
+                    "Analitik qator kvadrat uchun "
+                    "$\\beta = 0{,}1406$ beradi "
+                    "(Timoshenko jadvali bilan mos) "
+                    "va $J_t/I_p = 0{,}844$. Sonli "
+                    "yechim to'r zichlashgani sari "
+                    "shu mustaqil analitik qiymatga "
+                    "$O(h^2)$ bo'yicha yaqinlashadi. "
+                    "Siljish kuchlanishi tomon "
+                    "o'rtasida maksimal, burchakda "
+                    "esa aynan nol — membrana "
+                    "analogiyasining bevosita "
+                    "tasdig'i; koeffitsient "
+                    "$\\tau_{max}/(G\\theta a) = "
+                    "0{,}6752$ klassik 0,675 bilan "
+                    "mos. Chegaradagi $\\tau$ ikki "
+                    "sxema bilan hisoblanadi: "
+                    "birinchi tartibli xatolik har "
+                    "zichlashtirishda ikki barobar "
+                    "(16,95 → 8,85 → 4,51 → "
+                    "2,27 %), ikkinchi tartibli esa "
+                    "to'rt barobar (3,58 → 1,00 → "
+                    "0,25 → 0,053 %) kamayadi — "
+                    "su-07 dagi 'chegaradagi sxema "
+                    "hal qiluvchi' xulosasining "
+                    "aniq tasdig'i. Tomonlar nisbati "
+                    "oshgani sari $\\beta \\to 1/3$ "
+                    "va $J_t/I_p$ keskin kamayadi. "
+                    "Matritsa siyrak (har qatorda "
+                    "≈ 5 element), aynan simmetrik "
+                    "va aniqlangan."
+                ),
+            ),
+            visual=vis(
+                kind="Kuchlanish funksiyasi va membrana analogiyasi",
+                tool="React/SVG + Manim",
+                description=(
+                    "Sath chiziqlari, siljish "
+                    "kuchlanishi vektorlari va "
+                    "membrana analogiyasi."
+                ),
+                how_to_draw=(
+                    "React/SVG: markazda kesim "
+                    "konturi va uning ichida "
+                    "$\\phi$ ning **sath "
+                    "chiziqlari** (izochiziqlar) "
+                    "chiziladi — ular membrananing "
+                    "balandlik chiziqlariga mos "
+                    "keladi. Sath chiziqlari "
+                    "qiymatga qarab bo'yaladi va "
+                    "markazda zichlashadi. Ularning "
+                    "ustiga siljish kuchlanishi "
+                    "vektorlari qo'yiladi: ular sath "
+                    "chiziqlariga **urinma** "
+                    "yo'nalgan va uzunligi "
+                    "qiyalikka mutanosib — shunda "
+                    "burchaklarda vektorlarning "
+                    "yo'qolishi va tomon o'rtasida "
+                    "eng uzun bo'lishi bir qarashda "
+                    "ko'rinadi. Yonida tomonlar "
+                    "nisbati slayderi: uni "
+                    "oshirganda sath chiziqlari "
+                    "cho'zilib ketadi va "
+                    "$J_t/I_p$ hisoblagichi keskin "
+                    "tushadi. Pastda kontur bo'ylab "
+                    "$\\tau$ epyurasi shtrixlangan "
+                    "holda; burchaklardagi nollar "
+                    "va tomon o'rtasidagi maksimum "
+                    "belgilanadi. O'ngda kichik "
+                    "log–log grafik — "
+                    "$J_t$ xatoligining $h$ ga "
+                    "bog'liqligi va qiyaligi 2 "
+                    "bo'lgan uchburchak."
+                ),
+            ),
+            interp=(
+                "Eng qimmatli tekshiruv — sonli "
+                "yechimning **mustaqil** analitik "
+                "qatorga yaqinlashishi. Qator "
+                "(Timoshenko) va chekli ayirmalar "
+                "butunlay turli yo'llar bilan "
+                "olingan, shuning uchun ularning "
+                "mos kelishi ikkala hisobning ham "
+                "to'g'riligini tasdiqlaydi. "
+                "Yaqinlashish tartibi $O(h^2)$ "
+                "chiqishi esa 5-qadamdagi kesish "
+                "xatoligi bahosini tasdiqlaydi. "
+                "$J_t/I_p = 0{,}844$ natijasi "
+                "mexanik jihatdan muhim: kvadrat "
+                "kesim doiraviydan 16 % yumshoqroq "
+                "va bu deplanatsiya oqibati "
+                "(mq-19). Tomonlar nisbati "
+                "jadvali buni kengaytiradi — "
+                "$a/b = 10$ da nisbat tartibga "
+                "tushadi va $\\beta \\to 1/3$ "
+                "limitiga chiqish yupqa "
+                "to'rtburchak uchun klassik "
+                "$J_t = ab^3/3$ formulasini qayta "
+                "beradi. Siljish kuchlanishining "
+                "taqsimoti membrana analogiyasining "
+                "eng ko'rgazmali tasdig'i: "
+                "burchakda $\\tau \\approx 0$, "
+                "maksimum esa tomon o'rtasida. Bu "
+                "intuitivga zid — burchakda "
+                "kuchlanish konsentratsiyasi "
+                "kutilardi — lekin membrana "
+                "tasviri buni darhol tushuntiradi. "
+                "Nihoyat, matritsa xossalari "
+                "modulni oldingi materialga "
+                "bog'laydi: u siyrak, simmetrik va "
+                "aniqlangan, demak su-05 dagi "
+                "Cholesky va su-06 dagi konjugat "
+                "gradiyent bevosita qo'llanadi. "
+                "Bitta yechuvchi esa jadvaldagi "
+                "beshta butunlay turli fizik "
+                "masalaga yaraydi."
+            ),
+            mistakes=[
+                "Buralishda $I_p$ ni ishlatish. "
+                "Bu faqat doiraviy kesim uchun; "
+                "kvadratda xato 16 %, ingichka "
+                "to'rtburchakda tartiblarga "
+                "chiqadi.",
+                "Burchaklarda kuchlanish "
+                "konsentratsiyasi kutish. "
+                "Buralishda burchakda "
+                "$\\tau = 0$ — membrana "
+                "analogiyasi buni ko'rsatadi.",
+                "Tugunlarni uzun tomon bo'ylab "
+                "raqamlash. Lenta kengligi "
+                "oshadi va yechish vaqti "
+                "kvadratik ortadi (su-05).",
+                "To'liq Neyman masalasida "
+                "qo'shimcha shart qo'ymaslik. "
+                "Matritsa singulyar bo'ladi — "
+                "yechim doimiygacha aniqlanadi.",
+                "Chegarani to'r tugunlariga "
+                "moslamaslik. Egri konturda "
+                "yaqinlashish tartibi pasayadi — "
+                "bu chekli ayirmalarning asosiy "
+                "kamchiligi.",
+            ],
+            quiz=[
+                q("Besh nuqtali shablon qanday "
+                  "olinadi va uning tartibi qancha?",
+                  "Har bir yo'nalish bo'yicha uch "
+                  "nuqtali ikkinchi hosila "
+                  "sxemasini qo'shish orqali; "
+                  "xatolik "
+                  "$\\frac{h^2}{12}(\\phi_{,xxxx}+"
+                  "\\phi_{,yyyy})$, ya'ni $O(h^2)$.",
+                  "konseptual"),
+                q("Membrana analogiyasi nimani "
+                  "tushuntiradi?",
+                  "$\\phi$ bir xil konturga "
+                  "tortilgan membrana og'ishi bilan "
+                  "bir xil tenglamani "
+                  "qanoatlantiradi; moment — "
+                  "membrana ostidagi hajm, "
+                  "kuchlanish — uning qiyaligi.",
+                  "talqin"),
+                q("Kvadrat kesimda $J_t/I_p$ "
+                  "nechaga teng va nima uchun "
+                  "birdan kichik?",
+                  "$0{,}844$. Doiraviy bo'lmagan "
+                  "kesim buralganda tekis "
+                  "qolmaydi (deplanatsiya) va bu "
+                  "bikrlikni kamaytiradi.",
+                  "hisob"),
+                q("Kodda nima uchun analitik qator "
+                  "ham hisoblanadi?",
+                  "U sonli yechimning **mustaqil** "
+                  "tekshiruvi: ikki butunlay turli "
+                  "usul bir xil javob bersa, "
+                  "ikkalasi ham to'g'ri.", "kod"),
+                q("Nima uchun burchakda siljish "
+                  "kuchlanishi nol?",
+                  "Membrana burchakda yassilashadi "
+                  "(ikki tomondan mahkamlangan), "
+                  "demak qiyaligi nol; "
+                  "$\\tau = |\\nabla\\phi|$ ham nol.",
+                  "talqin"),
+                q("$a/b \\to \\infty$ da $\\beta$ "
+                  "nimaga intiladi?",
+                  "$1/3$ ga; demak "
+                  "$J_t \\to ab^3/3$ — yupqa "
+                  "to'rtburchak uchun klassik "
+                  "formula.", "hisob"),
+            ],
+            bridge=(
+                "Statik masalalar uchun chekli "
+                "ayirmalar apparati to'liq: sxema, "
+                "chegaraviy shartlar, bir va ikki "
+                "o'lchov. Lekin vaqtga bog'liq "
+                "masalalarda yangi va jiddiy savol "
+                "paydo bo'ladi — sxema "
+                "**barqarormi**? Keyingi mavzuda "
+                "yaqinlashish, muvofiqlik va "
+                "barqarorlik tushunchalarini "
+                "ajratamiz va ularni bog'lovchi "
+                "Laks teoremasini ko'ramiz."
+            ),
+            research=(
+                "Ikki o'lchovli sxemalarni "
+                "kengaytiring. (1) To'qqiz nuqtali "
+                "(Mehrstellen) shablonni quring: u "
+                "bir xil o'lchamli shablon bilan "
+                "$O(h^4)$ beradi — buning sababi "
+                "nima? (2) Egri chegarani qamrab "
+                "olish usullarini solishtiring: "
+                "Shortley–Weller "
+                "approksimatsiyasi, kesilgan "
+                "hujayra (cut-cell) va botirilgan "
+                "chegara (immersed boundary). "
+                "Har birida yaqinlashish tartibi "
+                "qanday saqlanadi? (3) Ichki "
+                "teshikli (ko'p bog'lamli) kesim "
+                "uchun buralish masalasini "
+                "qo'ying: teshikdagi noma'lum "
+                "doimiyni aniqlash uchun qanday "
+                "qo'shimcha shart kerak "
+                "(Bredt formulasi bilan "
+                "bog'lanish)?"
+            ),
+            manim_ref=manim(
+                scene="TorsionScene",
+                module="manim/scenes/su_fd.py",
+                title="Membrana analogiyasi va buralish",
+                summary=(
+                    "Kesim konturiga membrana "
+                    "tortiladi va bosim ostida "
+                    "shishadi; uning balandligi "
+                    "kuchlanish funksiyasi ekani "
+                    "ko'rsatiladi. Keyin kontur "
+                    "cho'zilib ingichka "
+                    "to'rtburchakka aylanadi va "
+                    "membrana ostidagi hajm keskin "
+                    "kamayishi — ya'ni buralish "
+                    "bikrligining tushishi — "
+                    "namoyish etiladi."
+                ),
+            ),
+        ),
+    ),
 ]
