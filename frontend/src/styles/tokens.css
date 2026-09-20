@@ -1,0 +1,63 @@
+/* Dizayn tokenlari — frontend/DESIGN.md dagi qarorlarning aynan aksi.
+   Palitra mexanikaning ikki qutbidan olingan: cho'zilish va siqilish. */
+
+:root {
+  --ink: #17191c;        /* grafit: matn va asosiy chiziqlar */
+  --film: #e4e2dc;       /* chizmachilik plyonkasi */
+  --paper: #f6f5f2;      /* kartochka foni */
+  --tension: #b2402e;    /* CHO'ZILISH — faqat ishora bildiradi */
+  --compress: #2b5a74;   /* SIQILISH — faqat ishora bildiradi */
+  --rule: #9a968c;       /* o'lchov chiziqlari, ramkalar */
+  --mark: #d9a521;       /* annotatsiya sarig'i — faqat joriy holat */
+
+  --ink-soft: #4a4d53;
+  --rule-faint: #cfcbc1;
+  --surface: #fffefb;
+
+  --font-display: "IBM Plex Sans Condensed", "Arial Narrow", sans-serif;
+  --font-body: "Spectral", Georgia, serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+
+  /* 1.25 — major third */
+  --t-xs: 0.72rem;
+  --t-sm: 0.82rem;
+  --t-base: 0.98rem;
+  --t-md: 1.18rem;
+  --t-lg: 1.5rem;
+  --t-xl: 1.95rem;
+  --t-2xl: 2.6rem;
+
+  --gap: 1rem;
+  --gutter: 16px;
+  --radius: 2px;        /* chizmada burchaklar yumaloq bo'lmaydi */
+  --line: 1px solid var(--rule-faint);
+  --shadow: 0 1px 0 var(--rule-faint);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ink: #e8e6e0;
+    --ink-soft: #a8a49b;
+    --film: #1b1d21;
+    --paper: #16181b;
+    --surface: #1e2126;
+    --tension: #e2705c;   /* qorong'ida yorqinroq: WCAG AA */
+    --compress: #6aa8cc;
+    --rule: #6d6a63;
+    --rule-faint: #34373c;
+    --mark: #f0c045;
+  }
+}
+
+:root[data-theme="dark"] {
+  --ink: #e8e6e0;
+  --ink-soft: #a8a49b;
+  --film: #1b1d21;
+  --paper: #16181b;
+  --surface: #1e2126;
+  --tension: #e2705c;
+  --compress: #6aa8cc;
+  --rule: #6d6a63;
+  --rule-faint: #34373c;
+  --mark: #f0c045;
+}
