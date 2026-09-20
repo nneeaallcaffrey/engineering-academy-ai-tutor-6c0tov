@@ -2414,4 +2414,1243 @@ table("Element turlari va ularning xossalari",
             ),
         ),
     ),
+
+    # ------------------------------------------------------------------ su-15
+    Topic(
+        id="su-15",
+        subject_id=S, module_id=M, order=15,
+        title="Element matritsalari va global tizimni yig'ish",
+        description=(
+            "Element bikrlik matritsasi va moslashgan yuk vektori, "
+            "yig'ish (assembly) algoritmi, global matritsaning xossalari, "
+            "lenta kengligi va tugunlarni raqamlash."
+        ),
+        learning_objective=(
+            "Element matritsalarini hisoblash, ularni global tizimga "
+            "yig'ish va natijaviy matritsaning to'rtta majburiy xossasini "
+            "tekshirish; raqamlashning yechish narxiga ta'sirini baholash."
+        ),
+        prerequisites=["su-14"],
+        mathematical_core=(
+            "$\\mathbf{k}^e = \\int_{\\Omega_e}\\mathbf{B}^T\\mathbf{D}"
+            "\\mathbf{B}\\,d\\Omega$, "
+            "$\\mathbf{f}^e = \\int_{\\Omega_e}\\mathbf{N}^T b\\,d\\Omega$; "
+            "$\\mathbf{K} = \\sum_e \\mathbf{A}_e^T\\mathbf{k}^e"
+            "\\mathbf{A}_e$; "
+            "$\\mathbf{K} = \\mathbf{K}^T \\ge 0$, "
+            "$\\mathbf{K}\\mathbf{r} = \\mathbf{0}$ qattiq jism uchun."
+        ),
+        engineering_application=(
+            "Har qanday FEM dasturining yadrosi; raqamlash tanlovi katta "
+            "modelning yechish vaqtini o'nlab marta o'zgartiradi."
+        ),
+        computational_component=(
+            "Element matritsalarini qurish, yig'ish, xossalarni "
+            "tekshirish, lenta kengligini o'lchash va qayta raqamlash."
+        ),
+        visualization_component=(
+            "Yig'ish jarayonining animatsiyasi, matritsa to'ldirilish "
+            "xaritasi, lenta kengligining raqamlashga bog'liqligi."
+        ),
+        research_extension=(
+            "Frontal va ko'p frontli (multifrontal) yechish usullarini "
+            "o'rganing: ular yig'ish va yechishni birlashtiradi — bu "
+            "xotira talabini qanday kamaytiradi?"
+        ),
+        difficulty="orta",
+        previous_link=(
+            "su-14 da shakl funksiyalari va izoparametrik almashtirish "
+            "tayyor bo'ldi. Endi ular bilan element integrallarini "
+            "hisoblaymiz va alohida elementlarni bitta global tizimga "
+            "bog'laymiz — bu FEM dasturining yadrosi."
+        ),
+        next_topic="su-16",
+        estimated_minutes=85,
+        tags=["bikrlik matritsasi", "assembly", "lenta kengligi",
+              "moslashgan yuk"],
+        lesson=_lesson(
+            problem=(
+                "Ko'prik fermasining hisobi "
+                "10 000 tugundan iborat. Har bir "
+                "element o'z bikrlik "
+                "matritsasiga ega, lekin ular "
+                "umumiy tugunlar orqali bir "
+                "biriga bog'langan. Bu "
+                "bog'lanishni qanday tizimli "
+                "yozish mumkin? Bundan ham "
+                "muhimi — natijaviy "
+                "$20\\,000\\times20\\,000$ "
+                "matritsa to'la saqlansa "
+                "3,2 GB xotira talab qiladi va "
+                "yechish bir necha soat davom "
+                "etadi. Lekin har bir tugun "
+                "faqat qo'shnilari bilan "
+                "bog'langan, demak matritsaning "
+                "99,9% i nol. Bu bo'shlikni "
+                "qanday ishlatish kerak va u "
+                "nimaga bog'liq?"
+            ),
+            concepts=[
+                c("Element bikrlik matritsasi",
+                  "$\\mathbf{k}^e = \\int "
+                  "\\mathbf{B}^T\\mathbf{D}"
+                  "\\mathbf{B}\\,d\\Omega$ — "
+                  "elementning o'z ichidagi "
+                  "kuch–ko'chish bog'lanishi."),
+                c("Moslashgan yuk vektori "
+                  "(consistent load vector)",
+                  "$\\mathbf{f}^e = \\int "
+                  "\\mathbf{N}^T b\\,d\\Omega$ — "
+                  "taqsimlangan yukning "
+                  "tugunlarga **energiya "
+                  "jihatdan ekvivalent** "
+                  "keltirilishi."),
+                c("Yig'ish (assembly)",
+                  "Element matritsalarini global "
+                  "tizimga qo'shish; umumiy "
+                  "tugunlarda hissalar "
+                  "**qo'shiladi**."),
+                c("Bog'lanish jadvali "
+                  "(connectivity)",
+                  "Har bir elementning qaysi "
+                  "global tugunlarga tegishli "
+                  "ekanini ko'rsatadi — yig'ish "
+                  "uchun yagona zarur "
+                  "ma'lumot."),
+                c("Qattiq jism rejimi "
+                  "(rigid body mode)",
+                  "Deformatsiyasiz ko'chish; "
+                  "$\\mathbf{K}\\mathbf{r} = "
+                  "\\mathbf{0}$, shuning uchun "
+                  "chegaraviy shartlarsiz "
+                  "$\\mathbf{K}$ singulyar."),
+                c("Lenta kengligi (bandwidth)",
+                  "$b = \\max|i - j|$ nolmas "
+                  "elementlar uchun; yechish "
+                  "narxi $\\sim n b^2$ — "
+                  "raqamlashga to'g'ridan-to'g'ri "
+                  "bog'liq."),
+            ],
+            derivation=[
+                d("1. Zaif shakldan element "
+                  "integraliga",
+                  r"\int_\Omega \mathbf{B}^T"
+                  r"\mathbf{D}\mathbf{B}\,d\Omega"
+                  r"\;\mathbf{u} = \int_\Omega "
+                  r"\mathbf{N}^T b\,d\Omega + "
+                  r"\int_{\Gamma_t}\mathbf{N}^T"
+                  r"\bar{t}\,d\Gamma",
+                  "su-13 dagi zaif formulirovka "
+                  "matritsa ko'rinishida. "
+                  "$\\mathbf{B}$ — deformatsiya "
+                  "matritsasi, $\\mathbf{D}$ — "
+                  "material matritsasi "
+                  "(tmm-12)."),
+                d("2. Integralning elementlar "
+                  "bo'yicha bo'linishi",
+                  r"\int_\Omega(\cdot)\,d\Omega = "
+                  r"\sum_{e=1}^{n_{el}}"
+                  r"\int_{\Omega_e}(\cdot)\,"
+                  r"d\Omega",
+                  "**Hal qiluvchi qadam.** "
+                  "Integral additiv, shuning "
+                  "uchun uni element bo'yicha "
+                  "bo'lish mumkin. Yig'ishning "
+                  "butun asosi shu."),
+                d("3. Element bikrlik matritsasi",
+                  r"k^e_{ij} = \int_{-1}^{1} "
+                  r"EA\,\frac{1}{J}"
+                  r"\frac{dN_i}{d\xi}\cdot"
+                  r"\frac{1}{J}\frac{dN_j}{d\xi}"
+                  r"\;J\,d\xi",
+                  "su-14 dagi almashtirish bilan. "
+                  "Chiziqli elementda "
+                  "$J = h/2$ va integral oson "
+                  "olinadi."),
+                d("4. Chiziqli element matritsasi",
+                  r"\mathbf{k}^e = \frac{EA}{h}"
+                  r"\begin{bmatrix} 1 & -1\\ "
+                  r"-1 & 1\end{bmatrix}",
+                  "Eng mashhur element "
+                  "matritsasi. Uning qatorlari "
+                  "yig'indisi nol — bu tasodif "
+                  "emas."),
+                d("5. Kvadratik element "
+                  "matritsasi",
+                  r"\mathbf{k}^e = \frac{EA}{3h}"
+                  r"\begin{bmatrix} 7 & -8 & 1\\ "
+                  r"-8 & 16 & -8\\ 1 & -8 & 7"
+                  r"\end{bmatrix}",
+                  "O'rta tugun eng katta "
+                  "diagonal hadga ega — u "
+                  "ikkala chetga ham "
+                  "bog'langan."),
+                d("6. Moslashgan yuk vektori",
+                  r"f^e_i = \int_{-1}^{1} "
+                  r"N_i\,q\,J\,d\xi",
+                  "**Diqqat.** Bu taqsimlangan "
+                  "yukni tugunlarga 'teng "
+                  "bo'lish' emas, balki "
+                  "energiya jihatdan ekvivalent "
+                  "keltirishdir."),
+                d("7. Kvadratik element uchun "
+                  "moslashgan yuk",
+                  r"\mathbf{f}^e = qh\left\{"
+                  r"\tfrac16,\ \tfrac23,\ "
+                  r"\tfrac16\right\}^T",
+                  "**Kutilmagan natija.** "
+                  "Intuitiv javob "
+                  "$\\{1/3, 1/3, 1/3\\}$ "
+                  "**noto'g'ri**: o'rta tugun "
+                  "yukning to'rtdan uchini "
+                  "oladi, chetlar esa atigi "
+                  "oltidan birini."),
+                d("8. Yig'ish operatori",
+                  r"\mathbf{K} = \sum_e "
+                  r"\mathbf{A}_e^T\,\mathbf{k}^e"
+                  r"\,\mathbf{A}_e, \qquad "
+                  r"\mathbf{F} = \sum_e "
+                  r"\mathbf{A}_e^T\mathbf{f}^e",
+                  "$\\mathbf{A}_e$ — "
+                  "joylashtirish "
+                  "(localization) matritsasi: "
+                  "global vektordan element "
+                  "erkinlik darajalarini "
+                  "ajratib oladi. Amalda u "
+                  "hech qachon qurilmaydi — "
+                  "indekslar bilan "
+                  "almashtiriladi."),
+                d("9. Amaliy yig'ish algoritmi",
+                  r"\mathbf{K}[\mathrm{idx}_e,"
+                  r"\mathrm{idx}_e]\;"
+                  r"\mathrel{+}=\;\mathbf{k}^e",
+                  "Butun FEM yadrosi shu bir "
+                  "qatorda. `idx_e` — "
+                  "elementning global tugun "
+                  "raqamlari."),
+                d("10. Simmetriya",
+                  r"k^e_{ij} = \int B_iD B_j = "
+                  r"\int B_jD B_i = k^e_{ji} "
+                  r"\;\Rightarrow\; \mathbf{K} = "
+                  r"\mathbf{K}^T",
+                  "$\\mathbf{D}$ simmetrik "
+                  "bo'lgani uchun (tmm-12 dagi "
+                  "Grin elastikligi). Simmetriya "
+                  "yig'ishda saqlanadi."),
+                d("11. Qattiq jism rejimi va "
+                  "singulyarlik",
+                  r"\mathbf{u} = \mathbf{1} "
+                  r"\;\Rightarrow\; "
+                  r"\boldsymbol\varepsilon = 0 "
+                  r"\;\Rightarrow\; "
+                  r"\mathbf{K}\mathbf{1} = "
+                  r"\mathbf{0}",
+                  "**Muhim xulosa.** Barcha "
+                  "tugunlar bir xil siljisa "
+                  "deformatsiya yo'q, demak "
+                  "kuch ham yo'q. Bu "
+                  "$\\mathbf{K}$ ning qator "
+                  "yig'indilari nol ekanini "
+                  "beradi — eng oson va eng "
+                  "kuchli tekshiruv."),
+                d("12. Musbat yarim aniqlik",
+                  r"\mathbf{u}^T\mathbf{K}"
+                  r"\mathbf{u} = 2U \ge 0",
+                  "Kvadratik shakl — ikkilangan "
+                  "deformatsiya energiyasi, u "
+                  "hech qachon manfiy emas. "
+                  "Nol faqat qattiq jism "
+                  "rejimlarida."),
+                d("13. Lenta kengligi",
+                  r"b = \max_e\left(\max_i "
+                  r"\mathrm{idx}_e^i - \min_i "
+                  r"\mathrm{idx}_e^i\right) + 1",
+                  "Nolmas hadlar faqat "
+                  "diagonal atrofidagi "
+                  "lentada. Bu **butunlay** "
+                  "raqamlashga bog'liq — "
+                  "fizikaga emas."),
+                d("14. Yechish narxi",
+                  r"\text{to'la: } O(n^3), \qquad "
+                  r"\text{lentali: } O(n b^2)",
+                  "**Amaliy xulosa.** "
+                  "$n = 10^5$, $b = 100$ uchun "
+                  "$nb^2 = 10^9$, "
+                  "$n^3 = 10^{15}$ — million "
+                  "marta farq. Raqamlash "
+                  "tanlovi shuning uchun "
+                  "muhim."),
+            ],
+            meaning=(
+                "Butun yig'ish g'oyasi 2-qadamda: "
+                "integral additiv. Shuning uchun "
+                "global matritsani element "
+                "hissalarining oddiy yig'indisi "
+                "sifatida qurish mumkin va har "
+                "bir element qolganlaridan "
+                "mustaqil hisoblanadi. Amalda bu "
+                "9-qadamdagi bitta qatorga "
+                "qisqaradi va aynan shu qator "
+                "FEM dasturining yadrosi. "
+                "Matematik jihatdan 8-qadamdagi "
+                "$\\mathbf{A}_e$ matritsasi "
+                "chiroyli, lekin dasturda u "
+                "hech qachon qurilmaydi — "
+                "indeks massivi bilan "
+                "almashtiriladi, chunki "
+                "$\\mathbf{A}_e$ deyarli "
+                "butunlay nollardan iborat. "
+                "7-qadam esa eng ko'p xatoga "
+                "sabab bo'ladigan joy. "
+                "Taqsimlangan yukni tugunlarga "
+                "'teng bo'lish' tabiiy "
+                "ko'rinadi, lekin bu "
+                "**noto'g'ri**. To'g'ri javob "
+                "$\\int N_i q\\,dx$ va u "
+                "kvadratik elementda "
+                "$\\{1/6,\\ 2/3,\\ 1/6\\}$ "
+                "beradi — o'rta tugun yukning "
+                "to'rtdan uchini oladi. Sabab "
+                "aniq: $N_2 = 1-\\xi^2$ "
+                "element bo'ylab eng katta "
+                "yuzaga ega, chet "
+                "funksiyalari esa manfiy "
+                "qismga ham ega. Faqat "
+                "moslashgan vektor zaif "
+                "formulirovkani aynan "
+                "qanoatlantiradi va shuning "
+                "uchun u tugunlardagi "
+                "superkonvergensiyani saqlaydi. "
+                "11-qadam amaliyotda eng "
+                "foydali tekshiruvni beradi. "
+                "Qattiq jism harakati "
+                "deformatsiya bermaydi, demak "
+                "$\\mathbf{K}\\mathbf{1} = "
+                "\\mathbf{0}$: matritsaning "
+                "har bir qator yig'indisi "
+                "nol bo'lishi shart. Bu bir "
+                "qator kod va u yig'ishdagi "
+                "xatolarning katta qismini "
+                "darhol ochadi — indeks "
+                "xatosi, ishora xatosi, "
+                "tushib qolgan element. "
+                "Nihoyat 13- va 14-qadamlar "
+                "muhandislik jihatdan hal "
+                "qiluvchi. Lenta kengligi "
+                "fizikaga emas, faqat tugun "
+                "raqamlashga bog'liq: bir xil "
+                "masala, bir xil to'r, "
+                "boshqacha raqamlash — va "
+                "yechish vaqti yuz marta "
+                "farq qiladi. Bu 'bepul' "
+                "tezlanish va shuning uchun "
+                "barcha jiddiy paketlar "
+                "avtomatik qayta raqamlashni "
+                "bajaradi."
+            ),
+            equations=[
+                eq(r"\mathbf{k}^e = \int_{\Omega_e}"
+                   r"\mathbf{B}^T\mathbf{D}"
+                   r"\mathbf{B}\,d\Omega, \qquad "
+                   r"\mathbf{f}^e = \int_{\Omega_e}"
+                   r"\mathbf{N}^T b\,d\Omega",
+                   "Element bikrlik matritsasi va "
+                   "moslashgan yuk vektori.",
+                   "Element matritsalari"),
+                eq(r"\mathbf{K}[\mathrm{idx}_e,"
+                   r"\mathrm{idx}_e] "
+                   r"\mathrel{+}= \mathbf{k}^e, "
+                   r"\qquad \mathbf{F}"
+                   r"[\mathrm{idx}_e] "
+                   r"\mathrel{+}= \mathbf{f}^e",
+                   "Yig'ish algoritmi — FEM "
+                   "dasturining yadrosi.",
+                   "Assembly"),
+                eq(r"\mathbf{K} = \mathbf{K}^T, "
+                   r"\quad \mathbf{u}^T\mathbf{K}"
+                   r"\mathbf{u} \ge 0, \quad "
+                   r"\mathbf{K}\mathbf{r} = "
+                   r"\mathbf{0}",
+                   "Global matritsaning majburiy "
+                   "xossalari; oxirgisi qattiq "
+                   "jism rejimlari uchun.",
+                   "K ning xossalari"),
+                eq(r"\text{narx} \sim n b^2, "
+                   r"\qquad b = \max_e"
+                   r"(\max\mathrm{idx}_e - "
+                   r"\min\mathrm{idx}_e) + 1",
+                   "Lentali yechishning narxi va "
+                   "lenta kengligi.",
+                   "Yechish narxi"),
+            ],
+            conditions=(
+                "**Yig'ishdan keyin majburiy "
+                "tekshiruvlar:**\n"
+                "1. $\\mathbf{K} = \\mathbf{K}^T$ "
+                "— simmetriya "
+                "(mashina aniqligida);\n"
+                "2. Har bir qator yig'indisi nol "
+                "— qattiq jism rejimi;\n"
+                "3. $\\mathrm{rank}(\\mathbf{K}) = "
+                "n - n_{rb}$, bu yerda "
+                "$n_{rb}$ — qattiq jism "
+                "rejimlari soni (1D da 1, "
+                "tekis masalada 3, fazoda 6);\n"
+                "4. Diagonal hadlar musbat: "
+                "$K_{ii} > 0$;\n"
+                "5. $\\sum_i F_i$ = to'liq "
+                "tashqi yuk — yuk vektorining "
+                "tekshiruvi.\n\n"
+                "**Chegaraviy shartlargacha:** "
+                "$\\mathbf{K}$ **singulyar** "
+                "bo'lishi SHART. Agar u "
+                "singulyar bo'lmasa, demak "
+                "yig'ishda xato bor yoki "
+                "bikrlik qo'shib yuborilgan.\n\n"
+                "**Xotira:** lentali saqlash "
+                "$n\\times b$, profil (skyline) "
+                "undan ham kam, siyrak "
+                "(sparse) format eng kam. "
+                "$10^5$ tugunda to'la saqlash "
+                "mumkin emas.\n\n"
+                "**Raqamlash:** Kathill–Makki "
+                "teskari usuli (Reverse "
+                "Cuthill–McKee, RCM) — "
+                "standart evristika; u "
+                "optimalni kafolatlamaydi, "
+                "lekin tasodifiy raqamlashdan "
+                "o'n barobar yaxshi natija "
+                "beradi."
+            ),
+            worked=WorkedExample(
+                statement=(
+                    "Kvadratik (uch tugunli) "
+                    "sterjen elementi uchun: "
+                    "(a) bikrlik matritsasining "
+                    "$k_{11}$ va $k_{12}$ "
+                    "hadlarini integrallab "
+                    "toping; (b) doimiy "
+                    "$q$ yuk uchun moslashgan "
+                    "yuk vektorini hisoblang; "
+                    "(c) ikkita shunday elementni "
+                    "yig'ing va umumiy tugundagi "
+                    "hissani ko'rsating."
+                ),
+                given=[
+                    r"N_1 = \tfrac{\xi(\xi-1)}{2}, \ "
+                    r"N_2 = 1-\xi^2, \ "
+                    r"N_3 = \tfrac{\xi(\xi+1)}{2}",
+                    r"J = h/2, \quad B_i = "
+                    r"\tfrac{2}{h}\tfrac{dN_i}{d\xi}",
+                ],
+                steps=[
+                    st(r"\frac{dN_1}{d\xi} = "
+                       r"\xi - \tfrac12, \quad "
+                       r"\frac{dN_2}{d\xi} = -2\xi",
+                       "Hosilalar (su-14 dan)."),
+                    st(r"k_{11} = \int_{-1}^{1}EA"
+                       r"\left(\tfrac{2}{h}\right)^2"
+                       r"\left(\xi-\tfrac12\right)^2"
+                       r"\frac{h}{2}d\xi = "
+                       r"\frac{2EA}{h}\int_{-1}^{1}"
+                       r"\left(\xi-\tfrac12\right)^2"
+                       r"d\xi",
+                       "Yakobianlar qisqardi: "
+                       "$(2/h)^2\\cdot(h/2) = "
+                       "2/h$."),
+                    st(r"\int_{-1}^{1}\left(\xi^2 - "
+                       r"\xi + \tfrac14\right)d\xi = "
+                       r"\tfrac23 - 0 + \tfrac12 = "
+                       r"\tfrac76",
+                       "Toq had nolga integrallanadi."),
+                    st(r"k_{11} = \frac{2EA}{h}\cdot"
+                       r"\frac76 = \frac{7EA}{3h}",
+                       "**Birinchi had topildi.**"),
+                    st(r"k_{12} = \frac{2EA}{h}"
+                       r"\int_{-1}^{1}\left(\xi-"
+                       r"\tfrac12\right)(-2\xi)d\xi "
+                       r"= \frac{2EA}{h}\int_{-1}^{1}"
+                       r"\left(-2\xi^2+\xi\right)d\xi",
+                       "Ikkinchi had."),
+                    st(r"= \frac{2EA}{h}\left(-\tfrac43"
+                       r"\right) = -\frac{8EA}{3h}",
+                       "Shunday qilib "
+                       "$\\mathbf{k}^e = "
+                       "\\frac{EA}{3h}"
+                       "[[7,-8,1],[-8,16,-8],"
+                       "[1,-8,7]]$."),
+                    st(r"\text{(b) } f_2 = "
+                       r"\int_{-1}^{1}q(1-\xi^2)"
+                       r"\frac{h}{2}d\xi = "
+                       r"\frac{qh}{2}\left(2 - "
+                       r"\tfrac23\right) = "
+                       r"\frac{2qh}{3}",
+                       "**O'rta tugun** yukning "
+                       "to'rtdan uchini oladi."),
+                    st(r"f_1 = \int_{-1}^{1}q\,"
+                       r"\frac{\xi(\xi-1)}{2}"
+                       r"\frac{h}{2}d\xi = "
+                       r"\frac{qh}{4}\left(\tfrac23"
+                       r"\right) = \frac{qh}{6}",
+                       "Chet tugunlar atigi "
+                       "oltidan bir."),
+                    st(r"\sum f_i = \frac{qh}{6} + "
+                       r"\frac{2qh}{3} + "
+                       r"\frac{qh}{6} = qh \quad "
+                       r"\checkmark",
+                       "**Tekshiruv:** yig'indi "
+                       "to'liq yukka teng — "
+                       "muvozanat saqlanadi."),
+                    st(r"\text{(c) tugunlar: } "
+                       r"\{1,2,3\} \text{ va } "
+                       r"\{3,4,5\}",
+                       "Ikkinchi elementning "
+                       "birinchi tuguni — "
+                       "birinchisining oxirgisi."),
+                    st(r"K_{33} = k^{(1)}_{33} + "
+                       r"k^{(2)}_{11} = "
+                       r"\frac{7EA}{3h} + "
+                       r"\frac{7EA}{3h} = "
+                       r"\frac{14EA}{3h}",
+                       "**Umumiy tugunda "
+                       "hissalar qo'shiladi** — "
+                       "yig'ishning butun "
+                       "mohiyati shu."),
+                    st(r"F_3 = \frac{qh}{6} + "
+                       r"\frac{qh}{6} = "
+                       r"\frac{qh}{3}",
+                       "Yuk vektorida ham "
+                       "xuddi shunday."),
+                ],
+                answer=(
+                    "(a) $k_{11} = 7EA/3h$, "
+                    "$k_{12} = -8EA/3h$; to'liq "
+                    "matritsa "
+                    "$\\frac{EA}{3h}"
+                    "[[7,-8,1],[-8,16,-8],"
+                    "[1,-8,7]]$. "
+                    "(b) $\\mathbf{f}^e = "
+                    "qh\\{1/6,\\ 2/3,\\ 1/6\\}$ "
+                    "— yig'indisi $qh$ ga teng, "
+                    "lekin taqsimot teng emas. "
+                    "(c) Umumiy tugunda ikkala "
+                    "elementning hissalari "
+                    "qo'shiladi: "
+                    "$K_{33} = 14EA/3h$, "
+                    "$F_3 = qh/3$."
+                ),
+                engineering_note=(
+                    "(b) qismidagi natija — bu "
+                    "mavzudagi eng ko'p xatoga "
+                    "sabab bo'ladigan joy. "
+                    "Taqsimlangan yukni uchta "
+                    "tugunga teng bo'lish "
+                    "($1/3$ har biriga) tabiiy "
+                    "ko'rinadi va ko'p talaba "
+                    "shunday qiladi, lekin bu "
+                    "noto'g'ri. To'g'ri javob "
+                    "$\\{1/6, 2/3, 1/6\\}$ va "
+                    "farq katta: o'rta tugun "
+                    "ikki barobar ko'p, chet "
+                    "tugunlar esa ikki barobar "
+                    "kam oladi. Bundan ham "
+                    "g'alati ko'rinadigan hol — "
+                    "kubik elementda chet "
+                    "tugunlar $1/8$, ichki "
+                    "tugunlar $3/8$ oladi. "
+                    "Hatto **manfiy** hadlar "
+                    "ham bo'lishi mumkin: "
+                    "Ermit (balka) elementida "
+                    "burchak erkinlik "
+                    "darajalariga mos keladigan "
+                    "yuk hadlari moment "
+                    "ko'rinishida chiqadi va "
+                    "ishorasi qarama-qarshi "
+                    "bo'ladi. Bu xato jimgina "
+                    "o'tadi: hisob ishlaydi, "
+                    "natija ishonarli "
+                    "ko'rinadi, faqat noto'g'ri. "
+                    "Yagona ishonchli usul — "
+                    "har doim "
+                    "$\\int\\mathbf{N}^Tq$ ni "
+                    "hisoblash va yig'indini "
+                    "to'liq yuk bilan "
+                    "solishtirish."
+                ),
+            ),
+            computation=Computation(
+                caption=(
+                    "Element matritsalarini qurish, "
+                    "yig'ish, to'rtta majburiy "
+                    "xossani tekshirish va "
+                    "raqamlashning yechish narxiga "
+                    "ta'sirini o'lchash."
+                ),
+                code='''"""Element matritsalari va global tizimni yig'ish."""
+from collections import deque
+
+import numpy as np
+from labkit import PARAMS, note, series, table, value
+
+n_el = int(PARAMS.get("n_el", 6))
+p_ord = int(PARAMS.get("p_ord", 1))
+nx_g = int(PARAMS.get("nx_g", 5))
+ny_g = int(PARAMS.get("ny_g", 21))
+
+EA = 1000.0
+L = 1.0
+q0 = 100.0
+
+
+def lagrange_N(xi, nodes):
+    n = len(nodes)
+    xi = np.asarray(xi, dtype=float)
+    N = np.ones((n,) + xi.shape)
+    dN = np.zeros((n,) + xi.shape)
+    for i in range(n):
+        for j in range(n):
+            if j == i:
+                continue
+            N[i] *= (xi - nodes[j])/(nodes[i] - nodes[j])
+        for j in range(n):
+            if j == i:
+                continue
+            term = np.ones_like(xi)
+            for k in range(n):
+                if k == i or k == j:
+                    continue
+                term *= (xi - nodes[k])/(nodes[i] - nodes[k])
+            dN[i] += term/(nodes[i] - nodes[j])
+    return N, dN
+
+
+def elem_matrices(p, h, q):
+    """p-tartibli sterjen elementining k va f matritsalari."""
+    nodes = np.linspace(-1.0, 1.0, p + 1)
+    gx, gw = np.polynomial.legendre.leggauss(p + 2)
+    N, dN = lagrange_N(gx, nodes)
+    J = h/2
+    ke = np.zeros((p + 1, p + 1))
+    fe = np.zeros(p + 1)
+    for g_ in range(len(gx)):
+        B = dN[:, g_]/J
+        ke += EA*np.outer(B, B)*gw[g_]*J
+        fe += q*N[:, g_]*gw[g_]*J
+    return ke, fe
+
+
+# --- (1) Element matritsalari: klassik natijalar ---
+h1 = L/n_el
+den = {1: 1, 2: 3, 3: 40}      # har bir tartibning tabiiy maxraji
+for p in [1, 2, 3]:
+    ke, fe = elem_matrices(p, h1, q0)
+    kk = ke*den[p]*h1/EA
+    rows_k = [[f"{v:.4f}" for v in row] for row in kk]
+    table(f"Bikrlik matritsasi, p = {p} — EA/({den[p]}h) birligida",
+          [f"ustun {i+1}" for i in range(p + 1)], rows_k)
+    table(f"Moslashgan yuk vektori, p = {p} (q*h birligida)",
+          [f"tugun {i+1}" for i in range(p + 1)],
+          [[f"{v:.6f}" for v in fe/(q0*h1)]])
+    value(f"p = {p}: yuk yig'indisi / (q*h)",
+          float(np.sum(fe)/(q0*h1)), "—")
+    value(f"p = {p}: matritsa butun sonlardan chetlanishi",
+          float(np.max(np.abs(kk - np.round(kk)))), "—")
+
+ke2, fe2 = elem_matrices(2, h1, q0)
+value("k11*3h/EA (kutilgan 7)", float(ke2[0, 0]*3*h1/EA), "—")
+value("k12*3h/EA (kutilgan -8)", float(ke2[0, 1]*3*h1/EA), "—")
+value("k22*3h/EA (kutilgan 16)", float(ke2[1, 1]*3*h1/EA), "—")
+note("Kvadratik element matritsasi klassik (EA/3h)*[[7,-8,1],[-8,16,-8],"
+     "[1,-8,7]] qiymatini mashina aniqligida takrorladi. Moslashgan yuk "
+     "vektori esa {1/6, 2/3, 1/6} - INTUITIV {1/3, 1/3, 1/3} EMAS. "
+     "Kubik elementda {1/8, 3/8, 3/8, 1/8}. Barcha holatlarda yig'indi "
+     "aynan q*h ga teng: muvozanat saqlanadi, taqsimot esa teng emas.")
+
+# --- (2) Yig'ish va MAJBURIY tekshiruvlar ---
+def assemble(n, p, q=q0, order=None):
+    h = L/n
+    ke, fe = elem_matrices(p, h, q)
+    ndof = n*p + 1
+    K = np.zeros((ndof, ndof))
+    F = np.zeros(ndof)
+    els = range(n) if order is None else order
+    for e in els:
+        idx = np.arange(e*p, e*p + p + 1)
+        K[np.ix_(idx, idx)] += ke          # FEM yadrosi: shu bir qator
+        F[idx] += fe
+    return K, F
+
+
+K, F = assemble(n_el, p_ord)
+ndof = n_el*p_ord + 1
+value("Erkinlik darajalari soni", ndof, "—")
+value("1) Simmetriya: max|K - K^T|", float(np.max(np.abs(K - K.T))), "N/m")
+value("2) Qattiq jism: max|K @ 1|",
+      float(np.max(np.abs(K @ np.ones(ndof)))), "N")
+value("3) Rangi", int(np.linalg.matrix_rank(K)), "—")
+value("3) Kutilgan rang (n - 1)", ndof - 1, "—")
+ev = np.linalg.eigvalsh(K)
+value("4) Eng kichik xos qiymat", float(ev[0]), "N/m")
+value("4) Keyingi xos qiymat", float(ev[1]), "N/m")
+value("5) Yuk yig'indisi", float(np.sum(F)), "N")
+value("5) Aniq to'liq yuk (q*L)", q0*L, "N")
+value("Diagonal hadlarning minimumi", float(np.min(np.diag(K))), "N/m")
+gap = np.log10(ev[1]/max(abs(ev[0]), 1e-300))
+value("Xos qiymatlar orasidagi uzilish (o'nlik tartib)", float(gap), "—")
+note(f"Beshta majburiy tekshiruv ham bajarildi. Eng kichik xos qiymat "
+     f"mashina noliga teng, keyingisi esa undan {gap:.0f} o'nlik tartib "
+     f"katta - demak singulyarlik ANIQ bitta qattiq jism rejimidan "
+     f"keladi, sonli shovqindan emas. Bu farqni ko'rish muhim: agar "
+     f"ikkinchi xos qiymat ham kichik bo'lsa, modelda mahkamlanmagan "
+     f"mexanizm bor. Chegaraviy shartlargacha K singulyar bo'lishi "
+     f"SHART; agar u teskarilanuvchi bo'lsa, yig'ishda xato bor.")
+
+# Yig'ish tartibidan mustaqillik
+rng = np.random.default_rng(7)
+Kr, Fr = assemble(n_el, p_ord, order=rng.permutation(n_el))
+value("Yig'ish tartibidan mustaqillik: max|dK|",
+      float(np.max(np.abs(K - Kr))), "N/m")
+value("Yig'ish tartibidan mustaqillik: max|dF|",
+      float(np.max(np.abs(F - Fr))), "N")
+
+# Energiya tekshiruvi: u^T K u = 2U
+# Deformatsiya energiyasini element bo'ylab Gauss bilan integrallaymiz -
+# bu istalgan p uchun to'g'ri (nuqtalar ayirmasi faqat p = 1 da ishlaydi)
+u = np.concatenate([[0.0], np.linalg.solve(K[1:, 1:], F[1:])])
+U_mat = 0.5*float(u @ K @ u)
+
+h_e = L/n_el
+nodes_e = np.linspace(-1.0, 1.0, p_ord + 1)
+gx_e, gw_e = np.polynomial.legendre.leggauss(p_ord + 2)
+_, dNe_ = lagrange_N(gx_e, nodes_e)
+U_int = 0.0
+for e in range(n_el):
+    idx = np.arange(e*p_ord, e*p_ord + p_ord + 1)
+    eps_g = np.sum((dNe_/(h_e/2))*u[idx][:, None], axis=0)
+    U_int += 0.5*EA*float(np.sum(eps_g**2*gw_e)*(h_e/2))
+U_exact = 0.5*q0**2*L**3/(3*EA)     # analitik: eps = q0(L-x)/EA
+value("Energiya: 0.5*u^T K u", U_mat, "J")
+value("Energiya: 0.5*EA*int(eps^2) dx", U_int, "J")
+value("Energiya nisbiy farqi",
+      abs(U_mat - U_int)/abs(U_int)*100, "%")
+value("Energiya: aniq yechim", U_exact, "J")
+value("Diskret energiya aniqdan oshib ketdimi",
+      float(U_mat - U_exact), "J")
+note(f"Deformatsiya energiyasi ikki mustaqil yo'ldan hisoblandi: "
+     f"matritsa kvadratik shakli va deformatsiya maydonining bevosita "
+     f"integrali. Ular ustma-ust tushdi - demak yig'ilgan K haqiqatan "
+     f"ham zaif formulirovkadagi energiya operatorini ifodalaydi. "
+     f"Bundan tashqari diskret energiya aniq qiymatdan OSHMADI "
+     f"(farq {U_mat - U_exact:+.3e} J) - su-13 dagi quyi chegara "
+     f"xossasi yig'ishdan keyin ham saqlanadi.")
+
+xg_n = np.linspace(0.0, L, ndof)
+series("Ko'chish u(x)", xg_n.tolist(), (u*1e3).tolist(),
+       xlabel="x, m", ylabel="u, mm")
+
+# --- (3) MOSLASHGAN va JAMLANGAN yuk vektori ---
+# Chiziqli o'zgaruvchi yuk q(x) = q0*x/L uchun
+def assemble_lin(n, lumped):
+    h = L/n
+    ke, _ = elem_matrices(1, h, 0.0)
+    K = np.zeros((n + 1, n + 1))
+    F = np.zeros(n + 1)
+    gx, gw = np.polynomial.legendre.leggauss(3)
+    for e in range(n):
+        x1, x2 = e*h, (e + 1)*h
+        K[e:e+2, e:e+2] += ke
+        if lumped:
+            Q = q0*((x1 + x2)/2)/L*h        # element markazidagi yuk
+            F[e:e+2] += np.array([Q/2, Q/2])
+        else:
+            xg = (x1 + x2)/2 + gx*h/2
+            N1 = (x2 - xg)/h
+            N2 = (xg - x1)/h
+            qg = q0*xg/L
+            F[e] += float(np.sum(N1*qg*gw)*h/2)
+            F[e+1] += float(np.sum(N2*qg*gw)*h/2)
+    return K, F
+
+
+def u_exact(x):
+    return q0/(EA*L)*(L**2*x/2 - x**3/6)
+
+
+rows_l = []
+for n in [2, 4, 8, 16, 32]:
+    Kc, Fc = assemble_lin(n, False)
+    uc = np.concatenate([[0.0], np.linalg.solve(Kc[1:, 1:], Fc[1:])])
+    Kl, Fl = assemble_lin(n, True)
+    ul = np.concatenate([[0.0], np.linalg.solve(Kl[1:, 1:], Fl[1:])])
+    xs = np.linspace(0.0, L, n + 1)
+    ex = u_exact(xs)
+    ec = np.max(np.abs(uc - ex))/np.max(ex)*100
+    el_ = np.max(np.abs(ul - ex))/np.max(ex)*100
+    rows_l.append([n, f"{ec:.3e}", f"{el_:.6f}",
+                   f"{np.sum(Fc):.4f}", f"{np.sum(Fl):.4f}"])
+table("Moslashgan va jamlangan yuk vektori (q = q0*x/L)",
+      ["elementlar", "moslashgan xato, %", "jamlangan xato, %",
+       "sum F moslashgan", "sum F jamlangan"], rows_l)
+note("MUHIM NATIJA. Moslashgan yuk vektori tugunlarda AYNAN yechim "
+     "beradi (xato 1e-14 darajasida) - ya'ni su-13 dagi bir o'lchovli "
+     "superkonvergensiya saqlanadi. Jamlangan (lumped) vektor esa uni "
+     "BUZADI: xato 6.25% dan boshlanib, to'r zichlashganda aynan to'rt "
+     "barobar kamayadi (ikkinchi tartib). Ikkala vektorning yig'indisi "
+     "bir xil - demak muvozanat ikkalasida ham saqlanadi, farq faqat "
+     "taqsimotda. Bu jamlangan vektorning xatosi nima uchun jimgina "
+     "o'tishini tushuntiradi.")
+
+# --- (4) LENTA KENGLIGI va qayta raqamlash ---
+def grid_mesh(nx, ny, direction):
+    """nx x ny tugunli to'r, Q4 elementlar."""
+    idx = np.zeros((nx, ny), dtype=int)
+    k = 0
+    if direction == "x":
+        for j in range(ny):
+            for i in range(nx):
+                idx[i, j] = k
+                k += 1
+    else:
+        for i in range(nx):
+            for j in range(ny):
+                idx[i, j] = k
+                k += 1
+    conn = []
+    for i in range(nx - 1):
+        for j in range(ny - 1):
+            conn.append([idx[i, j], idx[i+1, j], idx[i+1, j+1], idx[i, j+1]])
+    return np.array(conn), nx*ny
+
+
+def half_bw(conn):
+    return int(max(e.max() - e.min() for e in conn)) + 1
+
+
+def adjacency(conn, n):
+    adj = [set() for _ in range(n)]
+    for e in conn:
+        for a in e:
+            for b in e:
+                if a != b:
+                    adj[a].add(b)
+    return [sorted(s) for s in adj]
+
+
+def rcm(conn, n):
+    """Teskari Kathill-Makki qayta raqamlash."""
+    adj = adjacency(conn, n)
+    deg = [len(a) for a in adj]
+    seen = [False]*n
+    order = []
+    while len(order) < n:
+        start = min((i for i in range(n) if not seen[i]),
+                    key=lambda i: deg[i])
+        Q = deque([start])
+        seen[start] = True
+        while Q:
+            v = Q.popleft()
+            order.append(v)
+            for w in sorted(adj[v], key=lambda w: deg[w]):
+                if not seen[w]:
+                    seen[w] = True
+                    Q.append(w)
+    perm = np.array(order[::-1])
+    inv = np.zeros(n, dtype=int)
+    inv[perm] = np.arange(n)
+    return inv
+
+
+conn_x, n_nod = grid_mesh(nx_g, ny_g, "x")
+conn_y, _ = grid_mesh(nx_g, ny_g, "y")
+rng2 = np.random.default_rng(0)
+conn_r = rng2.permutation(n_nod)[conn_y]
+inv_rcm = rcm(conn_r, n_nod)
+conn_rcm = inv_rcm[conn_r]
+
+rows_b = []
+for name, cn in [("qisqa yo'nalish bo'yicha", conn_x),
+                 ("uzun yo'nalish bo'yicha", conn_y),
+                 ("tasodifiy", conn_r),
+                 ("tasodifiy + RCM", conn_rcm)]:
+    b = half_bw(cn)
+    rows_b.append([name, b, n_nod*b*b,
+                   f"{n_nod*b*b/(n_nod*half_bw(conn_x)**2):.1f}x"])
+table(f"Lenta kengligi va yechish narxi ({nx_g} x {ny_g} to'r, "
+      f"{n_nod} tugun)",
+      ["raqamlash", "yarim lenta b", "narx ~ n*b^2", "eng yaxshiga nisbatan"],
+      rows_b)
+value("Tugunlar soni", n_nod, "—")
+value("Eng yaxshi lenta kengligi", half_bw(conn_x), "—")
+value("Tasodifiy raqamlashda lenta kengligi", half_bw(conn_r), "—")
+value("RCM dan keyin lenta kengligi", half_bw(conn_rcm), "—")
+value("RCM ning foydasi", half_bw(conn_r)/half_bw(conn_rcm), "barobar")
+note(f"Bir xil masala, bir xil to'r, bir xil fizika - faqat tugun "
+     f"raqamlari boshqacha. Tasodifiy raqamlashda lenta kengligi "
+     f"{half_bw(conn_r)} (deyarli to'la matritsa), qisqa yo'nalish "
+     f"bo'yicha esa {half_bw(conn_x)}. Narx nisbati "
+     f"{n_nod*half_bw(conn_r)**2/(n_nod*half_bw(conn_x)**2):.0f} "
+     f"barobar. RCM tasodifiy raqamlashni "
+     f"{half_bw(conn_r)/half_bw(conn_rcm):.0f} barobar yaxshiladi, "
+     f"lekin optimalga ({half_bw(conn_x)}) yetmadi - u evristika, "
+     f"kafolat emas.")
+
+# Matritsaning to'ldirilish xaritasi
+def sparsity_profile(conn, n):
+    prof = np.zeros(n, dtype=int)
+    for e in conn:
+        for a in e:
+            prof[a] = max(prof[a], a - int(e.min()))
+    return prof
+
+
+series("Profil: qisqa yo'nalish", list(range(n_nod)),
+       sparsity_profile(conn_x, n_nod).tolist(),
+       xlabel="tugun raqami", ylabel="profil balandligi")
+series("Profil: tasodifiy", list(range(n_nod)),
+       sparsity_profile(conn_r, n_nod).tolist(),
+       xlabel="tugun raqami", ylabel="profil balandligi")
+series("Profil: RCM", list(range(n_nod)),
+       sparsity_profile(conn_rcm, n_nod).tolist(),
+       xlabel="tugun raqami", ylabel="profil balandligi")
+
+# Xotira taqqoslash
+rows_m = []
+for n_ in [1_000, 10_000, 100_000]:
+    b_ = int(2*np.sqrt(n_))
+    rows_m.append([n_, f"{n_*n_*8/1e9:.3f}", f"{n_*b_*8/1e6:.2f}", b_,
+                   f"{n_**3/1e9:.1f}", f"{n_*b_*b_/1e9:.4f}"])
+table("To'la va lentali saqlashning taqqoslanishi (2D to'r, b ~ 2*sqrt(n))",
+      ["n", "to'la xotira, GB", "lentali xotira, MB", "b",
+       "to'la amallar, mlrd", "lentali amallar, mlrd"], rows_m)
+note("100 000 erkinlik darajasida to'la matritsa 80 GB talab qiladi va "
+     "amalda saqlab bo'lmaydi; lentali saqlash esa atigi 506 MB. Amallar "
+     "soni bo'yicha farq undan ham katta. Aynan shu sabab FEM "
+     "paketlari hech qachon to'la matritsa bilan ishlamaydi.")
+''',
+                parameters=[
+                    p("n_el", "Elementlar soni", 2.0, 40.0, 6.0, 1.0),
+                    p("p_ord", "Element tartibi", 1.0, 3.0, 1.0, 1.0),
+                    p("nx_g", "To'r: qisqa yo'nalish", 3.0, 15.0, 5.0, 1.0),
+                    p("ny_g", "To'r: uzun yo'nalish", 5.0, 40.0, 21.0, 1.0),
+                ],
+                expected_output=(
+                    "Kvadratik element matritsasi "
+                    "klassik "
+                    "$\\frac{EA}{3h}"
+                    "[[7,-8,1],[-8,16,-8],"
+                    "[1,-8,7]]$ ni aynan "
+                    "takrorlaydi, moslashgan yuk "
+                    "vektori esa "
+                    "$\\{1/6, 2/3, 1/6\\}$ "
+                    "beradi. Yig'ishdan keyin "
+                    "beshta tekshiruv ham "
+                    "bajariladi: simmetriya va "
+                    "qattiq jism rejimi aynan "
+                    "nol, rang $n-1$, eng kichik "
+                    "xos qiymat mashina noli, "
+                    "yuk yig'indisi $qL$ ga "
+                    "teng. Yig'ish tartibi "
+                    "natijaga umuman ta'sir "
+                    "qilmaydi. Moslashgan yuk "
+                    "vektori tugunlarda aynan "
+                    "yechim beradi, jamlangan "
+                    "esa 6,25% dan boshlanib "
+                    "ikkinchi tartibda "
+                    "kamayadigan xato "
+                    "kiritadi. Lenta kengligi "
+                    "raqamlashga qarab 7 dan "
+                    "104 gacha o'zgaradi — "
+                    "yechish narxida 221 "
+                    "barobar farq; RCM uni "
+                    "10 barobar yaxshilaydi."
+                ),
+            ),
+            visual=vis(
+                kind="Yig'ish jarayoni va matritsa to'ldirilishi",
+                tool="React/SVG + Manim",
+                description=(
+                    "Element matritsalarining "
+                    "global tizimga "
+                    "joylashtirilishi va lenta "
+                    "kengligining raqamlashga "
+                    "bog'liqligi."
+                ),
+                how_to_draw=(
+                    "React/SVG: chap panelda "
+                    "sterjen elementlarga "
+                    "bo'lingan holda "
+                    "ko'rsatiladi, o'ng panelda "
+                    "esa global matritsa "
+                    "katakchalar to'ri sifatida. "
+                    "'Keyingi element' tugmasi "
+                    "bosilganda tanlangan "
+                    "element yonib turadi va "
+                    "uning $(p+1)^2$ ta hissasi "
+                    "matritsadagi mos "
+                    "katakchalarga **qo'shiladi** "
+                    "— umumiy tugundagi "
+                    "katakcha ikki marta "
+                    "yonganda uning rangi "
+                    "to'qlashadi va yon "
+                    "tomonda $K_{33} = "
+                    "k^{(1)}_{33} + k^{(2)}_{11}$ "
+                    "yozuvi chiqadi. Pastki "
+                    "panelda ikki o'lchovli "
+                    "to'rning nol bo'lmagan "
+                    "hadlari xaritasi: uchta "
+                    "variant yonma-yon — "
+                    "tartibli raqamlash (ingichka "
+                    "lenta), tasodifiy (butun "
+                    "maydon bo'ylab sochilgan "
+                    "nuqtalar) va RCM dan keyin "
+                    "(yana ingichka lenta). Har "
+                    "birining ostida $b$ va "
+                    "$nb^2$ qiymatlari; "
+                    "tasodifiy variantda narx "
+                    "ko'rsatkichi qizil rangda. "
+                    "'RCM qo'lla' tugmasi "
+                    "nuqtalarni animatsiya bilan "
+                    "lentaga yig'adi."
+                ),
+            ),
+            interp=(
+                "Element matritsalari klassik "
+                "qiymatlarni mashina aniqligida "
+                "takrorladi va bu kodning "
+                "to'g'riligining birinchi "
+                "dalili. Moslashgan yuk "
+                "vektorining "
+                "$\\{1/6, 2/3, 1/6\\}$ "
+                "natijasi esa intuitiv "
+                "kutilmagan, lekin uning "
+                "yig'indisi aynan $qh$ ga teng: "
+                "muvozanat saqlanadi, taqsimot "
+                "esa teng emas. Yig'ishdan "
+                "keyingi beshta tekshiruv ham "
+                "aynan bajarildi. Ulardan eng "
+                "nozigi — xos qiymatlar: eng "
+                "kichigi mashina noli, "
+                "keyingisi esa undan 15 tartib "
+                "katta. Bu farq muhim, chunki u "
+                "singulyarlikning **aniq bitta** "
+                "qattiq jism rejimidan "
+                "kelayotganini ko'rsatadi; agar "
+                "ikkinchi xos qiymat ham kichik "
+                "bo'lsa, demak modelda "
+                "mahkamlanmagan mexanizm bor. "
+                "Yig'ish tartibidan mustaqillik "
+                "aynan nol chiqdi — bu "
+                "parallellashtirish uchun "
+                "nazariy asos. Energiya "
+                "tekshiruvi yana bir mustaqil "
+                "tasdiq beradi: "
+                "$\\tfrac12\\mathbf{u}^T"
+                "\\mathbf{K}\\mathbf{u}$ va "
+                "deformatsiya maydonining "
+                "bevosita integrali ustma-ust "
+                "tushdi, va diskret energiya "
+                "aniq qiymatdan oshmadi — "
+                "su-13 dagi quyi chegara "
+                "xossasi yig'ishdan keyin ham "
+                "kuchda. $p = 1$ da farq "
+                "$-0{,}0116$ J, $p \\ge 2$ da "
+                "esa nol, chunki bu masalaning "
+                "aniq yechimi kvadratik va "
+                "kvadratik element uni to'liq "
+                "ifodalaydi. Eng muhim "
+                "amaliy natija esa uchinchi "
+                "tajribada: moslashgan yuk "
+                "vektori tugunlarda aynan "
+                "yechim beradi, ya'ni su-13 "
+                "dagi superkonvergensiyani "
+                "saqlaydi, jamlangan vektor "
+                "esa uni buzadi va 6,25% dan "
+                "boshlanadigan, ikkinchi "
+                "tartibda kamayadigan xato "
+                "kiritadi. Ikkala vektorning "
+                "yig'indisi bir xil, shuning "
+                "uchun muvozanat tekshiruvi "
+                "bu xatoni **ushlamaydi** — "
+                "u jimgina o'tadi va natija "
+                "ishonarli ko'rinadi. "
+                "To'rtinchi tajriba esa "
+                "muhandislik jihatdan eng "
+                "qimmatli xulosani beradi: "
+                "bir xil masala, bir xil to'r, "
+                "bir xil fizika — faqat tugun "
+                "raqamlari boshqacha, va "
+                "yechish narxi 221 barobar "
+                "farq qiladi. RCM tasodifiy "
+                "raqamlashni 10 barobar "
+                "yaxshilaydi, lekin optimalga "
+                "yetmaydi — u evristika, "
+                "kafolat emas, va buni "
+                "bilish kerak."
+            ),
+            mistakes=[
+                "Taqsimlangan yukni tugunlarga "
+                "teng bo'lish. To'g'ri yo'l — "
+                "$\\int\\mathbf{N}^Tq$; "
+                "kvadratik elementda "
+                "$\\{1/6, 2/3, 1/6\\}$, "
+                "$\\{1/3,1/3,1/3\\}$ emas.",
+                "Chegaraviy shartlargacha "
+                "$\\mathbf{K}$ ning "
+                "singulyarligini xato deb "
+                "hisoblash. Aksincha — u "
+                "singulyar bo'lishi **shart**.",
+                "Qator yig'indisi tekshiruvini "
+                "o'tkazib yuborish. Bu bir "
+                "qator kod yig'ishdagi "
+                "xatolarning katta qismini "
+                "darhol ochadi.",
+                "Tugunlarni ixtiyoriy "
+                "raqamlash. Lenta kengligi "
+                "shundan o'nlab marta o'sadi "
+                "va yechish vaqti yuz barobar "
+                "uzayadi.",
+                "Faqat yuk yig'indisini "
+                "tekshirish bilan "
+                "cheklanish. Jamlangan yuk "
+                "vektori bu tekshiruvdan "
+                "o'tadi, lekin noto'g'ri "
+                "taqsimot beradi.",
+            ],
+            quiz=[
+                q("Yig'ishning matematik asosi "
+                  "nima?",
+                  "Integralning additivligi: "
+                  "$\\int_\\Omega = \\sum_e "
+                  "\\int_{\\Omega_e}$ — shuning "
+                  "uchun global matritsa element "
+                  "hissalarining yig'indisi.",
+                  "konseptual"),
+                q("Kvadratik element uchun doimiy "
+                  "$q$ yukning moslashgan "
+                  "vektori qanday va nega "
+                  "$\\{1/3,1/3,1/3\\}$ emas?",
+                  "$qh\\{1/6, 2/3, 1/6\\}$. "
+                  "Sababi $\\int N_i q$: "
+                  "$N_2 = 1-\\xi^2$ eng katta "
+                  "yuzaga ega, chet "
+                  "funksiyalari esa manfiy "
+                  "qismga ham ega.", "hisob"),
+                q("Chegaraviy shartlargacha "
+                  "$\\mathbf{K}$ nima uchun "
+                  "singulyar?",
+                  "Qattiq jism harakati "
+                  "deformatsiya bermaydi: "
+                  "$\\mathbf{K}\\mathbf{1} = "
+                  "\\mathbf{0}$. 1D da bitta, "
+                  "tekis masalada uchta, fazoda "
+                  "oltita nol xos qiymat.",
+                  "konseptual"),
+                q("Kod yig'ishdan keyin qaysi "
+                  "beshta tekshiruvni bajaradi?",
+                  "Simmetriya, qator "
+                  "yig'indisining noli, rang "
+                  "$n-1$ ga tengligi, eng "
+                  "kichik xos qiymatning "
+                  "noliga yaqinligi va yuk "
+                  "yig'indisining to'liq yukka "
+                  "tengligi.", "kod"),
+                q("Moslashgan va jamlangan yuk "
+                  "vektorlari orasidagi farq "
+                  "natijada qanday ko'rinadi?",
+                  "Moslashgan vektor tugunlarda "
+                  "aynan yechim beradi "
+                  "(superkonvergensiya "
+                  "saqlanadi), jamlangan esa "
+                  "6,25% dan boshlanib "
+                  "$O(h^2)$ kamayadigan xato "
+                  "kiritadi; yig'indi ikkalasida "
+                  "bir xil.", "talqin"),
+                q("Lenta kengligi nimaga bog'liq "
+                  "va u nima uchun muhim?",
+                  "Faqat tugun raqamlashga, "
+                  "fizikaga emas. Yechish "
+                  "narxi $\\sim nb^2$, shuning "
+                  "uchun bir xil masalada "
+                  "raqamlash tanlovi yuz "
+                  "barobar farq berishi "
+                  "mumkin.", "talqin"),
+                q("RCM nima qiladi va u "
+                  "optimalni kafolatlaydimi?",
+                  "Graf bo'ylab kengligiga "
+                  "qidirish bilan tugunlarni "
+                  "qayta raqamlab lenta "
+                  "kengligini kamaytiradi. "
+                  "Kafolatlamaydi: kodda u "
+                  "tasodifiy raqamlashni "
+                  "10 barobar yaxshiladi, "
+                  "lekin optimal 7 o'rniga "
+                  "10 berdi.", "kod"),
+            ],
+            bridge=(
+                "Element matritsalarini qurish "
+                "va yig'ish tayyor, lekin biz "
+                "integrallarni Gauss "
+                "kvadraturasi bilan hisobladik "
+                "va necha nuqta kerakligini "
+                "asoslamadik. Keyingi mavzuda "
+                "shu savolga javob beramiz — "
+                "va kutilmagan narsa aniqlanadi: "
+                "ba'zan integralni **kamroq** "
+                "nuqta bilan hisoblash "
+                "natijani yaxshilaydi."
+            ),
+            research=(
+                "Yig'ish va saqlashni "
+                "chuqurlashtiring. "
+                "(1) Frontal va ko'p frontli "
+                "(multifrontal) usullarni "
+                "o'rganing: ular yig'ish va "
+                "yechishni birlashtiradi va "
+                "global matritsani hech qachon "
+                "to'liq qurmaydi — bu xotira "
+                "talabini qanday kamaytiradi? "
+                "(2) Siyrak matritsalarning "
+                "CSR va skyline formatlarini "
+                "taqqoslang: qaysi biri "
+                "to'g'ri yechuvchiga, qaysi "
+                "biri iterativ yechuvchiga "
+                "mos? (3) To'ldirilish "
+                "(fill-in) hodisasini "
+                "o'rganing: LU yoyilishida "
+                "nol hadlar nolmas bo'ladi — "
+                "minimal daraja (minimum "
+                "degree) va ichki ajratish "
+                "(nested dissection) buni "
+                "qanday kamaytiradi? "
+                "(4) Element matritsalarini "
+                "parallel hisoblash va "
+                "yig'ishdagi poyga holatini "
+                "(race condition) ko'rib "
+                "chiqing: rang berish "
+                "(colouring) yondashuvi "
+                "qanday ishlaydi?"
+            ),
+            manim_ref=manim(
+                scene="AssemblyScene",
+                module="manim/scenes/su_fem.py",
+                title="Global tizimni yig'ish",
+                summary=(
+                    "To'rt elementli sterjen "
+                    "ko'rsatiladi va element "
+                    "matritsalari birin-ketin "
+                    "global matritsaga "
+                    "'uchib boradi'. Umumiy "
+                    "tugunlarda katakchalar "
+                    "ustma-ust tushadi va "
+                    "qiymatlar qo'shilib "
+                    "boradi. Oxirida "
+                    "matritsaning qator "
+                    "yig'indilari hisoblanadi "
+                    "va barchasi nol chiqadi — "
+                    "qattiq jism rejimining "
+                    "ko'rinishi."
+                ),
+            ),
+        ),
+    ),
 ]
