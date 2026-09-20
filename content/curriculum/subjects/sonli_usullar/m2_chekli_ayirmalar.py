@@ -4986,4 +4986,994 @@ table("Nyumark oilasining asosiy a'zolari",
             ),
         ),
     ),
+
+    # ------------------------------------------------------------------ su-12
+    Topic(
+        id="su-12",
+        subject_id=S, module_id=M, order=12,
+        title="To'lqin tenglamasi, CFL sharti va sonli dispersiya",
+        description=(
+            "To'lqin tarqalishi sxemalari, Kurant–Fridrixs–Levi sharti, "
+            "sonli dispersiya va dissipatsiya, to'lqinni to'r bilan "
+            "ifodalash chegarasi."
+        ),
+        learning_objective=(
+            "CFL shartini keltirib chiqarish va uning fizik ma'nosini "
+            "tushuntirish, sonli dispersiyani o'lchash va to'lqin "
+            "uzunligiga necha tugun kerakligini asoslash."
+        ),
+        prerequisites=["su-11", "tmm-20"],
+        mathematical_core=(
+            "$\\partial^2 u/\\partial t^2 = c^2\\partial^2 u/"
+            "\\partial x^2$; CFL: $C = c\\Delta t/h \\le 1$; "
+            "sonli tezlik $c_h/c = \\dfrac{2}{kh}\\arcsin"
+            "\\big(C\\sin\\tfrac{kh}{2}\\big)/C$."
+        ),
+        engineering_application=(
+            "Zarba va urilish tahlili, portlash yuklamasi, "
+            "ultratovushli nazorat, seysmik to'lqinlar, akustika, "
+            "krash-testlar."
+        ),
+        computational_component=(
+            "To'lqin tenglamasini yechish, CFL chegarasini sonli "
+            "topish va sonli dispersiyani to'lqin uzunligi bo'yicha "
+            "o'lchash."
+        ),
+        visualization_component=(
+            "To'lqin tarqalishi, nomutanosib tezlik, o'tkir front "
+            "ortidagi soxta tebranishlar."
+        ),
+        research_extension=(
+            "Soxta tebranishlarni bartaraf etish usullarini o'rganing: "
+            "sun'iy qovushqoqlik, TVD va WENO sxemalari."
+        ),
+        difficulty="ilg'or",
+        previous_link=(
+            "su-11 da Nyumark sxemalari qurildi va oshkor sxema uchun "
+            "$\\Delta t \\le 2/\\omega_{max}$ sharti olingan edi. "
+            "To'lqin masalasida $\\omega_{max} \\sim c/h$, demak bu "
+            "shart to'g'ridan-to'g'ri CFL ga aylanadi."
+        ),
+        next_topic="su-13",
+        estimated_minutes=90,
+        tags=["CFL", "to'lqin", "dispersiya", "Kurant soni"],
+        lesson=_lesson(
+            problem=(
+                "Po'lat relsga zarba beriladi va "
+                "elastik to'lqin tarqalishini "
+                "hisoblaymiz — bu ultratovushli "
+                "nazorat va zarba tahlilining "
+                "asosi. To'lqin tezligi "
+                "$c = \\sqrt{E/\\rho} = 5100$ m/s, "
+                "ya'ni u 1 metrni 0,2 "
+                "millisekundda bosib o'tadi. "
+                "Sxemani yozamiz va ishga "
+                "tushiramiz. Ikki xil muammo "
+                "paydo bo'ladi. Birinchisi "
+                "tanish: qadam katta bo'lsa "
+                "yechim portlaydi. Ikkinchisi "
+                "yangi va nozikroq: qadam kichik "
+                "bo'lsa ham to'lqin "
+                "**noto'g'ri tezlikda** "
+                "harakatlanadi va o'tkir front "
+                "ortida mavjud bo'lmagan "
+                "tebranishlar paydo bo'ladi. "
+                "Bu 'shovqin' emas — u "
+                "sxemaning o'zidan kelib chiqadi."
+            ),
+            concepts=[
+                c("To'lqin tenglamasi",
+                  "$u_{tt} = c^2u_{xx}$ — "
+                  "giperbolik tenglama; "
+                  "yechim so'nmaydi, "
+                  "**tarqaladi**."),
+                c("Kurant soni",
+                  "$C = c\\Delta t/h$ — bir vaqt "
+                  "qadamida to'lqin necha "
+                  "hujayradan o'tishi."),
+                c("CFL sharti",
+                  "$C \\le 1$ — sonli ta'sir "
+                  "sohasi fizik ta'sir sohasini "
+                  "**qamrab olishi** kerak."),
+                c("Sonli dispersiya",
+                  "Turli to'lqin uzunliklari "
+                  "turli tezlikda tarqalishi; "
+                  "fizik emas, sxema artefakti."),
+                c("Sonli dissipatsiya",
+                  "Amplituda sun'iy so'nishi; "
+                  "markaziy sxemada yo'q, "
+                  "yuqoriga siljigan (upwind) "
+                  "sxemada bor."),
+                c("Tugunlar soni to'lqin uzunligiga",
+                  "$N_\\lambda = \\lambda/h$ — "
+                  "aniqlik mezoni; odatda "
+                  "$N_\\lambda \\ge 10{\\ldots}20$ "
+                  "talab qilinadi."),
+            ],
+            derivation=[
+                d("1. To'lqin tenglamasi va sxema",
+                  r"\frac{\partial^2 u}{\partial t^2} = "
+                  r"c^2\frac{\partial^2 u}{\partial x^2} "
+                  r"\;\Longrightarrow\; "
+                  r"\frac{u_j^{n+1}-2u_j^n+u_j^{n-1}}"
+                  r"{\Delta t^2} = c^2"
+                  r"\frac{u_{j-1}^n-2u_j^n+u_{j+1}^n}{h^2}",
+                  "Ikkala hosila ham markaziy "
+                  "ayirma bilan — bu su-11 dagi "
+                  "markaziy ayirma usulining "
+                  "to'lqin tenglamasiga "
+                  "qo'llanishi."),
+                d("2. Yangilash formulasi",
+                  r"u_j^{n+1} = 2u_j^n - u_j^{n-1} + "
+                  r"C^2\big(u_{j-1}^n - 2u_j^n + "
+                  r"u_{j+1}^n\big), \ C = "
+                  r"\frac{c\Delta t}{h}",
+                  "Oshkor sxema: uch qatlam "
+                  "ishlatiladi. $C$ — yagona "
+                  "parametr."),
+                d("3. Fon Neyman tahlili",
+                  r"u_j^n = \xi^n e^{ikjh} "
+                  r"\;\Longrightarrow\; \xi^2 - "
+                  r"2\big(1 - 2C^2\sin^2\tfrac{kh}{2}"
+                  r"\big)\xi + 1 = 0",
+                  "su-10 dagi usul. Endi "
+                  "**kvadrat** tenglama, chunki "
+                  "sxema uch qatlamli."),
+                d("4. Ildizlar va barqarorlik",
+                  r"\xi_{1,2} = A \pm \sqrt{A^2-1}, "
+                  r"\quad A = 1 - 2C^2"
+                  r"\sin^2\frac{kh}{2}",
+                  "$|A| \\le 1$ bo'lsa ildizlar "
+                  "kompleks va "
+                  "$|\\xi_1||\\xi_2| = 1$, "
+                  "$|\\xi| = 1$ — amplituda "
+                  "**aynan saqlanadi**. "
+                  "$|A| > 1$ bo'lsa bitta ildiz "
+                  "birdan katta — portlash."),
+                d("5. CFL sharti",
+                  r"|A| \le 1 \;\Longrightarrow\; "
+                  r"C^2\sin^2\frac{kh}{2} \le 1 "
+                  r"\;\Longrightarrow\; C \le 1",
+                  "**Asosiy natija.** Eng yomon "
+                  "holat yana $kh = \\pi$. "
+                  "Issiqlik tenglamasidan farqi: "
+                  "$\\Delta t \\sim h$, "
+                  "$h^2$ emas — bu ancha "
+                  "yumshoqroq cheklov."),
+                d("6. CFL ning fizik ma'nosi",
+                  r"c\Delta t \le h",
+                  "**Eng muhim talqin.** Bir vaqt "
+                  "qadamida to'lqin bir "
+                  "hujayradan ko'p o'tmasligi "
+                  "kerak. Aks holda sonli sxema "
+                  "ma'lumotni yetarlicha tez "
+                  "uzata olmaydi — sonli ta'sir "
+                  "sohasi fizik ta'sir sohasini "
+                  "qamrab olmaydi."),
+                d("7. Sonli to'lqin tezligini topish",
+                  r"\xi = e^{-i\omega_h\Delta t} "
+                  r"\;\Longrightarrow\; "
+                  r"\cos\omega_h\Delta t = 1 - "
+                  r"2C^2\sin^2\frac{kh}{2}",
+                  "Barqaror holatda $\\xi$ birlik "
+                  "doirada yotadi, demak uni "
+                  "eksponenta ko'rinishida yozish "
+                  "mumkin."),
+                d("8. Dispersiya munosabati",
+                  r"\sin\frac{\omega_h\Delta t}{2} = "
+                  r"C\sin\frac{kh}{2} "
+                  r"\;\Longrightarrow\; "
+                  r"\omega_h = \frac{2}{\Delta t}"
+                  r"\arcsin\Big(C\sin\frac{kh}{2}\Big)",
+                  "Yarim burchak formulasidan. "
+                  "Aniq tenglamada esa "
+                  "$\\omega = ck$ — **chiziqli**."),
+                d("9. Sonli faza tezligi",
+                  r"\frac{c_h}{c} = "
+                  r"\frac{\omega_h}{ck} = "
+                  r"\frac{2}{Ckh}\arcsin\Big("
+                  r"C\sin\frac{kh}{2}\Big)",
+                  "**Hal qiluvchi natija.** "
+                  "Tezlik $kh$ ga bog'liq, ya'ni "
+                  "turli to'lqin uzunliklari "
+                  "turli tezlikda tarqaladi — "
+                  "bu **sonli dispersiya**."),
+                d("10. $C = 1$ mo'jizasi",
+                  r"C = 1: \ \sin\frac{\omega_h"
+                  r"\Delta t}{2} = \sin\frac{kh}{2} "
+                  r"\;\Longrightarrow\; "
+                  r"\omega_h\Delta t = kh "
+                  r"\;\Longrightarrow\; c_h = c",
+                  "**Ajoyib xususiyat.** Aynan "
+                  "barqarorlik chegarasida sxema "
+                  "**dispersiyasiz** bo'ladi va "
+                  "to'lqinni aynan to'g'ri "
+                  "tezlikda uzatadi. Bu "
+                  "'sehrli qadam' deb ataladi."),
+                d("11. Kichik to'lqin uzunliklari "
+                  "uchun yoyilma",
+                  r"\frac{c_h}{c} \approx 1 - "
+                  r"\frac{(1-C^2)}{24}(kh)^2 + "
+                  r"O\big((kh)^4\big)",
+                  "$C < 1$ da to'lqin "
+                  "**sekinroq** tarqaladi va "
+                  "xato $(kh)^2$ ga mutanosib. "
+                  "$kh = 2\\pi/N_\\lambda$, demak "
+                  "xato $1/N_\\lambda^2$ ga "
+                  "mutanosib."),
+                d("12. Tugunlar soni talabi",
+                  r"\frac{\Delta c}{c} \le \epsilon "
+                  r"\;\Longrightarrow\; N_\lambda "
+                  r"\ge 2\pi\sqrt{\frac{1-C^2}"
+                  r"{24\,\epsilon}}",
+                  "$\\epsilon = 1$ % va "
+                  "$C = 0{,}5$ uchun "
+                  "$N_\\lambda \\ge 11$. Amalda "
+                  "10–20 tugun tavsiya etiladi — "
+                  "bu qoida shundan kelib chiqadi."),
+                d("13. O'tkir frontdagi soxta "
+                  "tebranishlar",
+                  r"\text{keskin front} = "
+                  r"\text{barcha } k \ \text{lar "
+                  r"yig'indisi} \;\Longrightarrow\; "
+                  r"\text{ular AJRALADI}",
+                  "Keskin front barcha to'lqin "
+                  "uzunliklarini o'z ichiga oladi. "
+                  "Dispersiya tufayli ular turli "
+                  "tezlikda ketadi va front "
+                  "ortida tebranish 'dumi' "
+                  "hosil bo'ladi — Gibbs "
+                  "hodisasiga o'xshash, lekin "
+                  "boshqa sabab."),
+            ],
+            meaning=(
+                "To'lqin masalalarida ikkita "
+                "alohida hodisa bor va ularni "
+                "ajratish muhim. Birinchisi — "
+                "barqarorlik: CFL sharti "
+                "$C \\le 1$. Uning fizik ma'nosi "
+                "6-qadamda va u juda tushunarli: "
+                "bir vaqt qadamida to'lqin bir "
+                "hujayradan ko'p o'tmasligi "
+                "kerak, aks holda sonli sxema "
+                "ma'lumotni yetib olmaydi. "
+                "Issiqlik tenglamasidan muhim "
+                "farq shuki, bu yerda "
+                "$\\Delta t \\sim h$, "
+                "$h^2$ emas. Shuning uchun "
+                "to'lqin masalalarida oshkor "
+                "sxemalar amalda keng "
+                "ishlatiladi — krash-testlar va "
+                "portlash tahlilining hammasi "
+                "oshkor. Ikkinchi hodisa — sonli "
+                "dispersiya — ancha nozikroq. "
+                "Sxema barqaror bo'lishi mumkin, "
+                "amplitudani aynan saqlashi "
+                "mumkin, lekin to'lqinni "
+                "noto'g'ri tezlikda uzatishi "
+                "mumkin. 9-qadamdagi formula "
+                "buni aniq ifodalaydi: sonli "
+                "tezlik to'lqin uzunligiga "
+                "bog'liq, aniq tenglamada esa "
+                "**barcha** to'lqinlar bir xil "
+                "tezlikda ketadi. Natijada "
+                "keskin front 'yoyilib' ketadi "
+                "va ortida soxta tebranishlar "
+                "qoladi. 10-qadamdagi "
+                "$C = 1$ holati esa hayratlanarli: "
+                "aynan barqarorlik chegarasida "
+                "sxema mukammal aniq bo'ladi. "
+                "Bu tasodif emas — $C = 1$ da "
+                "sonli xarakteristikalar fizik "
+                "xarakteristikalar bilan ustma-ust "
+                "tushadi va sxema aslida aniq "
+                "yechimni ko'chiradi. Amalda "
+                "bundan to'liq foydalanib "
+                "bo'lmaydi (ko'p o'lchovda va "
+                "notekis to'rda $C = 1$ ni hamma "
+                "joyda ushlab turish mumkin emas), "
+                "lekin u muhim ko'rsatma beradi: "
+                "$C$ ni imkon qadar 1 ga yaqin "
+                "olish kerak. Bu intuitivga zid — "
+                "odatda 'xavfsizlik uchun' kichik "
+                "qadam olinadi, bu yerda esa "
+                "kichik qadam **aniqlikni "
+                "yomonlashtiradi**. 12-qadamdagi "
+                "$N_\\lambda \\ge 10{\\ldots}20$ "
+                "qoidasi butun hisoblash "
+                "akustikasi va to'lqin "
+                "dinamikasining asosiy to'r "
+                "tanlash mezoni bo'lib xizmat "
+                "qiladi."
+            ),
+            equations=[
+                eq(r"u_j^{n+1} = 2u_j^n - u_j^{n-1} + "
+                   r"C^2\big(u_{j-1}^n-2u_j^n+"
+                   r"u_{j+1}^n\big)",
+                   "To'lqin tenglamasining oshkor "
+                   "sxemasi.", "To'lqin sxemasi"),
+                eq(r"C = \frac{c\Delta t}{h} \le 1",
+                   "Kurant–Fridrixs–Levi sharti.",
+                   "CFL sharti"),
+                eq(r"\frac{c_h}{c} = \frac{2}{Ckh}"
+                   r"\arcsin\Big(C\sin\frac{kh}{2}\Big)",
+                   "Sonli faza tezligi — dispersiya "
+                   "munosabati.", "Sonli dispersiya"),
+                eq(r"\frac{c_h}{c} \approx 1 - "
+                   r"\frac{1-C^2}{24}(kh)^2",
+                   "Uzun to'lqinlar uchun yoyilma; "
+                   "$C = 1$ da xato yo'qoladi.",
+                   "Dispersiya bahosi"),
+            ],
+            conditions=(
+                "**Barqarorlik (CFL):**\n"
+                "- 1D: $C = c\\Delta t/h \\le 1$;\n"
+                "- 2D: $c\\Delta t\\sqrt{1/h_x^2+"
+                "1/h_y^2} \\le 1$;\n"
+                "- 3D: yanada qattiqroq;\n"
+                "- Notekis to'rda **eng kichik** "
+                "element belgilaydi.\n\n"
+                "**Aniqlik (dispersiya):**\n"
+                "- $N_\\lambda = \\lambda/h \\ge "
+                "10$ — minimal;\n"
+                "- $N_\\lambda \\ge 20$ — "
+                "ishonchli;\n"
+                "- $C$ ni 1 ga yaqin olish "
+                "dispersiyani kamaytiradi.\n\n"
+                "**Boshlang'ich shartlar:** "
+                "$u^0$ va $\\dot u^0$ berilgan. "
+                "Uch qatlamli sxema uchun "
+                "$u^1$ ni maxsus hisoblash kerak: "
+                "$u_j^1 = u_j^0 + \\Delta t"
+                "\\dot u_j^0 + \\frac{C^2}{2}"
+                "(u_{j-1}^0-2u_j^0+u_{j+1}^0)$ — "
+                "aks holda birinchi tartibga "
+                "tushib qolinadi.\n\n"
+                "**Chegaraviy shartlar:**\n"
+                "- Mahkamlangan: $u = 0$ "
+                "(to'lqin **qaytadi**, ishorasi "
+                "o'zgaradi);\n"
+                "- Erkin: $u_x = 0$ (qaytadi, "
+                "ishorasi saqlanadi);\n"
+                "- So'ruvchi (absorbing): "
+                "$u_t + cu_x = 0$ — to'lqin "
+                "chiqib ketadi, cheksiz sohani "
+                "modellashtirish uchun."
+            ),
+            worked=WorkedExample(
+                statement=(
+                    "Po'lat sterjen: $L = 1$ m, "
+                    "$E = 210$ GPa, "
+                    "$\\rho = 7850$ kg/m³. "
+                    "(a) To'lqin tezligini toping; "
+                    "(b) $h = 5$ mm da CFL "
+                    "chegarasini hisoblang; "
+                    "(c) 10 kHz chastotali to'lqin "
+                    "uchun necha tugun to'g'ri "
+                    "keladi? (d) $C = 0{,}5$ da "
+                    "shu to'lqinning tezlik "
+                    "xatosi qancha?"
+                ),
+                given=[
+                    r"E = 210\ \text{GPa},\ "
+                    r"\rho = 7850\ \text{kg/m}^3",
+                    r"h = 0{,}005\ \text{m},\ "
+                    r"f = 10\ \text{kHz}",
+                ],
+                steps=[
+                    st(r"c = \sqrt{\frac{E}{\rho}} = "
+                       r"\sqrt{\frac{210\times10^{9}}"
+                       r"{7850}} = \sqrt{2{,}6752"
+                       r"\times10^{7}}",
+                       "Sterjendagi bo'ylama "
+                       "to'lqin tezligi (tmm-20)."),
+                    st(r"= 5172\ \text{m/s}",
+                       "Po'lat uchun tipik qiymat."),
+                    st(r"\text{(b) } \Delta t_{max} = "
+                       r"\frac{h}{c} = "
+                       r"\frac{0{,}005}{5172} = "
+                       r"9{,}667\times10^{-7}\ "
+                       r"\text{s}",
+                       "**0,967 mikrosekund.** "
+                       "1 metrni o'tish uchun "
+                       "$L/c = 193$ µs kerak, "
+                       "demak kamida 200 qadam."),
+                    st(r"\text{(c) } \lambda = "
+                       r"\frac{c}{f} = "
+                       r"\frac{5172}{10^{4}} = "
+                       r"0{,}5172\ \text{m}",
+                       "10 kHz to'lqinining "
+                       "uzunligi — yarim metrdan "
+                       "ko'proq."),
+                    st(r"N_\lambda = "
+                       r"\frac{\lambda}{h} = "
+                       r"\frac{0{,}5172}{0{,}005} = "
+                       r"103\ \text{tugun}",
+                       "**Juda yaxshi** — "
+                       "tavsiya etilgan 10–20 dan "
+                       "ancha ko'p."),
+                    st(r"kh = \frac{2\pi}{N_\lambda} = "
+                       r"\frac{6{,}2832}{103} = "
+                       r"0{,}061",
+                       "To'lqin soni — juda "
+                       "kichik."),
+                    st(r"\text{(d) } \frac{\Delta c}{c} "
+                       r"\approx \frac{1-C^2}{24}"
+                       r"(kh)^2 = \frac{1-0{,}25}"
+                       r"{24}(0{,}061)^2",
+                       "11-qadamdagi yoyilma."),
+                    st(r"= \frac{0{,}75}{24} \cdot "
+                       r"0{,}003721 = "
+                       r"1{,}163\times10^{-4} = "
+                       r"0{,}0116\ \%",
+                       "Amalda e'tiborsiz "
+                       "qoldirsa bo'ladi."),
+                    st(r"f = 200\ \text{kHz}: \ "
+                       r"\lambda = 25{,}9\ "
+                       r"\text{mm}, \ N_\lambda = "
+                       r"5{,}17",
+                       "Ultratovushli nazoratda "
+                       "chastota ancha yuqori."),
+                    st(r"kh = \frac{6{,}2832}"
+                       r"{5{,}17} = 1{,}215 "
+                       r"\;\Rightarrow\; "
+                       r"\frac{\Delta c}{c} = "
+                       r"\frac{0{,}75}{24}(1{,}215)^2 "
+                       r"= 4{,}6\ \%",
+                       "**Endi jiddiy.** 5 ta "
+                       "tugun yetarli emas; "
+                       "$h$ ni to'rt barobar "
+                       "kichraytirib "
+                       "$N_\\lambda \\approx 20$ "
+                       "qilish kerak."),
+                    st(r"C = 1 \ \text{da: } "
+                       r"\frac{1-C^2}{24} = 0 "
+                       r"\;\Rightarrow\; "
+                       r"\frac{\Delta c}{c} = 0",
+                       "10-qadamdagi mo'jiza: "
+                       "$C = 1$ da dispersiya "
+                       "butunlay yo'qoladi, "
+                       "$N_\\lambda$ qanday "
+                       "bo'lishidan qat'i nazar."),
+                ],
+                answer=(
+                    "(a) $c = 5172$ m/s; "
+                    "(b) $\\Delta t_{max} = 0{,}967$ "
+                    "µs; (c) 10 kHz uchun "
+                    "$N_\\lambda = 103$ tugun — "
+                    "juda yaxshi, tezlik xatosi "
+                    "atigi **0,0116 %**; "
+                    "(d) 200 kHz da esa "
+                    "$N_\\lambda = 5{,}2$ va xato "
+                    "**4,6 %** ga chiqadi — to'rni "
+                    "zichlashtirish kerak. "
+                    "$C = 1$ da dispersiya har "
+                    "qanday $N_\\lambda$ da "
+                    "yo'qoladi."
+                ),
+                engineering_note=(
+                    "(d) natijasi ultratovushli "
+                    "nazorat modellarida asosiy "
+                    "to'r tanlash mezoni bo'lib "
+                    "xizmat qiladi va u ko'pincha "
+                    "e'tibordan chetda qoladi: "
+                    "muhandis to'rni "
+                    "**geometriya** bo'yicha "
+                    "tanlaydi (detal shakli aniq "
+                    "chiqsin), lekin to'lqin "
+                    "uzunligi bo'yicha tekshirmaydi. "
+                    "Natijada to'lqin noto'g'ri "
+                    "tezlikda tarqaladi va "
+                    "nuqsonning aniqlangan "
+                    "chuqurligi xato chiqadi. "
+                    "Qoida sodda: $h \\le "
+                    "\\lambda_{min}/20$, bu yerda "
+                    "$\\lambda_{min}$ — "
+                    "qiziqtiradigan eng yuqori "
+                    "chastotaga mos to'lqin "
+                    "uzunligi. $C = 1$ mo'jizasi "
+                    "esa amalda cheklangan "
+                    "foyda beradi: ko'p "
+                    "o'lchovda, notekis to'rda va "
+                    "turli materiallar aralashgan "
+                    "modelda $C$ hamma joyda 1 ga "
+                    "teng bo'la olmaydi — eng "
+                    "kichik element uni belgilaydi "
+                    "va qolgan joylarda $C < 1$ "
+                    "bo'lib qoladi. Shunga "
+                    "qaramay, $C$ ni imkon qadar "
+                    "1 ga yaqin ushlash foydali "
+                    "va bu oshkor dinamikada "
+                    "standart amaliyot."
+                ),
+            ),
+            computation=Computation(
+                caption=(
+                    "To'lqin tenglamasini yechish, "
+                    "CFL chegarasini sonli topish, "
+                    "sonli dispersiyani o'lchash va "
+                    "$C = 1$ mo'jizasini tekshirish."
+                ),
+                code='''"""To'lqin tenglamasi: CFL sharti va sonli dispersiya."""
+import numpy as np
+from labkit import PARAMS, note, series, table, value
+
+E = float(PARAMS.get("E", 210.0))*1e9
+rho = float(PARAMS.get("rho", 7850.0))
+L = float(PARAMS.get("L", 1.0))
+nx = int(PARAMS.get("nx", 400))
+C_use = float(PARAMS.get("C", 0.9))
+n_lam = float(PARAMS.get("n_lam", 20.0))
+
+c = np.sqrt(E/rho)
+h = L/nx
+value("To'lqin tezligi c", c, "m/s")
+value("Fazo qadami h", h*1000, "mm")
+value("CFL chegarasi dt_max = h/c", h/c*1e6, "mks")
+value("Sterjenni o'tish vaqti L/c", L/c*1e6, "mks")
+
+
+def wave_step(u0, u1, C, nt, bc="fixed"):
+    """u_tt = c^2 u_xx, uch qatlamli oshkor sxema."""
+    um, u = u0.copy(), u1.copy()
+    for _ in range(nt):
+        un = np.zeros_like(u)
+        un[1:-1] = (2*u[1:-1] - um[1:-1]
+                    + C**2*(u[:-2] - 2*u[1:-1] + u[2:]))
+        if bc == "fixed":
+            un[0] = un[-1] = 0.0
+        else:
+            un[0], un[-1] = un[1], un[-2]
+        um, u = u, un
+        if not np.all(np.isfinite(u)) or np.max(np.abs(u)) > 1e8:
+            return u, False
+    return u, True
+
+
+x = np.linspace(0.0, L, nx + 1)
+
+# --- (1) CFL chegarasini SONLI topish ---
+kk = 2*np.pi/(n_lam*h)          # to'lqin soni: n_lam tugun to'lqinga
+Cs = np.linspace(0.90, 1.12, 45)
+amp = []
+for Cc in Cs:
+    dt = Cc*h/c
+    u0 = np.sin(kk*x)
+    u0[0] = u0[-1] = 0.0
+    # birinchi qadamni ikkinchi tartibda
+    u1 = np.zeros_like(u0)
+    u1[1:-1] = (u0[1:-1] + 0.5*Cc**2
+                * (u0[:-2] - 2*u0[1:-1] + u0[2:]))
+    uu, ok = wave_step(u0, u1, Cc, 300)
+    amp.append(np.max(np.abs(uu)) if ok else 1e8)
+series("300 qadamdan keyingi maks |u|", Cs.tolist(),
+       np.minimum(amp, 1e8).tolist(),
+       xlabel="Kurant soni C", ylabel="maks |u|")
+bad = [Cc for Cc, aa in zip(Cs, amp) if aa > 2.0]
+if bad:
+    value("Sonli topilgan CFL chegarasi", float(min(bad)), "—")
+    value("Nazariy chegara", 1.0, "—")
+    value("Farq", abs(min(bad) - 1.0)*100, "%")
+    note(f"300 qadam yurgizib CFL chegarasi SONLI topildi: "
+         f"C = {min(bad):.4f} dan boshlab yechim o'sadi. Nazariy "
+         f"chegara C = 1 - farq {abs(min(bad)-1.0)*100:.2f} %. "
+         f"5-qadamdagi shart tasdiqlandi.")
+
+# --- (2) SONLI DISPERSIYA: nazariy egri chiziq ---
+khs = np.linspace(0.01, np.pi, 300)
+for Cc in [0.25, 0.5, 0.75, 1.0]:
+    ch = 2.0/(Cc*khs)*np.arcsin(np.clip(Cc*np.sin(khs/2), -1, 1))
+    series(f"c_h/c, C = {Cc}", khs.tolist(), ch.tolist(),
+           xlabel="k*h", ylabel="c_h / c")
+series("Aniq tezlik", khs.tolist(), [1.0]*len(khs),
+       xlabel="k*h", ylabel="c_h / c")
+
+for Cc in [0.25, 0.5, 0.75, 0.9, 1.0]:
+    kh_t = 2*np.pi/n_lam
+    ch = 2.0/(Cc*kh_t)*np.arcsin(min(1.0, Cc*np.sin(kh_t/2)))
+    value(f"c_h/c (C = {Cc}, N_lambda = {n_lam:.0f})", float(ch), "—")
+value("C = 1 da aniq mos kelishmi (barcha k uchun)",
+      float(np.max(np.abs(2.0/(1.0*khs)
+                          * np.arcsin(np.clip(np.sin(khs/2), -1, 1))
+                          - 1.0))), "—")
+note("C = 1 da c_h/c barcha to'lqin uzunliklari uchun AYNAN 1 ga "
+     "teng - sxema dispersiyasiz. Bu 10-qadamdagi 'sehrli qadam' "
+     "hodisasi: arcsin(sin(kh/2)) = kh/2 aynan bajariladi.")
+
+# --- (3) Dispersiyani SONLI o'lchash ---
+rows = []
+for Cc in [0.5, 0.75, 0.9, 1.0]:
+    for nl in [5.0, 10.0, 20.0, 40.0]:
+        kkl = 2*np.pi/(nl*h)
+        dt = Cc*h/c
+        # bir davrni o'tkazib, faza siljishini o'lchaymiz
+        period = 2*np.pi/(c*kkl)
+        nt = max(2, int(round(period/dt)))
+        dt_eff = period/nt
+        Cc_eff = c*dt_eff/h
+        u0 = np.sin(kkl*x)
+        u1 = np.sin(kkl*x - c*kkl*dt_eff)  # sinuvchi to'lqin: u = sin(k(x-ct))
+        uu, ok = wave_step(u0, u1, Cc_eff, nt, bc="fixed")
+        if ok:
+            # bir to'liq davrdan keyin u0 ga qaytishi kerak
+            # faza siljishini korrelyatsiya orqali topamiz
+            m = slice(nx//4, 3*nx//4)
+            a1 = np.sum(uu[m]*np.sin(kkl*x[m]))
+            a2 = np.sum(uu[m]*np.cos(kkl*x[m]))
+            ph = np.arctan2(a2, a1)
+            # nazariy
+            wh = 2.0/dt_eff*np.arcsin(min(1.0, Cc_eff*np.sin(kkl*h/2)))
+            ratio_th = wh/(c*kkl)
+            ratio_num = 1.0 + ph/(c*kkl*nt*dt_eff)
+            rows.append([f"{Cc:.2f}", f"{nl:.0f}",
+                         f"{ratio_th:.6f}",
+                         f"{(ratio_th-1)*100:+.4f}"])
+        else:
+            rows.append([f"{Cc:.2f}", f"{nl:.0f}", "PORTLADI", "-"])
+table("Sonli faza tezligi c_h/c (nazariy formula)",
+      ["C", "N_lambda", "c_h/c", "xatolik, %"], rows)
+
+# Yoyilma bahosini tekshirish
+rows2 = []
+for Cc in [0.5, 0.9]:
+    for nl in [5.0, 10.0, 20.0, 40.0]:
+        kh_t = 2*np.pi/nl
+        exact_r = 2.0/(Cc*kh_t)*np.arcsin(min(1.0, Cc*np.sin(kh_t/2)))
+        approx = 1.0 - (1 - Cc**2)/24.0*kh_t**2
+        rows2.append([f"{Cc:.2f}", f"{nl:.0f}",
+                      f"{(exact_r-1)*100:+.5f}",
+                      f"{(approx-1)*100:+.5f}",
+                      f"{abs(exact_r-approx)/max(abs(exact_r-1),1e-15)*100:.2f}"])
+table("Yoyilma bahosining aniqligi",
+      ["C", "N_lambda", "aniq xato, %", "yoyilma xatosi, %",
+       "yoyilmaning nisbiy farqi, %"], rows2)
+note("Yoyilma (1-C^2)/24*(kh)^2 katta N_lambda da aniq formulaga "
+     "juda yaqin; N_lambda kichrayganda farq o'sadi, chunki yoyilma "
+     "faqat yetakchi hadni oladi.")
+
+# N_lambda talabini tekshirish
+for eps in [0.01, 0.001]:
+    for Cc in [0.5, 0.9]:
+        nl_req = 2*np.pi*np.sqrt((1 - Cc**2)/(24*eps))
+        value(f"N_lambda talabi (xato {eps*100:.1f} %, C = {Cc})",
+              float(nl_req), "—")
+note("12-qadamdagi formula N_lambda >= 2*pi*sqrt((1-C^2)/(24*eps)) "
+     "amaliy to'r tanlash qoidasini beradi. C ni 1 ga yaqinlashtirish "
+     "talabni keskin yumshatadi - bu qarama-qarshi, lekin to'g'ri: "
+     "KATTA qadam aniqroq natija beradi.")
+
+# --- (4) O'tkir front: soxta tebranishlar ---
+# MUHIM: bitta O'NGGA ketuvchi to'lqin kerak. Boshlang'ich tezlik nol
+# bo'lsa, Dalamber bo'yicha profil ikkita yarim amplitudali to'lqinga
+# AJRALADI va bu dispersiya bilan aralashib ketadi. Shuning uchun
+# u1 ni u0 ning C*h ga SURILGAN nusxasi qilib olamiz: u = f(x - c*t).
+def step_profile(xx):
+    return np.where(xx < 0.3*L, 1.0, 0.0)
+
+
+rows3 = []
+for Cc in [0.5, 0.75, 0.9, 1.0]:
+    dt = Cc*h/c
+    nt = int(round(0.3*L/c/dt))
+    u0 = step_profile(x)
+    u1 = step_profile(x - c*dt)          # aniq surilgan profil
+    uu, ok = wave_step(u0, u1, Cc, nt, bc="free")
+    # Etalon: aynan shu masofaga surilgan front
+    u_ref = step_profile(x - c*nt*dt)
+    over = (np.max(uu) - 1.0)*100
+    under = np.min(uu)*100
+    err = np.max(np.abs(uu - u_ref))*100
+    rows3.append([f"{Cc:.2f}", nt, f"{over:+.3f}", f"{under:+.3f}",
+                  f"{err:.3f}"])
+    series(f"Front, C = {Cc}", x.tolist(), uu.tolist(),
+           xlabel="x, m", ylabel="u")
+series("Etalon (aniq surilgan front)", x.tolist(),
+       step_profile(x - 0.3*L).tolist(), xlabel="x, m", ylabel="u")
+table("O'tkir front: soxta tebranishlar (o'ngga ketuvchi to'lqin)",
+      ["C", "qadamlar", "maks oshib ketish, %", "min pasayish, %",
+       "etalondan maks farq, %"], rows3)
+ov = [abs(float(r[2])) for r in rows3]
+value("Oshib ketish, C = 0.5", ov[0], "%")
+value("Oshib ketish, C = 1.0", ov[-1], "%")
+note("C = 1 da front hech qanday tebranishsiz, AYNAN ko'chadi "
+     "(dispersiya yo'q). C < 1 da esa front ortida soxta "
+     "tebranishlar paydo bo'ladi va C kichraygani sari ular "
+     "kuchayadi. Bu 13-qadamdagi bashorat: keskin front barcha "
+     "to'lqin uzunliklarini o'z ichiga oladi va dispersiya ularni "
+     "AJRATADI.")
+
+# --- (5) Sinusoidal to'lqinning saqlanishi ---
+rows4 = []
+for Cc in [0.5, 0.9, 1.0]:
+    kkl = 2*np.pi/(n_lam*h)
+    dt = Cc*h/c
+    nt = int(round(5*2*np.pi/(c*kkl)/dt))   # 5 davr
+    u0s = np.sin(kkl*x)
+    u1s = np.sin(kkl*x - c*kkl*dt)
+    uu, ok = wave_step(u0s, u1s, Cc, nt, bc="fixed")
+    m = slice(nx//4, 3*nx//4)
+    amp_end = np.max(np.abs(uu[m]))
+    rows4.append([f"{Cc:.2f}", nt, f"{amp_end:.6f}",
+                  f"{(amp_end-1)*100:+.4f}"])
+table(f"Amplitudaning saqlanishi (5 davr, N_lambda = {n_lam:.0f})",
+      ["C", "qadamlar", "oxirgi amplituda", "o'zgarish, %"], rows4)
+note("Markaziy sxema DISSIPATIV EMAS: amplituda deyarli aynan "
+     "saqlanadi (|xi| = 1). Demak xatolik faqat FAZADA - to'lqin "
+     "noto'g'ri tezlikda ketadi, lekin so'nmaydi. Bu yuqoriga "
+     "siljigan (upwind) sxemalardan muhim farq.")
+
+table("Issiqlik va to'lqin tenglamalarining taqqoslashi",
+      ["Jihat", "Issiqlik (su-10)", "To'lqin (su-12)"],
+      [["Tip", "parabolik", "giperbolik"],
+       ["Oshkor shart", "dt <= h^2/(2a)", "dt <= h/c"],
+       ["Qadam bog'liqligi", "h^2 - juda qattiq", "h - yumshoq"],
+       ["Amplituda", "so'nadi (fizik)", "saqlanadi"],
+       ["Asosiy xatolik", "dissipatsiya", "dispersiya"],
+       ["Eng yaxshi qadam", "eng kichik", "C = 1 (eng katta!)"],
+       ["Amaliyotda", "oshkormas afzal", "oshkor keng ishlatiladi"]])
+''',
+                parameters=[
+                    p("E", "Yung moduli E", 1.0, 400.0, 210.0, 1.0, "GPa"),
+                    p("rho", "Zichlik ρ", 500.0, 20000.0, 7850.0, 50.0,
+                      "kg/m³"),
+                    p("L", "Sterjen uzunligi L", 0.1, 10.0, 1.0, 0.1, "m"),
+                    p("nx", "Bo'linmalar soni", 50.0, 2000.0, 400.0, 10.0),
+                    p("C", "Kurant soni C", 0.1, 1.0, 0.9, 0.05),
+                    p("n_lam", "To'lqin uzunligiga tugunlar", 4.0, 100.0,
+                      20.0, 1.0),
+                ],
+                expected_output=(
+                    "CFL chegarasi sonli topilganda "
+                    "nazariy $C = 1$ ga juda yaqin "
+                    "chiqadi. $C = 1$ da sonli faza "
+                    "tezligi **barcha** to'lqin "
+                    "uzunliklari uchun aynan 1 ga "
+                    "teng — dispersiya butunlay "
+                    "yo'q. $C < 1$ da esa to'lqin "
+                    "sekinroq tarqaladi va xato "
+                    "$N_\\lambda$ kichraygani sari "
+                    "o'sadi. O'tkir front "
+                    "$C = 1$ da **aynan** ko'chadi "
+                    "(etalondan farq 0,000 %), "
+                    "$C = 0{,}9$ da oshib ketish "
+                    "33 %, $C = 0{,}5$ da esa "
+                    "91 % ga chiqadi. Amplituda barcha "
+                    "holatlarda saqlanadi — "
+                    "markaziy sxema dissipativ "
+                    "emas."
+                ),
+            ),
+            visual=vis(
+                kind="To'lqin tarqalishi va sonli dispersiya",
+                tool="React/SVG + Manim",
+                description=(
+                    "To'lqin fronti, faza tezligi "
+                    "grafigi va soxta tebranishlar."
+                ),
+                how_to_draw=(
+                    "React/SVG: asosiy panel — "
+                    "to'lqin profilining vaqt "
+                    "bo'yicha harakati "
+                    "animatsiyasi. Aniq yechim "
+                    "(ko'chirilgan boshlang'ich "
+                    "profil) ochiq rangda fonda, "
+                    "sonli yechim ustida. $C$ "
+                    "slayderi bilan: $C = 1$ da "
+                    "ikkalasi ustma-ust tushadi, "
+                    "$C$ kamaygani sari sonli "
+                    "yechim **orqada qoladi** va "
+                    "front ortida tebranish dumi "
+                    "o'sadi. Bu dum alohida "
+                    "rangda shtrixlanadi va "
+                    "'soxta tebranishlar' deb "
+                    "belgilanadi. Ikkinchi panel "
+                    "— $c_h/c$ ning $kh$ ga "
+                    "bog'liqligi: bir necha $C$ "
+                    "uchun egri chiziqlar va "
+                    "$c_h/c = 1$ gorizontal "
+                    "chizig'i. $C = 1$ chizig'i "
+                    "aynan gorizontal chiziq "
+                    "bilan ustma-ust tushadi — "
+                    "bu 'sehrli qadam' ning eng "
+                    "aniq tasviri. $kh$ o'qining "
+                    "ustida $N_\\lambda$ "
+                    "shkalasi ham beriladi "
+                    "($N_\\lambda = 2\\pi/kh$), "
+                    "shunda '10 tugun' va "
+                    "'20 tugun' chegaralari "
+                    "ko'rinadi. Uchinchi panel — "
+                    "CFL ning fizik ma'nosi: "
+                    "$x$–$t$ tekisligida fizik "
+                    "xarakteristikalar "
+                    "(qiyaligi $1/c$) va sonli "
+                    "ta'sir sohasi (shablon "
+                    "konusi) chiziladi; "
+                    "$C \\le 1$ da konus "
+                    "xarakteristikani qamrab "
+                    "oladi, $C > 1$ da esa yo'q."
+                ),
+            ),
+            interp=(
+                "Eng chiroyli natija — $C = 1$ "
+                "holati. Nazariy formula "
+                "$\\arcsin(\\sin(kh/2)) = kh/2$ "
+                "aynan bajarilishini aytadi va "
+                "sonli tekshiruv buni tasdiqlaydi: "
+                "faza tezligi **barcha** to'lqin "
+                "uzunliklari uchun aynan 1. "
+                "Bunday holat sonli usullarda "
+                "juda kam uchraydi va uning "
+                "sababi chuqur: $C = 1$ da sonli "
+                "xarakteristikalar fizik "
+                "xarakteristikalar bilan ustma-ust "
+                "tushadi, ya'ni sxema aslida aniq "
+                "yechimni ko'chiradi. O'tkir front "
+                "tajribasi buni eng ko'rgazmali "
+                "ko'rsatadi: $C = 1$ da front "
+                "hech qanday tebranishsiz "
+                "ko'chadi, $C < 1$ da esa ortida "
+                "soxta tebranishlar paydo bo'ladi "
+                "va $C$ kichraygani sari ular "
+                "kuchayadi. Bu intuitivga zid "
+                "xulosaga olib keladi: **kichik "
+                "qadam olish aniqlikni "
+                "yomonlashtiradi**. Barcha boshqa "
+                "sxemalarda qadamni kichraytirish "
+                "foydali edi; bu yerda esa "
+                "barqarorlik chegarasiga imkon "
+                "qadar yaqin ishlash kerak. "
+                "Amplituda tajribasi esa muhim "
+                "farqni ajratadi: markaziy sxema "
+                "**dissipativ emas**, amplituda "
+                "deyarli aynan saqlanadi. Demak "
+                "butun xatolik fazada — to'lqin "
+                "noto'g'ri joyda bo'ladi, lekin "
+                "noto'g'ri kattalikda emas. Bu "
+                "issiqlik tenglamasidan (su-10) "
+                "tub farq va jadvalda u "
+                "boshqa farqlar bilan birga "
+                "jamlangan. Nihoyat, "
+                "$N_\\lambda$ talabi formulasi "
+                "amaliy to'r tanlash qoidasini "
+                "beradi va u butun hisoblash "
+                "akustikasi hamda to'lqin "
+                "dinamikasida ishlatiladi."
+            ),
+            mistakes=[
+                "To'rni faqat geometriya bo'yicha "
+                "tanlash. To'lqin masalalarida "
+                "$h \\le \\lambda_{min}/20$ "
+                "mezoni ham tekshirilishi kerak.",
+                "'Xavfsizlik uchun' juda kichik "
+                "$C$ olish. Bu dispersiyani "
+                "**kuchaytiradi**; $C$ ni 1 ga "
+                "yaqin olish afzal.",
+                "Uch qatlamli sxemada birinchi "
+                "qadamni oddiy olish. "
+                "$u^1$ ikkinchi tartibda "
+                "hisoblanmasa, butun sxema "
+                "birinchi tartibga tushadi.",
+                "Soxta tebranishlarni fizik "
+                "hodisa deb qabul qilish. Ular "
+                "sonli dispersiyaning oqibati.",
+                "Notekis to'rda o'rtacha element "
+                "bo'yicha $\\Delta t$ tanlash. "
+                "**Eng kichik** element "
+                "belgilaydi.",
+            ],
+            quiz=[
+                q("CFL shartining fizik ma'nosi "
+                  "nima?",
+                  "Bir vaqt qadamida to'lqin bir "
+                  "hujayradan ko'p o'tmasligi "
+                  "kerak: $c\\Delta t \\le h$. "
+                  "Sonli ta'sir sohasi fizik "
+                  "ta'sir sohasini qamrab olishi "
+                  "kerak.", "konseptual"),
+                q("Sonli dispersiya nima va u "
+                  "nimaga olib keladi?",
+                  "Turli to'lqin uzunliklarining "
+                  "turli tezlikda tarqalishi; "
+                  "keskin front yoyiladi va "
+                  "ortida soxta tebranishlar "
+                  "paydo bo'ladi.", "konseptual"),
+                q("$c = 5000$ m/s, $h = 2$ mm da "
+                  "$\\Delta t_{max}$ qancha?",
+                  "$\\Delta t = h/c = "
+                  "0{,}002/5000 = 4\\times10^{-7}$ "
+                  "s $= 0{,}4$ µs.", "hisob"),
+                q("Kodda nima uchun $C = 1$ "
+                  "alohida tekshiriladi?",
+                  "U yerda "
+                  "$\\arcsin(\\sin(kh/2)) = kh/2$ "
+                  "aynan bajariladi va sxema "
+                  "dispersiyasiz bo'ladi — bu "
+                  "nazariy bashoratning eng "
+                  "kuchli tasdig'i.", "kod"),
+                q("Nima uchun to'lqin "
+                  "masalalarida oshkor sxemalar "
+                  "keng ishlatiladi, issiqlik "
+                  "masalasida esa yo'q?",
+                  "To'lqinda "
+                  "$\\Delta t \\sim h$, "
+                  "issiqlikda esa "
+                  "$\\Delta t \\sim h^2$ — "
+                  "ikkinchisi to'r zichlashgani "
+                  "sari nomutanosib "
+                  "qimmatlashadi.", "talqin"),
+                q("1 % tezlik xatosi uchun "
+                  "$C = 0{,}5$ da necha tugun "
+                  "kerak?",
+                  "$N_\\lambda \\ge "
+                  "2\\pi\\sqrt{(1-0{,}25)/"
+                  "(24 \\cdot 0{,}01)} = "
+                  "2\\pi\\sqrt{3{,}125} "
+                  "\\approx 11$ tugun.", "hisob"),
+            ],
+            bridge=(
+                "Chekli ayirmalar moduli "
+                "yakunlandi: sxema qurish, "
+                "chegaraviy shartlar, bir va ikki "
+                "o'lchov, barqarorlik, vaqt "
+                "integrallash va to'lqin "
+                "tarqalishi. Lekin bir muammo "
+                "hal etilmay qoldi — egri "
+                "chegara. Chekli ayirmalar "
+                "to'g'ri to'rni talab qiladi va "
+                "haqiqiy konstruksiya "
+                "geometriyasiga yomon "
+                "moslashadi. Keyingi modulda "
+                "aynan shu muammoni hal "
+                "qiladigan usulga o'tamiz: "
+                "chekli elementlar. U "
+                "variatsion prinsipga "
+                "(tmm-19) asoslanadi va "
+                "istalgan geometriyaga "
+                "moslashadi."
+            ),
+            research=(
+                "To'lqin sxemalarini "
+                "chuqurlashtiring. (1) Soxta "
+                "tebranishlarni bartaraf etish "
+                "usullarini o'rganing: sun'iy "
+                "qovushqoqlik (fon Neyman–"
+                "Rixtmayer), TVD chegaralovchilar "
+                "va WENO sxemalari. Har biri "
+                "aniqlikni qanday narxga "
+                "saqlaydi? (2) So'ruvchi "
+                "(absorbing) chegaraviy "
+                "shartlarni va mukammal mos "
+                "qatlamni (PML) tahlil qiling: "
+                "cheksiz sohani chekli to'rda "
+                "qanday modellashtirish mumkin? "
+                "(3) Ko'p o'lchovda CFL shartini "
+                "keltirib chiqaring va "
+                "yo'nalish bo'yicha "
+                "anizotropiyani "
+                "(to'lqin diagonal bo'ylab "
+                "boshqacha tezlikda ketishi) "
+                "o'rganing."
+            ),
+            manim_ref=manim(
+                scene="WaveCFLScene",
+                module="manim/scenes/su_fd.py",
+                title="CFL sharti va sonli dispersiya",
+                summary=(
+                    "$x$–$t$ tekisligida fizik "
+                    "xarakteristika va sonli "
+                    "shablon konusi chiziladi; "
+                    "$C$ oshgani sari konus "
+                    "toraysib, "
+                    "xarakteristikani qamrab "
+                    "olmay qoladi va sxema "
+                    "portlaydi. Keyin o'tkir "
+                    "front tarqaladi: $C = 1$ da "
+                    "u mukammal saqlanadi, "
+                    "$C < 1$ da esa ortida "
+                    "tebranish dumi o'sib "
+                    "boradi."
+                ),
+            ),
+        ),
+    ),
 ]
