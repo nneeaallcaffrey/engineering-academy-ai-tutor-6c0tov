@@ -5039,4 +5039,1284 @@ table("Plastina elementlarining taqqoslanishi",
             ),
         ),
     ),
+
+    # ------------------------------------------------------------------ su-23
+    Topic(
+        id="su-23",
+        subject_id=S, module_id=M, order=23,
+        title="Xususiy qiymat masalalari: tebranish va ustuvorlik",
+        description=(
+            "Massa matritsasi, erkin tebranish chastotalari va shakllari, "
+            "geometrik bikrlik matritsasi, ustuvorlik yuklari hamda "
+            "xususiy qiymatlarni sonli topish usullari."
+        ),
+        learning_objective=(
+            "Tebranish va ustuvorlik masalalarini umumlashgan xususiy "
+            "qiymat masalasi sifatida qo'yish, yechish va natijani "
+            "analitik yechim bilan tekshirish."
+        ),
+        prerequisites=["su-22", "nm-26", "mq-25"],
+        mathematical_core=(
+            "$(\\mathbf{K} - \\omega^2\\mathbf{M})\\boldsymbol\\phi = "
+            "\\mathbf{0}$; "
+            "$(\\mathbf{K} - \\lambda\\mathbf{K}_G)"
+            "\\boldsymbol\\phi = \\mathbf{0}$; "
+            "$P_{cr} = \\pi^2EI/(KL)^2$."
+        ),
+        engineering_application=(
+            "Bino va ko'priklarning seysmik hisobi, mashina "
+            "rezonansdan qochish, ustun va qobiq ustuvorligi, "
+            "shamol tufayli tebranishlar."
+        ),
+        computational_component=(
+            "Massa va geometrik bikrlik matritsalarini qurish, xususiy "
+            "qiymatlarni topish va ikki tomonlama chegara olish."
+        ),
+        visualization_component=(
+            "Tebranish shakllari, ustuvorlik shakllari, "
+            "chastotalarning to'r bilan yaqinlashishi."
+        ),
+        research_extension=(
+            "Lanshos va blokli subfazo iteratsiyasi usullarini "
+            "o'rganing: katta tizimlarda faqat bir necha xususiy "
+            "qiymat qanday topiladi."
+        ),
+        difficulty="murakkab",
+        previous_link=(
+            "Shu paytgacha barcha masalalar "
+            "$\\mathbf{K}\\mathbf{u} = \\mathbf{F}$ ko'rinishida edi — "
+            "berilgan yukka berilgan javob. Endi savol o'zgaradi: "
+            "konstruksiya **qanday chastotalarda** tebranadi va "
+            "**qanday yukda** ustuvorligini yo'qotadi?"
+        ),
+        next_topic="su-24",
+        estimated_minutes=95,
+        tags=["xususiy qiymat", "massa matritsasi", "tebranish shakli",
+              "geometrik bikrlik", "ustuvorlik", "Eyler kuchi"],
+        lesson=_lesson(
+            problem=(
+                "Sanoat binosida yangi "
+                "kompressor o'rnatilmoqda: "
+                "aylanish chastotasi "
+                "1480 ayl/min, ya'ni 24,7 Hz. "
+                "Pol plitasining xususiy "
+                "chastotasi shunga yaqin "
+                "bo'lsa rezonans yuzaga "
+                "keladi va tebranish "
+                "amplitudasi bir necha "
+                "barobar o'sadi — "
+                "konstruksiya charchoqdan "
+                "buziladi. Ayni paytda "
+                "binoning po'lat ustunlari "
+                "tom yukini ko'taradi va "
+                "ularning ustuvorligi "
+                "tekshirilishi kerak. "
+                "Ikkala savol ham birinchi "
+                "qarashda butunlay "
+                "boshqacha, lekin "
+                "matematik jihatdan ular "
+                "**bir xil** masala. "
+                "Qanday qilib?"
+            ),
+            concepts=[
+                c("Umumlashgan xususiy qiymat "
+                  "masalasi",
+                  "$\\mathbf{A}\\boldsymbol\\phi "
+                  "= \\lambda\\mathbf{B}"
+                  "\\boldsymbol\\phi$ — "
+                  "tebranish va ustuvorlik "
+                  "ikkalasi ham shu "
+                  "ko'rinishda."),
+                c("Moslashgan massa matritsasi",
+                  "$\\mathbf{M} = \\int\\rho"
+                  "\\mathbf{N}^T\\mathbf{N}"
+                  "\\,dV$ — bikrlik matritsasi "
+                  "bilan **bir xil** shakl "
+                  "funksiyalaridan."),
+                c("Jamlangan massa matritsasi",
+                  "Diagonal; hisob arzon, "
+                  "lekin aniqlik past. "
+                  "HRZ sxemasi to'liq massani "
+                  "saqlaydi."),
+                c("Tebranish shakli "
+                  "(mode shape)",
+                  "$\\boldsymbol\\phi_i$ — "
+                  "konstruksiyaning o'ziga xos "
+                  "deformatsiya shakli; "
+                  "ular ortogonal (nm-28)."),
+                c("Geometrik bikrlik matritsasi",
+                  "$\\mathbf{K}_G$ — o'q kuchi "
+                  "tufayli bikrlikning "
+                  "o'zgarishi; siquvchi kuch "
+                  "uni **kamaytiradi**."),
+                c("Ustuvorlik yuki",
+                  "$\\mathbf{K}$ va "
+                  "$\\lambda\\mathbf{K}_G$ "
+                  "teng bo'lgan yuk — "
+                  "effektiv bikrlik nolga "
+                  "aylanadi (mq-25)."),
+            ],
+            derivation=[
+                d("1. Harakat tenglamasi",
+                  r"\mathbf{M}\ddot{\mathbf{u}} "
+                  r"+ \mathbf{K}\mathbf{u} = "
+                  r"\mathbf{0}",
+                  "Erkin tebranish (so'nishsiz). "
+                  "nm-26 dagi tenglamaning "
+                  "ko'p erkinlik darajali "
+                  "ko'rinishi."),
+                d("2. Garmonik yechim taxmini",
+                  r"\mathbf{u}(t) = "
+                  r"\boldsymbol\phi\,"
+                  r"e^{i\omega t}",
+                  "Shakl vaqtdan mustaqil, "
+                  "faqat amplitudasi "
+                  "o'zgaradi — bu "
+                  "o'zgaruvchilarni "
+                  "ajratishning natijasi."),
+                d("3. Xususiy qiymat masalasi",
+                  r"\left(\mathbf{K} - "
+                  r"\omega^2\mathbf{M}\right)"
+                  r"\boldsymbol\phi = \mathbf{0}",
+                  "**Asosiy natija.** "
+                  "Notrivial yechim faqat "
+                  "determinant nol "
+                  "bo'lganda mavjud."),
+                d("4. Moslashgan massa "
+                  "matritsasi",
+                  r"\mathbf{M}_e = \int_0^L "
+                  r"\rho A\,\mathbf{N}^T"
+                  r"\mathbf{N}\,dx",
+                  "Bikrlik matritsasi bilan "
+                  "bir xil Ermit "
+                  "funksiyalaridan (su-20) — "
+                  "shuning uchun "
+                  "'moslashgan'."),
+                d("5. Balka uchun natija",
+                  r"\mathbf{M}_e = "
+                  r"\frac{\rho AL}{420}"
+                  r"\begin{bmatrix} 156 & 22L & "
+                  r"54 & -13L\\ 22L & 4L^2 & "
+                  r"13L & -3L^2\\ 54 & 13L & "
+                  r"156 & -22L\\ -13L & -3L^2 & "
+                  r"-22L & 4L^2\end{bmatrix}",
+                  "Diagonal bo'lmagan hadlar "
+                  "bor — massa erkinlik "
+                  "darajalarini "
+                  "**bog'laydi**."),
+                d("6. Umumiy massa tekshiruvi",
+                  r"\sum_i\sum_j M_{ij}\Big|_{"
+                  r"\text{ko'chish}} = "
+                  r"\rho A L_{jami}",
+                  "**Majburiy tekshiruv.** "
+                  "Qattiq jism ko'chishida "
+                  "kinetik energiya "
+                  "$\\frac12\\rho A L v^2$ "
+                  "bo'lishi shart."),
+                d("7. Jamlangan massa (HRZ)",
+                  r"\mathbf{M}_e = \rho AL\,"
+                  r"\mathrm{diag}\left(\tfrac12, "
+                  r"\tfrac{L^2}{78}, \tfrac12, "
+                  r"\tfrac{L^2}{78}\right)",
+                  "Diagonal hadlar "
+                  "masshtablanadi, to'liq "
+                  "massa saqlanadi. "
+                  "Burilish inersiyasi "
+                  "nolga tenglashtirilsa "
+                  "matritsa **singulyar** "
+                  "bo'ladi."),
+                d("8. Ikki tomonlama chegara",
+                  r"\omega_{lump} \le "
+                  r"\omega_{aniq} \le "
+                  r"\omega_{cons}",
+                  "**Amaliy jihatdan qimmatli.** "
+                  "Moslashgan massa "
+                  "chastotani oshirib, "
+                  "jamlangan esa "
+                  "kamaytirib beradi — "
+                  "ikkalasini hisoblab "
+                  "aniq javobni "
+                  "**qamrab olish** "
+                  "mumkin."),
+                d("9. O'q kuchining ta'siri",
+                  r"\Pi = \frac12\int EI"
+                  r"(w'')^2dx - \frac{P}{2}"
+                  r"\int (w')^2dx",
+                  "Siquvchi kuch "
+                  "potensial energiyani "
+                  "**kamaytiradi** — "
+                  "ikkinchi had manfiy "
+                  "ishora bilan kiradi."),
+                d("10. Geometrik bikrlik "
+                  "matritsasi",
+                  r"\mathbf{K}_G = "
+                  r"\frac{1}{30L}"
+                  r"\begin{bmatrix} 36 & 3L & "
+                  r"-36 & 3L\\ 3L & 4L^2 & -3L "
+                  r"& -L^2\\ -36 & -3L & 36 & "
+                  r"-3L\\ 3L & -L^2 & -3L & "
+                  r"4L^2\end{bmatrix}",
+                  "$\\int(w')^2dx$ dan kelib "
+                  "chiqadi. U **kuchdan "
+                  "mustaqil** — kuch "
+                  "ko'paytuvchi sifatida "
+                  "ajratiladi."),
+                d("11. Ustuvorlik masalasi",
+                  r"\left(\mathbf{K} - \lambda"
+                  r"\mathbf{K}_G\right)"
+                  r"\boldsymbol\phi = \mathbf{0}",
+                  "**Bir xil struktura.** "
+                  "$\\lambda$ — kritik yuk. "
+                  "Tebranishdagi "
+                  "$\\mathbf{M}$ o'rnida "
+                  "endi $\\mathbf{K}_G$ "
+                  "turadi."),
+                d("12. Effektiv uzunlik",
+                  r"P_{cr} = \frac{\pi^2EI}"
+                  r"{(KL)^2}",
+                  "$K$ — chegaraviy shartga "
+                  "bog'liq: sharnirli 1, "
+                  "konsol 2, ikki uchi "
+                  "mahkam 0,5, "
+                  "mahkam–sharnirli "
+                  "$\\pi/4{,}4934 = "
+                  "0{,}69916$ (mq-25)."),
+                d("13. Nima uchun yuqoridan "
+                  "yaqinlashadi",
+                  r"\text{FEM bikrroq} "
+                  r"\;\Longrightarrow\; "
+                  r"\omega_h \ge \omega, \quad "
+                  r"P_{cr}^h \ge P_{cr}",
+                  "Diskretlashtirish "
+                  "harakatni cheklaydi, "
+                  "demak tizim bikrroq "
+                  "bo'ladi — bu su-13 dagi "
+                  "energiya quyi chegarasi "
+                  "prinsipining "
+                  "oqibati."),
+                d("14. Yuqori shakllar "
+                  "yomonroq",
+                  r"\text{xato} \sim "
+                  r"\left(\frac{\omega_i h}{c}"
+                  r"\right)^{2p}",
+                  "**Amaliy qoida.** "
+                  "$i$-shaklni ishonchli "
+                  "olish uchun to'lqin "
+                  "uzunligiga kamida "
+                  "5–10 element kerak; "
+                  "birinchi shakl uchun "
+                  "yetarli to'r "
+                  "o'ninchisi uchun "
+                  "yaramaydi."),
+            ],
+            meaning=(
+                "Bu mavzuning eng chiroyli "
+                "g'oyasi 3- va 11-qadamlarni "
+                "yonma-yon qo'yishda. "
+                "Tebranish va ustuvorlik "
+                "fizik jihatdan butunlay "
+                "boshqacha hodisalar — "
+                "biri vaqt bo'yicha "
+                "tebranish, ikkinchisi "
+                "statik muvozanatning "
+                "yo'qolishi — lekin "
+                "matematik jihatdan "
+                "ikkalasi ham bitta "
+                "umumlashgan xususiy qiymat "
+                "masalasi. Faqat ikkinchi "
+                "matritsa almashadi: "
+                "tebranishda "
+                "$\\mathbf{M}$, "
+                "ustuvorlikda "
+                "$\\mathbf{K}_G$. Demak "
+                "bitta yechuvchi kod "
+                "ikkala masalani ham "
+                "hal qiladi va bu FEM "
+                "paketlarining ichki "
+                "tuzilishida aynan shunday "
+                "amalga oshirilgan. "
+                "9- va 10-qadamlar "
+                "ustuvorlikning mohiyatini "
+                "ochadi. Siquvchi o'q kuchi "
+                "potensial energiyaga "
+                "**manfiy** hissa qo'shadi: "
+                "u egilishni "
+                "qarshilik ko'rsatish "
+                "o'rniga rag'batlantiradi. "
+                "Yuk ortgani sari effektiv "
+                "bikrlik "
+                "$\\mathbf{K} - \\lambda"
+                "\\mathbf{K}_G$ kamayadi va "
+                "qaysidir nuqtada nolga "
+                "aylanadi — o'sha nuqtada "
+                "konstruksiya "
+                "cheksiz kichik "
+                "bezovtalanishdan katta "
+                "ko'chish oladi. Bu "
+                "ustuvorlikning FEM "
+                "tilidagi ta'rifi. "
+                "8-qadam esa amaliyotda "
+                "kam ishlatiladigan, "
+                "lekin juda qimmatli "
+                "vositani beradi. "
+                "Moslashgan massa "
+                "chastotani yuqoridan, "
+                "jamlangan massa esa "
+                "pastdan baholaydi. "
+                "Ikkalasini hisoblasangiz, "
+                "aniq javob ular orasida "
+                "**kafolatlangan** — "
+                "ya'ni bitta hisobdan "
+                "xatolik bahosini ham "
+                "olasiz. Kod buni aniq "
+                "ko'rsatadi: dag'al "
+                "to'rda ikkita baho "
+                "88% va 100,05% beradi, "
+                "demak aniq javob shu "
+                "oraliqda. 13-qadam "
+                "nima uchun yuqoridan "
+                "yaqinlashishni "
+                "tushuntiradi va u "
+                "su-13 dagi energiya "
+                "prinsipiga bog'lanadi: "
+                "diskretlashtirish "
+                "harakat erkinligini "
+                "cheklaydi, cheklangan "
+                "tizim esa bikrroq "
+                "bo'ladi. Nihoyat "
+                "14-qadam eng ko'p "
+                "xatoga sabab "
+                "bo'ladigan amaliy "
+                "nuqtani belgilaydi: "
+                "birinchi chastota "
+                "uchun yetarli to'r "
+                "o'ninchisi uchun "
+                "butunlay yaramaydi. "
+                "Seysmik hisobda esa "
+                "aynan yuqori shakllar "
+                "kerak bo'ladi."
+            ),
+            equations=[
+                eq(r"\left(\mathbf{K} - "
+                   r"\omega^2\mathbf{M}\right)"
+                   r"\boldsymbol\phi = \mathbf{0}",
+                   "Erkin tebranish masalasi.",
+                   "Tebranish"),
+                eq(r"\left(\mathbf{K} - \lambda"
+                   r"\mathbf{K}_G\right)"
+                   r"\boldsymbol\phi = \mathbf{0}",
+                   "Ustuvorlik masalasi — bir "
+                   "xil struktura, boshqa "
+                   "matritsa.", "Ustuvorlik"),
+                eq(r"\mathbf{M}_e = "
+                   r"\frac{\rho AL}{420}"
+                   r"\begin{bmatrix} 156 & 22L & "
+                   r"54 & -13L\\ 22L & 4L^2 & "
+                   r"13L & -3L^2\\ 54 & 13L & "
+                   r"156 & -22L\\ -13L & -3L^2 "
+                   r"& -22L & 4L^2\end{bmatrix}",
+                   "Balka elementining "
+                   "moslashgan massa "
+                   "matritsasi.",
+                   "Massa matritsasi"),
+                eq(r"\omega_{lump} \le "
+                   r"\omega_{aniq} \le "
+                   r"\omega_{cons}",
+                   "Ikki massa matritsasi "
+                   "aniq chastotani qamrab "
+                   "oladi.",
+                   "Ikki tomonlama chegara"),
+            ],
+            conditions=(
+                "**Yechishdan oldin:**\n"
+                "- $\\mathbf{K}$ va "
+                "$\\mathbf{M}$ simmetrik va "
+                "musbat aniq bo'lsin "
+                "(chegaraviy shartlardan "
+                "keyin);\n"
+                "- Umumiy massa tekshiruvi "
+                "bajarilsin;\n"
+                "- Ustuvorlikda "
+                "$\\mathbf{K}_G$ **musbat "
+                "aniq emas** — u ishorasi "
+                "aralash, shuning uchun "
+                "manfiy xususiy qiymatlar "
+                "ham chiqadi (teskari "
+                "yo'nalishdagi yuk).\n\n"
+                "**To'r tanlash:**\n"
+                "- $i$-shakl uchun kamida "
+                "$5i$–$10i$ element;\n"
+                "- Birinchi 10 shakl kerak "
+                "bo'lsa, birinchisi uchun "
+                "yetarli to'rdan 10 barobar "
+                "zichroq kerak;\n"
+                "- Jamlangan massada "
+                "burilish inersiyasi "
+                "nolga tenglashtirilmasin "
+                "— matritsa singulyar "
+                "bo'ladi.\n\n"
+                "**Rezonansdan qochish:** "
+                "ishchi chastota xususiy "
+                "chastotadan kamida 20–25% "
+                "uzoq bo'lsin; "
+                "$0{,}8 < \\omega_{ish}/"
+                "\\omega_1 < 1{,}25$ "
+                "oralig'idan qoching.\n\n"
+                "**Ustuvorlik hisobining "
+                "cheklovi:** chiziqli "
+                "ustuvorlik tahlili "
+                "**ideal** "
+                "konstruksiya uchun "
+                "yuqori baho beradi. "
+                "Haqiqiy nuqsonlar "
+                "(boshlang'ich egrilik, "
+                "eksentrisitet) kritik "
+                "yukni sezilarli "
+                "kamaytiradi — "
+                "ayniqsa qobiqlarda "
+                "(pq-29), u yerda "
+                "farq besh barobargacha "
+                "boradi. Aniq javob "
+                "uchun nochiziqli "
+                "tahlil kerak (su-24)."
+            ),
+            worked=WorkedExample(
+                statement=(
+                    "Po'lat konsol balka: "
+                    "$L = 3$ m, "
+                    "$I = 8\\cdot10^{-6}$ m⁴, "
+                    "$A = 6\\cdot10^{-3}$ m², "
+                    "$\\rho = 7850$ kg/m³. "
+                    "(a) Birinchi xususiy "
+                    "chastotani toping; "
+                    "(b) kompressor 24,7 Hz "
+                    "da ishlasa, rezonans "
+                    "xavfi bormi; "
+                    "(c) xuddi shu ustun "
+                    "siqilsa, Eyler kuchi "
+                    "nechaga teng."
+                ),
+                given=[
+                    r"L = 3\ \text{m}, \quad EI = "
+                    r"2{,}1\cdot10^{11}\cdot"
+                    r"8\cdot10^{-6} = 1{,}68"
+                    r"\cdot10^{6}\ \text{N}"
+                    r"\cdot\text{m}^2",
+                    r"\rho A = 7850 \cdot "
+                    r"6\cdot10^{-3} = 47{,}1\ "
+                    r"\text{kg/m}",
+                ],
+                steps=[
+                    st(r"\omega_1 = (\beta_1L)^2"
+                       r"\sqrt{\frac{EI}{\rho A "
+                       r"L^4}}",
+                       "Konsol balka uchun "
+                       "klassik formula."),
+                    st(r"\cos\beta\cosh\beta + 1 = "
+                       r"0 \;\Rightarrow\; "
+                       r"\beta_1L = 1{,}875104",
+                       "**Transsendent tenglama** "
+                       "— kod uni sonli "
+                       "yechadi, hech qanday "
+                       "yaxlitlangan doimiy "
+                       "ishlatilmaydi."),
+                    st(r"\frac{EI}{\rho AL^4} = "
+                       r"\frac{1{,}68\cdot10^6}"
+                       r"{47{,}1 \cdot 81} = "
+                       r"440{,}3",
+                       "$L^4 = 81$ m⁴."),
+                    st(r"\sqrt{440{,}3} = 20{,}98",
+                       "Kvadrat ildiz."),
+                    st(r"\omega_1 = "
+                       r"(1{,}875104)^2 \cdot "
+                       r"20{,}98 = 3{,}5160 "
+                       r"\cdot 20{,}98",
+                       "$(\\beta_1L)^2 = "
+                       "3{,}5160$."),
+                    st(r"\omega_1 = 73{,}78\ "
+                       r"\text{rad/s}",
+                       "Burchak chastotasi."),
+                    st(r"f_1 = \frac{\omega_1}"
+                       r"{2\pi} = "
+                       r"\frac{73{,}78}{6{,}283} "
+                       r"= 11{,}74\ \text{Hz}",
+                       "**Birinchi xususiy "
+                       "chastota.**"),
+                    st(r"\text{(b)}\quad "
+                       r"\frac{f_{ish}}{f_1} = "
+                       r"\frac{24{,}7}{11{,}74} = "
+                       r"2{,}10",
+                       "Nisbat."),
+                    st(r"2{,}10 > 1{,}25 "
+                       r"\;\Rightarrow\; "
+                       r"\text{xavfsiz}",
+                       "Ishchi chastota "
+                       "birinchi shakldan "
+                       "ancha yuqori. "
+                       "**Lekin** ikkinchi "
+                       "shaklni tekshirish "
+                       "kerak."),
+                    st(r"f_2 = \left(\frac{4{,}6941}"
+                       r"{1{,}8751}\right)^2 "
+                       r"f_1 = 6{,}267 \cdot "
+                       r"11{,}74 = 73{,}6\ "
+                       r"\text{Hz}",
+                       "Ikkinchi chastota "
+                       "ancha uzoq — "
+                       "**xavfsiz**."),
+                    st(r"\text{(c)}\quad P_{cr} = "
+                       r"\frac{\pi^2EI}{(2L)^2} = "
+                       r"\frac{9{,}8696 \cdot "
+                       r"1{,}68\cdot10^6}{36}",
+                       "Konsol uchun "
+                       "$K = 2$."),
+                    st(r"P_{cr} = 460{,}6\ "
+                       r"\text{kN}",
+                       "**Eyler kuchi.** Kod "
+                       "buni to'rtta "
+                       "chegaraviy shart "
+                       "uchun ham "
+                       "$10^{-4}$% "
+                       "aniqlikda "
+                       "takrorlaydi."),
+                ],
+                answer=(
+                    "(a) $f_1 = 11{,}74$ Hz; "
+                    "(b) ishchi chastota "
+                    "$24{,}7$ Hz birinchi "
+                    "shakldan 2,1 barobar, "
+                    "ikkinchisidan esa 3 "
+                    "barobar uzoq — "
+                    "rezonans xavfi yo'q; "
+                    "(c) $P_{cr} = 460{,}6$ kN "
+                    "($K = 2$)."
+                ),
+                engineering_note=(
+                    "(b) javobida ikkinchi "
+                    "shaklni ham "
+                    "tekshirganimizga "
+                    "e'tibor bering. Faqat "
+                    "birinchi chastotani "
+                    "ko'rib 'xavfsiz' deb "
+                    "xulosa chiqarish keng "
+                    "tarqalgan xato: "
+                    "ishchi chastota "
+                    "birinchisidan yuqori "
+                    "bo'lsa, u ikkinchi "
+                    "yoki uchinchisiga "
+                    "tushib qolishi "
+                    "mumkin. Qoida: "
+                    "ishchi chastotadan "
+                    "yuqoridagi birinchi "
+                    "xususiy chastotagacha "
+                    "barcha shakllarni "
+                    "tekshiring. "
+                    "Ikkinchi muhim nuqta "
+                    "(c) ga tegishli. "
+                    "$P_{cr} = 460$ kN — "
+                    "bu **ideal** ustun "
+                    "uchun. Haqiqiy "
+                    "ustunda boshlang'ich "
+                    "egrilik va "
+                    "eksentrisitet bor, "
+                    "shuning uchun "
+                    "me'yorlar bu "
+                    "qiymatni "
+                    "kamaytiruvchi "
+                    "koeffitsient bilan "
+                    "ishlatadi. Qobiqlarda "
+                    "esa farq keskin: "
+                    "pq-29 da ko'rganimizdek, "
+                    "nuqsonlarga sezgirlik "
+                    "tufayli haqiqiy "
+                    "kritik yuk nazariy "
+                    "qiymatning beshdan "
+                    "bir qismigacha "
+                    "tushishi mumkin. "
+                    "Shuning uchun "
+                    "chiziqli ustuvorlik "
+                    "tahlili — bu "
+                    "**boshlang'ich "
+                    "baho**, yakuniy "
+                    "javob emas."
+                ),
+            ),
+            computation=Computation(
+                caption=(
+                    "Massa va geometrik bikrlik "
+                    "matritsalarini qurish, "
+                    "chastota va ustuvorlik "
+                    "yuklarini topish, "
+                    "natijani analitik yechim "
+                    "bilan tekshirish."
+                ),
+                code='''"""Xususiy qiymat masalalari: tebranish va ustuvorlik."""
+import numpy as np
+from labkit import PARAMS, note, series, table, value
+from scipy.linalg import eigh
+from scipy.optimize import brentq
+
+n_el = int(PARAMS.get("n_el", 8))
+L_b = float(PARAMS.get("L_b", 3.0))
+I_sec = float(PARAMS.get("I_sec", 8e-6))
+A_sec = float(PARAMS.get("A_sec", 6e-3))
+
+E = 2.1e11
+rho = 7850.0
+EI = E*I_sec
+mA = rho*A_sec
+
+
+def ke(Le):
+    return EI/Le**3*np.array([
+        [12, 6*Le, -12, 6*Le],
+        [6*Le, 4*Le**2, -6*Le, 2*Le**2],
+        [-12, -6*Le, 12, -6*Le],
+        [6*Le, 2*Le**2, -6*Le, 4*Le**2]], dtype=float)
+
+
+def me_consistent(Le):
+    return mA*Le/420*np.array([
+        [156, 22*Le, 54, -13*Le],
+        [22*Le, 4*Le**2, 13*Le, -3*Le**2],
+        [54, 13*Le, 156, -22*Le],
+        [-13*Le, -3*Le**2, -22*Le, 4*Le**2]], dtype=float)
+
+
+def me_hrz(Le):
+    """HRZ jamlash: diagonal, to'liq massa saqlanadi."""
+    return mA*Le*np.diag([0.5, Le**2/78, 0.5, Le**2/78])
+
+
+def kg(Le):
+    """Geometrik bikrlik - birlik siquvchi kuch uchun."""
+    return 1.0/(30*Le)*np.array([
+        [36, 3*Le, -36, 3*Le],
+        [3*Le, 4*Le**2, -3*Le, -Le**2],
+        [-36, -3*Le, 36, -3*Le],
+        [3*Le, -Le**2, -3*Le, 4*Le**2]], dtype=float)
+
+
+BC = {"cant": lambda n: [0, 1],
+      "ss": lambda n: [0, 2*n],
+      "ff": lambda n: [0, 1, 2*n, 2*n + 1],
+      "fp": lambda n: [0, 1, 2*n]}
+
+
+def assemble(n, mass, bc):
+    h = L_b/n
+    nd = 2*(n + 1)
+    K = np.zeros((nd, nd))
+    M = np.zeros((nd, nd))
+    G = np.zeros((nd, nd))
+    for e in range(n):
+        idx = [2*e, 2*e + 1, 2*e + 2, 2*e + 3]
+        K[np.ix_(idx, idx)] += ke(h)
+        G[np.ix_(idx, idx)] += kg(h)
+        M[np.ix_(idx, idx)] += (me_consistent(h) if mass == "cons"
+                                else me_hrz(h))
+    fx = BC[bc](n)
+    free = np.setdiff1d(np.arange(nd), fx)
+    return (K[np.ix_(free, free)], M[np.ix_(free, free)],
+            G[np.ix_(free, free)], K, M, G)
+
+
+# --- (0) MASSA MATRITSASINING TEKSHIRUVI ---
+_, _, _, _, M_full, _ = assemble(n_el, "cons", "cant")
+_, _, _, _, M_hrz, _ = assemble(n_el, "hrz", "cant")
+ones_tr = np.zeros(2*(n_el + 1))
+ones_tr[0::2] = 1.0            # qattiq jism ko'chishi
+value("Moslashgan massa: 1^T M 1 (ko'chish)",
+      float(ones_tr @ M_full @ ones_tr), "kg")
+value("HRZ massa: 1^T M 1 (ko'chish)",
+      float(ones_tr @ M_hrz @ ones_tr), "kg")
+value("Haqiqiy massa rho*A*L", mA*L_b, "kg")
+note("Ikkala massa matritsasi ham qattiq jism ko'chishida to'liq "
+     "massani AYNAN beradi - bu massa matritsasining birinchi va eng "
+     "muhim tekshiruvi. Agar bu bajarilmasa, barcha chastotalar "
+     "noto'g'ri chiqadi va xato jimgina o'tadi.")
+
+# --- (1) ANALITIK ETALONLAR: transsendent tenglamalarni YECHAMIZ ---
+def roots_cant(k):
+    f = lambda b: np.cos(b)*np.cosh(b) + 1.0
+    out = []
+    lo = 1.0
+    while len(out) < k:
+        hi = lo + 0.25
+        while f(lo)*f(hi) > 0 and hi < 40:
+            lo, hi = hi, hi + 0.25
+        if hi >= 40:
+            break
+        out.append(brentq(f, lo, hi))
+        lo = hi
+    return out
+
+
+bl = roots_cant(4)
+value("Konsol: beta_1 L (cos*cosh + 1 = 0)", bl[0], "—")
+value("Konsol: beta_2 L", bl[1], "—")
+value("Konsol: beta_3 L", bl[2], "—")
+w_exact = [(b**2)*np.sqrt(EI/(mA*L_b**4)) for b in bl]
+value("Aniq omega_1", w_exact[0], "rad/s")
+value("Aniq f_1", w_exact[0]/(2*np.pi), "Hz")
+value("Aniq f_2", w_exact[1]/(2*np.pi), "Hz")
+
+# --- (2) CHASTOTALAR: moslashgan va jamlangan massa ---
+rows = []
+for n in [2, 4, 8, 16, 32]:
+    line = [n]
+    for mass in ["cons", "hrz"]:
+        K, M, _, _, _, _ = assemble(n, mass, "cant")
+        w = np.sqrt(np.sort(eigh(K, M, eigvals_only=True))[:3])
+        line += [f"{w[i]/w_exact[i]*100:.4f}" for i in range(3)]
+    rows.append(line)
+table("Konsol balka chastotalari, aniq qiymatga nisbatan %",
+      ["elementlar", "cons f1", "cons f2", "cons f3",
+       "HRZ f1", "HRZ f2", "HRZ f3"], rows)
+K4, M4, _, _, _, _ = assemble(4, "cons", "cant")
+Kh, Mh, _, _, _, _ = assemble(4, "hrz", "cant")
+w_c = np.sqrt(np.sort(eigh(K4, M4, eigvals_only=True))[0])
+w_h = np.sqrt(np.sort(eigh(Kh, Mh, eigvals_only=True))[0])
+value("4 element, moslashgan massa: f1", float(w_c/(2*np.pi)), "Hz")
+value("4 element, HRZ massa: f1", float(w_h/(2*np.pi)), "Hz")
+value("Aniq f1 shu oraliqdami (1 = ha)",
+      float(1.0 if w_h <= w_exact[0] <= w_c else 0.0), "—")
+value("Oraliq kengligi", float((w_c - w_h)/w_exact[0]*100), "%")
+note("IKKI TOMONLAMA CHEGARA. Moslashgan massa chastotani har doim "
+     "YUQORIDAN (100.048%, 100.849%, 121.8%), HRZ jamlangan massa esa "
+     "PASTDAN (88.7%, 71.2%, 94.0%) baholaydi. Demak aniq javob ikkisi "
+     "orasida KAFOLATLANGAN. Bu amalda kam ishlatiladigan, lekin juda "
+     "qimmatli vosita: ikkita hisob bilan nafaqat javobni, balki "
+     "xatolik chegarasini ham olasiz. Yuqoridan yaqinlashish "
+     "tasodifiy emas - diskretlashtirish harakat erkinligini "
+     "cheklaydi, cheklangan tizim esa bikrroq bo'ladi (su-13).")
+
+series("Moslashgan massa: f1 xatosi", [2, 4, 8, 16, 32],
+       [float(r[1]) for r in rows], xlabel="elementlar",
+       ylabel="aniqlik, %")
+series("HRZ massa: f1 xatosi", [2, 4, 8, 16, 32],
+       [float(r[4]) for r in rows], xlabel="elementlar",
+       ylabel="aniqlik, %")
+series("Aniq qiymat", [2, 4, 8, 16, 32], [100.0]*5,
+       xlabel="elementlar", ylabel="aniqlik, %")
+
+# --- (3) YUQORI SHAKLLAR yomonroq yaqinlashadi ---
+rows2 = []
+bl8 = roots_cant(6)
+w_ex8 = [(b**2)*np.sqrt(EI/(mA*L_b**4)) for b in bl8]
+for n in [4, 8, 16, 32]:
+    K, M, _, _, _, _ = assemble(n, "cons", "cant")
+    w = np.sqrt(np.sort(eigh(K, M, eigvals_only=True)))
+    line = [n] + [f"{(w[i]/w_ex8[i] - 1)*100:.4f}"
+                  for i in range(min(5, len(w)))]
+    rows2.append(line)
+table("Yuqori shakllar qanchalik yomonroq (xato, %)",
+      ["elementlar", "1-shakl", "2-shakl", "3-shakl", "4-shakl",
+       "5-shakl"], rows2)
+note("Bir xil to'rda yuqori shakllar ANCHA yomonroq: 8 elementda "
+     "1-shakl xatosi 0.0002%, 5-shakl xatosi esa 0.5786% - ya'ni 2900 "
+     "barobar katta. 4 elementda farq undan ham keskin: 0.0033% ga "
+     "qarshi 14.1%. Sabab - yuqori shakl qisqaroq to'lqin uzunligiga "
+     "ega va "
+     "uni ifodalash uchun ko'proq element kerak. Amaliy qoida: "
+     "i-shaklni ishonchli olish uchun kamida 5i...10i element. Seysmik "
+     "hisobda aynan yuqori shakllar kerak bo'ladi, shuning uchun bu "
+     "qoidani e'tiborsiz qoldirib bo'lmaydi.")
+
+# --- (4) TEBRANISH SHAKLLARI va ORTOGONALLIK ---
+K, M, _, _, _, _ = assemble(n_el, "cons", "cant")
+ev, phi = eigh(K, M)
+w_num = np.sqrt(ev)
+# M-ortogonallik: phi_i^T M phi_j = delta_ij (normallashtirilgan)
+Gram = phi[:, :4].T @ M @ phi[:, :4]
+value("Shakllarning M-ortogonalligi: maks diagonaldan tashqari",
+      float(np.max(np.abs(Gram - np.diag(np.diag(Gram))))), "—")
+Gram_K = phi[:, :4].T @ K @ phi[:, :4]
+# K-Gram diagonalida omega^2 turadi (katta sonlar), shuning uchun
+# nisbiy o'lchovda baholaymiz
+value("Shakllarning K-ortogonalligi: nisbiy maks (diagonaldan tashqari)",
+      float(np.max(np.abs(Gram_K - np.diag(np.diag(Gram_K)))) /
+            np.max(np.abs(np.diag(Gram_K)))), "—")
+value("Reley nisbati phi^T K phi / phi^T M phi (1-shakl)",
+      float((phi[:, 0] @ K @ phi[:, 0])/(phi[:, 0] @ M @ phi[:, 0])),
+      "rad^2/s^2")
+value("omega_1^2 (xususiy qiymatdan)", float(ev[0]), "rad^2/s^2")
+xs = np.linspace(0, L_b, n_el + 1)
+for k_ in range(3):
+    shape = np.concatenate([[0.0], phi[0::2, k_]])
+    shape = shape/np.max(np.abs(shape))
+    series(f"{k_+1}-tebranish shakli", xs.tolist(), shape.tolist(),
+           xlabel="x, m", ylabel="normallashgan w")
+note("Tebranish shakllari M va K bo'yicha ham ORTOGONAL - "
+     "diagonaldan tashqari hadlar mashina noliga teng (nm-28). "
+     "Bu modal superpozitsiyaning asosi: dinamik masala "
+     "bog'lanmagan bir erkinlik darajali tenglamalarga ajraladi. "
+     "Reley nisbati esa xususiy qiymat bilan aynan mos tushdi - "
+     "bu xususiy vektorning to'g'ri hisoblanganini tasdiqlaydi.")
+
+# --- (5) USTUVORLIK: to'rtta chegaraviy shart ---
+u_fp = brentq(lambda x: np.tan(x) - x, np.pi + 1e-6, 1.5*np.pi - 1e-6)
+K_fp = np.pi/u_fp
+value("Mahkam-sharnirli: tan(u) = u ildizi", float(u_fp), "—")
+value("Mahkam-sharnirli effektiv uzunlik K", float(K_fp), "—")
+rows3 = []
+for bc, Kf, nm in [("ss", 1.0, "sharnirli-sharnirli"),
+                   ("cant", 2.0, "konsol"),
+                   ("ff", 0.5, "mahkam-mahkam"),
+                   ("fp", K_fp, "mahkam-sharnirli")]:
+    P_ex = np.pi**2*EI/(Kf*L_b)**2
+    line = [nm, f"{Kf:.5f}", f"{P_ex/1e3:.3f}"]
+    for n in [2, 4, 8, 16]:
+        K_, _, G_, _, _, _ = assemble(n, "cons", bc)
+        evg = eigh(K_, G_, eigvals_only=True)
+        lam = float(np.min(evg[evg > 1e-9]))
+        line.append(f"{lam/P_ex*100:.4f}")
+    rows3.append(line)
+table("Ustuvorlik: P_cr = pi^2 EI/(KL)^2 ga nisbatan aniqlik, %",
+      ["chegaraviy shart", "K", "aniq P_cr, kN", "n=2", "n=4", "n=8",
+       "n=16"], rows3)
+note("To'rtta chegaraviy shart uchun ham FEM Eyler kuchini 16 element "
+     "bilan 0.02% dan yaxshi aniqlikda takrorladi va HAR DOIM "
+     "YUQORIDAN yaqinlashdi - tebranishdagi kabi. Effektiv uzunlik "
+     "koeffitsientlari qo'lda yozilmadi: mahkam-sharnirli holat uchun "
+     "K = pi/u, bu yerda u - tan(u) = u tenglamasining ildizi, kod "
+     "tomonidan sonli topildi. Shu bilan 'adabiyotdagi 0.699' "
+     "yaxlitlanishi xatolik manbai bo'lib qolmaydi.")
+
+# Ustuvorlik shakli
+K_, _, G_, _, _, _ = assemble(n_el, "cons", "ss")
+evg, phig = eigh(K_, G_)
+i0 = int(np.argmin(np.where(evg > 1e-9, evg, np.inf)))
+sh = np.concatenate([[0.0], phig[0::2, i0], [0.0]])
+sh = sh/np.max(np.abs(sh))
+series("Ustuvorlik shakli (sharnirli ustun)",
+       np.linspace(0, L_b, len(sh)).tolist(), sh.tolist(),
+       xlabel="x, m", ylabel="normallashgan w")
+series("Aniq sin(pi x/L)", np.linspace(0, L_b, len(sh)).tolist(),
+       np.sin(np.pi*np.linspace(0, L_b, len(sh))/L_b).tolist(),
+       xlabel="x, m", ylabel="normallashgan w")
+
+# --- (6) O'Q KUCHI CHASTOTAGA TA'SIRI ---
+rows4 = []
+K_, M_, G_, _, _, _ = assemble(16, "cons", "ss")
+P_euler = np.pi**2*EI/L_b**2
+for frac in [0.0, 0.25, 0.5, 0.75, 0.9, 0.99]:
+    Keff = K_ - frac*P_euler*G_
+    ev_ = eigh(Keff, M_, eigvals_only=True)
+    w1 = np.sqrt(max(ev_[0], 0.0))
+    w0 = np.sqrt(eigh(K_, M_, eigvals_only=True)[0])
+    rows4.append([f"{frac:.2f}", f"{w1/w0:.5f}",
+                  f"{np.sqrt(1 - frac):.5f}",
+                  f"{abs(w1/w0 - np.sqrt(1-frac))*100:.4f}"])
+table("Siquvchi kuch chastotani qanday kamaytiradi",
+      ["P/P_cr", "omega/omega_0 (FEM)", "sqrt(1 - P/P_cr)", "farq %"],
+      rows4)
+series("Chastota va siquvchi kuch", [0, 0.25, 0.5, 0.75, 0.9, 0.99],
+       [float(r[1]) for r in rows4], xlabel="P/P_cr",
+       ylabel="omega/omega_0")
+note("CHIROYLI BOG'LANISH. Siquvchi kuch ostida birinchi chastota "
+     "sqrt(1 - P/P_cr) qonuni bo'yicha kamayadi va FEM buni 0.01% "
+     "aniqlikda takrorladi. P -> P_cr da chastota NOLGA intiladi - "
+     "ya'ni ustuvorlikni yo'qotish 'chastotasi nolga teng tebranish' "
+     "sifatida talqin qilinadi. Bu tebranish va ustuvorlik bir xil "
+     "matematik masala ekanining eng aniq fizik ifodasi. Amalda bu "
+     "usul bilan ustunning haqiqiy kritik yukini buzmasdan o'lchash "
+     "mumkin: bir necha yuk darajasida chastotani o'lchab, "
+     "ekstrapolyatsiya qilinadi (Sautvell usuli).")
+
+table("Tebranish va ustuvorlik: bir xil matematika",
+      ["Jihat", "Tebranish", "Ustuvorlik"],
+      [["Masala", "(K - w^2 M) phi = 0", "(K - lambda K_G) phi = 0"],
+       ["Ikkinchi matritsa", "M (massa)", "K_G (geometrik)"],
+       ["Xususiy qiymat", "w^2 (chastota kvadrati)", "lambda (kritik yuk)"],
+       ["Xususiy vektor", "tebranish shakli", "ustuvorlik shakli"],
+       ["M / K_G musbat aniqmi", "HA", "YO'Q (ishorasi aralash)"],
+       ["Yaqinlashish", "yuqoridan", "yuqoridan"],
+       ["Amaliy cheklov", "yuqori shakllar yomon",
+        "nuqsonlarga sezgirlik (pq-29)"]])
+''',
+                parameters=[
+                    p("n_el", "Elementlar soni", 2.0, 32.0, 8.0, 1.0),
+                    p("L_b", "Balka uzunligi", 1.0, 12.0, 3.0, 0.5, "m"),
+                    p("I_sec", "Inersiya momenti", 1e-6, 1e-4, 8e-6,
+                      1e-6, "m⁴"),
+                    p("A_sec", "Kesim yuzasi", 1e-3, 2e-2, 6e-3, 1e-3,
+                      "m²"),
+                ],
+                expected_output=(
+                    "Ikkala massa matritsasi "
+                    "ham qattiq jism "
+                    "ko'chishida to'liq "
+                    "massani aynan beradi. "
+                    "Moslashgan massa "
+                    "chastotalarni yuqoridan "
+                    "(100,048%, 100,849%, "
+                    "121,8% ikki elementda), "
+                    "HRZ jamlangan massa esa "
+                    "pastdan (88,7%, 71,2%, "
+                    "94,0%) baholaydi — aniq "
+                    "javob ular orasida "
+                    "kafolatlangan. Yuqori "
+                    "shakllar sezilarli "
+                    "yomonroq yaqinlashadi. "
+                    "Tebranish shakllari "
+                    "$\\mathbf{M}$ va "
+                    "$\\mathbf{K}$ bo'yicha "
+                    "mashina aniqligida "
+                    "ortogonal, Reley "
+                    "nisbati xususiy qiymat "
+                    "bilan aynan mos "
+                    "tushadi. To'rtta "
+                    "chegaraviy shart uchun "
+                    "ham Eyler kuchi 16 "
+                    "element bilan 0,02% dan "
+                    "yaxshi aniqlikda "
+                    "chiqadi; "
+                    "mahkam–sharnirli "
+                    "holatning $K$ "
+                    "koeffitsienti "
+                    "$\\tan u = u$ "
+                    "tenglamasidan sonli "
+                    "topiladi. Siquvchi "
+                    "kuch ostida chastota "
+                    "$\\sqrt{1 - P/P_{cr}}$ "
+                    "qonuni bo'yicha "
+                    "kamayadi (0,01% "
+                    "aniqlikda) va "
+                    "$P \\to P_{cr}$ da "
+                    "nolga intiladi."
+                ),
+            ),
+            visual=vis(
+                kind="Tebranish va ustuvorlik shakllari",
+                tool="React/SVG + Manim",
+                description=(
+                    "Tebranish shakllari, "
+                    "ustuvorlik shakli va "
+                    "chastotaning siquvchi "
+                    "kuchga bog'liqligi."
+                ),
+                how_to_draw=(
+                    "React/SVG: yuqori panelda "
+                    "balka chiziladi va tanlangan "
+                    "tebranish shakli "
+                    "animatsiya bilan "
+                    "tebranadi; shakl "
+                    "raqamini tanlash "
+                    "tugmalari yonida "
+                    "chastota qiymati "
+                    "turadi. Tugunlar "
+                    "(shakl nolga tegadigan "
+                    "nuqtalar) alohida "
+                    "belgilanadi va "
+                    "ularning soni shakl "
+                    "raqami bilan "
+                    "o'sishi ko'rinadi. "
+                    "O'rta panelda ikkita "
+                    "yaqinlashish egri "
+                    "chizig'i: moslashgan "
+                    "massa 100% dan "
+                    "**yuqorida**, "
+                    "jamlangan massa "
+                    "**pastda**, orasidagi "
+                    "soha 'aniq javob shu "
+                    "yerda' deb "
+                    "shtrixlanadi — "
+                    "element soni "
+                    "oshgani sari "
+                    "shtrixlangan tasma "
+                    "torayadi. Pastki "
+                    "panelda eng qiziq "
+                    "tajriba: ustun "
+                    "asta-sekin "
+                    "siqiladi va uning "
+                    "tebranish "
+                    "animatsiyasi "
+                    "**sekinlashadi**; "
+                    "yonidagi grafik "
+                    "$\\omega/\\omega_0$ "
+                    "ni $P/P_{cr}$ ga "
+                    "qarab chizadi va "
+                    "u $\\sqrt{1-P/P_{cr}}$ "
+                    "egri chizig'i bilan "
+                    "ustma-ust tushadi. "
+                    "$P \\to P_{cr}$ da "
+                    "tebranish butunlay "
+                    "to'xtaydi va balka "
+                    "ustuvorlik shakliga "
+                    "o'tib ketadi — "
+                    "ikki hodisaning "
+                    "birligi shu "
+                    "lahzada "
+                    "ko'rinadi."
+                ),
+            ),
+            interp=(
+                "Massa matritsasining "
+                "tekshiruvi eng oddiy, "
+                "lekin eng muhim qadam: "
+                "qattiq jism ko'chishida "
+                "u to'liq massani aynan "
+                "berishi shart. Bu "
+                "bajarilmasa barcha "
+                "chastotalar noto'g'ri "
+                "chiqadi va xato jimgina "
+                "o'tadi, chunki natija "
+                "hali ham ishonarli "
+                "ko'rinadi. Asosiy "
+                "natija esa ikki "
+                "tomonlama chegarada. "
+                "Moslashgan massa "
+                "chastotani har doim "
+                "yuqoridan, jamlangan "
+                "massa esa pastdan "
+                "baholaydi — demak "
+                "ikkita hisob bilan "
+                "aniq javobni qamrab "
+                "olish mumkin. Bu "
+                "amalda kam "
+                "ishlatiladi, lekin "
+                "bepul xatolik bahosini "
+                "beradi va shuning uchun "
+                "qimmatli. Yuqoridan "
+                "yaqinlashish tasodifiy "
+                "emas: diskretlashtirish "
+                "harakat erkinligini "
+                "cheklaydi, cheklangan "
+                "tizim esa bikrroq "
+                "bo'ladi — bu su-13 dagi "
+                "energiya prinsipining "
+                "bevosita oqibati va u "
+                "ustuvorlikda ham "
+                "takrorlanadi. Yuqori "
+                "shakllar jadvali eng "
+                "ko'p e'tibordan chetda "
+                "qoladigan amaliy "
+                "nuqtani ko'rsatadi: "
+                "bir xil to'rda birinchi "
+                "shakl xatosi 0,0002%, "
+                "beshinchisiniki esa "
+                "minglab barobar katta. "
+                "Seysmik hisobda aynan "
+                "yuqori shakllar kerak "
+                "bo'ladi, shuning uchun "
+                "'birinchi chastota "
+                "to'g'ri chiqdi, demak "
+                "to'r yetarli' degan "
+                "xulosa xavfli. Eng "
+                "chiroyli natija esa "
+                "oxirgi tajribada. "
+                "Siquvchi kuch ostida "
+                "birinchi chastota "
+                "$\\sqrt{1 - P/P_{cr}}$ "
+                "qonuni bo'yicha "
+                "kamayadi va FEM buni "
+                "0,01% aniqlikda "
+                "takrorlaydi. "
+                "$P \\to P_{cr}$ da "
+                "chastota nolga "
+                "intiladi — ya'ni "
+                "ustuvorlikni yo'qotish "
+                "'chastotasi nol "
+                "bo'lgan tebranish' "
+                "sifatida talqin "
+                "qilinadi. Shu bilan "
+                "mavzu boshida qo'yilgan "
+                "savol — nima uchun "
+                "tebranish va ustuvorlik "
+                "bitta masala — fizik "
+                "javob oladi. Amalda bu "
+                "bog'lanish Sautvell "
+                "usulining asosi: "
+                "ustunning kritik yukini "
+                "uni buzmasdan, faqat "
+                "chastota o'lchash "
+                "orqali aniqlash "
+                "mumkin."
+            ),
+            mistakes=[
+                "Faqat birinchi chastotani "
+                "tekshirish. Ishchi chastota "
+                "ikkinchi yoki uchinchi "
+                "shaklga tushib qolishi "
+                "mumkin.",
+                "Birinchi shakl uchun "
+                "yetarli to'rni yuqori "
+                "shakllar uchun ham "
+                "yetarli deb hisoblash. "
+                "$i$-shaklga $5i$–$10i$ "
+                "element kerak.",
+                "Jamlangan massada burilish "
+                "inersiyasini nolga "
+                "tenglashtirish. Matritsa "
+                "singulyar bo'ladi va "
+                "yechuvchi ishlamaydi.",
+                "Massa matritsasining "
+                "umumiy massasini "
+                "tekshirmaslik — bu bir "
+                "qator kod va u jiddiy "
+                "xatolarni ochadi.",
+                "Chiziqli ustuvorlik "
+                "yukini yakuniy javob deb "
+                "qabul qilish. Nuqsonlar "
+                "uni sezilarli kamaytiradi, "
+                "qobiqlarda besh barobargacha "
+                "(pq-29).",
+                "$\\mathbf{K}_G$ ni musbat "
+                "aniq deb hisoblash. Uning "
+                "ishorasi aralash va "
+                "manfiy xususiy qiymatlar "
+                "ham chiqadi.",
+            ],
+            quiz=[
+                q("Tebranish va ustuvorlik "
+                  "masalalari matematik "
+                  "jihatdan nima bilan "
+                  "bir xil?",
+                  "Ikkalasi ham umumlashgan "
+                  "xususiy qiymat masalasi; "
+                  "faqat ikkinchi matritsa "
+                  "almashadi — "
+                  "$\\mathbf{M}$ o'rniga "
+                  "$\\mathbf{K}_G$.",
+                  "konseptual"),
+                q("Nima uchun FEM "
+                  "chastotalarni yuqoridan "
+                  "baholaydi?",
+                  "Diskretlashtirish harakat "
+                  "erkinligini cheklaydi, "
+                  "cheklangan tizim esa "
+                  "bikrroq — bu su-13 dagi "
+                  "energiya prinsipining "
+                  "oqibati.", "konseptual"),
+                q("$L = 3$ m konsol balkaning "
+                  "birinchi chastotasi "
+                  "qanday topiladi?",
+                  "$\\omega_1 = "
+                  "(1{,}8751)^2"
+                  "\\sqrt{EI/(\\rho AL^4)} = "
+                  "73{,}78$ rad/s, ya'ni "
+                  "$f_1 = 11{,}74$ Hz.",
+                  "hisob"),
+                q("Kod ikki massa matritsasi "
+                  "bilan qanday foydali "
+                  "natija beradi?",
+                  "Moslashgan yuqoridan, HRZ "
+                  "pastdan baholaydi, demak "
+                  "aniq javob ular orasida "
+                  "kafolatlangan — bepul "
+                  "xatolik bahosi.", "kod"),
+                q("Siquvchi kuch chastotani "
+                  "qanday o'zgartiradi?",
+                  "$\\omega/\\omega_0 = "
+                  "\\sqrt{1 - P/P_{cr}}$; "
+                  "kod buni 0,01% aniqlikda "
+                  "tasdiqlaydi va "
+                  "$P \\to P_{cr}$ da "
+                  "chastota nolga "
+                  "intiladi.", "kod"),
+                q("Effektiv uzunlik "
+                  "koeffitsienti $K$ nimaga "
+                  "bog'liq va "
+                  "mahkam–sharnirli holatda "
+                  "u qanday topiladi?",
+                  "Chegaraviy shartga. "
+                  "Mahkam–sharnirlida "
+                  "$K = \\pi/u$, bu yerda "
+                  "$u$ — $\\tan u = u$ "
+                  "tenglamasining ildizi "
+                  "($u = 4{,}4934$, "
+                  "$K = 0{,}69916$).",
+                  "talqin"),
+                q("Chiziqli ustuvorlik "
+                  "tahlilining asosiy "
+                  "cheklovi nima?",
+                  "U ideal konstruksiya "
+                  "uchun yuqori baho "
+                  "beradi; nuqsonlar "
+                  "kritik yukni "
+                  "kamaytiradi — "
+                  "qobiqlarda besh "
+                  "barobargacha (pq-29). "
+                  "Aniq javob uchun "
+                  "nochiziqli tahlil "
+                  "kerak.", "talqin"),
+            ],
+            bridge=(
+                "Xususiy qiymat masalalari "
+                "ham chiziqli edi. Lekin "
+                "ustuvorlikda ko'rganimizdek, "
+                "haqiqiy javob nuqsonlarga "
+                "va katta ko'chishlarga "
+                "bog'liq. Keyingi mavzuda "
+                "chiziqlilik taxminini "
+                "butunlay bekor qilamiz: "
+                "geometrik va fizik "
+                "nochiziqlik, iterativ "
+                "yechish usullari va "
+                "'o'tib ketish' hodisasi."
+            ),
+            research=(
+                "Xususiy qiymat "
+                "hisoblarini "
+                "chuqurlashtiring. "
+                "(1) Lanshos va blokli "
+                "subfazo iteratsiyasi "
+                "usullarini o'rganing: "
+                "million erkinlik "
+                "darajali tizimdan "
+                "faqat birinchi 50 "
+                "shaklni qanday olish "
+                "mumkin? "
+                "(2) Shturm ketma-ketligi "
+                "tekshiruvini ko'rib "
+                "chiqing: berilgan "
+                "oraliqda nechta xususiy "
+                "qiymat borligini "
+                "ularni hisoblamasdan "
+                "aniqlash. "
+                "(3) Modal massa va "
+                "ishtirok "
+                "koeffitsientlarini "
+                "o'rganing: seysmik "
+                "hisobda nechta shakl "
+                "kerakligini qanday "
+                "aniqlash (odatda "
+                "modal massaning 90% i "
+                "qamralsin)? "
+                "(4) Sautvell grafigini "
+                "va nuqsonli ustunning "
+                "haqiqiy "
+                "xatti-harakatini "
+                "ko'rib chiqing."
+            ),
+            manim_ref=manim(
+                scene="EigenScene",
+                module="manim/scenes/su_apps.py",
+                title="Tebranish va ustuvorlik birligi",
+                summary=(
+                    "Konsol balkaning "
+                    "birinchi uchta "
+                    "tebranish shakli "
+                    "ketma-ket "
+                    "animatsiya qilinadi "
+                    "va tugunlar soni "
+                    "o'sishi ko'rsatiladi. "
+                    "Keyin sharnirli "
+                    "ustun asta-sekin "
+                    "siqiladi: uning "
+                    "tebranishi "
+                    "sekinlashadi, "
+                    "chastota grafigi "
+                    "$\\sqrt{1-P/P_{cr}}$ "
+                    "egri chizig'i "
+                    "bo'ylab tushadi va "
+                    "kritik yukda "
+                    "tebranish to'xtab, "
+                    "ustun yon tomonga "
+                    "egilib ketadi."
+                ),
+            ),
+        ),
+    ),
 ]
