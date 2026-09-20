@@ -2457,7 +2457,7 @@ table("Element turlari va ularning xossalari",
             "o'rganing: ular yig'ish va yechishni birlashtiradi — bu "
             "xotira talabini qanday kamaytiradi?"
         ),
-        difficulty="orta",
+        difficulty="murakkab",
         previous_link=(
             "su-14 da shakl funksiyalari va izoparametrik almashtirish "
             "tayyor bo'ldi. Endi ular bilan element integrallarini "
@@ -5046,7 +5046,7 @@ table("Qulflanish turlari va ularga mos davolar",
             "Zienkiewicz–Zhu superkonvergent yamoq tiklashini (SPR) "
             "o'rganing: u su-18 dagi adaptivlikning asosiy vositasi."
         ),
-        difficulty="orta",
+        difficulty="murakkab",
         previous_link=(
             "su-16 da element matritsalari to'g'ri quriladigan bo'ldi va "
             "qulflanish tuzoqlari ma'lum. Endi yig'ilgan tizimni "

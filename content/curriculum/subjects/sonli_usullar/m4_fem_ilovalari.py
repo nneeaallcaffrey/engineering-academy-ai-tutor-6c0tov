@@ -73,7 +73,7 @@ TOPICS = [
             "Mishel fermalari va zamonaviy topologik "
             "optimallashtirishning bog'lanishi."
         ),
-        difficulty="orta",
+        difficulty="murakkab",
         previous_link=(
             "3-modulda FEM ning butun nazariy apparati qurildi. Endi uni "
             "eng sodda va eng aniq holatga qo'llaymiz: ferma. Bu yerda "
@@ -1241,7 +1241,7 @@ table("Ferma elementining xossalari",
             "Plastik sharnirlar usulini o'rganing: ramkaning chegaraviy "
             "yuk ko'taruvchanligi va progressiv yemirilish tahlili."
         ),
-        difficulty="orta",
+        difficulty="murakkab",
         previous_link=(
             "su-19 dagi ferma elementi faqat o'q bo'ylab kuch uzatardi va "
             "yuk faqat tugunlarga qo'yilardi. Endi burilish erkinlik "

@@ -3749,7 +3749,7 @@ table("Uch yondashuvning taqqoslanishi",
             "ASME V&V 20 standartini o'rganing: validatsiya "
             "noaniqligini rasmiy hisoblash tartibi."
         ),
-        difficulty="orta",
+        difficulty="murakkab",
         previous_link=(
             "su-25…su-27 da usullar to'plami kengaydi va har biri o'z "
             "aniqlik da'vosiga ega edi. Endi asosiy savolga javob "
@@ -5090,7 +5090,7 @@ table("Verifikatsiya va validatsiya: tuzilma",
             "K umuman saqlanmaydi, faqat K·v ko'paytma hisoblanadi, "
             "bu esa xotira devorini butunlay chetlab o'tadi."
         ),
-        difficulty="chuqurlashtirilgan",
+        difficulty="ilg'or",
         previous_link=(
             "su-28 natijaning ishonchliligini rasmiylashtirdi: MMS bilan "
             "kod verifikatsiyasi, Richardson ekstrapolyatsiyasi va GCI "
@@ -6066,7 +6066,7 @@ note(
             "yutqazadi, lekin teskari masalalarda va parametrik "
             "oilalarda istiqbolli."
         ),
-        difficulty="chuqurlashtirilgan",
+        difficulty="ilg'or",
         previous_link=(
             "su-29 hisoblash narxini boshqarishni o'rgatdi va shu "
             "bilan sonli usullarning texnik qismi yakunlandi. Endi "

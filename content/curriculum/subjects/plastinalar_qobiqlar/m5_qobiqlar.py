@@ -754,7 +754,7 @@ table("Aylanma sirtlarning tasnifi",
             "kelmasligi' (membrane incompatibility) tushunchasini "
             "o'rganing; teng mustahkam gumbaz shaklini toping."
         ),
-        difficulty="asosiy",
+        difficulty="murakkab",
         previous_link=(
             "pq-25 da qobiq geometriyasi to'liq tavsiflandi va "
             "normal ko'chish cho'zilish deformatsiyasini hosil "

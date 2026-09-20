@@ -341,7 +341,7 @@ value("Lame μ = G (po'lat)", mu, "GPa")
             "Elastik doimiylarni ultratovush usuli bilan o'lchash: to'lqin "
             "tezliklari orqali $E$ va $\\nu$ ni aniqlash."
         ),
-        difficulty="asosiy",
+        difficulty="murakkab",
         previous_link=(
             "tmm-13 dagi 21 ta doimiy izotropiya sharti bilan 2 taga tushdi. "
             "Endi bu ikki doimiyni turli shakllarda yozishni o'rganamiz."
