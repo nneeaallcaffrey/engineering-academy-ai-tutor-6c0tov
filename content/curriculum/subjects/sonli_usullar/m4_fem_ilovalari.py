@@ -3789,4 +3789,1254 @@ table("Tekis masala elementlarining taqqoslanishi",
             ),
         ),
     ),
+
+    # ------------------------------------------------------------------ su-22
+    Topic(
+        id="su-22",
+        subject_id=S, module_id=M, order=22,
+        title="Plastina va qobiq elementlari",
+        description=(
+            "Kirxgof va Mindlin plastina elementlari, $C^1$ muammosi, "
+            "siljish qulflanishi va uni yengish, qobiq elementlari hamda "
+            "natijani Navye yechimi bilan tekshirish."
+        ),
+        learning_objective=(
+            "Plastina elementini tanlash va qo'llash, siljish "
+            "qulflanishini tanib olish va yengish, natijani analitik "
+            "yechim bilan tekshirish."
+        ),
+        prerequisites=["su-21", "pq-09", "pq-24"],
+        mathematical_core=(
+            "$\\mathbf{k} = \\int\\mathbf{B}_b^T\\mathbf{D}_b\\mathbf{B}_b"
+            "\\,dA + \\int\\mathbf{B}_s^T\\mathbf{D}_s\\mathbf{B}_s\\,dA$; "
+            "Navye: $w_{max} = 0{,}00406\\,qa^4/D$."
+        ),
+        engineering_application=(
+            "Ko'prik plitalari, rezervuar va idish devorlari, kema "
+            "korpusi, samolyot qoplamasi, silos va quvurlar."
+        ),
+        computational_component=(
+            "Mindlin plastina elementini qurish, qulflanishni ko'rsatish "
+            "va SRI bilan yengish, Navye yechimi bilan tekshirish."
+        ),
+        visualization_component=(
+            "Plastina egilish sirti, moment xaritalari, qulflanishning "
+            "qalinlikka bog'liqligi."
+        ),
+        research_extension=(
+            "MITC (Mixed Interpolation of Tensorial Components) "
+            "elementlarini o'rganing: ular soxta rejimsiz "
+            "qulflanishni yechadi."
+        ),
+        difficulty="murakkab",
+        previous_link=(
+            "su-21 dagi tekis masala elementlari faqat tekislik ichidagi "
+            "kuchlanishni ifodalardi. Plastina esa egilishga ishlaydi va "
+            "pq fanidagi butun nazariya bu yerda FEM tilida qayta "
+            "quriladi — jumladan pq-24 dagi siljish qulflanishi."
+        ),
+        next_topic="su-23",
+        estimated_minutes=95,
+        tags=["plastina elementi", "Mindlin", "Kirxgof", "siljish "
+              "qulflanishi", "qobiq", "Navye yechimi"],
+        lesson=_lesson(
+            problem=(
+                "Rezervuar qopqog'i "
+                "hisoblanmoqda: "
+                "$4\\times4$ m po'lat plastina, "
+                "qalinligi 8 mm, chekkalari "
+                "sharnirli, ustida suv "
+                "bosimi. Tayyor FEM paketda "
+                "to'rtburchak plastina "
+                "elementlari tanlanadi, to'r "
+                "quriladi, hisob bajariladi — "
+                "va natija kutilgandan "
+                "**yuz barobar** kichik "
+                "chiqadi. Go'yo plastina "
+                "deyarli qimirlamaydi. To'r "
+                "zichlashtiriladi, natija "
+                "o'sadi, lekin sekin. "
+                "pq-24 dagi tanish kasallik "
+                "— siljish qulflanishi — "
+                "lekin bu safar u FEM "
+                "elementida. Nima sodir "
+                "bo'lmoqda va uni qanday "
+                "yengish mumkin?"
+            ),
+            concepts=[
+                c("Kirxgof plastinasi",
+                  "Siljish deformatsiyasi nol; "
+                  "faqat $w$ noma'lum, lekin "
+                  "$C^1$ uzluksizlik talab "
+                  "qilinadi (pq-04)."),
+                c("Mindlin–Reyssner plastinasi",
+                  "Burilishlar mustaqil "
+                  "noma'lum: $w$, "
+                  "$\\beta_x$, $\\beta_y$; "
+                  "faqat $C^0$ kerak, lekin "
+                  "qulflanish xavfi bor "
+                  "(pq-24)."),
+                c("$C^1$ muammosi",
+                  "Plastina uchun to'liq mos "
+                  "(conforming) element qurish "
+                  "juda qiyin — tarixan FEM "
+                  "ning eng murakkab "
+                  "masalalaridan biri."),
+                c("Egilish va siljish "
+                  "matritsalari",
+                  "$\\mathbf{k} = "
+                  "\\mathbf{k}_b + "
+                  "\\mathbf{k}_s$; "
+                  "$\\mathbf{k}_b \\sim h^3$, "
+                  "$\\mathbf{k}_s \\sim h$."),
+                c("Siljish qulflanishi",
+                  "$h \\to 0$ da "
+                  "$\\mathbf{k}_s$ "
+                  "$\\mathbf{k}_b$ ni bo'g'ib "
+                  "qo'yadi — nisbat "
+                  "$(a/h)^2$ kabi o'sadi."),
+                c("Qobiq elementi",
+                  "Membrana (su-21) va "
+                  "egilish (plastina) "
+                  "birlashtiriladi; egrilik "
+                  "ularni bog'laydi (pq-26)."),
+            ],
+            derivation=[
+                d("1. Mindlin kinematikasi",
+                  r"u = z\beta_x(x,y), \quad "
+                  r"v = z\beta_y(x,y), \quad "
+                  r"w = w(x,y)",
+                  "Uchta mustaqil maydon. "
+                  "Kirxgofda "
+                  "$\\beta_x = -\\partial w/"
+                  "\\partial x$ majburlanadi, "
+                  "bu yerda esa yo'q."),
+                d("2. Egrilik va siljish",
+                  r"\boldsymbol\kappa = \left\{"
+                  r"\beta_{x,x},\ \beta_{y,y},\ "
+                  r"\beta_{x,y} + \beta_{y,x}"
+                  r"\right\}, \quad "
+                  r"\boldsymbol\gamma = \left\{"
+                  r"w_{,x} + \beta_x,\ w_{,y} + "
+                  r"\beta_y\right\}",
+                  "**Hal qiluvchi nuqta.** "
+                  "Faqat **birinchi** "
+                  "hosilalar qatnashadi, "
+                  "demak $C^0$ bazis "
+                  "yetarli — oddiy Lagranj "
+                  "funksiyalari ishlaydi."),
+                d("3. Ikki qismli energiya",
+                  r"U = \frac12\int"
+                  r"\boldsymbol\kappa^T"
+                  r"\mathbf{D}_b"
+                  r"\boldsymbol\kappa\,dA + "
+                  r"\frac12\int"
+                  r"\boldsymbol\gamma^T"
+                  r"\mathbf{D}_s"
+                  r"\boldsymbol\gamma\,dA",
+                  "$\\mathbf{D}_b = "
+                  "\\frac{Eh^3}{12(1-\\nu^2)}"
+                  "[\\cdot]$, "
+                  "$\\mathbf{D}_s = "
+                  "\\kappa Gh\\,\\mathbf{I}$, "
+                  "$\\kappa = 5/6$."),
+                d("4. Qalinlik bo'yicha "
+                  "masshtab",
+                  r"\mathbf{k}_b \sim h^3, "
+                  r"\qquad \mathbf{k}_s \sim h",
+                  "**Qulflanishning ildizi.** "
+                  "Ikkala had har xil tezlikda "
+                  "kamayadi."),
+                d("5. Nisbatning o'sishi",
+                  r"\frac{\|\mathbf{k}_s\|}"
+                  r"{\|\mathbf{k}_b\|} \sim "
+                  r"\frac{h/a^2}{h^3/a^4} = "
+                  r"\left(\frac{a}{h}\right)^2",
+                  "$a/h = 100$ da nisbat "
+                  "$10^4$ — siljish hadi "
+                  "egilishdan o'n ming "
+                  "barobar kuchliroq va "
+                  "elementni bo'g'ib "
+                  "qo'yadi."),
+                d("6. Nima uchun bo'g'adi",
+                  r"h \to 0 \;\Rightarrow\; "
+                  r"\boldsymbol\gamma \to 0 "
+                  r"\;\Rightarrow\; "
+                  r"\beta_x \to -w_{,x}",
+                  "Ingichka plastinada "
+                  "siljish deformatsiyasi nol "
+                  "bo'lishi kerak. Q4 bazisi "
+                  "buni **har bir Gauss "
+                  "nuqtasida** "
+                  "qanoatlantira olmaydi — "
+                  "haddan ziyod talab "
+                  "(su-16)."),
+                d("7. Tanlab kamaytirilgan "
+                  "integrallash",
+                  r"\mathbf{k}_b: 2\times2, "
+                  r"\qquad \mathbf{k}_s: "
+                  r"1\times1",
+                  "**Davo.** Siljish sharti "
+                  "endi faqat element "
+                  "markazida talab qilinadi "
+                  "— bu bajarilishi mumkin "
+                  "bo'lgan talab."),
+                d("8. SRI ning narxi",
+                  r"\mathrm{rank}(\mathbf{k}) "
+                  r"= 7 < 12 - 3 = 9",
+                  "**Ogohlantirish.** SRI "
+                  "element darajasida ikkita "
+                  "soxta nol energiyali "
+                  "rejim kiritadi. Kod buni "
+                  "aniq o'lchaydi."),
+                d("9. Yig'ish ularni "
+                  "bostiradi",
+                  r"\mathbf{K}_{global} \ "
+                  r"\text{singulyar emas}",
+                  "Amalda qo'shni elementlar "
+                  "va chegaraviy shartlar "
+                  "soxta rejimlarni "
+                  "bostiradi — shuning uchun "
+                  "SRI ishlaydi. Lekin bu "
+                  "kafolat emas."),
+                d("10. Mindlin va Kirxgof "
+                  "farqi",
+                  r"\frac{w_{Mindlin}}"
+                  r"{w_{Kirchhoff}} = 1 + "
+                  r"C\left(\frac{h}{a}\right)^2",
+                  "**O'lchangan natija.** "
+                  "$C \\approx 5{,}1$ "
+                  "(foizda 510). "
+                  "$a/h = 10$ da farq 5%, "
+                  "$a/h = 100$ da 0,05% — "
+                  "ingichka plastinada "
+                  "ikkalasi bir xil."),
+                d("11. Navye yechimi",
+                  r"w_{max} = \frac{16q}"
+                  r"{\pi^6D}\sum_{m,n\ toq}"
+                  r"\frac{\sin\frac{m\pi}{2}"
+                  r"\sin\frac{n\pi}{2}}"
+                  r"{mn\left(\frac{m^2}{a^2} + "
+                  r"\frac{n^2}{b^2}\right)^2}",
+                  "**Diqqat.** Sinuslar "
+                  "ishorani almashtiradi. "
+                  "Ularsiz yig'indi "
+                  "0,00429 beradi, "
+                  "to'g'risi esa "
+                  "**0,00406** (pq-09)."),
+                d("12. Qobiq elementi",
+                  r"\mathbf{k}_{shell} = "
+                  r"\mathbf{k}_{membrana} + "
+                  r"\mathbf{k}_{egilish}",
+                  "Tekis qobiq elementida "
+                  "ikkalasi **bog'lanmagan**; "
+                  "bog'lanish faqat "
+                  "elementlar burchak ostida "
+                  "ulanganda paydo bo'ladi — "
+                  "bu egrilikni taqriban "
+                  "ifodalaydi (pq-26)."),
+                d("13. Beshinchi va oltinchi "
+                  "erkinlik darajasi",
+                  r"\text{tugunda: } u, v, w, "
+                  r"\theta_x, \theta_y, "
+                  r"\theta_z",
+                  "$\\theta_z$ (normal "
+                  "atrofida burilish) "
+                  "bikrligi nol — tekis "
+                  "qobiqda u soxta "
+                  "singulyarlik beradi va "
+                  "kichik sun'iy bikrlik "
+                  "qo'shiladi."),
+            ],
+            meaning=(
+                "Plastina elementining butun "
+                "tarixi 2-qadamdagi tanlovga "
+                "bog'liq. Kirxgof nazariyasi "
+                "faqat bitta noma'lum "
+                "($w$) bilan ishlaydi va bu "
+                "jozibali ko'rinadi, lekin "
+                "energiyada ikkinchi "
+                "hosilalar qatnashgani uchun "
+                "$C^1$ uzluksizlik kerak — "
+                "ikki o'lchovda esa buni "
+                "ta'minlash juda qiyin. "
+                "Mindlin nazariyasi burilishni "
+                "mustaqil noma'lum qiladi, "
+                "shunda faqat birinchi "
+                "hosilalar qoladi va oddiy "
+                "$C^0$ Lagranj bazisi "
+                "yetarli bo'ladi. Bu katta "
+                "soddalashtirish, lekin "
+                "uning evaziga 4- va "
+                "5-qadamlardagi muammo "
+                "keladi. Egilish bikrligi "
+                "$h^3$, siljish bikrligi "
+                "esa $h$ kabi kamayadi, "
+                "demak ingichka plastinada "
+                "siljish hadi mutlaqo "
+                "hukmron bo'lib qoladi: "
+                "$a/h = 100$ da nisbat "
+                "o'n ming. Fizik jihatdan "
+                "siljish deformatsiyasi "
+                "nolga intilishi kerak, "
+                "lekin Q4 bazisi buni har "
+                "bir Gauss nuqtasida "
+                "qanoatlantira olmaydi va "
+                "natijada element "
+                "qotib qoladi. Kod buni "
+                "shafqatsiz ko'rsatadi: "
+                "to'liq integrallash bilan "
+                "ingichka plastina "
+                "javobning atigi 1% ini "
+                "beradi — yuz barobar "
+                "bikrroq. SRI esa xuddi "
+                "shu to'rda 98% beradi. "
+                "Farq bitta satr kodda: "
+                "siljish hadini to'rt "
+                "nuqta o'rniga bitta "
+                "nuqtada integrallash. "
+                "8- va 9-qadamlar "
+                "halollik talab qiladi. "
+                "SRI bepul emas: element "
+                "darajasida u ikkita soxta "
+                "nol energiyali rejim "
+                "kiritadi va kod buni "
+                "rang hisobi bilan aniq "
+                "o'lchaydi. Amalda ular "
+                "yig'ishdan keyin "
+                "bostiriladi va hisob "
+                "ishlaydi, lekin bu "
+                "kafolat emas — ayrim "
+                "chegaraviy shartlarda "
+                "soxta rejimlar yuzaga "
+                "chiqishi mumkin. Aynan "
+                "shu sababdan zamonaviy "
+                "paketlar SRI o'rniga "
+                "MITC oilasini "
+                "ishlatadi: u "
+                "qulflanishni yechadi "
+                "va soxta rejim "
+                "kiritmaydi. Nihoyat "
+                "10-qadam nazariya "
+                "tanlovini "
+                "oydinlashtiradi. "
+                "Mindlin yechimi "
+                "Kirxgofdan "
+                "$(h/a)^2$ ga "
+                "proporsional ortiqcha "
+                "beradi va bu **xato "
+                "emas** — bu haqiqiy "
+                "siljish deformatsiyasi. "
+                "$a/h = 10$ da u 5%, "
+                "$a/h = 100$ da esa "
+                "0,05%. Demak ingichka "
+                "plastinada ikkala "
+                "nazariya ham bir xil "
+                "javob beradi va tanlov "
+                "faqat element "
+                "texnologiyasiga "
+                "qoladi."
+            ),
+            equations=[
+                eq(r"\mathbf{k} = \int"
+                   r"\mathbf{B}_b^T\mathbf{D}_b"
+                   r"\mathbf{B}_b\,dA + \int"
+                   r"\mathbf{B}_s^T\mathbf{D}_s"
+                   r"\mathbf{B}_s\,dA",
+                   "Mindlin plastina "
+                   "elementining ikki qismli "
+                   "matritsasi.",
+                   "Element matritsasi"),
+                eq(r"\frac{\|\mathbf{k}_s\|}"
+                   r"{\|\mathbf{k}_b\|} \sim "
+                   r"\left(\frac{a}{h}\right)^2",
+                   "Qulflanish sababi: ikki "
+                   "hadning qalinlik bo'yicha "
+                   "har xil masshtabi.",
+                   "Qulflanish sababi"),
+                eq(r"w_{max} = 0{,}00406\,"
+                   r"\frac{qa^4}{D}, \qquad "
+                   r"M_{max} = 0{,}0479\,qa^2",
+                   "Navye yechimi — sharnirli "
+                   "kvadrat plastina uchun "
+                   "etalon (pq-09).",
+                   "Navye etaloni"),
+                eq(r"\frac{w_{Mindlin}}"
+                   r"{w_{Kirchhoff}} = 1 + "
+                   r"5{,}1\left(\frac{h}{a}"
+                   r"\right)^2",
+                   "Siljish deformatsiyasining "
+                   "ulushi — o'lchangan "
+                   "koeffitsient bilan.",
+                   "Siljish ulushi"),
+            ],
+            conditions=(
+                "**Nazariya tanlash:**\n"
+                "- $a/h > 20$ → Kirxgof "
+                "yetarli (farq < 1,3%);\n"
+                "- $a/h < 10$ → Mindlin "
+                "kerak;\n"
+                "- Qatlamli kompozit → "
+                "har doim Mindlin yoki "
+                "yuqori tartibli "
+                "nazariya.\n\n"
+                "**Element texnologiyasi:**\n"
+                "- To'liq integrallash → "
+                "**hech qachon** ingichka "
+                "plastinada;\n"
+                "- SRI → ishlaydi, lekin "
+                "soxta rejimlarni "
+                "tekshiring;\n"
+                "- MITC4/MITC9 → zamonaviy "
+                "standart, soxta rejimsiz;\n"
+                "- Diskret Kirxgof (DKT) → "
+                "faqat ingichka "
+                "plastinalar uchun.\n\n"
+                "**Chegaraviy shartlar "
+                "nozikligi:** sharnirli "
+                "chekkada ikki variant bor "
+                "— qattiq (hard, "
+                "$w = 0$ va chekkaga "
+                "parallel burilish nol) va "
+                "yumshoq (soft, faqat "
+                "$w = 0$). Mindlin "
+                "nazariyasida ular "
+                "**farq qiladi** va "
+                "chekka yaqinida "
+                "chegaraviy qatlam paydo "
+                "bo'ladi.\n\n"
+                "**Qobiqlarda "
+                "qo'shimcha:** "
+                "$\\theta_z$ bikrligi nol "
+                "— tekis elementlar bir "
+                "tekislikda yotsa "
+                "singulyarlik paydo "
+                "bo'ladi. Paketlar kichik "
+                "sun'iy bikrlik qo'shadi; "
+                "uning qiymati natijaga "
+                "ta'sir qilmasligini "
+                "tekshiring.\n\n"
+                "**Tekshiruv:** har doim "
+                "Navye yoki "
+                "NAFEMS etalon "
+                "masalasida elementni "
+                "sinab ko'ring."
+            ),
+            worked=WorkedExample(
+                statement=(
+                    "$4\\times4$ m po'lat "
+                    "plastina, $h = 8$ mm, "
+                    "chekkalari sharnirli, "
+                    "$q = 5$ kPa. "
+                    "(a) Navye yechimi bilan "
+                    "$w_{max}$ ni toping; "
+                    "(b) Mindlin nazariyasi "
+                    "qancha ortiqcha beradi; "
+                    "(c) to'liq integrallash "
+                    "bilan hisoblangan Q4 "
+                    "elementi nima uchun "
+                    "yuz barobar bikrroq "
+                    "chiqadi."
+                ),
+                given=[
+                    r"a = 4\ \text{m}, \quad "
+                    r"h = 0{,}008\ \text{m}, "
+                    r"\quad q = 5000\ "
+                    r"\text{Pa}",
+                    r"E = 2{,}1\cdot10^{11}\ "
+                    r"\text{Pa}, \quad \nu = "
+                    r"0{,}3",
+                ],
+                steps=[
+                    st(r"D = \frac{Eh^3}"
+                       r"{12(1-\nu^2)} = "
+                       r"\frac{2{,}1\cdot10^{11}"
+                       r"\cdot 5{,}12\cdot"
+                       r"10^{-7}}{12(0{,}91)}",
+                       "$h^3 = 5{,}12\\cdot"
+                       "10^{-7}$ m³."),
+                    st(r"D = \frac{1{,}0752\cdot"
+                       r"10^{5}}{10{,}92} = "
+                       r"9845\ \text{N}\cdot"
+                       r"\text{m}",
+                       "Egilish bikrligi."),
+                    st(r"w_{max} = 0{,}00406\,"
+                       r"\frac{qa^4}{D} = "
+                       r"0{,}00406 \cdot "
+                       r"\frac{5000 \cdot 256}"
+                       r"{9845}",
+                       "$a^4 = 256$ m⁴."),
+                    st(r"= 0{,}00406 \cdot "
+                       r"130{,}0 = 0{,}5278\ "
+                       r"\text{m}",
+                       "**53 sm** — bu juda "
+                       "katta, plastina "
+                       "haddan tashqari "
+                       "yupqa."),
+                    st(r"\text{(b)}\quad "
+                       r"\frac{a}{h} = "
+                       r"\frac{4}{0{,}008} = "
+                       r"500",
+                       "Juda ingichka "
+                       "plastina."),
+                    st(r"\frac{\Delta w}{w} = "
+                       r"5{,}1\left(\frac{h}{a}"
+                       r"\right)^2 = 5{,}1 "
+                       r"\cdot 4\cdot10^{-6}",
+                       "O'lchangan "
+                       "koeffitsient bilan."),
+                    st(r"= 2{,}04\cdot10^{-5} = "
+                       r"0{,}002\%",
+                       "**Siljish deformatsiyasi "
+                       "mutlaqo ahamiyatsiz** — "
+                       "Kirxgof va Mindlin "
+                       "bir xil javob "
+                       "beradi."),
+                    st(r"\text{(c)}\quad "
+                       r"\frac{\|\mathbf{k}_s\|}"
+                       r"{\|\mathbf{k}_b\|} \sim "
+                       r"\left(\frac{a}{h}"
+                       r"\right)^2 = 500^2",
+                       "Siljish hadi "
+                       "egilishdan..."),
+                    st(r"= 2{,}5\cdot10^{5}",
+                       "**Chorak million "
+                       "barobar kuchliroq.**"),
+                    st(r"\text{Q4 bazisi } "
+                       r"\boldsymbol\gamma = 0 "
+                       r"\text{ ni har bir "
+                       r"Gauss nuqtasida "
+                       r"bajara olmaydi}",
+                       "To'rtta nuqtada "
+                       "to'rtta shart — "
+                       "element erkinlik "
+                       "darajalari bunga "
+                       "yetmaydi."),
+                    st(r"\Rightarrow \ "
+                       r"\text{element qotadi; "
+                       r"SRI bilan shart "
+                       r"faqat markazda}",
+                       "Bitta nuqtada bitta "
+                       "shart — bu "
+                       "bajarilishi mumkin. "
+                       "Kod: to'liq 1,1%, "
+                       "SRI 97,8%."),
+                ],
+                answer=(
+                    "(a) $D = 9845$ N·m, "
+                    "$w_{max} = 0{,}528$ m — "
+                    "plastina loyihaviy "
+                    "jihatdan yaroqsiz "
+                    "darajada yupqa. "
+                    "(b) $a/h = 500$ da "
+                    "siljish ulushi "
+                    "0,002% — e'tiborsiz. "
+                    "(c) Siljish bikrligi "
+                    "egilishdan "
+                    "$2{,}5\\cdot10^5$ "
+                    "barobar kuchli va Q4 "
+                    "bazisi "
+                    "$\\gamma = 0$ ni "
+                    "to'rtta Gauss "
+                    "nuqtasida bajara "
+                    "olmaydi; SRI bu "
+                    "shartni faqat "
+                    "markazda talab "
+                    "qiladi."
+                ),
+                engineering_note=(
+                    "(a) javobidagi 53 sm "
+                    "cho'kish loyihaning "
+                    "o'zi noto'g'ri "
+                    "ekanini ko'rsatadi: "
+                    "$w/a = 0{,}13$ — bu "
+                    "chiziqli plastina "
+                    "nazariyasining "
+                    "chegarasidan ($w < "
+                    "h/5$, ya'ni 1,6 mm) "
+                    "uch yuz barobar "
+                    "tashqarida. Bunday "
+                    "cho'kishda membrana "
+                    "kuchlari paydo "
+                    "bo'ladi va plastina "
+                    "aslida **parda** "
+                    "kabi ishlaydi — "
+                    "javob bir necha "
+                    "barobar kichik "
+                    "chiqadi (su-24 dagi "
+                    "geometrik "
+                    "nochiziqlik). Bu "
+                    "muhim dars: sonli "
+                    "hisob to'g'ri "
+                    "bajarilgan bo'lishi "
+                    "mumkin, lekin "
+                    "**nazariyaning "
+                    "qo'llanish sohasi** "
+                    "buzilgan bo'lsa "
+                    "javob baribir "
+                    "noto'g'ri. Har doim "
+                    "$w/h$ nisbatini "
+                    "tekshiring. "
+                    "Amaliyotda esa "
+                    "qopqoq qovurg'alar "
+                    "bilan "
+                    "kuchaytiriladi "
+                    "yoki qalinligi "
+                    "oshiriladi: "
+                    "$w \\sim h^{-3}$ "
+                    "bo'lgani uchun "
+                    "qalinlikni ikki "
+                    "barobar oshirish "
+                    "cho'kishni **sakkiz "
+                    "barobar** "
+                    "kamaytiradi — "
+                    "bu plastina "
+                    "loyihalashdagi eng "
+                    "kuchli vosita."
+                ),
+            ),
+            computation=Computation(
+                caption=(
+                    "Mindlin plastina elementini "
+                    "qurish, siljish "
+                    "qulflanishini ko'rsatish va "
+                    "SRI bilan yengish, natijani "
+                    "Navye yechimi bilan "
+                    "tekshirish."
+                ),
+                code='''"""Plastina va qobiq elementlari."""
+import numpy as np
+from labkit import PARAMS, note, series, table, value
+
+a_pl = float(PARAMS.get("a_pl", 1.0))
+a_over_h = float(PARAMS.get("a_over_h", 100.0))
+n_div = int(PARAMS.get("n_div", 12))
+q_load = float(PARAMS.get("q_load", 1e4))
+
+E = 2.1e11
+nu = 0.3
+kappa_s = 5.0/6.0
+
+
+# --- Navye yechimi (pq-09): ETALON ---
+def navier_w(N=199):
+    s = 0.0
+    for m in range(1, N + 1, 2):
+        for n in range(1, N + 1, 2):
+            s += (np.sin(m*np.pi/2)*np.sin(n*np.pi/2) /
+                  (m*n*(m*m + n*n)**2))
+    return 16.0/np.pi**6*s
+
+
+def navier_M(N=199):
+    s = 0.0
+    for m in range(1, N + 1, 2):
+        for n in range(1, N + 1, 2):
+            s += ((m*m + nu*n*n)*np.sin(m*np.pi/2)*np.sin(n*np.pi/2) /
+                  (m*n*(m*m + n*n)**2))
+    return 16.0/np.pi**4*s
+
+
+alpha_w = navier_w()
+alpha_M = navier_M()
+value("Navye koeffitsienti alpha_w (adabiyot 0.00406)", alpha_w, "—")
+value("Navye koeffitsienti alpha_M (adabiyot 0.0479)", alpha_M, "—")
+# Sinuslarsiz yig'indi - keng tarqalgan xato
+s_no = sum(1.0/(m*n*(m*m + n*n)**2)
+           for m in range(1, 200, 2) for n in range(1, 200, 2))
+value("Sinuslar unutilsa chiqadigan (noto'g'ri) qiymat",
+      16.0/np.pi**6*s_no, "—")
+note(f"Navye qatorida sin(m*pi/2)*sin(n*pi/2) ko'paytuvchilari ISHORANI "
+     f"almashtiradi: (m,n) = (1,3) uchun u -1 beradi. Ularni unutib "
+     f"barcha hadlarni musbat qo'shsak {16.0/np.pi**6*s_no:.5f} chiqadi, "
+     f"to'g'ri qiymat esa {alpha_w:.5f} - 5.7% farq. Bu adabiyotdagi "
+     f"0.00406 bilan mashina aniqligida mos tushadi. Moment "
+     f"koeffitsienti {alpha_M:.5f} ham adabiyotdagi 0.0479 ga teng.")
+
+
+def shp(xi, eta):
+    xn = np.array([-1, 1, 1, -1.])
+    yn = np.array([-1, -1, 1, 1.])
+    N = 0.25*(1 + xi*xn)*(1 + eta*yn)
+    dN = np.vstack([0.25*xn*(1 + eta*yn), 0.25*(1 + xi*xn)*yn])
+    return N, dN
+
+
+def ke_plate(xy, h, scheme):
+    """Mindlin plastina elementi. dof/tugun: w, beta_x, beta_y."""
+    D = E*h**3/(12*(1 - nu**2))
+    Db = D*np.array([[1, nu, 0], [nu, 1, 0], [0, 0, (1 - nu)/2]])
+    Ds = kappa_s*E/(2*(1 + nu))*h*np.eye(2)
+    k = np.zeros((12, 12))
+
+    def integrate(ngp, part):
+        g, w = np.polynomial.legendre.leggauss(ngp)
+        for ia in range(ngp):
+            for ib in range(ngp):
+                N, dN = shp(g[ia], g[ib])
+                J = dN @ xy
+                dJ = float(np.linalg.det(J))
+                dNx = np.linalg.solve(J, dN)
+                if part == "bend":
+                    Bb = np.zeros((3, 12))
+                    Bb[0, 1::3] = dNx[0]
+                    Bb[1, 2::3] = dNx[1]
+                    Bb[2, 1::3] = dNx[1]
+                    Bb[2, 2::3] = dNx[0]
+                    k[:, :] += Bb.T @ Db @ Bb*dJ*w[ia]*w[ib]
+                else:
+                    Bs = np.zeros((2, 12))
+                    Bs[0, 0::3] = dNx[0]
+                    Bs[0, 1::3] = N
+                    Bs[1, 0::3] = dNx[1]
+                    Bs[1, 2::3] = N
+                    k[:, :] += Bs.T @ Ds @ Bs*dJ*w[ia]*w[ib]
+
+    integrate(2 if scheme != "reduced" else 1, "bend")
+    integrate(2 if scheme == "full" else 1, "shear")
+    return k
+
+
+def plate(n, a, h, q, bc="ss", scheme="sri"):
+    xs = np.linspace(0, a, n + 1)
+    X, Y = np.meshgrid(xs, xs, indexing="ij")
+    nid = np.arange((n + 1)**2).reshape(n + 1, n + 1)
+    nodes = np.column_stack([X.ravel(), Y.ravel()])
+    nd = 3*len(nodes)
+    K = np.zeros((nd, nd))
+    F = np.zeros(nd)
+    g2, w2 = np.polynomial.legendre.leggauss(2)
+    for i in range(n):
+        for j in range(n):
+            el = [nid[i, j], nid[i+1, j], nid[i+1, j+1], nid[i, j+1]]
+            xy = nodes[el]
+            idx = np.array([[3*k_, 3*k_ + 1, 3*k_ + 2] for k_ in el]).ravel()
+            K[np.ix_(idx, idx)] += ke_plate(xy, h, scheme)
+            for ia in range(2):
+                for ib in range(2):
+                    N, dN = shp(g2[ia], g2[ib])
+                    dJ = float(np.linalg.det(dN @ xy))
+                    for m_ in range(4):
+                        F[idx[3*m_]] += q*N[m_]*dJ*w2[ia]*w2[ib]
+    fixed = set()
+    for i in range(n + 1):
+        for j in range(n + 1):
+            nn = nid[i, j]
+            onx = (i == 0 or i == n)
+            ony = (j == 0 or j == n)
+            if onx or ony:
+                fixed.add(3*nn)                   # w = 0
+                if bc == "cl":
+                    fixed.add(3*nn + 1)
+                    fixed.add(3*nn + 2)
+                else:                              # qattiq sharnirli
+                    if onx:
+                        fixed.add(3*nn + 2)
+                    if ony:
+                        fixed.add(3*nn + 1)
+    free = np.setdiff1d(np.arange(nd), sorted(fixed))
+    Kf = K[np.ix_(free, free)]
+    if np.linalg.matrix_rank(Kf) < Kf.shape[0]:
+        return None, nodes, nid, None
+    u = np.zeros(nd)
+    u[free] = np.linalg.solve(Kf, F[free])
+    return abs(float(u[3*nid[n//2, n//2]])), nodes, nid, u
+
+
+# --- (1) SILJISH QULFLANISHI: to'liq va tanlab kamaytirilgan ---
+rows = []
+for ah in [10.0, 100.0]:
+    h = a_pl/ah
+    D = E*h**3/(12*(1 - nu**2))
+    ref = alpha_w*q_load*a_pl**4/D
+    for n in [4, 8, 16, 24]:
+        ws, _, _, _ = plate(n, a_pl, h, q_load, "ss", "sri")
+        wf, _, _, _ = plate(n, a_pl, h, q_load, "ss", "full")
+        rows.append([f"{ah:.0f}", n,
+                     f"{ws/ref*100:.2f}" if ws else "SING",
+                     f"{wf/ref*100:.2f}" if wf else "SING"])
+table("Siljish qulflanishi: Navye yechimiga nisbatan aniqlik, %",
+      ["a/h", "to'r n x n", "SRI", "to'liq 2x2"], rows)
+h_thin = a_pl/a_over_h
+D_thin = E*h_thin**3/(12*(1 - nu**2))
+ref_thin = alpha_w*q_load*a_pl**4/D_thin
+value("Tanlangan plastina: a/h", a_over_h, "—")
+value("Navye w_max", ref_thin, "m")
+w_sri, nodes_p, nid_p, u_p = plate(n_div, a_pl, h_thin, q_load, "ss", "sri")
+w_full, _, _, _ = plate(n_div, a_pl, h_thin, q_load, "ss", "full")
+value(f"SRI natijasi ({n_div}x{n_div} to'r)", float(w_sri), "m")
+value(f"To'liq integrallash ({n_div}x{n_div} to'r)", float(w_full), "m")
+value(f"To'liq integrallash necha barobar bikrroq "
+      f"({n_div}x{n_div} to'rda)", float(w_sri/w_full), "barobar")
+w_s4, _, _, _ = plate(4, a_pl, h_thin, q_load, "ss", "sri")
+w_f4, _, _, _ = plate(4, a_pl, h_thin, q_load, "ss", "full")
+value("To'liq integrallash necha barobar bikrroq (4x4 to'rda)",
+      float(w_s4/w_f4), "barobar")
+note("KATASTROFIK QULFLANISH. a/h = 100 da to'liq integrallash bilan "
+     "4x4 to'r javobning atigi 1.10% ini beradi - ya'ni element yuz "
+     "barobardan ko'proq bikrroq. 24x24 to'rda ham u 28.6% da qoladi. "
+     "SRI esa xuddi shu 4x4 to'rda 97.8% va 24x24 da 100.00% beradi. "
+     "Farq bitta satrda: siljish hadini 2x2 o'rniga 1x1 nuqtada "
+     "integrallash. a/h = 10 da (qalin plastina) qulflanish ancha "
+     "yumshoq - chunki uning kuchi (a/h)^2 kabi o'sadi (su-16).")
+
+# --- (2) SRI ning narxi: soxta nol energiyali rejimlar ---
+xy1 = np.array([[0, 0], [1, 0], [1, 1], [0, 1.]], float)
+rows2 = []
+for sch in ["full", "sri", "reduced"]:
+    kk = ke_plate(xy1, 0.01, sch)
+    ev = np.linalg.eigvalsh(kk)
+    nz = int(np.sum(ev < 1e-8*ev.max()))
+    rows2.append([sch, int(np.linalg.matrix_rank(kk)), nz, 3, nz - 3])
+table("Bitta plastina elementining rangi",
+      ["sxema", "rang", "nol rejimlar", "qattiq jism", "SOXTA rejimlar"],
+      rows2)
+note("SRI BEPUL EMAS. Element darajasida u ikkita soxta nol energiyali "
+     "rejim kiritadi (rang 9 dan 7 ga tushadi), to'liq kamaytirilgan "
+     "integrallash esa to'rttasini. Shunga qaramay yig'ilgan global "
+     "matritsa singulyar emas: qo'shni elementlar va chegaraviy "
+     "shartlar soxta rejimlarni bostiradi - yuqoridagi barcha hisoblar "
+     "muvaffaqiyatli yechildi. Lekin bu KAFOLAT emas, ayrim chegaraviy "
+     "shartlarda ular yuzaga chiqishi mumkin. Aynan shu sababdan "
+     "zamonaviy paketlar SRI o'rniga MITC oilasini ishlatadi.")
+
+# --- (3) MINDLIN va KIRXGOF: farq haqiqiy siljish deformatsiyasimi? ---
+rows3 = []
+for ah in [5.0, 10.0, 20.0, 40.0]:
+    h = a_pl/ah
+    D = E*h**3/(12*(1 - nu**2))
+    ref = alpha_w*q_load*a_pl**4/D
+    w, _, _, _ = plate(20, a_pl, h, q_load, "ss", "sri")
+    exc = (w/ref - 1)*100
+    rows3.append([f"{ah:.0f}", f"{w/ref*100:.3f}", f"{exc:.4f}",
+                  f"{exc/(1/ah)**2:.1f}"])
+table("Mindlin ortiqchasi (h/a)^2 kabi kamayadimi?",
+      ["a/h", "FEM/Navye, %", "ortiqcha, %", "ortiqcha/(h/a)^2"], rows3)
+note("Ortiqcha/(h/a)^2 ustuni a/h = 5, 10, 20 uchun deyarli DOIMIY "
+     "(518, 512, 488) - demak farq aynan (h/a)^2 kabi kamayadi va bu "
+     "HAQIQIY siljish deformatsiyasi, sonli xato emas. Koeffitsient "
+     "taxminan 5.1 (foizda 510). a/h = 40 da nisbat pasayadi, chunki "
+     "u yerda qoldiq diskretlashtirish xatosidan kichik bo'lib qoladi "
+     "- ya'ni test o'z sezgirlik chegarasiga yetdi. Bu su-20 dagi "
+     "Timoshenko balkasi bilan bir xil qonuniyat.")
+series("Mindlin ortiqchasi", [5, 10, 20, 40],
+       [float(r[2]) for r in rows3], xlabel="a/h", ylabel="ortiqcha, %")
+
+# --- (4) MAHKAMLANGAN plastina: ikkinchi etalon ---
+rows4 = []
+h_c = a_pl/100.0
+D_c = E*h_c**3/(12*(1 - nu**2))
+for n in [8, 16, 24, 32]:
+    w, _, _, _ = plate(n, a_pl, h_c, q_load, "cl", "sri")
+    coef = w*D_c/(q_load*a_pl**4)
+    rows4.append([n, f"{coef:.6f}", f"{abs(coef - 0.00126)/0.00126*100:.2f}"])
+table("Mahkamlangan kvadrat plastina (adabiyot: 0.00126 q a^4 / D)",
+      ["to'r n x n", "w D / (q a^4)", "adabiyotdan farq %"], rows4)
+value("Sharnirli / mahkamlangan cho'kish nisbati",
+      float(alpha_w/0.00126), "—")
+note("Mahkamlangan plastina uchun ikkinchi mustaqil etalon ham 0.5% "
+     "aniqlikda takrorlandi. Sharnirli plastina mahkamlanganidan 3.2 "
+     "barobar ko'proq cho'kadi - chekka mahkamlash plastinada juda "
+     "kuchli ta'sirga ega. Bu ikkita turli chegaraviy shart bilan "
+     "o'tkazilgan tekshiruv element kodining to'g'riligiga ishonchni "
+     "sezilarli oshiradi.")
+
+# --- (5) Egilish sirti va moment ---
+if u_p is not None:
+    mid = n_div//2
+    xs_line = [float(nodes_p[nid_p[i, mid], 0]) for i in range(n_div + 1)]
+    ws_line = [float(abs(u_p[3*nid_p[i, mid]])) for i in range(n_div + 1)]
+    series("FEM: w(x, a/2)", xs_line, ws_line, xlabel="x, m",
+           ylabel="w, m")
+    ex_line = []
+    for x in xs_line:
+        s = 0.0
+        for m in range(1, 60, 2):
+            for n_ in range(1, 60, 2):
+                s += (np.sin(m*np.pi*x/a_pl)*np.sin(n_*np.pi/2) /
+                      (m*n_*(m*m + n_*n_)**2))
+        ex_line.append(16*q_load*a_pl**4/(np.pi**6*D_thin)*s)
+    series("Navye: w(x, a/2)", xs_line, ex_line, xlabel="x, m",
+           ylabel="w, m")
+    err_line = max(abs(f - e) for f, e in zip(ws_line, ex_line))
+    value("Butun kesim bo'ylab maks farq",
+          float(err_line/max(ex_line)*100), "%")
+
+table("Plastina elementlarining taqqoslanishi",
+      ["Element", "Nazariya", "Uzluksizlik", "Qulflanish", "Soxta rejim"],
+      [["ACM / MZC", "Kirxgof", "C1 emas (mos emas)", "yo'q",
+        "yo'q"],
+       ["DKT", "Kirxgof", "diskret C1", "yo'q", "yo'q"],
+       ["Q4 to'liq", "Mindlin", "C0", "KATASTROFIK", "yo'q"],
+       ["Q4 + SRI", "Mindlin", "C0", "yo'q", "2 ta"],
+       ["MITC4", "Mindlin", "C0", "yo'q", "YO'Q (eng yaxshi)"]])
+''',
+                parameters=[
+                    p("a_pl", "Plastina tomoni", 0.5, 10.0, 1.0, 0.5, "m"),
+                    p("a_over_h", "Nisbiy ingichkalik a/h", 5.0, 200.0,
+                      100.0, 5.0),
+                    p("n_div", "To'r bo'linishi", 4.0, 24.0, 12.0, 2.0),
+                    p("q_load", "Tarqalgan yuk", 1e3, 1e5, 1e4, 1e3,
+                      "Pa"),
+                ],
+                expected_output=(
+                    "Navye qatori "
+                    "$\\alpha_w = 0{,}004062$ "
+                    "va "
+                    "$\\alpha_M = 0{,}047886$ "
+                    "beradi — adabiyotdagi "
+                    "0,00406 va 0,0479 bilan "
+                    "aynan mos; sinus "
+                    "ko'paytuvchilari "
+                    "unutilsa 0,004293 "
+                    "chiqadi (5,7% xato). "
+                    "$a/h = 100$ da to'liq "
+                    "integrallash $4\\times4$ "
+                    "to'rda javobning atigi "
+                    "1,10% ini, $24\\times24$ "
+                    "da 28,6% ini beradi; "
+                    "SRI esa 97,8% va "
+                    "100,00%. Element "
+                    "darajasida SRI ikkita, "
+                    "to'liq kamaytirilgan "
+                    "integrallash esa "
+                    "to'rtta soxta nol "
+                    "rejim kiritadi, lekin "
+                    "yig'ilgan matritsa "
+                    "singulyar emas. "
+                    "Mindlin ortiqchasi "
+                    "aynan $(h/a)^2$ kabi "
+                    "kamayadi (koeffitsient "
+                    "$\\approx 5{,}1$), "
+                    "ya'ni u haqiqiy "
+                    "siljish deformatsiyasi. "
+                    "Mahkamlangan plastina "
+                    "uchun ikkinchi etalon "
+                    "0,00126 ham 0,5% "
+                    "aniqlikda "
+                    "takrorlanadi."
+                ),
+            ),
+            visual=vis(
+                kind="Plastina egilishi va qulflanish",
+                tool="React/SVG + Manim",
+                description=(
+                    "Egilish sirti, moment "
+                    "xaritalari va "
+                    "qulflanishning "
+                    "qalinlikka bog'liqligi."
+                ),
+                how_to_draw=(
+                    "React/SVG: markazda "
+                    "plastina yuqoridan "
+                    "ko'rinishda to'r bilan "
+                    "chiziladi va "
+                    "$w(x,y)$ qiymati rang "
+                    "bilan beriladi; "
+                    "chekkalari nolda "
+                    "bo'lgani uchun markazga "
+                    "qarab quyuqlashadi. "
+                    "Yonida kesim "
+                    "bo'ylab profil grafigi: "
+                    "FEM nuqtalari va Navye "
+                    "egri chizig'i ustma-ust. "
+                    "Eng muhimi — pastdagi "
+                    "ikki panel yonma-yon: "
+                    "bir xil to'r, bir xil "
+                    "yuk, faqat "
+                    "integrallash sxemasi "
+                    "boshqacha. Chapda SRI "
+                    "bilan normal egilgan "
+                    "plastina, o'ngda esa "
+                    "to'liq integrallash "
+                    "bilan deyarli tekis "
+                    "qolgan plastina; "
+                    "ikkalasining tagida "
+                    "foiz ko'rsatkichi "
+                    "(97,8% va 1,1%). "
+                    "$a/h$ slayderi "
+                    "surilganda o'ng "
+                    "paneldagi plastina "
+                    "asta-sekin "
+                    "'tirilib' boradi — "
+                    "qulflanishning "
+                    "qalinlikka "
+                    "bog'liqligi shunda "
+                    "ko'rinadi. Uchinchi "
+                    "panelda element "
+                    "darajasidagi soxta "
+                    "rejimlar "
+                    "animatsiya bilan "
+                    "ko'rsatiladi: "
+                    "element "
+                    "deformatsiyalanadi, "
+                    "lekin energiya "
+                    "ko'rsatkichi nolda "
+                    "qoladi."
+                ),
+            ),
+            interp=(
+                "Navye qatoridagi sinus "
+                "ko'paytuvchilari kichik "
+                "detal ko'rinadi, lekin "
+                "ularsiz yig'indi 5,7% "
+                "noto'g'ri chiqadi — va bu "
+                "xato jimgina o'tadi, "
+                "chunki natija hali ham "
+                "'ishonarli' ko'rinadi. "
+                "Etalon qiymatni o'zi "
+                "hisoblaganda ana shunday "
+                "tuzoqlar bor, shuning "
+                "uchun uni adabiyotdagi "
+                "qiymat bilan "
+                "solishtirish shart. "
+                "Asosiy natija esa "
+                "qulflanish jadvalida va "
+                "u pq-24 dagi nazariyani "
+                "sonli tasdiqlaydi. "
+                "$a/h = 100$ da to'liq "
+                "integrallash bilan "
+                "element yuz barobardan "
+                "ko'proq bikrroq: "
+                "$4\\times4$ to'r "
+                "javobning 1,1% ini "
+                "beradi. Muhimi — bu "
+                "to'r qo'polligidan "
+                "emas: $24\\times24$ "
+                "to'rda ham u 28,6% da "
+                "qoladi, ya'ni "
+                "zichlashtirish "
+                "kasallikni "
+                "davolamaydi (su-16 "
+                "dagi xulosa "
+                "takrorlanadi). "
+                "SRI esa eng dag'al "
+                "to'rda ham 97,8% "
+                "beradi. Farq bitta "
+                "satrda va bu FEM "
+                "dasturlashdagi eng "
+                "katta samaradorlik "
+                "farqlaridan biri. "
+                "Ammo uchinchi jadval "
+                "halollik talab "
+                "qiladi: SRI bepul "
+                "emas. Element "
+                "darajasida u ikkita "
+                "soxta nol energiyali "
+                "rejim kiritadi. "
+                "Amalda yig'ish va "
+                "chegaraviy shartlar "
+                "ularni bostiradi — "
+                "barcha hisoblar "
+                "muvaffaqiyatli "
+                "yechildi — lekin bu "
+                "kafolat emas va "
+                "aynan shu sababdan "
+                "zamonaviy paketlar "
+                "MITC oilasini "
+                "ishlatadi. To'rtinchi "
+                "jadval esa nazariya "
+                "tanloviga aniqlik "
+                "kiritadi. Mindlin "
+                "yechimining Kirxgofdan "
+                "ortiqchasi aynan "
+                "$(h/a)^2$ kabi "
+                "kamayadi va "
+                "koeffitsient uchta "
+                "qalinlikda deyarli "
+                "doimiy — demak bu "
+                "haqiqiy siljish "
+                "deformatsiyasi, sonli "
+                "xato emas. "
+                "$a/h = 40$ da nisbat "
+                "buzila boshlaydi, "
+                "chunki qoldiq "
+                "diskretlashtirish "
+                "xatosidan kichik "
+                "bo'lib qoladi — "
+                "testning sezgirlik "
+                "chegarasi shu yerda. "
+                "Buni tan olish ham "
+                "o'lchov madaniyatining "
+                "qismi."
+            ),
+            mistakes=[
+                "Ingichka plastinada "
+                "to'liq integrallashni "
+                "ishlatish. Element yuz "
+                "barobar bikrroq bo'ladi "
+                "va to'r zichlashtirish "
+                "yordam bermaydi.",
+                "Navye qatorida sinus "
+                "ko'paytuvchilarini "
+                "unutish. Natija 5,7% "
+                "noto'g'ri chiqadi va "
+                "ishonarli ko'rinadi.",
+                "SRI ni soxta rejimlarni "
+                "tekshirmasdan ishlatish. "
+                "Element darajasida "
+                "ikkita soxta rejim bor.",
+                "Sharnirli chekkaning "
+                "qattiq va yumshoq "
+                "variantlarini "
+                "adashtirish. Mindlin "
+                "nazariyasida ular farq "
+                "qiladi.",
+                "$w/h$ nisbatini "
+                "tekshirmaslik. "
+                "$w > h/5$ bo'lsa "
+                "chiziqli plastina "
+                "nazariyasi "
+                "qo'llanmaydi (su-24).",
+                "Tekis qobiq elementlarida "
+                "$\\theta_z$ "
+                "singulyarligini "
+                "e'tiborsiz qoldirish.",
+            ],
+            quiz=[
+                q("Mindlin nazariyasi "
+                  "Kirxgofdan nimasi bilan "
+                  "qulayroq?",
+                  "Faqat birinchi hosilalar "
+                  "qatnashadi, demak $C^0$ "
+                  "bazis yetarli; Kirxgof "
+                  "esa ikki o'lchovda "
+                  "ta'minlash qiyin bo'lgan "
+                  "$C^1$ ni talab qiladi.",
+                  "konseptual"),
+                q("Siljish qulflanishining "
+                  "sababi nima?",
+                  "$\\mathbf{k}_b \\sim h^3$, "
+                  "$\\mathbf{k}_s \\sim h$ — "
+                  "nisbat $(a/h)^2$ kabi "
+                  "o'sadi va ingichka "
+                  "plastinada siljish hadi "
+                  "elementni bo'g'ib "
+                  "qo'yadi.", "konseptual"),
+                q("$a = 4$ m, $h = 8$ mm "
+                  "plastinada siljish "
+                  "deformatsiyasining "
+                  "ulushi qancha?",
+                  "$5{,}1(h/a)^2 = "
+                  "5{,}1 \\cdot 4\\cdot"
+                  "10^{-6} = 0{,}002\\%$ — "
+                  "mutlaqo ahamiyatsiz.",
+                  "hisob"),
+                q("Kodda to'liq va tanlab "
+                  "kamaytirilgan "
+                  "integrallash qanday farq "
+                  "beradi?",
+                  "$a/h = 100$, $4\\times4$ "
+                  "to'rda to'liq 1,10%, SRI "
+                  "97,8%; $24\\times24$ da "
+                  "28,6% va 100,00% — "
+                  "zichlashtirish "
+                  "qulflanishni "
+                  "davolamaydi.", "kod"),
+                q("SRI ning yashirin narxi "
+                  "nima va u nima uchun "
+                  "amalda ishlaydi?",
+                  "Element darajasida ikkita "
+                  "soxta nol rejim kiritadi "
+                  "(rang 9 dan 7 ga), lekin "
+                  "yig'ish va chegaraviy "
+                  "shartlar ularni "
+                  "bostiradi.", "kod"),
+                q("Mindlin ortiqchasi sonli "
+                  "xatomi yoki fizik "
+                  "hodisami? Qanday "
+                  "tekshiriladi?",
+                  "Fizik — u aynan "
+                  "$(h/a)^2$ kabi kamayadi "
+                  "va koeffitsient uchta "
+                  "qalinlikda doimiy "
+                  "(518, 512, 488).",
+                  "talqin"),
+                q("Plastina cho'kishini "
+                  "kamaytirishning eng "
+                  "kuchli usuli qaysi?",
+                  "Qalinlikni oshirish: "
+                  "$w \\sim h^{-3}$, demak "
+                  "qalinlikni ikki barobar "
+                  "oshirish cho'kishni "
+                  "sakkiz barobar "
+                  "kamaytiradi.", "talqin"),
+            ],
+            bridge=(
+                "Shu paytgacha barcha "
+                "masalalar statik va "
+                "chiziqli edi: "
+                "$\\mathbf{K}\\mathbf{u} = "
+                "\\mathbf{F}$. Keyingi "
+                "mavzuda xususiy qiymat "
+                "masalalariga o'tamiz — "
+                "tebranish chastotalari va "
+                "ustuvorlik kuchlari. "
+                "U yerda massa va geometrik "
+                "bikrlik matritsalari "
+                "paydo bo'ladi."
+            ),
+            research=(
+                "Plastina va qobiq "
+                "elementlarini "
+                "chuqurlashtiring. "
+                "(1) MITC4 elementini "
+                "o'rganing: siljish "
+                "deformatsiyasi alohida "
+                "nuqtalarda "
+                "interpolyatsiya "
+                "qilinadi — bu "
+                "qulflanishni qanday "
+                "yechadi va nima uchun "
+                "soxta rejim "
+                "kiritmaydi? "
+                "(2) Diskret Kirxgof "
+                "uchburchagini (DKT) "
+                "ko'rib chiqing: u "
+                "siljishni aynan nolga "
+                "tenglashtiradi. "
+                "(3) Egri qobiq "
+                "elementlarini va "
+                "membrana "
+                "qulflanishini "
+                "o'rganing (pq-26): u "
+                "siljish "
+                "qulflanishidan "
+                "qanday farq qiladi? "
+                "(4) Qatlamli "
+                "kompozitlar uchun "
+                "yuqori tartibli "
+                "siljish nazariyalarini "
+                "(HSDT) ko'rib "
+                "chiqing."
+            ),
+            manim_ref=manim(
+                scene="PlateLockingScene",
+                module="manim/scenes/su_apps.py",
+                title="Plastina qulflanishi",
+                summary=(
+                    "Ikkita bir xil plastina "
+                    "yonma-yon turadi va "
+                    "bir xil yuk bilan "
+                    "yuklanadi. Chapdagisi "
+                    "(SRI) normal egiladi, "
+                    "o'ngdagisi (to'liq "
+                    "integrallash) deyarli "
+                    "qimirlamaydi. "
+                    "Qalinlik slayderi "
+                    "ko'tarilganda o'ngdagi "
+                    "plastina asta-sekin "
+                    "chapdagiga "
+                    "yetib oladi — "
+                    "qulflanish "
+                    "yo'qoladi. Oxirida "
+                    "bitta element "
+                    "ajratib olinadi va "
+                    "uning soxta nol "
+                    "energiyali rejimi "
+                    "ko'rsatiladi."
+                ),
+            ),
+        ),
+    ),
 ]
