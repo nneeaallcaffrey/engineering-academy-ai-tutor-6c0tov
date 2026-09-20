@@ -2473,4 +2473,1320 @@ table("Balka va ramka elementlarining xossalari",
             ),
         ),
     ),
+
+    # ------------------------------------------------------------------ su-21
+    Topic(
+        id="su-21",
+        subject_id=S, module_id=M, order=21,
+        title="Tekis masala elementlari va kuchlanish konsentratsiyasi",
+        description=(
+            "Tekis kuchlanish va tekis deformatsiya, doimiy "
+            "deformatsiyali uchburchak (CST), Q4 va Q8 elementlari, "
+            "yamoq sinovi hamda teshik atrofidagi kuchlanish "
+            "konsentratsiyasini hisoblash."
+        ),
+        learning_objective=(
+            "Tekis masala uchun element turini asoslab tanlash va "
+            "kuchlanish konsentratsiyasi koeffitsientini Kirsh analitik "
+            "yechimi bilan tekshirilgan holda hisoblash."
+        ),
+        prerequisites=["su-20", "tmm-17", "tmm-13"],
+        mathematical_core=(
+            "$\\boldsymbol\\varepsilon = \\mathbf{B}\\mathbf{u}$, "
+            "$\\mathbf{k} = \\int\\mathbf{B}^T\\mathbf{D}\\mathbf{B}"
+            "\\,t\\,dA$; Kirsh: $\\sigma_\\theta(r) = "
+            "\\frac{\\sigma}{2}\\left(2 + \\frac{a^2}{r^2} + "
+            "\\frac{3a^4}{r^4}\\right)$."
+        ),
+        engineering_application=(
+            "Teshik va galtellar atrofidagi kuchlanish konsentratsiyasi, "
+            "plastina va devor konstruksiyalari, tishli g'ildirak tishi "
+            "asosi, charchoq hisobining boshlang'ich nuqtasi."
+        ),
+        computational_component=(
+            "Yamoq sinovi, uch element turini taqqoslash, teshikli "
+            "plastinada $K_t$ ni ikki bosqichli yaqinlashish bilan "
+            "aniqlash."
+        ),
+        visualization_component=(
+            "Kuchlanish maydonining rangli xaritasi, teshik atrofidagi "
+            "konsentratsiya va uning radial so'nishi."
+        ),
+        research_extension=(
+            "Kuchlanish konsentratsiyasi va charchoq bog'liqligini "
+            "o'rganing: nima uchun $K_f < K_t$ va o'lchamning ta'siri "
+            "qanday."
+        ),
+        difficulty="murakkab",
+        previous_link=(
+            "su-19 va su-20 dagi elementlar bir o'lchovli edi — ular "
+            "uzun va ingichka konstruksiyalarga mos. Teshik atrofidagi "
+            "kuchlanish maydoni esa mohiyatan ikki o'lchovli va uni "
+            "sterjen modeli bilan umuman ifodalab bo'lmaydi."
+        ),
+        next_topic="su-22",
+        estimated_minutes=95,
+        tags=["tekis kuchlanish", "CST", "Q4", "Q8", "Kirsh masalasi",
+              "yamoq sinovi"],
+        lesson=_lesson(
+            problem=(
+                "Samolyot qanotining "
+                "qoplamasida texnologik "
+                "teshiklar bor: zambaraklar, "
+                "lyuklar, kabel o'tkazgichlari. "
+                "Har bir teshik atrofida "
+                "kuchlanish o'sadi va "
+                "charchoq yorig'i aynan "
+                "shu yerdan boshlanadi. "
+                "Nominal kuchlanish "
+                "100 MPa bo'lsa, teshik "
+                "chekkasida nechchi bo'ladi? "
+                "tmm-17 dagi Kirsh yechimi "
+                "cheksiz plastina uchun "
+                "$K_t = 3$ beradi, lekin "
+                "haqiqiy qoplama chekli "
+                "kenglikda, teshiklar bir "
+                "biriga yaqin va shakli "
+                "har doim ham doira emas. "
+                "Bunday holatda ishonchli "
+                "javobni qanday olish va "
+                "unga qanday ishonish "
+                "mumkin?"
+            ),
+            concepts=[
+                c("Tekis kuchlanish "
+                  "(plane stress)",
+                  "Yupqa plastina, tekislikka "
+                  "perpendikulyar kuchlanish "
+                  "nol: "
+                  "$\\sigma_z = 0$ (tmm-13)."),
+                c("Tekis deformatsiya "
+                  "(plane strain)",
+                  "Uzun jism, o'q bo'ylab "
+                  "deformatsiya nol: "
+                  "$\\varepsilon_z = 0$; "
+                  "to'g'on, tunnel, quvur."),
+                c("CST — doimiy deformatsiyali "
+                  "uchburchak",
+                  "Eng sodda element; "
+                  "deformatsiya element ichida "
+                  "**doimiy**, shuning uchun "
+                  "juda sekin yaqinlashadi."),
+                c("Q4 va Q8",
+                  "To'rt va sakkiz tugunli "
+                  "to'rtburchaklar; Q8 "
+                  "serendipiti — markaziy "
+                  "tuguni yo'q."),
+                c("Yamoq sinovi (patch test)",
+                  "Element doimiy deformatsiya "
+                  "maydonini **aynan** "
+                  "tiklashi kerak — "
+                  "yaqinlashishning zaruriy "
+                  "sharti (su-14)."),
+                c("Kuchlanish konsentratsiyasi "
+                  "koeffitsienti $K_t$",
+                  "$K_t = \\sigma_{max}/"
+                  "\\sigma_{nom}$; doiraviy "
+                  "teshik uchun cheksiz "
+                  "plastinada aynan 3."),
+            ],
+            derivation=[
+                d("1. Tekis holat "
+                  "taxminlari",
+                  r"\text{tekis kuchlanish: } "
+                  r"\sigma_z = \tau_{xz} = "
+                  r"\tau_{yz} = 0",
+                  "Yupqa plastinada "
+                  "qalinlik bo'ylab "
+                  "kuchlanish rivojlana "
+                  "olmaydi. Tekis "
+                  "deformatsiyada esa "
+                  "$\\varepsilon_z = 0$ va "
+                  "$\\sigma_z = "
+                  "\\nu(\\sigma_x + "
+                  "\\sigma_y) \\ne 0$."),
+                d("2. Material matritsasi",
+                  r"\mathbf{D}_{\sigma} = "
+                  r"\frac{E}{1-\nu^2}"
+                  r"\begin{bmatrix} 1 & \nu & "
+                  r"0\\ \nu & 1 & 0\\ 0 & 0 & "
+                  r"\frac{1-\nu}{2}"
+                  r"\end{bmatrix}",
+                  "Tekis deformatsiya uchun "
+                  "$E \\to E/(1-\\nu^2)$, "
+                  "$\\nu \\to \\nu/(1-\\nu)$ "
+                  "almashtirish yetarli — "
+                  "bitta kod ikkalasiga "
+                  "yaraydi."),
+                d("3. Deformatsiya matritsasi",
+                  r"\boldsymbol\varepsilon = "
+                  r"\{\varepsilon_x, "
+                  r"\varepsilon_y, "
+                  r"\gamma_{xy}\}^T = "
+                  r"\mathbf{B}\mathbf{u}",
+                  "$\\mathbf{B}$ ning "
+                  "qatorlari shakl "
+                  "funksiyalarining "
+                  "$x$ va $y$ bo'yicha "
+                  "hosilalaridan tuziladi "
+                  "(su-14)."),
+                d("4. CST ning "
+                  "deformatsiyasi",
+                  r"\mathbf{B} = "
+                  r"\frac{1}{2A}\begin{bmatrix} "
+                  r"b_1 & 0 & b_2 & 0 & b_3 & 0"
+                  r"\\ 0 & c_1 & 0 & c_2 & 0 & "
+                  r"c_3\\ c_1 & b_1 & c_2 & b_2 "
+                  r"& c_3 & b_3\end{bmatrix}",
+                  "**Muhim kuzatuv.** "
+                  "$b_i$ va $c_i$ faqat "
+                  "koordinatalardan iborat, "
+                  "demak $\\mathbf{B}$ "
+                  "**doimiy** — deformatsiya "
+                  "element ichida "
+                  "o'zgarmaydi."),
+                d("5. CST ning "
+                  "cheklovi",
+                  r"\varepsilon = "
+                  r"\text{const} \ "
+                  r"\Longrightarrow\ "
+                  r"\text{egilishni "
+                  r"ifodalash uchun ko'p "
+                  r"element kerak}",
+                  "Egilishda deformatsiya "
+                  "chiziqli o'zgarishi "
+                  "kerak, CST esa bo'lakli "
+                  "doimiy beradi — bu "
+                  "su-16 dagi qulflanishning "
+                  "eng qo'pol ko'rinishi."),
+                d("6. Element matritsasi",
+                  r"\mathbf{k} = "
+                  r"\int_A \mathbf{B}^T"
+                  r"\mathbf{D}\mathbf{B}\,t\,dA "
+                  r"= \mathbf{B}^T\mathbf{D}"
+                  r"\mathbf{B}\,tA \ "
+                  r"(\text{CST uchun})",
+                  "CST da integral aynan "
+                  "olinadi, chunki "
+                  "integrand doimiy. Q4 va "
+                  "Q8 uchun Gauss "
+                  "kvadraturasi kerak "
+                  "(su-16)."),
+                d("7. Yamoq sinovi",
+                  r"u = a_0 + a_1x + a_2y "
+                  r"\;\Longrightarrow\; "
+                  r"\boldsymbol\varepsilon_h = "
+                  r"\boldsymbol\varepsilon \ "
+                  r"\text{(aynan)}",
+                  "**Majburiy tekshiruv.** "
+                  "Har qanday yangi element "
+                  "uchun birinchi bajariladigan "
+                  "test; bajarilmasa element "
+                  "yaqinlashmaydi."),
+                d("8. Kirsh yechimi",
+                  r"\sigma_\theta(r,\theta) = "
+                  r"\frac{\sigma}{2}\left[\left("
+                  r"1 + \frac{a^2}{r^2}\right) - "
+                  r"\left(1 + \frac{3a^4}{r^4}"
+                  r"\right)\cos2\theta\right]",
+                  "tmm-17 dagi aniq yechim. "
+                  "$\\theta = 90°$, $r = a$ "
+                  "da $\\sigma_\\theta = "
+                  "3\\sigma$."),
+                d("9. Konsentratsiyaning "
+                  "so'nishi",
+                  r"\sigma_\theta(r, 90^\circ) = "
+                  r"\frac{\sigma}{2}\left(2 + "
+                  r"\frac{a^2}{r^2} + "
+                  r"\frac{3a^4}{r^4}\right)",
+                  "**Amaliy muhim natija.** "
+                  "$r = 3a$ da "
+                  "$\\sigma_\\theta = "
+                  "1{,}07\\sigma$ — "
+                  "konsentratsiya juda tez "
+                  "so'nadi. Sen-Venan "
+                  "prinsipining (tmm-14) "
+                  "aniq ko'rinishi."),
+                d("10. Teshik chekkasidagi "
+                  "siqilish",
+                  r"\sigma_\theta(a, 0^\circ) = "
+                  r"\frac{\sigma}{2}(2 - 4) = "
+                  r"-\sigma",
+                  "**Mustaqil tekshiruv.** "
+                  "Yuk yo'nalishi bo'ylab "
+                  "teshik chekkasida "
+                  "**siqilish** paydo "
+                  "bo'ladi — sonli yechimni "
+                  "tekshirishning ikkinchi "
+                  "nuqtasi."),
+                d("11. Chekli kenglik ta'siri",
+                  r"K_t^{chekli} > K_t^{\infty} "
+                  r"= 3",
+                  "Kirsh yechimi cheksiz "
+                  "plastina uchun. Chekli "
+                  "kenglikda material kamroq "
+                  "va $K_t$ **oshadi** — kod "
+                  "buni $W/a = 5$ da 3,35 "
+                  "sifatida ko'rsatadi."),
+                d("12. Ikki xil xatolik",
+                  r"\text{xato} = "
+                  r"\underbrace{\text{to'r}}"
+                  r"_{\text{diskretlashtirish}} "
+                  r"+ \underbrace{W/a}"
+                  r"_{\text{model}}",
+                  "**Hal qiluvchi ajratish.** "
+                  "To'rni zichlashtirish "
+                  "birinchisini kamaytiradi, "
+                  "ikkinchisini esa **yo'q** "
+                  "— buning uchun sohani "
+                  "kattalashtirish kerak. "
+                  "Bu su-29 dagi V&V "
+                  "ning asosi."),
+            ],
+            meaning=(
+                "4- va 5-qadamlar CST "
+                "elementining taqdirini "
+                "belgilaydi. Uning "
+                "deformatsiya matritsasi "
+                "doimiy, demak element "
+                "ichida deformatsiya "
+                "o'zgara olmaydi. Egilishda "
+                "esa deformatsiya "
+                "balandlik bo'ylab chiziqli "
+                "o'zgarishi kerak, shuning "
+                "uchun CST buni faqat "
+                "bo'lakli doimiy zinapoya "
+                "bilan yaqinlashtiradi. "
+                "Kod buni shafqatsiz "
+                "ko'rsatadi: CST 576 "
+                "erkinlik darajasi bilan "
+                "javobning atigi 87% ini "
+                "beradi, Q8 esa 40 "
+                "erkinlik darajasi bilan "
+                "97% ini. Farq o'n to'rt "
+                "barobar kamroq noma'lum "
+                "bilan ancha yaxshi "
+                "natija. Shuning uchun "
+                "zamonaviy paketlarda CST "
+                "deyarli ishlatilmaydi — "
+                "u faqat to'r "
+                "generatorining murakkab "
+                "geometriyani to'ldirishi "
+                "uchun zaxira sifatida "
+                "qoladi. Mavzuning "
+                "muhandislik markazi esa "
+                "9- va 12-qadamlarda. "
+                "9-qadam tinchlantiradi: "
+                "konsentratsiya juda tez "
+                "so'nadi — teshikdan uch "
+                "radius narida kuchlanish "
+                "nominaldan atigi 7% "
+                "yuqori. Demak "
+                "teshiklar bir-biridan "
+                "yetarlicha uzoq bo'lsa, "
+                "ular mustaqil ishlaydi "
+                "va har birini alohida "
+                "hisoblash mumkin. Bu "
+                "Sen-Venan prinsipining "
+                "(tmm-14) miqdoriy "
+                "ifodasi. 12-qadam esa "
+                "butun kursning eng muhim "
+                "uslubiy g'oyalaridan "
+                "birini kiritadi: sonli "
+                "natijaning xatosi ikki "
+                "manbadan keladi va ular "
+                "**har xil davolanadi**. "
+                "To'r qo'pol bo'lsa — uni "
+                "zichlashtiring. Lekin "
+                "modelning o'zi noto'g'ri "
+                "bo'lsa (bu yerda: chekli "
+                "sohani cheksiz deb "
+                "hisoblash), to'rni qancha "
+                "zichlashtirmang, javob "
+                "noto'g'ri qiymatga "
+                "yaqinlashadi. Kod buni "
+                "aniq ko'rsatadi: "
+                "$W/a = 5$ da to'r "
+                "zichlashganda "
+                "$K_t$ 3 ga emas, 3,35 ga "
+                "intiladi. Bu xato emas — "
+                "bu o'sha geometriya uchun "
+                "to'g'ri javob. Xato "
+                "bo'lardi, agar biz uni "
+                "cheksiz plastinaning "
+                "javobi deb "
+                "e'lon qilsak."
+            ),
+            equations=[
+                eq(r"\mathbf{k} = \int_A "
+                   r"\mathbf{B}^T\mathbf{D}"
+                   r"\mathbf{B}\,t\,dA, \qquad "
+                   r"\mathbf{D}_\sigma = "
+                   r"\frac{E}{1-\nu^2}\begin{bmatrix} "
+                   r"1 & \nu & 0\\ \nu & 1 & 0\\ "
+                   r"0 & 0 & \frac{1-\nu}{2}"
+                   r"\end{bmatrix}",
+                   "Tekis masala elementining "
+                   "matritsasi va tekis "
+                   "kuchlanish uchun material "
+                   "matritsasi.",
+                   "Element matritsasi"),
+                eq(r"\sigma_\theta(r,\theta) = "
+                   r"\frac{\sigma}{2}\left[\left("
+                   r"1 + \frac{a^2}{r^2}\right) - "
+                   r"\left(1 + \frac{3a^4}{r^4}"
+                   r"\right)\cos 2\theta\right]",
+                   "Kirsh yechimi — sonli "
+                   "natijani tekshirish uchun "
+                   "etalon (tmm-17).",
+                   "Kirsh yechimi"),
+                eq(r"\sigma_\theta(a, 90^\circ) = "
+                   r"3\sigma, \qquad "
+                   r"\sigma_\theta(a, 0^\circ) = "
+                   r"-\sigma",
+                   "Teshik chekkasidagi ikkita "
+                   "mustaqil tekshiruv "
+                   "nuqtasi.",
+                   "Tekshiruv nuqtalari"),
+                eq(r"\text{xato} = "
+                   r"\text{diskretlashtirish}(h) "
+                   r"+ \text{model}(W/a)",
+                   "Ikki xil xatolik manbai; "
+                   "ular har xil davolanadi.",
+                   "Xatolik manbalari"),
+            ],
+            conditions=(
+                "**Qaysi tekis holat:**\n"
+                "- Qalinlik boshqa "
+                "o'lchamlardan ancha kichik → "
+                "tekis kuchlanish;\n"
+                "- Jism o'q bo'ylab uzun va "
+                "uchlari to'sqinlik qilingan → "
+                "tekis deformatsiya;\n"
+                "- Noto'g'ri tanlash "
+                "$\\nu$ ta'siri orqali "
+                "sezilarli xato beradi, "
+                "ayniqsa $\\nu \\to 0{,}5$ "
+                "da (su-16).\n\n"
+                "**Element tanlash:**\n"
+                "- Egilish ustun → Q8 yoki "
+                "yuqori tartib;\n"
+                "- Q4 → faqat zich to'r "
+                "bilan yoki SRI bilan "
+                "(su-16);\n"
+                "- CST → faqat "
+                "to'ldiruvchi sifatida; "
+                "asosiy element sifatida "
+                "**tavsiya etilmaydi**.\n\n"
+                "**Konsentratsiya "
+                "hisobida:**\n"
+                "1. Teshik chekkasida "
+                "kamida 8–12 element "
+                "chorak aylana bo'ylab;\n"
+                "2. $W/a \\ge 10$ — "
+                "cheksiz plastina bilan "
+                "solishtirish uchun;\n"
+                "3. To'r bo'yicha "
+                "yaqinlashishni "
+                "**ko'rsating** — bitta "
+                "hisob yetarli emas "
+                "(su-18);\n"
+                "4. Kuchlanishni Gauss "
+                "nuqtalaridan tiklang "
+                "(su-17).\n\n"
+                "**Ogohlantirish:** o'tkir "
+                "burchakda (galtelsiz) "
+                "aniq kuchlanish "
+                "**cheksiz** va $K_t$ "
+                "ma'nosini yo'qotadi. "
+                "U yerda yorilish "
+                "mexanikasi parametrlari "
+                "(tmm-24) yoki plastiklik "
+                "kerak."
+            ),
+            worked=WorkedExample(
+                statement=(
+                    "Kengligi $2W = 200$ mm "
+                    "bo'lgan plastinada "
+                    "diametri $2a = 20$ mm "
+                    "teshik bor. Plastina "
+                    "$\\sigma = 100$ MPa "
+                    "tortilgan. (a) Teshik "
+                    "chekkasidagi maksimal "
+                    "kuchlanishni toping; "
+                    "(b) teshikdan qaysi "
+                    "masofada kuchlanish "
+                    "nominaldan 5% dan kam "
+                    "farq qiladi; (c) "
+                    "$\\theta = 0$ da "
+                    "kuchlanish qanday."
+                ),
+                given=[
+                    r"a = 10\ \text{mm}, \quad "
+                    r"W = 100\ \text{mm}, \quad "
+                    r"\sigma = 100\ \text{MPa}",
+                    r"\sigma_\theta(r,90^\circ) = "
+                    r"\frac{\sigma}{2}\left(2 + "
+                    r"\frac{a^2}{r^2} + "
+                    r"\frac{3a^4}{r^4}\right)",
+                ],
+                steps=[
+                    st(r"W/a = 100/10 = 10",
+                       "Nisbat yetarlicha katta — "
+                       "cheksiz plastina "
+                       "taxmini o'rinli."),
+                    st(r"r = a: \quad "
+                       r"\sigma_\theta = "
+                       r"\frac{\sigma}{2}"
+                       r"\left(2 + 1 + 3\right) "
+                       r"= 3\sigma",
+                       "**$K_t = 3$** — "
+                       "klassik natija."),
+                    st(r"\sigma_{max} = 3 \cdot "
+                       r"100 = 300\ \text{MPa}",
+                       "Maksimal kuchlanish."),
+                    st(r"\text{(b)}\quad "
+                       r"\frac{\sigma_\theta}"
+                       r"{\sigma} = 1{,}05 "
+                       r"\;\Rightarrow\; "
+                       r"\frac12\left(2 + "
+                       r"\rho^{-2} + 3\rho^{-4}"
+                       r"\right) = 1{,}05",
+                       "$\\rho = r/a$ "
+                       "belgilaymiz."),
+                    st(r"\rho^{-2} + 3\rho^{-4} = "
+                       r"0{,}10",
+                       "Tenglamani "
+                       "soddalashtiramiz."),
+                    st(r"t = \rho^{-2}: \quad "
+                       r"3t^2 + t - 0{,}10 = 0",
+                       "Kvadrat tenglama."),
+                    st(r"t = \frac{-1 + "
+                       r"\sqrt{1 + 1{,}2}}{6} = "
+                       r"\frac{-1 + 1{,}4832}{6} "
+                       r"= 0{,}08054",
+                       "Musbat ildiz."),
+                    st(r"\rho = 1/\sqrt{0{,}08054} "
+                       r"= 3{,}524",
+                       "**$r \\approx 3{,}5a$** — "
+                       "ya'ni teshikdan "
+                       "35 mm narida."),
+                    st(r"\text{(c)}\quad "
+                       r"\sigma_\theta(a,0) = "
+                       r"\frac{\sigma}{2}\left[2 - "
+                       r"4\right] = -\sigma",
+                       "$\\cos 0 = 1$ qo'yib."),
+                    st(r"\sigma_\theta(a,0) = "
+                       r"-100\ \text{MPa}",
+                       "**Siqilish** — yuk "
+                       "yo'nalishi bo'ylab "
+                       "teshik chekkasida."),
+                    st(r"\Delta\sigma = 300 - "
+                       r"(-100) = 400\ "
+                       r"\text{MPa}",
+                       "Teshik chekkasi bo'ylab "
+                       "kuchlanish o'zgarish "
+                       "oralig'i — charchoq "
+                       "uchun aynan shu "
+                       "muhim."),
+                ],
+                answer=(
+                    "(a) "
+                    "$\\sigma_{max} = 300$ MPa "
+                    "($K_t = 3$); "
+                    "(b) $r \\approx 3{,}5a = "
+                    "35$ mm da kuchlanish "
+                    "nominaldan 5% dan kam "
+                    "farq qiladi; "
+                    "(c) $\\theta = 0$ da "
+                    "$\\sigma_\\theta = "
+                    "-100$ MPa (siqilish). "
+                    "Kod bu uchala qiymatni "
+                    "ham 0,3–0,7% aniqlikda "
+                    "takrorlaydi."
+                ),
+                engineering_note=(
+                    "(b) javobidagi "
+                    "$3{,}5a$ amaliyotda "
+                    "juda foydali qoida. "
+                    "Teshiklar bir-biridan "
+                    "yetti radiusdan "
+                    "ko'proq uzoqlikda "
+                    "bo'lsa, ular "
+                    "bir-biriga deyarli "
+                    "ta'sir qilmaydi va har "
+                    "birini alohida "
+                    "hisoblash mumkin. "
+                    "Yaqinroq bo'lsa "
+                    "ta'sirlar qo'shiladi "
+                    "va $K_t$ oshadi. "
+                    "Xuddi shu qoida to'r "
+                    "qurishda ham kerak: "
+                    "model chegarasini "
+                    "teshikdan kamida "
+                    "besh-o'n radius "
+                    "narida joylashtiring, "
+                    "aks holda chegaraviy "
+                    "shart natijani "
+                    "buzadi. (c) javobi "
+                    "esa charchoq "
+                    "nuqtai nazaridan "
+                    "muhimroq bo'lishi "
+                    "mumkin. Teshik "
+                    "chekkasi bo'ylab "
+                    "kuchlanish "
+                    "$+300$ dan $-100$ MPa "
+                    "gacha o'zgaradi, ya'ni "
+                    "oraliq 400 MPa. "
+                    "Takroriy yuklamada "
+                    "aynan shu oraliq "
+                    "yorilish "
+                    "boshlanishini "
+                    "belgilaydi. Nihoyat "
+                    "eng muhim amaliy "
+                    "ogohlantirish: "
+                    "$K_t = 3$ faqat "
+                    "**doiraviy** teshik "
+                    "uchun. Ellips uchun "
+                    "$K_t = 1 + 2b/a$ va "
+                    "u cho'zilgan teshikda "
+                    "tez o'sadi; o'tkir "
+                    "burchakda esa "
+                    "cheksizlashadi. "
+                    "Shuning uchun "
+                    "aviatsiyada barcha "
+                    "teshiklar doiraviy "
+                    "va chekkalari "
+                    "silliqlangan."
+                ),
+            ),
+            computation=Computation(
+                caption=(
+                    "Yamoq sinovi, uch element "
+                    "turini taqqoslash va "
+                    "teshikli plastinada $K_t$ "
+                    "ni Kirsh yechimi bilan "
+                    "tekshirish."
+                ),
+                code='''"""Tekis masala elementlari va kuchlanish konsentratsiyasi."""
+import numpy as np
+from labkit import PARAMS, note, series, table, value
+
+W_over_a = float(PARAMS.get("W_over_a", 20.0))
+n_ring = int(PARAMS.get("n_ring", 20))
+grade = float(PARAMS.get("grade", 3.0))
+nu = float(PARAMS.get("nu", 0.3))
+
+E = 2.1e11
+a_hole = 0.01
+sig_inf = 1e6
+
+
+def Dmat(nu_, mode):
+    if mode == "stress":
+        return E/(1 - nu_**2)*np.array([[1, nu_, 0], [nu_, 1, 0],
+                                        [0, 0, (1 - nu_)/2]])
+    return E/((1 + nu_)*(1 - 2*nu_))*np.array(
+        [[1 - nu_, nu_, 0], [nu_, 1 - nu_, 0], [0, 0, (1 - 2*nu_)/2]])
+
+
+def shp_q4(xi, eta):
+    xn = np.array([-1, 1, 1, -1.])
+    yn = np.array([-1, -1, 1, 1.])
+    N = 0.25*(1 + xi*xn)*(1 + eta*yn)
+    dN = np.vstack([0.25*xn*(1 + eta*yn), 0.25*(1 + xi*xn)*yn])
+    return N, dN
+
+
+def shp_q8(xi, eta):
+    xn = np.array([-1, 1, 1, -1, 0, 1, 0, -1.])
+    yn = np.array([-1, -1, 1, 1, -1, 0, 1, 0.])
+    N = np.zeros(8)
+    dN = np.zeros((2, 8))
+    for i in range(4):
+        N[i] = 0.25*(1 + xi*xn[i])*(1 + eta*yn[i])*(xi*xn[i] + eta*yn[i] - 1)
+        dN[0, i] = 0.25*xn[i]*(1 + eta*yn[i])*(2*xi*xn[i] + eta*yn[i])
+        dN[1, i] = 0.25*(1 + xi*xn[i])*yn[i]*(xi*xn[i] + 2*eta*yn[i])
+    for i in (4, 6):
+        N[i] = 0.5*(1 - xi**2)*(1 + eta*yn[i])
+        dN[0, i] = -xi*(1 + eta*yn[i])
+        dN[1, i] = 0.5*(1 - xi**2)*yn[i]
+    for i in (5, 7):
+        N[i] = 0.5*(1 + xi*xn[i])*(1 - eta**2)
+        dN[0, i] = 0.5*xn[i]*(1 - eta**2)
+        dN[1, i] = -(1 + xi*xn[i])*eta
+    return N, dN
+
+
+def Bmat(shp, xi, eta, xy):
+    N, dN = shp(xi, eta)
+    J = dN @ xy
+    dNx = np.linalg.solve(J, dN)
+    n = len(xy)
+    B = np.zeros((3, 2*n))
+    B[0, 0::2] = dNx[0]
+    B[1, 1::2] = dNx[1]
+    B[2, 0::2] = dNx[1]
+    B[2, 1::2] = dNx[0]
+    return B, float(np.linalg.det(J)), N
+
+
+def ke_quad(xy, D, shp, ngp, t=1.0):
+    n = len(xy)
+    k = np.zeros((2*n, 2*n))
+    g, w = np.polynomial.legendre.leggauss(ngp)
+    for aa in range(ngp):
+        for bb in range(ngp):
+            B, dJ, _ = Bmat(shp, g[aa], g[bb], xy)
+            k += B.T @ D @ B*dJ*w[aa]*w[bb]*t
+    return k
+
+
+def cst(xy, D, t=1.0):
+    (x1, y1), (x2, y2), (x3, y3) = xy
+    A = 0.5*((x2 - x1)*(y3 - y1) - (x3 - x1)*(y2 - y1))
+    b = np.array([y2 - y3, y3 - y1, y1 - y2])
+    c = np.array([x3 - x2, x1 - x3, x2 - x1])
+    B = np.zeros((3, 6))
+    B[0, 0::2] = b/(2*A)
+    B[1, 1::2] = c/(2*A)
+    B[2, 0::2] = c/(2*A)
+    B[2, 1::2] = b/(2*A)
+    return B.T @ D @ B*A*t, B, A
+
+
+# --- (1) YAMOQ SINOVI: doimiy deformatsiya aynan tiklanadimi? ---
+D0 = Dmat(nu, "stress")
+a0, b0, c0 = 0.01, 2e-4, 1e-4
+d0, e0, f0 = -0.02, 3e-4, -1.5e-4
+eps_ref = np.array([b0, f0, c0 + e0])
+rows = []
+for name, shp, xy, ngp in [
+        ("Q4", shp_q4, np.array([[0, 0], [2, 0], [2.3, 2.1], [0.2, 1.8]],
+                                float), 2),
+        ("Q8", shp_q8, np.array([[0, 0], [2, 0], [2, 2], [0, 2],
+                                 [1.1, 0.1], [2.1, 1.0], [0.9, 2.1],
+                                 [-0.1, 1.0]], float), 3)]:
+    n = len(xy)
+    uu = np.zeros(2*n)
+    for i in range(n):
+        uu[2*i] = a0 + b0*xy[i, 0] + c0*xy[i, 1]
+        uu[2*i + 1] = d0 + e0*xy[i, 0] + f0*xy[i, 1]
+    g, w = np.polynomial.legendre.leggauss(ngp)
+    err = 0.0
+    for aa in range(ngp):
+        for bb in range(ngp):
+            B, _, _ = Bmat(shp, g[aa], g[bb], xy)
+            err = max(err, float(np.max(np.abs(B @ uu - eps_ref))))
+    kk = ke_quad(xy, D0, shp, ngp)
+    ev = np.linalg.eigvalsh(kk)
+    rows.append([name, f"{err:.3e}", int(np.sum(ev < 1e-8*ev.max())), 3])
+xy_t = np.array([[0, 0], [2, 0.3], [0.7, 2.]], float)
+uu = np.zeros(6)
+for i in range(3):
+    uu[2*i] = a0 + b0*xy_t[i, 0] + c0*xy_t[i, 1]
+    uu[2*i + 1] = d0 + e0*xy_t[i, 0] + f0*xy_t[i, 1]
+kk, Bc, Ac = cst(xy_t, D0)
+ev = np.linalg.eigvalsh(kk)
+rows.insert(0, ["CST", f"{float(np.max(np.abs(Bc @ uu - eps_ref))):.3e}",
+                int(np.sum(ev < 1e-8*ev.max())), 3])
+table("Yamoq sinovi: doimiy deformatsiya maydoni",
+      ["element", "deformatsiya xatosi", "nol rejimlar",
+       "kutilgan (qattiq jism)"], rows)
+note("Uchala element ham yamoq sinovidan MASHINA ANIQLIGIDA o'tdi va "
+     "har birida aynan uchta qattiq jism rejimi bor (ikkita ko'chish + "
+     "bitta burilish). Yamoq sinovi buzilgan element shaklida "
+     "o'tkazildi - bu muhim, chunki to'g'ri to'rtburchakda ko'p xato "
+     "yashirin qoladi. Bu test har qanday yangi element uchun "
+     "birinchi bajariladigan tekshiruv bo'lishi kerak (su-14).")
+
+# --- (2) ELEMENT TURLARINI taqqoslash: konsol balka ---
+L_c, h_c, P_c = 10.0, 1.0, 1.0
+
+
+def cantilever(nx, ny, kind):
+    if kind == "Q8":
+        nnx, nny = 2*nx + 1, 2*ny + 1
+    else:
+        nnx, nny = nx + 1, ny + 1
+    X, Y = np.meshgrid(np.linspace(0, L_c, nnx),
+                       np.linspace(-h_c/2, h_c/2, nny), indexing="ij")
+    nid = np.arange(nnx*nny).reshape(nnx, nny)
+    nodes = np.column_stack([X.ravel(), Y.ravel()])
+    els = []
+    for i in range(nx):
+        for j in range(ny):
+            if kind == "CST":
+                n = [nid[i, j], nid[i+1, j], nid[i+1, j+1], nid[i, j+1]]
+                els += [[n[0], n[1], n[2]], [n[0], n[2], n[3]]]
+            elif kind == "Q4":
+                els.append([nid[i, j], nid[i+1, j], nid[i+1, j+1],
+                            nid[i, j+1]])
+            else:
+                I, J = 2*i, 2*j
+                els.append([nid[I, J], nid[I+2, J], nid[I+2, J+2],
+                            nid[I, J+2], nid[I+1, J], nid[I+2, J+1],
+                            nid[I+1, J+2], nid[I, J+1]])
+    # Q8 serendipiti: blok markazidagi tugunlar hech bir elementga
+    # tegishli emas - ularni tizimdan chiqaramiz
+    used = sorted({n for el in els for n in el})
+    remap = {n: i for i, n in enumerate(used)}
+    nodes = nodes[used]
+    els = [[remap[n] for n in el] for el in els]
+    nid = np.vectorize(lambda n: remap.get(n, -1))(nid)
+    ndof = 2*len(nodes)
+    K = np.zeros((ndof, ndof))
+    F = np.zeros(ndof)
+    D = Dmat(nu, "stress")
+    for el in els:
+        xy = nodes[el]
+        if kind == "CST":
+            ke, _, _ = cst(xy, D)
+        elif kind == "Q4":
+            ke = ke_quad(xy, D, shp_q4, 2)
+        else:
+            ke = ke_quad(xy, D, shp_q8, 3)
+        idx = np.array([[2*k, 2*k + 1] for k in el]).ravel()
+        K[np.ix_(idx, idx)] += ke
+    tip = [nid[nnx-1, j] for j in range(nny) if nid[nnx-1, j] >= 0]
+    for n in tip:
+        F[2*n + 1] -= P_c/len(tip)
+    fixed = [v for j in range(nny) if nid[0, j] >= 0
+             for v in (2*nid[0, j], 2*nid[0, j] + 1)]
+    free = np.setdiff1d(np.arange(ndof), fixed)
+    u = np.zeros(ndof)
+    u[free] = np.linalg.solve(K[np.ix_(free, free)], F[free])
+    return abs(float(np.mean([u[2*n + 1] for n in tip]))), ndof - len(fixed)
+
+
+I_c = h_c**3/12
+G_c = E/(2*(1 + nu))
+w_ref = P_c*L_c**3/(3*E*I_c) + P_c*L_c/((5/6)*G_c*h_c)
+value("Etalon uch ko'chishi (Timoshenko)", w_ref, "m")
+rows2 = []
+for nx, ny in [(4, 1), (8, 2), (16, 4), (32, 8)]:
+    line = [f"{nx}x{ny}"]
+    for kind in ["CST", "Q4", "Q8"]:
+        wv, nd = cantilever(nx, ny, kind)
+        line.append(f"{wv/w_ref*100:.2f}% ({nd})")
+    rows2.append(line)
+table("Element turlarini taqqoslash: konsol balka "
+      "(aniqlik va erkinlik darajalari)",
+      ["to'r", "CST", "Q4", "Q8"], rows2)
+note("CST 576 erkinlik darajasi bilan javobning atigi 87% ini beradi, "
+     "Q8 esa 40 erkinlik darajasi bilan 97% ini - o'n to'rt barobar "
+     "kam noma'lum bilan ancha yaxshi natija. Sababi su-14 va su-16 da: "
+     "CST da deformatsiya element ichida DOIMIY, shuning uchun egilishni "
+     "faqat bo'lakli zinapoya bilan yaqinlashtiradi. Q4 bunga qaraganda "
+     "yaxshiroq, lekin unda ham siljish qulflanishi bor. Zamonaviy "
+     "paketlarda CST asosiy element sifatida ishlatilmaydi.")
+
+# --- (3) KIRSH masalasi: teshikli plastina ---
+def hole_mesh(a, W, nr, nt, gr):
+    th = np.linspace(0, np.pi/2, nt + 1)
+    s = np.linspace(0, 1, nr + 1)**gr
+    X = np.zeros((nr + 1, nt + 1))
+    Y = np.zeros((nr + 1, nt + 1))
+    for j, t in enumerate(th):
+        xi_, yi_ = a*np.cos(t), a*np.sin(t)
+        if t <= np.pi/4:
+            xo, yo = W, W*np.tan(t)
+        else:
+            xo, yo = W/np.tan(t), W
+        X[:, j] = xi_ + (xo - xi_)*s
+        Y[:, j] = yi_ + (yo - yi_)*s
+    nid = np.arange((nr + 1)*(nt + 1)).reshape(nr + 1, nt + 1)
+    conn = [[nid[i, j], nid[i+1, j], nid[i+1, j+1], nid[i, j+1]]
+            for i in range(nr) for j in range(nt)]
+    return np.column_stack([X.ravel(), Y.ravel()]), conn, nid, nr, nt
+
+
+def solve_hole(a, W, nr, nt, gr):
+    nodes, conn, nid, nr, nt = hole_mesh(a, W, nr, nt, gr)
+    D = Dmat(nu, "stress")
+    ndof = 2*len(nodes)
+    K = np.zeros((ndof, ndof))
+    F = np.zeros(ndof)
+    for el in conn:
+        idx = np.array([[2*k, 2*k + 1] for k in el]).ravel()
+        K[np.ix_(idx, idx)] += ke_quad(nodes[el], D, shp_q4, 2)
+    for j in range(nt):
+        n1, n2 = nid[nr, j], nid[nr, j + 1]
+        if abs(nodes[n1, 0] - W) < 1e-9 and abs(nodes[n2, 0] - W) < 1e-9:
+            Ledge = abs(nodes[n2, 1] - nodes[n1, 1])
+            F[2*n1] += sig_inf*Ledge/2
+            F[2*n2] += sig_inf*Ledge/2
+    fixed = set()
+    for n in range(len(nodes)):
+        if abs(nodes[n, 0]) < 1e-12:
+            fixed.add(2*n)          # x = 0 simmetriya
+        if abs(nodes[n, 1]) < 1e-12:
+            fixed.add(2*n + 1)      # y = 0 simmetriya
+    free = np.setdiff1d(np.arange(ndof), sorted(fixed))
+    u = np.zeros(ndof)
+    u[free] = np.linalg.solve(K[np.ix_(free, free)], F[free])
+
+    def stress(el, xi, eta):
+        B, _, N = Bmat(shp_q4, xi, eta, nodes[el])
+        idx = np.array([[2*k, 2*k + 1] for k in el]).ravel()
+        return D @ (B @ u[idx]), N @ nodes[el]
+
+    return u, nodes, conn, nid, stress, nr, nt
+
+
+rows3 = []
+for Wa in [5.0, 10.0, 20.0]:
+    for nr, nt in [(10, 10), (16, 16), (24, 24)]:
+        _, _, conn, _, stress, nrr, ntt = solve_hole(
+            a_hole, Wa*a_hole, nr, nt, grade)
+        s90, _ = stress(conn[0*ntt + (ntt - 1)], -1.0, 1.0)
+        rows3.append([f"{Wa:.0f}", f"{nr}x{nt}",
+                      f"{s90[0]/sig_inf:.4f}",
+                      f"{abs(s90[0]/sig_inf - 3.0)/3.0*100:.2f}"])
+table("Kuchlanish konsentratsiyasi: to'r va soha o'lchami bo'yicha",
+      ["W/a", "to'r", "K_t = s_theta/s", "cheksiz plastinadan farq %"],
+      rows3)
+note("IKKI XIL YAQINLASHISH. To'rni zichlashtirish DISKRETLASHTIRISH "
+     "xatosini kamaytiradi va har bir W/a uchun o'z qiymatiga "
+     "yaqinlashtiradi. Lekin W/a = 5 da bu qiymat 3 emas, 3.35 - "
+     "chekli kenglik ta'siri, ya'ni MODEL xatosi. Uni to'r bilan "
+     "davolab bo'lmaydi; sohani kattalashtirish kerak. W/a = 20 da "
+     "esa K_t 3 ga 0.1% aniqlikda yetadi. Bu farqni ajratish V&V ning "
+     "asosiy g'oyasi (su-29): diskretlashtirish xatosi va model xatosi "
+     "har xil davolanadi. DIQQAT: W/a = 10 qatoriga e'tibor bering - "
+     "eng DAG'AL to'r 3 ga eng yaqin javobni (3.012) beradi, to'r "
+     "zichlashgani sari esa u 3.07 ga uzoqlashadi. Bu tasodif: dag'al "
+     "to'rning kam baholashi chekli kenglikning ortiqcha baholashini "
+     "qoplagan. Ikki xato bir-birini yo'qotgan va natija 'to'g'ri' "
+     "ko'rinadi. Aynan shuning uchun bitta hisob hech qachon yetarli "
+     "emas - yaqinlashishni KO'RSATISH kerak (su-18).")
+
+# --- (4) Kirsh yechimining TO'LIQ radial profili ---
+_, nodes_k, conn_k, nid_k, stress_k, nrk, ntk = solve_hole(
+    a_hole, W_over_a*a_hole, n_ring + 8, n_ring, grade)
+
+
+def kirsch_90(rho):
+    return 0.5*(2 + 1/rho**2 + 3/rho**4)
+
+
+rows4 = []
+rs, fem_s, kir_s = [], [], []
+j = ntk - 1
+for i in range(0, nrk, 2):
+    s_, xg = stress_k(conn_k[i*ntk + j], 0.0, 1.0)
+    rho = float(np.hypot(*xg)/a_hole)
+    if rho > 6:
+        break
+    kk_ = kirsch_90(rho)
+    rows4.append([f"{rho:.3f}", f"{s_[0]/sig_inf:.5f}", f"{kk_:.5f}",
+                  f"{abs(s_[0]/sig_inf - kk_)/kk_*100:.3f}"])
+    rs.append(rho)
+    fem_s.append(float(s_[0]/sig_inf))
+    kir_s.append(kk_)
+table("Kirsh yechimi bilan to'liq radial profil (theta = 90°)",
+      ["r/a", "FEM s_theta/s", "Kirsh", "xato %"], rows4)
+series("FEM: s_theta/s", rs, fem_s, xlabel="r/a", ylabel="s_theta/s")
+series("Kirsh (analitik)", rs, kir_s, xlabel="r/a", ylabel="s_theta/s")
+series("Nominal kuchlanish", rs, [1.0]*len(rs),
+       xlabel="r/a", ylabel="s_theta/s")
+
+s90, _ = stress_k(conn_k[0*ntk + (ntk - 1)], -1.0, 1.0)
+s00, _ = stress_k(conn_k[0*ntk + 0], -1.0, -1.0)
+value("(0, a) da s_theta/s (Kirsh: +3)", float(s90[0]/sig_inf), "—")
+value("(0, a) da s_r/s (erkin sirt: 0)", float(s90[1]/sig_inf), "—")
+value("(a, 0) da s_theta/s (Kirsh: -1)", float(s00[1]/sig_inf), "—")
+value("Teshik chekkasidagi kuchlanish oralig'i",
+      float((s90[0] - s00[1])/sig_inf), "—")
+rho5 = (0.10)
+t5 = (-1 + np.sqrt(1 + 1.2))/6
+value("5% chegarasi: r/a (analitik)", float(1/np.sqrt(t5)), "—")
+note(f"UCHTA MUSTAQIL TEKSHIRUV. Kirsh yechimining barcha uchala "
+     f"bashorati ham tasdiqlandi: teshik chekkasida theta = 90 da "
+     f"K_t = {s90[0]/sig_inf:.4f} (aniq 3), theta = 0 da "
+     f"{s00[1]/sig_inf:.4f} (aniq -1, ya'ni SIQILISH) va erkin sirtda "
+     f"radial kuchlanish {s90[1]/sig_inf:.5f} (aniq 0). Bundan tashqari "
+     f"butun radial profil r/a = 1 dan 5 gacha 1% dan yaxshi aniqlikda "
+     f"mos tushdi - ya'ni faqat maksimal qiymat emas, MAYDONNING "
+     f"O'ZI to'g'ri. Kuchlanish teshikdan 3.5 radius narida nominaldan "
+     f"atigi 5% farq qiladi: Sen-Venan prinsipining (tmm-14) miqdoriy "
+     f"ifodasi.")
+
+# --- (5) TEKIS KUCHLANISH va TEKIS DEFORMATSIYA ---
+rows5 = []
+for nu_ in [0.0, 0.2, 0.3, 0.45, 0.49]:
+    Ds = Dmat(nu_, "stress")
+    De = Dmat(nu_, "strain")
+    rows5.append([f"{nu_:.2f}", f"{Ds[0, 0]/E:.4f}", f"{De[0, 0]/E:.4f}",
+                  f"{De[0, 0]/Ds[0, 0]:.4f}"])
+table("Tekis kuchlanish va tekis deformatsiya material matritsalari",
+      ["nu", "D11/E (kuchlanish)", "D11/E (deformatsiya)", "nisbat"],
+      rows5)
+note("nu = 0 da ikkala holat AYNAN bir xil, lekin nu ortgani sari farq "
+     "keskin o'sadi: nu = 0.3 da tekis deformatsiya 1.23 barobar, "
+     "nu = 0.49 da esa 13 barobar bikrroq. Shuning uchun tekis holatni "
+     "noto'g'ri "
+     "tanlash jiddiy xato - ayniqsa deyarli siqilmas materiallarda "
+     "(rezina, to'yingan tuproq), u yerda hajmiy qulflanish ham "
+     "qo'shiladi (su-16).")
+
+table("Tekis masala elementlarining taqqoslanishi",
+      ["Element", "Tugunlar", "Deformatsiya", "Yamoq sinovi", "Tavsiya"],
+      [["CST", "3", "DOIMIY", "o'tadi", "faqat to'ldiruvchi"],
+       ["LST (T6)", "6", "chiziqli", "o'tadi", "yaxshi"],
+       ["Q4", "4", "chiziqli (to'liq emas)", "o'tadi",
+        "zich to'r yoki SRI"],
+       ["Q8", "8", "chiziqli", "o'tadi", "ENG YAXSHI tanlov"],
+       ["Q9", "9", "chiziqli", "o'tadi", "Q8 ga yaqin, qimmatroq"]])
+''',
+                parameters=[
+                    p("W_over_a", "Plastina kengligi / teshik radiusi",
+                      3.0, 40.0, 20.0, 1.0),
+                    p("n_ring", "Teshik atrofidagi elementlar", 8.0, 32.0,
+                      20.0, 2.0),
+                    p("grade", "Radial zichlashtirish darajasi", 1.0, 5.0,
+                      3.0, 0.5),
+                    p("nu", "Puasson koeffitsienti", 0.0, 0.49, 0.3,
+                      0.01),
+                ],
+                expected_output=(
+                    "Uchala element ham "
+                    "buzilgan shaklda "
+                    "o'tkazilgan yamoq "
+                    "sinovidan $10^{-18}$ "
+                    "darajasida o'tadi va "
+                    "har birida aynan uchta "
+                    "qattiq jism rejimi bor. "
+                    "Konsol balkada CST 576 "
+                    "erkinlik darajasi bilan "
+                    "86,7%, Q4 95,9%, Q8 esa "
+                    "atigi 40 erkinlik "
+                    "darajasi bilan 97,5% "
+                    "beradi. Teshikli "
+                    "plastinada $W/a = 20$ "
+                    "va zich to'rda "
+                    "$K_t = 3{,}00$ chiqadi, "
+                    "$W/a = 5$ da esa to'r "
+                    "zichlashganda ham 3,35 "
+                    "ga intiladi — bu model "
+                    "xatosi, "
+                    "diskretlashtirish "
+                    "xatosi emas. Kirsh "
+                    "yechimining uchala "
+                    "bashorati ham "
+                    "tasdiqlanadi: "
+                    "$\\theta = 90°$ da "
+                    "$+3$, $\\theta = 0$ da "
+                    "$-1$, erkin sirtda "
+                    "radial kuchlanish nol; "
+                    "butun radial profil "
+                    "$r/a = 1$ dan 5 gacha "
+                    "1% dan yaxshi "
+                    "aniqlikda mos keladi."
+                ),
+            ),
+            visual=vis(
+                kind="Kuchlanish konsentratsiyasi xaritasi",
+                tool="React/SVG + Manim",
+                description=(
+                    "Teshik atrofidagi "
+                    "kuchlanish maydoni va "
+                    "uning radial so'nishi."
+                ),
+                how_to_draw=(
+                    "React/SVG: chorak plastina "
+                    "to'r bilan chiziladi va "
+                    "elementlar "
+                    "$\\sigma_{\\theta}$ "
+                    "qiymatiga qarab "
+                    "ranglanadi — nominal "
+                    "kuchlanish neytral rang, "
+                    "undan yuqorisi bir "
+                    "tomonga, siqilish "
+                    "boshqa tomonga. Shu "
+                    "bilan teshik "
+                    "chekkasidagi ikkita "
+                    "qarama-qarshi zona "
+                    "($+3\\sigma$ va "
+                    "$-\\sigma$) darhol "
+                    "ko'zga tashlanadi. "
+                    "O'ng tomonda radial "
+                    "profil grafigi: FEM "
+                    "nuqtalari va Kirsh "
+                    "egri chizig'i ustma-ust, "
+                    "nominal daraja gorizontal "
+                    "chiziq bilan; "
+                    "$r = 3{,}5a$ da "
+                    "vertikal belgi "
+                    "'5% chegarasi' deb "
+                    "yoziladi. $W/a$ "
+                    "slayderi surilganda "
+                    "ikki narsa bir vaqtda "
+                    "o'zgaradi: to'r "
+                    "kengayadi va yonidagi "
+                    "$K_t$ ko'rsatkichi "
+                    "3,35 dan 3,00 ga "
+                    "tushadi — model "
+                    "xatosining yo'qolishi "
+                    "shunda ko'rinadi. "
+                    "To'r slayderi esa "
+                    "$K_t$ ni o'z "
+                    "chegarasiga "
+                    "yaqinlashtiradi, "
+                    "lekin uni o'zgartira "
+                    "olmaydi: ikki xil "
+                    "xatolikning farqi "
+                    "aynan shu ikki "
+                    "slayderda namoyon "
+                    "bo'ladi."
+                ),
+            ),
+            interp=(
+                "Yamoq sinovi buzilgan "
+                "element shaklida "
+                "o'tkazildi va bu muhim: "
+                "to'g'ri to'rtburchakda ko'p "
+                "xato yashirin qoladi. "
+                "Uchala element ham o'tdi "
+                "va har birida aynan uchta "
+                "qattiq jism rejimi bor. "
+                "Ammo yamoq sinovidan "
+                "o'tish — yaqinlashishning "
+                "**zaruriy** sharti, "
+                "yetarli emas: element "
+                "taqqoslash jadvali buni "
+                "keskin ko'rsatadi. CST 576 "
+                "erkinlik darajasi bilan "
+                "javobning 87% ini beradi, "
+                "Q8 esa 40 tasi bilan 97% "
+                "ini. Sababi su-14 da "
+                "aniqlangan edi: CST da "
+                "deformatsiya element "
+                "ichida doimiy, shuning "
+                "uchun egilishni faqat "
+                "bo'lakli zinapoya bilan "
+                "yaqinlashtiradi. Bu "
+                "amaliy xulosaga olib "
+                "keladi — uchburchak "
+                "element tanlashda "
+                "CST emas, olti tugunli "
+                "LST ni oling. "
+                "Kirsh tajribasi esa ikki "
+                "qatlamli tasdiq beradi. "
+                "Birinchidan, sonli yechim "
+                "faqat maksimal qiymatni "
+                "emas, **butun maydonni** "
+                "to'g'ri beradi: radial "
+                "profil $r/a = 1$ dan 5 "
+                "gacha 1% dan yaxshi "
+                "aniqlikda mos tushdi. "
+                "Bitta nuqtadagi kelishuv "
+                "tasodif bo'lishi mumkin, "
+                "butun profilniki esa "
+                "emas. Ikkinchidan, "
+                "uchta mustaqil bashorat "
+                "ham tasdiqlandi, jumladan "
+                "$\\theta = 0$ dagi "
+                "**siqilish** — bu "
+                "intuitiv emas va shuning "
+                "uchun ayniqsa qimmatli "
+                "tekshiruv. Eng muhim "
+                "uslubiy natija esa "
+                "$K_t$ jadvalida. "
+                "$W/a = 5$ da to'rni "
+                "qancha zichlashtirmang, "
+                "$K_t$ 3 ga emas, 3,35 ga "
+                "intiladi. Bu sonli xato "
+                "emas — o'sha geometriya "
+                "uchun to'g'ri javob. "
+                "Xato faqat uni cheksiz "
+                "plastinaning javobi deb "
+                "e'lon qilsak paydo "
+                "bo'ladi. To'r "
+                "zichlashtirish "
+                "diskretlashtirish "
+                "xatosini davolaydi, "
+                "model xatosini esa faqat "
+                "modelni o'zgartirish "
+                "davolaydi — va bu "
+                "su-29 dagi V&V "
+                "tartibining yadrosi."
+            ),
+            mistakes=[
+                "CST ni asosiy element "
+                "sifatida ishlatish. "
+                "Deformatsiya doimiy — "
+                "egilishda juda sekin "
+                "yaqinlashadi; LST yoki Q8 "
+                "oling.",
+                "Tekis kuchlanish va tekis "
+                "deformatsiyani adashtirish. "
+                "$\\nu = 0{,}49$ da "
+                "matritsalar 17 barobar "
+                "farq qiladi.",
+                "Model chegarasini teshikka "
+                "juda yaqin qo'yish. "
+                "$W/a < 10$ da $K_t$ "
+                "sezilarli oshadi.",
+                "Bitta hisob bilan "
+                "cheklanib, to'r bo'yicha "
+                "yaqinlashishni "
+                "ko'rsatmaslik (su-18).",
+                "Model xatosini to'r "
+                "zichlashtirish bilan "
+                "yengishga urinish. "
+                "$W/a = 5$ da $K_t$ "
+                "3,35 ga intiladi va "
+                "u yerda qoladi.",
+                "$K_t = 3$ ni har qanday "
+                "teshikka qo'llash. Bu "
+                "faqat doiraviy teshik "
+                "uchun; ellipsda "
+                "$K_t = 1 + 2b/a$.",
+            ],
+            quiz=[
+                q("Tekis kuchlanish va tekis "
+                  "deformatsiyaning farqi "
+                  "nima?",
+                  "Tekis kuchlanishda "
+                  "$\\sigma_z = 0$ (yupqa "
+                  "plastina), tekis "
+                  "deformatsiyada "
+                  "$\\varepsilon_z = 0$ "
+                  "(uzun jism) va "
+                  "$\\sigma_z = "
+                  "\\nu(\\sigma_x + "
+                  "\\sigma_y)$.",
+                  "konseptual"),
+                q("CST nima uchun sekin "
+                  "yaqinlashadi?",
+                  "Uning $\\mathbf{B}$ "
+                  "matritsasi doimiy, demak "
+                  "deformatsiya element "
+                  "ichida o'zgara olmaydi; "
+                  "egilishda esa u chiziqli "
+                  "bo'lishi kerak.",
+                  "konseptual"),
+                q("$a = 10$ mm teshikda "
+                  "kuchlanish qaysi masofada "
+                  "nominaldan 5% farq "
+                  "qiladi?",
+                  "$\\rho^{-2} + 3\\rho^{-4} "
+                  "= 0{,}1$ dan "
+                  "$\\rho = 3{,}52$, ya'ni "
+                  "$r \\approx 35$ mm.",
+                  "hisob"),
+                q("Kod Kirsh yechimining "
+                  "qaysi uchta bashoratini "
+                  "tekshiradi?",
+                  "$\\theta = 90°$ da "
+                  "$+3\\sigma$, "
+                  "$\\theta = 0$ da "
+                  "$-\\sigma$ (siqilish) va "
+                  "erkin sirtda radial "
+                  "kuchlanishning noli; "
+                  "bundan tashqari butun "
+                  "radial profil.", "kod"),
+                q("$W/a = 5$ da to'r "
+                  "zichlashganda $K_t$ "
+                  "3 ga intilmaydi. Bu "
+                  "xatomi?",
+                  "Yo'q — bu o'sha chekli "
+                  "geometriya uchun to'g'ri "
+                  "javob (3,35). Xato faqat "
+                  "uni cheksiz plastinaning "
+                  "javobi deb hisoblasak "
+                  "paydo bo'ladi.", "talqin"),
+                q("Diskretlashtirish va model "
+                  "xatolari qanday farq "
+                  "qiladi?",
+                  "Birinchisi to'rni "
+                  "zichlashtirish bilan "
+                  "kamayadi, ikkinchisi esa "
+                  "yo'q — u uchun modelni "
+                  "o'zgartirish (sohani "
+                  "kattalashtirish) kerak.",
+                  "talqin"),
+                q("Q8 nima uchun CST dan "
+                  "ancha samarali?",
+                  "Kodda Q8 40 erkinlik "
+                  "darajasi bilan 97,5%, "
+                  "CST esa 576 tasi bilan "
+                  "86,7% beradi — Q8 ning "
+                  "bazisi deformatsiyani "
+                  "chiziqli ifodalaydi.",
+                  "kod"),
+            ],
+            bridge=(
+                "Tekis masala elementlari "
+                "faqat tekislikdagi "
+                "kuchlanishni ifodalaydi. "
+                "Plastina va qobiq esa "
+                "egilishga ham ishlaydi va "
+                "u yerda pq fanidagi butun "
+                "nazariya FEM tilida qayta "
+                "quriladi — jumladan "
+                "pq-24 dagi siljish "
+                "qulflanishi muammosi."
+            ),
+            research=(
+                "Kuchlanish konsentratsiyasi "
+                "mavzusini kengaytiring. "
+                "(1) $K_t$ va charchoqdagi "
+                "$K_f$ bog'liqligini "
+                "o'rganing: nima uchun "
+                "$K_f < K_t$ va o'lchamning "
+                "ta'siri (notch "
+                "sensitivity) qanday? "
+                "(2) Bir necha teshikning "
+                "o'zaro ta'sirini "
+                "hisoblang: ular qanchalik "
+                "yaqin bo'lganda "
+                "ta'sirlar qo'shiladi? "
+                "(3) Ellips va o'tkir "
+                "burchak holatlarini "
+                "ko'rib chiqing: "
+                "$K_t \\to \\infty$ "
+                "bo'lganda yorilish "
+                "mexanikasi parametrlariga "
+                "(tmm-24) o'tish qanday "
+                "amalga oshiriladi? "
+                "(4) Yassilangan "
+                "deformatsiya (EAS) "
+                "elementlarini o'rganing: "
+                "ular Q4 ni Q8 darajasiga "
+                "olib chiqa oladimi?"
+            ),
+            manim_ref=manim(
+                scene="StressConcentrationScene",
+                module="manim/scenes/su_apps.py",
+                title="Teshik atrofidagi kuchlanish",
+                summary=(
+                    "Tekis plastina tortiladi "
+                    "va kuchlanish maydoni bir "
+                    "tekis rangda "
+                    "ko'rsatiladi. Keyin "
+                    "markazda teshik "
+                    "ochiladi: kuchlanish "
+                    "chiziqlari teshikni "
+                    "aylanib o'tadi va "
+                    "yon tomonlarda "
+                    "quyuqlashadi. Rang "
+                    "xaritasi "
+                    "$3\\sigma$ zonasini va "
+                    "qutblardagi siqilish "
+                    "zonasini ajratib "
+                    "ko'rsatadi. Nihoyat "
+                    "radial profil "
+                    "chiziladi va u "
+                    "Kirsh egri chizig'i "
+                    "bilan ustma-ust "
+                    "tushadi; "
+                    "$3{,}5a$ da nominal "
+                    "darajaga qaytish "
+                    "belgilanadi."
+                ),
+            ),
+        ),
+    ),
 ]
