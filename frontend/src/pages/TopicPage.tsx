@@ -7,6 +7,7 @@ import { Lab } from "../components/Lab";
 import { Latex, RichText } from "../components/Latex";
 import { ErrorBox, Loading } from "../components/Layout";
 import { interactiveFor } from "../interactive/registry";
+import { SpecFigure } from "../interactive/SpecFigure";
 import { useAsync } from "../hooks/useAsync";
 import { useProgress } from "../hooks/useProgress";
 
@@ -24,6 +25,7 @@ export function TopicPage() {
 
   const L = data.lesson;
   const interactive = interactiveFor(data.id);
+  const figures = L.figures ?? [];
   let n = 0;
   const no = () => String(++n).padStart(2, "0");
 
@@ -35,11 +37,11 @@ export function TopicPage() {
       </p>
 
       <h1 style={{ margin: "0.3rem 0 0.5rem" }}>{data.title}</h1>
-      {interactive && (
+      {(interactive || figures.length > 0) && (
         <p style={{ margin: "0 0 0.6rem" }}>
           <a href="#interaktiv" className="tag" style={{
             borderColor: "var(--tension)", color: "var(--tension)",
-          }}>◆ interaktiv chizma bor</a>
+          }}>◆ {figures.length + (interactive ? 1 : 0)} ta interaktiv chizma</a>
         </p>
       )}
 
@@ -162,6 +164,15 @@ export function TopicPage() {
             <interactive.Component />
           </div>
         )}
+        {figures.map((f, i) => (
+          <div key={i} id={i === 0 && !interactive ? "interaktiv" : undefined} className="card"
+               style={{ padding: "0.9rem 1rem", margin: "0.7rem 0 1rem", scrollMarginTop: 70 }}>
+            <p className="mono tiny muted" style={{ margin: "0 0 2px", letterSpacing: "0.1em" }}>
+              INTERAKTIV CHIZMA {String(i + 1).padStart(2, "0")} / {String(figures.length).padStart(2, "0")}
+            </p>
+            <SpecFigure spec={f} />
+          </div>
+        ))}
         <RichText text={L.visualization.description} className="small" />
         <details style={{ marginTop: "0.5rem" }}>
           <summary className="small" style={{ cursor: "pointer" }}>Qanday chiziladi</summary>

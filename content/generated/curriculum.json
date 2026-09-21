@@ -2937,6 +2937,13 @@
       ],
       "readouts": [
        {
+        "label": "Burchak tezligi ω = v/R",
+        "expr": "v/R",
+        "unit": "rad/s",
+        "color": "rule",
+        "text": ""
+       },
+       {
         "label": "Pastdagi nuqta",
         "expr": "0",
         "unit": "m/s",
@@ -4807,6 +4814,13 @@
        }
       ],
       "readouts": [
+       {
+        "label": "R_A (a = 1 m)",
+        "expr": "P*(L - 1)/L",
+        "unit": "kN",
+        "color": "rule",
+        "text": ""
+       },
        {
         "label": "R_A (a=L/2)",
         "expr": "P/2",
@@ -6805,8 +6819,8 @@
         "when": ""
        },
        {
-        "label": "T = k(A²−x²)/2",
-        "expr": "k*(A^2 - x^2)/2",
+        "label": "T = k(A²−x²)/2 (burilish nuqtasidan tashqarida 0)",
+        "expr": "max(k*(A^2 - x^2)/2, 0)",
         "color": "tension",
         "dashed": false,
         "when": ""
@@ -6844,8 +6858,8 @@
       ],
       "x_label": "siljish x, m",
       "y_label": "energiya, J",
-      "x_min": "0-A",
-      "x_max": "A",
+      "x_min": "-1",
+      "x_max": "1",
       "options": {},
       "note": "Ikki egri chiziq har doim bir xil yig'indi beradi — energiya saqlanishining ko'rinishi."
      }
@@ -9436,15 +9450,6 @@
       "caption": "L = T − Π; tizim L ni ekstremal qiladigan yo'ldan boradi.",
       "params": [
        {
-        "key": "m",
-        "label": "Massa",
-        "minimum": 0.1,
-        "maximum": 10,
-        "default": 1,
-        "step": 0.1,
-        "unit": "kg"
-       },
-       {
         "key": "k",
         "label": "Bikrlik",
         "minimum": 10,
@@ -9452,6 +9457,15 @@
         "default": 400,
         "step": 10,
         "unit": "N/m"
+       },
+       {
+        "key": "m",
+        "label": "Massa",
+        "minimum": 0.1,
+        "maximum": 10,
+        "default": 1,
+        "step": 0.1,
+        "unit": "kg"
        },
        {
         "key": "A",
@@ -9814,15 +9828,6 @@
       "caption": "Har bir uzluksiz simmetriyaga bitta saqlanuvchi kattalik mos keladi.",
       "params": [
        {
-        "key": "v",
-        "label": "Tizim tezligi",
-        "minimum": 0,
-        "maximum": 20,
-        "default": 5,
-        "step": 0.5,
-        "unit": "m/s"
-       },
-       {
         "key": "m",
         "label": "Massa",
         "minimum": 0.5,
@@ -9830,6 +9835,15 @@
         "default": 10,
         "step": 0.5,
         "unit": "kg"
+       },
+       {
+        "key": "v",
+        "label": "Tizim tezligi",
+        "minimum": 0,
+        "maximum": 20,
+        "default": 5,
+        "step": 0.5,
+        "unit": "m/s"
        }
       ],
       "curves": [
@@ -12450,15 +12464,15 @@
       ],
       "curves": [
        {
-        "label": "T/T₀ (aniq, 2-tartib)",
-        "expr": "1 + (x*pi/180)^2/16 + 11*(x*pi/180)^4/3072",
+        "label": "T(θ₀), s",
+        "expr": "2*pi*sqrt(L/9.81)*(1 + (x*pi/180)^2/16 + 11*(x*pi/180)^4/3072)",
         "color": "tension",
         "dashed": false,
         "when": ""
        },
        {
-        "label": "Chiziqli nazariya",
-        "expr": "1",
+        "label": "Chiziqli nazariya T₀",
+        "expr": "2*pi*sqrt(L/9.81)",
         "color": "rule",
         "dashed": true,
         "when": ""
@@ -12488,7 +12502,7 @@
        }
       ],
       "x_label": "amplituda θ₀, °",
-      "y_label": "T / T₀",
+      "y_label": "davr T, s",
       "x_min": "0",
       "x_max": "170",
       "options": {},
@@ -12528,6 +12542,13 @@
         "label": "x = 0 (μ>0 da noturg'un)",
         "expr": "0",
         "color": "tension",
+        "dashed": true,
+        "when": ""
+       },
+       {
+        "label": "Joriy μ dagi tarmoq",
+        "expr": "sqrt(max(mu, 0))",
+        "color": "mark",
         "dashed": true,
         "when": ""
        }
@@ -16342,24 +16363,24 @@
       ],
       "curves": [
        {
-        "label": "W_p nisbati (quvur/to'la)",
-        "expr": "1 - x^4",
+        "label": "W_p quvur, sm³",
+        "expr": "pi*(D*1e-3)^3*(1 - x^4)/16*1e6",
         "color": "tension",
         "dashed": false,
         "when": ""
        },
        {
-        "label": "Massa nisbati",
-        "expr": "1 - x^2",
-        "color": "compress",
-        "dashed": false,
+        "label": "W_p to'la val",
+        "expr": "pi*(D*1e-3)^3/16*1e6",
+        "color": "rule",
+        "dashed": true,
         "when": ""
        },
        {
-        "label": "Teng daraja",
-        "expr": "1",
-        "color": "rule",
-        "dashed": true,
+        "label": "Massa (1 m), kg",
+        "expr": "7850*pi*(D*1e-3)^2*(1 - x^2)/4",
+        "color": "compress",
+        "dashed": false,
         "when": ""
        }
       ],
@@ -16387,7 +16408,7 @@
        }
       ],
       "x_label": "ichki/tashqi diametr nisbati d/D",
-      "y_label": "nisbat",
+      "y_label": "W_p, sm³  /  massa, kg",
       "x_min": "0",
       "x_max": "0.9",
       "options": {},
@@ -16688,6 +16709,13 @@
        }
       ],
       "readouts": [
+       {
+        "label": "T_A (a = 0,5 m)",
+        "expr": "T*(L - 0.5)/L",
+        "unit": "N·m",
+        "color": "rule",
+        "text": ""
+       },
        {
         "label": "T_A (o'rtada)",
         "expr": "T/2",
@@ -17918,15 +17946,6 @@
       "caption": "Qisqa balkada τ normal kuchlanish bilan raqobatlashadi.",
       "params": [
        {
-        "key": "q",
-        "label": "Tarqalgan yuk",
-        "minimum": 1,
-        "maximum": 60,
-        "default": 10,
-        "step": 1,
-        "unit": "kN/m"
-       },
-       {
         "key": "h",
         "label": "Balandlik",
         "minimum": 10,
@@ -17980,7 +17999,7 @@
       "x_min": "0.2",
       "x_max": "10",
       "options": {},
-      "note": "L/h < 5 bo'lganda urinma kuchlanishni tekshirish shart — yog'och va yupqa devorli balkalarda ayniqsa."
+      "note": "Nisbat 4L/h ga teng va YUKKA umuman bog'liq emas — q surat va maxrajda qisqaradi. L/h < 5 bo'lganda urinma kuchlanishni tekshirish shart: yog'och va yupqa devorli balkalarda ayniqsa."
      }
     ]
    },
@@ -18324,15 +18343,6 @@
       "caption": "Tarqalgan yuk ostida o'q to'rtinchi darajali egri chiziq bo'ladi.",
       "params": [
        {
-        "key": "L",
-        "label": "Oraliq",
-        "minimum": 1,
-        "maximum": 12,
-        "default": 6,
-        "step": 0.5,
-        "unit": "m"
-       },
-       {
         "key": "fm",
         "label": "O'rtadagi salqilik",
         "minimum": 1,
@@ -18340,6 +18350,15 @@
         "default": 20,
         "step": 1,
         "unit": "mm"
+       },
+       {
+        "key": "L",
+        "label": "Oraliq",
+        "minimum": 1,
+        "maximum": 12,
+        "default": 6,
+        "step": 0.5,
+        "unit": "m"
        }
       ],
       "curves": [
@@ -18359,6 +18378,13 @@
        }
       ],
       "readouts": [
+       {
+        "label": "Egrilik radiusi o'rtada",
+        "expr": "L^2/(9.6*fm*1e-3)",
+        "unit": "m",
+        "color": "rule",
+        "text": ""
+       },
        {
         "label": "w o'rtada",
         "expr": "fm",
@@ -19429,6 +19455,13 @@
         "expr": "0.35*x^1.5",
         "color": "tension",
         "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Joriy A dagi dvutavr",
+        "expr": "0.35*A^1.5",
+        "color": "rule",
+        "dashed": true,
         "when": ""
        }
       ],
@@ -23787,6 +23820,13 @@
         "unit": "%",
         "color": "mark",
         "text": ""
+       },
+       {
+        "label": "σ teshikdan 1 mm narida",
+        "expr": "s0*(1 + a^2/(2*(a + 1)^2) + 3*a^4/(2*(a + 1)^4))",
+        "unit": "MPa",
+        "color": "rule",
+        "text": ""
        }
       ],
       "x_label": "markazdan masofa r, mm",
@@ -23794,7 +23834,7 @@
       "x_min": "a",
       "x_max": "5*a",
       "options": {},
-      "note": "Konsentratsiya juda tez so'nadi: 3 radius masofada qo'shimcha kuchlanish 7% dan kam qoladi."
+      "note": "Konsentratsiya tez so'nadi: uch radius masofada qo'shimcha kuchlanish 7,4% ga tushadi. Teshik qanchalik KATTA bo'lsa, undan 1 mm narida kuchlanish shunchalik yuqori qoladi — shuning uchun katta teshiklar xavfliroq."
      },
      {
       "kind": "plot",
@@ -23802,20 +23842,20 @@
       "caption": "O'tkir burchak — charchash darzining boshlanish joyi.",
       "params": [
        {
-        "key": "D",
-        "label": "Katta diametr",
-        "minimum": 20,
-        "maximum": 120,
-        "default": 50,
-        "step": 1,
-        "unit": "mm"
-       },
-       {
         "key": "d",
         "label": "Kichik diametr",
         "minimum": 10,
         "maximum": 100,
         "default": 40,
+        "step": 1,
+        "unit": "mm"
+       },
+       {
+        "key": "D",
+        "label": "Katta diametr",
+        "minimum": 20,
+        "maximum": 120,
+        "default": 50,
         "step": 1,
         "unit": "mm"
        }
@@ -23837,6 +23877,13 @@
        }
       ],
       "readouts": [
+       {
+        "label": "D/d nisbati",
+        "expr": "D/d",
+        "unit": "",
+        "color": "rule",
+        "text": ""
+       },
        {
         "label": "K_t (r=1 mm)",
         "expr": "1 + 0.8*sqrt(d/2)",
@@ -28452,6 +28499,13 @@
         "color": "compress",
         "dashed": false,
         "when": ""
+       },
+       {
+        "label": "Joriy o'lchamdagi simmetrik son",
+        "expr": "n*(n + 1)/2",
+        "color": "mark",
+        "dashed": true,
+        "when": ""
        }
       ],
       "readouts": [
@@ -29146,6 +29200,13 @@
         "label": "Izotrop (2 ta)",
         "expr": "2",
         "color": "rule",
+        "dashed": true,
+        "when": ""
+       },
+       {
+        "label": "Joriy sinf",
+        "expr": "21 - 8*(cls - 1) + 0.5*(cls - 1)*(cls - 2)",
+        "color": "mark",
         "dashed": true,
         "when": ""
        }
@@ -31070,6 +31131,13 @@
         "color": "compress",
         "dashed": false,
         "when": ""
+       },
+       {
+        "label": "Joriy tomon: kvadrat",
+        "expr": "T/(0.208*(a*1e-3)^3)/1e6",
+        "color": "mark",
+        "dashed": true,
+        "when": ""
        }
       ],
       "readouts": [
@@ -31139,6 +31207,13 @@
         "expr": "2*pi*R*1e-3*(x*1e-3)^3/3*1e12",
         "color": "compress",
         "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Joriy qalinlik: yopiq",
+        "expr": "2*pi*(R*1e-3)^3*t*1e-3*1e12",
+        "color": "mark",
+        "dashed": true,
         "when": ""
        }
       ],
@@ -34095,21 +34170,21 @@
       "caption": "GM musbat bo'lsa kema o'zini tiklaydi.",
       "params": [
        {
-        "key": "B",
-        "label": "Kema kengligi",
-        "minimum": 2,
-        "maximum": 40,
-        "default": 10,
-        "step": 0.5,
-        "unit": "m"
-       },
-       {
         "key": "d",
         "label": "Cho'kish chuqurligi",
         "minimum": 0.5,
         "maximum": 15,
         "default": 3,
         "step": 0.1,
+        "unit": "m"
+       },
+       {
+        "key": "B",
+        "label": "Kema kengligi",
+        "minimum": 2,
+        "maximum": 40,
+        "default": 10,
+        "step": 0.5,
         "unit": "m"
        },
        {
@@ -36266,15 +36341,6 @@
       "caption": "Turbulent aralashish molekulyar yopishqoqlikdan minglab barobar kuchli.",
       "params": [
        {
-        "key": "nu",
-        "label": "Molekulyar ν",
-        "minimum": 1e-07,
-        "maximum": 0.0001,
-        "default": 1e-06,
-        "step": 1e-07,
-        "unit": "m²/s"
-       },
-       {
         "key": "u1",
         "label": "Tebranish tezligi u'",
         "minimum": 0.001,
@@ -36282,6 +36348,15 @@
         "default": 0.1,
         "step": 0.001,
         "unit": "m/s"
+       },
+       {
+        "key": "nu",
+        "label": "Molekulyar ν",
+        "minimum": 1e-07,
+        "maximum": 0.0001,
+        "default": 1e-06,
+        "step": 1e-07,
+        "unit": "m²/s"
        }
       ],
       "curves": [
@@ -36356,15 +36431,15 @@
       ],
       "curves": [
        {
-        "label": "u⁺ = 2,5 ln y⁺ + 5,5",
-        "expr": "2.5*log(10^x) + 5.5",
+        "label": "Logarifmik soha u = u*(2,5 ln y⁺ + 5,5), m/s",
+        "expr": "ut*(2.5*log(10^x*1e-3*ut/nu) + 5.5)",
         "color": "tension",
         "dashed": false,
         "when": ""
        },
        {
-        "label": "Yopishqoq qatlam u⁺ = y⁺",
-        "expr": "10^x",
+        "label": "Yopishqoq osti qatlam u = u*y⁺",
+        "expr": "ut*(10^x*1e-3*ut/nu)",
         "color": "compress",
         "dashed": true,
         "when": ""
@@ -36393,10 +36468,10 @@
         "text": ""
        }
       ],
-      "x_label": "lg y⁺",
-      "y_label": "u⁺ = u/u*",
-      "x_min": "0.3",
-      "x_max": "3.5",
+      "x_label": "lg(devordan masofa y, mm)",
+      "y_label": "tezlik u, m/s",
+      "x_min": "-2",
+      "x_max": "1.5",
       "options": {},
       "note": "y⁺ < 5 yopishqoq osti qatlam, y⁺ > 30 logarifmik soha — turbulentlik modellari aynan shu bo'linishga tayanadi."
      }
@@ -40816,15 +40891,15 @@
       ],
       "curves": [
        {
-        "label": "Nisbiy xato ≈ 11,2/N², %",
-        "expr": "11.2/x^2",
+        "label": "Ayirmalar bahosi w_max, mm",
+        "expr": "0.0040624*q*1000*a^4/D*1000*(1 - 11.2/(100*x^2))",
         "color": "tension",
         "dashed": false,
         "when": ""
        },
        {
-        "label": "1% chegara",
-        "expr": "1",
+        "label": "Aniq 0,0040624qa⁴/D",
+        "expr": "0.0040624*q*1000*a^4/D*1000",
         "color": "rule",
         "dashed": true,
         "when": ""
@@ -40861,7 +40936,7 @@
        }
       ],
       "x_label": "bo'linishlar soni N",
-      "y_label": "xato, %",
+      "y_label": "w_max, mm",
       "x_min": "2",
       "x_max": "40",
       "options": {},
@@ -40895,6 +40970,13 @@
         "expr": "-8/x^4",
         "color": "compress",
         "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Joriy qadamdagi markaz",
+        "expr": "20/h^4",
+        "color": "mark",
+        "dashed": true,
         "when": ""
        }
       ],
@@ -41920,6 +42002,13 @@
         "color": "rule",
         "dashed": true,
         "when": ""
+       },
+       {
+        "label": "Joriy gofr balandligi",
+        "expr": "E*1e9*t*1e-3*(H*1e-3)^2/2",
+        "color": "mark",
+        "dashed": true,
+        "when": ""
        }
       ],
       "readouts": [
@@ -42748,15 +42837,6 @@
       "caption": "Kichik teshik ham kuchlanishni sezilarli oshiradi.",
       "params": [
        {
-        "key": "q",
-        "label": "Yuk",
-        "minimum": 0.1,
-        "maximum": 100,
-        "default": 10,
-        "step": 0.1,
-        "unit": "kPa"
-       },
-       {
         "key": "a",
         "label": "Tashqi radius",
         "minimum": 0.1,
@@ -42764,6 +42844,15 @@
         "default": 0.5,
         "step": 0.05,
         "unit": "m"
+       },
+       {
+        "key": "q",
+        "label": "Yuk",
+        "minimum": 0.1,
+        "maximum": 100,
+        "default": 10,
+        "step": 0.1,
+        "unit": "kPa"
        },
        {
         "key": "D",
@@ -42777,15 +42866,15 @@
       ],
       "curves": [
        {
-        "label": "Halqa maydoni ulushi",
-        "expr": "1 - x^2",
+        "label": "Halqa yuzasi, sm²",
+        "expr": "pi*a^2*(1 - x^2)*1e4",
         "color": "tension",
         "dashed": false,
         "when": ""
        },
        {
-        "label": "To'la disk",
-        "expr": "1",
+        "label": "To'la disk yuzasi",
+        "expr": "pi*a^2*1e4",
         "color": "rule",
         "dashed": true,
         "when": ""
@@ -42815,7 +42904,7 @@
        }
       ],
       "x_label": "b/a (teshik nisbati)",
-      "y_label": "yuza ulushi",
+      "y_label": "yuza, sm²",
       "x_min": "0",
       "x_max": "0.9",
       "options": {},
@@ -44683,7 +44772,7 @@
       "curves": [
        {
         "label": "q_chiziqsiz/q_chiziqli",
-        "expr": "1 + 0.488*x^2",
+        "expr": "1 + 0.488*(x/h)^2",
         "color": "tension",
         "dashed": false,
         "when": ""
@@ -44719,10 +44808,10 @@
         "text": ""
        }
       ],
-      "x_label": "w/h nisbati",
+      "x_label": "og'ish w, mm",
       "y_label": "kerakli yuk nisbati",
       "x_min": "0",
-      "x_max": "3",
+      "x_max": "20",
       "options": {},
       "note": "Qistirilgan doiraviy plastina uchun qa⁴/(Eh⁴) = 5,86(w/h) + 2,86(w/h)³; demak w = h da chiziqli nazariya bashoratidan 48,8% ko'proq yuk kerak bo'ladi."
      },
@@ -44744,14 +44833,14 @@
       "curves": [
        {
         "label": "Membrana ulushi, %",
-        "expr": "100*0.488*x^2/(1 + 0.488*x^2)",
+        "expr": "100*0.488*(x/h)^2/(1 + 0.488*(x/h)^2)",
         "color": "tension",
         "dashed": false,
         "when": ""
        },
        {
         "label": "Egish ulushi, %",
-        "expr": "100/(1 + 0.488*x^2)",
+        "expr": "100/(1 + 0.488*(x/h)^2)",
         "color": "compress",
         "dashed": false,
         "when": ""
@@ -44787,10 +44876,10 @@
         "text": ""
        }
       ],
-      "x_label": "w/h",
+      "x_label": "og'ish w, mm",
       "y_label": "ulush, %",
       "x_min": "0",
-      "x_max": "4",
+      "x_max": "20",
       "options": {},
       "note": "w/h = 1,43 da membrana va egish teng ulush beradi; undan keyin plastina 'membrana'dek ishlaydi."
      }
@@ -45149,15 +45238,15 @@
       ],
       "curves": [
        {
-        "label": "w/w₀ = 1/(1 − N/N_kr)",
-        "expr": "1/(1 - x)",
+        "label": "w = w₀/(1 − N/N_kr), mm",
+        "expr": "0.0040624*q*1000*a^4/D*1000/(1 - x)",
         "color": "tension",
         "dashed": false,
         "when": ""
        },
        {
-        "label": "Yuksiz daraja",
-        "expr": "1",
+        "label": "Sirt ichidagi kuchsiz w₀",
+        "expr": "0.0040624*q*1000*a^4/D*1000",
         "color": "rule",
         "dashed": true,
         "when": ""
@@ -45187,7 +45276,7 @@
        }
       ],
       "x_label": "N/N_kr nisbati",
-      "y_label": "og'ish kuchayishi",
+      "y_label": "og'ish w, mm",
       "x_min": "-1",
       "x_max": "0.9",
       "options": {},
@@ -46066,22 +46155,22 @@
       ],
       "curves": [
        {
-        "label": "k_s = 5,34 + 4/α²",
-        "expr": "5.34 + 4/x^2",
+        "label": "τ_kr = k_sπ²E(h/b)²/(12(1−ν²)), MPa",
+        "expr": "(5.34 + 4/x^2)*pi^2*E*1e9/(12*0.91)*(h*1e-3/b)^2/1e6",
         "color": "tension",
         "dashed": false,
         "when": ""
        },
        {
-        "label": "Uzun plastina chegarasi 5,34",
-        "expr": "5.34",
+        "label": "Uzun plastina (k=5,34)",
+        "expr": "5.34*pi^2*E*1e9/(12*0.91)*(h*1e-3/b)^2/1e6",
         "color": "rule",
         "dashed": true,
         "when": ""
        },
        {
-        "label": "Siqilish k = 4",
-        "expr": "4",
+        "label": "Siqilish (k=4)",
+        "expr": "4*pi^2*E*1e9/(12*0.91)*(h*1e-3/b)^2/1e6",
         "color": "compress",
         "dashed": true,
         "when": ""
@@ -46111,7 +46200,7 @@
        }
       ],
       "x_label": "α = a/b",
-      "y_label": "ustuvorlik koeffitsienti k",
+      "y_label": "kritik kuchlanish, MPa",
       "x_min": "1",
       "x_max": "5",
       "options": {},
@@ -47101,17 +47190,17 @@
        {
         "key": "T",
         "label": "Xususiy davr",
-        "minimum": 0.001,
-        "maximum": 1,
-        "default": 0.02,
-        "step": 0.001,
+        "minimum": 0.005,
+        "maximum": 0.4,
+        "default": 0.05,
+        "step": 0.005,
         "unit": "s"
        }
       ],
       "curves": [
        {
         "label": "D = 2sin(π·t_d/T), t_d/T ≤ 0,5",
-        "expr": "2*sin(pi*min(x, 0.5))",
+        "expr": "2*sin(pi*min(x*1e-3/T, 0.5))",
         "color": "tension",
         "dashed": false,
         "when": ""
@@ -47161,10 +47250,10 @@
         "text": ""
        }
       ],
-      "x_label": "t_d/T nisbati",
+      "x_label": "impuls davomiyligi t_d, ms",
       "y_label": "dinamiklik koeffitsienti D",
       "x_min": "0",
-      "x_max": "2",
+      "x_max": "200",
       "options": {},
       "note": "Demflashsiz tizim uchun aniq natija: t_d ≥ T/2 bo'lganda D har doim 2 ga teng, qisqa impulsda esa D = 2sin(πt_d/T) — masalan t_d/T = 0,1 da atigi 0,618."
      }
@@ -49988,15 +50077,15 @@
       ],
       "curves": [
        {
-        "label": "γ = 1 − 0,901(1 − e^{−φ}), φ = √(R/t)/16",
-        "expr": "1 - 0.901*(1 - exp(-sqrt(x)/16))",
+        "label": "Loyihaviy σ = γσ_kl, MPa",
+        "expr": "scl*(1 - 0.901*(1 - exp(-sqrt(x)/16)))",
         "color": "tension",
         "dashed": false,
         "when": ""
        },
        {
-        "label": "Nuqsonsiz nazariya γ = 1",
-        "expr": "1",
+        "label": "Nuqsonsiz nazariya σ_kl",
+        "expr": "scl",
         "color": "rule",
         "dashed": true,
         "when": ""
@@ -50033,7 +50122,7 @@
        }
       ],
       "x_label": "R/t nisbati",
-      "y_label": "pasaytirish koeffitsienti γ",
+      "y_label": "kritik kuchlanish, MPa",
       "x_min": "50",
       "x_max": "2000",
       "options": {},
@@ -50434,6 +50523,13 @@
         "color": "rule",
         "dashed": true,
         "when": ""
+       },
+       {
+        "label": "Joriy radius",
+        "expr": "sqrt(E*1e9/rho)/(2*pi*R)",
+        "color": "mark",
+        "dashed": true,
+        "when": ""
        }
       ],
       "readouts": [
@@ -50516,6 +50612,13 @@
        }
       ],
       "readouts": [
+       {
+        "label": "Chekka effekti uzunligi 1/β",
+        "expr": "sqrt(R*h*1e-3)/(3*(1 - nu^2))^0.25",
+        "unit": "m",
+        "color": "rule",
+        "text": ""
+       },
        {
         "label": "Teng hissa λ",
         "expr": "sqrt(h*1e-3*R*sqrt(12))",
@@ -50865,7 +50968,151 @@
      "title": "Diskretlashtirish va xatolik byudjeti",
      "summary": "Uzluksiz balka egri chizig'i tugunlarga bo'linadi va bo'laklar soni oshgani sari sonli yechim aniq yechimga yopishadi. Keyin log–log grafikda uchta xatolik chizig'i quriladi: pasayuvchi, ko'tariluvchi va gorizontal; ularning yig'indisidagi minimum ajratib ko'rsatiladi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Analitik va sonli yechim: qaysi biri qachon",
+      "caption": "Masala murakkablashgani sari analitik yechim imkoniyati tugaydi.",
+      "params": [
+       {
+        "key": "n",
+        "label": "Erkinlik darajalari",
+        "minimum": 1,
+        "maximum": 6,
+        "default": 4,
+        "step": 1,
+        "unit": "lg N"
+       }
+      ],
+      "curves": [
+       {
+        "label": "To'g'ri yechish ~ N³/3",
+        "expr": "3*x - log(3)/log(10)",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Iterativ ~ 50N",
+        "expr": "x + log(50)/log(10)",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "1 sekundlik hisob (10⁹ amal)",
+        "expr": "9",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       },
+       {
+        "label": "Joriy N: to'g'ri yechish",
+        "expr": "3*n - log(3)/log(10)",
+        "color": "mark",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "N=10⁴ to'g'ri",
+        "expr": "1e12/3",
+        "unit": "amal",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "N=10⁴ iterativ",
+        "expr": "50*1e4",
+        "unit": "amal",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Tejash",
+        "expr": "1e12/3/(50*1e4)",
+        "unit": "marta",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "lg N",
+      "y_label": "lg(amallar soni)",
+      "x_min": "1",
+      "x_max": "7",
+      "options": {},
+      "note": "10⁴ noma'lumda to'g'ri yechish iterativdan ~667 ming marta qimmat — shuning uchun katta masalalarda iteratsiya."
+     },
+     {
+      "kind": "plot",
+      "title": "Modelning aniqligi va hisob narxi",
+      "caption": "To'rni maydalash xatoni kamaytiradi, lekin narxni oshiradi.",
+      "params": [
+       {
+        "key": "p",
+        "label": "Yaqinlashish tartibi",
+        "minimum": 1,
+        "maximum": 4,
+        "default": 2,
+        "step": 1,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "Xato ~ h^p, %",
+        "expr": "100*(1/x)^p",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Hisob vaqti ~ N² (2D)",
+        "expr": "x^2/100",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "1% chegara",
+        "expr": "1",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "N=10 xato (p=2)",
+        "expr": "100/100",
+        "unit": "%",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "N=100 xato (p=2)",
+        "expr": "100/10000",
+        "unit": "%",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Vaqt oshishi",
+        "expr": "100",
+        "unit": "marta",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "to'r bo'linishlari N",
+      "y_label": "xato, %  /  nisbiy vaqt",
+      "x_min": "2",
+      "x_max": "100",
+      "options": {},
+      "note": "Ikkinchi tartibli usulda to'rni 10 marta maydalash xatoni 100 marta kamaytiradi, vaqtni esa 100 marta oshiradi."
+     }
+    ]
    },
    "difficulty": "kirish",
    "previous_link": "pq-10 da plastina masalasi chekli ayirmalar bilan yechilgan va yaqinlashish tartibi 2,02 deb o'lchangan edi; pq-09 da Ritz va Galerkin usullari ishlatildi. Bular sonli usullarning birinchi uchrashuvi edi — endi ularni tizimli va qat'iy asosda quramiz.",
@@ -51157,7 +51404,144 @@
      "title": "Katastrofik qisqarish",
      "summary": "Ikkita yaqin son raqamma-raqam ko'rsatiladi; bir xil raqamlar so'niydi va ayirma olingach faqat bir nechta ishonchli raqam qolgani ko'rinadi. Keyin ko'paytuvchi shakl qo'llanadi va barcha raqamlar saqlanib qolishi namoyish etiladi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Mashina epsiloni va suzuvchi nuqta aniqligi",
+      "caption": "Bitlar soni ifodalanadigan raqamlar sonini belgilaydi.",
+      "params": [
+       {
+        "key": "b",
+        "label": "Mantissa bitlari",
+        "minimum": 10,
+        "maximum": 60,
+        "default": 52,
+        "step": 1,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "ε = 2^(−t)",
+        "expr": "2^(-x)",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "double: 2⁻⁵²",
+        "expr": "2^(-52)",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       },
+       {
+        "label": "Joriy mantissa",
+        "expr": "2^(-b)",
+        "color": "mark",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "ε (double, t=52)",
+        "expr": "2^(-52)",
+        "unit": "",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "O'nlik raqamlar (t+1 bit)",
+        "expr": "(b + 1)*log(2)/log(10)",
+        "unit": "ta",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "ε (float, t=23)",
+        "expr": "2^(-23)",
+        "unit": "",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "mantissa bitlari t",
+      "y_label": "mashina epsiloni",
+      "x_min": "10",
+      "x_max": "60",
+      "options": {},
+      "note": "Yashirin bitni ham hisoblaganda double 53·lg2 = 15,95 o'nlik raqam beradi; float esa atigi 7,22 — muhandislik hisoblarida double standart."
+     },
+     {
+      "kind": "plot",
+      "title": "Yaqin sonlarni ayirish: aniqlik yo'qolishi",
+      "caption": "Bir-biriga yaqin sonlarni ayirish muhim raqamlarni yo'q qiladi.",
+      "params": [
+       {
+        "key": "d",
+        "label": "Arifmetika aniqligi",
+        "minimum": 7,
+        "maximum": 17,
+        "default": 16,
+        "step": 1,
+        "unit": "o'nlik raqam"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Qolgan aniq raqamlar",
+        "expr": "d + log(x)/log(10)",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Hech narsa qolmadi",
+        "expr": "0",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       },
+       {
+        "label": "Boshlang'ich aniqlik",
+        "expr": "d",
+        "color": "compress",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Ayirma 10⁻⁸ da qolgan",
+        "expr": "d - 8",
+        "unit": "raqam",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Ayirma 10⁻¹² da qolgan",
+        "expr": "d - 12",
+        "unit": "raqam",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Hammasi yo'qoladigan ayirma",
+        "expr": "10^(0-d)",
+        "unit": "",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "nisbiy ayirma |a−b|/a",
+      "y_label": "qolgan raqamlar",
+      "x_min": "1e-16",
+      "x_max": "1",
+      "options": {},
+      "note": "Kvadrat tenglamada b² ≫ 4ac bo'lsa bir ildiz aynan shunday yo'qoladi — formula qayta yoziladi."
+     }
+    ]
    },
    "difficulty": "asosiy",
    "previous_link": "su-01 da yaxlitlash xatoligi to'r zichlashgani sari **ortishi** ko'rsatildi va optimal to'r shundan kelib chiqdi. Endi bu xatolikning manbasiga tushamiz: kompyuter haqiqiy sonlarni qanday saqlaydi.",
@@ -51455,7 +51839,144 @@
      "title": "Kesish va yaxlitlash xatoliklarining raqobati",
      "summary": "Qadam kamaygani sari sonli hosila aniq qiymatga yaqinlashadi, keyin esa kutilmaganda undan uzoqlashib ketadi. Log–log grafikda ikkita tarmoq va ularning kesishuvidagi minimum quriladi; oxirida kompleks qadam usuli qo'shilib, uning chizig'i V shakliga ega emasligi ko'rsatiladi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Ayirma sxemalarining aniqligi",
+      "caption": "Tartib oshgani sari xato tezroq kamayadi.",
+      "params": [
+       {
+        "key": "C",
+        "label": "Xato koeffitsienti",
+        "minimum": 0.1,
+        "maximum": 10,
+        "default": 1,
+        "step": 0.1,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "Birinchi tartib O(h)",
+        "expr": "C*x",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Ikkinchi tartib O(h²)",
+        "expr": "C*x^2",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "To'rtinchi tartib O(h⁴)",
+        "expr": "C*x^4",
+        "color": "mark",
+        "dashed": false,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "h=0,1 birinchi tartib",
+        "expr": "C*0.1",
+        "unit": "",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "h=0,1 ikkinchi tartib",
+        "expr": "C*0.01",
+        "unit": "",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "h=0,1 to'rtinchi tartib",
+        "expr": "C*1e-4",
+        "unit": "",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "qadam h",
+      "y_label": "kesish xatosi",
+      "x_min": "0.001",
+      "x_max": "0.5",
+      "options": {},
+      "note": "Bir xil qadamda to'rtinchi tartibli sxema birinchisidan 1000 marta aniqroq."
+     },
+     {
+      "kind": "plot",
+      "title": "Optimal qadam: kesish va yaxlitlash xatolari",
+      "caption": "Qadamni cheksiz kichraytirib bo'lmaydi.",
+      "params": [
+       {
+        "key": "eps",
+        "label": "Mashina epsiloni",
+        "minimum": 1e-16,
+        "maximum": 1e-06,
+        "default": 2.2e-16,
+        "step": 1e-17,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "Kesish xatosi ~ h/2",
+        "expr": "x/2",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Yaxlitlash xatosi ~ 2ε/h",
+        "expr": "2*eps/x",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Jami xato",
+        "expr": "x/2 + 2*eps/x",
+        "color": "mark",
+        "dashed": false,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Optimal h",
+        "expr": "2*sqrt(eps)",
+        "unit": "",
+        "color": "mark",
+        "text": ""
+       },
+       {
+        "label": "Minimal xato",
+        "expr": "2*sqrt(eps)",
+        "unit": "",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Markaziy sxema uchun h_opt",
+        "expr": "eps^(1/3)",
+        "unit": "",
+        "color": "compress",
+        "text": ""
+       }
+      ],
+      "x_label": "qadam h",
+      "y_label": "xato",
+      "x_min": "1e-12",
+      "x_max": "1e-2",
+      "options": {},
+      "note": "Oldinga ayirma uchun h_opt ≈ 2√ε ≈ 3·10⁻⁸, markaziy uchun esa ε^(1/3) ≈ 6·10⁻⁶."
+     }
+    ]
    },
    "difficulty": "asosiy",
    "previous_link": "su-02 da yaxlitlash xatoligi va katastrofik qisqarish o'rganildi. Sonli hosilada aynan shu ikkisi uchrashadi: surat $f(x+h)-f(x)$ qisqarish beradi, maxraj $h$ esa uni yanada kuchaytiradi.",
@@ -51785,7 +52306,137 @@
      "title": "Shartlanganlik va deyarli parallel chiziqlar",
      "summary": "Ikkita tenglama tekislikda chiziq sifatida chiziladi; ularning burchagi kamaygani sari kesishuv nuqtasining noaniqlik sohasi cho'zilgan ellipsga aylanadi va keskin kattalashadi. Keyin deyarli yassi ferma ko'rsatiladi va ko'tarilish kamaygani sari sterjen kuchi hamda kappa birga o'sishi namoyish etiladi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Shartlanganlik soni va yo'qoladigan raqamlar",
+      "caption": "Yomon shartlangan tizimda javobning raqamlari yo'qoladi.",
+      "params": [
+       {
+        "key": "d",
+        "label": "Kirish aniqligi",
+        "minimum": 8,
+        "maximum": 16,
+        "default": 16,
+        "step": 1,
+        "unit": "raqam"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Qolgan aniq raqamlar",
+        "expr": "d - x",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Nol aniqlik",
+        "expr": "0",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "κ=10³ da qolgan",
+        "expr": "d - 3",
+        "unit": "raqam",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "κ=10⁸ da qolgan",
+        "expr": "d - 8",
+        "unit": "raqam",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "To'liq yo'qolish κ",
+        "expr": "10^d",
+        "unit": "",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "lg(shartlanganlik soni κ)",
+      "y_label": "aniq raqamlar",
+      "x_min": "0",
+      "x_max": "16",
+      "options": {},
+      "note": "Qoida: κ = 10^k bo'lsa javobning k ta raqami yo'qoladi — κ > 10¹⁶ da double umuman yordam bermaydi."
+     },
+     {
+      "kind": "plot",
+      "title": "Hilbert matritsasi: shartlanganlikning portlashi",
+      "caption": "Kichik matritsa ham halokatli yomon shartlangan bo'lishi mumkin.",
+      "params": [
+       {
+        "key": "n0",
+        "label": "Tanlangan tartib",
+        "minimum": 2,
+        "maximum": 12,
+        "default": 6,
+        "step": 1,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "lg κ(H_n) ≈ 1,493n − 1,758",
+        "expr": "1.493*x - 1.758",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "double chegarasi lg κ = 16",
+        "expr": "16",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       },
+       {
+        "label": "Joriy tartib n",
+        "expr": "1.493*n0 - 1.758",
+        "color": "mark",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "κ (n=6)",
+        "expr": "10^(1.493*6 - 1.758)",
+        "unit": "",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "κ (n=10)",
+        "expr": "10^(1.493*10 - 1.758)",
+        "unit": "",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Foydasiz bo'ladigan n",
+        "expr": "(16 + 1.758)/1.493",
+        "unit": "",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "matritsa tartibi n",
+      "y_label": "lg κ",
+      "x_min": "2",
+      "x_max": "14",
+      "options": {},
+      "note": "Hisoblangan aniq qiymatlar: n=6 da lg κ = 7,17, n=10 da 13,20, n=12 da 16,22 — ya'ni n ≈ 12 dan boshlab double arifmetikada birorta ham aniq raqam qolmaydi."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "su-02 da ayirmadagi xatolikning kuchayish koeffitsienti $(|x|+|y|)/|x-y|$ chiqarilgan edi. U aslida bitta amalning shartlanganlik soni edi. Endi bu tushunchani butun chiziqli tizimga umumlashtiramiz.",
@@ -52083,7 +52734,137 @@
      "title": "Lenta, to'ldirilish va qayta raqamlash",
      "summary": "Matritsaning siyraklik naqshi ko'rsatiladi va Cholesky yoyilmasi qadam-baqadam bajariladi; to'ldirilish boshqa rangda paydo bo'ladi va u lenta ichida qolishi ko'rinadi. Keyin tugunlar tasodifiy qayta raqamlanadi va xuddi shu yoyilma butun uchburchakni to'ldirib yuborishi namoyish etiladi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "LU, Cholesky va lentali yechish narxi",
+      "caption": "Matritsa tuzilishini hisobga olish narxni keskin kamaytiradi.",
+      "params": [
+       {
+        "key": "bw",
+        "label": "Lenta kengligi",
+        "minimum": 1,
+        "maximum": 200,
+        "default": 20,
+        "step": 1,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "To'la LU / lentali = N²/(3b²)",
+        "expr": "x^2/(3*bw^2)",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Cholesky / lentali = N²/(6b²)",
+        "expr": "x^2/(6*bw^2)",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Teng narx",
+        "expr": "1",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "N=1000 to'la LU",
+        "expr": "1e9/3",
+        "unit": "amal",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "N=1000 Cholesky",
+        "expr": "1e9/6",
+        "unit": "amal",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "N=1000 lentali (b=20)",
+        "expr": "1000*400",
+        "unit": "amal",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "tizim tartibi N",
+      "y_label": "lentali yechishga nisbatan yutuq",
+      "x_min": "10",
+      "x_max": "5000",
+      "options": {},
+      "note": "N=1000, b=20 da lentali yechish to'la LU dan 833 marta arzon — chekli elementlarda aynan shu ishlatiladi."
+     },
+     {
+      "kind": "plot",
+      "title": "Xotira talabi: to'la va siyrak saqlash",
+      "caption": "Siyrak saqlash katta masalalarni umuman mumkin qiladi.",
+      "params": [
+       {
+        "key": "nnz",
+        "label": "Qatordagi nolmas elementlar",
+        "minimum": 3,
+        "maximum": 100,
+        "default": 27,
+        "step": 1,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "To'la / siyrak = 2N/(3·nnz)",
+        "expr": "2*x/(3*nnz)",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Teng xotira",
+        "expr": "1",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "N=10⁵ to'la",
+        "expr": "8*1e10/1e9",
+        "unit": "GB",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "N=10⁵ siyrak",
+        "expr": "12*nnz*1e5/1e9",
+        "unit": "GB",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "16 GB da mumkin N (siyrak)",
+        "expr": "16e9/(12*nnz)",
+        "unit": "ta",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "noma'lumlar soni N",
+      "y_label": "to'la saqlash necha marta qimmat",
+      "x_min": "1000",
+      "x_max": "1000000",
+      "options": {},
+      "note": "10⁵ noma'lumli 3D masalada to'la matritsa 80 GB, siyrak esa atigi 32 MB joy oladi."
+     }
+    ]
    },
    "difficulty": "asosiy",
    "previous_link": "su-04 da bikrlik matritsasining shartlanganligi o'rganildi va u yechimning aniqligini belgilashi ko'rsatildi. Endi shu tizimni **qanday** yechishga o'tamiz va mexanik matritsalarning maxsus tuzilishidan foydalanamiz.",
@@ -52395,7 +53176,137 @@
      "title": "Iterativ yechuvchilarning yaqinlashishi",
      "summary": "Boshlang'ich taxmindan boshlab yechim qadam-baqadam aniqlashadi; xatolikning yuqori va past chastotali tarkibiy qismlari turli tezlikda so'nishi ko'rsatiladi. Keyin to'rtta usulning qoldiq tarixi bir grafikda taqqoslanadi va konjugat gradiyentning pog'onasimon xatti-harakati ajratib ko'rsatiladi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Iterativ usullarning yaqinlashish tezligi",
+      "caption": "Gauss–Zeydel Yakobidan ikki barobar tez.",
+      "params": [
+       {
+        "key": "rho",
+        "label": "Yakobi spektral radiusi",
+        "minimum": 0.5,
+        "maximum": 0.999,
+        "default": 0.9,
+        "step": 0.001,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "Yakobi xatosi ρ^k",
+        "expr": "rho^x",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Gauss–Zeydel ρ²^k",
+        "expr": "(rho^2)^x",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "10⁻⁶ chegara",
+        "expr": "1e-6",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Yakobi: 10⁻⁶ uchun k",
+        "expr": "log(1e-6)/log(rho)",
+        "unit": "iteratsiya",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Gauss–Zeydel: k",
+        "expr": "log(1e-6)/log(rho^2)",
+        "unit": "iteratsiya",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Tezlashtirish",
+        "expr": "2",
+        "unit": "marta",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "iteratsiya soni k",
+      "y_label": "nisbiy xato",
+      "x_min": "0",
+      "x_max": "300",
+      "options": {},
+      "note": "ρ birga yaqinlashganda ikkala usul ham sekinlashadi — shuning uchun ko'p to'rli (multigrid) usullar kerak."
+     },
+     {
+      "kind": "plot",
+      "title": "Konjugat gradiyent va shartlanganlik",
+      "caption": "CG iteratsiyalari κ ning kvadrat ildiziga proporsional.",
+      "params": [
+       {
+        "key": "tol",
+        "label": "Talab qilingan aniqlik",
+        "minimum": 1e-12,
+        "maximum": 0.001,
+        "default": 1e-06,
+        "step": 1e-12,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "CG: k ≈ 0,5√κ·ln(2/tol)",
+        "expr": "0.5*sqrt(x)*log(2/tol)",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Gauss–Zeydel: k ~ κ",
+        "expr": "x*log(1/tol)/2",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "CG (κ=10⁴)",
+        "expr": "0.5*100*log(2/tol)",
+        "unit": "iteratsiya",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Gauss–Zeydel (κ=10⁴)",
+        "expr": "1e4*log(1/tol)/2",
+        "unit": "iteratsiya",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Tezlashtirish",
+        "expr": "1e4*log(1/tol)/(100*log(2/tol))",
+        "unit": "marta",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "shartlanganlik soni κ",
+      "y_label": "iteratsiyalar soni",
+      "x_min": "10",
+      "x_max": "10000",
+      "options": {},
+      "note": "CG √κ ga bog'liq bo'lgani uchun yomon shartlangan tizimlarda klassik iteratsiyalardan ancha tez: κ = 10⁴ va tol = 10⁻⁶ da ~95 marta."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "su-05 da to'g'ri usullar qurildi: ular aniq yechim beradi, lekin yoyilmani saqlashni talab qiladi va to'ldirilish xotirani to'ldirib yuborishi mumkin. Endi matritsani umuman yoymaydigan muqobil yondashuvga o'tamiz.",
@@ -52711,7 +53622,130 @@
      "title": "Shablon va sxema koeffitsientlari",
      "summary": "Shablon nuqtalari to'r ustida belgilanadi va har birining Teylor yoyilmasi ustma-ust qo'yiladi; keraksiz hadlar o'zaro qisqarib yo'qolishi animatsiya bilan ko'rsatiladi. Keyin to'r notekis qilinadi va toq hadning qisqarmay qolishi hamda tartibning pasayishi namoyish etiladi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Markaziy ayirma koeffitsientlari",
+      "caption": "Aniqlanmagan koeffitsientlar usuli shablonni beradi.",
+      "params": [
+       {
+        "key": "h",
+        "label": "Qadam",
+        "minimum": 0.001,
+        "maximum": 0.5,
+        "default": 0.1,
+        "step": 0.001,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "Birinchi hosila: (f(x+h)−f(x−h))/2h",
+        "expr": "cos(x)",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Ayirma bahosi",
+        "expr": "sin(x + h)/(2*h) - sin(x - h)/(2*h)",
+        "color": "compress",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Xato koeffitsienti",
+        "expr": "h^2/6",
+        "unit": "",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Xato (x=0)",
+        "expr": "abs(1 - sin(h)/h)",
+        "unit": "",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Nisbiy xato",
+        "expr": "100*abs(1 - sin(h)/h)",
+        "unit": "%",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "x, rad",
+      "y_label": "hosila qiymati",
+      "x_min": "0",
+      "x_max": "6.283",
+      "options": {},
+      "note": "Markaziy ayirma f'(x) = f'(x) − h²f'''(x)/6 + … beradi: h = 0,1 da xato 0,167%."
+     },
+     {
+      "kind": "plot",
+      "title": "Ikkinchi hosila shabloni va xatosi",
+      "caption": "Qadam kattalashganda shablon aniq hosiladan uzoqlashadi.",
+      "params": [
+       {
+        "key": "h",
+        "label": "Qadam",
+        "minimum": 0.01,
+        "maximum": 2,
+        "default": 0.5,
+        "step": 0.01,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "Aniq f'' = −sin x",
+        "expr": "-sin(x)",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Shablon bahosi",
+        "expr": "(sin(x + h) - 2*sin(x) + sin(x - h))/h^2",
+        "color": "compress",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Xato koeffitsienti",
+        "expr": "h^2/12",
+        "unit": "",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Nisbiy xato",
+        "expr": "100*abs(1 - 2*(1 - cos(h))/h^2)",
+        "unit": "%",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Koeffitsientlar (1,−2,1)/h²",
+        "expr": "1/h^2",
+        "unit": "",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "x, rad",
+      "y_label": "ikkinchi hosila",
+      "x_min": "0",
+      "x_max": "6.283",
+      "options": {},
+      "note": "Xato h²f⁗/12 ga teng: h = 0,1 da nisbiy xato 0,0833% — birinchi hosila uchun h²/6 = 0,1667% edi, ya'ni ikki barobar kichik."
+     }
+    ]
    },
    "difficulty": "asosiy",
    "previous_link": "su-03 da markaziy va oldinga ayirma sxemalari Teylor qatoridan qo'lda chiqarildi. Endi bu jarayonni avtomatlashtiramiz: ixtiyoriy shablon uchun sxemani chiziqli tizim yechib olamiz.",
@@ -53050,7 +54084,169 @@
      "title": "Balka masalasi va soxta tugunlar",
      "summary": "Balka to'rga bo'linadi va besh nuqtali shablon tugundan tugunga siljiydi; chegaraga yetganda shablon sohadan chiqib ketishi ko'rinadi. Soxta tugunlar paydo bo'lib, chegaraviy shart orqali ichki tugunlarga bog'lanadi va mahkamlangan hamda sharnirli holatlar uchun ishora farqi ko'rsatiladi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Balka egilishini ayirmalar bilan yechish",
+      "caption": "To'r maydalangani sari yechim aniq qiymatga yaqinlashadi.",
+      "params": [
+       {
+        "key": "q",
+        "label": "Yuk",
+        "minimum": 1,
+        "maximum": 100,
+        "default": 10,
+        "step": 1,
+        "unit": "kN/m"
+       },
+       {
+        "key": "L",
+        "label": "Oraliq",
+        "minimum": 1,
+        "maximum": 12,
+        "default": 6,
+        "step": 0.5,
+        "unit": "m"
+       },
+       {
+        "key": "EI",
+        "label": "Bikrlik",
+        "minimum": 100,
+        "maximum": 50000,
+        "default": 5000,
+        "step": 100,
+        "unit": "kN·m²"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Ayirmalar bahosi, mm",
+        "expr": "5*q*L^4/(384*EI)*1000*(1 + 0.8/x^2)",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Aniq 5qL⁴/(384EI)",
+        "expr": "5*q*L^4/(384*EI)*1000",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Aniq yechim",
+        "expr": "5*q*L^4/(384*EI)*1000",
+        "unit": "mm",
+        "color": "rule",
+        "text": ""
+       },
+       {
+        "label": "N=4 baho",
+        "expr": "5*q*L^4/(384*EI)*1000*1.05",
+        "unit": "mm",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "N=16 baho",
+        "expr": "5*q*L^4/(384*EI)*1000*1.003125",
+        "unit": "mm",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "N=16 xatosi",
+        "expr": "100*0.8/256",
+        "unit": "%",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "bo'linishlar soni N",
+      "y_label": "w_max, mm",
+      "x_min": "2",
+      "x_max": "40",
+      "options": {},
+      "note": "Markaziy ayirmalar sodda balkada w_N/w = 1 + 4/(5N²) aniq munosabatini beradi (hisoblab tekshirilgan): N = 4 da +5%, N = 16 da +0,31% — baho YUQORIDAN yaqinlashadi."
+     },
+     {
+      "kind": "plot",
+      "title": "Chegaraviy shartni sxemaga kiritish",
+      "caption": "Xayoliy tugun usuli tartibni saqlaydi.",
+      "params": [
+       {
+        "key": "h",
+        "label": "Qadam",
+        "minimum": 0.01,
+        "maximum": 1,
+        "default": 0.1,
+        "step": 0.01,
+        "unit": "m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Bir tomonlama shart: xato ~ h",
+        "expr": "100*x",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Xayoliy tugun: xato ~ h²",
+        "expr": "100*x^2",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "1% chegara",
+        "expr": "1",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       },
+       {
+        "label": "Joriy qadamdagi xayoliy tugun",
+        "expr": "100*h^2",
+        "color": "mark",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "h=0,1 bir tomonlama",
+        "expr": "10",
+        "unit": "%",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "h=0,1 xayoliy tugun",
+        "expr": "1",
+        "unit": "%",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Farq",
+        "expr": "10",
+        "unit": "marta",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "qadam h, m",
+      "y_label": "chegaradagi xato, %",
+      "x_min": "0.01",
+      "x_max": "0.5",
+      "options": {},
+      "note": "Chegarada birinchi tartibli shart butun sxemaning tartibini tushiradi — bu tez-tez uchraydigan xato."
+     }
+    ]
    },
    "difficulty": "asosiy",
    "previous_link": "su-07 da ixtiyoriy sxema qurish usuli o'rganildi va besh nuqtali to'rtinchi hosila sxemasi $\\{1,-4,6,-4,1\\}$ jadvalda hisoblangan edi. Endi uni haqiqiy chegaraviy masalaga qo'llaymiz.",
@@ -53376,7 +54572,158 @@
      "title": "Membrana analogiyasi va buralish",
      "summary": "Kesim konturiga membrana tortiladi va bosim ostida shishadi; uning balandligi kuchlanish funksiyasi ekani ko'rsatiladi. Keyin kontur cho'zilib ingichka to'rtburchakka aylanadi va membrana ostidagi hajm keskin kamayishi — ya'ni buralish bikrligining tushishi — namoyish etiladi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Besh nuqtali Laplas shabloni",
+      "caption": "O'rtacha qiymat xossasi sxemada aynan saqlanadi.",
+      "params": [
+       {
+        "key": "h",
+        "label": "To'r qadami",
+        "minimum": 0.01,
+        "maximum": 0.5,
+        "default": 0.1,
+        "step": 0.01,
+        "unit": "m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Markaziy koeffitsient −4/h²",
+        "expr": "-4/x^2",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Qo'shni +1/h²",
+        "expr": "1/x^2",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Nol",
+        "expr": "0",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       },
+       {
+        "label": "Joriy qadamdagi markaz",
+        "expr": "-4/h^2",
+        "color": "mark",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Markaz (h=0,1)",
+        "expr": "-4/0.01",
+        "unit": "1/m²",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Qo'shni (h=0,1)",
+        "expr": "1/0.01",
+        "unit": "1/m²",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Yig'indi",
+        "expr": "0",
+        "unit": "",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "qadam h, m",
+      "y_label": "koeffitsient, 1/m²",
+      "x_min": "0.02",
+      "x_max": "0.5",
+      "options": {},
+      "note": "Koeffitsientlar yig'indisi nol: garmonik funksiya har bir tugunda to'rtta qo'shnisining o'rtachasiga teng."
+     },
+     {
+      "kind": "plot",
+      "title": "Puasson masalasi: noma'lumlar soni 2D va 3D da",
+      "caption": "O'lcham oshgani sari narx portlaydi.",
+      "params": [
+       {
+        "key": "N",
+        "label": "Har o'q bo'yicha bo'linish",
+        "minimum": 10,
+        "maximum": 500,
+        "default": 100,
+        "step": 5,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "2D: N²",
+        "expr": "x^2",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "3D: N³",
+        "expr": "x^3",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "10⁶ chegara",
+        "expr": "1e6",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       },
+       {
+        "label": "Joriy N: 3D",
+        "expr": "N^3",
+        "color": "mark",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "2D (N=100)",
+        "expr": "1e4",
+        "unit": "ta",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "3D (N=100)",
+        "expr": "1e6",
+        "unit": "ta",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "3D (N=200)",
+        "expr": "8e6",
+        "unit": "ta",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "bo'linishlar soni N",
+      "y_label": "noma'lumlar",
+      "x_min": "10",
+      "x_max": "500",
+      "options": {},
+      "note": "To'rni 2 marta maydalash 3D da noma'lumlarni 8 marta oshiradi — o'lchamlilik la'nati shundan."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "su-08 da bir o'lchovli masala to'liq yechildi: shablon, chegaraviy shartlar, soxta tugunlar va yaqinlashish tartibi. Endi xuddi shu apparat ikki o'lchovga ko'chiriladi va yangi savol qo'shiladi — tugunlarni qanday raqamlash.",
@@ -53697,7 +55044,155 @@
      "title": "Barqarorlik va kuchayish koeffitsienti",
      "summary": "Harorat profili vaqt bo'yicha rivojlanadi; $r$ kichik bo'lganda u silliq pasayadi. $r$ ni 0,5 dan oshirganda tugundan tugunga almashinuvchi 'arra' paydo bo'lib, amplitudasi eksponensial o'sadi. Yonma-yon $|\\xi(kh)|$ grafigi chiziladi va portlashga sabab bo'lgan garmonika $kh = \\pi$ belgilanadi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Laks teoremasi: barqarorlik va yaqinlashish",
+      "caption": "Muvofiqlik va barqarorlik birgalikda yaqinlashishni beradi.",
+      "params": [
+       {
+        "key": "nu",
+        "label": "Diffuziya koeffitsienti",
+        "minimum": 0.0001,
+        "maximum": 1,
+        "default": 0.01,
+        "step": 0.0001,
+        "unit": "m²/s"
+       },
+       {
+        "key": "h",
+        "label": "Fazo qadami",
+        "minimum": 0.001,
+        "maximum": 0.5,
+        "default": 0.05,
+        "step": 0.001,
+        "unit": "m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Barqarorlik soni r = νΔt/h²",
+        "expr": "nu*x/h^2",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Aniq sxema chegarasi r = 0,5",
+        "expr": "0.5",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Maksimal Δt (aniq sxema)",
+        "expr": "0.5*h^2/nu",
+        "unit": "s",
+        "color": "mark",
+        "text": ""
+       },
+       {
+        "label": "r (Δt=0,1 s)",
+        "expr": "nu*0.1/h^2",
+        "unit": "",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Barqarormi (Δt=0,1)",
+        "expr": "nu*0.1/h^2 - 0.5",
+        "unit": "",
+        "color": "compress",
+        "text": "ha|YO'Q"
+       }
+      ],
+      "x_label": "vaqt qadami Δt, s",
+      "y_label": "r",
+      "x_min": "0",
+      "x_max": "1",
+      "options": {},
+      "note": "Aniq sxemada Δt ≤ h²/(2ν): qadamni 2 marta kichraytirish vaqt qadamini 4 marta kichraytirishga majbur qiladi."
+     },
+     {
+      "kind": "plot",
+      "title": "Oshkormas sxema: shartsiz barqarorlik",
+      "caption": "Oshkormas sxemada Δt faqat aniqlik bilan cheklanadi.",
+      "params": [
+       {
+        "key": "nu",
+        "label": "Diffuziya koeffitsienti",
+        "minimum": 0.0001,
+        "maximum": 1,
+        "default": 0.01,
+        "step": 0.0001,
+        "unit": "m²/s"
+       },
+       {
+        "key": "h",
+        "label": "Fazo qadami",
+        "minimum": 0.001,
+        "maximum": 0.5,
+        "default": 0.05,
+        "step": 0.001,
+        "unit": "m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Aniq sxema kuchaytirish |G|",
+        "expr": "abs(1 - 4*nu*x/h^2)",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Oshkormas |G|",
+        "expr": "1/(1 + 4*nu*x/h^2)",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Barqarorlik chegarasi |G|=1",
+        "expr": "1",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Aniq |G| (Δt=0,5)",
+        "expr": "abs(1 - 2*nu/h^2)",
+        "unit": "",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Oshkormas |G| (Δt=0,5)",
+        "expr": "1/(1 + 2*nu/h^2)",
+        "unit": "",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Oshkormas har doim barqarormi",
+        "expr": "0",
+        "unit": "",
+        "color": "mark",
+        "text": "ha|yo'q"
+       }
+      ],
+      "x_label": "vaqt qadami Δt, s",
+      "y_label": "kuchaytirish koeffitsienti",
+      "x_min": "0",
+      "x_max": "1",
+      "options": {},
+      "note": "Oshkormas sxemaning |G| har qanday Δt da birdan kichik — lekin har qadamda tizim yechiladi."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "su-07…su-09 da barcha sxemalar **statik** masalalar uchun edi va u yerda yagona savol aniqlik edi. Vaqtga bog'liq masalalarda esa butunlay yangi xavf paydo bo'ladi: sxema 'portlashi' mumkin.",
@@ -54032,7 +55527,151 @@
      "title": "Sonli demflash va davr cho'zilishi",
      "summary": "Prujinali massa tebranadi va yonida sonli yechim aniq yechim bilan birga chiziladi. $\\gamma$ ni oshirganda sonli yechim amplitudasi sekin so'nadi, $\\Delta t$ ni oshirganda esa u fazada orqada qola boshlaydi. Ikkala effekt alohida-alohida ko'rsatiladi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Nyumark oilasi: barqarorlik va parametrlar",
+      "caption": "γ = 1/2, β = 1/4 shartsiz barqaror o'rtacha tezlanish sxemasi.",
+      "params": [
+       {
+        "key": "g",
+        "label": "γ parametri",
+        "minimum": 0.3,
+        "maximum": 1,
+        "default": 0.5,
+        "step": 0.05,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "Shartsiz barqarorlik chegarasi β ≥ (γ+1/2)²/4",
+        "expr": "(g + 0.5)^2/4 + 0*x",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "β = 1/4 (o'rtacha tezlanish)",
+        "expr": "0.25",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       },
+       {
+        "label": "β = 1/6 (chiziqli tezlanish)",
+        "expr": "1/6",
+        "color": "compress",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Kerakli β (joriy γ)",
+        "expr": "(g + 0.5)^2/4",
+        "unit": "",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "γ=1/2 da kerakli β",
+        "expr": "0.25",
+        "unit": "",
+        "color": "rule",
+        "text": ""
+       },
+       {
+        "label": "Shartsiz barqarormi (β=1/4)",
+        "expr": "0.25 - (g + 0.5)^2/4",
+        "unit": "",
+        "color": "mark",
+        "text": "ha|YO'Q"
+       }
+      ],
+      "x_label": "shartli o'q",
+      "y_label": "β",
+      "x_min": "0",
+      "x_max": "1",
+      "options": {},
+      "note": "γ > 1/2 sun'iy demflash kiritadi va aniqlikni ikkinchidan birinchi tartibga tushiradi."
+     },
+     {
+      "kind": "plot",
+      "title": "Vaqt qadami va davr xatosi",
+      "caption": "Qadam xususiy davrning qanchaligi bo'lishi kerak.",
+      "params": [
+       {
+        "key": "T",
+        "label": "Xususiy davr",
+        "minimum": 0.001,
+        "maximum": 1,
+        "default": 0.1,
+        "step": 0.001,
+        "unit": "s"
+       }
+      ],
+      "curves": [
+       {
+        "label": "β=1/4: (ωΔt)²/12, %",
+        "expr": "100*(2*pi*x*1e-3/T)^2/12",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "β=1/6: (ωΔt)²/24, %",
+        "expr": "100*(2*pi*x*1e-3/T)^2/24",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "1% chegara",
+        "expr": "1",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Δt/T=0,1 (β=1/4)",
+        "expr": "100*(2*pi*0.1)^2/12",
+        "unit": "%",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Δt/T=0,1 (β=1/6)",
+        "expr": "100*(2*pi*0.1)^2/24",
+        "unit": "%",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "1% uchun Δt/T (β=1/4)",
+        "expr": "sqrt(0.12)/(2*pi)",
+        "unit": "",
+        "color": "mark",
+        "text": ""
+       },
+       {
+        "label": "Shunga mos Δt",
+        "expr": "sqrt(0.12)/(2*pi)*T",
+        "unit": "s",
+        "color": "rule",
+        "text": ""
+       }
+      ],
+      "x_label": "vaqt qadami Δt, ms",
+      "y_label": "davr xatosi, %",
+      "x_min": "0",
+      "x_max": "25",
+      "options": {},
+      "note": "Sonli hisob: Δt/T = 0,1 da haqiqiy xato β=1/4 uchun +3,21%, β=1/6 uchun +1,60% — ikkala sxema ham davrni CHO'ZADI. 1% xato Δt ≈ T/18 ga to'g'ri keladi: amaliy Δt ≤ T/20 qoidasi shundan."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "su-10 da birinchi tartibli vaqt hosilasi (issiqlik tenglamasi) uchun barqarorlik tahlili qurildi. Mexanikaning dinamik masalalarida esa ikkinchi tartibli hosila turadi va bu butunlay boshqa xatti-harakat beradi: yechim so'nmaydi, tebranadi.",
@@ -54366,7 +56005,139 @@
      "title": "CFL sharti va sonli dispersiya",
      "summary": "$x$–$t$ tekisligida fizik xarakteristika va sonli shablon konusi chiziladi; $C$ oshgani sari konus toraysib, xarakteristikani qamrab olmay qoladi va sxema portlaydi. Keyin o'tkir front tarqaladi: $C = 1$ da u mukammal saqlanadi, $C < 1$ da esa ortida tebranish dumi o'sib boradi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "CFL sharti: to'lqin tenglamasi",
+      "caption": "To'lqin bir qadamda bitta katakdan ko'p yura olmaydi.",
+      "params": [
+       {
+        "key": "c",
+        "label": "To'lqin tezligi",
+        "minimum": 100,
+        "maximum": 6000,
+        "default": 3000,
+        "step": 50,
+        "unit": "m/s"
+       },
+       {
+        "key": "h",
+        "label": "Fazo qadami",
+        "minimum": 0.001,
+        "maximum": 1,
+        "default": 0.01,
+        "step": 0.001,
+        "unit": "m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Kurant soni C = cΔt/h",
+        "expr": "c*x/h",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "CFL chegarasi C = 1",
+        "expr": "1",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Maksimal Δt",
+        "expr": "h/c",
+        "unit": "s",
+        "color": "mark",
+        "text": ""
+       },
+       {
+        "label": "C (Δt=1 mks)",
+        "expr": "c*1e-6/h",
+        "unit": "",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "1 ms simulyatsiya uchun qadamlar",
+        "expr": "1e-3*c/h",
+        "unit": "ta",
+        "color": "compress",
+        "text": ""
+       }
+      ],
+      "x_label": "vaqt qadami Δt, s",
+      "y_label": "Kurant soni",
+      "x_min": "0",
+      "x_max": "1e-5",
+      "options": {},
+      "note": "Po'latda 10 mm to'rda Δt ≤ 3,33 mks — 1 ms zarb hisobi uchun kamida 300 qadam kerak."
+     },
+     {
+      "kind": "plot",
+      "title": "Sonli dispersiya: to'lqin uzunligiga bog'liqlik",
+      "caption": "Bir to'lqin uzunligiga kam katak to'g'ri kelsa tezlik xato bo'ladi.",
+      "params": [
+       {
+        "key": "C",
+        "label": "Kurant soni",
+        "minimum": 0.1,
+        "maximum": 1,
+        "default": 0.8,
+        "step": 0.05,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "Sonli/aniq tezlik",
+        "expr": "sin(pi*C/x)/(pi*C/x)",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Aniq tezlik",
+        "expr": "1",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "10 katakda",
+        "expr": "sin(pi*C/10)/(pi*C/10)",
+        "unit": "",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "20 katakda",
+        "expr": "sin(pi*C/20)/(pi*C/20)",
+        "unit": "",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "C=1 da xato",
+        "expr": "0",
+        "unit": "",
+        "color": "mark",
+        "text": "yo'q|bor"
+       }
+      ],
+      "x_label": "to'lqin uzunligiga to'g'ri keladigan kataklar",
+      "y_label": "tezlik nisbati",
+      "x_min": "2",
+      "x_max": "40",
+      "options": {},
+      "note": "C = 1 da sxema to'lqinni aynan uzatadi (sehrli qadam); C < 1 da qisqa to'lqinlar sekinlashadi."
+     }
+    ]
    },
    "difficulty": "ilg'or",
    "previous_link": "su-11 da Nyumark sxemalari qurildi va oshkor sxema uchun $\\Delta t \\le 2/\\omega_{max}$ sharti olingan edi. To'lqin masalasida $\\omega_{max} \\sim c/h$, demak bu shart to'g'ridan-to'g'ri CFL ga aylanadi.",
@@ -54691,7 +56462,144 @@
      "title": "Zaif formulirovka va bazis funksiyalari",
      "summary": "Kuchli shakldagi tenglama sinov funksiyasiga ko'paytiriladi va bo'laklab integrallash animatsiyasi ko'rsatiladi: hosila belgisi $u$ dan $v$ ga 'sakraydi' va chegara hadi ajralib chiqadi. Keyin bo'lakli-chiziqli bazis funksiyalari qo'yiladi va ularning yig'indisi aniq yechimga yaqinlashishi namoyish etiladi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Zaif formulirovka: uzluksizlik talabining pasayishi",
+      "caption": "Integrallash bo'yicha bo'laklash hosilalar tartibini kamaytiradi.",
+      "params": [
+       {
+        "key": "k",
+        "label": "Masala tartibi",
+        "minimum": 2,
+        "maximum": 4,
+        "default": 2,
+        "step": 2,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "Kuchli formada kerakli uzluksizlik",
+        "expr": "x",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Zaif formada",
+        "expr": "x/2",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Joriy tartib: zaif forma talabi",
+        "expr": "k/2",
+        "color": "mark",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Ikkinchi tartib (issiqlik): kuchli",
+        "expr": "2",
+        "unit": "C²",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Ikkinchi tartib: zaif",
+        "expr": "1",
+        "unit": "C¹",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "To'rtinchi tartib (plastina): zaif",
+        "expr": "2",
+        "unit": "C¹",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "differensial tenglama tartibi 2m",
+      "y_label": "kerakli C^n",
+      "x_min": "2",
+      "x_max": "4",
+      "options": {},
+      "note": "Zaif forma C⁰ elementlarni mumkin qiladi — CHE usulining amaliy kuchi aynan shundan."
+     },
+     {
+      "kind": "plot",
+      "title": "Galerkin: eng yaxshi yaqinlashish xossasi",
+      "caption": "CHE yechimi energiya normasida eng yaqin yechimni beradi.",
+      "params": [
+       {
+        "key": "p",
+        "label": "Element tartibi",
+        "minimum": 1,
+        "maximum": 3,
+        "default": 1,
+        "step": 1,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "Energiya normasidagi xato ~ h^p",
+        "expr": "100*x^p",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Ko'chish xatosi ~ h^(p+1)",
+        "expr": "100*x^(p + 1)",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "1% chegara",
+        "expr": "1",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "h=0,1 energiya xatosi",
+        "expr": "100*0.1^p",
+        "unit": "%",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "h=0,1 ko'chish xatosi",
+        "expr": "100*0.1^(p + 1)",
+        "unit": "%",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Superyaqinlashish",
+        "expr": "1",
+        "unit": "tartib",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "element o'lchami h",
+      "y_label": "nisbiy xato, %",
+      "x_min": "0.01",
+      "x_max": "0.5",
+      "options": {},
+      "note": "Ko'chish kuchlanishdan bir tartib aniqroq chiqadi — shuning uchun kuchlanish har doim ko'chishdan yomonroq."
+     }
+    ]
    },
    "difficulty": "ilg'or",
    "previous_link": "su-07…su-12 da chekli ayirmalar usuli to'liq qurildi va uning asosiy kamchiligi aniqlandi: u to'g'ri to'rni talab qiladi va egri chegaraga yomon moslashadi. pq-09 da esa Ritz va Galerkin usullari ishlatilgan edi — endi ularni tizimli asosda quramiz.",
@@ -55020,7 +56928,178 @@
      "title": "Izoparametrik almashtirish",
      "summary": "Etalon kvadrat $[-1,1]^2$ to'r chiziqlari bilan ko'rsatiladi va asta-sekin haqiqiy elementga aylanadi: to'r chiziqlari egriladi, chegara parabolaga aylanadi. Keyin tugun siljitilib element buziladi va $\\det J$ xaritasi qizarib boradi; chorak nuqtada u nolga tegadi va undan keyin element o'z ustiga o'ralib qoladi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Chiziqli shakl funksiyalari va birlik yig'indisi",
+      "caption": "Har bir nuqtada shakl funksiyalari yig'indisi birga teng.",
+      "params": [
+       {
+        "key": "u1",
+        "label": "Birinchi tugun qiymati u₁",
+        "minimum": -2,
+        "maximum": 2,
+        "default": 0.4,
+        "step": 0.05,
+        "unit": "mm"
+       },
+       {
+        "key": "u2",
+        "label": "Ikkinchi tugun qiymati u₂",
+        "minimum": -2,
+        "maximum": 2,
+        "default": 1.6,
+        "step": 0.05,
+        "unit": "mm"
+       }
+      ],
+      "curves": [
+       {
+        "label": "u(ξ) = N₁u₁ + N₂u₂, mm",
+        "expr": "u1*(1 - x) + u2*x",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "N₁u₁ hissasi",
+        "expr": "u1*(1 - x)",
+        "color": "compress",
+        "dashed": true,
+        "when": ""
+       },
+       {
+        "label": "N₂u₂ hissasi",
+        "expr": "u2*x",
+        "color": "mark",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "u (ξ=0)",
+        "expr": "u1",
+        "unit": "mm",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "u (ξ=0,5)",
+        "expr": "(u1 + u2)/2",
+        "unit": "mm",
+        "color": "mark",
+        "text": ""
+       },
+       {
+        "label": "u (ξ=1)",
+        "expr": "u2",
+        "unit": "mm",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "N₁+N₂ har joyda",
+        "expr": "1",
+        "unit": "",
+        "color": "rule",
+        "text": ""
+       }
+      ],
+      "x_label": "normallashgan koordinata ξ",
+      "y_label": "ko'chish u, mm",
+      "x_min": "0",
+      "x_max": "1",
+      "options": {},
+      "note": "Birlik yig'indisi qattiq jism harakatini aniq ifodalashni kafolatlaydi — bu majburiy shart."
+     },
+     {
+      "kind": "plot",
+      "title": "Kvadratik element: uchta shakl funksiyasi",
+      "caption": "O'rta tugun egri chiziqli o'zgarishni mumkin qiladi.",
+      "params": [
+       {
+        "key": "u1",
+        "label": "Chap tugun u₁",
+        "minimum": -2,
+        "maximum": 2,
+        "default": 0,
+        "step": 0.05,
+        "unit": "mm"
+       },
+       {
+        "key": "u2",
+        "label": "O'rta tugun u₂",
+        "minimum": -2,
+        "maximum": 2,
+        "default": 1.2,
+        "step": 0.05,
+        "unit": "mm"
+       },
+       {
+        "key": "u3",
+        "label": "O'ng tugun u₃",
+        "minimum": -2,
+        "maximum": 2,
+        "default": 0,
+        "step": 0.05,
+        "unit": "mm"
+       }
+      ],
+      "curves": [
+       {
+        "label": "u(ξ) kvadratik",
+        "expr": "u1*x*(x - 1)/2 + u2*(1 - x^2) + u3*x*(x + 1)/2",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Chiziqli element bersa edi",
+        "expr": "u1*(1 - x)/2 + u3*(1 + x)/2",
+        "color": "compress",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "u (ξ=0) = u₂",
+        "expr": "u2",
+        "unit": "mm",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Chiziqli element (ξ=0)",
+        "expr": "(u1 + u3)/2",
+        "unit": "mm",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Farq",
+        "expr": "u2 - (u1 + u3)/2",
+        "unit": "mm",
+        "color": "mark",
+        "text": ""
+       },
+       {
+        "label": "N₁+N₂+N₃ har joyda",
+        "expr": "1",
+        "unit": "",
+        "color": "rule",
+        "text": ""
+       }
+      ],
+      "x_label": "tabiiy koordinata ξ",
+      "y_label": "ko'chish u, mm",
+      "x_min": "-1",
+      "x_max": "1",
+      "options": {},
+      "note": "Kvadratik element egri chegarani ham ifodalaydi — izoparametrik yondashuvning asosiy afzalligi."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "su-13 da zaif formulirovka bazisning mahalliy va bo'lakli-ko'phad bo'lishiga ruxsat berdi. Endi shu bazisni tizimli quramiz va uni egri geometriyaga moslashtiramiz — aynan shu FEM ni chekli ayirmalardan ustun qiladi.",
@@ -55351,7 +57430,146 @@
      "title": "Global tizimni yig'ish",
      "summary": "To'rt elementli sterjen ko'rsatiladi va element matritsalari birin-ketin global matritsaga 'uchib boradi'. Umumiy tugunlarda katakchalar ustma-ust tushadi va qiymatlar qo'shilib boradi. Oxirida matritsaning qator yig'indilari hisoblanadi va barchasi nol chiqadi — qattiq jism rejimining ko'rinishi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Yig'ish: global matritsaning to'ldirilishi",
+      "caption": "Elementlar umumiy tugunlarda qo'shiladi.",
+      "params": [
+       {
+        "key": "ne",
+        "label": "Elementlar soni",
+        "minimum": 2,
+        "maximum": 200,
+        "default": 20,
+        "step": 1,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "Nolmas kataklar ulushi, %",
+        "expr": "100*(3*x + 1)/(x + 1)^2",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "To'la matritsa (100%)",
+        "expr": "100",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       },
+       {
+        "label": "Joriy element soni",
+        "expr": "100*(3*ne + 1)/(ne + 1)^2",
+        "color": "mark",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Tugunlar (20 element)",
+        "expr": "21",
+        "unit": "ta",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Nolmas (20 element)",
+        "expr": "61",
+        "unit": "ta",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "To'la matritsa",
+        "expr": "441",
+        "unit": "ta",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "elementlar soni",
+      "y_label": "nolmas kataklar, %",
+      "x_min": "2",
+      "x_max": "100",
+      "options": {},
+      "note": "20 elementli masalada matritsaning atigi 13,8% i nolmas — siyrak saqlash shundan tejaydi."
+     },
+     {
+      "kind": "plot",
+      "title": "Element bikrlik matritsasining xossalari",
+      "caption": "Element matritsasi singulyar: qattiq jism harakati uchun.",
+      "params": [
+       {
+        "key": "E",
+        "label": "Modul",
+        "minimum": 10,
+        "maximum": 400,
+        "default": 210,
+        "step": 5,
+        "unit": "GPa"
+       },
+       {
+        "key": "A",
+        "label": "Kesim yuzasi",
+        "minimum": 1,
+        "maximum": 100,
+        "default": 10,
+        "step": 1,
+        "unit": "sm²"
+       }
+      ],
+      "curves": [
+       {
+        "label": "k = EA/L, MN/m",
+        "expr": "E*1e9*A*1e-4/x/1e6",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "10 MN/m daraja",
+        "expr": "10",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "k (L=1 m)",
+        "expr": "E*1e9*A*1e-4/1e6",
+        "unit": "MN/m",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "det(k_e)",
+        "expr": "0",
+        "unit": "",
+        "color": "mark",
+        "text": ""
+       },
+       {
+        "label": "Qattiq jism modalari (1D sterjen)",
+        "expr": "1",
+        "unit": "ta",
+        "color": "compress",
+        "text": ""
+       }
+      ],
+      "x_label": "element uzunligi L, m",
+      "y_label": "bikrlik k, MN/m",
+      "x_min": "0.05",
+      "x_max": "5",
+      "options": {},
+      "note": "Element matritsasining determinanti aynan nol — chegaraviy shart qo'yilmaguncha tizim yechilmaydi."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "su-14 da shakl funksiyalari va izoparametrik almashtirish tayyor bo'ldi. Endi ular bilan element integrallarini hisoblaymiz va alohida elementlarni bitta global tizimga bog'laymiz — bu FEM dasturining yadrosi.",
@@ -55692,7 +57910,153 @@
      "title": "Qulflanish va soat mexanizmi",
      "summary": "Q4 element sof egilish rejimida deformatsiyalanadi va parazit siljish burchagi qizil yoy bilan ko'rsatiladi — u markazda yo'qolib, chetlarda kattalashadi. Element cho'zilganda yoylar keskin o'sadi va $1 + (a/b)^2/2$ ko'rsatkichi 1,5 dan 129 gacha ko'tariladi. Keyin kamaytirilgan integrallashga o'tiladi: yoylar yo'qoladi, lekin element qum soati shaklida erkin tebranib ketadi — markazdagi yagona Gauss nuqtasi qimirlamaydi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Gauss integrallashning aniqligi",
+      "caption": "n nuqta 2n−1 tartibli ko'phadni aniq integrallaydi.",
+      "params": [
+       {
+        "key": "n",
+        "label": "Gauss nuqtalari",
+        "minimum": 1,
+        "maximum": 5,
+        "default": 2,
+        "step": 1,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "Aniq integrallanadigan tartib 2n−1",
+        "expr": "2*x - 1",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Nyuton–Kotes (n nuqta): n−1",
+        "expr": "x - 1",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Joriy n: Gauss",
+        "expr": "2*n - 1",
+        "color": "mark",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "n=2 Gauss",
+        "expr": "3",
+        "unit": "tartib",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "n=3 Gauss",
+        "expr": "5",
+        "unit": "tartib",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Chiziqli 4 tugunli element uchun",
+        "expr": "2",
+        "unit": "nuqta",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "nuqtalar soni n",
+      "y_label": "ko'phad tartibi",
+      "x_min": "1",
+      "x_max": "6",
+      "options": {},
+      "note": "2×2 Gauss to'rtburchak elementni aniq integrallaydi; kamaytirilgan 1×1 esa qulflanishni oldini oladi."
+     },
+     {
+      "kind": "plot",
+      "title": "Sdvig qulflanishi: element cho'ziqligiga bog'liqlik",
+      "caption": "Yupqa elementda to'liq integrallash tizimni sun'iy bikrlashtiradi.",
+      "params": [
+       {
+        "key": "nu",
+        "label": "Puasson koeffitsienti ν",
+        "minimum": 0,
+        "maximum": 0.45,
+        "default": 0.3,
+        "step": 0.01,
+        "unit": ""
+       },
+       {
+        "key": "kap",
+        "label": "Sdvig koeffitsienti κ",
+        "minimum": 0.5,
+        "maximum": 1,
+        "default": 0.8333,
+        "step": 0.0001,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "To'liq integrallash: 1 + 5(L/h)²/(12(1+ν))",
+        "expr": "1 + kap*x^2/(2*(1 + nu))",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Kamaytirilgan integrallash",
+        "expr": "1",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "L/h=10 da",
+        "expr": "1 + kap*100/(2*(1 + nu))",
+        "unit": "marta",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "L/h=50 da",
+        "expr": "1 + kap*2500/(2*(1 + nu))",
+        "unit": "marta",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "L/h=100 da",
+        "expr": "1 + kap*10000/(2*(1 + nu))",
+        "unit": "marta",
+        "color": "mark",
+        "text": ""
+       },
+       {
+        "label": "Kamaytirilgan",
+        "expr": "1",
+        "unit": "marta",
+        "color": "rule",
+        "text": ""
+       }
+      ],
+      "x_label": "element cho'ziqligi L/h",
+      "y_label": "sun'iy bikrlik nisbati",
+      "x_min": "1",
+      "x_max": "100",
+      "options": {},
+      "note": "Hisoblab chiqarilgan aniq nisbat 1 + κG(L/h)²/E = 1 + κ(L/h)²/(2(1+ν)): ν=0,3, κ=5/6 da L/h=10 uchun 33,1, L/h=100 uchun 3206 marta — yechim amalda nolga tushadi."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "su-15 da element integrallarini Gauss kvadraturasi bilan hisobladik, lekin necha nuqta kerakligini asoslamadik. Endi shu savolga javob beramiz — va aniqlanadiki, 'aniqroq' integrallash ba'zan natijani buzadi.",
@@ -56016,7 +58380,144 @@
      "title": "Chegaraviy shartlar va kuchlanishni tiklash",
      "summary": "Avval uchta usul ko'rsatiladi: yo'q qilish matritsadan qator va ustunni o'chiradi, jarima diagonalga katta prujina qo'shadi, Lagranj esa matritsani chegara qatorlari bilan kengaytiradi. Keyin kuchlanish diagrammasi quriladi: element bo'ylab doimiy zinapoyalar paydo bo'ladi, ularning markazidagi nuqtalar aniq egri chiziqqa tegadi va ulardan chiziq o'tkazilib tugun qiymatlari tiklanadi. Chegarada o'rtachalash yetishmay qolgani alohida ta'kidlanadi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Chegaraviy shartni qo'yish: jarima usuli",
+      "caption": "Jarima koeffitsienti yetarlicha katta, lekin cheksiz emas.",
+      "params": [
+       {
+        "key": "k",
+        "label": "Tizim bikrligi",
+        "minimum": 1,
+        "maximum": 1000,
+        "default": 100,
+        "step": 1,
+        "unit": "MN/m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Qoldiq ko'chish, mm",
+        "expr": "1/(1 + x)*1000/k",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Shartlanganlik o'sishi lg",
+        "expr": "log(1 + x)/log(10)",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "0,001 mm chegara",
+        "expr": "0.001",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Nisbat 10⁶ da qoldiq",
+        "expr": "1e-6*1000/k",
+        "unit": "mm",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Shartlanganlik oshishi",
+        "expr": "6",
+        "unit": "tartib",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Tavsiya etilgan nisbat",
+        "expr": "1e6",
+        "unit": "",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "jarima/bikrlik nisbati",
+      "y_label": "ko'chish, mm  /  lg κ",
+      "x_min": "1",
+      "x_max": "1e10",
+      "options": {},
+      "note": "Jarima 10⁶–10⁸ oralig'ida tanlanadi: kichikroq — shart bajarilmaydi, kattaroq — matritsa buziladi."
+     },
+     {
+      "kind": "plot",
+      "title": "Natijani qayta ishlash: kuchlanishning uzilishi",
+      "caption": "Tugunlarda kuchlanish elementlar bo'yicha farq qiladi.",
+      "params": [
+       {
+        "key": "p",
+        "label": "Element tartibi",
+        "minimum": 1,
+        "maximum": 2,
+        "default": 1,
+        "step": 1,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "Tugundagi sakrash ~ h^p, %",
+        "expr": "100*x^p",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Gauss nuqtasida xato ~ h^(p+1)",
+        "expr": "100*x^(p + 1)",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "1% chegara",
+        "expr": "1",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "h=0,1 tugunda",
+        "expr": "100*0.1^p",
+        "unit": "%",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "h=0,1 Gauss nuqtasida",
+        "expr": "100*0.1^(p + 1)",
+        "unit": "%",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Afzallik",
+        "expr": "10",
+        "unit": "marta",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "element o'lchami h",
+      "y_label": "xato, %",
+      "x_min": "0.01",
+      "x_max": "0.5",
+      "options": {},
+      "note": "Kuchlanish Gauss nuqtalarida eng aniq — shuning uchun professional paketlar natijani o'sha yerdan ekstrapolyatsiya qiladi."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "su-16 da element matritsalari to'g'ri quriladigan bo'ldi va qulflanish tuzoqlari ma'lum. Endi yig'ilgan tizimni yechishga o'tamiz: chegaraviy shartlarni qanday qo'llash va yechimdan foydali natijalarni qanday chiqarish.",
@@ -56352,7 +58853,137 @@
      "title": "Adaptiv to'rning rivojlanishi",
      "summary": "Sterjen sakkizta teng elementga bo'linadi va har birining ustida xatolik ustuni chiziladi — birinchi ustun qolganlaridan yuz minglab barobar baland. Ko'rsatkich hisoblanadi, eng yomon elementlar qizil yonadi va ikkiga bo'linadi. Aylanish takrorlanadi: ustunlar asta-sekin tenglashadi, chap uchdagi to'r esa logarifmik zichlashadi. Oxirida ikkita yaqinlashish chizig'i taqqoslanadi — tekis to'rning yotiq chizig'i va adaptiv to'rning tik chizig'i."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Adaptiv to'r: xatoning kamayish tezligi",
+      "caption": "Adaptiv maydalash tekis maydalashdan tezroq yaqinlashadi.",
+      "params": [
+       {
+        "key": "al",
+        "label": "Singulyarlik ko'rsatkichi",
+        "minimum": 0.3,
+        "maximum": 1,
+        "default": 0.5,
+        "step": 0.05,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "Tekis to'r: xato ~ N^(−α/2)",
+        "expr": "100*x^(-al/2)",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Adaptiv: xato ~ N^(−p/2), p=1",
+        "expr": "100*x^(-0.5)",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "1% chegara",
+        "expr": "1",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "N=10⁴ tekis",
+        "expr": "100*1e4^(-al/2)",
+        "unit": "%",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "N=10⁴ adaptiv",
+        "expr": "100*1e4^(-0.5)",
+        "unit": "%",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Afzallik",
+        "expr": "1e4^(0.5 - al/2)",
+        "unit": "marta",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "noma'lumlar soni N",
+      "y_label": "xato, %",
+      "x_min": "100",
+      "x_max": "1000000",
+      "options": {},
+      "note": "Burchak singulyarligida (α=0,5) adaptiv to'r bir xil xato uchun 10 marta kam noma'lum talab qiladi."
+     },
+     {
+      "kind": "plot",
+      "title": "Xatoni baholash: Zenkevich–Chju indikatori",
+      "caption": "Tekislangan va xom kuchlanish farqi xato o'lchovi beradi.",
+      "params": [
+       {
+        "key": "eta",
+        "label": "Nishon xato",
+        "minimum": 1,
+        "maximum": 20,
+        "default": 5,
+        "step": 0.5,
+        "unit": "%"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Kerakli element o'lchami nisbati",
+        "expr": "(eta/x)^(1/2)",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "O'zgarishsiz",
+        "expr": "1",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Xato 20% da",
+        "expr": "(eta/20)^0.5",
+        "unit": "marta",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Xato 1% da",
+        "expr": "(eta/1)^0.5",
+        "unit": "marta",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Nishon",
+        "expr": "eta",
+        "unit": "%",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "mahalliy xato, %",
+      "y_label": "h_yangi/h_eski",
+      "x_min": "0.5",
+      "x_max": "50",
+      "options": {},
+      "note": "Xato nishondan 4 barobar katta bo'lsa element o'lchami 2 marta kichraytiriladi (chiziqli element uchun)."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "su-17 da to'liq FEM zanjiri yopildi: zaif formulirovkadan kuchlanish diagrammasigacha. Bitta savol ochiq qoldi — natija qanchalik aniq? Aniq yechim ma'lum bo'lmagan holda unga qanday javob berish mumkin?",
@@ -56686,7 +59317,155 @@
      "title": "Ferma: kuchlar va termik ta'sir",
      "summary": "Uch sterjenli ferma ko'rsatiladi va yuk qo'yilganda deformatsiyalanadi; sterjenlar kuchga qarab ranglanadi. Keyin yuk olib tashlanadi va o'rtadagi sterjen qizdiriladi — ferma yana deformatsiyalanadi va ranglar qaytadi, garchi tashqi kuch yo'q bo'lsa ham. Yonma-yon statik aniqlanadigan ferma qizdiriladi va u shunchaki kengayadi — ranglar o'zgarmaydi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Ferma elementi: burchak va bikrlik matritsasi",
+      "caption": "Global bikrlik sterjen burchagiga bog'liq.",
+      "params": [
+       {
+        "key": "E",
+        "label": "Modul",
+        "minimum": 10,
+        "maximum": 400,
+        "default": 210,
+        "step": 5,
+        "unit": "GPa"
+       },
+       {
+        "key": "A",
+        "label": "Yuza",
+        "minimum": 1,
+        "maximum": 100,
+        "default": 10,
+        "step": 1,
+        "unit": "sm²"
+       },
+       {
+        "key": "L",
+        "label": "Uzunlik",
+        "minimum": 0.1,
+        "maximum": 10,
+        "default": 2,
+        "step": 0.1,
+        "unit": "m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "k_xx = (EA/L)cos²θ, MN/m",
+        "expr": "E*1e9*A*1e-4/L*cos(x*pi/180)^2/1e6",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "k_yy = (EA/L)sin²θ",
+        "expr": "E*1e9*A*1e-4/L*sin(x*pi/180)^2/1e6",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "k_xx + k_yy = EA/L",
+        "expr": "E*1e9*A*1e-4/L/1e6",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "EA/L",
+        "expr": "E*1e9*A*1e-4/L/1e6",
+        "unit": "MN/m",
+        "color": "rule",
+        "text": ""
+       },
+       {
+        "label": "k_xx (θ=45°)",
+        "expr": "E*1e9*A*1e-4/L*0.5/1e6",
+        "unit": "MN/m",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "k_xy (θ=45°)",
+        "expr": "E*1e9*A*1e-4/L*0.5/1e6",
+        "unit": "MN/m",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "sterjen burchagi θ, °",
+      "y_label": "bikrlik, MN/m",
+      "x_min": "0",
+      "x_max": "90",
+      "options": {},
+      "note": "Iz (k_xx + k_yy) burchakka bog'liq emas — bu koordinata almashtirishning invariantligi."
+     },
+     {
+      "kind": "plot",
+      "title": "Ferma tugunlari va statik aniqlik",
+      "caption": "2n − 3 qoidasi tizim turini belgilaydi.",
+      "params": [
+       {
+        "key": "n",
+        "label": "Tugunlar soni",
+        "minimum": 3,
+        "maximum": 50,
+        "default": 6,
+        "step": 1,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "Statik aniq uchun sterjenlar 2n−3",
+        "expr": "2*x - 3",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Joriy tugunlar soni",
+        "expr": "n",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Kerakli sterjenlar",
+        "expr": "2*n - 3",
+        "unit": "ta",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Erkinlik darajalari",
+        "expr": "2*n",
+        "unit": "ta",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Bog'lanishlar",
+        "expr": "3",
+        "unit": "ta",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "tugunlar soni n",
+      "y_label": "sterjenlar soni",
+      "x_min": "3",
+      "x_max": "50",
+      "options": {},
+      "note": "Sterjenlar soni 2n−3 dan kam bo'lsa mexanizm (matritsa singulyar), ko'p bo'lsa statik aniqmas tizim."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "3-modulda FEM ning butun nazariy apparati qurildi. Endi uni eng sodda va eng aniq holatga qo'llaymiz: ferma. Bu yerda FEM yechimi aniq yechim bilan AYNAN mos tushadi va shu sababli u kodni tekshirish uchun ideal etalon.",
@@ -57024,7 +59803,169 @@
      "title": "Ermit bazisi va moment epyurasi",
      "summary": "To'rtta Ermit funksiyasi birin-ketin chiziladi va har biri mos keladigan balka deformatsiyasi bilan ko'rsatiladi. Keyin sharnirli balka yuklanadi va ikkita moment epyurasi qo'yiladi: $EI\\,w''$ dan olingan siniq chiziq aniq paraboladan ajralib turadi, muvozanatdan olingan tugun nuqtalari esa parabolaga aynan tushadi. Oxirida portal ramka shamol yuki ostida deformatsiyalanadi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Balka elementi: bikrlik matritsasi koeffitsientlari",
+      "caption": "To'rtta koeffitsient uzunlikning turli darajalarida.",
+      "params": [
+       {
+        "key": "EI",
+        "label": "Bikrlik",
+        "minimum": 100,
+        "maximum": 50000,
+        "default": 5000,
+        "step": 100,
+        "unit": "kN·m²"
+       }
+      ],
+      "curves": [
+       {
+        "label": "12EI/L³, kN/m",
+        "expr": "12*EI/x^3",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "6EI/L², kN",
+        "expr": "6*EI/x^2",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "4EI/L, kN·m",
+        "expr": "4*EI/x",
+        "color": "mark",
+        "dashed": false,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "12EI/L³ (L=2 m)",
+        "expr": "12*EI/8",
+        "unit": "kN/m",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "6EI/L² (L=2 m)",
+        "expr": "6*EI/4",
+        "unit": "kN",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "4EI/L (L=2 m)",
+        "expr": "4*EI/2",
+        "unit": "kN·m",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "element uzunligi L, m",
+      "y_label": "koeffitsient",
+      "x_min": "0.2",
+      "x_max": "5",
+      "options": {},
+      "note": "Uzunlikni ikki marta oshirish ko'chish bikrligini 8 marta, burilish bikrligini esa atigi 2 marta kamaytiradi."
+     },
+     {
+      "kind": "plot",
+      "title": "Ermit element: tugunda aniq, element ichida taqribiy",
+      "caption": "Bitta element burilishni aniq beradi, o'rtadagi salqilikni esa emas.",
+      "params": [
+       {
+        "key": "q",
+        "label": "Tarqalgan yuk",
+        "minimum": 1,
+        "maximum": 100,
+        "default": 10,
+        "step": 1,
+        "unit": "kN/m"
+       },
+       {
+        "key": "L",
+        "label": "Oraliq",
+        "minimum": 1,
+        "maximum": 12,
+        "default": 6,
+        "step": 0.5,
+        "unit": "m"
+       },
+       {
+        "key": "EI",
+        "label": "Bikrlik",
+        "minimum": 100,
+        "maximum": 50000,
+        "default": 5000,
+        "step": 100,
+        "unit": "kN·m²"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Aniq w(x), mm",
+        "expr": "q*x*(L^3 - 2*L*x^2 + x^3)/(24*EI)*1000",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Bitta Ermit element, mm",
+        "expr": "q*L^4/(24*EI)*(x/L)*(1 - x/L)*1000",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Nol",
+        "expr": "0",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Aniq w_max = 5qL⁴/384EI",
+        "expr": "5*q*L^4/(384*EI)*1000",
+        "unit": "mm",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Bitta element: qL⁴/96EI",
+        "expr": "q*L^4/(96*EI)*1000",
+        "unit": "mm",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "O'rtadagi xato",
+        "expr": "100*(1/96)/(5/384) - 100",
+        "unit": "%",
+        "color": "mark",
+        "text": ""
+       },
+       {
+        "label": "Tugundagi burilish xatosi",
+        "expr": "0",
+        "unit": "%",
+        "color": "rule",
+        "text": ""
+       }
+      ],
+      "x_label": "x, m",
+      "y_label": "ko'chish w, mm",
+      "x_min": "0",
+      "x_max": "L",
+      "options": {},
+      "note": "Konsistent tugun yuklari bilan bitta element burilishni aynan qL³/24EI qilib beradi (xato nol), lekin kubik ko'phad aniq to'rtinchi darajali egri chiziqni ifodalay olmaydi: o'rtada 20% kam chiqadi."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "su-19 dagi ferma elementi faqat o'q bo'ylab kuch uzatardi va yuk faqat tugunlarga qo'yilardi. Endi burilish erkinlik darajasini qo'shamiz — shu bilan oraliqqa tushadigan yukni va payvandlangan tugunlarni modellashtira olamiz.",
@@ -57345,7 +60286,148 @@
      "title": "Teshik atrofidagi kuchlanish",
      "summary": "Tekis plastina tortiladi va kuchlanish maydoni bir tekis rangda ko'rsatiladi. Keyin markazda teshik ochiladi: kuchlanish chiziqlari teshikni aylanib o'tadi va yon tomonlarda quyuqlashadi. Rang xaritasi $3\\sigma$ zonasini va qutblardagi siqilish zonasini ajratib ko'rsatadi. Nihoyat radial profil chiziladi va u Kirsh egri chizig'i bilan ustma-ust tushadi; $3{,}5a$ da nominal darajaga qaytish belgilanadi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Teshik atrofida to'r zichligi va aniqlik",
+      "caption": "Konsentratsiya sohasida elementlar mayda bo'lishi shart.",
+      "params": [
+       {
+        "key": "Kt",
+        "label": "Nazariy konsentratsiya K_t",
+        "minimum": 1.5,
+        "maximum": 6,
+        "default": 3,
+        "step": 0.1,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "CHE bahosi (ko'rsatkich model: K_t(1 − 1,2/n))",
+        "expr": "Kt*(1 - 1.2/x)",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Aniq qiymat",
+        "expr": "Kt",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "4 element",
+        "expr": "Kt*(1 - 0.3)",
+        "unit": "",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "12 element",
+        "expr": "Kt*(1 - 0.1)",
+        "unit": "",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Tavsiya (xato < 5%)",
+        "expr": "24",
+        "unit": "element",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "teshik radiusi bo'yicha elementlar soni",
+      "y_label": "hisoblangan K_t",
+      "x_min": "2",
+      "x_max": "40",
+      "options": {},
+      "note": "Egri chiziq — sxematik model, aniq koeffitsient geometriyaga bog'liq. Muhim xulosa: chiziqli elementlar konsentratsiyani PASAYTIRIB ko'rsatadi, ya'ni xavfli tomonga xato qiladi — shuning uchun to'r zichligi har doim tekshiriladi."
+     },
+     {
+      "kind": "plot",
+      "title": "Tekis kuchlanish va tekis deformatsiya elementlari",
+      "caption": "Bir xil to'r, ikki xil natija.",
+      "params": [
+       {
+        "key": "F",
+        "label": "Kuch",
+        "minimum": 1,
+        "maximum": 500,
+        "default": 100,
+        "step": 1,
+        "unit": "kN"
+       },
+       {
+        "key": "t",
+        "label": "Qalinlik",
+        "minimum": 1,
+        "maximum": 100,
+        "default": 10,
+        "step": 1,
+        "unit": "mm"
+       },
+       {
+        "key": "nu",
+        "label": "ν",
+        "minimum": 0,
+        "maximum": 0.45,
+        "default": 0.3,
+        "step": 0.01,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "Tekis kuchlanish σ_ekv, MPa",
+        "expr": "F*1000/(x*1e-3*t*1e-3)/1e6",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Tekis deformatsiya σ_ekv",
+        "expr": "F*1000/(x*1e-3*t*1e-3)/1e6*sqrt(1 - nu + nu^2)",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Tekis kuchlanish (b=50)",
+        "expr": "F*1000/(50e-3*t*1e-3)/1e6",
+        "unit": "MPa",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Tekis deformatsiya (b=50)",
+        "expr": "F*1000/(50e-3*t*1e-3)/1e6*sqrt(1 - nu + nu^2)",
+        "unit": "MPa",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Nisbat",
+        "expr": "sqrt(1 - nu + nu^2)",
+        "unit": "",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "kenglik b, mm",
+      "y_label": "σ_ekv, MPa",
+      "x_min": "5",
+      "x_max": "200",
+      "options": {},
+      "note": "Bir o'qli cho'zilishda tekis deformatsiya Mizes ekvivalentini √(1−ν+ν²) = 0,889 marta, ya'ni 11,1% ga pasaytiradi (ν = 0,3) — element turini xato tanlash aynan shuncha xato beradi."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "su-19 va su-20 dagi elementlar bir o'lchovli edi — ular uzun va ingichka konstruksiyalarga mos. Teshik atrofidagi kuchlanish maydoni esa mohiyatan ikki o'lchovli va uni sterjen modeli bilan umuman ifodalab bo'lmaydi.",
@@ -57672,7 +60754,153 @@
      "title": "Plastina qulflanishi",
      "summary": "Ikkita bir xil plastina yonma-yon turadi va bir xil yuk bilan yuklanadi. Chapdagisi (SRI) normal egiladi, o'ngdagisi (to'liq integrallash) deyarli qimirlamaydi. Qalinlik slayderi ko'tarilganda o'ngdagi plastina asta-sekin chapdagiga yetib oladi — qulflanish yo'qoladi. Oxirida bitta element ajratib olinadi va uning soxta nol energiyali rejimi ko'rsatiladi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Plastina elementi: qalinlik va qulflanish",
+      "caption": "Yupqa plastinada Mindlin elementi qulflanishga moyil.",
+      "params": [
+       {
+        "key": "nu",
+        "label": "ν",
+        "minimum": 0,
+        "maximum": 0.45,
+        "default": 0.3,
+        "step": 0.01,
+        "unit": ""
+       },
+       {
+        "key": "kap",
+        "label": "Sdvig koeffitsienti κ",
+        "minimum": 0.5,
+        "maximum": 1,
+        "default": 0.8333,
+        "step": 0.0001,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "To'liq integrallash bikrligi",
+        "expr": "1 + kap*x^2/(2*(1 + nu))",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Kamaytirilgan integrallash",
+        "expr": "1",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "a/h=20",
+        "expr": "1 + kap*400/(2*(1 + nu))",
+        "unit": "marta",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "a/h=100",
+        "expr": "1 + kap*10000/(2*(1 + nu))",
+        "unit": "marta",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Yechim yo'qolishi",
+        "expr": "1",
+        "unit": "",
+        "color": "mark",
+        "text": "jiddiy|—"
+       }
+      ],
+      "x_label": "element cho'ziqligi a/h",
+      "y_label": "sun'iy bikrlik",
+      "x_min": "1",
+      "x_max": "100",
+      "options": {},
+      "note": "Sdvig qulflanishining fizikasi balka elementidagi bilan bir xil — yechim kamaytirilgan integrallash yoki maxsus formulirovkada."
+     },
+     {
+      "kind": "plot",
+      "title": "Qobiq elementi: membrana va egish erkinliklari",
+      "caption": "Qobiq elementida tugunga oltita erkinlik to'g'ri keladi.",
+      "params": [
+       {
+        "key": "nn",
+        "label": "Tugunlar soni",
+        "minimum": 4,
+        "maximum": 9,
+        "default": 4,
+        "step": 1,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "Qobiq elementi DOF (6/tugun)",
+        "expr": "6*x",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Tekis masala (2/tugun)",
+        "expr": "2*x",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Plastina (3/tugun)",
+        "expr": "3*x",
+        "color": "mark",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Joriy element: qobiq",
+        "expr": "6*nn",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "4 tugunli qobiq",
+        "expr": "24",
+        "unit": "DOF",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "4 tugunli tekis",
+        "expr": "8",
+        "unit": "DOF",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "8 tugunli qobiq",
+        "expr": "48",
+        "unit": "DOF",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "elementdagi tugunlar",
+      "y_label": "erkinlik darajalari",
+      "x_min": "3",
+      "x_max": "9",
+      "options": {},
+      "note": "Oltinchi erkinlik (normal atrofida burilish) tabiiy bikrlikka ega emas — u sun'iy ravishda kiritiladi."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "su-21 dagi tekis masala elementlari faqat tekislik ichidagi kuchlanishni ifodalardi. Plastina esa egilishga ishlaydi va pq fanidagi butun nazariya bu yerda FEM tilida qayta quriladi — jumladan pq-24 dagi siljish qulflanishi.",
@@ -58008,7 +61236,144 @@
      "title": "Tebranish va ustuvorlik birligi",
      "summary": "Konsol balkaning birinchi uchta tebranish shakli ketma-ket animatsiya qilinadi va tugunlar soni o'sishi ko'rsatiladi. Keyin sharnirli ustun asta-sekin siqiladi: uning tebranishi sekinlashadi, chastota grafigi $\\sqrt{1-P/P_{cr}}$ egri chizig'i bo'ylab tushadi va kritik yukda tebranish to'xtab, ustun yon tomonga egilib ketadi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Xususiy chastotalarni topish: iteratsiya narxi",
+      "caption": "Barcha chastotalar emas, faqat past qismi kerak.",
+      "params": [
+       {
+        "key": "N",
+        "label": "Tizim tartibi",
+        "minimum": 100,
+        "maximum": 100000,
+        "default": 10000,
+        "step": 100,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "Barcha xos qiymatlar ~ N³",
+        "expr": "N^3/1e9 + 0*x",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Lanczos (m mod) ~ mN·nnz",
+        "expr": "x*N*27/1e9",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Barchasi (N=10⁴)",
+        "expr": "1e12/1e9",
+        "unit": "×10⁹",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "20 moda (N=10⁴)",
+        "expr": "20*1e4*27/1e9",
+        "unit": "×10⁹",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Tejash",
+        "expr": "1e12/(20*1e4*27)",
+        "unit": "marta",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "kerakli modalar soni m",
+      "y_label": "amallar, 10⁹",
+      "x_min": "1",
+      "x_max": "100",
+      "options": {},
+      "note": "10⁴ tartibli tizimda 20 ta moda uchun Lanczos to'liq yechimdan ~185 ming marta arzon."
+     },
+     {
+      "kind": "plot",
+      "title": "Massa matritsasi turi va chastota xatosi",
+      "caption": "Konsistent massa chastotani oshirib, yig'ilgan esa kamaytirib ko'rsatadi.",
+      "params": [
+       {
+        "key": "f1",
+        "label": "Aniq chastota",
+        "minimum": 1,
+        "maximum": 1000,
+        "default": 50,
+        "step": 1,
+        "unit": "Gs"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Konsistent massa, Gs",
+        "expr": "f1*(1 + pi^2/(96*x^2))",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Yig'ilgan massa, Gs",
+        "expr": "f1*(1 - pi^2/(96*x^2))",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Aniq chastota",
+        "expr": "f1",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "N=4 konsistent",
+        "expr": "100*pi^2/(96*16)",
+        "unit": "%",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "N=8 konsistent",
+        "expr": "100*pi^2/(96*64)",
+        "unit": "%",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Ikkalasining o'rtachasi",
+        "expr": "0",
+        "unit": "%",
+        "color": "rule",
+        "text": ""
+       },
+       {
+        "label": "Aniq chastota",
+        "expr": "f1",
+        "unit": "Gs",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "elementlar soni N",
+      "y_label": "hisoblangan chastota, Gs",
+      "x_min": "2",
+      "x_max": "40",
+      "options": {},
+      "note": "Sterjen uchun hisoblangan qiymatlar: N=4 da konsistent +0,644%, yig'ilgan −0,641%; N=8 da +0,161% va −0,161%. Konsistent massa YUQORIDAN, yig'ilgan PASTDAN yaqinlashadi va ikkalasi aniq qiymatni qamrab oladi."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "Shu paytgacha barcha masalalar $\\mathbf{K}\\mathbf{u} = \\mathbf{F}$ ko'rinishida edi — berilgan yukka berilgan javob. Endi savol o'zgaradi: konstruksiya **qanday chastotalarda** tebranadi va **qanday yukda** ustuvorligini yo'qotadi?",
@@ -58353,7 +61718,137 @@
      "title": "O'tib ketish hodisasi",
      "summary": "Yassi ferma asta-sekin yuklanadi va yonida yuk–ko'chish egri chizig'ida nuqta harakatlanadi. Chegaraviy nuqtaga yetganda ferma birdan ag'darilib pastki holatga sakraydi, nuqta esa egri chiziqdagi uzoq shoxga o'tadi. Keyin xuddi shu masala siljish nazorati bilan takrorlanadi va bu safar butun yo'l, jumladan pasayuvchi shox ham, uzluksiz bosib o'tiladi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Nyuton–Rafson: kvadratik yaqinlashish",
+      "caption": "Har iteratsiyada aniq raqamlar soni ikki barobar oshadi.",
+      "params": [
+       {
+        "key": "e0",
+        "label": "Boshlang'ich xato",
+        "minimum": 0.01,
+        "maximum": 0.5,
+        "default": 0.1,
+        "step": 0.01,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "Nyuton: e_{k+1} = e_k²",
+        "expr": "e0^(2^x)",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "O'zgartirilgan Nyuton (chiziqli)",
+        "expr": "e0*0.5^x",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "10⁻¹² chegara",
+        "expr": "1e-12",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Nyuton: 3-iteratsiya",
+        "expr": "e0^8",
+        "unit": "",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Nyuton: 4-iteratsiya",
+        "expr": "e0^16",
+        "unit": "",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Kerakli iteratsiyalar (10⁻¹²)",
+        "expr": "log(log(1e-12)/log(e0))/log(2)",
+        "unit": "ta",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "iteratsiya k",
+      "y_label": "xato",
+      "x_min": "0",
+      "x_max": "8",
+      "options": {},
+      "note": "e₀ = 0,1 da Nyuton 4 iteratsiyada 10⁻¹⁶ ga tushadi; o'zgartirilgan variant esa 40 dan ortiq talab qiladi."
+     },
+     {
+      "kind": "plot",
+      "title": "Yuk qadamlari va yaqinlashish",
+      "caption": "Katta qadam divergensiyaga olib keladi.",
+      "params": [
+       {
+        "key": "Fmax",
+        "label": "To'liq yuk",
+        "minimum": 1,
+        "maximum": 1000,
+        "default": 100,
+        "step": 1,
+        "unit": "kN"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Qadam kattaligi, kN",
+        "expr": "Fmax/x",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Nyuton iteratsiyalari (taxminiy)",
+        "expr": "2 + 20/x",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "1 qadam",
+        "expr": "Fmax",
+        "unit": "kN",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "10 qadam",
+        "expr": "Fmax/10",
+        "unit": "kN",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Jami iteratsiyalar (10 qadam)",
+        "expr": "10*(2 + 2)",
+        "unit": "ta",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "yuk qadamlari soni",
+      "y_label": "kattalik / iteratsiyalar",
+      "x_min": "1",
+      "x_max": "50",
+      "options": {},
+      "note": "Qadamlar soni oshsa har biri arzonlashadi, lekin jami hisob narxi oshadi — optimal nuqta izlanadi."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "su-23 da chiziqli ustuvorlik tahlili ideal konstruksiya uchun yuqori baho berishini ko'rdik. Haqiqiy javob esa katta ko'chishlarga va material oqishiga bog'liq — chiziqlilik taxminini butunlay bekor qilish vaqti keldi.",
@@ -58675,7 +62170,160 @@
      "title": "Global shablon va spektral yaqinlashish",
      "summary": "Avval chekli ayirma shabloni ko'rsatiladi: bitta nuqtadagi hosila uchun faqat uchta qo'shni yonadi. Keyin DQM ga o'tiladi va **barcha** tugunlar bir vaqtda yonadi — global shablon. So'ng yaqinlashish grafigi chiziladi: DQM chizig'i yarim logarifmik o'qda to'g'ri chiziq bo'lib keskin pastga tushadi, darajali usullar esa yotiqroq. Oxirida matritsa xaritalari taqqoslanadi: DQM to'la, FEM lentali."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "DQM: tugunlar soni va aniqlik",
+      "caption": "Differensial kvadratura kam tugun bilan yuqori aniqlik beradi.",
+      "params": [
+       {
+        "key": "C",
+        "label": "Xato koeffitsienti",
+        "minimum": 0.1,
+        "maximum": 10,
+        "default": 1,
+        "step": 0.1,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "DQM: eksponensial yaqinlashish",
+        "expr": "100*C*exp(-0.9*x)",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Chekli ayirmalar O(h²)",
+        "expr": "100*C/x^2",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "1% chegara",
+        "expr": "1",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "N=10 DQM",
+        "expr": "100*C*exp(-9)",
+        "unit": "%",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "N=10 ayirmalar",
+        "expr": "100*C/100",
+        "unit": "%",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Afzallik",
+        "expr": "1/(100*exp(-9))",
+        "unit": "marta",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "tugunlar soni N",
+      "y_label": "xato, %",
+      "x_min": "4",
+      "x_max": "30",
+      "options": {},
+      "note": "Chizmadagi model bo'yicha DQM 10 tugundagi aniqlikka chekli ayirmalar faqat ~90 tugun bilan yetadi. Bu faqat SILLIQ yechimlarga tegishli."
+     },
+     {
+      "kind": "plot",
+      "title": "Chebishev–Gauss–Lobatto tugunlari",
+      "caption": "Tugunlar chetlarda zichlashadi.",
+      "params": [
+       {
+        "key": "pw",
+        "label": "Muqobil klasterlash darajasi",
+        "minimum": 0.3,
+        "maximum": 3,
+        "default": 2,
+        "step": 0.1,
+        "unit": ""
+       },
+       {
+        "key": "N",
+        "label": "Tugunlar soni",
+        "minimum": 5,
+        "maximum": 30,
+        "default": 11,
+        "step": 1,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "Chebishev: (1 − cos πs)/2",
+        "expr": "(1 - cos(pi*x))/2",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Tekis taqsimot s",
+        "expr": "x",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       },
+       {
+        "label": "Daraja qonuni s^p",
+        "expr": "x^pw",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Chetdagi qadam (Chebishev)",
+        "expr": "(1 - cos(pi/(N - 1)))/2",
+        "unit": "",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Markazdagi qadam",
+        "expr": "1/(N - 1)",
+        "unit": "",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Zichlashish nisbati",
+        "expr": "(1/(N - 1))/((1 - cos(pi/(N - 1)))/2)",
+        "unit": "marta",
+        "color": "mark",
+        "text": ""
+       },
+       {
+        "label": "Daraja qonuni chetdagi qadam",
+        "expr": "(1/(N - 1))^pw",
+        "unit": "",
+        "color": "rule",
+        "text": ""
+       }
+      ],
+      "x_label": "normallashgan tugun nomeri s = i/(N−1)",
+      "y_label": "normallashgan holat",
+      "x_min": "0",
+      "x_max": "1",
+      "options": {},
+      "note": "Chetlardagi zichlashish Runge hodisasini oldini oladi — tekis to'rda yuqori tartibli interpolyatsiya beqaror bo'ladi."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "4-modulda FEM ni fermadan nochiziqli qobiqqacha qo'lladik. FEM universal, lekin har bir erkinlik darajasi uchun atigi ikkinchi tartibli aniqlik beradi. Muntazam geometriyali masalalarda bundan ancha yaxshi qilish mumkin.",
@@ -58985,7 +62633,137 @@
      "title": "O'lcham kamayishi",
      "summary": "Avval sohaviy to'r quriladi va tugunlar sanaladi. Keyin ichki tugunlar birin-ketin yo'qoladi va faqat chegara qoladi — hisoblagich keskin tushadi. Tanlangan chegara nuqtasidan fundamental yechim to'lqin kabi tarqaladi va $r = 1$ aylanasi yonib, u yerda $u^*$ nolga aylanishi ko'rsatiladi. Oxirida soha ichida ixtiyoriy nuqtalar tanlanadi va har birida yechim to'rsiz hisoblanadi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "BEM: o'lchamlilikning pasayishi",
+      "caption": "Faqat chegara diskretlashtiriladi.",
+      "params": [
+       {
+        "key": "N",
+        "label": "Chiziqli bo'linish",
+        "minimum": 10,
+        "maximum": 200,
+        "default": 50,
+        "step": 1,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "CHE / BEM noma'lumlar nisbati = N/6",
+        "expr": "x/6",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Teng son",
+        "expr": "1",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       },
+       {
+        "label": "Joriy N",
+        "expr": "N/6",
+        "color": "mark",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "CHE (N=50)",
+        "expr": "125000",
+        "unit": "ta",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "BEM (N=50)",
+        "expr": "15000",
+        "unit": "ta",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Kamayish",
+        "expr": "125000/15000",
+        "unit": "marta",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "chiziqli bo'linish N",
+      "y_label": "CHE noma'lumlari BEM dan necha marta ko'p",
+      "x_min": "10",
+      "x_max": "200",
+      "options": {},
+      "note": "BEM noma'lumlarni kamaytiradi, lekin matritsa TO'LA va NOSIMMETRIK bo'ladi — tejash har doim ham emas."
+     },
+     {
+      "kind": "plot",
+      "title": "BEM va CHE: matritsa narxi",
+      "caption": "To'la matritsa katta N da BEM afzalligini yo'qotadi.",
+      "params": [
+       {
+        "key": "nnz",
+        "label": "CHE qatoridagi nolmaslar",
+        "minimum": 10,
+        "maximum": 100,
+        "default": 27,
+        "step": 1,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "BEM / CHE narx nisbati = 72N³/(100·nnz)",
+        "expr": "72*x^3/(100*nnz)",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Teng narx",
+        "expr": "1",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "BEM (N=30)",
+        "expr": "(6*900)^3/3/1e12",
+        "unit": "×10¹²",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "CHE (N=30)",
+        "expr": "27000*nnz*100/1e12",
+        "unit": "×10¹²",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Qaysi arzon (N=30)",
+        "expr": "(6*900)^3/3 - 27000*nnz*100",
+        "unit": "",
+        "color": "mark",
+        "text": "BEM|CHE"
+       }
+      ],
+      "x_label": "chiziqli bo'linish N",
+      "y_label": "BEM necha marta qimmat",
+      "x_min": "10",
+      "x_max": "100",
+      "options": {},
+      "note": "Kichik masalalarda BEM tez, katta masalalarda esa siyrak CHE yutadi — tez ko'p qutbli usullar (FMM) bu chegarani suradi."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "su-25 dagi DQM butun sohani tugunlar bilan to'ldirdi. BEM esa butunlay boshqa yo'l tutadi: faqat **chegarani** diskretlashtiradi va soha ichiga umuman tegmaydi.",
@@ -59302,7 +63080,137 @@
      "title": "To'rsizlik va noaniqlik prinsipi",
      "summary": "Avval FEM to'ri katta deformatsiyada buziladi: elementlar cho'ziladi va ag'dariladi, $\\det\\mathbf{J}$ qizaradi. Keyin elementlar yo'qoladi va faqat tugunlar qoladi — ular bemalol harakatlanadi. So'ng radial bazis funksiyalari chiziladi va shakl parametri oshirilib boriladi: ular yassilashadi, ustma-ust tushadi va yonidagi shartlanganlik ko'rsatkichi portlaydi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Spektral usul: eksponensial yaqinlashish",
+      "caption": "Silliq yechimda xato eksponensial kamayadi.",
+      "params": [
+       {
+        "key": "k",
+        "label": "Yechim silliqligi",
+        "minimum": 0.3,
+        "maximum": 2,
+        "default": 1,
+        "step": 0.05,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "Spektral: e^(−kN)",
+        "expr": "100*exp(-k*x)",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Ikkinchi tartib O(N⁻²)",
+        "expr": "100/x^2",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "To'rtinchi tartib O(N⁻⁴)",
+        "expr": "100/x^4",
+        "color": "mark",
+        "dashed": false,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "N=20 spektral",
+        "expr": "100*exp(-20*k)",
+        "unit": "%",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "N=20 ikkinchi tartib",
+        "expr": "100/400",
+        "unit": "%",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "N=20 to'rtinchi tartib",
+        "expr": "100/160000",
+        "unit": "%",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "N",
+      "y_label": "xato, %",
+      "x_min": "4",
+      "x_max": "40",
+      "options": {},
+      "note": "Eksponensial yaqinlashish faqat SILLIQ yechimda: yoriq yoki burchak bo'lsa spektral usul afzalligini yo'qotadi."
+     },
+     {
+      "kind": "plot",
+      "title": "To'rsiz usullar: ta'sir radiusi",
+      "caption": "Qo'shnilar soni aniqlik va narxni belgilaydi.",
+      "params": [
+       {
+        "key": "d",
+        "label": "Tugunlar oralig'i",
+        "minimum": 0.001,
+        "maximum": 1,
+        "default": 0.05,
+        "step": 0.001,
+        "unit": "m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Qo'shnilar soni (2D) ≈ π(r/d)²",
+        "expr": "pi*(x*1e-3/d)^2",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Minimal talab (chiziqli bazis)",
+        "expr": "6",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "r/d=2 da",
+        "expr": "pi*4",
+        "unit": "ta",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "r/d=3 da",
+        "expr": "pi*9",
+        "unit": "ta",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Matritsa to'ldirilishi (r/d=2)",
+        "expr": "pi*4",
+        "unit": "qatorda",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "ta'sir radiusi r, mm",
+      "y_label": "qo'shnilar soni",
+      "x_min": "1",
+      "x_max": "500",
+      "options": {},
+      "note": "r/d = 2…3 odatiy tanlov: kichikroq bo'lsa tizim singulyar, kattaroq bo'lsa matritsa keraksiz to'la bo'ladi."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "su-25 butun sohani, su-26 esa faqat chegarani diskretlashtirdi. Ikkalasi ham tugunlar orasidagi bog'lanishga — to'rga — tayanardi. Endi to'rning o'zidan voz kechamiz.",
@@ -59628,7 +63536,146 @@
      "title": "MMS va tartib o'lchovi",
      "summary": "Avval MMS g'oyasi ko'rsatiladi: yechim tanlanadi, operator qo'llanadi va manba chiqadi — o'qlar odatdagiga teskari yo'nalishda. Keyin log–log grafikda uchta chiziq chiziladi va ularning qiyaliklari o'lchanadi: 3, 2 va 0. Nazariy qiyalik uchburchagi ustiga qo'yilganda faqat bittasi mos tushadi. Oxirida GCI tasmasi quriladi va aniq qiymat uning ichiga tushishi ko'rsatiladi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "To'r yaqinlashishi: Richardson ekstrapolyatsiyasi",
+      "caption": "Uch to'rdan haqiqiy yaqinlashish tartibi topiladi.",
+      "params": [
+       {
+        "key": "f0",
+        "label": "Aniq yechim",
+        "minimum": 1,
+        "maximum": 100,
+        "default": 10,
+        "step": 0.1,
+        "unit": ""
+       },
+       {
+        "key": "p",
+        "label": "Yaqinlashish tartibi",
+        "minimum": 1,
+        "maximum": 4,
+        "default": 2,
+        "step": 0.5,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "Hisoblangan qiymat f_h",
+        "expr": "f0*(1 + 0.5*x^p)",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Aniq qiymat",
+        "expr": "f0",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "h=1 da xato",
+        "expr": "50",
+        "unit": "%",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "h=0,5 da xato",
+        "expr": "50*0.5^p",
+        "unit": "%",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Ekstrapolyatsiya xatosi",
+        "expr": "0",
+        "unit": "%",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "nisbiy to'r qadami h",
+      "y_label": "hisoblangan qiymat",
+      "x_min": "0",
+      "x_max": "1",
+      "options": {},
+      "note": "Richardson: f ≈ f₁ + (f₁−f₂)/(r^p−1). Uchta to'r p ni ham beradi — bu V&V ning majburiy qadami."
+     },
+     {
+      "kind": "plot",
+      "title": "Verifikatsiya va validatsiya: ikki xil xato",
+      "caption": "Sonli xato va model xatosi birga baholanadi.",
+      "params": [
+       {
+        "key": "emod",
+        "label": "Model xatosi",
+        "minimum": 0.5,
+        "maximum": 20,
+        "default": 5,
+        "step": 0.5,
+        "unit": "%"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Sonli xato ~ h²",
+        "expr": "10*x^2",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Model xatosi (to'rdan mustaqil)",
+        "expr": "emod",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       },
+       {
+        "label": "Jami xato",
+        "expr": "sqrt((10*x^2)^2 + emod^2)",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "h=1 sonli",
+        "expr": "10",
+        "unit": "%",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "h=0,3 sonli",
+        "expr": "10*0.09",
+        "unit": "%",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Chegaraviy xato (h→0)",
+        "expr": "emod",
+        "unit": "%",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "nisbiy to'r qadami h",
+      "y_label": "xato, %",
+      "x_min": "0",
+      "x_max": "1",
+      "options": {},
+      "note": "To'rni cheksiz maydalash model xatosini kamaytirmaydi — shuning uchun tajriba bilan solishtirish (validatsiya) shart."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "su-25…su-27 da usullar to'plami kengaydi va har biri o'z aniqlik da'vosiga ega edi. Endi asosiy savolga javob beramiz: hisob natijasiga qachon va qanchalik ishonish mumkin?",
@@ -59966,7 +64013,130 @@
      "title": "Tartiblash, to'ldirilish va usul tanlovi",
      "summary": "Sahna bir xil to'rning uchta raqamlanishini ko'rsatadi va har biri uchun matritsa portreti yonida quriladi: tabiiy raqamlashda tor diagonal tasma, tasodifiy raqamlashda butun maydonga sochilgan nuqtalar, RCM dan keyin esa yana tasma. Keyin faktorizatsiya animatsiya qilinadi: L va U to'lib borar ekan, yangi paydo bo'lgan nolmaslar boshqa rangda yonadi — to'ldirilishning ma'nosi shunda ko'rinadi. Uchta holat uchun hisoblagich nolmaslar sonini sanaydi va oxirida 32934 / 11820 / 7344 qiymatlari yonma-yon qoladi. Yakunda log-log grafik chiziladi: to'g'ri va iterativ usulning narxi 2D da deyarli parallel, 3D ga o'tilganda esa ular keskin ajraladi va kesishish nuqtasi chapga suriladi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Tugunlarni tartiblash va lenta kengligi",
+      "caption": "Cuthill–McKee tartiblash xotirani keskin kamaytiradi.",
+      "params": [
+       {
+        "key": "N",
+        "label": "Tugunlar soni",
+        "minimum": 100,
+        "maximum": 100000,
+        "default": 10000,
+        "step": 100,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "Tartiblanmagan lenta ~ N/2",
+        "expr": "N/2 + 0*x",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Cuthill–McKee ~ √N·k",
+        "expr": "sqrt(N)*x",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Tartiblanmagan (N=10⁴)",
+        "expr": "N/2",
+        "unit": "",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "CM (k=3, N=10⁴)",
+        "expr": "3*sqrt(N)",
+        "unit": "",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Tejash",
+        "expr": "(N/2)/(3*sqrt(N))",
+        "unit": "marta",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "koeffitsient k",
+      "y_label": "lenta kengligi",
+      "x_min": "1",
+      "x_max": "10",
+      "options": {},
+      "note": "N=10⁴ da tartiblash lenta kengligini ~17 marta kamaytiradi, yechish narxini esa lenta KVADRATIGA proporsional tushiradi."
+     },
+     {
+      "kind": "plot",
+      "title": "Usul tanlovi: masala o'lchamiga qarab",
+      "caption": "Kichik masalada to'g'ri, kattasida iterativ usul.",
+      "params": [
+       {
+        "key": "bw",
+        "label": "Lenta kengligi",
+        "minimum": 10,
+        "maximum": 1000,
+        "default": 100,
+        "step": 10,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "To'g'ri (lentali): N·b²",
+        "expr": "x*bw^2/1e9",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "CG (100 iteratsiya): 100·N·27",
+        "expr": "x*2700/1e9",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "N=10⁵ to'g'ri",
+        "expr": "1e5*bw^2/1e9",
+        "unit": "×10⁹",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "N=10⁵ CG",
+        "expr": "1e5*2700/1e9",
+        "unit": "×10⁹",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Teng bo'ladigan b",
+        "expr": "sqrt(2700)",
+        "unit": "",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "noma'lumlar soni N",
+      "y_label": "amallar, 10⁹",
+      "x_min": "1000",
+      "x_max": "10000000",
+      "options": {},
+      "note": "Lenta kengligi 52 dan katta bo'lsa iterativ usul arzonroq — 3D masalalarda b odatda mingdan oshadi."
+     }
+    ]
    },
    "difficulty": "ilg'or",
    "previous_link": "su-28 natijaning ishonchliligini rasmiylashtirdi: MMS bilan kod verifikatsiyasi, Richardson ekstrapolyatsiyasi va GCI bilan xatolik chegarasi. Lekin bu tartib to'rni bir necha marta maydalashni talab qiladi — ya'ni ishonchlilik hisoblash resursi evaziga sotib olinadi. Shu yerda tabiiy savol tug'iladi: bu resurs qanchaga tushadi va uni qanday kamaytirish mumkin? su-05 va su-06 da LU, Cholesky va CG algoritmlari alohida o'rganilgan edi, su-15 da esa yig'ish va lenta tushunchasi kiritilgan edi. Endi ular bitta muhandislik qaroriga birlashtiriladi.",
@@ -60310,7 +64480,155 @@
      "title": "To'liq hisoblash zanjiri",
      "summary": "Sahna beshta blokni ketma-ket yoqadi va har birida shu fan bergan tenglama hamda shu hisobdagi aniq son paydo bo'ladi: muvozanat (nazorat = 0), sigma = 6M/h^2 (162,76 MPa), von Mizes (144,67 MPa), D*nabla^4 w = p (91,8353 mkm) va K u = f (FEM, xato 1,7*10^-4 %). Bloklar strelkalar bilan bog'lanib, to'liq zanjir hosil qiladi. Keyin membrananing egilish shakli ko'rsatiladi va to'r maydalanishi animatsiya qilinadi: FEM nuqtalari aniq chiziqqa yopishib boradi. Yakunda validatsiya paneli ochiladi — to'rt shart yashil yonadi, keyin bosim ataylab oshiriladi va ikkita shart qizil bo'lib o'zgaradi: sonli yechim hamon yaqinlashayotgan bo'lsa ham, natija yaroqsiz bo'lib qolgani ko'rsatiladi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "To'liq hisob zanjiri: xatolarning to'planishi",
+      "caption": "Har bosqich o'z xatosini qo'shadi.",
+      "params": [
+       {
+        "key": "emod",
+        "label": "Model xatosi",
+        "minimum": 1,
+        "maximum": 20,
+        "default": 5,
+        "step": 0.5,
+        "unit": "%"
+       },
+       {
+        "key": "emat",
+        "label": "Material ma'lumoti xatosi",
+        "minimum": 1,
+        "maximum": 20,
+        "default": 5,
+        "step": 0.5,
+        "unit": "%"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Jami xato (kvadratik yig'indi)",
+        "expr": "sqrt(emod^2 + emat^2 + x^2)",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Faqat model va material",
+        "expr": "sqrt(emod^2 + emat^2)",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Sonli xato 1% da jami",
+        "expr": "sqrt(emod^2 + emat^2 + 1)",
+        "unit": "%",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Sonli xato 5% da jami",
+        "expr": "sqrt(emod^2 + emat^2 + 25)",
+        "unit": "%",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Sonli xatoni nolga tushirsak",
+        "expr": "sqrt(emod^2 + emat^2)",
+        "unit": "%",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "sonli xato, %",
+      "y_label": "jami xato, %",
+      "x_min": "0",
+      "x_max": "20",
+      "options": {},
+      "note": "Model va material xatosi 5% bo'lsa, sonli xatoni 1% dan past tushirish deyarli hech narsa bermaydi — zaxira koeffitsienti shuning uchun kerak."
+     },
+     {
+      "kind": "plot",
+      "title": "Hisobdan qarorgacha: zaxira koeffitsienti",
+      "caption": "Hisob aniqligi zaxira tanlovini belgilaydi.",
+      "params": [
+       {
+        "key": "etot",
+        "label": "Jami hisob xatosi",
+        "minimum": 1,
+        "maximum": 40,
+        "default": 10,
+        "step": 0.5,
+        "unit": "%"
+       },
+       {
+        "key": "sy",
+        "label": "Oqish chegarasi",
+        "minimum": 150,
+        "maximum": 900,
+        "default": 250,
+        "step": 10,
+        "unit": "MPa"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Kerakli zaxira n = 1/(1 − e)·1,5",
+        "expr": "1.5/(1 - x/100)",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Ideal hisob n = 1,5",
+        "expr": "1.5",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       },
+       {
+        "label": "Joriy hisob xatosi",
+        "expr": "1.5/(1 - etot/100)",
+        "color": "mark",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Kerakli zaxira",
+        "expr": "1.5/(1 - etot/100)",
+        "unit": "",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Ruxsat etilgan [σ]",
+        "expr": "sy/(1.5/(1 - etot/100))",
+        "unit": "MPa",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Aniq hisob afzalligi",
+        "expr": "100*(1 - (1 - etot/100))",
+        "unit": "% material",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "hisob xatosi, %",
+      "y_label": "kerakli zaxira n",
+      "x_min": "0",
+      "x_max": "40",
+      "options": {},
+      "note": "Hisob aniqligini 20% dan 5% ga yaxshilash zaxirani 1,88 dan 1,58 ga tushiradi — ya'ni 16% material tejaydi."
+     }
+    ]
    },
    "difficulty": "ilg'or",
    "previous_link": "su-29 hisoblash narxini boshqarishni o'rgatdi va shu bilan sonli usullarning texnik qismi yakunlandi. Endi oxirgi qadam qoldi: barcha bo'g'inlarni bitta ishchi zanjirga ulash. Bu mavzuda yangi nazariya kiritilmaydi — aksincha, kursda o'rganilgan hamma narsa bitta real masalada birgalikda ishlatiladi va har bir qadamda 'qaysi fan nima berdi' degan savolga aniq javob beriladi.",
@@ -63364,8 +67682,8 @@
    "topics": 150,
    "modules": 25,
    "projects": 5,
-   "checks_total": 18,
-   "checks_passed": 18
+   "checks_total": 20,
+   "checks_passed": 20
   },
   "checks": [
    {
@@ -63492,6 +67810,20 @@
     "title": "Har bir mavzuda 5–10 ta mustahkamlash savoli bormi?",
     "passed": true,
     "detail": "barcha mavzuda 5–10 savol",
+    "problems": []
+   },
+   {
+    "key": "figures_min",
+    "title": "Har bir mavzuda kamida 2 ta interaktiv chizma bormi?",
+    "passed": true,
+    "detail": "barcha 150 mavzuda ≥ 2 chizma (jami 300 ta)",
+    "problems": []
+   },
+   {
+    "key": "figures_complete",
+    "title": "Har bir chizmada surgich, egri chiziq, ko'rsatkich va izoh bormi?",
+    "passed": true,
+    "detail": "barcha chizma to'liq",
     "problems": []
    }
   ]

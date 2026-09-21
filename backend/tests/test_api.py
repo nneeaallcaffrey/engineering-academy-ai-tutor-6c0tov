@@ -164,6 +164,22 @@ def test_curriculum_audit_passes(client) -> None:
     assert d["counts"]["topics"] == EXPECTED_TOPICS
 
 
+def test_every_topic_serves_at_least_two_figures(client) -> None:
+    """Chizmalar kontentdan bazaga, bazadan API'ga uzilmasdan yetib borishi kerak."""
+    ids = [t["id"] for t in client.get("/api/topics?limit=200").json()]
+    assert len(ids) == EXPECTED_TOPICS
+    total = 0
+    for tid in ids:
+        figures = client.get(f"/api/topics/{tid}").json()["lesson"]["figures"]
+        assert len(figures) >= 2, f"{tid}: {len(figures)} ta chizma"
+        for f in figures:
+            assert f["params"] and f["curves"] and f["readouts"], f"{tid}: chizma to'liq emas"
+            for p in f["params"]:
+                assert p["minimum"] <= p["default"] <= p["maximum"], f"{tid}/{p['key']}"
+        total += len(figures)
+    assert total >= 2 * EXPECTED_TOPICS
+
+
 def test_openapi_is_valid(client) -> None:
     d = client.get("/openapi.json").json()
     assert d["info"]["title"]

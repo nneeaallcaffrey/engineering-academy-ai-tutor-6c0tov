@@ -292,6 +292,36 @@ def run_audit() -> AuditReport:  # noqa: C901 - tekshiruvlar ro'yxati uzun bo'li
         "barcha mavzuda 5–10 savol" if not bad_quiz else "; ".join(bad_quiz), bad_quiz,
     ))
 
+    # Interaktiv chizmalar: har bir mavzuda kamida ikkitadan
+    few_fig = [f"{t.id}({len(t.lesson.figures)})" for t in topics
+               if len(t.lesson.figures) < 2]
+    checks.append(CheckResult(
+        "figures_min", "Har bir mavzuda kamida 2 ta interaktiv chizma bormi?",
+        not few_fig,
+        (f"barcha {len(topics)} mavzuda \u2265 2 chizma "
+         f"(jami {sum(len(t.lesson.figures) for t in topics)} ta)")
+        if not few_fig else "; ".join(few_fig), [x.split("(")[0] for x in few_fig],
+    ))
+
+    # Chizma spetsifikatsiyasining to'liqligi
+    bad_fig = []
+    for t in topics:
+        for i, f in enumerate(t.lesson.figures):
+            where = f"{t.id}#{i + 1}"
+            if not f.params:
+                bad_fig.append(f"{where}: surgich yo'q")
+            elif not f.curves:
+                bad_fig.append(f"{where}: egri chiziq yo'q")
+            elif not f.readouts:
+                bad_fig.append(f"{where}: ko'rsatkich yo'q")
+            elif len(f.note) < 30:
+                bad_fig.append(f"{where}: izoh juda qisqa")
+    checks.append(CheckResult(
+        "figures_complete", "Har bir chizmada surgich, egri chiziq, ko'rsatkich va izoh bormi?",
+        not bad_fig,
+        "barcha chizma to'liq" if not bad_fig else "; ".join(bad_fig[:8]), bad_fig[:20],
+    ))
+
     return AuditReport(checks=checks)
 
 

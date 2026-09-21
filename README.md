@@ -35,7 +35,7 @@ Ikkalasida ham sayt shu manzilda ochiladi:
 | Modullar | 25 |
 | Mavzular | **150** (har fanda aynan 30 ta) |
 | Interaktiv laboratoriyalar | 150 |
-| Interaktiv chizmalar | 14 (har fanda 2–3 ta) |
+| Interaktiv chizmalar | 314 (har mavzuda ≥ 2 ta) |
 | Mustahkamlash savollari | 863 |
 | Chiqarish qadamlari | 1069 |
 | Manim sahnalari | 86 |
@@ -110,26 +110,63 @@ yo'nalishi.
 
 Darsning "Vizualizatsiya" bo'limida **jonli chizma** bor: surgichni
 surasiz — chizma darhol brauzerda qayta hisoblanadi va qayta chiziladi
-(backendga murojaat qilinmaydi). Har bir fanda kamida ikkitadan:
+(backendga murojaat qilinmaydi).
 
-| Fan | Mavzu | Chizma | Nimani ko'rsatadi |
-|---|---|---|---|
-| NM | nm-01 | Vektor moment | yelka d = r·sinθ, burchak 0 da moment yo'qoladi |
-| NM | nm-24 | Fazaviy portret | separatrisa: tebranish va aylanish chegarasi |
-| NM | nm-27 | AChT | cho'qqi 1/(2ζ); ζ > 0,707 da rezonans yo'qoladi |
-| MQ | mq-12 | Q va M epyuralari | dM/dx = Q; yuk joyini surganda M_max ergashadi |
-| MQ | mq-19 | Mor doirasi | kesim θ ga burilsa nuqta 2θ ga buriladi |
-| MQ | mq-25 | Eyler ustuvorligi | μ va λ; λ < λ_lim da formula yaroqsiz |
-| TMM | tmm-02 | Tenzor burilishi | komponentalar o'zgaradi, I₁ va I₂ o'zgarmaydi |
-| TMM | tmm-21 | Mizes va Treska | sof siljishda farq 15,5 % |
-| PQ | pq-07 | Navye egilish sirti | bitta had 2,4 % aniqlik; w/h > 0,2 chegarasi |
-| PQ | pq-13 | Doiraviy plastina | qisilgan va sharnirli: 4,08 barobar farq |
-| PQ | pq-22 | Tebranish shakllari | tugun chiziqlari, kvadratda karrali ildiz |
-| SU | su-10 | Ayirma barqarorligi | r > 0,5 da sxema portlaydi |
-| SU | su-14 | Izoparametrik | det J nolga yetganda element ag'dariladi |
-| SU | su-18 | Yaqinlashish tartibi | kod xatosi kuzatilgan tartibni tushiradi |
+**150 mavzuning hammasida kamida 2 tadan, jami 300 ta chizma.** Ular ustiga
+14 ta mavzuda qo'lda yozilgan maxsus vidjet ham bor (Mor doirasi, fazaviy
+portret, izoparametrik element va h.k.) — jami 314 ta interaktiv chizma.
 
-Mavzular ro'yxatida bunday mavzular **◆ chizma** belgisi bilan ajratilgan.
+### Qanday ishlaydi
+
+Chizma **kurikulumning o'zida** tipli `Figure` dataclass sifatida yoziladi:
+
+```python
+fig("Buralishda urinma kuchlanish radius bo'ylab",
+    "τ markazda nol, chetda maksimal — chiziqli taqsimot.",
+    params=[fp("T", "Burovchi moment", 50, 5000, 800, 50, "N·m"),
+            fp("d", "Val diametri", 10, 120, 40, 1, "mm")],
+    curves=[fc("τ(r) = Tr/I_p", "T*x*1e-3/(pi*(d*1e-3)^4/32)/1e6", "tension")],
+    x=("radius r, mm", "τ, MPa"), x_min="0", x_max="d/2",
+    readouts=[fr("τ_max (chetda)", "16*T/(pi*(d*1e-3)^3)/1e6", "MPa", "tension")],
+    note="Markazdagi material deyarli ishlamaydi — shuning uchun quvur to'la valdan samaraliroq.")
+```
+
+`export.py` uni JSON ga chiqaradi, backend JSON ni o'zgartirmasdan uzatadi,
+`frontend/src/interactive/SpecFigure.tsx` esa render qiladi. Ifodalar
+`expr.ts` dagi **shunting-yard hisoblagichi** bilan baholanadi: `eval`,
+`new Function` yoki shunga o'xshash hech narsa ishlatilmaydi, faqat oq
+ro'yxatdagi funksiyalar (`sin`, `sqrt`, `log`, `exp`, `min`, `max`, `atan2`, …)
+va shu chizmaning o'z surgichlari ko'rinadi.
+
+### O'lchov ramkasi qanday tanlanadi
+
+Avtomatik masshtab har surishda qayta moslashtirilsa, egri chiziq **hech
+qachon qimirlamagandek** ko'rinadi: masshtab ham parametr bilan birga
+o'sadi. Shuning uchun `stableFrame()` y oralig'ini bir marta —
+**surgichlarning butun diapazoni bo'yicha** hisoblaydi. Agar natijada
+sukutdagi egri chiziq balandlikning 12 % idan kam joy egallasa (parametr
+diapazoni bir necha tartibga cho'zilgan holat), ramka sukutdagi ko'rinishga
+qaytariladi.
+
+### Nima kafolatlanadi (testlar bilan)
+
+| Kafolat | Qayerda tekshiriladi |
+|---|---|
+| Har bir mavzuda ≥ 2 chizma (150/150, jami 300) | `audit.py`, `test_api.py` |
+| Har bir chizmada surgich, egri chiziq, ko'rsatkich va izoh bor | `audit.py` |
+| Har bir ifoda kompilyatsiya bo'ladi, sukutdagi qiymatlarda CHEKLI son beradi | `figures.test.ts` |
+| Har bir surgich yo rasmni siljitadi, yo ko'rsatkichni o'zgartiradi | `frame.test.ts` |
+| **Birinchi** surgich rasmni ≥ 4 piksel siljitadi (150/150 × 2) | `frame.test.ts` |
+| Chizmalar API orqali uzilmasdan yetib boradi | `test_api.py` |
+
+Chizmadagi har bir son bajarilgan hisob bilan tekshirilgan. Masalan Navye
+qatorining bir hadli xatosi (+2,4 %), chekli ayirmalarning sodda balkadagi
+aniq munosabati (1 + 4/(5N²)), qistirilgan chekkadagi qobiq momenti
+(0,2572 pRt), Nyumark davr xatosi (Δt/T = 0,1 da +3,21 %) va sdvig
+qulflanishi koeffitsienti (1 + κ(L/h)²/(2(1+ν))) — hammasi sonli hisob
+bilan olingan, taxmin qilingan emas.
+
+Mavzular ro'yxatida chizmali mavzular **◆ chizma** belgisi bilan ajratilgan.
 
 ## 5. Interaktiv laboratoriya
 
@@ -297,15 +334,15 @@ npm test                          # 49 test
 | To'plam | Soni | Nimani tekshiradi |
 |---|---|---|
 | `test_sandbox.py` | 27 | 17 hujum ssenariysi, CPU/xotira/chiqish chegaralari, oq ro'yxatlarning bir xilligi |
-| `test_api.py` | 22 | barcha endpointlar, 404 lar, OpenAPI, `a^4` qonuni HTTP orqali |
+| `test_api.py` | 23 | barcha endpointlar, 404 lar, OpenAPI, `a^4` qonuni, 300 chizma HTTP orqali |
 | `test_curriculum.py` | 24 | 150 mavzuning tuzilishi, chiqarish chuqurligi, savollar, soxta matn yo'qligi |
 | `test_manim_refs.py` | 6 | 87 havola, 33 fayl, 86 sinf, nom soyalanishi |
-| `test_interactive.py` | 6 | registry kalitlari, har fanda ≥2 chizma |
-| frontend | 49 | Epyura, Plot, muharrir, Lab va 14 interaktiv chizma |
+| `test_interactive.py` | 6 | registry kalitlari, har fanda ≥2 maxsus vidjet |
+| frontend | 66 | Epyura, Plot, muharrir, Lab, 14 maxsus vidjet va 300 spetsifikatsiyali chizma |
 
 Kurikulum auditi alohida:
 ```bash
-python -m content.curriculum.audit      # 18 tekshiruv
+python -m content.curriculum.audit      # 20 tekshiruv
 ```
 
 ## 9. Loyiha tuzilishi
@@ -314,17 +351,18 @@ python -m content.curriculum.audit      # 18 tekshiruv
 content/curriculum/       kurikulum manbai (tipli dataclass'lar)
   schema.py               Topic, Lesson, Computation, FinalProject ...
   subjects/               5 fan x 5 modul
+  figures/                300 ta interaktiv chizma spetsifikatsiyasi
   projects.py             5 yakuniy loyiha
-  audit.py                18 akademik tekshiruv
+  audit.py                20 akademik tekshiruv
   export.py               -> content/generated/curriculum.json
 backend/
   app/sandbox/            policy, executor, runner, labkit
   app/routers/            subjects, topics, projects, resources, curriculum, health
   app/models.py           SQLAlchemy
-  tests/                  78 test
+  tests/                  85 test
 frontend/
   src/components/         Epure, Plot, Latex, CodeEditor, Lab
-  src/interactive/        14 ta interaktiv chizma + registry
+  src/interactive/        SpecFigure + expr.ts + 14 maxsus vidjet + registry
   src/pages/              Dashboard, Subject, Topic, Graph, Projects, Resources, Audit
   DESIGN.md               dizayn qarorlari va ularning asosi
 animatsiya/

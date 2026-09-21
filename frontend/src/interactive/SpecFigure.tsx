@@ -23,10 +23,13 @@ const IW = W - L - R, IH = H - T - B;
  * backendga murojaat qilinmaydi.
  */
 export function SpecFigure({ spec }: { spec: FigureSpec }) {
-  const [vals, setVals] = useState<Record<string, number>>(() =>
-    Object.fromEntries(spec.params.map((p) => [p.key, p.default])));
+  const [vals, setVals] = useState<Record<string, number>>(() => defaults(spec));
 
-  const data = useMemo(() => build(spec, vals), [spec, vals]);
+  // O'lchov ramkasi surgichlarning BUTUN diapazoni bo'yicha bir marta hisoblanadi:
+  // shunda surgich surilganda egri chiziq ramka ichida ko'tariladi yoki tushadi.
+  // Avtomatik masshtab har safar qayta moslashtirilsa, rasm qimirlamagandek ko'rinardi.
+  const frame = useMemo(() => stableFrame(spec), [spec]);
+  const data = useMemo(() => build(spec, vals, frame), [spec, vals, frame]);
 
   return (
     <div>
@@ -77,14 +80,64 @@ interface Built {
   empty: boolean;
 }
 
-function build(spec: FigureSpec, vals: Record<string, number>): Built {
+/** Surgichlarning sukutdagi holati. */
+export function defaults(spec: FigureSpec): Record<string, number> {
+  return Object.fromEntries(spec.params.map((p) => [p.key, p.default]));
+}
+
+/** Berilgan parametrlarda egri chiziqlar egallaydigan y oralig'i. */
+export function yRange(spec: FigureSpec, vals: Record<string, number>): [number, number] {
+  let lo = Infinity, hi = -Infinity;
+  for (const r of sample(spec, vals)) {
+    for (const [, y] of r.xy) { if (y < lo) lo = y; if (y > hi) hi = y; }
+  }
+  return Number.isFinite(lo) ? [lo, hi] : [0, 1];
+}
+
+/**
+ * Surgichlarning chekka holatlarini ham qamrab oladigan barqaror o'lchov ramkasi.
+ *
+ * Har bir surgich alohida-alohida minimal va maksimal holatga qo'yiladi. Agar
+ * natijada sukutdagi egri chiziq balandlikning 12% idan kam joy egallasa (masalan
+ * parametr diapazoni bir necha tartibga cho'zilgan bo'lsa), ramka sukutdagi
+ * ko'rinishga qaytariladi — aks holda boshlang'ich rasm o'qilmas bo'lib qolardi.
+ */
+export function stableFrame(spec: FigureSpec): [number, number] {
+  const d = defaults(spec);
+  const base = yRange(spec, d);
+  let lo = base[0], hi = base[1];
+  for (const p of spec.params) {
+    for (const v of [p.minimum, p.maximum]) {
+      const r = yRange(spec, { ...d, [p.key]: v });
+      if (Number.isFinite(r[0]) && r[0] < lo) lo = r[0];
+      if (Number.isFinite(r[1]) && r[1] > hi) hi = r[1];
+    }
+  }
+  const span = hi - lo, baseSpan = base[1] - base[0];
+  if (!(span > 0) || baseSpan / span < 0.12) return base;
+  return [lo, hi];
+}
+
+interface Raw { label: string; color: string; dashed: boolean; xy: [number, number][]; }
+
+/** Ko'rsatkichlarning ko'rinadigan qiymatlari — testlar uchun ochiq. */
+export function readoutValues(spec: FigureSpec, vals: Record<string, number>): string[] {
+  return build(spec, vals, [0, 1]).readouts.map((r) => r.value);
+}
+
+/** Chizmaning ekran koordinatalaridagi nuqtalari — testlar uchun ochiq. */
+export function screenPoints(spec: FigureSpec, vals: Record<string, number>,
+                             frame: [number, number]): [number, number][][] {
+  return build(spec, vals, frame).series.map((s) => s.pts);
+}
+
+function sample(spec: FigureSpec, vals: Record<string, number>): Raw[] {
   const x0 = safeEval(spec.x_min, vals);
   const x1 = safeEval(spec.x_max, vals);
   const lo = Number.isFinite(x0) ? x0 : 0;
   const hi = Number.isFinite(x1) && x1 !== x0 ? x1 : lo + 1;
-
   const N = 200;
-  const raw: { label: string; color: string; dashed: boolean; xy: [number, number][] }[] = [];
+  const raw: Raw[] = [];
   for (const c of spec.curves) {
     if (c.when && !(safeEval(c.when, vals) > 0)) continue;
     const xy: [number, number][] = [];
@@ -95,10 +148,24 @@ function build(spec: FigureSpec, vals: Record<string, number>): Built {
     }
     if (xy.length > 1) raw.push({ label: c.label, color: c.color, dashed: c.dashed, xy });
   }
+  return raw;
+}
 
-  let yLo = Infinity, yHi = -Infinity;
-  for (const r of raw) for (const [, y] of r.xy) { if (y < yLo) yLo = y; if (y > yHi) yHi = y; }
-  if (!Number.isFinite(yLo)) { yLo = 0; yHi = 1; }
+function build(spec: FigureSpec, vals: Record<string, number>,
+               frame: [number, number]): Built {
+  const x0 = safeEval(spec.x_min, vals);
+  const x1 = safeEval(spec.x_max, vals);
+  const lo = Number.isFinite(x0) ? x0 : 0;
+  const hi = Number.isFinite(x1) && x1 !== x0 ? x1 : lo + 1;
+
+  const raw = sample(spec, vals);
+
+  // Joriy ma'lumot bilan sukutdagi ramkaning BIRLASHMASI: egri chiziq hech qachon
+  // kesilmaydi, ammo masshtab har surishda qaytadan moslashtirilmaydi.
+  const [dLo, dHi] = yRange(spec, vals);
+  let yLo = Math.min(dLo, frame[0]);
+  let yHi = Math.max(dHi, frame[1]);
+  if (!Number.isFinite(yLo) || !Number.isFinite(yHi)) { yLo = 0; yHi = 1; }
   if (yLo === yHi) { yLo -= 0.5; yHi += 0.5; }
   const pad = (yHi - yLo) * 0.08;
   yLo -= pad; yHi += pad;

@@ -9,3 +9,4 @@ dist/
 animatsiya/media/
 backend/.pytest_cache/
 .coverage
+*.tsbuildinfo
