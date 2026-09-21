@@ -1,6 +1,6 @@
 {
  "schema_version": "1.0",
- "generated_at": "2026-09-20",
+ "generated_at": "2026-09-21",
  "language": "uz-Latn",
  "meta": {
   "title": "Mexanika ta'lim platformasi",
@@ -1302,7 +1302,7 @@
     "research_extension": "Kichik tadqiqot: fazoviy ferma tugunidagi 6–8 ta sterjen uchun kuch proyeksiyalarini avtomatik hisoblaydigan skript yozing. So'ngra koordinata o'qlarini turlicha burib, hosil bo'lgan chiziqli tenglamalar sistemasining shartlanganlik soni (condition number) qanday o'zgarishini o'lchang. Bu — su-02 dagi shartlanganlik mavzusiga real kirish nuqtasi.",
     "manim": {
      "scene": "VectorMomentScene",
-     "module": "manim/scenes/nm_vectors.py",
+     "module": "animatsiya/scenes/nm_vectors.py",
      "title": "Vektor ko'paytma va moment",
      "summary": "r va F vektorlari, ular yasagan parallelogramm, yelka va hosil bo'luvchi M vektori o'ng vint qoidasi bo'yicha animatsiya qilinadi."
     }
@@ -1772,7 +1772,7 @@
     "research_extension": "Klotoida o'tish egri chizig'ini modellashtiring: $\\kappa(s) = s/(A^2)$. Freneldan olingan integrallar orqali traektoriyani quring va aylana bilan to'g'ridan-to'g'ri ulanishga nisbatan $da_n/dt$ (jerk) ning maksimal qiymatini taqqoslang. Natijani yo'l loyihalash normalari bilan solishtiring.",
     "manim": {
      "scene": "CurvatureScene",
-     "module": "manim/scenes/nm_kinematics.py",
+     "module": "animatsiya/scenes/nm_kinematics.py",
      "title": "Egrilik doirasi va tezlanishning ajralishi",
      "summary": "Egri chiziq bo'ylab harakatlanuvchi nuqta, o'zgaruvchan egrilik doirasi va a = a_τ·τ + a_n·n ajralishi."
     }
@@ -2492,7 +2492,7 @@
     "research_extension": "Koriolis massa rashodomerini modellashtiring: U-shaklidagi nay tebranayotganda, ichidagi oqim Koriolis kuchi tufayli nayning kirish va chiqish qismlarini turli fazada tebrantiradi. Faza siljishi massa oqimiga proporsional. Sodda model quring (nayni ikki massali tizim deb olib) va faza siljishining $\\dot m$ ga chiziqli bog'liqligini tekshiring.",
     "manim": {
      "scene": "CoriolisScene",
-     "module": "manim/scenes/nm_kinematics.py",
+     "module": "animatsiya/scenes/nm_kinematics.py",
      "title": "Koriolis effekti: ikki kadr",
      "summary": "Aylanuvchi va qo'zg'almas sanoq sistemalarida bir xil harakatning yonma-yon animatsiyasi; to'g'ri chiziq spiralga aylanadi."
     }
@@ -2739,7 +2739,7 @@
     "research_extension": "Lift trosining o'zini elastik deb hisoblang (prujina, bikrligi $k$) va tizimni ikki erkinlik darajali qilib modellashtiring. Tezlanish bosqichida trosda qanday tebranish paydo bo'ladi? Dinamiklik koeffitsienti statik hisobdan qanchalik oshadi? Bu masala nm-25 va mq-27 ga to'g'ridan-to'g'ri olib boradi.",
     "manim": {
      "scene": "FreeBodyScene",
-     "module": "manim/scenes/nm_dynamics.py",
+     "module": "animatsiya/scenes/nm_dynamics.py",
      "title": "Erkin jism diagrammasi va Nyuton tenglamasi",
      "summary": "Lift kabinasi bog'lanishlardan ajratiladi, kuchlar strelkalari chiziladi va tezlanish o'zgarganda T strelkasi uzunligi o'zgaradi."
     }
@@ -3697,7 +3697,7 @@
     "research_extension": "Ferma topologiyasini optimallashtiring: berilgan yuk va oraliq uchun sterjenlar umumiy hajmini ($\\sum A_i L_i$) minimallashtiring, bunda har bir sterjen $\\sigma \\le [\\sigma]$ shartini qanoatlantirsin. `scipy.optimize` bilan $h$ ni optimallashtirib boshlang, so'ngra qo'shimcha tugun qo'shish foyda berishini tekshiring.",
     "manim": {
      "scene": "TrussForceScene",
-     "module": "manim/scenes/nm_statics.py",
+     "module": "animatsiya/scenes/nm_statics.py",
      "title": "Fermada kuchlarning taqsimlanishi",
      "summary": "Yuk qo'yilganda sterjenlar ketma-ket rangga bo'yaladi: cho'zilgan va siqilgan sterjenlar, tugun muvozanati ko'pburchagi."
     }
@@ -4678,7 +4678,7 @@
     "research_extension": "Ikki chuqurchali potensialga davriy majburlovchi kuch va dempfirlash qo'shing (Duffing tenglamasi). To'la energiya chegarada bo'lganda harakat xaotik bo'lishi mumkin. Poincaré kesimini qurib, determinlashgan xaosni kuzating. Bu — nochiziqli dinamikaga real kirish (nm-30 da davom etadi).",
     "manim": {
      "scene": "PotentialWellScene",
-     "module": "manim/scenes/nm_energy.py",
+     "module": "animatsiya/scenes/nm_energy.py",
      "title": "Potensial chuqurcha va energiya saqlanishi",
      "summary": "Sharcha potensial relyef bo'ylab harakatlanadi; kinetik va potensial energiya ustunlari almashib turadi, yig'indi o'zgarmaydi."
     }
@@ -6366,7 +6366,7 @@
     "research_extension": "Ikki karrali mayatnik uchun eng katta Lyapunov ko'rsatkichini sonli hisoblang: ikki yaqin boshlang'ich shartning ajralish tezligi $\\lambda = \\lim\\frac{1}{t}\\ln\\frac{|\\delta(t)|}{|\\delta_0|}$. Uni boshlang'ich energiyaning funksiyasi sifatida chizing va qanday energiyada tizim tartibli harakatdan xaosga o'tishini aniqlang.",
     "manim": {
      "scene": "DoublePendulumScene",
-     "module": "manim/scenes/nm_lagrange.py",
+     "module": "animatsiya/scenes/nm_lagrange.py",
      "title": "Ikki karrali mayatnik va xaos",
      "summary": "Ikki yaqin boshlang'ich shartdan boshlangan mayatniklar dastlab birga harakatlanadi, so'ng butunlay ajralib ketadi."
     }
@@ -6805,7 +6805,7 @@
     "research_extension": "Simplektik integratorlarni tadqiq qiling: Störmer–Verlet, leapfrog va yuqori tartibli (Yoshida) sxemalarni amalga oshiring. Har biri uchun energiya driftini integrallash vaqtining funksiyasi sifatida o'lchang va oddiy RK4 bilan taqqoslang. Nima uchun simplektik usullar 'yomonroq' lokal aniqlikka ega bo'lsa ham, uzoq muddatda ustun?",
     "manim": {
      "scene": "PhaseSpaceScene",
-     "module": "manim/scenes/nm_lagrange.py",
+     "module": "animatsiya/scenes/nm_lagrange.py",
      "title": "Mayatnik fazaviy portreti",
      "summary": "Fizik mayatnik va uning fazaviy fazodagi tasviri yonma-yon; energiya ortganda traektoriya separatrisadan o'tib aylanishga aylanadi."
     }
@@ -7268,7 +7268,7 @@
     "research_extension": "Kulon ishqalanishli so'nishni modellashtiring: $F = -F_0\\,\\text{sign}(\\dot x)$. Amplituda har yarim siklda $2F_0/k$ ga kamayishini (chiziqli qonun) sonli ko'rsating va yopishqoq so'nish bilan taqqoslang. Qaysi model real birikmalardagi so'nishni yaxshiroq tavsiflaydi?",
     "manim": {
      "scene": "DampingRegimesScene",
-     "module": "manim/scenes/nm_vibrations.py",
+     "module": "animatsiya/scenes/nm_vibrations.py",
      "title": "Dempfirlash rejimlari",
      "summary": "Uch massa bir vaqtda qo'yib yuboriladi (ζ=0,1; 1; 2) va ularning harakati hamda fazaviy portretlari taqqoslanadi."
     }
@@ -7513,7 +7513,7 @@
     "research_extension": "Dinamik tebranish so'ndirgichini (tuned mass damper) modellashtiring: asosiy massaga kichik massa-prujina qo'shing va uni $\\omega_2 = \\omega$ ga sozlang. Asosiy massaning amplitudasi aynan nolga tushishini ko'rsating. So'ngra Den Hartog optimal sozlash formulalarini sonli tekshiring — bu Taypey 101 va boshqa osmono'parlarda ishlatiladigan real texnologiya.",
     "manim": {
      "scene": "ResonanceScene",
-     "module": "manim/scenes/nm_vibrations.py",
+     "module": "animatsiya/scenes/nm_vibrations.py",
      "title": "Rezonans va AChT",
      "summary": "Majburlovchi chastota sekin oshirilganda massa amplitudasi va AChT egri chizig'idagi ishchi nuqta bir vaqtda ko'rsatiladi."
     }
@@ -7990,7 +7990,7 @@
     "research_extension": "Eksperimental modal tahlil (EMA) ni simulyatsiya qiling: tizimga tasodifiy kuch bering, javobni 'o'lchang', Fourier tahlili orqali AChT ni tiklang va yarim-quvvat usuli bilan har bir mod uchun dempfirlashni aniqlang. Natijani kiritilgan qiymatlar bilan taqqoslang — bu real tajriba usulining raqamli modeli.",
     "manim": {
      "scene": "ModeShapesScene",
-     "module": "manim/scenes/nm_vibrations.py",
+     "module": "animatsiya/scenes/nm_vibrations.py",
      "title": "Xususiy shakllar",
      "summary": "Uch qavatli bino uch xususiy shaklda tebranadi; tugun nuqtalari va chastotalar farqi ko'rsatiladi."
     }
@@ -8235,7 +8235,7 @@
     "research_extension": "Duffing tenglamasining majburiy tebranishida 'jump' hodisasini tadqiq qiling: chastotani sekin oshirib, so'ngra sekin kamaytirib, amplitudaning gisterezis sirtmog'ini quring. Qaysi chastota oralig'ida uchta yechim mavjud? Ularning qaysilari turg'un? Natijani garmonik balans usuli bilan olingan analitik egri chiziq bilan taqqoslang.",
     "manim": {
      "scene": "BifurcationScene",
-     "module": "manim/scenes/nm_stability.py",
+     "module": "animatsiya/scenes/nm_stability.py",
      "title": "Turg'unlik va bifurkatsiya",
      "summary": "Parametr o'zgarganda potensial relyef shakli o'zgaradi: bitta chuqurchadan ikkitaga o'tish va sharchaning yangi turg'un holatga 'sakrashi'."
     }
@@ -8708,7 +8708,7 @@
     "research_extension": "Kuchlanish tushunchasining chegarasini tadqiq qiling: $\\Delta A \\to 0$ limiti fizik jihatdan qachon ma'noga ega? Metallning don o'lchami (10–100 mkm) bilan taqqoslang va mikrokuchlanish hamda makrokuchlanish farqini tahlil qiling. Bu — tmm-01 dagi kontinuum gipotezasining amaliy chegarasi.",
     "manim": {
      "scene": "SectionMethodScene",
-     "module": "manim/scenes/mq_stress.py",
+     "module": "animatsiya/scenes/mq_stress.py",
      "title": "Kesim usuli",
      "summary": "Sterjen kesiladi, bir qismi olib tashlanadi va kesimda ichki kuchlar paydo bo'ladi; epyuralar bosqichma-bosqich quriladi."
     }
@@ -10640,7 +10640,7 @@
     "research_extension": "Optimal val kesimini toping: berilgan $T$ va massa cheklovida $\\alpha$ ni optimallashtiring, bunda ustuvorlik (yupqa devorli quvurning lokal ustuvorligi) ham hisobga olinsin. Devor qalinligining kritik nisbatini aniqlang — undan yupqa quvur buralishda burishib ketadi (pq-25 bilan bog'liq).",
     "manim": {
      "scene": "TorsionScene",
-     "module": "manim/scenes/mq_torsion.py",
+     "module": "animatsiya/scenes/mq_torsion.py",
      "title": "Val buralishi va kuchlanish taqsimoti",
      "summary": "Val bosqichma-bosqich buraladi, kesimdagi urinma kuchlanish strelkalari radius bo'ylab chiziqli o'sadi."
     }
@@ -11142,7 +11142,7 @@
     "research_extension": "Macaulay singulyar funksiyalari usulini amalga oshiring: $\\langle x-a\\rangle^n$ notatsiyasi bilan ixtiyoriy yuklanish uchun $Q(x)$, $M(x)$, $w(x)$ ni yagona analitik ifodada yozing. Bu usul epyuralarni qurishni to'liq avtomatlashtiradi va uni mq-16 dagi dastlabki parametrlar usuli bilan taqqoslang.",
     "manim": {
      "scene": "BeamDiagramScene",
-     "module": "manim/scenes/mq_bending.py",
+     "module": "animatsiya/scenes/mq_bending.py",
      "title": "Kesuvchi kuch va eguvchi moment epyuralari",
      "summary": "Balka bo'ylab kesim siljiydi, har bir holatda ichki kuchlar hisoblanadi va epyuralar bosqichma-bosqich quriladi."
     }
@@ -11387,7 +11387,7 @@
     "research_extension": "Ikki materialli (po'lat + beton yoki kompozit) balkani hisoblang: keltirilgan kesim usulini qo'llab, neytral o'q holatini aniqlang. $n = E_1/E_2$ nisbati neytral o'qni qanday siljitishini tahlil qiling va natijani sonli (FEM) yechim bilan taqqoslang.",
     "manim": {
      "scene": "BendingStressScene",
-     "module": "manim/scenes/mq_bending.py",
+     "module": "animatsiya/scenes/mq_bending.py",
      "title": "Egilishda neytral qatlam",
      "summary": "Balka egilganda tolalarning uzayishi va qisqarishi, neytral qatlamning o'zgarmasligi, chiziqli kuchlanish epyurasi."
     }
@@ -12808,7 +12808,7 @@
     "research_extension": "Tenzodatchik rozetkasi (0°, 45°, 90° da uchta datchik) dan to'liq tekis kuchlanish holatini tiklash algoritmini yozing. Uchta o'lchangan deformatsiyadan $\\varepsilon_x$, $\\varepsilon_y$, $\\gamma_{xy}$ ni, so'ngra umumlashgan Guk qonuni orqali kuchlanishlarni toping. O'lchash xatoligining natijaga ta'sirini baholang.",
     "manim": {
      "scene": "MohrCircleScene",
-     "module": "manim/scenes/mq_stress.py",
+     "module": "animatsiya/scenes/mq_stress.py",
      "title": "Mor doirasi",
      "summary": "Elementar hajm buriladi va Mor doirasidagi mos nuqta harakatlanadi; asosiy maydonchalar topiladi."
     }
@@ -14024,7 +14024,7 @@
     "research_extension": "Minimal potensial energiya prinsipini Ritz usuliga bog'lang: ko'chishni $w(x) = \\sum a_i\\varphi_i(x)$ ko'rinishida yozib, to'la potensial energiyani $a_i$ bo'yicha minimallashtiring. Konsol balka uchun bitta va ikkita hadli approksimatsiyani aniq yechim bilan taqqoslang — bu su-14 dagi Ritz usulining to'g'ridan-to'g'ri kirish nuqtasi.",
     "manim": {
      "scene": "StrainEnergyScene",
-     "module": "manim/scenes/mq_energy.py",
+     "module": "animatsiya/scenes/mq_energy.py",
      "title": "Deformatsiya energiyasi",
      "summary": "Kuch asta-sekin o'sadi, ko'chish ortadi va kuch–ko'chish grafigi ostidagi yuza (energiya) to'ldiriladi."
     }
@@ -14279,7 +14279,7 @@
     "research_extension": "Boshlang'ich egrilikli sterjenni modellashtiring: $w_0 = e_0\\sin(\\pi x/L)$. Ko'chish $w = w_0/(1-F/F_{kr})$ formulasini keltirib chiqaring va ideal bifurkatsiya qanday 'yumshoq' o'tishga aylanishini ko'rsating. Bu — real konstruksiyalarda kuzatiladigan xatti-harakat.",
     "manim": {
      "scene": "BucklingScene",
-     "module": "manim/scenes/mq_buckling.py",
+     "module": "animatsiya/scenes/mq_buckling.py",
      "title": "Eyler ustuvorligi",
      "summary": "Siquvchi kuch asta o'sadi; kritik qiymatda sterjen birdan egiladi. Turli mahkamlashlar uchun shakllar taqqoslanadi."
     }
@@ -16043,7 +16043,7 @@
     "research_extension": "Silindrik koordinatalarda kuchlanish tenzorining komponentalarini hisoblang va Dekart koordinatalardan o'tish matritsasini quring. Quvur (bosimli idish) masalasida $\\sigma_{rr}$, $\\sigma_{\\theta\\theta}$, $\\sigma_{zz}$ komponentalarini toping — bu tmm-16 da qo'llaniladi.",
     "manim": {
      "scene": "TensorTransformScene",
-     "module": "manim/scenes/tmm_tensor.py",
+     "module": "animatsiya/scenes/tmm_tensor.py",
      "title": "Tenzorning koordinata almashtirishda o'zgarishi",
      "summary": "Koordinata o'qlari buriladi, tenzor komponentalari o'zgaradi, lekin invariantlar va asosiy o'qlar o'zgarmaydi."
     }
@@ -17217,7 +17217,7 @@
     "research_extension": "Piola–Kirxgof kuchlanish tenzorlarini o'rganing: katta deformatsiyalarda kuchlanish qaysi yuzaga nisbatan o'lchanadi? 1-chi va 2-chi P–K tenzorlarini Koshi tenzori bilan bog'lang va bir o'qli katta cho'zilishda ularning farqini sonli ko'rsating.",
     "manim": {
      "scene": "CauchyTetrahedronScene",
-     "module": "manim/scenes/tmm_stress.py",
+     "module": "animatsiya/scenes/tmm_stress.py",
      "title": "Koshi tetraedri",
      "summary": "Tetraedr kichrayadi, hajmiy kuch yo'qoladi va t = σ·n formulasi kelib chiqadi."
     }
@@ -20110,7 +20110,7 @@
     "research_extension": "Aralash variatsion prinsiplarni (Hellinger–Reissner) o'rganing: ko'chish va kuchlanish mustaqil approksimatsiya qilinadi. Bu siqilmaydigan materiallarda (rezina, $\\nu \\to 0{,}5$) 'volumetric locking' muammosini qanday hal qiladi? Sodda 1D misolda ikkala formulirovkani taqqoslang.",
     "manim": {
      "scene": "VariationalScene",
-     "module": "manim/scenes/tmm_variational.py",
+     "module": "animatsiya/scenes/tmm_variational.py",
      "title": "Minimal potensial energiya prinsipi",
      "summary": "Turli mumkin bo'lgan ko'chish maydonlari sinab ko'riladi; haqiqiy yechim energiyani minimallashtiradi."
     }
@@ -20385,7 +20385,7 @@
     "research_extension": "Qatlamli plastinada tarqaluvchi Lemb (Lamb) to'lqinlarini o'rganing: ular dispersiv, ya'ni tezlik chastotaga bog'liq. Reley–Lemb dispersiya tenglamasini sonli yeching va $S_0$, $A_0$ modalar uchun $c(f h)$ egri chiziqlarini quring. Bu egri chiziqlar zamonaviy Structural Health Monitoring tizimlarida (aviatsiya paneli, quvur) qanday ishlatilishini tahlil qiling.",
     "manim": {
      "scene": "ElasticWaveScene",
-     "module": "manim/scenes/tmm_waves.py",
+     "module": "animatsiya/scenes/tmm_waves.py",
      "title": "P- va S-to'lqinlar",
      "summary": "Zarralar qatori bo'ylama to'lqinda zichlanib-siyraklanadi, ko'ndalang to'lqinda esa ko'ndalang tebranadi; ikki front turli tezlikda yuguradi."
     }
@@ -20663,7 +20663,7 @@
     "research_extension": "Bosimga sezgir materiallar uchun Drukker–Prager ($\\sqrt{J_2} + \\alpha I_1 = k$) va Mor–Kulon kriteriylarini o'rganing. Grunt, beton va polimerlarda $\\alpha$ parametri qanday aniqlanadi? Uch o'qli siqilish sinovi (triaxial test) ma'lumotlaridan $\\alpha$ va $k$ ni eng kichik kvadratlar usuli bilan moslashtiruvchi skript yozing va Mizes bilan taqqoslang.",
     "manim": {
      "scene": "YieldSurfaceScene",
-     "module": "manim/scenes/tmm_plasticity.py",
+     "module": "animatsiya/scenes/tmm_plasticity.py",
      "title": "Mizes silindri va Treska prizmasi",
      "summary": "Uch o'lchovli kuchlanish fazosida gidrostatik o'q, unga perpendikulyar $\\pi$-tekislik va ikki oqish yuzasining kesimi ko'rsatiladi."
     }
@@ -20950,7 +20950,7 @@
     "research_extension": "Chaboche kombinatsiyalangan mustahkamlanish modelini o'rganing: bir nechta nochiziqli kinematik qismlar $\\dot{\\alpha}_i = C_i\\dot{\\varepsilon}^p - \\gamma_i\\alpha_i\\dot{\\bar{\\varepsilon}}^p$ qo'shiladi. Uni return mapping sxemasiga kiriting va past siklli charchash sinovining barqaror gisterezis halqasiga eng kichik kvadratlar usuli bilan moslashtiring. $C_i$, $\\gamma_i$ parametrlarining fizik ma'nosini tahlil qiling.",
     "manim": {
      "scene": "HardeningScene",
-     "module": "manim/scenes/tmm_plasticity.py",
+     "module": "animatsiya/scenes/tmm_plasticity.py",
      "title": "Oqish yuzasining evolyutsiyasi",
      "summary": "Izotrop mustahkamlanishda doira kengayadi, kinematikda esa markazi siljiydi; ikkala holat $\\sigma$–$\\varepsilon$ diagrammasi bilan sinxron ko'rsatiladi."
     }
@@ -21539,7 +21539,7 @@
     "research_extension": "Elastoplastik yoriqlar mexanikasiga o'ting: Rays $J$-integralini $J = \\int_\\Gamma (W\\,dy - \\mathbf{T}\\cdot\\partial\\mathbf{u}/\\partial x\\,ds)$ o'rganing. Chiziqli holatda $J = G$ ekanligini isbotlang va uning **yo'ldan mustaqilligini** sonli tekshiring: yoriq uchi atrofida turli konturlar oling va integral qiymatini taqqoslang. CTOD (crack tip opening displacement) mezoni bilan bog'lanishi $J = m\\sigma_Y\\delta_t$ qanday asoslanadi?",
     "manim": {
      "scene": "CrackTipScene",
-     "module": "manim/scenes/tmm_fracture.py",
+     "module": "animatsiya/scenes/tmm_fracture.py",
      "title": "Yoriq uchidagi kuchlanish maydoni",
      "summary": "Yoriq uchi atrofida $\\sigma_y(r,\\theta)$ rangli maydon, $r^{-1/2}$ singulyarlik va plastik zonaning 'quloq' shakli ko'rsatiladi; yoriq uzayganda maydon qanday o'sishi animatsiya qilinadi."
     }
@@ -22162,7 +22162,7 @@
     "research_extension": "Bernulli tenglamasining nostatsionar umumlashmasini o'rganing: potensial oqim uchun $\\partial\\varphi/\\partial t + v^2/2 + p/\\rho + gz = f(t)$. Uni quvurdagi zadvijka keskin yopilganda yuzaga keladigan suv bolg'asi (water hammer) hodisasiga qo'llang: Jukovskiy formulasi $\\Delta p = \\rho a \\Delta v$ ni chiqaring, bu yerda $a$ — quvurdagi bosim to'lqini tezligi (tmm-20 dagi to'lqin tezligi bilan bog'lang). Quvur devorining elastikligi $a$ ga qanday ta'sir qiladi?",
     "manim": {
      "scene": "BernoulliScene",
-     "module": "manim/scenes/tmm_fluid.py",
+     "module": "animatsiya/scenes/tmm_fluid.py",
      "title": "Ventura oqimi va Bernulli balansi",
      "summary": "Oqim chiziqlari tomoqda zichlashadi, zarralar tezlashadi, pyezometrik naychalardagi suv ustuni pasayadi; uch energiya hadi ustun diagrammada bir-birini qanday to'ldirishi ko'rsatiladi."
     }
@@ -22446,7 +22446,7 @@
     "research_extension": "Nonyuton suyuqliklarni o'rganing: quvvat qonuni $\\tau = K\\dot{\\gamma}^n$ (n < 1 — psevdoplastik, n > 1 — dilatant), Bingem plastik $\\tau = \\tau_0 + \\mu_p\\dot{\\gamma}$ va Herschel–Bulkley modellari. Quvurdagi oqim uchun har bir model bilan tezlik profilini chiqaring va taqqoslang. Bingem suyuqligida paydo bo'ladigan 'qattiq o'zak' (plug flow) hodisasini tushuntiring va uning tish pastasi, beton yoki burg'ulash loyqasini quvur orqali haydashdagi ahamiyatini tahlil qiling.",
     "manim": {
      "scene": "NavierStokesScene",
-     "module": "manim/scenes/tmm_fluid.py",
+     "module": "animatsiya/scenes/tmm_fluid.py",
      "title": "Yopishqoq diffuziya va no-slip",
      "summary": "Birdan harakatga kelgan plastina yonida tezlik profili asta-sekin suyuqlik ichiga 'tarqaladi'; diffuziya chuqurligi $\\sqrt{\\nu t}$ qonuni bilan o'sishi ko'rsatiladi."
     }
@@ -22742,7 +22742,7 @@
     "research_extension": "Kirish uchastkasi (entrance region) masalasini o'rganing. Bu yerda oqim to'liq rivojlanmagan: chegaraviy qatlam devordan o'sib boradi va markazda potensial o'zak qoladi. $L_e/D = 0{,}06\\,\\mathrm{Re}$ formulasini chegaraviy qatlam qalinligi $\\delta \\sim \\sqrt{\\nu x/U}$ dan chiqaring. Bu uchastkada qo'shimcha bosim yo'qotishi (entrance loss, $K \\approx 1{,}2$) qanday paydo bo'ladi? Sonli yechim bilan taqqoslang.",
     "manim": {
      "scene": "PoiseuilleScene",
-     "module": "manim/scenes/tmm_fluid.py",
+     "module": "animatsiya/scenes/tmm_fluid.py",
      "title": "Puazeyl profilining shakllanishi",
      "summary": "Quvurga kirgan tekis profil chegaraviy qatlamlar o'sishi bilan asta-sekin parabolaga aylanadi; kirish uchastkasi va to'liq rivojlangan soha ajratib ko'rsatiladi."
     }
@@ -23043,7 +23043,7 @@
     "research_extension": "Falkner–Skan yechimlarini o'rganing: bosim gradiyenti bo'lganda ($U_e \\propto x^m$) Blazius tenglamasi $f''' + ff'' + \\beta(1 - f'^2) = 0$ ga aylanadi. Turli $\\beta$ qiymatlarida yeching va $f''(0) = 0$ bo'ladigan kritik $\\beta \\approx -0{,}1988$ ni toping — bu oqim ajralishi boshlanishiga mos keladi. Natijani qanot profilidagi bosim taqsimoti bilan bog'lang: hujum burchagi qanday qiymatda 'stall' boshlanadi?",
     "manim": {
      "scene": "BoundaryLayerScene",
-     "module": "manim/scenes/tmm_fluid.py",
+     "module": "animatsiya/scenes/tmm_fluid.py",
      "title": "Chegaraviy qatlam va o'xshashlik yechimi",
      "summary": "Plastina bo'ylab chegaraviy qatlam $\\sqrt{x}$ qonuni bilan o'sadi; turli kesimdagi profillar $\\eta$ o'zgaruvchisiga qayta chizilganda bitta universal Blazius egri chizig'iga birlashadi."
     }
@@ -23349,7 +23349,7 @@
     "research_extension": "LES (Large Eddy Simulation) va DNS usullarini taqqoslang. LES da katta vortekslar to'g'ridan-to'g'ri yechiladi, kichiklari esa submasshtabli model bilan (Smagorinskiy) almashtiriladi. Har bir usul uchun tur nuqtalari sonining Reynolds soniga bog'liqligini baholang: DNS uchun $N \\sim \\mathrm{Re}^{9/4}$, LES uchun devor yaqinida $N \\sim \\mathrm{Re}^{1{,}8}$. Bir xil hisoblash resursi bilan har bir usul qanday maksimal Reynolds soniga chiqishi mumkinligini hisoblang va natijani Mur qonuni bilan birga ekstrapolyatsiya qiling: DNS qachon sanoat masalalari uchun amaliy bo'ladi?",
     "manim": {
      "scene": "TurbulenceScene",
-     "module": "manim/scenes/tmm_fluid.py",
+     "module": "animatsiya/scenes/tmm_fluid.py",
      "title": "Energiya kaskadi va Reynolds o'rtachalashi",
      "summary": "Katta vorteks kichiklariga bo'linib boradi, energiya kaskad bo'ylab Kolmogorov masshtabiga o'tadi va issiqlikka aylanadi; yonida tezlik signalining o'rtacha va pulsatsion qismlarga ajralishi ko'rsatiladi."
     }
@@ -23623,7 +23623,7 @@
     "research_extension": "Kirxhoff gipotezalarining asimptotik asoslanishini o'rganing: $\\epsilon = h/a$ kichik parametr bo'yicha uch o'lchovli elastiklik masalasini yoying va nolinchi tartibda aynan Kirxhoff nazariyasi chiqishini ko'rsating. Keyingi tartibdagi tuzatma nimani beradi va u Reissner nazariyasi bilan qanday bog'lanadi? Ciarlet va Destuynder ishlaridan foydalaning.",
     "manim": {
      "scene": "KirchhoffHypothesisScene",
-     "module": "manim/scenes/pq_plate_basics.py",
+     "module": "animatsiya/scenes/pq_plate_basics.py",
      "title": "Kirxhoff gipotezasi: normal normal qoladi",
      "summary": "Plastina kesimi egiladi; o'rta sirtga sanchilgan normal kesmalar egilgandan keyin ham to'g'ri va egri sirtga perpendikulyar qolishi animatsiya qilinadi, ko'chish epyurasi bir vaqtda quriladi."
     }
@@ -24207,7 +24207,7 @@
     "research_extension": "Qatlamli kompozit plastina uchun klassik qatlamlash nazariyasini (Classical Laminate Theory) o'rganing: $\\{N, M\\}^T = [[A, B], [B, D]]\\{\\varepsilon^0, \\kappa\\}^T$. $A$ — membrana, $D$ — egilish, $B$ — bog'lanish matritsasi. Simmetrik paketlarda $B = 0$ bo'lishini isbotlang va nosimmetrik paketda cho'zilishning egilishga olib kelishini sonli ko'rsating. $[0/90]$ va $[0/90]_s$ paketlarini taqqoslang — nima uchun ishlab chiqarishda simmetriya shunchalik muhim?",
     "manim": {
      "scene": "PlateMomentsScene",
-     "module": "manim/scenes/pq_plate_basics.py",
+     "module": "animatsiya/scenes/pq_plate_basics.py",
      "title": "Plastina elementidagi ichki kuch omillari",
      "summary": "$dx\\,dy$ elementning yuzlarida egish momentlari, buralish momentlari va kesuvchi kuchlar vektorlar bilan ko'rsatiladi; kuchlanish epyuralari integrallanib momentga aylanishi animatsiya qilinadi."
     }
@@ -24507,7 +24507,7 @@
     "research_extension": "Bigarmonik tenglamaning fundamental yechimini o'rganing: cheksiz plastinada konsentrlangan kuch $P$ ostida $w = \\frac{P r^2\\ln r}{8\\pi D}$. Uni $D\\nabla^4 w = P\\delta(\\mathbf{x})$ tenglamasiga qo'yib tekshiring (umumlashgan funksiyalar ma'nosida). Nima uchun og'ish chekli, lekin moment logarifmik singulyarlikka ega? Bu natija FEM da konsentrlangan kuch qo'yilganda tur zichlashtirilganda kuchlanishning yaqinlashmasligini qanday tushuntiradi?",
     "manim": {
      "scene": "PlateEquationScene",
-     "module": "manim/scenes/pq_plate_basics.py",
+     "module": "animatsiya/scenes/pq_plate_basics.py",
      "title": "Bigarmonik tenglamaning keltirib chiqarilishi",
      "summary": "Element muvozanatidan boshlab kesuvchi kuchlar yo'qotiladi, momentlar egriliklar bilan almashtiriladi va Puasson koeffitsientining qisqarishi bosqichma-bosqich ko'rsatiladi."
     }
@@ -24802,7 +24802,7 @@
     "research_extension": "Reissner–Mindlin nazariyasida chegaraviy shartlar paradoksi yo'qolishini o'rganing. U yerda burilish burchaklari $\\phi_x, \\phi_y$ mustaqil noma'lum, shuning uchun tenglamalar tizimi ikkinchi tartibli va har chekkada uchta shart qo'yish mumkin. Kirxhoff yechimi Mindlin yechimining $h \\to 0$ dagi limiti ekanligini sonli ko'rsating va chekka yaqinidagi chegaraviy qatlam (boundary layer) hodisasini tahlil qiling: uning qalinligi $\\sim h$ ekanligini tasdiqlang.",
     "manim": {
      "scene": "KirchhoffShearScene",
-     "module": "manim/scenes/pq_plate_basics.py",
+     "module": "animatsiya/scenes/pq_plate_basics.py",
      "title": "Kirxhoff kesuvchi kuchi va burchak reaksiyasi",
      "summary": "Chekka bo'ylab buralish momentlari kuchlar juftligiga aylanadi, qo'shni juftlar o'zaro qisqaradi va burchakda qoldiq konsentrlangan kuch $2M_{xy}$ paydo bo'lishi animatsiya qilinadi."
     }
@@ -25442,7 +25442,7 @@
     "research_extension": "Qatorning yaqinlashish tezligini nazariy tahlil qiling. Furye qatorining yaqinlashishi funksiyaning silliqligiga bog'liq: $C^k$ funksiya uchun koeffitsientlar $O(m^{-k-1})$ kabi kamayadi. Bir tekis yuklama uzluksiz, lekin uning davriy davomi chekkalarda uzilishga ega — shuning uchun $q_{mn} \\sim 1/(mn)$. Buni Gibbs hodisasi bilan bog'lang: chekka yaqinida moment qatori tebranishlar beradimi? Sonli tajriba o'tkazing va Lanczos sigma-faktori bilan silliqlashtirishni sinab ko'ring.",
     "manim": {
      "scene": "NavierSeriesScene",
-     "module": "manim/scenes/pq_solutions.py",
+     "module": "animatsiya/scenes/pq_solutions.py",
      "title": "Navye qatorining yig'ilishi",
      "summary": "Birinchi garmonikadan boshlab hadlar ketma-ket qo'shiladi; og'ish sirti deyarli darhol yakuniy shaklga keladi, moment sirti esa sekinroq yaqinlashishi yonma-yon ko'rsatiladi."
     }
@@ -25767,7 +25767,7 @@
     "research_extension": "Levi yechimini ko'p oraliqli uzluksiz plitalarga umumlashtiring. Har bir oraliqda o'z $Y_m^{(i)}(y)$ funksiyasi bo'ladi; oraliqlar chegarasida to'rtta moslik sharti yoziladi: $w$, $\\partial w/\\partial y$, $M_y$ uzluksiz va $V_y$ da tayanch reaksiyasiga teng sakrash. Uch oraliqli plita uchun tizimni tuzing va yeching; tayanch ustidagi manfiy momentni oraliqdagi musbat moment bilan taqqoslang. Bu natija uzluksiz plitalarni armaturalash qoidalarini qanday asoslaydi?",
     "manim": {
      "scene": "LevySolutionScene",
-     "module": "manim/scenes/pq_solutions.py",
+     "module": "animatsiya/scenes/pq_solutions.py",
      "title": "Levi yechimi va chekka effekti",
      "summary": "Plastina bo'ylab og'ish profili quriladi: markazda silindrik egilish, chekkalarda esa giperbolik hadlar hisobiga mahalliy bezovtalik paydo bo'lishi va uning eksponensial so'nishi ko'rsatiladi."
     }
@@ -26080,7 +26080,7 @@
     "research_extension": "Ritz usulidan chekli elementlar usuliga o'tishni batafsil o'rganing. Global bazis o'rniga mahalliy (element ichida noldan farqli) funksiyalar olinsa: (a) $K$ matritsasi nima uchun siyrak bo'lib qoladi va bu hisob tezligiga qanday ta'sir qiladi? (b) Plastina elementi uchun $C^1$ uzluksizlikni ta'minlash nima uchun qiyin va konforming bo'lmagan (non-conforming) elementlar qanday ishlaydi? (c) Bir o'lchovli balka misolida Ermit interpolyatsiyasi bilan FEM matritsasini qo'lda quring va uni Ritz matritsasi bilan taqqoslang.",
     "manim": {
      "scene": "RitzMethodScene",
-     "module": "manim/scenes/pq_solutions.py",
+     "module": "animatsiya/scenes/pq_solutions.py",
      "title": "Ritz usuli: energiyani minimallashtirish",
      "summary": "Turli koeffitsientlar bilan sinov funksiyalari quriladi, ularning energiyasi hisoblanadi va energiya sirti bo'ylab minimumga tushish ko'rsatiladi; bazis kengayganda minimum aniq yechimga yaqinlashadi."
     }
@@ -26406,7 +26406,7 @@
     "research_extension": "To'qqiz nuqtali kompakt bigarmonik shablonni o'rganing. U faqat $3\\times3$ tugunlar naqshidan foydalanadi, lekin $O(\\Delta^4)$ aniqlik beradi — buning uchun o'ng tomon ham silliqlanadi: $\\nabla^4 w = q + \\frac{\\Delta^2}{12}\\nabla^2 q + \\ldots$. Shablon koeffitsientlarini Teylor yoyilmasidan keltirib chiqaring, kodda amalga oshiring va 13 nuqtali shablon bilan bir xil to'rda taqqoslang. Nima uchun kompakt shablon chegara yaqinida qulayroq?",
     "manim": {
      "scene": "FiniteDifferenceScene",
-     "module": "manim/scenes/pq_solutions.py",
+     "module": "animatsiya/scenes/pq_solutions.py",
      "title": "Bigarmonik shablon va fiktiv tugunlar",
      "summary": "To'r ustida 13 nuqtali shablon siljiydi, har bir tugunda tenglama yoziladi; chegarada fiktiv tugunlar paydo bo'lib, aks ettirish qoidasi bilan ichki tugunlarga bog'lanishi ko'rsatiladi."
     }
@@ -27112,7 +27112,7 @@
     "research_extension": "Auksetik (manfiy Puasson koeffitsientli, $\\nu < 0$) va funksional gradiyentli materiallardan yasalgan plastinalarni o'rganing. Auksetik strukturada cho'zilganda kenglik ham ortadi — bu qanday geometriya bilan erishiladi (re-entrant honeycomb, chiral struktura)? Bunday plastinaning $D$ va $H$ bikrliklari qanday o'zgaradi va zarbaga chidamliligi nima uchun oshadi? Funksional gradiyentli plastinada esa $E(z)$ qalinlik bo'yicha o'zgaradi — neytral sirt qayerga siljiydi va membrana-egilish bog'lanishi qanday paydo bo'ladi?",
     "manim": {
      "scene": "OrthotropicPlateScene",
-     "module": "manim/scenes/pq_solutions.py",
+     "module": "animatsiya/scenes/pq_solutions.py",
      "title": "Geometrik ortotropiya: gofr va qovurg'a",
      "summary": "Tekis list gofrga aylantiriladi va inersiya momentining keskin o'sishi ko'rsatiladi; so'ng ikki yo'nalishda egilish sinovi o'tkaziladi va anizotropiya vizual namoyon bo'ladi."
     }
@@ -27426,7 +27426,7 @@
     "research_extension": "O'zgaruvchan qalinlikdagi doiraviy plastinalarni o'rganing. $h = h(r)$ bo'lsa, $D = D(r)$ va tenglama o'zgaruvchan koeffitsientli bo'lib qoladi. $h \\propto r^{-n}$ shaklida qalinlik tanlansa tenglama yana Eyler tipida qoladi va analitik yechiladi. **Teng mustahkamlik** sharti ($\\sigma = $ const barcha $r$ da) qanday $h(r)$ ni talab qiladi? Bu natijani bug' turbinasi diski yoki tishli g'ildirak shaklini loyihalashda qanday ishlatish mumkin? Sonli optimallashtirish bilan tekshiring va doimiy qalinlikdagi disk bilan og'irlik bo'yicha taqqoslang.",
     "manim": {
      "scene": "CircularPlateScene",
-     "module": "manim/scenes/pq_circular.py",
+     "module": "animatsiya/scenes/pq_circular.py",
      "title": "Doiraviy plastinaning o'qsimmetrik egilishi",
      "summary": "Bosim ostida disk egiladi; radial va halqaviy momentlar epyuralari bir vaqtda quriladi, mahkamlangan va sharnirli chekka variantlari almashtirilib taqqoslanadi."
     }
@@ -28047,7 +28047,7 @@
     "research_extension": "Termik yuklamani plastina tenglamasiga kiriting. Qalinlik bo'yicha chiziqli harorat gradiyenti $\\Delta T$ ekvivalent termik moment $M_T = \\alpha E h^2\\Delta T/[12(1-\\nu)]$ beradi va tenglama $D\\nabla^4w = q - \\nabla^2 M_T/(1-\\nu)$ ko'rinishini oladi. Nosimmetrik qizish (masalan, quyosh bir tomondan) $n = 1$ garmonikasini qo'zg'atadi. Sun'iy yo'ldosh antennasi reflektorining orbitada qizishi natijasidagi shakl xatosini baholang: $\\Delta T = 50$ K da og'ish qancha va bu radiochastota nurlanish diagrammasiga qanday ta'sir qiladi?",
     "manim": {
      "scene": "FourierHarmonicsScene",
-     "module": "manim/scenes/pq_circular.py",
+     "module": "animatsiya/scenes/pq_circular.py",
      "title": "Doiraviy plastinadagi garmonikalar",
      "summary": "$n = 0, 1, 2, 3$ garmonikalarining shakllari ketma-ket ko'rsatiladi va ular qo'shilib nosimmetrik og'ish sirtini hosil qilishi animatsiya qilinadi."
     }
@@ -28360,7 +28360,7 @@
     "research_extension": "Ikki parametrli asos modellarini o'rganing. Pasternak modeli prujinalarga siljishga ishlaydigan qatlam qo'shadi: $p = kw - G_p\\nabla^2 w$. Bu Vinkler modelining qaysi kamchiligini bartaraf etadi? Tenglama $D\\nabla^4w - G_p\\nabla^2w + kw = q$ ko'rinishini oladi — uni yeching va Vinkler yechimi bilan taqqoslang. $G_p$ ning ta'sir zonasiga va chekka yaqinidagi bosim sakrashiga ta'sirini tahlil qiling. Filonenko-Borodich va Vlasov-Leontyev modellari bilan ham solishtiring: qaysi biri real grunt o'lchovlariga yaqinroq?",
     "manim": {
      "scene": "ElasticFoundationScene",
-     "module": "manim/scenes/pq_circular.py",
+     "module": "animatsiya/scenes/pq_circular.py",
      "title": "Vinkler asosi va xarakterli uzunlik",
      "summary": "Plita ostidagi mustaqil prujinalar ko'rsatiladi; yuklama qo'yilganda mahalliy cho'kish paydo bo'ladi va uning $4\\ell$ da so'nishi, asos qattiqligi o'zgarganda zona kengayishi animatsiya qilinadi."
     }
@@ -28733,7 +28733,7 @@
     "research_extension": "Sendvich panelning buzilish rejimlarini tizimli o'rganing va **buzilish rejimlari xaritasini** (failure mode map) quring. Ikki o'lchamsiz parametr tanlang (masalan, $t_f/a$ va $t_c/a$) va har bir nuqtada qaysi rejim birinchi ishga tushishini aniqlang: qoplama oqishi, burishish, yadro sdvigi yoki ezilish. Natijada tekislik sohalarga bo'linadi va optimal loyiha ularning chegarasida yotadi (bir necha rejim bir vaqtda kritik bo'ladigan nuqta). Ashby va Gibson uslubidagi bu xarita material tanlashda qanday ishlatiladi?",
     "manim": {
      "scene": "LaminateScene",
-     "module": "manim/scenes/pq_circular.py",
+     "module": "animatsiya/scenes/pq_circular.py",
      "title": "Qatlamli paket va B matritsasi",
      "summary": "Nosimmetrik paket cho'zilganda egilib ketishi animatsiya qilinadi; keyin paket simmetrik qilinadi va egilish yo'qolishi ko'rsatiladi. Kuchlanish epyurasining qatlam chegarasidagi sakrashi ta'kidlanadi."
     }
@@ -29051,7 +29051,7 @@
     "research_extension": "Boshlang'ich nomukammalligi bo'lgan plastinani o'rganing. Real panel hech qachon ideal tekis emas: $w_0(x,y)$ boshlang'ich egrilik mavjud. Fon Karman tenglamalariga uni kiriting — deformatsiyada $\\frac{1}{2}(w_{,x}^2 - w_{0,x}^2)$ paydo bo'ladi. Nomukammallik amplitudasi $w_0/h = 0{,}1; 0{,}5; 1{,}0$ uchun $q$–$w$ egri chiziqlarini quring. Nomukammallik yuklanish javobini qanday o'zgartiradi? Bu natija pq-21 dagi kritikdan keyingi xatti-harakat va nomukammalliklarga sezgirlik bilan qanday bog'lanadi?",
     "manim": {
      "scene": "VonKarmanScene",
-     "module": "manim/scenes/pq_circular.py",
+     "module": "animatsiya/scenes/pq_circular.py",
      "title": "Membrana effekti va nochiziqli bikrlanish",
      "summary": "Plastina asta-sekin egiladi; kichik og'ishda o'rta sirt cho'zilmaydi, katta og'ishda esa cho'zilish paydo bo'lib membrana kuchlari o'sadi va $q$–$w$ egri chizig'i chiziqlidan ajralib ketadi."
     }
@@ -29369,7 +29369,7 @@
     "research_extension": "Ustuvorlik masalasining energetik formulirovkasini o'rganing. Ikkinchi variatsiya $\\delta^2\\Pi = \\delta^2 U - \\delta^2 W$ ni hisoblang va kritik yuklama aynan $\\delta^2\\Pi$ musbat aniqlanganligini yo'qotadigan nuqtaga mos kelishini isbotlang. Bu Ritz usuli bilan kritik yuklamani baholashning asosini beradi: $\\lambda_{cr} = \\min \\frac{U_{\\text{egilish}}}{U_{\\text{geometrik}}}$ (Reley nisbati). Bir hadli baho bilan aniq yechimni taqqoslang va Ritz bahosi har doim **yuqoridan** ekanligini ko'rsating.",
     "manim": {
      "scene": "PlateBucklingScene",
-     "module": "manim/scenes/pq_stability.py",
+     "module": "animatsiya/scenes/pq_stability.py",
      "title": "Plastina ustuvorligini yo'qotishi",
      "summary": "Siqilgan plastina yuklama ortgani sari tekis qoladi, kritik nuqtada birdan to'lqinsimon shaklga o'tadi; bifurkatsiya diagrammasi bir vaqtda quriladi va $a/b$ o'zgarganda yarim to'lqinlar soni sakrashi ko'rsatiladi."
     }
@@ -29676,7 +29676,7 @@
     "research_extension": "Uzunlamasiga qovurg'ali panelning ustuvorligini o'rganing. Qovurg'a yetarli bikr bo'lsa, panel mustaqil bo'laklarga ajraladi; yetarli bo'lmasa, panel qovurg'a bilan birga bukiladi (global rejim). **Chegaraviy bikrlik** $\\gamma^*$ ni aniqlang: shu qiymatda ikkala rejim bir xil kritik yuklama beradi. Eurocode 3 Part 1-5 dagi formulalar bilan taqqoslang. Ortotrop plastina modeli (pq-12) bilan qovurg'ali panelni modellashtirib, natijani aniq yechim bilan solishtiring — qovurg'alar soni qanchadan boshlab ekvivalent ortotrop model yetarli aniq bo'ladi?",
     "manim": {
      "scene": "BucklingGarlandScene",
-     "module": "manim/scenes/pq_stability.py",
+     "module": "animatsiya/scenes/pq_stability.py",
      "title": "Girlanda egri chizig'i va yarim to'lqinlar",
      "summary": "$a/b$ asta-sekin oshadi; plastinadagi yarim to'lqinlar soni sakrab o'zgaradi va shu paytda girlanda egri chizig'ida shoxdan shoxga o'tish ko'rsatiladi."
     }
@@ -29993,7 +29993,7 @@
     "research_extension": "Tortish maydoni (tension field) nazariyasini o'rganing. Devor bukilgandan keyin unda faqat diagonal **tortilish** qoladi — siqilishni u ko'tarolmaydi. Natijada to'sin Pratt fermasiga aylanadi: devor diagonallari tortiladi, ko'ndalang qovurg'alar esa siqiladi. Basler modelini o'rganing va tortish maydoni burchagini aniqlang. Qovurg'aga tushadigan siqilish kuchini hisoblang — u qovurg'a kesimini tanlashda hal qiluvchi. Aviatsiyadagi Wagner nazariyasi bilan taqqoslang: nima uchun samolyot qanotida bu effekt yanada muhim?",
     "manim": {
      "scene": "ShearBucklingScene",
-     "module": "manim/scenes/pq_stability.py",
+     "module": "animatsiya/scenes/pq_stability.py",
      "title": "Siljishda ustuvorlik va tortish maydoni",
      "summary": "Devor siljish ostida qiya to'lqinlar bilan bukiladi; keyin kuchlanish taqsimoti o'zgarib, diagonal tortish maydoni hosil bo'lishi va to'sin ferma kabi ishlay boshlashi ko'rsatiladi."
     }
@@ -30315,7 +30315,7 @@
     "research_extension": "Xladni figuralarini o'rganing va takrorlang. Erkin chekkali kvadrat plastinada shakllar Navye yechimidan butunlay boshqacha va ancha boy bo'ladi — diagonal, doiraviy, yulduzsimon naqshlar. Ritz usuli (pq-09) bilan erkin chekkali plastinaning dastlabki 10 shaklini hisoblang (bazis sifatida erkin-erkin balka shakllarining ko'paytmasini oling) va tugun chiziqlarini quring. Natijalarni Leissa ma'lumotnomasi (NASA SP-160) bilan solishtiring. Nima uchun erkin chekkali plastinada aniq analitik yechim yo'q?",
     "manim": {
      "scene": "PlateModesScene",
-     "module": "manim/scenes/pq_vibration.py",
+     "module": "animatsiya/scenes/pq_vibration.py",
      "title": "Tebranish shakllari va Xladni figuralari",
      "summary": "Plastina ketma-ket shakllarda tebranadi; har birida tugun chiziqlari ajratib ko'rsatiladi va ularga 'qum' to'planishi animatsiya qilinadi."
     }
@@ -30669,7 +30669,7 @@
     "research_extension": "Plastinaning akustik nurlanishini o'rganing. Egilish to'lqinlari dispersiv ($\\omega \\propto k^2$), havodagi tovush esa emas ($\\omega = ck$). Ularning tezliklari teng bo'ladigan chastota — **kritik (coincidence) chastota** $f_c = \\frac{c^2}{2\\pi}\\sqrt{\\rho h/D}$. Undan yuqorida plastina tovushni juda samarali nurlantiradi va tovush izolyatsiyasi keskin yomonlashadi. Po'lat, gipsokarton va shisha uchun $f_c$ ni hisoblang. Nima uchun devor materialini tanlashda $f_c$ ni eshitish diapazonidan tashqariga chiqarish maqsad qilinadi? Ikki qatlamli devor bu muammoni qanday hal qiladi?",
     "manim": {
      "scene": "ForcedVibrationScene",
-     "module": "manim/scenes/pq_vibration.py",
+     "module": "animatsiya/scenes/pq_vibration.py",
      "title": "Rezonans va demflash",
      "summary": "Qo'zg'atuvchi chastota asta-sekin oshadi; rezonansga yaqinlashganda amplituda keskin ortadi. Keyin demfer qatlam qo'shiladi va cho'qqi yumshashi ko'rsatiladi."
     }
@@ -31028,7 +31028,7 @@
     "research_extension": "Sdvig qulflanishini bartaraf etish usullarini o'rganing va taqqoslang: (1) kamaytirilgan/tanlab integrallash — sodda, lekin soxta rejimlar (hourglass) beradi; (2) aralash formulirovka (Hellinger–Reissner) — kesuvchi kuch mustaqil approksimatsiya qilinadi; (3) MITC elementlari — sdvig deformatsiyasi maxsus nuqtalarda interpolyatsiya qilinadi; (4) EAS (Enhanced Assumed Strain). Har biri uchun inf-sup (LBB) shartini tekshiring. Bir o'lchovli balka misolida uchtasini amalga oshiring va $L/h = 10^2 \\ldots 10^5$ diapazonida yaqinlashishni solishtiring.",
     "manim": {
      "scene": "MindlinScene",
-     "module": "manim/scenes/pq_vibration.py",
+     "module": "animatsiya/scenes/pq_vibration.py",
      "title": "Kirxhoff va Mindlin kinematikasi",
      "summary": "Plastina kesimi egiladi; chap tomonda normal chiziq perpendikulyar qoladi (Kirxhoff), o'ng tomonda esa burchak hosil qiladi (Mindlin). Qalinlik oshgani sari farq kattalashishi ko'rsatiladi."
     }
@@ -31326,7 +31326,7 @@
     "research_extension": "Gauss egriligi va qobiq bikrligi orasidagi bog'liqlikni miqdoriy o'rganing. (1) Tuxum po'sti ($h \\approx 0{,}35$ mm, $K > 0$) va bir xil qalinlikdagi tekis parchaning yuk ko'tarish qobiliyatini taqqoslang. (2) Gofrlangan varaqning $K = 0$ ekanini ko'rsating va nima uchun u bir yo'nalishda bikr, boshqasida egiluvchan ekanini tushuntiring. (3) Sirtning $K$ ni saqlagan holda deformatsiyalanishi — inextensional deformatsiya — nazariyasini o'rganing va uning silindrik qobiq ustuvorligiga ta'sirini baholang (pq-29 ga tayyorgarlik).",
     "manim": {
      "scene": "ShellGeometryScene",
-     "module": "manim/scenes/pq_shells.py",
+     "module": "animatsiya/scenes/pq_shells.py",
      "title": "Gauss egriligi va sirt tasnifi",
      "summary": "Tekis varaq ketma-ket silindrga, konusga, sferaga va giperboloidga aylanadi; har bosqichda $R_1$, $R_2$ va $K$ ko'rsatiladi. Yoyiluvchan sirtlar tekis varaqqa qaytariladi, yoyilmaydiganlar esa yirtilishi ko'rsatiladi."
     }
@@ -31639,7 +31639,7 @@
     "research_extension": "Membrana nazariyasining chegaralarini chuqurroq o'rganing. (1) 'Membrana mos kelmasligi' (membrane incompatibility) tushunchasini formal ta'riflang: qaysi geometriya va yuklama juftligida membrana yechimi mavjud emas? (2) Teng mustahkam gumbaz shaklini toping — shunday meridian egri chizig'ini qidiringki, o'z og'irligi ostida $N_\\varphi = N_\\theta$ bo'lsin (bu Antonio Gaudi va Frei Otto ishlatgan zanjir chizig'i — katenoid — muammosi). (3) Sovun plyonkasi eksperimenti bilan minimal sirt ($H = 0$) va teng tarangligi orasidagi bog'liqlikni tekshiring.",
     "manim": {
      "scene": "MembraneScene",
-     "module": "manim/scenes/pq_shells.py",
+     "module": "animatsiya/scenes/pq_shells.py",
      "title": "Laplas tenglamasi va membrana kuchlari",
      "summary": "Qobiq elementi ajratiladi, tarang kuchlarning normal tashkil etuvchilari $N/R$ ko'rsatiladi va ular bosim bilan muvozanatlashadi. Keyin silindr va sfera bosim ostida kengayadi — kengayishlar har xil bo'lib, tutashuvda uzilish hosil bo'ladi."
     }
@@ -31963,7 +31963,7 @@
     "research_extension": "Qisqa qobiqlar nazariyasini o'rganing. (1) $\\beta L < \\pi$ bo'lganda ikkala chekka yechimini birga hisobga olib, to'rtta konstanta uchun 4×4 tizimni yozing va yeching. (2) $\\beta L$ ning qaysi qiymatidan boshlab chekkalar o'zaro ta'siri 1 % dan kam bo'lishini sonli aniqlang va bu 'uzun qobiq' mezonini adabiyotdagi $\\beta L > \\pi$ va $\\beta L > 4$ tavsiyalari bilan solishtiring. (3) Qalinligi o'zgaruvchan silindrik qobiq uchun tenglamani yozing va uni sonli yeching — rezervuarlarda devor pastdan yuqoriga ingichkalashadi.",
     "manim": {
      "scene": "EdgeEffectScene",
-     "module": "manim/scenes/pq_shells.py",
+     "module": "animatsiya/scenes/pq_shells.py",
      "title": "Chekka effekti va so'nish masshtabi",
      "summary": "Rezervuar devori bosim ostida kengayadi; tubi mahkamlangani uchun u yerda kengayish nolga majburlanadi va so'nuvchi to'lqin hosil bo'ladi. $\\sqrt{Rh}$ masofasi o'lchov chizig'i bilan ko'rsatiladi va qalinlik o'zgarganda u qanday o'zgarishi namoyish etiladi."
     }
@@ -32290,7 +32290,7 @@
     "research_extension": "Tub shakllarini qiyosiy o'rganing. (1) Yarim sferik, torisferik (ASME F&D), ellipsoid (2:1) va konus tublar uchun mos kelmaslikni va tutashuvdagi $M_0$ ni hisoblang; ularni bir xil hajm va bosimda taqqoslang. (2) Torisferik tubda 'knuckle' radiusining ta'sirini o'rganing: $r_k/D$ nisbati qanday tanlansa mahalliy kuchlanish minimal bo'ladi? (3) ASME VIII Div.1 va Div.2 dagi tub hisobi formulalarini shu yerdagi nazariy natijalar bilan solishtiring va standartdagi zaxira koeffitsientlarining manbasini aniqlang.",
     "manim": {
      "scene": "JunctionScene",
-     "module": "manim/scenes/pq_shells.py",
+     "module": "animatsiya/scenes/pq_shells.py",
      "title": "Tutashuvdagi mos kelmaslik",
      "summary": "Silindr va sferik tub bosim ostida alohida-alohida kengayadi va ular orasida uzilish paydo bo'ladi. Keyin $Q_0$ kuchlari qo'yiladi, uzilish yopiladi va moment epyurasi ikki tomonga so'nib tarqaladi."
     }
@@ -32626,7 +32626,7 @@
     "research_extension": "Zamonaviy yondashuvlarni o'rganing. (1) NASA SP-8007 (1968) va Shell Buckling Knockdown Factor loyihasi (2010-yillar) natijalarini solishtiring: nima uchun eski standart haddan tashqari konservativ deb topildi? (2) O'lchangan nuqson asosidagi hisob (measured imperfection approach) va ehtimollik yondashuvini tahlil qiling. (3) Sferik qobiq nima uchun silindrdan ham sezgir ekanini asoslang: $\\sigma_{cl}$ bir xil, lekin sferada tajriba 10–20 % beradi. (4) Mustahkamlangan (stringer, izogrid) qobiqlarda modal to'planish qanday yo'qotilishini sonli ko'rsating.",
     "manim": {
      "scene": "ShellBucklingScene",
-     "module": "manim/scenes/pq_shells.py",
+     "module": "animatsiya/scenes/pq_shells.py",
      "title": "Qobiq ustuvorligi va nuqsonlarga sezgirlik",
      "summary": "Ideal silindr siqiladi va kritik nuqtada romb shaklidagi buzilish paydo bo'ladi. Keyin kichik nuqson kiritiladi va buzilish ancha past yuklamada sodir bo'ladi. Muvozanat yo'llari yonma-yon ko'rsatiladi: plastina uchun ko'tariluvchi, qobiq uchun pasayuvchi."
     }
@@ -32972,7 +32972,7 @@
     "research_extension": "Qobiq dinamikasining murakkab masalalarini o'rganing. (1) Suyuqlik bilan to'ldirilgan qobiqning qo'shilgan massa koeffitsientini hisoblang va chastotaning pasayishini baholang; bo'sh va to'la bakning spektrini solishtiring. (2) Ichidan oqim o'tayotgan quvurning beqarorligini (flutter, divergensiya) o'rganing va kritik oqim tezligini toping. (3) Donnell, Sanders va Flügge tenglamalarini $n = 1, 2, 3$ uchun taqqoslang va Donnell taqribining xatosini miqdoriy aniqlang. (4) POGO beqarorligi mexanizmini — bak, quvur va dvigatel tizimining bog'langan tebranishini — tahlil qiling.",
     "manim": {
      "scene": "ShellVibrationScene",
-     "module": "manim/scenes/pq_shells.py",
+     "module": "animatsiya/scenes/pq_shells.py",
      "title": "Qobiq tebranish shakllari va spektr",
      "summary": "Silindrik qobiq kesimi ketma-ket $n = 0$ (halqa), $n = 1$ (siljish), $n = 2$ (ovallashish) va $n = 6$ (gulsimon) shakllarda tebranadi; har birining chastotasi yoziladi va spektrdagi o'rni belgilanadi. Oxirida $f(n)$ egri chizig'i ikki tashkil etuvchisi bilan birga quriladi va minimum ularning kesishuvida paydo bo'lishi ko'rsatiladi."
     }
@@ -33291,7 +33291,7 @@
     "research_extension": "Hisoblash mexanikasining rivojini miqdoriy o'rganing. (1) 1960-yildan bugungacha bir xil masalani yechish vaqti qanday kamaygan? Buning qancha qismi apparat tezligidan (Mur qonuni), qanchasi algoritm yutuqlaridan (siyrak matritsalar, ko'p to'rli usullar, oldindan shartlash) kelib chiqqanini solishtiring. (2) 'Hisoblash eksperimenti' tushunchasining fanda nazariya va tajribadan keyingi uchinchi usul sifatida paydo bo'lishini tahlil qiling. (3) Zamonaviy tendensiyalarni ko'rib chiqing: izogeometrik tahlil (IGA), mashinali o'qitish asosidagi surrogat modellar va ular klassik FEM ni qay darajada almashtira oladi.",
     "manim": {
      "scene": "DiscretizationScene",
-     "module": "manim/scenes/su_basics.py",
+     "module": "animatsiya/scenes/su_basics.py",
      "title": "Diskretlashtirish va xatolik byudjeti",
      "summary": "Uzluksiz balka egri chizig'i tugunlarga bo'linadi va bo'laklar soni oshgani sari sonli yechim aniq yechimga yopishadi. Keyin log–log grafikda uchta xatolik chizig'i quriladi: pasayuvchi, ko'tariluvchi va gorizontal; ularning yig'indisidagi minimum ajratib ko'rsatiladi."
     }
@@ -33582,7 +33582,7 @@
     "research_extension": "Aniqlik masalalarini chuqurroq o'rganing. (1) Kompensatsiyalangan yig'indi algoritmlarini (Kahan, Kahan–Babuška–Neumaier, juftlab yig'indi) taqqoslang va ularning xatolik chegaralarini isbotlang. (2) Interval arifmetikasini o'rganing: u natijaning kafolatlangan chegaralarini beradi, lekin intervallar haddan tashqari kengayishi mumkin — nima uchun? (3) Mashinali o'qitishda keng tarqalgan `float16` va `bfloat16` formatlarini tahlil qiling: nima uchun ular neyron tarmoqlar uchun yetarli, lekin FEM uchun yaroqsiz? (4) Takrorlanuvchi (reproducible) parallel yig'indi muammosini ko'rib chiqing.",
     "manim": {
      "scene": "CancellationScene",
-     "module": "manim/scenes/su_basics.py",
+     "module": "animatsiya/scenes/su_basics.py",
      "title": "Katastrofik qisqarish",
      "summary": "Ikkita yaqin son raqamma-raqam ko'rsatiladi; bir xil raqamlar so'niydi va ayirma olingach faqat bir nechta ishonchli raqam qolgani ko'rinadi. Keyin ko'paytuvchi shakl qo'llanadi va barcha raqamlar saqlanib qolishi namoyish etiladi."
     }
@@ -33879,7 +33879,7 @@
     "research_extension": "Differensiallash usullarini chuqurroq o'rganing. (1) Kompleks qadam usulining nazariy asosini keltirib chiqaring va uning cheklovlarini aniqlang: qaysi funksiyalarda u ishlamaydi (`abs`, `max`, taqqoslashlar)? (2) Avtomatik differensiallashning oldinga (forward) va teskari (reverse) rejimlarini solishtiring; FEM sezgirlik tahlilida qaysi biri afzal va nima uchun? (3) Yuqori tartibli ayirma sxemalarini (5 va 7 nuqtali) quring hamda ularning optimal qadami va eng yaxshi aniqligini nazariy baholang — tartib oshgani sari foyda nima uchun kamayadi?",
     "manim": {
      "scene": "OptimalStepScene",
-     "module": "manim/scenes/su_basics.py",
+     "module": "animatsiya/scenes/su_basics.py",
      "title": "Kesish va yaxlitlash xatoliklarining raqobati",
      "summary": "Qadam kamaygani sari sonli hosila aniq qiymatga yaqinlashadi, keyin esa kutilmaganda undan uzoqlashib ketadi. Log–log grafikda ikkita tarmoq va ularning kesishuvidagi minimum quriladi; oxirida kompleks qadam usuli qo'shilib, uning chizig'i V shakliga ega emasligi ko'rsatiladi."
     }
@@ -34208,7 +34208,7 @@
     "research_extension": "Oldindan shartlash usullarini o'rganing. (1) Yakobi, SSOR va to'liq bo'lmagan Cholesky (IC(0)) shartlagichlarini FEM matritsasida taqqoslang: qaysi biri $\\kappa$ ni ko'proq kamaytiradi va qanday narxga? (2) Ko'p to'rli (multigrid) usulning shartlagich sifatidagi roli — nima uchun u to'r zichligidan **mustaqil** yaqinlashish beradi? (3) Teskari masalalarda (eksperimental ma'lumotdan yuklamani tiklash) Tixonov regulyarizatsiyasini o'rganing: u xos bo'lmagan masalani qanday xos qiladi va regulyarizatsiya parametri qanday tanlanadi (L-egri chiziq usuli)?",
     "manim": {
      "scene": "ConditioningScene",
-     "module": "manim/scenes/su_basics.py",
+     "module": "animatsiya/scenes/su_basics.py",
      "title": "Shartlanganlik va deyarli parallel chiziqlar",
      "summary": "Ikkita tenglama tekislikda chiziq sifatida chiziladi; ularning burchagi kamaygani sari kesishuv nuqtasining noaniqlik sohasi cho'zilgan ellipsga aylanadi va keskin kattalashadi. Keyin deyarli yassi ferma ko'rsatiladi va ko'tarilish kamaygani sari sterjen kuchi hamda kappa birga o'sishi namoyish etiladi."
     }
@@ -34505,7 +34505,7 @@
     "research_extension": "Siyrak yechuvchilarni chuqurroq o'rganing. (1) Cuthill–McKee, teskari Cuthill–McKee va minimal daraja tartiblarini bir xil FEM to'rida taqqoslang: qaysi biri kamroq to'ldirilish beradi? (2) Ko'p frontli (multifrontal) yechuvchining ishlash prinsipini o'rganing: u ajratish daraxti (elimination tree) orqali qanday parallellashtiriladi? (3) Ichma-ich ajratish (nested dissection) tartibining nazariy murakkabligini isbotlang: ikki o'lchovda $O(n^{1{,}5})$, uch o'lchovda $O(n^2)$ — nima uchun 3D masalalar sezilarli qiyin?",
     "manim": {
      "scene": "FactorizationScene",
-     "module": "manim/scenes/su_basics.py",
+     "module": "animatsiya/scenes/su_basics.py",
      "title": "Lenta, to'ldirilish va qayta raqamlash",
      "summary": "Matritsaning siyraklik naqshi ko'rsatiladi va Cholesky yoyilmasi qadam-baqadam bajariladi; to'ldirilish boshqa rangda paydo bo'ladi va u lenta ichida qolishi ko'rinadi. Keyin tugunlar tasodifiy qayta raqamlanadi va xuddi shu yoyilma butun uchburchakni to'ldirib yuborishi namoyish etiladi."
     }
@@ -34816,7 +34816,7 @@
     "research_extension": "Zamonaviy iterativ yechuvchilarni o'rganing. (1) Ko'p to'rli (multigrid) usul nima uchun iteratsiyalar sonini to'r o'lchamidan **mustaqil** qiladi? Silliqlovchi (smoother) va qo'pol to'r tuzatmasining rollarini ajrating. (2) Simmetrik bo'lmagan tizimlar uchun GMRES, BiCGSTAB va MINRES ni taqqoslang: qaysi biri qanday spektrda samarali? (3) Domenni ajratish (domain decomposition) usullarini va ularning parallel hisoblashdagi rolini tahlil qiling. (4) Matritsasiz (matrix-free) yondashuvni o'rganing: matritsani umuman saqlamasdan, faqat element darajasida ko'paytirish — GPU hisoblarida nima uchun bu afzal?",
     "manim": {
      "scene": "IterativeScene",
-     "module": "manim/scenes/su_basics.py",
+     "module": "animatsiya/scenes/su_basics.py",
      "title": "Iterativ yechuvchilarning yaqinlashishi",
      "summary": "Boshlang'ich taxmindan boshlab yechim qadam-baqadam aniqlashadi; xatolikning yuqori va past chastotali tarkibiy qismlari turli tezlikda so'nishi ko'rsatiladi. Keyin to'rtta usulning qoldiq tarixi bir grafikda taqqoslanadi va konjugat gradiyentning pog'onasimon xatti-harakati ajratib ko'rsatiladi."
     }
@@ -35131,7 +35131,7 @@
     "research_extension": "Yuqori tartibli sxemalarni o'rganing. (1) Kompakt (Padé) sxemalar: $\\alpha f'_{i-1} + f'_i + \\alpha f'_{i+1} = b\\frac{f_{i+2}-f_{i-2}}{4h} + a\\frac{f_{i+1}-f_{i-1}}{2h}$ — kichik shablon bilan qanday qilib $O(h^6)$ ga erishiladi? Narxi nima (uch diagonalli tizim yechish)? (2) Notekis to'rda yuqori tartibni saqlash usullarini toping: koordinata almashtirish (mapping) yoki to'liq notekis sxemalar. (3) Spektral aniqlik tushunchasini o'rganing: Furye tahlilida ayirma sxemalari to'lqin sonini qanday buzadi (su-12 ga tayyorgarlik)?",
     "manim": {
      "scene": "StencilScene",
-     "module": "manim/scenes/su_fd.py",
+     "module": "animatsiya/scenes/su_fd.py",
      "title": "Shablon va sxema koeffitsientlari",
      "summary": "Shablon nuqtalari to'r ustida belgilanadi va har birining Teylor yoyilmasi ustma-ust qo'yiladi; keraksiz hadlar o'zaro qisqarib yo'qolishi animatsiya bilan ko'rsatiladi. Keyin to'r notekis qilinadi va toq hadning qisqarmay qolishi hamda tartibning pasayishi namoyish etiladi."
     }
@@ -35469,7 +35469,7 @@
     "research_extension": "Balka masalasini kengaytiring. (1) Elastik asosdagi balka ($EIw^{(4)} + kw = q$, pq-16) uchun sxemani quring va chekka effektining so'nish uzunligini sonli o'lchang; uni pq-27 dagi analitik $\\beta$ bilan solishtiring. (2) $EI$ uzilishli bo'lgan holatni ko'rib chiqing (kesim keskin o'zgaradi): tugun uzilish joyiga tushmasa yaqinlashish tartibi qanday o'zgaradi? (3) Nuqtaviy yuklamani modellashtirishni tahlil qiling: delta funksiyani diskretlashtirish tartibni pasaytiradimi va buni qanday bartaraf etish mumkin?",
     "manim": {
      "scene": "BeamFDScene",
-     "module": "manim/scenes/su_fd.py",
+     "module": "animatsiya/scenes/su_fd.py",
      "title": "Balka masalasi va soxta tugunlar",
      "summary": "Balka to'rga bo'linadi va besh nuqtali shablon tugundan tugunga siljiydi; chegaraga yetganda shablon sohadan chiqib ketishi ko'rinadi. Soxta tugunlar paydo bo'lib, chegaraviy shart orqali ichki tugunlarga bog'lanadi va mahkamlangan hamda sharnirli holatlar uchun ishora farqi ko'rsatiladi."
     }
@@ -35794,7 +35794,7 @@
     "research_extension": "Ikki o'lchovli sxemalarni kengaytiring. (1) To'qqiz nuqtali (Mehrstellen) shablonni quring: u bir xil o'lchamli shablon bilan $O(h^4)$ beradi — buning sababi nima? (2) Egri chegarani qamrab olish usullarini solishtiring: Shortley–Weller approksimatsiyasi, kesilgan hujayra (cut-cell) va botirilgan chegara (immersed boundary). Har birida yaqinlashish tartibi qanday saqlanadi? (3) Ichki teshikli (ko'p bog'lamli) kesim uchun buralish masalasini qo'ying: teshikdagi noma'lum doimiyni aniqlash uchun qanday qo'shimcha shart kerak (Bredt formulasi bilan bog'lanish)?",
     "manim": {
      "scene": "TorsionScene",
-     "module": "manim/scenes/su_fd.py",
+     "module": "animatsiya/scenes/su_fd.py",
      "title": "Membrana analogiyasi va buralish",
      "summary": "Kesim konturiga membrana tortiladi va bosim ostida shishadi; uning balandligi kuchlanish funksiyasi ekani ko'rsatiladi. Keyin kontur cho'zilib ingichka to'rtburchakka aylanadi va membrana ostidagi hajm keskin kamayishi — ya'ni buralish bikrligining tushishi — namoyish etiladi."
     }
@@ -36114,7 +36114,7 @@
     "research_extension": "Barqarorlik nazariyasini chuqurlashtiring. (1) Matritsaviy barqarorlik tahlilini o'rganing: o'tish matritsasining spektral radiusi (su-06) orqali chegaraviy shartlarning ta'sirini hisobga olish. Fon Neyman bashoratidan qachon farq qiladi? (2) Energiya usulini (energy method) ko'rib chiqing: u nochiziqli va o'zgaruvchan koeffitsientli masalalarda ham ishlaydi. (3) Qattiq (stiff) tizimlar tushunchasini va A-barqarorlik, L-barqarorlik ta'riflarini o'rganing: nima uchun Krank–Nikolson A-barqaror, lekin L-barqaror emas va bu amalda nimaga olib keladi?",
     "manim": {
      "scene": "StabilityScene",
-     "module": "manim/scenes/su_fd.py",
+     "module": "animatsiya/scenes/su_fd.py",
      "title": "Barqarorlik va kuchayish koeffitsienti",
      "summary": "Harorat profili vaqt bo'yicha rivojlanadi; $r$ kichik bo'lganda u silliq pasayadi. $r$ ni 0,5 dan oshirganda tugundan tugunga almashinuvchi 'arra' paydo bo'lib, amplitudasi eksponensial o'sadi. Yonma-yon $|\\xi(kh)|$ grafigi chiziladi va portlashga sabab bo'lgan garmonika $kh = \\pi$ belgilanadi."
     }
@@ -36448,7 +36448,7 @@
     "research_extension": "Zamonaviy vaqt integrallash usullarini o'rganing. (1) HHT-α va umumlashgan-α usullarini tahlil qiling: ular ikkinchi tartibni saqlab, so'ndirishni faqat yuqori chastotalarga qanday yo'naltiradi? Spektral radiusni $\\omega\\Delta t \\to \\infty$ da hisoblang. (2) Energiyani saqlovchi (energy-conserving) va simplektik integratorlarni o'rganing: uzoq vaqtli hisoblarda ular nima uchun afzal? (3) Aniq massa matritsasi va to'plangan (lumped) massa matritsasining farqini tahlil qiling: to'plangan massa oshkor sxemani nima uchun mumkin qiladi va u aniqlikka qanday ta'sir qiladi?",
     "manim": {
      "scene": "NewmarkScene",
-     "module": "manim/scenes/su_fd.py",
+     "module": "animatsiya/scenes/su_fd.py",
      "title": "Sonli demflash va davr cho'zilishi",
      "summary": "Prujinali massa tebranadi va yonida sonli yechim aniq yechim bilan birga chiziladi. $\\gamma$ ni oshirganda sonli yechim amplitudasi sekin so'nadi, $\\Delta t$ ni oshirganda esa u fazada orqada qola boshlaydi. Ikkala effekt alohida-alohida ko'rsatiladi."
     }
@@ -36781,7 +36781,7 @@
     "research_extension": "To'lqin sxemalarini chuqurlashtiring. (1) Soxta tebranishlarni bartaraf etish usullarini o'rganing: sun'iy qovushqoqlik (fon Neyman–Rixtmayer), TVD chegaralovchilar va WENO sxemalari. Har biri aniqlikni qanday narxga saqlaydi? (2) So'ruvchi (absorbing) chegaraviy shartlarni va mukammal mos qatlamni (PML) tahlil qiling: cheksiz sohani chekli to'rda qanday modellashtirish mumkin? (3) Ko'p o'lchovda CFL shartini keltirib chiqaring va yo'nalish bo'yicha anizotropiyani (to'lqin diagonal bo'ylab boshqacha tezlikda ketishi) o'rganing.",
     "manim": {
      "scene": "WaveCFLScene",
-     "module": "manim/scenes/su_fd.py",
+     "module": "animatsiya/scenes/su_fd.py",
      "title": "CFL sharti va sonli dispersiya",
      "summary": "$x$–$t$ tekisligida fizik xarakteristika va sonli shablon konusi chiziladi; $C$ oshgani sari konus toraysib, xarakteristikani qamrab olmay qoladi va sxema portlaydi. Keyin o'tkir front tarqaladi: $C = 1$ da u mukammal saqlanadi, $C < 1$ da esa ortida tebranish dumi o'sib boradi."
     }
@@ -37105,7 +37105,7 @@
     "research_extension": "Variatsion asoslarni chuqurlashtiring. (1) Petrov–Galerkin usullarini o'rganing: sinov va vazn funksiyalari turlicha bo'lganda matritsa simmetriyasi yo'qoladi — konvektiv masalalarda (SUPG) bu nima uchun zarur? (2) Aralash (mixed) formulirovkalarni tahlil qiling: siqilmaydigan materiallarda ko'chish va bosim alohida noma'lum sifatida olinadi; inf-sup (LBB) sharti nima va u nima uchun zarur? (3) Laks–Milgram teoremasini va uning mexanikadagi ma'nosini o'rganing: majburiylik (coercivity) konstruksiyaning yetarlicha mahkamlanganiga qanday bog'langan?",
     "manim": {
      "scene": "WeakFormScene",
-     "module": "manim/scenes/su_fem.py",
+     "module": "animatsiya/scenes/su_fem.py",
      "title": "Zaif formulirovka va bazis funksiyalari",
      "summary": "Kuchli shakldagi tenglama sinov funksiyasiga ko'paytiriladi va bo'laklab integrallash animatsiyasi ko'rsatiladi: hosila belgisi $u$ dan $v$ ga 'sakraydi' va chegara hadi ajralib chiqadi. Keyin bo'lakli-chiziqli bazis funksiyalari qo'yiladi va ularning yig'indisi aniq yechimga yaqinlashishi namoyish etiladi."
     }
@@ -37433,7 +37433,7 @@
     "research_extension": "Element texnologiyasini chuqurlashtiring. (1) Ierarxik (p-tipdagi) shakl funksiyalarini o'rganing: ular tartibni oshirishda oldingi bazisni saqlaydi, shuning uchun matritsaning bir qismi qayta hisoblanmaydi — adaptivlikda (su-18) bu qanday ishlatiladi? (2) Serendipiti (Q8) va Lagranj (Q9) elementlarini taqqoslang: markaziy tugunning bo'lishi aniqlikka va samaradorlikka qanday ta'sir qiladi? (3) Uchburchak elementlar uchun maydon koordinatalarini (area coordinates) o'rganing va ularning to'rtburchak elementlardan afzalligini murakkab geometriyada baholang. (4) NURBS asosidagi izogeometrik tahlilni (IGA) ko'rib chiqing: u CAD geometriyasini AYNAN ishlatadi — bu izoparametrik g'oyaning tabiiy davomi.",
     "manim": {
      "scene": "IsoparametricScene",
-     "module": "manim/scenes/su_fem.py",
+     "module": "animatsiya/scenes/su_fem.py",
      "title": "Izoparametrik almashtirish",
      "summary": "Etalon kvadrat $[-1,1]^2$ to'r chiziqlari bilan ko'rsatiladi va asta-sekin haqiqiy elementga aylanadi: to'r chiziqlari egriladi, chegara parabolaga aylanadi. Keyin tugun siljitilib element buziladi va $\\det J$ xaritasi qizarib boradi; chorak nuqtada u nolga tegadi va undan keyin element o'z ustiga o'ralib qoladi."
     }
@@ -37763,7 +37763,7 @@
     "research_extension": "Yig'ish va saqlashni chuqurlashtiring. (1) Frontal va ko'p frontli (multifrontal) usullarni o'rganing: ular yig'ish va yechishni birlashtiradi va global matritsani hech qachon to'liq qurmaydi — bu xotira talabini qanday kamaytiradi? (2) Siyrak matritsalarning CSR va skyline formatlarini taqqoslang: qaysi biri to'g'ri yechuvchiga, qaysi biri iterativ yechuvchiga mos? (3) To'ldirilish (fill-in) hodisasini o'rganing: LU yoyilishida nol hadlar nolmas bo'ladi — minimal daraja (minimum degree) va ichki ajratish (nested dissection) buni qanday kamaytiradi? (4) Element matritsalarini parallel hisoblash va yig'ishdagi poyga holatini (race condition) ko'rib chiqing: rang berish (colouring) yondashuvi qanday ishlaydi?",
     "manim": {
      "scene": "AssemblyScene",
-     "module": "manim/scenes/su_fem.py",
+     "module": "animatsiya/scenes/su_fem.py",
      "title": "Global tizimni yig'ish",
      "summary": "To'rt elementli sterjen ko'rsatiladi va element matritsalari birin-ketin global matritsaga 'uchib boradi'. Umumiy tugunlarda katakchalar ustma-ust tushadi va qiymatlar qo'shilib boradi. Oxirida matritsaning qator yig'indilari hisoblanadi va barchasi nol chiqadi — qattiq jism rejimining ko'rinishi."
     }
@@ -38103,7 +38103,7 @@
     "research_extension": "Qulflanishni yengishning zamonaviy usullarini o'rganing. (1) Yassilangan deformatsiya (enhanced assumed strain, EAS) usulini ko'rib chiqing: u elementga qo'shimcha ichki deformatsiya rejimlarini kiritadi — kvadraturaga tegmasdan qulflanishni qanday yechadi? (2) Aralash (mixed u–p) formulirovkani o'rganing va Babushka–Brezzi (inf–sup) shartini tushuning: nima uchun ko'chish va bosim uchun **turli** tartibli bazislar kerak? (3) Flanagan–Belytschko soat mexanizmi nazoratini ko'rib chiqing: u aniq echilish uchun mo'ljallangan paketlarda (LS-DYNA, Abaqus/Explicit) qanday ishlaydi va qanday sun'iy bikrlik kiritadi? (4) Assumed Natural Strain (ANS/MITC) usulini qobiq elementlari uchun o'rganing (pq-24) va uni SRI bilan taqqoslang.",
     "manim": {
      "scene": "LockingScene",
-     "module": "manim/scenes/su_fem.py",
+     "module": "animatsiya/scenes/su_fem.py",
      "title": "Qulflanish va soat mexanizmi",
      "summary": "Q4 element sof egilish rejimida deformatsiyalanadi va parazit siljish burchagi qizil yoy bilan ko'rsatiladi — u markazda yo'qolib, chetlarda kattalashadi. Element cho'zilganda yoylar keskin o'sadi va $1 + (a/b)^2/2$ ko'rsatkichi 1,5 dan 129 gacha ko'tariladi. Keyin kamaytirilgan integrallashga o'tiladi: yoylar yo'qoladi, lekin element qum soati shaklida erkin tebranib ketadi — markazdagi yagona Gauss nuqtasi qimirlamaydi."
     }
@@ -38426,7 +38426,7 @@
     "research_extension": "Natijani qayta ishlashni chuqurlashtiring. (1) Zienkiewicz–Zhu superkonvergent yamoq tiklashini (superconvergent patch recovery, SPR) o'rganing: u bir necha elementdan iborat yamoqqa eng kichik kvadratlar bilan ko'phad moslaydi — su-18 dagi adaptivlikning asosiy vositasi. (2) Kengaytirilgan Lagranj (augmented Lagrangian) usulini ko'rib chiqing: u jarima va Lagranj usullarining afzalliklarini birlashtiradi — qanday? (3) Kontakt masalalarini o'rganing: u yerda bog'lanishlar **oldindan noma'lum** va yechim davomida o'zgaradi (faol to'plam usuli). (4) Domenni ajratish (domain decomposition) va FETI usullarini ko'ring: ular Lagranj ko'paytuvchilarini parallel hisoblashda qanday ishlatadi?",
     "manim": {
      "scene": "BoundaryRecoveryScene",
-     "module": "manim/scenes/su_fem.py",
+     "module": "animatsiya/scenes/su_fem.py",
      "title": "Chegaraviy shartlar va kuchlanishni tiklash",
      "summary": "Avval uchta usul ko'rsatiladi: yo'q qilish matritsadan qator va ustunni o'chiradi, jarima diagonalga katta prujina qo'shadi, Lagranj esa matritsani chegara qatorlari bilan kengaytiradi. Keyin kuchlanish diagrammasi quriladi: element bo'ylab doimiy zinapoyalar paydo bo'ladi, ularning markazidagi nuqtalar aniq egri chiziqqa tegadi va ulardan chiziq o'tkazilib tugun qiymatlari tiklanadi. Chegarada o'rtachalash yetishmay qolgani alohida ta'kidlanadi."
     }
@@ -38761,7 +38761,7 @@
     "research_extension": "Adaptivlikning zamonaviy yo'nalishlarini o'rganing. (1) Maqsadga yo'naltirilgan (goal-oriented) adaptivlikni ko'rib chiqing: qo'shma (dual) masala yechiladi va to'r aynan kerakli kattalikning (masalan bitta nuqtadagi ko'chishning) xatosini kamaytirish uchun zichlashtiriladi — energiya normasi bo'yicha adaptivlikdan nimasi bilan farq qiladi? (2) Qoldiqqa asoslangan (residual-based) ko'rsatkichlarni tiklashga asoslanganlar bilan taqqoslang: qaysi biri kafolatli yuqori chegara beradi? (3) hp-adaptivlikda asosiy qiyinchilikni o'rganing: element silliq sohadami yoki singulyarlik yaqinidami — buni avtomatik qanday aniqlash mumkin? (4) Uch o'lchovli adaptiv to'r generatsiyasini va osilgan tugunlar (hanging nodes) muammosini ko'rib chiqing.",
     "manim": {
      "scene": "AdaptiveMeshScene",
-     "module": "manim/scenes/su_fem.py",
+     "module": "animatsiya/scenes/su_fem.py",
      "title": "Adaptiv to'rning rivojlanishi",
      "summary": "Sterjen sakkizta teng elementga bo'linadi va har birining ustida xatolik ustuni chiziladi — birinchi ustun qolganlaridan yuz minglab barobar baland. Ko'rsatkich hisoblanadi, eng yomon elementlar qizil yonadi va ikkiga bo'linadi. Aylanish takrorlanadi: ustunlar asta-sekin tenglashadi, chap uchdagi to'r esa logarifmik zichlashadi. Oxirida ikkita yaqinlashish chizig'i taqqoslanadi — tekis to'rning yotiq chizig'i va adaptiv to'rning tik chizig'i."
     }
@@ -39094,7 +39094,7 @@
     "research_extension": "Ferma tahlilini kengaytiring. (1) Topologik optimallashtirishni o'rganing: berilgan yuk uchun eng yengil ferma qanday topiladi va Mishel fermalari nima uchun nazariy optimal? (2) Geometrik nochiziqlikni ko'rib chiqing: yassi fermalarda 'o'tib ketish' (snap-through) hodisasi qanday yuzaga keladi (su-24)? (3) Oldindan taranglangan kabelli tizimlarni o'rganing: kabel faqat cho'zilishga ishlaydi va bu nochiziqlik kiritadi. (4) Ferma tugunlarining haqiqiy bikrligini baholang: payvandlangan tugunlar moment uzatadi — ikkilamchi kuchlanishlar qanchalik katta?",
     "manim": {
      "scene": "TrussScene",
-     "module": "manim/scenes/su_apps.py",
+     "module": "animatsiya/scenes/su_apps.py",
      "title": "Ferma: kuchlar va termik ta'sir",
      "summary": "Uch sterjenli ferma ko'rsatiladi va yuk qo'yilganda deformatsiyalanadi; sterjenlar kuchga qarab ranglanadi. Keyin yuk olib tashlanadi va o'rtadagi sterjen qizdiriladi — ferma yana deformatsiyalanadi va ranglar qaytadi, garchi tashqi kuch yo'q bo'lsa ham. Yonma-yon statik aniqlanadigan ferma qizdiriladi va u shunchaki kengayadi — ranglar o'zgarmaydi."
     }
@@ -39431,7 +39431,7 @@
     "research_extension": "Sterjenli tizimlar tahlilini chuqurlashtiring. (1) Plastik sharnirlar usulini o'rganing: ramkaning chegaraviy yuk ko'taruvchanligi qanday topiladi va u chiziqli hisobdan qanchalik farq qiladi? (2) Geometrik bikrlik matritsasini ko'rib chiqing: o'q kuchi egilish bikrligini o'zgartiradi va bu ustuvorlik masalasiga olib keladi (su-23). (3) Burama-egilish (warping torsion) nazariyasini o'rganing: ochiq yupqa devorli kesimlarda ettinchi erkinlik darajasi paydo bo'ladi. (4) Qattiq uchlar (rigid end offsets) va yarim bikr tugunlarni ko'rib chiqing: haqiqiy payvandlangan tugunning bikrligi cheksiz emas.",
     "manim": {
      "scene": "BeamFrameScene",
-     "module": "manim/scenes/su_apps.py",
+     "module": "animatsiya/scenes/su_apps.py",
      "title": "Ermit bazisi va moment epyurasi",
      "summary": "To'rtta Ermit funksiyasi birin-ketin chiziladi va har biri mos keladigan balka deformatsiyasi bilan ko'rsatiladi. Keyin sharnirli balka yuklanadi va ikkita moment epyurasi qo'yiladi: $EI\\,w''$ dan olingan siniq chiziq aniq paraboladan ajralib turadi, muvozanatdan olingan tugun nuqtalari esa parabolaga aynan tushadi. Oxirida portal ramka shamol yuki ostida deformatsiyalanadi."
     }
@@ -39751,7 +39751,7 @@
     "research_extension": "Kuchlanish konsentratsiyasi mavzusini kengaytiring. (1) $K_t$ va charchoqdagi $K_f$ bog'liqligini o'rganing: nima uchun $K_f < K_t$ va o'lchamning ta'siri (notch sensitivity) qanday? (2) Bir necha teshikning o'zaro ta'sirini hisoblang: ular qanchalik yaqin bo'lganda ta'sirlar qo'shiladi? (3) Ellips va o'tkir burchak holatlarini ko'rib chiqing: $K_t \\to \\infty$ bo'lganda yorilish mexanikasi parametrlariga (tmm-24) o'tish qanday amalga oshiriladi? (4) Yassilangan deformatsiya (EAS) elementlarini o'rganing: ular Q4 ni Q8 darajasiga olib chiqa oladimi?",
     "manim": {
      "scene": "StressConcentrationScene",
-     "module": "manim/scenes/su_apps.py",
+     "module": "animatsiya/scenes/su_apps.py",
      "title": "Teshik atrofidagi kuchlanish",
      "summary": "Tekis plastina tortiladi va kuchlanish maydoni bir tekis rangda ko'rsatiladi. Keyin markazda teshik ochiladi: kuchlanish chiziqlari teshikni aylanib o'tadi va yon tomonlarda quyuqlashadi. Rang xaritasi $3\\sigma$ zonasini va qutblardagi siqilish zonasini ajratib ko'rsatadi. Nihoyat radial profil chiziladi va u Kirsh egri chizig'i bilan ustma-ust tushadi; $3{,}5a$ da nominal darajaga qaytish belgilanadi."
     }
@@ -40077,7 +40077,7 @@
     "research_extension": "Plastina va qobiq elementlarini chuqurlashtiring. (1) MITC4 elementini o'rganing: siljish deformatsiyasi alohida nuqtalarda interpolyatsiya qilinadi — bu qulflanishni qanday yechadi va nima uchun soxta rejim kiritmaydi? (2) Diskret Kirxgof uchburchagini (DKT) ko'rib chiqing: u siljishni aynan nolga tenglashtiradi. (3) Egri qobiq elementlarini va membrana qulflanishini o'rganing (pq-26): u siljish qulflanishidan qanday farq qiladi? (4) Qatlamli kompozitlar uchun yuqori tartibli siljish nazariyalarini (HSDT) ko'rib chiqing.",
     "manim": {
      "scene": "PlateLockingScene",
-     "module": "manim/scenes/su_apps.py",
+     "module": "animatsiya/scenes/su_apps.py",
      "title": "Plastina qulflanishi",
      "summary": "Ikkita bir xil plastina yonma-yon turadi va bir xil yuk bilan yuklanadi. Chapdagisi (SRI) normal egiladi, o'ngdagisi (to'liq integrallash) deyarli qimirlamaydi. Qalinlik slayderi ko'tarilganda o'ngdagi plastina asta-sekin chapdagiga yetib oladi — qulflanish yo'qoladi. Oxirida bitta element ajratib olinadi va uning soxta nol energiyali rejimi ko'rsatiladi."
     }
@@ -40412,7 +40412,7 @@
     "research_extension": "Xususiy qiymat hisoblarini chuqurlashtiring. (1) Lanshos va blokli subfazo iteratsiyasi usullarini o'rganing: million erkinlik darajali tizimdan faqat birinchi 50 shaklni qanday olish mumkin? (2) Shturm ketma-ketligi tekshiruvini ko'rib chiqing: berilgan oraliqda nechta xususiy qiymat borligini ularni hisoblamasdan aniqlash. (3) Modal massa va ishtirok koeffitsientlarini o'rganing: seysmik hisobda nechta shakl kerakligini qanday aniqlash (odatda modal massaning 90% i qamralsin)? (4) Sautvell grafigini va nuqsonli ustunning haqiqiy xatti-harakatini ko'rib chiqing.",
     "manim": {
      "scene": "EigenScene",
-     "module": "manim/scenes/su_apps.py",
+     "module": "animatsiya/scenes/su_apps.py",
      "title": "Tebranish va ustuvorlik birligi",
      "summary": "Konsol balkaning birinchi uchta tebranish shakli ketma-ket animatsiya qilinadi va tugunlar soni o'sishi ko'rsatiladi. Keyin sharnirli ustun asta-sekin siqiladi: uning tebranishi sekinlashadi, chastota grafigi $\\sqrt{1-P/P_{cr}}$ egri chizig'i bo'ylab tushadi va kritik yukda tebranish to'xtab, ustun yon tomonga egilib ketadi."
     }
@@ -40756,7 +40756,7 @@
     "research_extension": "Nochiziqli tahlilni chuqurlashtiring. (1) Riks yoy uzunligi usulini o'rganing: qaytuvchi nuqta (snap-back) bo'lganda siljish nazorati ham yetarli emas — yoy uzunligi buni qanday hal qiladi? (2) Izchil urinma modulni (consistent tangent) o'rganing: nima uchun uni elastoplastik modul bilan almashtirish kvadratik yaqinlashishni yo'qotadi? (3) Kinematik va aralash mustahkamlanishni ko'rib chiqing: Baushinger effekti va siklik yuklamadagi xatti-harakat (mq-08). (4) Aniq (explicit) dinamik integrallashni o'rganing: avariya hisobida nima uchun Nyuton iteratsiyasi umuman ishlatilmaydi?",
     "manim": {
      "scene": "SnapThroughScene",
-     "module": "manim/scenes/su_apps.py",
+     "module": "animatsiya/scenes/su_apps.py",
      "title": "O'tib ketish hodisasi",
      "summary": "Yassi ferma asta-sekin yuklanadi va yonida yuk–ko'chish egri chizig'ida nuqta harakatlanadi. Chegaraviy nuqtaga yetganda ferma birdan ag'darilib pastki holatga sakraydi, nuqta esa egri chiziqdagi uzoq shoxga o'tadi. Keyin xuddi shu masala siljish nazorati bilan takrorlanadi va bu safar butun yo'l, jumladan pasayuvchi shox ham, uzluksiz bosib o'tiladi."
     }
@@ -41077,7 +41077,7 @@
     "research_extension": "DQM ni kengaytiring. (1) Umumlashgan DQM (GDQ) va harmonik DQM ni o'rganing: ko'phad o'rniga trigonometrik bazis tanlansa davriy masalalarda nima o'zgaradi? (2) Chegaraviy shartlarni qo'llashning turli usullarini (delta texnikasi, MMWC) taqqoslang: qaysi biri aniqroq? (3) Ko'p sohali DQM ni (multi-domain) ko'rib chiqing: u murakkab geometriya va uzilishlarni qanday hal qiladi? (4) Spektral elementlar usulini o'rganing: u FEM ning mahalliyligini spektral aniqlik bilan birlashtiradi.",
     "manim": {
      "scene": "DQMScene",
-     "module": "manim/scenes/su_modern.py",
+     "module": "animatsiya/scenes/su_modern.py",
      "title": "Global shablon va spektral yaqinlashish",
      "summary": "Avval chekli ayirma shabloni ko'rsatiladi: bitta nuqtadagi hosila uchun faqat uchta qo'shni yonadi. Keyin DQM ga o'tiladi va **barcha** tugunlar bir vaqtda yonadi — global shablon. So'ng yaqinlashish grafigi chiziladi: DQM chizig'i yarim logarifmik o'qda to'g'ri chiziq bo'lib keskin pastga tushadi, darajali usullar esa yotiqroq. Oxirida matritsa xaritalari taqqoslanadi: DQM to'la, FEM lentali."
     }
@@ -41386,7 +41386,7 @@
     "research_extension": "BEM ni chuqurlashtiring. (1) Tez ko'p qutbli usulni (FMM) o'rganing: u to'la matritsani saqlamasdan ko'paytirishni $O(N\\log N)$ da bajaradi — qanday? (2) Ikkilangan o'zaro ta'sir usulini (DRM) ko'rib chiqing: sohaviy yuklarni chegaraga qanday keltiradi? (3) Yorilish mexanikasida ikkilangan BEM ni (dual BEM) o'rganing: yoriqning ikki sirti ustma-ust tushganda tizim buziladi — giperchisingulyar tenglama buni qanday hal qiladi (tmm-24)? (4) Degenerat masshtabni nazariy o'rganing: logarifmik sig'im tushunchasi va uni turli shakllar uchun hisoblash.",
     "manim": {
      "scene": "BEMScene",
-     "module": "manim/scenes/su_modern.py",
+     "module": "animatsiya/scenes/su_modern.py",
      "title": "O'lcham kamayishi",
      "summary": "Avval sohaviy to'r quriladi va tugunlar sanaladi. Keyin ichki tugunlar birin-ketin yo'qoladi va faqat chegara qoladi — hisoblagich keskin tushadi. Tanlangan chegara nuqtasidan fundamental yechim to'lqin kabi tarqaladi va $r = 1$ aylanasi yonib, u yerda $u^*$ nolga aylanishi ko'rsatiladi. Oxirida soha ichida ixtiyoriy nuqtalar tanlanadi va har birida yechim to'rsiz hisoblanadi."
     }
@@ -41702,7 +41702,7 @@
     "research_extension": "Zamonaviy usullarni chuqurlashtiring. (1) RBF-FD usulini o'rganing: mahalliy shablonlarda RBF ishlatib, siyrak matritsa olish — noaniqlik prinsipini qanday chetlab o'tadi? (2) Element erkin Galerkin (EFG) va harakatlanuvchi eng kichik kvadratlar (MLS) usulini ko'rib chiqing: shakl funksiyalari Kroneker delta xossasiga ega emasligi chegaraviy shartlarda qanday muammo tug'diradi? (3) Spektral elementlar usulini o'rganing: FEM ning mahalliyligi va spektral aniqlikning birikmasi. (4) Materiallar nuqtasi usulini (MPM) ko'rib chiqing: u to'r va zarrachalarni birlashtiradi va juda katta deformatsiyada ishlatiladi.",
     "manim": {
      "scene": "MeshfreeScene",
-     "module": "manim/scenes/su_modern.py",
+     "module": "animatsiya/scenes/su_modern.py",
      "title": "To'rsizlik va noaniqlik prinsipi",
      "summary": "Avval FEM to'ri katta deformatsiyada buziladi: elementlar cho'ziladi va ag'dariladi, $\\det\\mathbf{J}$ qizaradi. Keyin elementlar yo'qoladi va faqat tugunlar qoladi — ular bemalol harakatlanadi. So'ng radial bazis funksiyalari chiziladi va shakl parametri oshirilib boriladi: ular yassilashadi, ustma-ust tushadi va yonidagi shartlanganlik ko'rsatkichi portlaydi."
     }
@@ -42027,7 +42027,7 @@
     "research_extension": "V&V ni chuqurlashtiring. (1) ASME V&V 20 standartini o'rganing: validatsiya noaniqligini $u_{val} = \\sqrt{u_{num}^2 + u_{inp}^2 + u_D^2}$ sifatida rasmiy hisoblash. (2) Chegaraviy shartlarni ham 'ishlab chiqish' usulini ko'rib chiqing: $u_{ex}$ chegaraviy shartni qanoatlantirmasa nima qilish kerak? (3) Nochiziqli va vaqtga bog'liq masalalarda MMS ni o'rganing: manba endi vaqtga ham bog'liq bo'ladi. (4) Noaniqlik tarqalishini (uncertainty propagation) ko'rib chiqing: kirish ma'lumotlaridagi tarqoqlik natijaga qanday o'tadi — Monte-Karlo va polinomial xaos.",
     "manim": {
      "scene": "VerificationScene",
-     "module": "manim/scenes/su_modern.py",
+     "module": "animatsiya/scenes/su_modern.py",
      "title": "MMS va tartib o'lchovi",
      "summary": "Avval MMS g'oyasi ko'rsatiladi: yechim tanlanadi, operator qo'llanadi va manba chiqadi — o'qlar odatdagiga teskari yo'nalishda. Keyin log–log grafikda uchta chiziq chiziladi va ularning qiyaliklari o'lchanadi: 3, 2 va 0. Nazariy qiyalik uchburchagi ustiga qo'yilganda faqat bittasi mos tushadi. Oxirida GCI tasmasi quriladi va aniq qiymat uning ichiga tushishi ko'rsatiladi."
     }
@@ -42364,7 +42364,7 @@
     "research_extension": "Ko'p to'rli (multigrid) usullar N ga PROPORSIONAL murakkablikka erishadi — bu chegaraviy masalalar uchun nazariy jihatdan optimal natija, chunki har bir noma'lumni hech bo'lmaganda bir marta o'qish kerak. G'oya: xatolikning silliq qismi qo'pol to'rda arzon yo'qotiladi, tebranuvchi qismi esa maydan to'rda bir necha silliqlash qadami bilan. Zamonaviy tadqiqot yo'nalishlari: algebraik multigrid (AMG) — bu yerda qo'pol darajalar geometriyadan emas, matritsaning o'zidan quriladi, bu esa tartibsiz to'r va anizotrop materiallarga yo'l ochadi; domenlarga ajratish (FETI, BDDC) usullarining parallel masshtablanishi o'n minglab yadroda; GPU uchun siyrak yechuvchilar va ularda xotira o'tkazuvchanligining hal qiluvchi roli; matritsasiz (matrix-free) formulirovkalar, bu yerda K umuman yig'ilmaydi va faqat K·v ko'paytma element darajasida hisoblanadi — yuqori tartibli elementlarda bu xotirani va vaqtni bir vaqtda tejaydi. Alohida yo'nalish — aralash aniqlik (mixed precision): faktorizatsiyani 32 bitda bajarib, natijani 64 bitli iterativ yaxshilash bilan tuzatish, bu esa zamonaviy apparatda ikki baravar tezlanish beradi (su-02 dagi yaxlitlash tahlili bevosita shu yerda ishlaydi).",
     "manim": {
      "scene": "OrderingAndFillIn",
-     "module": "manim/scenes/su29_samaradorlik.py",
+     "module": "animatsiya/scenes/su29_samaradorlik.py",
      "title": "Tartiblash, to'ldirilish va usul tanlovi",
      "summary": "Sahna bir xil to'rning uchta raqamlanishini ko'rsatadi va har biri uchun matritsa portreti yonida quriladi: tabiiy raqamlashda tor diagonal tasma, tasodifiy raqamlashda butun maydonga sochilgan nuqtalar, RCM dan keyin esa yana tasma. Keyin faktorizatsiya animatsiya qilinadi: L va U to'lib borar ekan, yangi paydo bo'lgan nolmaslar boshqa rangda yonadi — to'ldirilishning ma'nosi shunda ko'rinadi. Uchta holat uchun hisoblagich nolmaslar sonini sanaydi va oxirida 32934 / 11820 / 7344 qiymatlari yonma-yon qoladi. Yakunda log-log grafik chiziladi: to'g'ri va iterativ usulning narxi 2D da deyarli parallel, 3D ga o'tilganda esa ular keskin ajraladi va kesishish nuqtasi chapga suriladi."
     }
@@ -42707,7 +42707,7 @@
     "research_extension": "To'liq hisoblash zanjirining bugungi davomi — RAQAMLI EGIZAK (digital twin): konstruksiyaning model nusxasi real o'lchovlar bilan uzluksiz yangilanib turadi va uning holatini real vaqtda bashorat qiladi. Bunda kursning barcha bo'g'inlari bir vaqtda ishlaydi va yangi talablar paydo bo'ladi. Birinchisi — TEZLIK: to'liq FEM hisobini real vaqtda takrorlab bo'lmaydi, shuning uchun kamaytirilgan tartibli modellar (reduced-order models, POD/Galerkin) quriladi: yechimlar fazosining bir necha o'nlab asosiy modasi ajratiladi va masala shu kichik bazisda yechiladi, bu esa hisobni minglab marta tezlashtiradi. Ikkinchisi — NOANIQLIKNI MIQDORIYLASHTIRISH (UQ): material parametrlari, geometriya bardoshliklari va yuk tasodifiy kattaliklar sifatida qaraladi, natija esa taqsimot sifatida chiqadi (Monte-Karlo, polinomial xaos). Uchinchisi — MA'LUMOTLAR ASSIMILYATSIYASI: o'lchov va modelni birlashtirish (Kalman filtri, Bayes yangilash), bu yerda su-28 dagi validatsiya g'oyasi uzluksiz jarayonga aylanadi. Alohida va faol rivojlanayotgan yo'nalish — FIZIKAGA ASOSLANGAN NEYRON TARMOQLAR (PINN), ularda differensial tenglamaning qoldig'i yo'qotish funksiyasiga kiritiladi; ular hozircha to'g'ri masalalarda klassik FEM dan aniqlik va ishonchlilik bo'yicha yutqazadi, lekin teskari masalalarda (material parametrlarini o'lchovdan tiklash) va parametrik oilalarda sezilarli ustunlik ko'rsatmoqda.",
     "manim": {
      "scene": "FullChain",
-     "module": "manim/scenes/su30_yakun.py",
+     "module": "animatsiya/scenes/su30_yakun.py",
      "title": "To'liq hisoblash zanjiri",
      "summary": "Sahna beshta blokni ketma-ket yoqadi va har birida shu fan bergan tenglama hamda shu hisobdagi aniq son paydo bo'ladi: muvozanat (nazorat = 0), sigma = 6M/h^2 (162,76 MPa), von Mizes (144,67 MPa), D*nabla^4 w = p (91,8353 mkm) va K u = f (FEM, xato 1,7*10^-4 %). Bloklar strelkalar bilan bog'lanib, to'liq zanjir hosil qiladi. Keyin membrananing egilish shakli ko'rsatiladi va to'r maydalanishi animatsiya qilinadi: FEM nuqtalari aniq chiziqqa yopishib boradi. Yakunda validatsiya paneli ochiladi — to'rt shart yashil yonadi, keyin bosim ataylab oshiriladi va ikkita shart qizil bo'lib o'zgaradi: sonli yechim hamon yaqinlashayotgan bo'lsa ham, natija yaroqsiz bo'lib qolgani ko'rsatiladi."
     }
