@@ -12794,7 +12794,123 @@
     "bridge_to_next": "Hisob sxemasi tanlandi. Endi uning ichiga kirib, kesimda qanday ichki kuchlar va kuchlanishlar paydo bo'lishini aniqlaymiz.",
     "research_extension": "Sen-Venan prinsipining amal qilish masofasini sonli o'rganing: bir xil natijaviy kuchni turli usulda (nuqtaviy, tekis taqsimlangan, parabolik) qo'yib, kuchlanish maydonining qancha masofada tenglashishini aniqlang. 2D masalani chekli ayirmalar bilan yeching (su-12) va xulosani $x/h$ nisbati orqali ifodalang.",
     "manim": null,
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Zaxira koeffitsienti va ruxsat etilgan kuchlanish",
+      "caption": "Oqish chegarasi zaxiraga bo'linadi — shundan ruxsat etilgan qiymat chiqadi.",
+      "params": [
+       {
+        "key": "sy",
+        "label": "Oqish chegarasi σᵧ",
+        "minimum": 150,
+        "maximum": 900,
+        "default": 350,
+        "step": 10,
+        "unit": "MPa"
+       }
+      ],
+      "curves": [
+       {
+        "label": "[σ] = σᵧ/n",
+        "expr": "sy/x",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Oqish chegarasi",
+        "expr": "sy",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "[σ] (n=1,5)",
+        "expr": "sy/1.5",
+        "unit": "MPa",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "[σ] (n=2,5)",
+        "expr": "sy/2.5",
+        "unit": "MPa",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Zaxira 2 dan 3 ga",
+        "expr": "sy/2 - sy/3",
+        "unit": "MPa kamayadi",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "zaxira koeffitsienti n",
+      "y_label": "[σ], MPa",
+      "x_min": "1",
+      "x_max": "5",
+      "options": {},
+      "note": "Zaxira noaniqlikni qoplaydi: material tarqoqligi, yuk oshib ketishi, hisob soddalashtirishlari."
+     },
+     {
+      "kind": "plot",
+      "title": "Sterjen kesimi va kuchlanish",
+      "caption": "σ = N/A — kesim yuzasi ikki barobar oshsa kuchlanish ikki barobar kamayadi.",
+      "params": [
+       {
+        "key": "N",
+        "label": "O'qiy kuch",
+        "minimum": 5,
+        "maximum": 500,
+        "default": 100,
+        "step": 5,
+        "unit": "kN"
+       }
+      ],
+      "curves": [
+       {
+        "label": "σ = N/A",
+        "expr": "N*1000/(x*1e-4)/1e6",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "[σ] = 160 MPa",
+        "expr": "160",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "σ (A=10 sm²)",
+        "expr": "N*1000/(10e-4)/1e6",
+        "unit": "MPa",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Kerakli A ([σ]=160)",
+        "expr": "N*1000/160e6*1e4",
+        "unit": "sm²",
+        "color": "compress",
+        "text": ""
+       }
+      ],
+      "x_label": "kesim yuzasi A, sm²",
+      "y_label": "kuchlanish σ, MPa",
+      "x_min": "1",
+      "x_max": "40",
+      "options": {},
+      "note": "Loyihalash teskari yo'nalishda boradi: kerakli yuza A ≥ N/[σ] dan topiladi."
+     }
+    ]
    },
    "difficulty": "kirish",
    "previous_link": "Nazariy mexanikada (nm-10, nm-11) jism qattiq edi va biz faqat tashqi muvozanat bilan shug'ullandik. Endi jism ichiga kiramiz: u deformatsiyalanadi va buzilishi mumkin.",
@@ -13037,7 +13153,155 @@
      "title": "Kesim usuli",
      "summary": "Sterjen kesiladi, bir qismi olib tashlanadi va kesimda ichki kuchlar paydo bo'ladi; epyuralar bosqichma-bosqich quriladi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Kesim usuli: ichki kuch epyurasi",
+      "caption": "Har bir bo'lakda ichki kuch tashqi kuchlar yig'indisiga teng.",
+      "params": [
+       {
+        "key": "F1",
+        "label": "Birinchi kuch",
+        "minimum": -100,
+        "maximum": 100,
+        "default": 60,
+        "step": 5,
+        "unit": "kN"
+       },
+       {
+        "key": "F2",
+        "label": "Ikkinchi kuch",
+        "minimum": -100,
+        "maximum": 100,
+        "default": -40,
+        "step": 5,
+        "unit": "kN"
+       }
+      ],
+      "curves": [
+       {
+        "label": "N(x) birinchi bo'lak",
+        "expr": "F1 + 0*x",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "N(x) ikkinchi bo'lak",
+        "expr": "F1 + F2 + 0*x",
+        "color": "compress",
+        "dashed": true,
+        "when": ""
+       },
+       {
+        "label": "Nol",
+        "expr": "0",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "N birinchi bo'lakda",
+        "expr": "F1",
+        "unit": "kN",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "N ikkinchi bo'lakda",
+        "expr": "F1 + F2",
+        "unit": "kN",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Sakrash",
+        "expr": "F2",
+        "unit": "kN",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "sterjen bo'ylab x, m",
+      "y_label": "o'qiy kuch N, kN",
+      "x_min": "0",
+      "x_max": "4",
+      "options": {},
+      "note": "Epyura har bir to'plangan kuch joyida aynan shu kuchga teng SAKRASH qiladi."
+     },
+     {
+      "kind": "plot",
+      "title": "Kuchlanish — ichki kuchning zichligi",
+      "caption": "Bir xil kuch turli yuzada turli kuchlanish beradi.",
+      "params": [
+       {
+        "key": "N",
+        "label": "Ichki kuch",
+        "minimum": 10,
+        "maximum": 400,
+        "default": 120,
+        "step": 5,
+        "unit": "kN"
+       },
+       {
+        "key": "A",
+        "label": "Kesim yuzasi",
+        "minimum": 2,
+        "maximum": 60,
+        "default": 12,
+        "step": 1,
+        "unit": "sm²"
+       }
+      ],
+      "curves": [
+       {
+        "label": "σ(A) = N/A",
+        "expr": "N*10/x",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Joriy yuza",
+        "expr": "N*10/A",
+        "color": "mark",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Joriy σ",
+        "expr": "N*10/A",
+        "unit": "MPa",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Yuza 2× bo'lsa",
+        "expr": "N*10/(2*A)",
+        "unit": "MPa",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Ichki kuch",
+        "expr": "N",
+        "unit": "kN",
+        "color": "rule",
+        "text": ""
+       }
+      ],
+      "x_label": "yuza A, sm²",
+      "y_label": "σ, MPa",
+      "x_min": "2",
+      "x_max": "60",
+      "options": {},
+      "note": "Ichki kuch kesimga bog'liq emas, kuchlanish esa bog'liq — shuning uchun mustahkamlik yuzaga qarab hisoblanadi."
+     }
+    ]
    },
    "difficulty": "kirish",
    "previous_link": "mq-01 da hisob sxemasini tuzdik. Endi shu sxemada ichki kuchlarni aniqlashning universal usulini — kesim usulini o'rganamiz.",
@@ -13282,7 +13546,150 @@
     "bridge_to_next": "Guk qonunidagi $E$ va mustahkamlik chegarasi qayerdan olinadi? Keyingi mavzuda materialning tajribaviy diagrammasini o'rganamiz.",
     "research_extension": "Teng mustahkamlikdagi sterjenni loyihalang: o'z og'irligi ta'sirida $\\sigma = \\text{const}$ bo'lishi uchun $A(x)$ qanday bo'lishi kerak? Muvozanat tenglamasidan $dA/A = (\\rho g/\\sigma)dx$ ni oling va eksponensial profil chiqishini ko'rsating. Bu — baland minoralar va raketa korpusining nazariy optimal shakli.",
     "manim": null,
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Guk qonuni: kuchlanish va deformatsiya",
+      "caption": "Chiziqli soha tugagach qonun buziladi.",
+      "params": [
+       {
+        "key": "E",
+        "label": "Elastiklik moduli",
+        "minimum": 70,
+        "maximum": 220,
+        "default": 210,
+        "step": 5,
+        "unit": "GPa"
+       },
+       {
+        "key": "sy",
+        "label": "Oqish chegarasi",
+        "minimum": 150,
+        "maximum": 600,
+        "default": 250,
+        "step": 10,
+        "unit": "MPa"
+       }
+      ],
+      "curves": [
+       {
+        "label": "σ = Eε (chiziqli)",
+        "expr": "E*1000*x",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Oqish chegarasi",
+        "expr": "sy",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Chiziqlilik chegarasi ε",
+        "expr": "sy/(E*1000)",
+        "unit": "‰",
+        "color": "mark",
+        "text": ""
+       },
+       {
+        "label": "σ (ε=1‰)",
+        "expr": "E*1000*0.001*1000",
+        "unit": "MPa",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Po'lat uchun ε_y",
+        "expr": "250/210000*1000",
+        "unit": "‰",
+        "color": "compress",
+        "text": ""
+       }
+      ],
+      "x_label": "nisbiy deformatsiya ε, ‰",
+      "y_label": "σ, MPa",
+      "x_min": "0",
+      "x_max": "3",
+      "options": {},
+      "note": "Po'lat atigi 0,12% deformatsiyagacha elastik — shuning uchun konstruksiyalar juda kam deformatsiyalanadi."
+     },
+     {
+      "kind": "plot",
+      "title": "Uzayish: uzunlik, yuza va modul ta'siri",
+      "caption": "Δl = Nl/(EA) — to'rtta kattalikning birgalikdagi ta'siri.",
+      "params": [
+       {
+        "key": "N",
+        "label": "Kuch",
+        "minimum": 10,
+        "maximum": 500,
+        "default": 100,
+        "step": 5,
+        "unit": "kN"
+       },
+       {
+        "key": "A",
+        "label": "Yuza",
+        "minimum": 2,
+        "maximum": 50,
+        "default": 10,
+        "step": 1,
+        "unit": "sm²"
+       },
+       {
+        "key": "E",
+        "label": "Modul",
+        "minimum": 70,
+        "maximum": 220,
+        "default": 210,
+        "step": 5,
+        "unit": "GPa"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Δl(l) = Nl/(EA)",
+        "expr": "N*1000*x/(E*1e9*A*1e-4)*1000",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Δl (l=3 m)",
+        "expr": "N*1000*3/(E*1e9*A*1e-4)*1000",
+        "unit": "mm",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Bikrlik EA/l (l=3)",
+        "expr": "E*1e9*A*1e-4/3/1e6",
+        "unit": "MN/m",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Nisbiy deformatsiya",
+        "expr": "N*1000/(E*1e9*A*1e-4)*1000",
+        "unit": "‰",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "uzunlik l, m",
+      "y_label": "uzayish Δl, mm",
+      "x_min": "0",
+      "x_max": "10",
+      "options": {},
+      "note": "Alyuminiy uchun E uch barobar kichik — shu sababli bir xil kuchda uch barobar ko'p uzayadi."
+     }
+    ]
    },
    "difficulty": "asosiy",
    "previous_link": "mq-02 da kuchlanish ta'rifini oldik, lekin $\\sigma(y,z)$ noma'lum edi. Cho'zilishda tekis kesimlar gipotezasi uni bir tekis deb belgilaydi.",
@@ -13518,7 +13925,171 @@
     "bridge_to_next": "Material tavsiflari ma'lum. Endi ulardan foydalanib, qanday kuchlanishda ishlash xavfsiz ekanini — ruxsat etilgan kuchlanishni belgilaymiz.",
     "research_extension": "Haqiqiy diagrammani mustahkamlanish qonuni bilan approksimatsiya qiling: $\\sigma = K\\varepsilon^n$ (Hollomon tenglamasi). Tajriba nuqtalaridan $K$ va $n$ ni eng kichik kvadratlar bilan toping. $n = \\varepsilon_{buyin}$ ekanini (Considère mezoni) tekshiring — bu buyin qachon hosil bo'lishini bashorat qiladi.",
     "manim": null,
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Cho'zilish diagrammasi: xarakterli nuqtalar",
+      "caption": "Proporsionallik, oqish, mustahkamlik chegaralari ketma-ket keladi.",
+      "params": [
+       {
+        "key": "E",
+        "label": "Modul E",
+        "minimum": 70,
+        "maximum": 220,
+        "default": 210,
+        "step": 5,
+        "unit": "GPa"
+       },
+       {
+        "key": "sy",
+        "label": "Oqish σᵧ",
+        "minimum": 150,
+        "maximum": 600,
+        "default": 250,
+        "step": 10,
+        "unit": "MPa"
+       },
+       {
+        "key": "su",
+        "label": "Mustahkamlik σᵤ",
+        "minimum": 200,
+        "maximum": 900,
+        "default": 420,
+        "step": 10,
+        "unit": "MPa"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Elastik soha",
+        "expr": "E*1000*x",
+        "color": "tension",
+        "dashed": false,
+        "when": "1"
+       },
+       {
+        "label": "Oqish maydoni",
+        "expr": "sy",
+        "color": "compress",
+        "dashed": true,
+        "when": ""
+       },
+       {
+        "label": "Mustahkamlik chegarasi",
+        "expr": "su",
+        "color": "mark",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "ε oqishda",
+        "expr": "sy/(E*1000)",
+        "unit": "‰",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Mustahkamlik zaxirasi",
+        "expr": "su/sy",
+        "unit": "marta",
+        "color": "mark",
+        "text": ""
+       },
+       {
+        "label": "Elastik energiya",
+        "expr": "sy^2/(2*E*1000)",
+        "unit": "kJ/m³",
+        "color": "tension",
+        "text": ""
+       }
+      ],
+      "x_label": "deformatsiya ε, ‰",
+      "y_label": "σ, MPa",
+      "x_min": "0",
+      "x_max": "4",
+      "options": {},
+      "note": "σᵤ/σᵧ nisbati plastiklik zaxirasini ko'rsatadi: 1,5 dan katta bo'lsa material ishonchli."
+     },
+     {
+      "kind": "plot",
+      "title": "Mo'rt va plastik material",
+      "caption": "Bir xil mustahkamlikda uzilishgacha bo'lgan energiya keskin farq qiladi.",
+      "params": [
+       {
+        "key": "su",
+        "label": "Mustahkamlik chegarasi",
+        "minimum": 200,
+        "maximum": 900,
+        "default": 400,
+        "step": 10,
+        "unit": "MPa"
+       },
+       {
+        "key": "d_pl",
+        "label": "Plastik cho'zilish",
+        "minimum": 2,
+        "maximum": 30,
+        "default": 15,
+        "step": 1,
+        "unit": "%"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Plastik material",
+        "expr": "min(210000*x/1000, su)",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Mo'rt material",
+        "expr": "210000*x/1000",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Mo'rt uzilish nuqtasi",
+        "expr": "su",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Plastik: yutilgan energiya",
+        "expr": "su*d_pl*10",
+        "unit": "kJ/m³",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Mo'rt: yutilgan energiya",
+        "expr": "su^2/(2*210000)*1000",
+        "unit": "kJ/m³",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Nisbat",
+        "expr": "su*d_pl*10/(su^2/(2*210000)*1000)",
+        "unit": "marta",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "deformatsiya ε, %",
+      "y_label": "σ, MPa",
+      "x_min": "0",
+      "x_max": "d_pl",
+      "options": {},
+      "note": "Plastik material ogohlantirib uziladi va ancha ko'p energiya yutadi — shuning uchun xavfsizroq."
+     }
+    ]
    },
    "difficulty": "asosiy",
    "previous_link": "mq-03 da $E$ ni berilgan deb oldik. Endi u va boshqa material tavsiflari qanday tajribada aniqlanishini ko'ramiz.",
@@ -13754,7 +14325,139 @@
     "bridge_to_next": "Statik aniq masalalarni yechdik. Lekin ko'p konstruksiyalarda bog'lanishlar ortiqcha bo'ladi va muvozanat tenglamalari yetmaydi — keyingi mavzuda statik aniqmas tizimlarni ko'ramiz.",
     "research_extension": "Ehtimollik asosidagi yondashuvni modellashtiring: yuk va material mustahkamligini tasodifiy kattaliklar (normal taqsimot) deb oling. Monte-Karlo usuli bilan buzilish ehtimolini hisoblang va uni determinlashgan zaxira koeffitsienti bilan bog'lang. $n = 1{,}5$ qanday ehtimolga mos keladi? Bu — zamonaviy chegaraviy holatlar usulining asosi.",
     "manim": null,
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Zaxira koeffitsientini tanlash",
+      "caption": "Yuk va material noaniqligi zaxirani belgilaydi.",
+      "params": [
+       {
+        "key": "sy",
+        "label": "Oqish chegarasi",
+        "minimum": 150,
+        "maximum": 900,
+        "default": 300,
+        "step": 10,
+        "unit": "MPa"
+       },
+       {
+        "key": "s_ish",
+        "label": "Ish kuchlanishi",
+        "minimum": 20,
+        "maximum": 400,
+        "default": 120,
+        "step": 5,
+        "unit": "MPa"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Zaxira n = σᵧ/σ",
+        "expr": "sy/x",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "n = 1,5 chegara",
+        "expr": "1.5",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       },
+       {
+        "label": "n = 1 (oqish)",
+        "expr": "1",
+        "color": "compress",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Joriy zaxira",
+        "expr": "sy/s_ish",
+        "unit": "",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Holat",
+        "expr": "sy/s_ish - 1.5",
+        "unit": "",
+        "color": "mark",
+        "text": "yetarli|YETARLI EMAS"
+       },
+       {
+        "label": "Ruxsat etilgan σ (n=1,5)",
+        "expr": "sy/1.5",
+        "unit": "MPa",
+        "color": "compress",
+        "text": ""
+       }
+      ],
+      "x_label": "ish kuchlanishi σ, MPa",
+      "y_label": "zaxira n",
+      "x_min": "20",
+      "x_max": "400",
+      "options": {},
+      "note": "Zaxira 1 dan katta bo'lishining o'zi yetarli emas — normalar odatda 1,5 dan yuqorini talab qiladi."
+     },
+     {
+      "kind": "plot",
+      "title": "Mustahkamlik sharti: kerakli kesim",
+      "caption": "Kuch oshsa kerakli yuza chiziqli o'sadi.",
+      "params": [
+       {
+        "key": "sall",
+        "label": "Ruxsat etilgan [σ]",
+        "minimum": 50,
+        "maximum": 300,
+        "default": 160,
+        "step": 5,
+        "unit": "MPa"
+       }
+      ],
+      "curves": [
+       {
+        "label": "A_kerak = N/[σ]",
+        "expr": "x*1000/(sall*1e6)*1e4",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Mavjud 10 sm²",
+        "expr": "10",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "A (N=100 kN)",
+        "expr": "100*1000/(sall*1e6)*1e4",
+        "unit": "sm²",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "10 sm² ko'taradigan N",
+        "expr": "sall*1e6*10e-4/1000",
+        "unit": "kN",
+        "color": "compress",
+        "text": ""
+       }
+      ],
+      "x_label": "kuch N, kN",
+      "y_label": "kerakli yuza, sm²",
+      "x_min": "0",
+      "x_max": "400",
+      "options": {},
+      "note": "Loyihalashda kesim shu shartdan topiladi, so'ng standart profillardan kattarog'i tanlanadi."
+     }
+    ]
    },
    "difficulty": "asosiy",
    "previous_link": "mq-04 da material chegaralarini oldik. Endi ulardan qanchasidan foydalanish mumkinligini — xavfsizlik chegarasini belgilaymiz.",
@@ -14002,7 +14705,155 @@
     "bridge_to_next": "Cho'zilish-siqilish to'liq o'rganildi. Endi murakkabroq deformatsiyalarga o'tamiz — lekin avval ular uchun zarur bo'lgan kesim geometrik tavsiflarini hisoblashni o'rganamiz.",
     "research_extension": "Oldindan tarang temirbeton konstruksiyasini modellashtiring: armaturani beton qotishidan oldin taranglashtirib, keyin qo'yib yuborish betonda siquvchi kuchlanish hosil qiladi. Bu betonning cho'zilishga zaif ekanini kompensatsiya qiladi. Optimal dastlabki tarang kuchini hisoblang: u betondagi cho'zuvchi kuchlanishni nolga tushirsin, lekin siquvchi chegaradan oshmasin.",
     "manim": null,
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Temperatura kuchlari: statik aniqmas sterjen",
+      "caption": "Ikki uchi mahkamlangan sterjen isiganda kuchlanish paydo bo'ladi.",
+      "params": [
+       {
+        "key": "E",
+        "label": "Modul",
+        "minimum": 70,
+        "maximum": 220,
+        "default": 210,
+        "step": 5,
+        "unit": "GPa"
+       },
+       {
+        "key": "al",
+        "label": "Chiziqli kengayish α",
+        "minimum": 8,
+        "maximum": 25,
+        "default": 12,
+        "step": 0.5,
+        "unit": "×10⁻⁶/°C"
+       }
+      ],
+      "curves": [
+       {
+        "label": "σ = αEΔT",
+        "expr": "al*1e-6*E*1000*x",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Oqish chegarasi 250 MPa",
+        "expr": "250",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "σ (ΔT=50°C)",
+        "expr": "al*1e-6*E*1000*50",
+        "unit": "MPa",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Oqishga yetadigan ΔT",
+        "expr": "250/(al*1e-6*E*1000)",
+        "unit": "°C",
+        "color": "mark",
+        "text": ""
+       },
+       {
+        "label": "Kuchlanish UZUNLIKKA bog'liqmi",
+        "expr": "0",
+        "unit": "",
+        "color": "compress",
+        "text": "ha|yo'q"
+       }
+      ],
+      "x_label": "temperatura o'zgarishi ΔT, °C",
+      "y_label": "σ, MPa",
+      "x_min": "0",
+      "x_max": "120",
+      "options": {},
+      "note": "Temperatura kuchlanishi sterjen uzunligiga umuman bog'liq emas — faqat α, E va ΔT ga."
+     },
+     {
+      "kind": "plot",
+      "title": "Statik aniqmas tizim: kuchlarning qattiqlik bo'yicha taqsimlanishi",
+      "caption": "Har bir sterjen o'z bikrligiga proporsional ulush oladi.",
+      "params": [
+       {
+        "key": "P",
+        "label": "Umumiy yuk",
+        "minimum": 10,
+        "maximum": 500,
+        "default": 120,
+        "step": 5,
+        "unit": "kN"
+       },
+       {
+        "key": "EA1",
+        "label": "Birinchi sterjen bikrligi",
+        "minimum": 1,
+        "maximum": 20,
+        "default": 5,
+        "step": 0.5,
+        "unit": "MN"
+       }
+      ],
+      "curves": [
+       {
+        "label": "N₁ = P·EA₁/(EA₁+EA₂)",
+        "expr": "P*EA1/(EA1 + x)",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "N₂ = P·EA₂/(EA₁+EA₂)",
+        "expr": "P*x/(EA1 + x)",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Yig'indi = P",
+        "expr": "P",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Teng bikrlikda N₁",
+        "expr": "P/2",
+        "unit": "kN",
+        "color": "mark",
+        "text": ""
+       },
+       {
+        "label": "N₁ (EA₂=10)",
+        "expr": "P*EA1/(EA1 + 10)",
+        "unit": "kN",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Nazorat N₁+N₂",
+        "expr": "P",
+        "unit": "kN",
+        "color": "rule",
+        "text": ""
+       }
+      ],
+      "x_label": "ikkinchi sterjen bikrligi EA₂, MN",
+      "y_label": "kuch, kN",
+      "x_min": "1",
+      "x_max": "20",
+      "options": {},
+      "note": "Statik aniq tizimdan farqli, bu yerda kuch taqsimoti BIKRLIKKA bog'liq — deformatsiya sharti kerak."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "nm-10 da statik aniqmas tizimda tenglamalar yetmasligini ko'rgan edik. Endi yetishmayotgan tenglamalar deformatsiyalardan olinadi.",
@@ -14230,7 +15081,155 @@
     "bridge_to_next": "Markaz topildi. Endi kesimning egilishga qarshiligini tavsiflovchi ikkinchi tartibli xarakteristikaga — inersiya momentiga o'tamiz.",
     "research_extension": "Ixtiyoriy ko'pburchak kesim uchun barcha geometrik tavsiflarni (A, S, I, bosh o'qlar) Grin teoremasi asosida hisoblovchi kutubxona yozing. Uni standart prokat profillar (dvutavr, shveller) jadval qiymatlari bilan tekshiring va xatolikni baholang. Bu — FEM preprotsessorining real komponenti.",
     "manim": null,
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Og'irlik markazi: ikki to'g'ri to'rtburchakdan iborat kesim",
+      "caption": "Markaz kattaroq qismga yaqinroq yotadi.",
+      "params": [
+       {
+        "key": "A1",
+        "label": "Birinchi yuza",
+        "minimum": 1,
+        "maximum": 50,
+        "default": 12,
+        "step": 1,
+        "unit": "sm²"
+       },
+       {
+        "key": "y1",
+        "label": "Birinchi markaz",
+        "minimum": 0,
+        "maximum": 20,
+        "default": 2,
+        "step": 0.5,
+        "unit": "sm"
+       },
+       {
+        "key": "y2",
+        "label": "Ikkinchi markaz",
+        "minimum": 0,
+        "maximum": 30,
+        "default": 12,
+        "step": 0.5,
+        "unit": "sm"
+       }
+      ],
+      "curves": [
+       {
+        "label": "y_c = (A₁y₁+A₂y₂)/(A₁+A₂)",
+        "expr": "(A1*y1 + x*y2)/(A1 + x)",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Birinchi markaz",
+        "expr": "y1",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       },
+       {
+        "label": "Ikkinchi markaz",
+        "expr": "y2",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "y_c (A₂=A₁)",
+        "expr": "(y1 + y2)/2",
+        "unit": "sm",
+        "color": "mark",
+        "text": ""
+       },
+       {
+        "label": "y_c (A₂=20)",
+        "expr": "(A1*y1 + 20*y2)/(A1 + 20)",
+        "unit": "sm",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Statik moment nazorati",
+        "expr": "0",
+        "unit": "sm³",
+        "color": "compress",
+        "text": ""
+       }
+      ],
+      "x_label": "ikkinchi yuza A₂, sm²",
+      "y_label": "og'irlik markazi y_c, sm",
+      "x_min": "1",
+      "x_max": "50",
+      "options": {},
+      "note": "Og'irlik markazida statik moment aynan nolga teng — bu markazning ta'rifi."
+     },
+     {
+      "kind": "plot",
+      "title": "Statik moment o'qqa bog'liq",
+      "caption": "O'q markazdan uzoqlashgani sari statik moment chiziqli o'sadi.",
+      "params": [
+       {
+        "key": "A",
+        "label": "Kesim yuzasi",
+        "minimum": 2,
+        "maximum": 60,
+        "default": 20,
+        "step": 1,
+        "unit": "sm²"
+       }
+      ],
+      "curves": [
+       {
+        "label": "S = A·d",
+        "expr": "A*x",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Markaziy o'qda S=0",
+        "expr": "0",
+        "color": "compress",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "S (d=5 sm)",
+        "expr": "A*5",
+        "unit": "sm³",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "S markaziy o'qda",
+        "expr": "0",
+        "unit": "sm³",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Ishora",
+        "expr": "1",
+        "unit": "",
+        "color": "mark",
+        "text": "o'q tomoniga qarab|—"
+       }
+      ],
+      "x_label": "o'qning markazdan masofasi d, sm",
+      "y_label": "statik moment S, sm³",
+      "x_min": "-10",
+      "x_max": "10",
+      "options": {},
+      "note": "Statik moment ishorali kattalik: o'qning qaysi tomonida yuza ko'p bo'lsa, o'sha ishora chiqadi."
+     }
+    ]
    },
    "difficulty": "asosiy",
    "previous_link": "nm-16 da massalar markazini topdik. Kesim uchun bu aynan shu hisob, faqat massa o'rniga yuza — chunki bir jinsli plastinada ular proporsional.",
@@ -14463,7 +15462,146 @@
     "bridge_to_next": "Geometrik tavsiflar tayyor. Endi ikkinchi asosiy deformatsiya turiga — siljishga o'tamiz, u buralish va egilish uchun zamin yaratadi.",
     "research_extension": "Optimallashtirish masalasi: berilgan yuza $A$ va balandlik cheklovi $h \\le h_{max}$ da $W_x$ ni maksimallashtiruvchi dvutavr proporsiyalarini toping (tokcha eni, qalinligi, devor qalinligi). `scipy.optimize` bilan yeching va natijani standart prokat profillar bilan taqqoslang — ular optimalga qanchalik yaqin?",
     "manim": null,
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Shteyner formulasi kesim uchun",
+      "caption": "O'q markazdan siljisa inersiya momenti kvadratik o'sadi.",
+      "params": [
+       {
+        "key": "Ic",
+        "label": "Markaziy inersiya momenti",
+        "minimum": 10,
+        "maximum": 5000,
+        "default": 500,
+        "step": 10,
+        "unit": "sm⁴"
+       },
+       {
+        "key": "A",
+        "label": "Kesim yuzasi",
+        "minimum": 2,
+        "maximum": 100,
+        "default": 20,
+        "step": 1,
+        "unit": "sm²"
+       }
+      ],
+      "curves": [
+       {
+        "label": "I = I_c + Ad²",
+        "expr": "Ic + A*x^2",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "I_c (minimal)",
+        "expr": "Ic",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       },
+       {
+        "label": "Ad² qismi",
+        "expr": "A*x^2",
+        "color": "compress",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "I (d=10 sm)",
+        "expr": "Ic + A*100",
+        "unit": "sm⁴",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Ad² ulushi (d=10)",
+        "expr": "100*A*100/(Ic + A*100)",
+        "unit": "%",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Ikki barobar bo'ladigan d",
+        "expr": "sqrt(Ic/A)",
+        "unit": "sm",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "siljish d, sm",
+      "y_label": "I, sm⁴",
+      "x_min": "0",
+      "x_max": "20",
+      "options": {},
+      "note": "Katta d da Ad² hadi hukmron bo'ladi — shuning uchun dvutavrda javonlar chetga chiqariladi."
+     },
+     {
+      "kind": "plot",
+      "title": "To'rtburchak kesim: balandlik hal qiluvchi",
+      "caption": "I = bh³/12 — balandlik kubga, kenglik esa chiziqli kiradi.",
+      "params": [
+       {
+        "key": "b",
+        "label": "Kenglik b",
+        "minimum": 1,
+        "maximum": 30,
+        "default": 10,
+        "step": 0.5,
+        "unit": "sm"
+       }
+      ],
+      "curves": [
+       {
+        "label": "I = bh³/12",
+        "expr": "b*x^3/12",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "W = bh²/6",
+        "expr": "b*x^2/6",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "I (h=20)",
+        "expr": "b*8000/12",
+        "unit": "sm⁴",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "h ikki barobar bo'lsa I",
+        "expr": "8",
+        "unit": "marta",
+        "color": "mark",
+        "text": ""
+       },
+       {
+        "label": "b ikki barobar bo'lsa I",
+        "expr": "2",
+        "unit": "marta",
+        "color": "compress",
+        "text": ""
+       }
+      ],
+      "x_label": "balandlik h, sm",
+      "y_label": "I, sm⁴  /  W, sm³",
+      "x_min": "0",
+      "x_max": "40",
+      "options": {},
+      "note": "Shuning uchun taxta yotqizilgan emas, tik qo'yilgan holda ancha bikr bo'ladi."
+     }
+    ]
    },
    "difficulty": "asosiy",
    "previous_link": "nm-17 dagi massaviy inersiya tenzori bilan bir xil matematik struktura, faqat $dm$ o'rniga $dA$. Xususiy qiymatlar masalasi ham aynan o'sha.",
@@ -14715,7 +15853,146 @@
     "bridge_to_next": "Toza siljish o'rganildi. Endi uning eng muhim amaliy ko'rinishi — valning buralishiga o'tamiz.",
     "research_extension": "Ko'p zakovkali birikmada kuch taqsimotini modellashtiring: listlarni elastik deb hisoblab, har bir zakovkani prujina sifatida oling. Chiziqli tenglamalar tizimini yeching va chekka zakovkalar qanchalik ko'p yuk olishini aniqlang. Zakovkalar soni ortganda notekislik qanday o'zgaradi?",
     "manim": null,
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Siljish deformatsiyasi va siljish moduli",
+      "caption": "G = E/(2(1+ν)) — mustaqil emas, E va ν orqali ifodalanadi.",
+      "params": [
+       {
+        "key": "E",
+        "label": "Elastiklik moduli",
+        "minimum": 70,
+        "maximum": 220,
+        "default": 210,
+        "step": 5,
+        "unit": "GPa"
+       }
+      ],
+      "curves": [
+       {
+        "label": "G = E/(2(1+ν))",
+        "expr": "E/(2*(1 + x))",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "E/2 chegarasi (ν=0)",
+        "expr": "E/2",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       },
+       {
+        "label": "E/3 (ν=0,5)",
+        "expr": "E/3",
+        "color": "compress",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "G (ν=0,3)",
+        "expr": "E/2.6",
+        "unit": "GPa",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "G/E nisbati",
+        "expr": "1/2.6",
+        "unit": "",
+        "color": "mark",
+        "text": ""
+       },
+       {
+        "label": "Siyqilmaydigan material",
+        "expr": "E/3",
+        "unit": "GPa",
+        "color": "compress",
+        "text": ""
+       }
+      ],
+      "x_label": "Puasson koeffitsienti ν",
+      "y_label": "G, GPa",
+      "x_min": "0",
+      "x_max": "0.5",
+      "options": {},
+      "note": "Po'lat uchun G ≈ 0,385E ≈ 81 GPa. ν = 0,5 (rezina) da G eng kichik qiymatga tushadi."
+     },
+     {
+      "kind": "plot",
+      "title": "Kesilishga hisob: boltning diametri",
+      "caption": "τ = Q/A ≤ [τ]; diametr oshsa kuchlanish kvadratik kamayadi.",
+      "params": [
+       {
+        "key": "Q",
+        "label": "Kesuvchi kuch",
+        "minimum": 5,
+        "maximum": 200,
+        "default": 40,
+        "step": 1,
+        "unit": "kN"
+       },
+       {
+        "key": "tall",
+        "label": "Ruxsat etilgan [τ]",
+        "minimum": 40,
+        "maximum": 200,
+        "default": 90,
+        "step": 5,
+        "unit": "MPa"
+       }
+      ],
+      "curves": [
+       {
+        "label": "τ = 4Q/(πd²)",
+        "expr": "4*Q*1000/(pi*(x*1e-3)^2)/1e6",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "[τ]",
+        "expr": "tall",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Kerakli d",
+        "expr": "sqrt(4*Q*1000/(pi*tall*1e6))*1000",
+        "unit": "mm",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "τ (d=16 mm)",
+        "expr": "4*Q*1000/(pi*(16e-3)^2)/1e6",
+        "unit": "MPa",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Ikki bolt bo'lsa d",
+        "expr": "sqrt(4*Q*500/(pi*tall*1e6))*1000",
+        "unit": "mm",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "bolt diametri d, mm",
+      "y_label": "τ, MPa",
+      "x_min": "5",
+      "x_max": "40",
+      "options": {},
+      "note": "Ikkita boltga o'tish diametrni ikki barobar emas, atigi √2 marta kamaytiradi."
+     }
+    ]
    },
    "difficulty": "asosiy",
    "previous_link": "mq-03 da normal kuchlanishni ko'rdik. Endi ikkinchi asosiy tur — urinma kuchlanish va unga mos deformatsiya.",
@@ -14977,7 +16254,146 @@
      "title": "Val buralishi va kuchlanish taqsimoti",
      "summary": "Val bosqichma-bosqich buraladi, kesimdagi urinma kuchlanish strelkalari radius bo'ylab chiziqli o'sadi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Buralishda urinma kuchlanish radius bo'ylab",
+      "caption": "τ markazda nol, chetda maksimal — chiziqli taqsimot.",
+      "params": [
+       {
+        "key": "T",
+        "label": "Burovchi moment",
+        "minimum": 50,
+        "maximum": 5000,
+        "default": 800,
+        "step": 50,
+        "unit": "N·m"
+       },
+       {
+        "key": "d",
+        "label": "Val diametri",
+        "minimum": 10,
+        "maximum": 120,
+        "default": 40,
+        "step": 1,
+        "unit": "mm"
+       }
+      ],
+      "curves": [
+       {
+        "label": "τ(r) = Tr/I_p",
+        "expr": "T*x*1e-3/(pi*(d*1e-3)^4/32)/1e6",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "τ_max",
+        "expr": "T*(d/2)*1e-3/(pi*(d*1e-3)^4/32)/1e6",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "τ_max (chetda)",
+        "expr": "16*T/(pi*(d*1e-3)^3)/1e6",
+        "unit": "MPa",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Markazda",
+        "expr": "0",
+        "unit": "MPa",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "I_p",
+        "expr": "pi*(d*1e-3)^4/32*1e12",
+        "unit": "mm⁴",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "radius r, mm",
+      "y_label": "τ, MPa",
+      "x_min": "0",
+      "x_max": "d/2",
+      "options": {},
+      "note": "Markazdagi material deyarli ishlamaydi — shuning uchun quvur to'la valdan samaraliroq."
+     },
+     {
+      "kind": "plot",
+      "title": "Quvur va to'la val: massa bo'yicha samaradorlik",
+      "caption": "Ichki teshik massani kamaytiradi, qarshilikni esa kam yo'qotadi.",
+      "params": [
+       {
+        "key": "D",
+        "label": "Tashqi diametr",
+        "minimum": 20,
+        "maximum": 150,
+        "default": 60,
+        "step": 1,
+        "unit": "mm"
+       }
+      ],
+      "curves": [
+       {
+        "label": "W_p nisbati (quvur/to'la)",
+        "expr": "1 - x^4",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Massa nisbati",
+        "expr": "1 - x^2",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Teng daraja",
+        "expr": "1",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "d/D=0,8: qarshilik",
+        "expr": "1 - 0.8^4",
+        "unit": "ulush",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "d/D=0,8: massa",
+        "expr": "1 - 0.8^2",
+        "unit": "ulush",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Samaradorlik",
+        "expr": "(1 - 0.8^4)/(1 - 0.8^2)",
+        "unit": "marta",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "ichki/tashqi diametr nisbati d/D",
+      "y_label": "nisbat",
+      "x_min": "0",
+      "x_max": "0.9",
+      "options": {},
+      "note": "d/D = 0,8 da qarshilikning 59% i saqlanadi, massa esa 36% ga tushadi — 1,6 barobar yutuq."
+     }
+    ]
    },
    "difficulty": "asosiy",
    "previous_link": "mq-09 dagi siljish deformatsiyasi bu yerda konkret geometriyaga qo'llanadi. mq-08 dagi qutb inersiya momenti $I_p$ asosiy rol o'ynaydi.",
@@ -15223,7 +16639,164 @@
     "bridge_to_next": "Cho'zilish va buralish o'rganildi. Endi eng keng tarqalgan va eng murakkab deformatsiya turiga — egilishga o'tamiz. Avval uning ichki kuchlari epyuralarini qurishni o'rganamiz.",
     "research_extension": "Ikki diskli buralish tizimini modellashtiring (dvigatel–transmissiya modeli): ikkita inersiya momenti valdan bog'langan. Xususiy chastotani toping va bitta tugun nuqtasi paydo bo'lishini ko'rsating. So'ngra buralish so'ndirgichini (qo'shimcha massa + dempfer) qo'shib, nm-27 dagi dinamik so'ndirgich prinsipini buralish tizimiga tatbiq qiling.",
     "manim": null,
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Statik aniqmas val: momentning bo'laklarga taqsimlanishi",
+      "caption": "Har bir bo'lak burilish burchagi bo'yicha muvofiqlashadi.",
+      "params": [
+       {
+        "key": "T",
+        "label": "Tashqi moment",
+        "minimum": 100,
+        "maximum": 3000,
+        "default": 600,
+        "step": 50,
+        "unit": "N·m"
+       },
+       {
+        "key": "L",
+        "label": "Val uzunligi",
+        "minimum": 0.5,
+        "maximum": 4,
+        "default": 2,
+        "step": 0.1,
+        "unit": "m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Chap reaksiya T_A",
+        "expr": "T*(L - x)/L",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "O'ng reaksiya T_B",
+        "expr": "T*x/L",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Yig'indi = T",
+        "expr": "T",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "T_A (o'rtada)",
+        "expr": "T/2",
+        "unit": "N·m",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "T_B (o'rtada)",
+        "expr": "T/2",
+        "unit": "N·m",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Nazorat T_A+T_B",
+        "expr": "T",
+        "unit": "N·m",
+        "color": "rule",
+        "text": ""
+       }
+      ],
+      "x_label": "moment qo'yilgan joy a, m",
+      "y_label": "reaksiya momenti, N·m",
+      "x_min": "0",
+      "x_max": "L",
+      "options": {},
+      "note": "Moment mahkamlash joyiga qanchalik yaqin bo'lsa, o'sha reaksiya shuncha katta ulush oladi."
+     },
+     {
+      "kind": "plot",
+      "title": "Valni burilish burchagi bo'yicha loyihalash",
+      "caption": "Mustahkamlikdan tashqari bikrlik sharti ham diametrni belgilaydi.",
+      "params": [
+       {
+        "key": "T",
+        "label": "Moment",
+        "minimum": 100,
+        "maximum": 3000,
+        "default": 800,
+        "step": 50,
+        "unit": "N·m"
+       },
+       {
+        "key": "G",
+        "label": "Siljish moduli",
+        "minimum": 25,
+        "maximum": 90,
+        "default": 81,
+        "step": 1,
+        "unit": "GPa"
+       },
+       {
+        "key": "L",
+        "label": "Uzunlik",
+        "minimum": 0.5,
+        "maximum": 4,
+        "default": 1.5,
+        "step": 0.1,
+        "unit": "m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "θ' = T/(GI_p), °/m",
+        "expr": "T/(G*1e9*pi*(x*1e-3)^4/32)*180/pi",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Ruxsat 0,5 °/m",
+        "expr": "0.5",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "θ' (d=40 mm)",
+        "expr": "T/(G*1e9*pi*(40e-3)^4/32)*180/pi",
+        "unit": "°/m",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "To'liq burilish (d=40)",
+        "expr": "T/(G*1e9*pi*(40e-3)^4/32)*180/pi*L",
+        "unit": "°",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Bikrlik bo'yicha d",
+        "expr": "(32*T*180/(G*1e9*pi^2*0.5))^0.25*1000",
+        "unit": "mm",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "diametr d, mm",
+      "y_label": "solishtirma burilish, °/m",
+      "x_min": "15",
+      "x_max": "90",
+      "options": {},
+      "note": "Uzatma vallarida ko'pincha bikrlik sharti hal qiluvchi bo'ladi, mustahkamlik emas."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "mq-06 dagi moslik sharti g'oyasi buralishga ko'chiriladi: $\\Delta L$ o'rniga $\\varphi$.",
@@ -15481,7 +17054,162 @@
      "title": "Kesuvchi kuch va eguvchi moment epyuralari",
      "summary": "Balka bo'ylab kesim siljiydi, har bir holatda ichki kuchlar hisoblanadi va epyuralar bosqichma-bosqich quriladi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Sodda balka: kesuvchi kuch va eguvchi moment epyuralari",
+      "caption": "Markazga qo'yilgan kuch uchburchak moment epyurasini beradi.",
+      "params": [
+       {
+        "key": "F",
+        "label": "Kuch",
+        "minimum": 5,
+        "maximum": 200,
+        "default": 50,
+        "step": 5,
+        "unit": "kN"
+       },
+       {
+        "key": "L",
+        "label": "Oraliq",
+        "minimum": 1,
+        "maximum": 10,
+        "default": 4,
+        "step": 0.5,
+        "unit": "m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "M(x) chap yarmi",
+        "expr": "F*x/2",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "M(x) o'ng yarmi",
+        "expr": "F*(L - x)/2",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Nol chizig'i",
+        "expr": "0",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "M_max (o'rtada)",
+        "expr": "F*L/4",
+        "unit": "kN·m",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Q chap yarmida",
+        "expr": "F/2",
+        "unit": "kN",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Q o'ng yarmida",
+        "expr": "-F/2",
+        "unit": "kN",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "x, m",
+      "y_label": "eguvchi moment M, kN·m",
+      "x_min": "0",
+      "x_max": "L",
+      "options": {},
+      "note": "Kesuvchi kuch ishora o'zgargan joyda moment maksimumga chiqadi — bu Q = dM/dx dan kelib chiqadi."
+     },
+     {
+      "kind": "plot",
+      "title": "Tarqalgan yuk ostidagi balka",
+      "caption": "Parabolik moment, chiziqli kesuvchi kuch.",
+      "params": [
+       {
+        "key": "q",
+        "label": "Tarqalgan yuk",
+        "minimum": 1,
+        "maximum": 60,
+        "default": 10,
+        "step": 1,
+        "unit": "kN/m"
+       },
+       {
+        "key": "L",
+        "label": "Oraliq",
+        "minimum": 1,
+        "maximum": 12,
+        "default": 6,
+        "step": 0.5,
+        "unit": "m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "M(x) = qx(L−x)/2",
+        "expr": "q*x*(L - x)/2",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Q(x) = q(L/2 − x)",
+        "expr": "q*(L/2 - x)",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Nol",
+        "expr": "0",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "M_max",
+        "expr": "q*L^2/8",
+        "unit": "kN·m",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Q tayanchda",
+        "expr": "q*L/2",
+        "unit": "kN",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "M_max joyi",
+        "expr": "L/2",
+        "unit": "m",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "x, m",
+      "y_label": "M, kN·m  /  Q, kN",
+      "x_min": "0",
+      "x_max": "L",
+      "options": {},
+      "note": "qL²/8 — muhandislikda eng ko'p ishlatiladigan formula; uni yoddan bilish kerak."
+     }
+    ]
    },
    "difficulty": "asosiy",
    "previous_link": "mq-02 dagi kesim usuli va differensial bog'lanishlar bu yerda to'liq qo'llaniladi. nm-10 dagi reaksiyalar epyura qurishning boshlang'ich ma'lumoti.",
@@ -15727,7 +17455,157 @@
      "title": "Egilishda neytral qatlam",
      "summary": "Balka egilganda tolalarning uzayishi va qisqarishi, neytral qatlamning o'zgarmasligi, chiziqli kuchlanish epyurasi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Egilishda normal kuchlanish balandlik bo'ylab",
+      "caption": "Neytral o'qda nol, chetlarda maksimal — chiziqli taqsimot.",
+      "params": [
+       {
+        "key": "M",
+        "label": "Eguvchi moment",
+        "minimum": 1,
+        "maximum": 200,
+        "default": 40,
+        "step": 1,
+        "unit": "kN·m"
+       },
+       {
+        "key": "b",
+        "label": "Kenglik",
+        "minimum": 5,
+        "maximum": 40,
+        "default": 12,
+        "step": 1,
+        "unit": "sm"
+       },
+       {
+        "key": "h",
+        "label": "Balandlik",
+        "minimum": 5,
+        "maximum": 60,
+        "default": 24,
+        "step": 1,
+        "unit": "sm"
+       }
+      ],
+      "curves": [
+       {
+        "label": "σ(y) = My/I",
+        "expr": "M*1000*x*1e-2/(b*1e-2*(h*1e-2)^3/12)/1e6",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Neytral o'q",
+        "expr": "0",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "σ_max",
+        "expr": "M*1000*(h*1e-2/2)/(b*1e-2*(h*1e-2)^3/12)/1e6",
+        "unit": "MPa",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Qarshilik momenti W",
+        "expr": "b*h^2/6",
+        "unit": "sm³",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Neytral o'qda σ",
+        "expr": "0",
+        "unit": "MPa",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "neytral o'qdan masofa y, sm",
+      "y_label": "σ, MPa",
+      "x_min": "-h/2",
+      "x_max": "h/2",
+      "options": {},
+      "note": "Neytral o'q kesimning og'irlik markazidan o'tadi — bu N = 0 shartidan kelib chiqadi."
+     },
+     {
+      "kind": "plot",
+      "title": "Kesim balandligi va egilish kuchlanishi",
+      "caption": "σ = 6M/(bh²) — balandlik kvadrat bo'lib kiradi.",
+      "params": [
+       {
+        "key": "M",
+        "label": "Moment",
+        "minimum": 1,
+        "maximum": 200,
+        "default": 40,
+        "step": 1,
+        "unit": "kN·m"
+       },
+       {
+        "key": "b",
+        "label": "Kenglik",
+        "minimum": 5,
+        "maximum": 40,
+        "default": 12,
+        "step": 1,
+        "unit": "sm"
+       }
+      ],
+      "curves": [
+       {
+        "label": "σ_max = 6M/(bh²)",
+        "expr": "6*M*1000/(b*1e-2*(x*1e-2)^2)/1e6",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "[σ] = 160 MPa",
+        "expr": "160",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "σ (h=24 sm)",
+        "expr": "6*M*1000/(b*1e-2*(24e-2)^2)/1e6",
+        "unit": "MPa",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Kerakli h ([σ]=160)",
+        "expr": "sqrt(6*M*1000/(b*1e-2*160e6))*100",
+        "unit": "sm",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "h 2× bo'lsa σ",
+        "expr": "0.25",
+        "unit": "marta",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "balandlik h, sm",
+      "y_label": "σ_max, MPa",
+      "x_min": "5",
+      "x_max": "60",
+      "options": {},
+      "note": "Balandlikni ikki barobar oshirish kuchlanishni to'rt barobar kamaytiradi — juda samarali chora."
+     }
+    ]
    },
    "difficulty": "asosiy",
    "previous_link": "mq-12 da $M(x)$ ni topdik. Endi u kesimda qanday kuchlanish hosil qilishini aniqlaymiz — bu butun fanning markaziy formulasi.",
@@ -15954,7 +17832,157 @@
     "bridge_to_next": "Kuchlanishlar aniqlandi. Endi balkaning deformatsiyasini — egilish chizig'ini va ko'chishlarni hisoblashga o'tamiz.",
     "research_extension": "Yupqa devorli ochiq profil (shveller) uchun siljish markazini toping: siljish oqimi $q_s$ taqsimotini hisoblab, uning natijaviysi qayerdan o'tishini aniqlang. Kuch siljish markaziga qo'yilmasa buralish momenti paydo bo'lishini sonli ko'rsating — bu yupqa devorli konstruksiyalarning muhim xususiyati.",
     "manim": null,
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Juravskiy formulasi: urinma kuchlanish taqsimoti",
+      "caption": "To'rtburchak kesimda parabola, neytral o'qda maksimal.",
+      "params": [
+       {
+        "key": "Q",
+        "label": "Kesuvchi kuch",
+        "minimum": 5,
+        "maximum": 300,
+        "default": 60,
+        "step": 5,
+        "unit": "kN"
+       },
+       {
+        "key": "b",
+        "label": "Kenglik",
+        "minimum": 5,
+        "maximum": 40,
+        "default": 12,
+        "step": 1,
+        "unit": "sm"
+       },
+       {
+        "key": "h",
+        "label": "Balandlik",
+        "minimum": 5,
+        "maximum": 60,
+        "default": 24,
+        "step": 1,
+        "unit": "sm"
+       }
+      ],
+      "curves": [
+       {
+        "label": "τ(y) = 1,5Q/A·(1−4y²/h²)",
+        "expr": "1.5*Q*1000/(b*h*1e-4)*(1 - 4*x^2/h^2)/1e6",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "O'rtacha τ = Q/A",
+        "expr": "Q*1000/(b*h*1e-4)/1e6",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "τ_max (neytral o'qda)",
+        "expr": "1.5*Q*1000/(b*h*1e-4)/1e6",
+        "unit": "MPa",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "O'rtacha τ",
+        "expr": "Q*1000/(b*h*1e-4)/1e6",
+        "unit": "MPa",
+        "color": "rule",
+        "text": ""
+       },
+       {
+        "label": "Chetlarda τ",
+        "expr": "0",
+        "unit": "MPa",
+        "color": "tension",
+        "text": ""
+       }
+      ],
+      "x_label": "y, sm",
+      "y_label": "τ, MPa",
+      "x_min": "-h/2",
+      "x_max": "h/2",
+      "options": {},
+      "note": "τ_max o'rtachadan aynan 1,5 marta katta — bu to'rtburchak kesimning o'ziga xos koeffitsienti."
+     },
+     {
+      "kind": "plot",
+      "title": "Qachon urinma kuchlanish muhim bo'ladi",
+      "caption": "Qisqa balkada τ normal kuchlanish bilan raqobatlashadi.",
+      "params": [
+       {
+        "key": "q",
+        "label": "Tarqalgan yuk",
+        "minimum": 1,
+        "maximum": 60,
+        "default": 10,
+        "step": 1,
+        "unit": "kN/m"
+       },
+       {
+        "key": "h",
+        "label": "Balandlik",
+        "minimum": 10,
+        "maximum": 60,
+        "default": 30,
+        "step": 1,
+        "unit": "sm"
+       }
+      ],
+      "curves": [
+       {
+        "label": "σ_max/τ_max nisbati",
+        "expr": "2*x*100/h",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Nisbat = 10",
+        "expr": "10",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Nisbat (L=1 m)",
+        "expr": "2*100/h",
+        "unit": "",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Nisbat (L=6 m)",
+        "expr": "12*100/h",
+        "unit": "",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "τ hisobga olinsinmi (L=1)",
+        "expr": "2*100/h - 10",
+        "unit": "",
+        "color": "mark",
+        "text": "yo'q|HA"
+       }
+      ],
+      "x_label": "oraliq L, m",
+      "y_label": "σ_max / τ_max",
+      "x_min": "0.2",
+      "x_max": "10",
+      "options": {},
+      "note": "L/h < 5 bo'lganda urinma kuchlanishni tekshirish shart — yog'och va yupqa devorli balkalarda ayniqsa."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "mq-13 da toza egilishni ko'rdik. Real balkada $Q \\neq 0$ va bu qo'shimcha urinma kuchlanish beradi.",
@@ -16210,7 +18238,157 @@
     "bridge_to_next": "Integrallash har bir yuklanish uchun alohida bajarilishi kerak. Keyingi mavzuda universal usul — dastlabki parametrlar usulini o'rganamiz.",
     "research_extension": "Chekli ayirmalar sxemasining yaqinlashish tartibini aniqlang: to'r qadamini ketma-ket ikki marta kamaytirib, xatolikning kamayish nisbatini o'lchang. $\\log(xatolik)$ va $\\log(h)$ grafigining qiyaligi 2 ga teng ekanini ko'rsating — bu su-07 va su-23 dagi konvergensiya tahlilining amaliy mashqi.",
     "manim": null,
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Egilgan o'q: bikrlik va oraliq ta'siri",
+      "caption": "f = 5qL⁴/(384EI) — oraliq to'rtinchi darajada kiradi.",
+      "params": [
+       {
+        "key": "q",
+        "label": "Yuk",
+        "minimum": 1,
+        "maximum": 60,
+        "default": 10,
+        "step": 1,
+        "unit": "kN/m"
+       },
+       {
+        "key": "E",
+        "label": "Modul",
+        "minimum": 10,
+        "maximum": 220,
+        "default": 210,
+        "step": 5,
+        "unit": "GPa"
+       },
+       {
+        "key": "I",
+        "label": "Inersiya momenti",
+        "minimum": 100,
+        "maximum": 50000,
+        "default": 5000,
+        "step": 100,
+        "unit": "sm⁴"
+       }
+      ],
+      "curves": [
+       {
+        "label": "f = 5qL⁴/(384EI), mm",
+        "expr": "5*q*1000*x^4/(384*E*1e9*I*1e-8)*1000",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Ruxsat L/250",
+        "expr": "x/250*1000",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "f (L=6 m)",
+        "expr": "5*q*1000*1296/(384*E*1e9*I*1e-8)*1000",
+        "unit": "mm",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Ruxsat (L=6)",
+        "expr": "24",
+        "unit": "mm",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Chegaraviy L",
+        "expr": "(384*E*1e9*I*1e-8/(250*5*q*1000))^(1/3)",
+        "unit": "m",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "oraliq L, m",
+      "y_label": "salqilik f, mm",
+      "x_min": "0",
+      "x_max": "10",
+      "options": {},
+      "note": "Oraliq ikki barobar oshsa salqilik 16 barobar oshadi — shuning uchun uzun balkalar bikrlik bo'yicha hisoblanadi."
+     },
+     {
+      "kind": "plot",
+      "title": "Egilish chizig'ining shakli",
+      "caption": "Tarqalgan yuk ostida o'q to'rtinchi darajali egri chiziq bo'ladi.",
+      "params": [
+       {
+        "key": "L",
+        "label": "Oraliq",
+        "minimum": 1,
+        "maximum": 12,
+        "default": 6,
+        "step": 0.5,
+        "unit": "m"
+       },
+       {
+        "key": "fm",
+        "label": "O'rtadagi salqilik",
+        "minimum": 1,
+        "maximum": 60,
+        "default": 20,
+        "step": 1,
+        "unit": "mm"
+       }
+      ],
+      "curves": [
+       {
+        "label": "w(x) sodda balka",
+        "expr": "fm*16/5*(x/L - 2*(x/L)^3 + (x/L)^4)",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Nol chizig'i",
+        "expr": "0",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "w o'rtada",
+        "expr": "fm",
+        "unit": "mm",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "w chorakda",
+        "expr": "fm*16/5*(0.25 - 2*0.015625 + 0.00390625)",
+        "unit": "mm",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Chorak/o'rta nisbati",
+        "expr": "16/5*(0.25 - 0.03125 + 0.00390625)",
+        "unit": "",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "x, m",
+      "y_label": "ko'chish w, mm",
+      "x_min": "0",
+      "x_max": "L",
+      "options": {},
+      "note": "Chorak nuqtadagi ko'chish o'rtadagining 71% ini tashkil qiladi — egri chiziq juda yassi."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "mq-13 da $1/\\rho = M/(EI)$ munosabatini oldik. Endi egrilikni ko'chish orqali ifodalab, differensial tenglamaga o'tamiz.",
@@ -16446,7 +18624,157 @@
     "bridge_to_next": "Endi bizda ko'chishlarni hisoblashning universal vositasi bor. Aynan u statik aniqmas balkalarni yechish imkonini beradi — keyingi mavzu.",
     "research_extension": "Mor integralini nafaqat egilish, balki cho'zilish va buralish uchun ham umumlashtiring: $\\Delta = \\int\\frac{N\\bar N}{EA}dx + \\int\\frac{M\\bar M}{EI}dx + \\int\\frac{T\\bar T}{GI_p}dx$. Fazoviy ramada har bir hadning hissasini hisoblang va qaysi deformatsiya turi hukmronligini aniqlang.",
     "manim": null,
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Konsol balka: yuk joyi va uch nuqta ko'chishi",
+      "caption": "Kuch uchga yaqinlashgani sari ko'chish keskin oshadi.",
+      "params": [
+       {
+        "key": "F",
+        "label": "Kuch",
+        "minimum": 1,
+        "maximum": 100,
+        "default": 20,
+        "step": 1,
+        "unit": "kN"
+       },
+       {
+        "key": "L",
+        "label": "Konsol uzunligi",
+        "minimum": 0.5,
+        "maximum": 6,
+        "default": 3,
+        "step": 0.1,
+        "unit": "m"
+       },
+       {
+        "key": "EI",
+        "label": "Bikrlik",
+        "minimum": 100,
+        "maximum": 20000,
+        "default": 4000,
+        "step": 100,
+        "unit": "kN·m²"
+       }
+      ],
+      "curves": [
+       {
+        "label": "w_uch = Fa²(3L−a)/(6EI), mm",
+        "expr": "F*x^2*(3*L - x)/(6*EI)*1000",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Uchga qo'yilganda",
+        "expr": "F*L^3/(3*EI)*1000",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "w (a=L)",
+        "expr": "F*L^3/(3*EI)*1000",
+        "unit": "mm",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "w (a=L/2)",
+        "expr": "F*(L/2)^2*(3*L - L/2)/(6*EI)*1000",
+        "unit": "mm",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Nisbat",
+        "expr": "(L/2)^2*(2.5*L)/(2*L^3)",
+        "unit": "",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "kuch joyi a, m",
+      "y_label": "uch ko'chishi, mm",
+      "x_min": "0",
+      "x_max": "L",
+      "options": {},
+      "note": "Kuchni o'rtaga surish uch ko'chishini 5/16 = 0,31 marta kamaytiradi, ya'ni uch barobardan ko'proq."
+     },
+     {
+      "kind": "plot",
+      "title": "Mor integrali: birlik kuch usuli",
+      "caption": "Ko'chish ikki moment epyurasining ko'paytmasi integrali.",
+      "params": [
+       {
+        "key": "q",
+        "label": "Yuk",
+        "minimum": 1,
+        "maximum": 60,
+        "default": 12,
+        "step": 1,
+        "unit": "kN/m"
+       },
+       {
+        "key": "EI",
+        "label": "Bikrlik",
+        "minimum": 100,
+        "maximum": 20000,
+        "default": 5000,
+        "step": 100,
+        "unit": "kN·m²"
+       }
+      ],
+      "curves": [
+       {
+        "label": "δ = 5qL⁴/(384EI), mm",
+        "expr": "5*q*x^4/(384*EI)*1000",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Konsol: qL⁴/(8EI)",
+        "expr": "q*x^4/(8*EI)*1000",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Sodda balka (L=6)",
+        "expr": "5*q*1296/(384*EI)*1000",
+        "unit": "mm",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Konsol (L=6)",
+        "expr": "q*1296/(8*EI)*1000",
+        "unit": "mm",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Konsol/sodda",
+        "expr": "48/5",
+        "unit": "marta",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "uzunlik L, m",
+      "y_label": "ko'chish, mm",
+      "x_min": "0",
+      "x_max": "8",
+      "options": {},
+      "note": "Bir xil yuk va uzunlikda konsol sodda balkadan 9,6 marta ko'proq egiladi."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "mq-15 da har bir yuklanish uchun alohida integrallash kerak edi. Dastlabki parametrlar usuli buni bir marta bajarib, universal formula beradi.",
@@ -16679,7 +19007,146 @@
     "bridge_to_next": "Balka hisobining barcha elementlari tayyor. Keyingi mavzuda ularni birlashtirib, ratsional loyihalash masalasini ko'ramiz.",
     "research_extension": "Ko'p oraliqli uzluksiz balkani (3–5 oraliq) kuchlar usuli bilan yeching: uch moment tenglamasini (Clapeyron) keltirib chiqaring va uni matritsa shaklida dasturlang. Oraliqlar nisbatini optimallashtiring: chekka oraliqlarni qisqartirish momentlarni tenglashtirishini ko'rsating.",
     "manim": null,
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Statik aniqmas balka: tayanch momenti",
+      "caption": "Qo'shimcha tayanch oraliq momentini keskin kamaytiradi.",
+      "params": [
+       {
+        "key": "q",
+        "label": "Yuk",
+        "minimum": 1,
+        "maximum": 60,
+        "default": 12,
+        "step": 1,
+        "unit": "kN/m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Sodda balka M_max = qL²/8",
+        "expr": "q*x^2/8",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Ikki uchi qistirilgan: qL²/24",
+        "expr": "q*x^2/24",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Qistirilgan tayanchda: qL²/12",
+        "expr": "q*x^2/12",
+        "color": "mark",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Sodda (L=6)",
+        "expr": "q*36/8",
+        "unit": "kN·m",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Qistirilgan oraliq (L=6)",
+        "expr": "q*36/24",
+        "unit": "kN·m",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Kamayish",
+        "expr": "3",
+        "unit": "marta",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "oraliq L, m",
+      "y_label": "M, kN·m",
+      "x_min": "0",
+      "x_max": "10",
+      "options": {},
+      "note": "Qistirish oraliq momentini 3 marta kamaytiradi, lekin tayanchda qL²/12 moment paydo bo'ladi."
+     },
+     {
+      "kind": "plot",
+      "title": "Ortiqcha bog'lanish reaksiyasi",
+      "caption": "Uchinchi tayanch bikrligi kuch taqsimotini o'zgartiradi.",
+      "params": [
+       {
+        "key": "q",
+        "label": "Yuk",
+        "minimum": 1,
+        "maximum": 60,
+        "default": 12,
+        "step": 1,
+        "unit": "kN/m"
+       },
+       {
+        "key": "L",
+        "label": "Oraliq",
+        "minimum": 2,
+        "maximum": 12,
+        "default": 6,
+        "step": 0.5,
+        "unit": "m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "O'rta tayanch reaksiyasi, kN",
+        "expr": "5*q*L/8*x",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Sodda balka (tayanchsiz)",
+        "expr": "0",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "To'liq bikr tayanch",
+        "expr": "5*q*L/8",
+        "unit": "kN",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Chekka reaksiyalar",
+        "expr": "3*q*L/16",
+        "unit": "kN",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Umumiy yuk",
+        "expr": "q*L",
+        "unit": "kN",
+        "color": "rule",
+        "text": ""
+       }
+      ],
+      "x_label": "tayanch bikrligi ulushi",
+      "y_label": "reaksiya R, kN",
+      "x_min": "0",
+      "x_max": "1",
+      "options": {},
+      "note": "Cheksiz bikr o'rta tayanch yukning 5/8 ini oladi — statik aniqmaslikning klassik natijasi."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "mq-16 dagi Mor integrali endi asosiy vosita bo'ladi: u ortiqcha bog'lanish reaksiyasini topish uchun kerakli ko'chishlarni beradi.",
@@ -16926,7 +19393,155 @@
     "bridge_to_next": "Egilish to'liq o'rganildi. Lekin real konstruksiyada bir vaqtda bir necha deformatsiya turi bo'ladi. Buni tahlil qilish uchun avval kuchlanish holati nazariyasini o'rganishimiz kerak.",
     "research_extension": "Topologik optimallashtirishga kirish: to'rtburchak sohani elementlarga bo'lib, har bir elementning zichligini o'zgaruvchi deb oling. Berilgan hajmda bikrlikni maksimallashtiring (SIMP usuli). Natijada ferma yoki dvutavrga o'xshash struktura paydo bo'lishini kuzating — bu zamonaviy 3D-bosib chiqarish loyihalashining asosi.",
     "manim": null,
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Kesim shakllarining samaradorligi",
+      "caption": "Bir xil yuzada W keskin farq qiladi.",
+      "params": [
+       {
+        "key": "A",
+        "label": "Kesim yuzasi",
+        "minimum": 10,
+        "maximum": 100,
+        "default": 40,
+        "step": 1,
+        "unit": "sm²"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Doira: W = A^1.5/(4√π)",
+        "expr": "x^1.5/(4*sqrt(pi))",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Kvadrat: W = A^1.5/6",
+        "expr": "x^1.5/6",
+        "color": "mark",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Dvutavr (taxminiy)",
+        "expr": "0.35*x^1.5",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Doira (A=40)",
+        "expr": "40^1.5/(4*sqrt(pi))",
+        "unit": "sm³",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Kvadrat (A=40)",
+        "expr": "40^1.5/6",
+        "unit": "sm³",
+        "color": "mark",
+        "text": ""
+       },
+       {
+        "label": "Dvutavr/doira",
+        "expr": "0.35*4*sqrt(pi)",
+        "unit": "marta",
+        "color": "tension",
+        "text": ""
+       }
+      ],
+      "x_label": "yuza A, sm²",
+      "y_label": "W, sm³",
+      "x_min": "10",
+      "x_max": "100",
+      "options": {},
+      "note": "Dvutavr bir xil massada doiradan ~2,5 marta ko'p qarshilik beradi — material chetga chiqarilgani uchun."
+     },
+     {
+      "kind": "plot",
+      "title": "Teng mustahkam balka: o'zgaruvchan balandlik",
+      "caption": "Har bir kesimda σ = [σ] bo'lsa material minimal sarflanadi.",
+      "params": [
+       {
+        "key": "F",
+        "label": "Uchdagi kuch",
+        "minimum": 1,
+        "maximum": 100,
+        "default": 20,
+        "step": 1,
+        "unit": "kN"
+       },
+       {
+        "key": "b",
+        "label": "Kenglik",
+        "minimum": 5,
+        "maximum": 30,
+        "default": 10,
+        "step": 1,
+        "unit": "sm"
+       },
+       {
+        "key": "sall",
+        "label": "[σ]",
+        "minimum": 50,
+        "maximum": 250,
+        "default": 160,
+        "step": 5,
+        "unit": "MPa"
+       }
+      ],
+      "curves": [
+       {
+        "label": "h(x) teng mustahkam",
+        "expr": "sqrt(6*F*1000*x/(b*1e-2*sall*1e6))*100",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Doimiy balandlik",
+        "expr": "sqrt(6*F*1000*3/(b*1e-2*sall*1e6))*100",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "h mahkamlashda",
+        "expr": "sqrt(6*F*1000*3/(b*1e-2*sall*1e6))*100",
+        "unit": "sm",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "h o'rtada",
+        "expr": "sqrt(6*F*1000*1.5/(b*1e-2*sall*1e6))*100",
+        "unit": "sm",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Material tejash",
+        "expr": "33.3",
+        "unit": "%",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "mahkamlashdan masofa x, m",
+      "y_label": "kerakli balandlik h, sm",
+      "x_min": "0",
+      "x_max": "3",
+      "options": {},
+      "note": "Parabolik konsol doimiy kesimga nisbatan 1/3 material tejaydi — samolyot qanotlari shu tamoyilda."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "mq-13…mq-17 da hisoblash usullarini o'rgandik. Endi teskari masalani yechamiz: berilgan shartlarda eng yaxshi kesimni tanlash.",
@@ -17154,7 +19769,169 @@
      "title": "Mor doirasi",
      "summary": "Elementar hajm buriladi va Mor doirasidagi mos nuqta harakatlanadi; asosiy maydonchalar topiladi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Mor doirasi: asosiy kuchlanishlar",
+      "caption": "Burchak o'zgarganda normal kuchlanish sinusoidal o'zgaradi.",
+      "params": [
+       {
+        "key": "sx",
+        "label": "σx",
+        "minimum": -200,
+        "maximum": 200,
+        "default": 80,
+        "step": 5,
+        "unit": "MPa"
+       },
+       {
+        "key": "sy",
+        "label": "σy",
+        "minimum": -200,
+        "maximum": 200,
+        "default": -40,
+        "step": 5,
+        "unit": "MPa"
+       },
+       {
+        "key": "txy",
+        "label": "τxy",
+        "minimum": -150,
+        "maximum": 150,
+        "default": 50,
+        "step": 5,
+        "unit": "MPa"
+       }
+      ],
+      "curves": [
+       {
+        "label": "σ(α)",
+        "expr": "(sx+sy)/2 + (sx-sy)/2*cos(2*x*pi/180) + txy*sin(2*x*pi/180)",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "τ(α)",
+        "expr": "-(sx-sy)/2*sin(2*x*pi/180) + txy*cos(2*x*pi/180)",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "O'rtacha",
+        "expr": "(sx+sy)/2",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "σ₁",
+        "expr": "(sx+sy)/2 + sqrt(((sx-sy)/2)^2 + txy^2)",
+        "unit": "MPa",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "σ₂",
+        "expr": "(sx+sy)/2 - sqrt(((sx-sy)/2)^2 + txy^2)",
+        "unit": "MPa",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "τ_max",
+        "expr": "sqrt(((sx-sy)/2)^2 + txy^2)",
+        "unit": "MPa",
+        "color": "mark",
+        "text": ""
+       },
+       {
+        "label": "Asosiy burchak",
+        "expr": "0.5*atan2(2*txy, sx-sy)*180/pi",
+        "unit": "°",
+        "color": "rule",
+        "text": ""
+       }
+      ],
+      "x_label": "maydon burchagi α, °",
+      "y_label": "kuchlanish, MPa",
+      "x_min": "0",
+      "x_max": "180",
+      "options": {},
+      "note": "Asosiy maydonda τ = 0. Invariant σx+σy burchakka bog'liq emas — bu Mor doirasining markazi."
+     },
+     {
+      "kind": "plot",
+      "title": "Sof siljish: cho'zilish va siqilish 45° da",
+      "caption": "Buralishdagi val aynan shu holatda ishlaydi.",
+      "params": [
+       {
+        "key": "t",
+        "label": "Urinma kuchlanish τ",
+        "minimum": 10,
+        "maximum": 200,
+        "default": 80,
+        "step": 5,
+        "unit": "MPa"
+       }
+      ],
+      "curves": [
+       {
+        "label": "σ(α)",
+        "expr": "t*sin(2*x*pi/180)",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "τ(α)",
+        "expr": "t*cos(2*x*pi/180)",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Nol",
+        "expr": "0",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "σ₁ (45° da)",
+        "expr": "t",
+        "unit": "MPa",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "σ₂ (135° da)",
+        "expr": "-t",
+        "unit": "MPa",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "O'rtacha kuchlanish",
+        "expr": "0",
+        "unit": "MPa",
+        "color": "rule",
+        "text": ""
+       }
+      ],
+      "x_label": "burchak α, °",
+      "y_label": "kuchlanish, MPa",
+      "x_min": "0",
+      "x_max": "180",
+      "options": {},
+      "note": "Shuning uchun buralgan bo'r 45° spiral bo'ylab uziladi — mo'rt material cho'zilishdan buziladi."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "mq-13 va mq-14 da $\\sigma$ va $\\tau$ ni alohida ko'rdik. Endi ular bir nuqtada birga mavjud bo'lganda nima bo'lishini tahlil qilamiz. nm-17 dagi tenzor apparati aynan shu yerda ishlaydi.",
@@ -17396,7 +20173,146 @@
     "bridge_to_next": "Endi bizda kuchlanish holati va energiya tahlili bor. Keyingi mavzuda ular asosida murakkab holatni bir o'qli holatga keltiruvchi mustahkamlik nazariyalarini quramiz.",
     "research_extension": "Auxetik materiallarni ($\\nu < 0$) tadqiq qiling: ular cho'zilganda kengayadi. Qanday mikrostruktura bunga olib keladi? Sodda auxetik yacheyka (re-entrant honeycomb) modelini quring va samarali $\\nu$ ni geometriya funksiyasi sifatida hisoblang.",
     "manim": null,
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Umumlashgan Guk qonuni: ko'ndalang deformatsiya",
+      "caption": "Bir o'q bo'ylab cho'zilish boshqa o'qlarda siqilish beradi.",
+      "params": [
+       {
+        "key": "sx",
+        "label": "σx",
+        "minimum": 0,
+        "maximum": 300,
+        "default": 120,
+        "step": 5,
+        "unit": "MPa"
+       },
+       {
+        "key": "E",
+        "label": "Modul",
+        "minimum": 70,
+        "maximum": 220,
+        "default": 210,
+        "step": 5,
+        "unit": "GPa"
+       }
+      ],
+      "curves": [
+       {
+        "label": "εx = σx/E",
+        "expr": "sx/(E*1000)*1000",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "εy = −νσx/E",
+        "expr": "-x*sx/(E*1000)*1000",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Nol",
+        "expr": "0",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "εx",
+        "expr": "sx/(E*1000)*1000",
+        "unit": "‰",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "εy (ν=0,3)",
+        "expr": "-0.3*sx/(E*1000)*1000",
+        "unit": "‰",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Hajm o'zgarishi (ν=0,3)",
+        "expr": "0.4*sx/(E*1000)*1000",
+        "unit": "‰",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "Puasson koeffitsienti ν",
+      "y_label": "deformatsiya, ‰",
+      "x_min": "0",
+      "x_max": "0.5",
+      "options": {},
+      "note": "ν = 0,5 da hajm umuman o'zgarmaydi — bu siyqilmaydigan material (rezina) holati."
+     },
+     {
+      "kind": "plot",
+      "title": "Hajmiy deformatsiya va hajmiy modul",
+      "caption": "K = E/(3(1−2ν)) — ν 0,5 ga yaqinlashganda cheksizga intiladi.",
+      "params": [
+       {
+        "key": "E",
+        "label": "Modul",
+        "minimum": 70,
+        "maximum": 220,
+        "default": 210,
+        "step": 5,
+        "unit": "GPa"
+       }
+      ],
+      "curves": [
+       {
+        "label": "K = E/(3(1−2ν))",
+        "expr": "E/(3*(1 - 2*x))",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "E darajasi",
+        "expr": "E",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "K (ν=0,3)",
+        "expr": "E/1.2",
+        "unit": "GPa",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "K (ν=0,45)",
+        "expr": "E/0.3",
+        "unit": "GPa",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "K/E (ν=0,3)",
+        "expr": "1/1.2",
+        "unit": "",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "ν",
+      "y_label": "hajmiy modul K, GPa",
+      "x_min": "0",
+      "x_max": "0.45",
+      "options": {},
+      "note": "Po'lat uchun K ≈ 175 GPa. Suyuqliklarda ν → 0,5 va K juda katta: ular deyarli siqilmaydi."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "mq-19 da kuchlanish holatini tahlil qildik. Endi unga mos deformatsiya holatini va ikkalasini bog'lovchi qonunni topamiz.",
@@ -17634,7 +20550,137 @@
     "bridge_to_next": "Endi murakkab kuchlanish holatini baholay olamiz. Keyingi mavzularda deformatsiyalar birgalikda ta'sir qiladigan konkret hollarni — murakkab qarshilikni ko'ramiz.",
     "research_extension": "Mor–Kulon kriteriysini amalga oshiring: $\\sigma_1/[\\sigma_c] - \\sigma_3/[\\sigma_s] \\le 1$, bunda $[\\sigma_c]$ va $[\\sigma_s]$ cho'zilish va siqilishdagi ruxsat etilgan kuchlanishlar. Cho'yan uchun ($[\\sigma_s]/[\\sigma_c] \\approx 3...4$) buzilish chegarasini chizing va uni fon Mizes bilan taqqoslang. Qaysi kuchlanish holatlarida farq eng katta?",
     "manim": null,
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Mustahkamlik nazariyalarini taqqoslash",
+      "caption": "Bir xil kuchlanish holatida nazariyalar turli ekvivalent qiymat beradi.",
+      "params": [
+       {
+        "key": "s",
+        "label": "Normal kuchlanish σ",
+        "minimum": 0,
+        "maximum": 300,
+        "default": 100,
+        "step": 5,
+        "unit": "MPa"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Mizes: √(σ²+3τ²)",
+        "expr": "sqrt(s^2 + 3*x^2)",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Treska: √(σ²+4τ²)",
+        "expr": "sqrt(s^2 + 4*x^2)",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "[σ] = 160 MPa",
+        "expr": "160",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Mizes (τ=60)",
+        "expr": "sqrt(s^2 + 3*3600)",
+        "unit": "MPa",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Treska (τ=60)",
+        "expr": "sqrt(s^2 + 4*3600)",
+        "unit": "MPa",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Farq",
+        "expr": "100*(sqrt(s^2+4*3600)/sqrt(s^2+3*3600) - 1)",
+        "unit": "%",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "urinma kuchlanish τ, MPa",
+      "y_label": "ekvivalent kuchlanish, MPa",
+      "x_min": "0",
+      "x_max": "150",
+      "options": {},
+      "note": "Treska har doim xavfsizroq (konservativ) tomonga xato qiladi; Mizes tajribaga yaqinroq."
+     },
+     {
+      "kind": "plot",
+      "title": "Sof siljishda ruxsat etilgan urinma kuchlanish",
+      "caption": "[τ] nazariyaga qarab [σ] ning 0,5 yoki 0,577 ulushi bo'ladi.",
+      "params": [
+       {
+        "key": "sall",
+        "label": "[σ]",
+        "minimum": 60,
+        "maximum": 300,
+        "default": 160,
+        "step": 5,
+        "unit": "MPa"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Mizes: [τ] = [σ]/√3",
+        "expr": "sall/sqrt(3) + 0*x",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Treska: [τ] = [σ]/2",
+        "expr": "sall/2 + 0*x",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Mizes [τ]",
+        "expr": "sall/sqrt(3)",
+        "unit": "MPa",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Treska [τ]",
+        "expr": "sall/2",
+        "unit": "MPa",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Nisbat",
+        "expr": "2/sqrt(3)",
+        "unit": "marta",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "shartli o'q",
+      "y_label": "[τ], MPa",
+      "x_min": "0",
+      "x_max": "1",
+      "options": {},
+      "note": "Farq 15,5% — buralgan vallarni loyihalashda bu sezilarli zaxira farqini beradi."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "mq-20 dagi energiya ajralishi bevosita fon Mizes kriteriysiga olib boradi; mq-19 dagi $\\tau_{max}$ esa Tresk kriteriysiga.",
@@ -17876,7 +20922,173 @@
     "bridge_to_next": "Egilish va cho'zilishning birgalikdagi ta'sirini ko'rdik. Endi eng ko'p uchraydigan holatga — egilish va buralishning birgalikdagi ta'siriga, ya'ni val hisobiga o'tamiz.",
     "research_extension": "Ixtiyoriy kesim uchun kesim yadrosini avtomatik quruvchi algoritm yozing: kontur nuqtalarini aylanib chiqib, har biri uchun neytral o'q urinma bo'lgan kuch nuqtasini toping. Natijani dvutavr va shveller uchun hisoblang va standart qiymatlar bilan taqqoslang.",
     "manim": null,
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Qiyshiq egilish: ikki tekislikdagi momentlar qo'shiladi",
+      "caption": "Burchak o'zgarganda kuchlanish keskin oshadi.",
+      "params": [
+       {
+        "key": "M",
+        "label": "To'liq moment",
+        "minimum": 1,
+        "maximum": 100,
+        "default": 20,
+        "step": 1,
+        "unit": "kN·m"
+       },
+       {
+        "key": "Wx",
+        "label": "Wx",
+        "minimum": 10,
+        "maximum": 2000,
+        "default": 400,
+        "step": 10,
+        "unit": "sm³"
+       },
+       {
+        "key": "Wy",
+        "label": "Wy",
+        "minimum": 5,
+        "maximum": 500,
+        "default": 80,
+        "step": 5,
+        "unit": "sm³"
+       }
+      ],
+      "curves": [
+       {
+        "label": "σ = M(cosφ/Wx + sinφ/Wy)",
+        "expr": "M*1000*(cos(x*pi/180)/(Wx*1e-6) + sin(x*pi/180)/(Wy*1e-6))/1e6",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Faqat Wx bo'yicha",
+        "expr": "M*1000/(Wx*1e-6)/1e6",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "σ (φ=0)",
+        "expr": "M*1000/(Wx*1e-6)/1e6",
+        "unit": "MPa",
+        "color": "rule",
+        "text": ""
+       },
+       {
+        "label": "σ (φ=5°)",
+        "expr": "M*1000*(cos(5*pi/180)/(Wx*1e-6) + sin(5*pi/180)/(Wy*1e-6))/1e6",
+        "unit": "MPa",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Oshish",
+        "expr": "100*(cos(5*pi/180) + sin(5*pi/180)*Wx/Wy - 1)",
+        "unit": "%",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "og'ish burchagi φ, °",
+      "y_label": "σ_max, MPa",
+      "x_min": "0",
+      "x_max": "45",
+      "options": {},
+      "note": "Atigi 5° og'ish dvutavrda kuchlanishni 40% dan ko'proq oshiradi — shuning uchun yon ushlagichlar qo'yiladi."
+     },
+     {
+      "kind": "plot",
+      "title": "Ekssentrik siqilish: kesim yadrosi",
+      "caption": "Ekssentrisitet chegaradan oshsa cho'zilish paydo bo'ladi.",
+      "params": [
+       {
+        "key": "N",
+        "label": "Siquvchi kuch",
+        "minimum": 10,
+        "maximum": 500,
+        "default": 100,
+        "step": 5,
+        "unit": "kN"
+       },
+       {
+        "key": "b",
+        "label": "Kenglik",
+        "minimum": 10,
+        "maximum": 60,
+        "default": 30,
+        "step": 1,
+        "unit": "sm"
+       },
+       {
+        "key": "h",
+        "label": "Balandlik",
+        "minimum": 10,
+        "maximum": 60,
+        "default": 30,
+        "step": 1,
+        "unit": "sm"
+       }
+      ],
+      "curves": [
+       {
+        "label": "σ_min = −N/A(1 − 6e/h)",
+        "expr": "-N*1000/(b*h*1e-4)*(1 - 6*x/h)/1e6",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "σ_max",
+        "expr": "-N*1000/(b*h*1e-4)*(1 + 6*x/h)/1e6",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Nol (cho'zilish chegarasi)",
+        "expr": "0",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Yadro chegarasi h/6",
+        "expr": "h/6",
+        "unit": "sm",
+        "color": "mark",
+        "text": ""
+       },
+       {
+        "label": "σ_min (e=h/6)",
+        "expr": "0",
+        "unit": "MPa",
+        "color": "rule",
+        "text": ""
+       },
+       {
+        "label": "σ_max (e=h/6)",
+        "expr": "-2*N*1000/(b*h*1e-4)/1e6",
+        "unit": "MPa",
+        "color": "compress",
+        "text": ""
+       }
+      ],
+      "x_label": "ekssentrisitet e, sm",
+      "y_label": "σ, MPa",
+      "x_min": "0",
+      "x_max": "h/3",
+      "options": {},
+      "note": "Yadrodan tashqaridagi kuch beton va g'ishtda darz keltiradi — shuning uchun 'uchdan bir qoidasi' muhim."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "mq-13 da bir tekislikdagi egilishni ko'rdik. Endi ikki tekislikda egilish va unga bo'ylama kuch qo'shilgan holni tahlil qilamiz.",
@@ -18127,7 +21339,146 @@
     "bridge_to_next": "Murakkab qarshilik hollarini ko'rib chiqdik. Keyingi mavzuda ularni yagona energetik yondashuv bilan birlashtiramiz.",
     "research_extension": "Valning kritik aylanish tezligini hisoblang: uni egilish tebranishlari nuqtai nazaridan ko'rib, $\\omega_{kr} = \\sqrt{g/\\delta_{st}}$ formulasini (nm-25) qo'llang. Ish tezligi kritikdan 30 % uzoqda bo'lishi shartini tekshiring. Ko'p diskli val uchun Dunkerley formulasini qo'llang.",
     "manim": null,
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Egilish va buralish: ekvivalent moment",
+      "caption": "Val ikkala ta'sirni birga ko'taradi.",
+      "params": [
+       {
+        "key": "M",
+        "label": "Eguvchi moment",
+        "minimum": 0,
+        "maximum": 2000,
+        "default": 400,
+        "step": 10,
+        "unit": "N·m"
+       },
+       {
+        "key": "d",
+        "label": "Val diametri",
+        "minimum": 15,
+        "maximum": 120,
+        "default": 45,
+        "step": 1,
+        "unit": "mm"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Mizes ekvivalent",
+        "expr": "sqrt(M^2 + 0.75*x^2)/(pi*(d*1e-3)^3/32)/1e6",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Faqat egilish",
+        "expr": "M/(pi*(d*1e-3)^3/32)/1e6",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       },
+       {
+        "label": "Treska ekvivalent",
+        "expr": "sqrt(M^2 + x^2)/(pi*(d*1e-3)^3/32)/1e6",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "σ_ekv (T=600, Mizes)",
+        "expr": "sqrt(M^2 + 0.75*360000)/(pi*(d*1e-3)^3/32)/1e6",
+        "unit": "MPa",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Treska (T=600)",
+        "expr": "sqrt(M^2 + 360000)/(pi*(d*1e-3)^3/32)/1e6",
+        "unit": "MPa",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Kerakli d ([σ]=80, Mizes)",
+        "expr": "(32*sqrt(M^2+0.75*360000)/(pi*80e6))^(1/3)*1000",
+        "unit": "mm",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "burovchi moment T, N·m",
+      "y_label": "σ_ekv, MPa",
+      "x_min": "0",
+      "x_max": "2000",
+      "options": {},
+      "note": "Redukторlar valida egilish va buralish deyarli har doim birga keladi — alohida hisob xato beradi."
+     },
+     {
+      "kind": "plot",
+      "title": "Val diametrining ekvivalent momentga bog'liqligi",
+      "caption": "Diametr moment kub ildizi bo'yicha o'sadi.",
+      "params": [
+       {
+        "key": "sall",
+        "label": "[σ]",
+        "minimum": 40,
+        "maximum": 200,
+        "default": 80,
+        "step": 5,
+        "unit": "MPa"
+       }
+      ],
+      "curves": [
+       {
+        "label": "d = (32M_ekv/(π[σ]))^(1/3)",
+        "expr": "(32*x/(pi*sall*1e6))^(1/3)*1000",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Standart 40 mm",
+        "expr": "40",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "d (M=800 N·m)",
+        "expr": "(32*800/(pi*sall*1e6))^(1/3)*1000",
+        "unit": "mm",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Moment 8× bo'lsa d",
+        "expr": "2",
+        "unit": "marta",
+        "color": "mark",
+        "text": ""
+       },
+       {
+        "label": "40 mm ko'taradigan M",
+        "expr": "pi*sall*1e6*(40e-3)^3/32",
+        "unit": "N·m",
+        "color": "compress",
+        "text": ""
+       }
+      ],
+      "x_label": "ekvivalent moment M_ekv, N·m",
+      "y_label": "kerakli d, mm",
+      "x_min": "50",
+      "x_max": "4000",
+      "options": {},
+      "note": "Momentni 8 barobar oshirish diametrni faqat 2 barobar oshirishni talab qiladi — kub bog'liqlik."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "mq-21 dagi ekvivalent kuchlanish endi amaliy shaklga — ekvivalent momentga aylanadi va mq-10 dagi buralish bilan birlashadi.",
@@ -18375,7 +21726,139 @@
      "title": "Deformatsiya energiyasi",
      "summary": "Kuch asta-sekin o'sadi, ko'chish ortadi va kuch–ko'chish grafigi ostidagi yuza (energiya) to'ldiriladi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Deformatsiya energiyasi va zarbiy xavfsizlik",
+      "caption": "Yumshoq element ko'proq energiya yutadi.",
+      "params": [
+       {
+        "key": "F",
+        "label": "Kuch",
+        "minimum": 1,
+        "maximum": 100,
+        "default": 20,
+        "step": 1,
+        "unit": "kN"
+       }
+      ],
+      "curves": [
+       {
+        "label": "U = F²/(2k), J",
+        "expr": "F^2*1e6/(2*x*1e6)",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Ko'chish δ = F/k, mm",
+        "expr": "F*1000/(x*1e6)*1000",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "U (k=10 MN/m)",
+        "expr": "F^2*1e6/(2*10*1e6)",
+        "unit": "J",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "U (k=40 MN/m)",
+        "expr": "F^2*1e6/(2*40*1e6)",
+        "unit": "J",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Nisbat",
+        "expr": "4",
+        "unit": "marta",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "bikrlik k, MN/m",
+      "y_label": "U, J  /  δ, mm",
+      "x_min": "1",
+      "x_max": "50",
+      "options": {},
+      "note": "Bikrlikni 4 barobar oshirish energiya sig'imini 4 barobar kamaytiradi — zarbga chidamlilik pasayadi."
+     },
+     {
+      "kind": "plot",
+      "title": "Kastilyano teoremasi: ko'chish energiya hosilasi",
+      "caption": "∂U/∂F = δ — energiya usuli ko'chishni to'g'ridan-to'g'ri beradi.",
+      "params": [
+       {
+        "key": "L",
+        "label": "Uzunlik",
+        "minimum": 0.5,
+        "maximum": 5,
+        "default": 2,
+        "step": 0.1,
+        "unit": "m"
+       },
+       {
+        "key": "EI",
+        "label": "Bikrlik",
+        "minimum": 100,
+        "maximum": 20000,
+        "default": 3000,
+        "step": 100,
+        "unit": "kN·m²"
+       }
+      ],
+      "curves": [
+       {
+        "label": "U = F²L³/(6EI), J",
+        "expr": "x^2*L^3/(6*EI)*1000",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "δ = FL³/(3EI), mm",
+        "expr": "x*L^3/(3*EI)*1000",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "U (F=20 kN)",
+        "expr": "400*L^3/(6*EI)*1000",
+        "unit": "J",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "δ (F=20 kN)",
+        "expr": "20*L^3/(3*EI)*1000",
+        "unit": "mm",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Nazorat 2U/F = δ",
+        "expr": "2*400*L^3/(6*EI)*1000/20",
+        "unit": "mm",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "kuch F, kN",
+      "y_label": "U, J  /  δ, mm",
+      "x_min": "0",
+      "x_max": "50",
+      "options": {},
+      "note": "Chiziqli tizimda U = Fδ/2, shuning uchun 2U/F aynan δ ga teng — nazorat sifatida ishlatiladi."
+     }
+    ]
    },
    "difficulty": "ilg'or",
    "previous_link": "nm-15 dagi potensial energiya g'oyasi va mq-16 dagi Mor integrali bu yerda yagona energetik nazariyaga birlashadi.",
@@ -18631,7 +22114,148 @@
      "title": "Eyler ustuvorligi",
      "summary": "Siquvchi kuch asta o'sadi; kritik qiymatda sterjen birdan egiladi. Turli mahkamlashlar uchun shakllar taqqoslanadi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Eyler kritik kuchi va sterjen uzunligi",
+      "caption": "Kritik kuch uzunlik kvadratiga teskari proporsional.",
+      "params": [
+       {
+        "key": "E",
+        "label": "Modul",
+        "minimum": 70,
+        "maximum": 220,
+        "default": 210,
+        "step": 5,
+        "unit": "GPa"
+       },
+       {
+        "key": "I",
+        "label": "Minimal inersiya momenti",
+        "minimum": 5,
+        "maximum": 2000,
+        "default": 100,
+        "step": 5,
+        "unit": "sm⁴"
+       }
+      ],
+      "curves": [
+       {
+        "label": "F_kr = π²EI/L²",
+        "expr": "pi^2*E*1e9*I*1e-8/x^2/1000",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Ishchi yuk 50 kN",
+        "expr": "50",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "F_kr (L=3 m)",
+        "expr": "pi^2*E*1e9*I*1e-8/9/1000",
+        "unit": "kN",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "L 2× bo'lsa F_kr",
+        "expr": "0.25",
+        "unit": "marta",
+        "color": "mark",
+        "text": ""
+       },
+       {
+        "label": "50 kN uchun L_max",
+        "expr": "sqrt(pi^2*E*1e9*I*1e-8/50000)",
+        "unit": "m",
+        "color": "compress",
+        "text": ""
+       }
+      ],
+      "x_label": "sterjen uzunligi L, m",
+      "y_label": "kritik kuch F_kr, kN",
+      "x_min": "0.5",
+      "x_max": "8",
+      "options": {},
+      "note": "Ustuvorlik mustahkamlikdan mustaqil: F_kr da material umuman oqish chegarasiga yetmagan bo'lishi mumkin."
+     },
+     {
+      "kind": "plot",
+      "title": "Mahkamlash usuli va keltirilgan uzunlik",
+      "caption": "μ koeffitsienti kritik kuchni 16 barobargacha o'zgartiradi.",
+      "params": [
+       {
+        "key": "EI",
+        "label": "Bikrlik",
+        "minimum": 10,
+        "maximum": 5000,
+        "default": 200,
+        "step": 10,
+        "unit": "kN·m²"
+       },
+       {
+        "key": "L",
+        "label": "Geometrik uzunlik",
+        "minimum": 0.5,
+        "maximum": 8,
+        "default": 3,
+        "step": 0.1,
+        "unit": "m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "F_kr = π²EI/(μL)²",
+        "expr": "pi^2*EI/(x*L)^2",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Sharnirli (μ=1)",
+        "expr": "pi^2*EI/L^2",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Ikki uchi qistirilgan (μ=0,5)",
+        "expr": "pi^2*EI/(0.5*L)^2",
+        "unit": "kN",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Sharnirli (μ=1)",
+        "expr": "pi^2*EI/L^2",
+        "unit": "kN",
+        "color": "rule",
+        "text": ""
+       },
+       {
+        "label": "Konsol (μ=2)",
+        "expr": "pi^2*EI/(2*L)^2",
+        "unit": "kN",
+        "color": "compress",
+        "text": ""
+       }
+      ],
+      "x_label": "keltirish koeffitsienti μ",
+      "y_label": "F_kr, kN",
+      "x_min": "0.5",
+      "x_max": "2",
+      "options": {},
+      "note": "Qistirilgan sterjen konsoldan 16 marta ko'p ko'taradi — mahkamlash ustuvorlikda hal qiluvchi."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "nm-30 dagi bifurkatsiya g'oyasi bu yerda konkret muhandislik masalasiga aylanadi; mq-15 dagi egilgan o'q tenglamasi asos bo'ladi.",
@@ -18895,7 +22519,155 @@
     "bridge_to_next": "Statik yuklanish to'liq o'rganildi. Endi dinamik ta'sirlarga — zarbiy yuklanishga o'tamiz.",
     "research_extension": "Eurocode 3 dagi ustuvorlik egri chiziqlarini (a, b, c, d) amalga oshiring: ular boshlang'ich egrilik va qoldiq kuchlanishlarni hisobga oladi. Perry–Robertson formulasini qo'llang va uni klassik Yasinskiy usuli bilan taqqoslang. Qaysi egiluvchanlikda farq eng katta?",
     "manim": null,
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Eyler formulasi qayerda ishlaydi",
+      "caption": "Kichik moslikda formula haqiqatdan uzoqlashadi.",
+      "params": [
+       {
+        "key": "E",
+        "label": "Modul",
+        "minimum": 70,
+        "maximum": 220,
+        "default": 210,
+        "step": 5,
+        "unit": "GPa"
+       },
+       {
+        "key": "sy",
+        "label": "Oqish chegarasi",
+        "minimum": 150,
+        "maximum": 600,
+        "default": 250,
+        "step": 10,
+        "unit": "MPa"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Eyler: π²E/λ²",
+        "expr": "pi^2*E*1000/x^2",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Oqish chegarasi",
+        "expr": "sy",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       },
+       {
+        "label": "Yasinskiy (taxminiy)",
+        "expr": "sy - 1.1*x",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Chegaraviy λ_pr",
+        "expr": "pi*sqrt(E*1000/sy)",
+        "unit": "",
+        "color": "mark",
+        "text": ""
+       },
+       {
+        "label": "σ_kr (λ=100)",
+        "expr": "pi^2*E*1000/10000",
+        "unit": "MPa",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "λ=50 da Eyler",
+        "expr": "pi^2*E*1000/2500",
+        "unit": "MPa",
+        "color": "compress",
+        "text": ""
+       }
+      ],
+      "x_label": "moslik λ",
+      "y_label": "kritik kuchlanish, MPa",
+      "x_min": "20",
+      "x_max": "200",
+      "options": {},
+      "note": "λ < λ_pr da Eyler formulasi oqish chegarasidan katta qiymat beradi — bu fizik jihatdan mumkin emas."
+     },
+     {
+      "kind": "plot",
+      "title": "Ustuvorlik koeffitsienti φ bo'yicha hisob",
+      "caption": "Amaliy hisobda [σ] ga φ ko'paytiriladi.",
+      "params": [
+       {
+        "key": "sall",
+        "label": "[σ]",
+        "minimum": 60,
+        "maximum": 300,
+        "default": 160,
+        "step": 5,
+        "unit": "MPa"
+       },
+       {
+        "key": "A",
+        "label": "Kesim yuzasi",
+        "minimum": 5,
+        "maximum": 100,
+        "default": 25,
+        "step": 1,
+        "unit": "sm²"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Ruxsat etilgan kuch φ[σ]A, kN",
+        "expr": "(1 - 0.0045*x)*sall*A*1e-4*1e6/1000",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Ustuvorliksiz [σ]A",
+        "expr": "sall*A*1e-4*1e6/1000",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "λ=0 da",
+        "expr": "sall*A*1e-4*1e6/1000",
+        "unit": "kN",
+        "color": "rule",
+        "text": ""
+       },
+       {
+        "label": "λ=100 da",
+        "expr": "0.55*sall*A*1e-4*1e6/1000",
+        "unit": "kN",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Yo'qotish",
+        "expr": "45",
+        "unit": "%",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "moslik λ",
+      "y_label": "ruxsat etilgan kuch, kN",
+      "x_min": "0",
+      "x_max": "150",
+      "options": {},
+      "note": "Chiziqli φ(λ) — soddalashtirilgan model. Real normalarda φ jadvaldan material bo'yicha olinadi."
+     }
+    ]
    },
    "difficulty": "asosiy",
    "previous_link": "mq-25 dagi Eyler formulasi $\\lambda < \\lambda_{lim}$ da haqiqatga mos kelmaydi. Endi butun egiluvchanlik diapazoni uchun hisob usulini quramiz.",
@@ -19146,7 +22918,155 @@
     "bridge_to_next": "Bir martalik zarbani ko'rdik. Lekin ko'p konstruksiyalar millionlab marta takrorlanuvchi yuk ostida ishlaydi — keyingi mavzu charchash haqida.",
     "research_extension": "Energetik nazariyaning chegarasini tekshiring: uni to'lqin nazariyasi bilan taqqoslang. Zarba paytida deformatsiya to'lqini sterjen bo'ylab $c = \\sqrt{E/\\rho}$ tezlikda tarqaladi. Agar zarba davomiyligi to'lqinning sterjen bo'ylab o'tish vaqtidan kichik bo'lsa, energetik nazariya xato beradi. Bu shartni miqdoriy ifodalang.",
     "manim": null,
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Dinamiklik koeffitsienti va tushish balandligi",
+      "caption": "Zarbda kuchlanish statikdan bir necha barobar oshadi.",
+      "params": [
+       {
+        "key": "dst",
+        "label": "Statik ko'chish",
+        "minimum": 0.05,
+        "maximum": 20,
+        "default": 1,
+        "step": 0.05,
+        "unit": "mm"
+       }
+      ],
+      "curves": [
+       {
+        "label": "k_d = 1 + √(1 + 2h/δ_st)",
+        "expr": "1 + sqrt(1 + 2*x/(dst*1e-3))",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Statik daraja",
+        "expr": "1",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "k_d (h=0,1 m)",
+        "expr": "1 + sqrt(1 + 0.2/(dst*1e-3))",
+        "unit": "",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "k_d (h=0)",
+        "expr": "2",
+        "unit": "",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Yumshoqroq (δ=4 mm)",
+        "expr": "1 + sqrt(1 + 0.2/4e-3)",
+        "unit": "",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "tushish balandligi h, m",
+      "y_label": "dinamiklik koeffitsienti k_d",
+      "x_min": "0",
+      "x_max": "1",
+      "options": {},
+      "note": "h = 0 da ham k_d = 2 — yukni birdan qo'yish statik qo'yishdan ikki barobar xavfli."
+     },
+     {
+      "kind": "plot",
+      "title": "Yumshoq tayanch zarbni kamaytiradi",
+      "caption": "Bikrlik kamaysa dinamiklik koeffitsienti tushadi.",
+      "params": [
+       {
+        "key": "h",
+        "label": "Tushish balandligi",
+        "minimum": 0.01,
+        "maximum": 1,
+        "default": 0.2,
+        "step": 0.01,
+        "unit": "m"
+       },
+       {
+        "key": "m",
+        "label": "Yuk massasi",
+        "minimum": 5,
+        "maximum": 500,
+        "default": 50,
+        "step": 5,
+        "unit": "kg"
+       },
+       {
+        "key": "sst",
+        "label": "Statik kuchlanish",
+        "minimum": 1,
+        "maximum": 100,
+        "default": 20,
+        "step": 1,
+        "unit": "MPa"
+       }
+      ],
+      "curves": [
+       {
+        "label": "σ_d = σ_st·k_d",
+        "expr": "sst*(1 + sqrt(1 + 2*h/(x*1e-3)))",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Statik",
+        "expr": "sst",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       },
+       {
+        "label": "[σ]=160",
+        "expr": "160",
+        "color": "compress",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "σ_d (δ=1 mm)",
+        "expr": "sst*(1 + sqrt(1 + 2*h/1e-3))",
+        "unit": "MPa",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "σ_d (δ=10 mm)",
+        "expr": "sst*(1 + sqrt(1 + 2*h/1e-2))",
+        "unit": "MPa",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Zarb energiyasi",
+        "expr": "m*9.81*h",
+        "unit": "J",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "statik ko'chish δ_st, mm",
+      "y_label": "σ_d, MPa",
+      "x_min": "0.1",
+      "x_max": "20",
+      "options": {},
+      "note": "Rezina amortizator δ_st ni 10 barobar oshirib zarb kuchlanishini ~3 barobar kamaytiradi."
+     }
+    ]
    },
    "difficulty": "asosiy",
    "previous_link": "nm-13 dagi zarba nazariyasi va mq-24 dagi deformatsiya energiyasi bu yerda birlashadi.",
@@ -19411,7 +23331,146 @@
     "bridge_to_next": "Charchash hisobida konsentratsiya koeffitsienti hal qiluvchi rol o'ynadi. Keyingi mavzuda uning tabiatini batafsil ko'ramiz.",
     "research_extension": "Rainflow (yomg'ir oqimi) algoritmini amalga oshiring: real o'lchangan kuchlanish tarixidan (tasodifiy signal) sikllarni ajratish. So'ngra Palmgren–Mayner bo'yicha shikastlanishni hisoblang. Bu — zamonaviy charchash tahlilining standart usuli (avtomobil va aviatsiya sanoatida).",
     "manim": null,
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Veler egri chizig'i: sikllar soni va amplituda",
+      "caption": "Chidamlilik chegarasidan past amplitudada detal cheksiz ishlaydi.",
+      "params": [
+       {
+        "key": "su",
+        "label": "Mustahkamlik chegarasi",
+        "minimum": 300,
+        "maximum": 1200,
+        "default": 600,
+        "step": 10,
+        "unit": "MPa"
+       }
+      ],
+      "curves": [
+       {
+        "label": "σ_a = σ_u·N^(−0,1)",
+        "expr": "su*(10^x)^(-0.1)",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Chidamlilik chegarasi 0,5σ_u",
+        "expr": "0.5*su",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "σ_a (N=10⁵)",
+        "expr": "su*(1e5)^(-0.1)",
+        "unit": "MPa",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "σ_a (N=10⁶)",
+        "expr": "su*(1e6)^(-0.1)",
+        "unit": "MPa",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "σ_−1 (0,5σ_u)",
+        "expr": "0.5*su",
+        "unit": "MPa",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "lg N (sikllar soni)",
+      "y_label": "amplituda σ_a, MPa",
+      "x_min": "3",
+      "x_max": "7",
+      "options": {},
+      "note": "Po'latda 10⁷ sikldan keyin egri chiziq yassilanadi — bu haqiqiy chidamlilik chegarasi."
+     },
+     {
+      "kind": "plot",
+      "title": "O'rtacha kuchlanish ta'siri: Gudman diagrammasi",
+      "caption": "Doimiy cho'zilish ruxsat etilgan amplitudani kamaytiradi.",
+      "params": [
+       {
+        "key": "sm1",
+        "label": "Chidamlilik chegarasi σ₋₁",
+        "minimum": 100,
+        "maximum": 500,
+        "default": 250,
+        "step": 10,
+        "unit": "MPa"
+       },
+       {
+        "key": "su",
+        "label": "Mustahkamlik σ_u",
+        "minimum": 300,
+        "maximum": 1200,
+        "default": 600,
+        "step": 10,
+        "unit": "MPa"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Gudman: σ_a = σ₋₁(1 − σ_m/σ_u)",
+        "expr": "sm1*(1 - x/su)",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Soderberg (σᵧ=0,6σ_u)",
+        "expr": "sm1*(1 - x/(0.6*su))",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Nol",
+        "expr": "0",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "σ_a (σ_m=0)",
+        "expr": "sm1",
+        "unit": "MPa",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "σ_a (σ_m=200)",
+        "expr": "sm1*(1 - 200/su)",
+        "unit": "MPa",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Kamayish",
+        "expr": "100*200/su",
+        "unit": "%",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "o'rtacha kuchlanish σ_m, MPa",
+      "y_label": "ruxsat etilgan amplituda, MPa",
+      "x_min": "0",
+      "x_max": "su",
+      "options": {},
+      "note": "Soderberg konservativroq: u oqish chegarasiga tayanadi va plastik deformatsiyaga yo'l qo'ymaydi."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "mq-23 dagi val hisobida $[\\sigma]$ ni past oldik — sabab aynan charchash. Endi uni to'g'ridan-to'g'ri hisoblashni o'rganamiz.",
@@ -19666,7 +23725,148 @@
     "bridge_to_next": "Barcha hisob turlari o'rganildi. Oxirgi mavzuda ularni birlashtirib, konstruktiv elementni to'liq loyihalash metodikasini ko'ramiz.",
     "research_extension": "Optimal galtel shaklini toping: doiraviy o'tish o'rniga ellipssimon yoki 'kuchlanish oqimiga mos' shaklni ko'rib chiqing. Chekli elementlar bilan (yoki sonli konform akslantirishr bilan) $K_t$ ni har ikki shakl uchun hisoblang va farqni baholang. Tabiatda (daraxt shoxi, suyak) qanday shakllar uchraydi?",
     "manim": null,
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Teshik atrofida kuchlanish konsentratsiyasi",
+      "caption": "Cheksiz plastinadagi dumaloq teshik koeffitsienti 3 ga teng.",
+      "params": [
+       {
+        "key": "s0",
+        "label": "Nominal kuchlanish",
+        "minimum": 10,
+        "maximum": 200,
+        "default": 60,
+        "step": 5,
+        "unit": "MPa"
+       },
+       {
+        "key": "a",
+        "label": "Teshik radiusi",
+        "minimum": 1,
+        "maximum": 20,
+        "default": 5,
+        "step": 0.5,
+        "unit": "mm"
+       }
+      ],
+      "curves": [
+       {
+        "label": "σ(r) = σ₀(1 + a²/(2r²) + 3a⁴/(2r⁴))",
+        "expr": "s0*(1 + a^2/(2*x^2) + 3*a^4/(2*x^4))",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Nominal σ₀",
+        "expr": "s0",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "σ_max (r=a)",
+        "expr": "3*s0",
+        "unit": "MPa",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "σ (r=2a)",
+        "expr": "s0*(1 + 1/8 + 3/32)",
+        "unit": "MPa",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Konsentratsiya so'nishi (r=3a)",
+        "expr": "100*(a^2/(2*9*a^2) + 3*a^4/(2*81*a^4))",
+        "unit": "%",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "markazdan masofa r, mm",
+      "y_label": "σ, MPa",
+      "x_min": "a",
+      "x_max": "5*a",
+      "options": {},
+      "note": "Konsentratsiya juda tez so'nadi: 3 radius masofada qo'shimcha kuchlanish 7% dan kam qoladi."
+     },
+     {
+      "kind": "plot",
+      "title": "Galtel radiusi va konsentratsiya koeffitsienti",
+      "caption": "O'tkir burchak — charchash darzining boshlanish joyi.",
+      "params": [
+       {
+        "key": "D",
+        "label": "Katta diametr",
+        "minimum": 20,
+        "maximum": 120,
+        "default": 50,
+        "step": 1,
+        "unit": "mm"
+       },
+       {
+        "key": "d",
+        "label": "Kichik diametr",
+        "minimum": 10,
+        "maximum": 100,
+        "default": 40,
+        "step": 1,
+        "unit": "mm"
+       }
+      ],
+      "curves": [
+       {
+        "label": "K_t ≈ 1 + 0,8√(d/(2r))",
+        "expr": "1 + 0.8*sqrt(d/(2*x))",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "K_t = 1 (konsentratsiyasiz)",
+        "expr": "1",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "K_t (r=1 mm)",
+        "expr": "1 + 0.8*sqrt(d/2)",
+        "unit": "",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "K_t (r=5 mm)",
+        "expr": "1 + 0.8*sqrt(d/10)",
+        "unit": "",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Yaxshilanish",
+        "expr": "100*(1 - (1 + 0.8*sqrt(d/10))/(1 + 0.8*sqrt(d/2)))",
+        "unit": "%",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "galtel radiusi r, mm",
+      "y_label": "K_t",
+      "x_min": "0.5",
+      "x_max": "10",
+      "options": {},
+      "note": "Radiusni 1 dan 5 mm ga oshirish konsentratsiyani sezilarli kamaytiradi — arzon va samarali chora."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "mq-28 da $K_\\sigma$ ni jadvaldan oldik. Endi uning fizik tabiatini va analitik asosini ko'ramiz.",
@@ -19936,7 +24136,173 @@
     "bridge_to_next": "Materiallar qarshiligi kursi yakunlandi. Biz sterjenlar uchun bir o'lchovli nazariyani qurdik va u ko'p amaliy masalani yechdi. Lekin uning barcha formulalari gipotezalarga asoslangan edi. Keyingi fan — Tutash muhitlar mexanikasi — bu gipotezalarni olib tashlaydi va umumiy, uch o'lchovli nazariyani quradi. U yerda $\\sigma$ va $\\varepsilon$ tenzorlarga aylanadi, muvozanat esa differensial tenglamalar tizimiga.",
     "research_extension": "Ko'p mezonli optimallashtirish masalasini qo'ying: massa va narxni bir vaqtda minimallashtiring (ular har doim mos kelmaydi — yupqa devorli profil yengil, lekin qimmat). Pareto chegarasini quring va unda turgan yechimlardan qaysi biri amaliy jihatdan afzal ekanini asoslang.",
     "manim": null,
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Kompleks hisob: uchta shart birgalikda",
+      "caption": "Mustahkamlik, bikrlik va ustuvorlik turli diametr talab qiladi.",
+      "params": [
+       {
+        "key": "F",
+        "label": "Kuch",
+        "minimum": 5,
+        "maximum": 200,
+        "default": 40,
+        "step": 1,
+        "unit": "kN"
+       },
+       {
+        "key": "L",
+        "label": "Uzunlik",
+        "minimum": 0.5,
+        "maximum": 6,
+        "default": 2,
+        "step": 0.1,
+        "unit": "m"
+       },
+       {
+        "key": "sall",
+        "label": "[σ]",
+        "minimum": 60,
+        "maximum": 300,
+        "default": 160,
+        "step": 5,
+        "unit": "MPa"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Mustahkamlik: σ, MPa",
+        "expr": "F*1000/(pi*(x*1e-3)^2/4)/1e6",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "[σ]",
+        "expr": "sall",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       },
+       {
+        "label": "Ustuvorlik zaxirasi ×10",
+        "expr": "10*pi^2*210e9*pi*(x*1e-3)^4/64/L^2/(F*1000)",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Mustahkamlik bo'yicha d",
+        "expr": "sqrt(4*F*1000/(pi*sall*1e6))*1000",
+        "unit": "mm",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Ustuvorlik bo'yicha d (n=3)",
+        "expr": "(3*F*1000*64*L^2/(pi^3*210e9))^0.25*1000",
+        "unit": "mm",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Qabul qilinadigan d",
+        "expr": "max(sqrt(4*F*1000/(pi*sall*1e6))*1000, (3*F*1000*64*L^2/(pi^3*210e9))^0.25*1000)",
+        "unit": "mm",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "diametr d, mm",
+      "y_label": "σ, MPa  /  zaxira×10",
+      "x_min": "10",
+      "x_max": "60",
+      "options": {},
+      "note": "Loyihalashda har doim ENG KATTA talab qabul qilinadi — u barcha shartlarni bir yo'la qoplaydi."
+     },
+     {
+      "kind": "plot",
+      "title": "Massa va zaxira o'rtasidagi muvozanat",
+      "caption": "Zaxirani oshirish massani chiziqli oshiradi.",
+      "params": [
+       {
+        "key": "F",
+        "label": "Kuch",
+        "minimum": 5,
+        "maximum": 200,
+        "default": 40,
+        "step": 1,
+        "unit": "kN"
+       },
+       {
+        "key": "L",
+        "label": "Uzunlik",
+        "minimum": 0.5,
+        "maximum": 6,
+        "default": 2,
+        "step": 0.1,
+        "unit": "m"
+       },
+       {
+        "key": "sy",
+        "label": "Oqish chegarasi",
+        "minimum": 150,
+        "maximum": 600,
+        "default": 250,
+        "step": 10,
+        "unit": "MPa"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Massa m = ρALn/σᵧ, kg",
+        "expr": "7850*F*1000*x/(sy*1e6)*L",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "n = 1,5",
+        "expr": "7850*F*1000*1.5/(sy*1e6)*L",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Massa (n=1,5)",
+        "expr": "7850*F*1000*1.5/(sy*1e6)*L",
+        "unit": "kg",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Massa (n=3)",
+        "expr": "7850*F*1000*3/(sy*1e6)*L",
+        "unit": "kg",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Yuqori mustahkam po'lat (σᵧ=500)",
+        "expr": "7850*F*1000*1.5/(500e6)*L",
+        "unit": "kg",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "zaxira koeffitsienti n",
+      "y_label": "massa, kg",
+      "x_min": "1",
+      "x_max": "4",
+      "options": {},
+      "note": "Mustahkamroq po'lat massani kamaytiradi, lekin bikrlik o'zgarmaydi — E barcha po'latlarda bir xil."
+     }
+    ]
    },
    "difficulty": "ilg'or",
    "previous_link": "Butun kurs davomida o'rganilgan barcha hisob turlari bu yerda yagona metodikaga birlashadi.",
