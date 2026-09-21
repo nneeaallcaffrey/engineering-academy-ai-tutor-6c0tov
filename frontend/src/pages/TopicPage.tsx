@@ -11,6 +11,9 @@ import { SpecFigure } from "../interactive/SpecFigure";
 import { useAsync } from "../hooks/useAsync";
 import { useProgress } from "../hooks/useProgress";
 
+/** Matn ustuni o'lchovi: qulay o'qish uchun taxminan 76 ta belgi. */
+const MEASURE = "76ch";
+
 /** Darsning 18 bo'limi — tartib MAJBURIY va shuning uchun nomerlanadi. */
 export function TopicPage() {
   const { topicId = "" } = useParams();
@@ -30,13 +33,14 @@ export function TopicPage() {
   const no = () => String(++n).padStart(2, "0");
 
   return (
-    <article style={{ padding: "1.3rem 0 2rem", maxWidth: "76ch" }}>
-      <p className="mono tiny muted" style={{ letterSpacing: "0.12em", margin: 0 }}>
+    <article style={{ padding: "1.3rem 0 2rem" }}>
+      <p className="mono tiny muted"
+         style={{ letterSpacing: "0.12em", margin: 0, maxWidth: MEASURE }}>
         <Link to={`/fan/${data.subject_id}`}>{data.subject_title}</Link>
         {" · "}{data.id}{" · "}{data.difficulty}{" · "}{data.estimated_minutes} daqiqa
       </p>
 
-      <h1 style={{ margin: "0.3rem 0 0.5rem" }}>{data.title}</h1>
+      <h1 style={{ margin: "0.3rem 0 0.5rem", maxWidth: MEASURE }}>{data.title}</h1>
       {(interactive || figures.length > 0) && (
         <p style={{ margin: "0 0 0.6rem" }}>
           <a href="#interaktiv" className="tag" style={{
@@ -246,7 +250,9 @@ function Section({ no, title, children, wide = false }: {
   no: string; title: string; children: React.ReactNode; wide?: boolean;
 }) {
   return (
-    <section style={{ margin: "1.5rem 0", maxWidth: wide ? "none" : undefined }}>
+    // Matn 76ch o'lchovida o'qiladi; chizma va laboratoriya bo'limlari esa
+    // konteynerning butun kengligini egallaydi (300 ta chizma shu yerda turadi).
+    <section style={{ margin: "1.5rem 0", maxWidth: wide ? "none" : MEASURE }}>
       <h2 style={{ fontSize: "var(--t-md)", marginBottom: "0.5rem" }}>
         <span className="sec-no">{no}</span>{"  "}{title}
       </h2>

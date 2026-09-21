@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { FigureSpec } from "../api/types";
 import { safeEval } from "./expr";
 import { Controls, Figure, Readout, Slider, path, tickFmt } from "./ui";
@@ -22,19 +22,38 @@ const IW = W - L - R, IH = H - T - B;
  * ishlatilmaydi. Surgich surilganda hammasi brauzerda qayta hisoblanadi,
  * backendga murojaat qilinmaydi.
  */
+/**
+ * Tor ekranda SVG konteynerga sig'ish uchun ~0,47 marta kichrayadi, shuning
+ * uchun yozuv o'lchamlari shunga yarasha kattalashtiriladi — aks holda o'q
+ * belgilari telefonda o'qilmaydi.
+ */
+function useTextScale(): number {
+  const [narrow, setNarrow] = useState(
+    () => typeof window !== "undefined"
+      && window.matchMedia("(max-width: 640px)").matches);
+  useEffect(() => {
+    const m = window.matchMedia("(max-width: 640px)");
+    const on = () => setNarrow(m.matches);
+    m.addEventListener("change", on);
+    return () => m.removeEventListener("change", on);
+  }, []);
+  return narrow ? 1.85 : 1;
+}
+
 export function SpecFigure({ spec }: { spec: FigureSpec }) {
   const [vals, setVals] = useState<Record<string, number>>(() => defaults(spec));
 
   // O'lchov ramkasi surgichlarning BUTUN diapazoni bo'yicha bir marta hisoblanadi:
   // shunda surgich surilganda egri chiziq ramka ichida ko'tariladi yoki tushadi.
   // Avtomatik masshtab har safar qayta moslashtirilsa, rasm qimirlamagandek ko'rinardi.
+  const fs = useTextScale();
   const frame = useMemo(() => stableFrame(spec), [spec]);
-  const data = useMemo(() => build(spec, vals, frame), [spec, vals, frame]);
+  const data = useMemo(() => build(spec, vals, frame, fs), [spec, vals, frame, fs]);
 
   return (
     <div>
       <Figure width={W} height={H} label={spec.title} note={spec.caption}>
-        <Grid data={data} spec={spec} />
+        <Grid data={data} spec={spec} fs={fs} />
         {data.series.map((s, i) => (
           <path key={i} d={path(s.pts)} fill="none" stroke={COLOR[s.color] ?? COLOR.ink}
                 strokeWidth={s.dashed ? 2 : 2.6}
@@ -43,10 +62,10 @@ export function SpecFigure({ spec }: { spec: FigureSpec }) {
         ))}
         {data.series.length > 1 && data.series.map((s, i) => (
           <g key={`lg${i}`}>
-            <line x1={L + 12} y1={T + 14 + i * 16} x2={L + 32} y2={T + 14 + i * 16}
+            <line x1={L + 12} y1={T + 14 + i * 16 * fs} x2={L + 32} y2={T + 14 + i * 16 * fs}
                   stroke={COLOR[s.color] ?? COLOR.ink} strokeWidth="2.6"
                   strokeDasharray={s.dashed ? "5 3" : undefined} />
-            <text x={L + 38} y={T + 18 + i * 16} fontSize="11" fill="var(--ink-soft)"
+            <text x={L + 38} y={T + 18 + i * 16 * fs} fontSize={11 * fs} fill="var(--ink-soft)"
                   fontFamily="var(--font-mono)">{s.label}</text>
           </g>
         ))}
@@ -152,7 +171,9 @@ function sample(spec: FigureSpec, vals: Record<string, number>): Raw[] {
 }
 
 function build(spec: FigureSpec, vals: Record<string, number>,
-               frame: [number, number]): Built {
+               frame: [number, number], fs = 1): Built {
+  const nx = fs > 1.3 ? 3 : 6;
+  const ny = fs > 1.3 ? 3 : 5;
   const x0 = safeEval(spec.x_min, vals);
   const x1 = safeEval(spec.x_max, vals);
   const lo = Number.isFinite(x0) ? x0 : 0;
@@ -192,21 +213,21 @@ function build(spec: FigureSpec, vals: Record<string, number>,
 
   return {
     series, readouts,
-    xTicks: ticks(lo, hi, 6).map((v) => ({ at: X(v), text: tickFmt(v) })),
-    yTicks: ticks(yLo, yHi, 5).map((v) => ({ at: Y(v), text: tickFmt(v) })),
+    xTicks: ticks(lo, hi, nx).map((v) => ({ at: X(v), text: tickFmt(v) })),
+    yTicks: ticks(yLo, yHi, ny).map((v) => ({ at: Y(v), text: tickFmt(v) })),
     xLabel: spec.x_label, yLabel: spec.y_label,
     empty: series.length === 0,
   };
 }
 
-function Grid({ data, spec }: { data: Built; spec: FigureSpec }) {
+function Grid({ data, spec, fs }: { data: Built; spec: FigureSpec; fs: number }) {
   return (
     <g>
       {data.yTicks.map((t, i) => (
         <g key={`y${i}`}>
           <line x1={L} y1={t.at} x2={L + IW} y2={t.at} stroke="var(--rule-faint)"
                 strokeWidth="0.7" strokeDasharray="2 3" />
-          <text x={L - 7} y={t.at + 3.5} textAnchor="end" fontSize="10"
+          <text x={L - 7} y={t.at + 3.5 * fs} textAnchor="end" fontSize={10 * fs}
                 fill="var(--ink-soft)" fontFamily="var(--font-mono)">{t.text}</text>
         </g>
       ))}
@@ -214,19 +235,19 @@ function Grid({ data, spec }: { data: Built; spec: FigureSpec }) {
         <g key={`x${i}`}>
           <line x1={t.at} y1={T} x2={t.at} y2={T + IH} stroke="var(--rule-faint)"
                 strokeWidth="0.7" strokeDasharray="2 3" />
-          <text x={t.at} y={T + IH + 14} textAnchor="middle" fontSize="10"
+          <text x={t.at} y={T + IH + 14 * fs} textAnchor="middle" fontSize={10 * fs}
                 fill="var(--ink-soft)" fontFamily="var(--font-mono)">{t.text}</text>
         </g>
       ))}
       <line x1={L} y1={T} x2={L} y2={T + IH} stroke="var(--ink)" strokeWidth="1.2" />
       <line x1={L} y1={T + IH} x2={L + IW} y2={T + IH} stroke="var(--ink)" strokeWidth="1.2" />
-      <text x={L + IW / 2} y={H - 12} textAnchor="middle" fontSize="11"
+      <text x={L + IW / 2} y={H - 12} textAnchor="middle" fontSize={11 * fs}
             fill="var(--ink-soft)" fontFamily="var(--font-display)">{spec.x_label}</text>
-      <text x={18} y={T + IH / 2} textAnchor="middle" fontSize="11"
+      <text x={18} y={T + IH / 2} textAnchor="middle" fontSize={11 * fs}
             fill="var(--ink-soft)" fontFamily="var(--font-display)"
             transform={`rotate(-90 18 ${T + IH / 2})`}>{spec.y_label}</text>
       {data.empty && (
-        <text x={L + IW / 2} y={T + IH / 2} textAnchor="middle" fontSize="12"
+        <text x={L + IW / 2} y={T + IH / 2} textAnchor="middle" fontSize={12 * fs}
               fill="var(--rule)" fontFamily="var(--font-mono)">
           bu parametrlarda egri chiziq yo'q
         </text>
