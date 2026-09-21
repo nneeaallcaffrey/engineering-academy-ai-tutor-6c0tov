@@ -1185,7 +1185,7 @@ note(f"10⁻⁶ rad boshlang'ich farq 20 s da {diff[-1]:.4f} rad ga yetdi — "
             ),
             manim=manim(
                 scene="DoublePendulumScene",
-                module="manim/scenes/nm_lagrange.py",
+                module="animatsiya/scenes/nm_lagrange.py",
                 title="Ikki karrali mayatnik va xaos",
                 summary="Ikki yaqin boshlang'ich shartdan boshlangan mayatniklar dastlab "
                         "birga harakatlanadi, so'ng butunlay ajralib ketadi.",
@@ -1787,7 +1787,7 @@ table("Harakat rejimlari",
             ),
             manim=manim(
                 scene="PhaseSpaceScene",
-                module="manim/scenes/nm_lagrange.py",
+                module="animatsiya/scenes/nm_lagrange.py",
                 title="Mayatnik fazaviy portreti",
                 summary="Fizik mayatnik va uning fazaviy fazodagi tasviri yonma-yon; "
                         "energiya ortganda traektoriya separatrisadan o'tib aylanishga aylanadi.",

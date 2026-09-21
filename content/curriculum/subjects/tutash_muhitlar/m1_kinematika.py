@@ -619,7 +619,7 @@ table("Tenzor tartiblari",
             ),
             manim=manim(
                 scene="TensorTransformScene",
-                module="manim/scenes/tmm_tensor.py",
+                module="animatsiya/scenes/tmm_tensor.py",
                 title="Tenzorning koordinata almashtirishda o'zgarishi",
                 summary="Koordinata o'qlari buriladi, tenzor komponentalari "
                         "o'zgaradi, lekin invariantlar va asosiy o'qlar o'zgarmaydi.",

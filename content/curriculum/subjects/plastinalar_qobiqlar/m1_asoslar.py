@@ -502,7 +502,7 @@ table("Amaliy misollar",
             ),
             manim_ref=manim(
                 scene="KirchhoffHypothesisScene",
-                module="manim/scenes/pq_plate_basics.py",
+                module="animatsiya/scenes/pq_plate_basics.py",
                 title="Kirxhoff gipotezasi: normal normal qoladi",
                 summary=(
                     "Plastina kesimi egiladi; o'rta sirtga sanchilgan "
@@ -1553,7 +1553,7 @@ table("Qalinlikning bikrlikka ta'siri",
             ),
             manim_ref=manim(
                 scene="PlateMomentsScene",
-                module="manim/scenes/pq_plate_basics.py",
+                module="animatsiya/scenes/pq_plate_basics.py",
                 title="Plastina elementidagi ichki kuch omillari",
                 summary=(
                     "$dx\\,dy$ elementning yuzlarida egish momentlari, "
@@ -2090,7 +2090,7 @@ table("Plastina va balka tenglamalarining taqqoslashi",
             ),
             manim_ref=manim(
                 scene="PlateEquationScene",
-                module="manim/scenes/pq_plate_basics.py",
+                module="animatsiya/scenes/pq_plate_basics.py",
                 title="Bigarmonik tenglamaning keltirib chiqarilishi",
                 summary=(
                     "Element muvozanatidan boshlab kesuvchi kuchlar "
@@ -2628,7 +2628,7 @@ note(f"Burchak reaksiyasi qalinlikka deyarli bog'liq emas "
             ),
             manim_ref=manim(
                 scene="KirchhoffShearScene",
-                module="manim/scenes/pq_plate_basics.py",
+                module="animatsiya/scenes/pq_plate_basics.py",
                 title="Kirxhoff kesuvchi kuchi va burchak reaksiyasi",
                 summary=(
                     "Chekka bo'ylab buralish momentlari kuchlar "

@@ -766,7 +766,7 @@ table("Xatolik manbalari va ularni boshqarish",
             ),
             manim_ref=manim(
                 scene="DiscretizationScene",
-                module="manim/scenes/su_basics.py",
+                module="animatsiya/scenes/su_basics.py",
                 title="Diskretlashtirish va xatolik byudjeti",
                 summary=(
                     "Uzluksiz balka egri chizig'i "
@@ -1562,7 +1562,7 @@ table("Amaliy qoidalar",
             ),
             manim_ref=manim(
                 scene="CancellationScene",
-                module="manim/scenes/su_basics.py",
+                module="animatsiya/scenes/su_basics.py",
                 title="Katastrofik qisqarish",
                 summary=(
                     "Ikkita yaqin son raqamma-raqam "
@@ -2400,7 +2400,7 @@ table("Sonli hosila usullarining taqqoslashi",
             ),
             manim_ref=manim(
                 scene="OptimalStepScene",
-                module="manim/scenes/su_basics.py",
+                module="animatsiya/scenes/su_basics.py",
                 title="Kesish va yaxlitlash xatoliklarining raqobati",
                 summary=(
                     "Qadam kamaygani sari sonli "
@@ -3308,7 +3308,7 @@ table("Shartlanganlikning mexanikadagi manbalari",
             ),
             manim_ref=manim(
                 scene="ConditioningScene",
-                module="manim/scenes/su_basics.py",
+                module="animatsiya/scenes/su_basics.py",
                 title="Shartlanganlik va deyarli parallel chiziqlar",
                 summary=(
                     "Ikkita tenglama tekislikda "
@@ -4182,7 +4182,7 @@ table("Yechish usullarini tanlash",
             ),
             manim_ref=manim(
                 scene="FactorizationScene",
-                module="manim/scenes/su_basics.py",
+                module="animatsiya/scenes/su_basics.py",
                 title="Lenta, to'ldirilish va qayta raqamlash",
                 summary=(
                     "Matritsaning siyraklik naqshi "
@@ -5236,7 +5236,7 @@ table("To'g'ri va iterativ usullarning taqqoslashi",
             ),
             manim_ref=manim(
                 scene="IterativeScene",
-                module="manim/scenes/su_basics.py",
+                module="animatsiya/scenes/su_basics.py",
                 title="Iterativ yechuvchilarning yaqinlashishi",
                 summary=(
                     "Boshlang'ich taxmindan "

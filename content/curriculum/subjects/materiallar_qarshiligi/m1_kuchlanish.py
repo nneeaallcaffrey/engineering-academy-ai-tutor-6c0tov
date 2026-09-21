@@ -571,7 +571,7 @@ table("Ichki kuch omillari (fazoviy holat)",
             ),
             manim=manim(
                 scene="SectionMethodScene",
-                module="manim/scenes/mq_stress.py",
+                module="animatsiya/scenes/mq_stress.py",
                 title="Kesim usuli",
                 summary="Sterjen kesiladi, bir qismi olib tashlanadi va kesimda ichki "
                         "kuchlar paydo bo'ladi; epyuralar bosqichma-bosqich quriladi.",

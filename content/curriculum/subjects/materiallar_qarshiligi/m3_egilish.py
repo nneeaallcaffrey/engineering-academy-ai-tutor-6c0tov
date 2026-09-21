@@ -289,7 +289,7 @@ series("σ_max(h) — b o'zgarmas", (hh*1000).tolist(),
             ),
             manim=manim(
                 scene="BendingStressScene",
-                module="manim/scenes/mq_bending.py",
+                module="animatsiya/scenes/mq_bending.py",
                 title="Egilishda neytral qatlam",
                 summary="Balka egilganda tolalarning uzayishi va qisqarishi, "
                         "neytral qatlamning o'zgarmasligi, chiziqli kuchlanish epyurasi.",

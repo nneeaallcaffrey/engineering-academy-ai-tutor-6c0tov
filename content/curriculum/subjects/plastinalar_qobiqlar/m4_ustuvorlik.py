@@ -665,7 +665,7 @@ table("Mustahkamlik va ustuvorlik masalalarining farqi",
             ),
             manim_ref=manim(
                 scene="PlateBucklingScene",
-                module="manim/scenes/pq_stability.py",
+                module="animatsiya/scenes/pq_stability.py",
                 title="Plastina ustuvorligini yo'qotishi",
                 summary=(
                     "Siqilgan plastina yuklama ortgani sari "
@@ -1288,7 +1288,7 @@ note(f"b/t < {bt_lim:.0f} bo'lsa panel oqishdan oldin bukilmaydi "
             ),
             manim_ref=manim(
                 scene="BucklingGarlandScene",
-                module="manim/scenes/pq_stability.py",
+                module="animatsiya/scenes/pq_stability.py",
                 title="Girlanda egri chizig'i va yarim to'lqinlar",
                 summary=(
                     "$a/b$ asta-sekin oshadi; plastinadagi "
@@ -1904,7 +1904,7 @@ table("Plastina va sterjen ustuvorligining farqi",
             ),
             manim_ref=manim(
                 scene="ShearBucklingScene",
-                module="manim/scenes/pq_stability.py",
+                module="animatsiya/scenes/pq_stability.py",
                 title="Siljishda ustuvorlik va tortish maydoni",
                 summary=(
                     "Devor siljish ostida qiya to'lqinlar "
@@ -2517,7 +2517,7 @@ note("Plastinada modal zichlik chastota bilan deyarli o'zgarmaydi "
             ),
             manim_ref=manim(
                 scene="PlateModesScene",
-                module="manim/scenes/pq_vibration.py",
+                module="animatsiya/scenes/pq_vibration.py",
                 title="Tebranish shakllari va Xladni figuralari",
                 summary=(
                     "Plastina ketma-ket shakllarda tebranadi; "
@@ -3186,7 +3186,7 @@ note(f"Zarba davomiyligi {T_imp*1000:.1f} ms — u {f_cut:.0f} Hz "
             ),
             manim_ref=manim(
                 scene="ForcedVibrationScene",
-                module="manim/scenes/pq_vibration.py",
+                module="animatsiya/scenes/pq_vibration.py",
                 title="Rezonans va demflash",
                 summary=(
                     "Qo'zg'atuvchi chastota asta-sekin "
@@ -3963,7 +3963,7 @@ table("Kirxhoff va Mindlin nazariyalarining taqqoslashi",
             ),
             manim_ref=manim(
                 scene="MindlinScene",
-                module="manim/scenes/pq_vibration.py",
+                module="animatsiya/scenes/pq_vibration.py",
                 title="Kirxhoff va Mindlin kinematikasi",
                 summary=(
                     "Plastina kesimi egiladi; chap tomonda "

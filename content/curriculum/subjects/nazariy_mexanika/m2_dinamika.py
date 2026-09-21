@@ -306,7 +306,7 @@ table("Bosqichlar bo'yicha",
             ),
             manim=manim(
                 scene="FreeBodyScene",
-                module="manim/scenes/nm_dynamics.py",
+                module="animatsiya/scenes/nm_dynamics.py",
                 title="Erkin jism diagrammasi va Nyuton tenglamasi",
                 summary="Lift kabinasi bog'lanishlardan ajratiladi, kuchlar strelkalari "
                         "chiziladi va tezlanish o'zgarganda T strelkasi uzunligi o'zgaradi.",
@@ -1420,7 +1420,7 @@ table("Balandlikka bog'liqlik", ["h, m", "N_AB, kN", "N_AC, kN"],
             ),
             manim=manim(
                 scene="TrussForceScene",
-                module="manim/scenes/nm_statics.py",
+                module="animatsiya/scenes/nm_statics.py",
                 title="Fermada kuchlarning taqsimlanishi",
                 summary="Yuk qo'yilganda sterjenlar ketma-ket rangga bo'yaladi: "
                         "cho'zilgan va siqilgan sterjenlar, tugun muvozanati ko'pburchagi.",

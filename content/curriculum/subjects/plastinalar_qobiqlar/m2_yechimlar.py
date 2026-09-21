@@ -591,7 +591,7 @@ table("Turli yuklamalar uchun Furye koeffitsientlari",
             ),
             manim_ref=manim(
                 scene="NavierSeriesScene",
-                module="manim/scenes/pq_solutions.py",
+                module="animatsiya/scenes/pq_solutions.py",
                 title="Navye qatorining yig'ilishi",
                 summary=(
                     "Birinchi garmonikadan boshlab hadlar ketma-ket "
@@ -1173,7 +1173,7 @@ table("Navye va Levi yechimlarining taqqoslashi",
             ),
             manim_ref=manim(
                 scene="LevySolutionScene",
-                module="manim/scenes/pq_solutions.py",
+                module="animatsiya/scenes/pq_solutions.py",
                 title="Levi yechimi va chekka effekti",
                 summary=(
                     "Plastina bo'ylab og'ish profili quriladi: "
@@ -1766,7 +1766,7 @@ table("Ritz va Galerkin usullarining taqqoslashi",
             ),
             manim_ref=manim(
                 scene="RitzMethodScene",
-                module="manim/scenes/pq_solutions.py",
+                module="animatsiya/scenes/pq_solutions.py",
                 title="Ritz usuli: energiyani minimallashtirish",
                 summary=(
                     "Turli koeffitsientlar bilan sinov funksiyalari "
@@ -2383,7 +2383,7 @@ table("Chekli ayirmalar va Ritz usullarining taqqoslashi",
             ),
             manim_ref=manim(
                 scene="FiniteDifferenceScene",
-                module="manim/scenes/pq_solutions.py",
+                module="animatsiya/scenes/pq_solutions.py",
                 title="Bigarmonik shablon va fiktiv tugunlar",
                 summary=(
                     "To'r ustida 13 nuqtali shablon siljiydi, har bir "
@@ -3601,7 +3601,7 @@ table("Variantlarning taqqoslashi",
             ),
             manim_ref=manim(
                 scene="OrthotropicPlateScene",
-                module="manim/scenes/pq_solutions.py",
+                module="animatsiya/scenes/pq_solutions.py",
                 title="Geometrik ortotropiya: gofr va qovurg'a",
                 summary=(
                     "Tekis list gofrga aylantiriladi va inersiya "

@@ -333,7 +333,7 @@ table("Koshi formulasining qo'llanilishi",
             ),
             manim=manim(
                 scene="CauchyTetrahedronScene",
-                module="manim/scenes/tmm_stress.py",
+                module="animatsiya/scenes/tmm_stress.py",
                 title="Koshi tetraedri",
                 summary="Tetraedr kichrayadi, hajmiy kuch yo'qoladi va "
                         "t = σ·n formulasi kelib chiqadi.",

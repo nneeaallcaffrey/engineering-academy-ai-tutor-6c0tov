@@ -827,7 +827,7 @@ table("Muvozanat nuqtalari",
             ),
             manim=manim(
                 scene="PotentialWellScene",
-                module="manim/scenes/nm_energy.py",
+                module="animatsiya/scenes/nm_energy.py",
                 title="Potensial chuqurcha va energiya saqlanishi",
                 summary="Sharcha potensial relyef bo'ylab harakatlanadi; kinetik va "
                         "potensial energiya ustunlari almashib turadi, yig'indi o'zgarmaydi.",

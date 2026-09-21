@@ -1176,7 +1176,7 @@ table("Ferma elementining xossalari",
             ),
             manim_ref=manim(
                 scene="TrussScene",
-                module="manim/scenes/su_apps.py",
+                module="animatsiya/scenes/su_apps.py",
                 title="Ferma: kuchlar va termik ta'sir",
                 summary=(
                     "Uch sterjenli ferma "
@@ -2446,7 +2446,7 @@ table("Balka va ramka elementlarining xossalari",
             ),
             manim_ref=manim(
                 scene="BeamFrameScene",
-                module="manim/scenes/su_apps.py",
+                module="animatsiya/scenes/su_apps.py",
                 title="Ermit bazisi va moment epyurasi",
                 summary=(
                     "To'rtta Ermit funksiyasi "
@@ -3759,7 +3759,7 @@ table("Tekis masala elementlarining taqqoslanishi",
             ),
             manim_ref=manim(
                 scene="StressConcentrationScene",
-                module="manim/scenes/su_apps.py",
+                module="animatsiya/scenes/su_apps.py",
                 title="Teshik atrofidagi kuchlanish",
                 summary=(
                     "Tekis plastina tortiladi "
@@ -5024,7 +5024,7 @@ table("Plastina elementlarining taqqoslanishi",
             ),
             manim_ref=manim(
                 scene="PlateLockingScene",
-                module="manim/scenes/su_apps.py",
+                module="animatsiya/scenes/su_apps.py",
                 title="Plastina qulflanishi",
                 summary=(
                     "Ikkita bir xil plastina "
@@ -6304,7 +6304,7 @@ table("Tebranish va ustuvorlik: bir xil matematika",
             ),
             manim_ref=manim(
                 scene="EigenScene",
-                module="manim/scenes/su_apps.py",
+                module="animatsiya/scenes/su_apps.py",
                 title="Tebranish va ustuvorlik birligi",
                 summary=(
                     "Konsol balkaning "
@@ -7658,7 +7658,7 @@ table("Nochiziqlik turlari va usullar",
             ),
             manim_ref=manim(
                 scene="SnapThroughScene",
-                module="manim/scenes/su_apps.py",
+                module="animatsiya/scenes/su_apps.py",
                 title="O'tib ketish hodisasi",
                 summary=(
                     "Yassi ferma asta-sekin "

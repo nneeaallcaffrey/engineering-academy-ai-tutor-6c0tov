@@ -1118,7 +1118,7 @@ table("Kuchli va zaif formulirovkalarning taqqoslashi",
             ),
             manim_ref=manim(
                 scene="WeakFormScene",
-                module="manim/scenes/su_fem.py",
+                module="animatsiya/scenes/su_fem.py",
                 title="Zaif formulirovka va bazis funksiyalari",
                 summary=(
                     "Kuchli shakldagi tenglama "
@@ -2393,7 +2393,7 @@ table("Element turlari va ularning xossalari",
             ),
             manim_ref=manim(
                 scene="IsoparametricScene",
-                module="manim/scenes/su_fem.py",
+                module="animatsiya/scenes/su_fem.py",
                 title="Izoparametrik almashtirish",
                 summary=(
                     "Etalon kvadrat "
@@ -3632,7 +3632,7 @@ note("100 000 erkinlik darajasida to'la matritsa 80 GB talab qiladi va "
             ),
             manim_ref=manim(
                 scene="AssemblyScene",
-                module="manim/scenes/su_fem.py",
+                module="animatsiya/scenes/su_fem.py",
                 title="Global tizimni yig'ish",
                 summary=(
                     "To'rt elementli sterjen "
@@ -4977,7 +4977,7 @@ table("Qulflanish turlari va ularga mos davolar",
             ),
             manim_ref=manim(
                 scene="LockingScene",
-                module="manim/scenes/su_fem.py",
+                module="animatsiya/scenes/su_fem.py",
                 title="Qulflanish va soat mexanizmi",
                 summary=(
                     "Q4 element sof egilish "
@@ -6176,7 +6176,7 @@ note(f"Shartlanganlik soni n^{slope:.3f} kabi o'sadi, ya'ni h^(-2). "
             ),
             manim_ref=manim(
                 scene="BoundaryRecoveryScene",
-                module="manim/scenes/su_fem.py",
+                module="animatsiya/scenes/su_fem.py",
                 title="Chegaraviy shartlar va kuchlanishni tiklash",
                 summary=(
                     "Avval uchta usul "
@@ -7449,7 +7449,7 @@ table("Zichlashtirish strategiyalari",
             ),
             manim_ref=manim(
                 scene="AdaptiveMeshScene",
-                module="manim/scenes/su_fem.py",
+                module="animatsiya/scenes/su_fem.py",
                 title="Adaptiv to'rning rivojlanishi",
                 summary=(
                     "Sterjen sakkizta teng "

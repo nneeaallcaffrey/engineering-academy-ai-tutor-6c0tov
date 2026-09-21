@@ -701,7 +701,7 @@ table("Aylanma sirtlarning tasnifi",
             ),
             manim_ref=manim(
                 scene="ShellGeometryScene",
-                module="manim/scenes/pq_shells.py",
+                module="animatsiya/scenes/pq_shells.py",
                 title="Gauss egriligi va sirt tasnifi",
                 summary=(
                     "Tekis varaq ketma-ket silindrga, konusga, "
@@ -1374,7 +1374,7 @@ else:
             ),
             manim_ref=manim(
                 scene="MembraneScene",
-                module="manim/scenes/pq_shells.py",
+                module="animatsiya/scenes/pq_shells.py",
                 title="Laplas tenglamasi va membrana kuchlari",
                 summary=(
                     "Qobiq elementi ajratiladi, tarang "
@@ -2145,7 +2145,7 @@ note(f"pi/beta va 2.44*sqrt(Rh) butun oraliqda {dev*100:.3f} % "
             ),
             manim_ref=manim(
                 scene="EdgeEffectScene",
-                module="manim/scenes/pq_shells.py",
+                module="animatsiya/scenes/pq_shells.py",
                 title="Chekka effekti va so'nish masshtabi",
                 summary=(
                     "Rezervuar devori bosim ostida "
@@ -2921,7 +2921,7 @@ table("Tutashuv turlari va mos kelmaslik",
             ),
             manim_ref=manim(
                 scene="JunctionScene",
-                module="manim/scenes/pq_shells.py",
+                module="animatsiya/scenes/pq_shells.py",
                 title="Tutashuvdagi mos kelmaslik",
                 summary=(
                     "Silindr va sferik tub bosim ostida "
@@ -3727,7 +3727,7 @@ table("Plastina va qobiq ustuvorligining taqqoslashi",
             ),
             manim_ref=manim(
                 scene="ShellBucklingScene",
-                module="manim/scenes/pq_shells.py",
+                module="animatsiya/scenes/pq_shells.py",
                 title="Qobiq ustuvorligi va nuqsonlarga sezgirlik",
                 summary=(
                     "Ideal silindr siqiladi va kritik "
@@ -4630,7 +4630,7 @@ else:
             ),
             manim_ref=manim(
                 scene="ShellVibrationScene",
-                module="manim/scenes/pq_shells.py",
+                module="animatsiya/scenes/pq_shells.py",
                 title="Qobiq tebranish shakllari va spektr",
                 summary=(
                     "Silindrik qobiq kesimi ketma-ket "

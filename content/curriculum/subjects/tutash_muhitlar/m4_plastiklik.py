@@ -439,7 +439,7 @@ note("Bitta impulsdan ikkita aks-sado kelishining sababi shu: P- va "
             ),
             manim_ref=manim(
                 scene="ElasticWaveScene",
-                module="manim/scenes/tmm_waves.py",
+                module="animatsiya/scenes/tmm_waves.py",
                 title="P- va S-to'lqinlar",
                 summary=(
                     "Zarralar qatori bo'ylama to'lqinda zichlanib-siyraklanadi, "
@@ -873,7 +873,7 @@ note("Gidrostatik holatda Mizes ~ 0: har tomonlama bir xil bosim "
             ),
             manim_ref=manim(
                 scene="YieldSurfaceScene",
-                module="manim/scenes/tmm_plasticity.py",
+                module="animatsiya/scenes/tmm_plasticity.py",
                 title="Mizes silindri va Treska prizmasi",
                 summary=(
                     "Uch o'lchovli kuchlanish fazosida gidrostatik o'q, unga "
@@ -1326,7 +1326,7 @@ note("Kinematik modelda siqish oqish chegarasi cho'zishdagidan "
             ),
             manim_ref=manim(
                 scene="HardeningScene",
-                module="manim/scenes/tmm_plasticity.py",
+                module="animatsiya/scenes/tmm_plasticity.py",
                 title="Oqish yuzasining evolyutsiyasi",
                 summary=(
                     "Izotrop mustahkamlanishda doira kengayadi, kinematikda "
@@ -2273,7 +2273,7 @@ note("Yuqori mustahkam materiallarda K_Ic past: mustahkamlik oshgani "
             ),
             manim_ref=manim(
                 scene="CrackTipScene",
-                module="manim/scenes/tmm_fracture.py",
+                module="animatsiya/scenes/tmm_fracture.py",
                 title="Yoriq uchidagi kuchlanish maydoni",
                 summary=(
                     "Yoriq uchi atrofida $\\sigma_y(r,\\theta)$ rangli maydon, "

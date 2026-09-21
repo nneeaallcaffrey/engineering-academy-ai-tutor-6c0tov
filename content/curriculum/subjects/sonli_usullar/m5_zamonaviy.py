@@ -1228,7 +1228,7 @@ table("DQM va boshqa usullarning taqqoslanishi",
             ),
             manim_ref=manim(
                 scene="DQMScene",
-                module="manim/scenes/su_modern.py",
+                module="animatsiya/scenes/su_modern.py",
                 title="Global shablon va spektral yaqinlashish",
                 summary=(
                     "Avval chekli ayirma "
@@ -2451,7 +2451,7 @@ table("BEM va FEM: qachon qaysi biri",
             ),
             manim_ref=manim(
                 scene="BEMScene",
-                module="manim/scenes/su_modern.py",
+                module="animatsiya/scenes/su_modern.py",
                 title="O'lcham kamayishi",
                 summary=(
                     "Avval sohaviy to'r "
@@ -3679,7 +3679,7 @@ table("Uch yondashuvning taqqoslanishi",
             ),
             manim_ref=manim(
                 scene="MeshfreeScene",
-                module="manim/scenes/su_modern.py",
+                module="animatsiya/scenes/su_modern.py",
                 title="To'rsizlik va noaniqlik prinsipi",
                 summary=(
                     "Avval FEM to'ri "
@@ -5005,7 +5005,7 @@ table("Verifikatsiya va validatsiya: tuzilma",
             ),
             manim_ref=manim(
                 scene="VerificationScene",
-                module="manim/scenes/su_modern.py",
+                module="animatsiya/scenes/su_modern.py",
                 title="MMS va tartib o'lchovi",
                 summary=(
                     "Avval MMS g'oyasi "
@@ -5987,7 +5987,7 @@ note(
             ),
             manim_ref=manim(
                 scene="OrderingAndFillIn",
-                module="manim/scenes/su29_samaradorlik.py",
+                module="animatsiya/scenes/su29_samaradorlik.py",
                 title="Tartiblash, to'ldirilish va usul tanlovi",
                 summary=(
                     "Sahna bir xil to'rning uchta raqamlanishini "
@@ -7010,7 +7010,7 @@ note(
             ),
             manim_ref=manim(
                 scene="FullChain",
-                module="manim/scenes/su30_yakun.py",
+                module="animatsiya/scenes/su30_yakun.py",
                 title="To'liq hisoblash zanjiri",
                 summary=(
                     "Sahna beshta blokni ketma-ket yoqadi va "

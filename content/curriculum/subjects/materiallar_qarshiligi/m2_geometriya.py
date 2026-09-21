@@ -1167,7 +1167,7 @@ table("Quvvat va aylanishlar soniga bog'liqlik",
             ),
             manim=manim(
                 scene="TorsionScene",
-                module="manim/scenes/mq_torsion.py",
+                module="animatsiya/scenes/mq_torsion.py",
                 title="Val buralishi va kuchlanish taqsimoti",
                 summary="Val bosqichma-bosqich buraladi, kesimdagi urinma kuchlanish "
                         "strelkalari radius bo'ylab chiziqli o'sadi.",
@@ -1749,7 +1749,7 @@ table("Tipik sxemalar uchun M_max",
             ),
             manim=manim(
                 scene="BeamDiagramScene",
-                module="manim/scenes/mq_bending.py",
+                module="animatsiya/scenes/mq_bending.py",
                 title="Kesuvchi kuch va eguvchi moment epyuralari",
                 summary="Balka bo'ylab kesim siljiydi, har bir holatda ichki kuchlar "
                         "hisoblanadi va epyuralar bosqichma-bosqich quriladi.",

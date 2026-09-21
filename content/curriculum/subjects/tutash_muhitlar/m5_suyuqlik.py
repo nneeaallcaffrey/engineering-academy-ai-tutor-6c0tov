@@ -939,7 +939,7 @@ table("Bernulli qo'llanish shartlari va buzilish oqibati",
             ),
             manim_ref=manim(
                 scene="BernoulliScene",
-                module="manim/scenes/tmm_fluid.py",
+                module="animatsiya/scenes/tmm_fluid.py",
                 title="Ventura oqimi va Bernulli balansi",
                 summary=(
                     "Oqim chiziqlari tomoqda zichlashadi, zarralar "
@@ -1440,7 +1440,7 @@ note("Havoning kinematik yopishqoqligi suvnikidan 15 marta katta: "
             ),
             manim_ref=manim(
                 scene="NavierStokesScene",
-                module="manim/scenes/tmm_fluid.py",
+                module="animatsiya/scenes/tmm_fluid.py",
                 title="Yopishqoq diffuziya va no-slip",
                 summary=(
                     "Birdan harakatga kelgan plastina yonida tezlik profili "
@@ -1924,7 +1924,7 @@ table("Diametr o'zgarishining sarfga ta'siri",
             ),
             manim_ref=manim(
                 scene="PoiseuilleScene",
-                module="manim/scenes/tmm_fluid.py",
+                module="animatsiya/scenes/tmm_fluid.py",
                 title="Puazeyl profilining shakllanishi",
                 summary=(
                     "Quvurga kirgan tekis profil chegaraviy qatlamlar "
@@ -2479,7 +2479,7 @@ note("Turbulent qatlam qalinroq va qarshiligi katta, lekin ajralishga "
             ),
             manim_ref=manim(
                 scene="BoundaryLayerScene",
-                module="manim/scenes/tmm_fluid.py",
+                module="animatsiya/scenes/tmm_fluid.py",
                 title="Chegaraviy qatlam va o'xshashlik yechimi",
                 summary=(
                     "Plastina bo'ylab chegaraviy qatlam $\\sqrt{x}$ qonuni "
@@ -3070,7 +3070,7 @@ table("Turbulentlik modellari",
             ),
             manim_ref=manim(
                 scene="TurbulenceScene",
-                module="manim/scenes/tmm_fluid.py",
+                module="animatsiya/scenes/tmm_fluid.py",
                 title="Energiya kaskadi va Reynolds o'rtachalashi",
                 summary=(
                     "Katta vorteks kichiklariga bo'linib boradi, energiya "

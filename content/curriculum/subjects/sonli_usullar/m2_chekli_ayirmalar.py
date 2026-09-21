@@ -873,7 +873,7 @@ if len(off_user) > m_der:
             ),
             manim_ref=manim(
                 scene="StencilScene",
-                module="manim/scenes/su_fd.py",
+                module="animatsiya/scenes/su_fd.py",
                 title="Shablon va sxema koeffitsientlari",
                 summary=(
                     "Shablon nuqtalari to'r ustida "
@@ -1918,7 +1918,7 @@ table("Chegaraviy shartlar va soxta tugun munosabatlari",
             ),
             manim_ref=manim(
                 scene="BeamFDScene",
-                module="manim/scenes/su_fd.py",
+                module="animatsiya/scenes/su_fd.py",
                 title="Balka masalasi va soxta tugunlar",
                 summary=(
                     "Balka to'rga bo'linadi va besh "
@@ -2869,7 +2869,7 @@ table("Bir xil tenglama - turli fizika",
             ),
             manim_ref=manim(
                 scene="TorsionScene",
-                module="manim/scenes/su_fd.py",
+                module="animatsiya/scenes/su_fd.py",
                 title="Membrana analogiyasi va buralish",
                 summary=(
                     "Kesim konturiga membrana "
@@ -3945,7 +3945,7 @@ table("Uchta tushunchaning farqi",
             ),
             manim_ref=manim(
                 scene="StabilityScene",
-                module="manim/scenes/su_fd.py",
+                module="animatsiya/scenes/su_fd.py",
                 title="Barqarorlik va kuchayish koeffitsienti",
                 summary=(
                     "Harorat profili vaqt bo'yicha "
@@ -4968,7 +4968,7 @@ table("Nyumark oilasining asosiy a'zolari",
             ),
             manim_ref=manim(
                 scene="NewmarkScene",
-                module="manim/scenes/su_fd.py",
+                module="animatsiya/scenes/su_fd.py",
                 title="Sonli demflash va davr cho'zilishi",
                 summary=(
                     "Prujinali massa tebranadi va "
@@ -5956,7 +5956,7 @@ table("Issiqlik va to'lqin tenglamalarining taqqoslashi",
             ),
             manim_ref=manim(
                 scene="WaveCFLScene",
-                module="manim/scenes/su_fd.py",
+                module="animatsiya/scenes/su_fd.py",
                 title="CFL sharti va sonli dispersiya",
                 summary=(
                     "$x$–$t$ tekisligida fizik "

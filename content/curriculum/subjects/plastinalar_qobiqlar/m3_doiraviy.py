@@ -604,7 +604,7 @@ note("Diqqat: kvadratda a — tomon, doirada R — radius. Bir xil "
             ),
             manim_ref=manim(
                 scene="CircularPlateScene",
-                module="manim/scenes/pq_circular.py",
+                module="animatsiya/scenes/pq_circular.py",
                 title="Doiraviy plastinaning o'qsimmetrik egilishi",
                 summary=(
                     "Bosim ostida disk egiladi; radial va halqaviy "
@@ -1839,7 +1839,7 @@ note("Yuqori garmonikalar qisqa to'lqinli va katta egrilikka ega, "
             ),
             manim_ref=manim(
                 scene="FourierHarmonicsScene",
-                module="manim/scenes/pq_circular.py",
+                module="animatsiya/scenes/pq_circular.py",
                 title="Doiraviy plastinadagi garmonikalar",
                 summary=(
                     "$n = 0, 1, 2, 3$ garmonikalarining shakllari "
@@ -2482,7 +2482,7 @@ table("Vinkler modelining kamchiliklari va ularning yechimi",
             ),
             manim_ref=manim(
                 scene="ElasticFoundationScene",
-                module="manim/scenes/pq_circular.py",
+                module="animatsiya/scenes/pq_circular.py",
                 title="Vinkler asosi va xarakterli uzunlik",
                 summary=(
                     "Plita ostidagi mustaqil prujinalar "
@@ -3183,7 +3183,7 @@ table("Sendvich panelning buzilish rejimlari",
             ),
             manim_ref=manim(
                 scene="LaminateScene",
-                module="manim/scenes/pq_circular.py",
+                module="animatsiya/scenes/pq_circular.py",
                 title="Qatlamli paket va B matritsasi",
                 summary=(
                     "Nosimmetrik paket cho'zilganda egilib "
@@ -3856,7 +3856,7 @@ table("Chekka shartining ta'siri (nochiziqlilikka)",
             ),
             manim_ref=manim(
                 scene="VonKarmanScene",
-                module="manim/scenes/pq_circular.py",
+                module="animatsiya/scenes/pq_circular.py",
                 title="Membrana effekti va nochiziqli bikrlanish",
                 summary=(
                     "Plastina asta-sekin egiladi; kichik "

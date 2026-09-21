@@ -575,7 +575,7 @@ table("Dempfirlash rejimlari va qo'llanilishi",
             ),
             manim=manim(
                 scene="DampingRegimesScene",
-                module="manim/scenes/nm_vibrations.py",
+                module="animatsiya/scenes/nm_vibrations.py",
                 title="Dempfirlash rejimlari",
                 summary="Uch massa bir vaqtda qo'yib yuboriladi (ζ=0,1; 1; 2) va "
                         "ularning harakati hamda fazaviy portretlari taqqoslanadi.",
@@ -885,7 +885,7 @@ table("Chastota sohalari",
             ),
             manim=manim(
                 scene="ResonanceScene",
-                module="manim/scenes/nm_vibrations.py",
+                module="animatsiya/scenes/nm_vibrations.py",
                 title="Rezonans va AChT",
                 summary="Majburlovchi chastota sekin oshirilganda massa amplitudasi "
                         "va AChT egri chizig'idagi ishchi nuqta bir vaqtda ko'rsatiladi.",
@@ -1484,7 +1484,7 @@ for i in range(min(2, n_floors)):
             ),
             manim=manim(
                 scene="ModeShapesScene",
-                module="manim/scenes/nm_vibrations.py",
+                module="animatsiya/scenes/nm_vibrations.py",
                 title="Xususiy shakllar",
                 summary="Uch qavatli bino uch xususiy shaklda tebranadi; tugun "
                         "nuqtalari va chastotalar farqi ko'rsatiladi.",
@@ -1795,7 +1795,7 @@ note("β = 0 — bifurkatsiya nuqtasi: β < 0 da ikkita qo'shimcha (noturg'un) "
             ),
             manim=manim(
                 scene="BifurcationScene",
-                module="manim/scenes/nm_stability.py",
+                module="animatsiya/scenes/nm_stability.py",
                 title="Turg'unlik va bifurkatsiya",
                 summary="Parametr o'zgarganda potensial relyef shakli o'zgaradi: bitta "
                         "chuqurchadan ikkitaga o'tish va sharchaning yangi turg'un "

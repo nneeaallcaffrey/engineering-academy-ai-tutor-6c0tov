@@ -2112,7 +2112,7 @@ note("FEM ning standart formulirovkasi Lagranj prinsipiga asoslangan; "
             ),
             manim_ref=manim(
                 scene="VariationalScene",
-                module="manim/scenes/tmm_variational.py",
+                module="animatsiya/scenes/tmm_variational.py",
                 title="Minimal potensial energiya prinsipi",
                 summary="Turli mumkin bo'lgan ko'chish maydonlari sinab "
                         "ko'riladi; haqiqiy yechim energiyani minimallashtiradi.",

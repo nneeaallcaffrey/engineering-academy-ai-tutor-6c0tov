@@ -305,7 +305,7 @@ note(f"Fazoviy holat: σ₁={principals[0]:.1f}, σ₂={principals[1]:.1f}, σ�
             ),
             manim=manim(
                 scene="MohrCircleScene",
-                module="manim/scenes/mq_stress.py",
+                module="animatsiya/scenes/mq_stress.py",
                 title="Mor doirasi",
                 summary="Elementar hajm buriladi va Mor doirasidagi mos nuqta "
                         "harakatlanadi; asosiy maydonchalar topiladi.",
@@ -1834,7 +1834,7 @@ table("Energiya turlari",
             ),
             manim=manim(
                 scene="StrainEnergyScene",
-                module="manim/scenes/mq_energy.py",
+                module="animatsiya/scenes/mq_energy.py",
                 title="Deformatsiya energiyasi",
                 summary="Kuch asta-sekin o'sadi, ko'chish ortadi va kuch–ko'chish "
                         "grafigi ostidagi yuza (energiya) to'ldiriladi.",

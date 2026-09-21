@@ -314,7 +314,7 @@ series("Yelka d(rx)", L.tolist(), arms, xlabel="rx, m", ylabel="d, m")
             ),
             manim=manim(
                 scene="VectorMomentScene",
-                module="manim/scenes/nm_vectors.py",
+                module="animatsiya/scenes/nm_vectors.py",
                 title="Vektor ko'paytma va moment",
                 summary="r va F vektorlari, ular yasagan parallelogramm, yelka va hosil "
                         "bo'luvchi M vektori o'ng vint qoidasi bo'yicha animatsiya qilinadi.",
@@ -849,7 +849,7 @@ table("Turli tezliklarda burilish",
             ),
             manim=manim(
                 scene="CurvatureScene",
-                module="manim/scenes/nm_kinematics.py",
+                module="animatsiya/scenes/nm_kinematics.py",
                 title="Egrilik doirasi va tezlanishning ajralishi",
                 summary="Egri chiziq bo'ylab harakatlanuvchi nuqta, o'zgaruvchan egrilik "
                         "doirasi va a = a_τ·τ + a_n·n ajralishi.",
@@ -1707,7 +1707,7 @@ table("Turli aylanish tezliklarida",
             ),
             manim=manim(
                 scene="CoriolisScene",
-                module="manim/scenes/nm_kinematics.py",
+                module="animatsiya/scenes/nm_kinematics.py",
                 title="Koriolis effekti: ikki kadr",
                 summary="Aylanuvchi va qo'zg'almas sanoq sistemalarida bir xil harakatning "
                         "yonma-yon animatsiyasi; to'g'ri chiziq spiralga aylanadi.",

@@ -326,7 +326,7 @@ series("F_kr(L)", LL.tolist(), (np.pi**2*E*I/(mu*LL)**2/1000).tolist(),
             ),
             manim=manim(
                 scene="BucklingScene",
-                module="manim/scenes/mq_buckling.py",
+                module="animatsiya/scenes/mq_buckling.py",
                 title="Eyler ustuvorligi",
                 summary="Siquvchi kuch asta o'sadi; kritik qiymatda sterjen birdan "
                         "egiladi. Turli mahkamlashlar uchun shakllar taqqoslanadi.",
