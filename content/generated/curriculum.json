@@ -36675,7 +36675,146 @@
      "title": "Kirxhoff gipotezasi: normal normal qoladi",
      "summary": "Plastina kesimi egiladi; o'rta sirtga sanchilgan normal kesmalar egilgandan keyin ham to'g'ri va egri sirtga perpendikulyar qolishi animatsiya qilinadi, ko'chish epyurasi bir vaqtda quriladi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Yupqa plastina chegarasi: h/a nisbati",
+      "caption": "Kirxhoff nazariyasi faqat yetarlicha yupqa plastinada ishlaydi.",
+      "params": [
+       {
+        "key": "a",
+        "label": "Plastina tomoni",
+        "minimum": 100,
+        "maximum": 5000,
+        "default": 1000,
+        "step": 10,
+        "unit": "mm"
+       }
+      ],
+      "curves": [
+       {
+        "label": "h/a nisbati",
+        "expr": "x/a",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Yupqa chegarasi 1/20",
+        "expr": "0.05",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       },
+       {
+        "label": "Membrana chegarasi 1/100",
+        "expr": "0.01",
+        "color": "compress",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "h/a (h=10 mm)",
+        "expr": "10/a",
+        "unit": "",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Yupqa chegara h",
+        "expr": "a/20",
+        "unit": "mm",
+        "color": "mark",
+        "text": ""
+       },
+       {
+        "label": "Kirxhoff ishlaydimi (h=10)",
+        "expr": "10/a - 0.05",
+        "unit": "",
+        "color": "compress",
+        "text": "ha|YO'Q"
+       }
+      ],
+      "x_label": "qalinlik h, mm",
+      "y_label": "h/a",
+      "x_min": "1",
+      "x_max": "200",
+      "options": {},
+      "note": "h/a < 1/20 bo'lsa sdvig deformatsiyasi 1% dan kam xato beradi — Kirxhoff gipotezasi asosli."
+     },
+     {
+      "kind": "plot",
+      "title": "Silindrik bikrlik va qalinlik",
+      "caption": "D = Eh³/(12(1−ν²)) — qalinlik kubga kiradi.",
+      "params": [
+       {
+        "key": "E",
+        "label": "Modul",
+        "minimum": 10,
+        "maximum": 400,
+        "default": 210,
+        "step": 5,
+        "unit": "GPa"
+       },
+       {
+        "key": "nu",
+        "label": "Puasson ν",
+        "minimum": 0,
+        "maximum": 0.45,
+        "default": 0.3,
+        "step": 0.01,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "D = Eh³/(12(1−ν²)), N·m",
+        "expr": "E*1e9*(x*1e-3)^3/(12*(1 - nu^2))",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Balka EI/b (ν=0)",
+        "expr": "E*1e9*(x*1e-3)^3/12",
+        "color": "compress",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "D (h=10 mm)",
+        "expr": "E*1e9*1e-6/(12*(1 - nu^2))",
+        "unit": "N·m",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Plastina/balka nisbati",
+        "expr": "1/(1 - nu^2)",
+        "unit": "",
+        "color": "mark",
+        "text": ""
+       },
+       {
+        "label": "h 2× bo'lsa D",
+        "expr": "8",
+        "unit": "marta",
+        "color": "compress",
+        "text": ""
+       }
+      ],
+      "x_label": "qalinlik h, mm",
+      "y_label": "D, N·m",
+      "x_min": "1",
+      "x_max": "50",
+      "options": {},
+      "note": "Plastina bir xil kesimdagi balkadan 1/(1−ν²) = 1,099 marta bikrroq — yon tomon ushlab turadi."
+     }
+    ]
    },
    "difficulty": "kirish",
    "previous_link": "tmm-16 da tekis kuchlanish va tekis deformatsiya holatlari o'rganildi — ular ham 3D masalani 2D ga keltirishning usullari edi. Plastina nazariyasi shu g'oyani egilishga kengaytiradi: mq-13 dagi balka gipotezalari endi ikki o'lchovli o'rta sirtga umumlashtiriladi.",
@@ -36952,7 +37091,148 @@
     "bridge_to_next": "Deformatsiya maydoni to'liq aniqlandi. Endi Guk qonuni orqali kuchlanishga o'tamiz va ularni qalinlik bo'yicha integrallab, plastinaning ichki kuch omillarini — egish va buralish momentlarini — kiritamiz.",
     "research_extension": "Gaussning Theorema Egregium teoremasini o'rganing va uning ishlab chiqarishdagi oqibatlarini tahlil qiling: kema korpusi va samolyot fyuzelyaji panellari qanday qilib qo'sh egrilikli (double-curved) shaklga keltiriladi? Sonli tajriba o'tkazing: tekis to'rni sferaga proeksiyalang va hosil bo'ladigan minimal cho'zilish maydonini hisoblang. Bu natija xaritashunoslikdagi Tissot indikatrisasi bilan qanday bog'liq?",
     "manim": null,
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Egrilik va normal deformatsiya qalinlik bo'ylab",
+      "caption": "Deformatsiya o'rta sirtdan masofaga chiziqli proporsional.",
+      "params": [
+       {
+        "key": "kx",
+        "label": "Egrilik κx",
+        "minimum": 0.001,
+        "maximum": 2,
+        "default": 0.2,
+        "step": 0.001,
+        "unit": "1/m"
+       },
+       {
+        "key": "h",
+        "label": "Qalinlik",
+        "minimum": 1,
+        "maximum": 50,
+        "default": 10,
+        "step": 1,
+        "unit": "mm"
+       }
+      ],
+      "curves": [
+       {
+        "label": "εx = −zκx, ‰",
+        "expr": "-x*1e-3*kx*1000",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "O'rta sirt",
+        "expr": "0",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "ε yuqori sirtda",
+        "expr": "h/2*1e-3*kx*1000",
+        "unit": "‰",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "ε pastki sirtda",
+        "expr": "-h/2*1e-3*kx*1000",
+        "unit": "‰",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "O'rta sirtda",
+        "expr": "0",
+        "unit": "‰",
+        "color": "rule",
+        "text": ""
+       }
+      ],
+      "x_label": "z, mm",
+      "y_label": "εx, ‰",
+      "x_min": "-h/2",
+      "x_max": "h/2",
+      "options": {},
+      "note": "O'rta sirt cho'zilmaydi ham, siqilmaydi ham — bu Kirxhoff gipotezasining asosiy natijasi."
+     },
+     {
+      "kind": "plot",
+      "title": "Buralish egriligi: burchaklarning ko'tarilishi",
+      "caption": "κxy plastina burchaklarini burab ko'taradi.",
+      "params": [
+       {
+        "key": "kxy",
+        "label": "Buralish egriligi",
+        "minimum": 0,
+        "maximum": 2,
+        "default": 0.3,
+        "step": 0.01,
+        "unit": "1/m"
+       },
+       {
+        "key": "a",
+        "label": "Plastina tomoni",
+        "minimum": 0.2,
+        "maximum": 5,
+        "default": 1,
+        "step": 0.1,
+        "unit": "m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "w(x,y=a) = −κxy·x·a, mm",
+        "expr": "-kxy*x*a*1000",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "w(x,y=0) = 0",
+        "expr": "0",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Burchak ko'chishi",
+        "expr": "-kxy*a^2*1000",
+        "unit": "mm",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Buralish momenti Mxy (D=1000)",
+        "expr": "1000*(1 - 0.3)*kxy",
+        "unit": "N·m/m",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Gauss egriligi",
+        "expr": "-kxy^2",
+        "unit": "1/m²",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "x, m",
+      "y_label": "ko'chish w, mm",
+      "x_min": "0",
+      "x_max": "a",
+      "options": {},
+      "note": "Sof buralishda Gauss egriligi manfiy — sirt egar shaklini oladi, bu yassilanmaydi."
+     }
+    ]
    },
    "difficulty": "asosiy",
    "previous_link": "pq-01 da ko'chish maydoni $u = -z\\,\\partial w/\\partial x$ ko'rinishida olindi. tmm-05 dagi deformatsiya tenzori ta'rifini shu maydonga qo'llasak, plastina deformatsiyasining to'liq tavsifi hosil bo'ladi.",
@@ -37261,7 +37541,155 @@
      "title": "Plastina elementidagi ichki kuch omillari",
      "summary": "$dx\\,dy$ elementning yuzlarida egish momentlari, buralish momentlari va kesuvchi kuchlar vektorlar bilan ko'rsatiladi; kuchlanish epyuralari integrallanib momentga aylanishi animatsiya qilinadi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Egish momenti va egrilik bog'lanishi",
+      "caption": "Ikki yo'nalish Puasson koeffitsienti orqali bog'langan.",
+      "params": [
+       {
+        "key": "D",
+        "label": "Silindrik bikrlik",
+        "minimum": 100,
+        "maximum": 100000,
+        "default": 20000,
+        "step": 100,
+        "unit": "N·m"
+       },
+       {
+        "key": "kx",
+        "label": "Egrilik κx",
+        "minimum": 0.001,
+        "maximum": 2,
+        "default": 0.1,
+        "step": 0.001,
+        "unit": "1/m"
+       },
+       {
+        "key": "nu",
+        "label": "ν",
+        "minimum": 0,
+        "maximum": 0.45,
+        "default": 0.3,
+        "step": 0.01,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "Mx = −D(κx + νκy)",
+        "expr": "-D*(kx + nu*x)",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "My = −D(κy + νκx)",
+        "expr": "-D*(x + nu*kx)",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Nol",
+        "expr": "0",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Mx (κy=0)",
+        "expr": "-D*kx",
+        "unit": "N·m/m",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "My (κy=0)",
+        "expr": "-D*nu*kx",
+        "unit": "N·m/m",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "My/Mx",
+        "expr": "nu",
+        "unit": "",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "egrilik κy, 1/m",
+      "y_label": "moment, N·m/m",
+      "x_min": "-0.5",
+      "x_max": "0.5",
+      "options": {},
+      "note": "Silindrik egilishda ham ko'ndalang moment paydo bo'ladi: My = νMx — balkada bunday emas."
+     },
+     {
+      "kind": "plot",
+      "title": "Plastina kuchlanishi: moment va qalinlik",
+      "caption": "σ = 6M/h² — qalinlik kvadrat bo'lib kiradi.",
+      "params": [
+       {
+        "key": "M",
+        "label": "Egish momenti",
+        "minimum": 10,
+        "maximum": 50000,
+        "default": 2000,
+        "step": 10,
+        "unit": "N·m/m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "σ_max = 6M/h²",
+        "expr": "6*M/(x*1e-3)^2/1e6",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "[σ] = 160 MPa",
+        "expr": "160",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "σ (h=10 mm)",
+        "expr": "6*M/1e-4/1e6",
+        "unit": "MPa",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Kerakli h ([σ]=160)",
+        "expr": "sqrt(6*M/160e6)*1000",
+        "unit": "mm",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Qarshilik momenti W",
+        "expr": "1/6",
+        "unit": "h² ulush",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "qalinlik h, mm",
+      "y_label": "σ_max, MPa",
+      "x_min": "2",
+      "x_max": "60",
+      "options": {},
+      "note": "Qalinlikni 40% oshirish kuchlanishni ikki barobar kamaytiradi — bu eng arzon chora."
+     }
+    ]
    },
    "difficulty": "asosiy",
    "previous_link": "pq-02 da deformatsiyalar egriliklar orqali ifodalandi. tmm-14 dagi izotrop Guk qonuni (tekis kuchlanish holati) bilan birlashtirib, kuchlanishlarni va ularning integral xarakteristikalarini olamiz.",
@@ -37562,7 +37990,139 @@
      "title": "Bigarmonik tenglamaning keltirib chiqarilishi",
      "summary": "Element muvozanatidan boshlab kesuvchi kuchlar yo'qotiladi, momentlar egriliklar bilan almashtiriladi va Puasson koeffitsientining qisqarishi bosqichma-bosqich ko'rsatiladi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Sofi Jermen tenglamasi: yuk va og'ish",
+      "caption": "D∇⁴w = q — og'ish bikrlikka teskari proporsional.",
+      "params": [
+       {
+        "key": "q",
+        "label": "Yuk",
+        "minimum": 0.1,
+        "maximum": 100,
+        "default": 10,
+        "step": 0.1,
+        "unit": "kPa"
+       },
+       {
+        "key": "a",
+        "label": "Plastina tomoni",
+        "minimum": 0.2,
+        "maximum": 5,
+        "default": 1,
+        "step": 0.1,
+        "unit": "m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "w_max = 0,00406qa⁴/D, mm",
+        "expr": "0.00406*q*1000*a^4/x*1000",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Ruxsat a/250",
+        "expr": "a/250*1000",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "w (D=20000)",
+        "expr": "0.00406*q*1000*a^4/20000*1000",
+        "unit": "mm",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Ruxsat",
+        "expr": "a/250*1000",
+        "unit": "mm",
+        "color": "rule",
+        "text": ""
+       },
+       {
+        "label": "Kerakli D",
+        "expr": "0.00406*q*1000*a^4*250/a",
+        "unit": "N·m",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "silindrik bikrlik D, N·m",
+      "y_label": "w_max, mm",
+      "x_min": "100",
+      "x_max": "100000",
+      "options": {},
+      "note": "Og'ish tomonning TO'RTINCHI darajasiga proporsional — o'lchamni 20% oshirish og'ishni 2 barobar oshiradi."
+     },
+     {
+      "kind": "plot",
+      "title": "Bigarmonik operator: sinus yechimi",
+      "caption": "Sinus funksiyasi ∇⁴ ostida o'zini saqlaydi.",
+      "params": [
+       {
+        "key": "a",
+        "label": "Tomon a",
+        "minimum": 0.2,
+        "maximum": 5,
+        "default": 1,
+        "step": 0.1,
+        "unit": "m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "(π²/a² + π²/b²)² ko'paytuvchi",
+        "expr": "(pi^2/a^2 + pi^2/x^2)^2",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Kvadrat plastina (b=a)",
+        "expr": "(2*pi^2/a^2)^2",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Kvadrat (b=a)",
+        "expr": "(2*pi^2/a^2)^2",
+        "unit": "1/m⁴",
+        "color": "rule",
+        "text": ""
+       },
+       {
+        "label": "Uzun (b=3a)",
+        "expr": "(pi^2/a^2 + pi^2/(9*a^2))^2",
+        "unit": "1/m⁴",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Nisbat",
+        "expr": "(1 + 1/9)^2/4",
+        "unit": "",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "tomon b, m",
+      "y_label": "∇⁴ ko'paytuvchi, 1/m⁴",
+      "x_min": "0.2",
+      "x_max": "5",
+      "options": {},
+      "note": "Uzun plastina (b→∞) silindrik egilishga o'tadi — ko'paytuvchi kvadrat plastinanikidan 4 marta kichik."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "pq-03 da momentlar egriliklar orqali ifodalandi. tmm-17 dagi bigarmonik tenglama (Eyri funksiyasi) bilan matematik jihatdan bir xil operator paydo bo'ladi — bu tasodif emas, ikkalasi ham ikki o'lchovli elastiklik masalalaridan kelib chiqadi.",
@@ -37858,7 +38418,148 @@
      "title": "Kirxhoff kesuvchi kuchi va burchak reaksiyasi",
      "summary": "Chekka bo'ylab buralish momentlari kuchlar juftligiga aylanadi, qo'shni juftlar o'zaro qisqaradi va burchakda qoldiq konsentrlangan kuch $2M_{xy}$ paydo bo'lishi animatsiya qilinadi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Chegaraviy shart turlari va og'ish",
+      "caption": "Qistirish og'ishni sharnirga nisbatan keskin kamaytiradi.",
+      "params": [
+       {
+        "key": "q",
+        "label": "Yuk",
+        "minimum": 0.1,
+        "maximum": 100,
+        "default": 10,
+        "step": 0.1,
+        "unit": "kPa"
+       },
+       {
+        "key": "D",
+        "label": "Bikrlik",
+        "minimum": 100,
+        "maximum": 100000,
+        "default": 20000,
+        "step": 100,
+        "unit": "N·m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Sharnirli: 0,00406qa⁴/D, mm",
+        "expr": "0.00406*q*1000*x^4/D*1000",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Qistirilgan: 0,00126qa⁴/D",
+        "expr": "0.00126*q*1000*x^4/D*1000",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Sharnirli (a=1 m)",
+        "expr": "0.00406*q*1000/D*1000",
+        "unit": "mm",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Qistirilgan (a=1 m)",
+        "expr": "0.00126*q*1000/D*1000",
+        "unit": "mm",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Kamayish",
+        "expr": "0.00406/0.00126",
+        "unit": "marta",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "tomon a, m",
+      "y_label": "w_max, mm",
+      "x_min": "0.2",
+      "x_max": "3",
+      "options": {},
+      "note": "Qistirish og'ishni 3,2 marta kamaytiradi, lekin chekkada katta moment paydo qiladi."
+     },
+     {
+      "kind": "plot",
+      "title": "Kirxhoff kesuvchi kuchi va burchak reaksiyasi",
+      "caption": "Burchakda to'plangan reaksiya paydo bo'ladi.",
+      "params": [
+       {
+        "key": "q",
+        "label": "Yuk",
+        "minimum": 0.1,
+        "maximum": 100,
+        "default": 10,
+        "step": 0.1,
+        "unit": "kPa"
+       },
+       {
+        "key": "a",
+        "label": "Tomon",
+        "minimum": 0.2,
+        "maximum": 5,
+        "default": 1,
+        "step": 0.1,
+        "unit": "m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Burchak reaksiyasi R = 2Mxy, kN",
+        "expr": "2*0.0325*q*x^2",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Chekka reaksiya (jami/4)",
+        "expr": "q*x^2/4",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "R burchakda (a=1 m)",
+        "expr": "2*0.0325*q",
+        "unit": "kN",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Umumiy yuk",
+        "expr": "q*a^2",
+        "unit": "kN",
+        "color": "rule",
+        "text": ""
+       },
+       {
+        "label": "Burchak ulushi",
+        "expr": "100*2*0.0325/1",
+        "unit": "%",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "tomon a, m",
+      "y_label": "kuch, kN",
+      "x_min": "0.2",
+      "x_max": "3",
+      "options": {},
+      "note": "Burchak reaksiyasi plastinani PASTGA emas, YUQORIGA tortadi — mahkamlanmagan burchak ko'tariladi."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "pq-04 dagi to'rtinchi tartibli tenglama konturning har nuqtasida ikkita shart talab qiladi. tmm-19 dagi variatsion prinsip esa tabiiy chegaraviy shartlarni avtomatik beradi — aynan shu apparat erkin chekka paradoksini hal qiladi.",
@@ -38182,7 +38883,157 @@
     "bridge_to_next": "Birinchi modul yakunlandi: model, kinematika, konstitutiv munosabatlar, tenglama, chegaraviy shartlar va mustahkamlik tekshiruvi. Keyingi modulda asosiy savolga o'tamiz — bu tenglamani qanday yechamiz? Navye qator yechimidan boshlaymiz.",
     "research_extension": "Plastinalarning chegaraviy (limit) tahlilini o'rganing: oqish chiziqlari nazariyasi (yield line theory, Johansen). Elastik hisob birinchi oqish boshlanishini beradi, lekin plastina hali buzilmaydi — plastik qayta taqsimlanish hisobiga u ancha katta yukni ko'taradi. Kvadrat plastina uchun oqish chiziqlari mexanizmini quring va chegaraviy yuklamani elastik hisob bilan taqqoslang. Nisbat qancha chiqadi va bu temir-beton normativlarida qanday hisobga olinadi?",
     "manim": null,
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Plastinadagi Mizes kuchlanishi",
+      "caption": "Ikki yo'nalishdagi momentlar birgalikda baholanadi.",
+      "params": [
+       {
+        "key": "Mx",
+        "label": "Mx",
+        "minimum": -20000,
+        "maximum": 20000,
+        "default": 3000,
+        "step": 100,
+        "unit": "N·m/m"
+       },
+       {
+        "key": "h",
+        "label": "Qalinlik",
+        "minimum": 2,
+        "maximum": 60,
+        "default": 12,
+        "step": 1,
+        "unit": "mm"
+       }
+      ],
+      "curves": [
+       {
+        "label": "σ_ekv (Mizes)",
+        "expr": "6*sqrt(Mx^2 - Mx*x + x^2)/(h*1e-3)^2/1e6",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "σx alohida",
+        "expr": "6*Mx/(h*1e-3)^2/1e6",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "σ_ekv (My=0)",
+        "expr": "6*abs(Mx)/(h*1e-3)^2/1e6",
+        "unit": "MPa",
+        "color": "rule",
+        "text": ""
+       },
+       {
+        "label": "σ_ekv (My=Mx)",
+        "expr": "6*abs(Mx)/(h*1e-3)^2/1e6",
+        "unit": "MPa",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "σ_ekv (My=−Mx)",
+        "expr": "6*sqrt(3)*abs(Mx)/(h*1e-3)^2/1e6",
+        "unit": "MPa",
+        "color": "compress",
+        "text": ""
+       }
+      ],
+      "x_label": "My, N·m/m",
+      "y_label": "σ_ekv, MPa",
+      "x_min": "-20000",
+      "x_max": "20000",
+      "options": {},
+      "note": "Teng ikki o'qli egilishda Mizes bir o'qlidek qoladi; qarama-qarshi ishorada esa √3 marta oshadi."
+     },
+     {
+      "kind": "plot",
+      "title": "Qalinlik bo'ylab kuchlanish va urinma qism",
+      "caption": "Normal kuchlanish chiziqli, urinma esa parabolik.",
+      "params": [
+       {
+        "key": "M",
+        "label": "Moment",
+        "minimum": 100,
+        "maximum": 20000,
+        "default": 3000,
+        "step": 100,
+        "unit": "N·m/m"
+       },
+       {
+        "key": "Q",
+        "label": "Kesuvchi kuch",
+        "minimum": 1,
+        "maximum": 500,
+        "default": 30,
+        "step": 1,
+        "unit": "kN/m"
+       },
+       {
+        "key": "h",
+        "label": "Qalinlik",
+        "minimum": 2,
+        "maximum": 60,
+        "default": 12,
+        "step": 1,
+        "unit": "mm"
+       }
+      ],
+      "curves": [
+       {
+        "label": "σx(z), MPa",
+        "expr": "12*M*x*1e-3/(h*1e-3)^3/1e6",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "τxz(z), MPa",
+        "expr": "1.5*Q*1000/(h*1e-3)*(1 - 4*x^2/h^2)/1e6",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "σ_max",
+        "expr": "6*M/(h*1e-3)^2/1e6",
+        "unit": "MPa",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "τ_max",
+        "expr": "1.5*Q*1000/(h*1e-3)/1e6",
+        "unit": "MPa",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "σ/τ nisbati",
+        "expr": "6*M/(h*1e-3)^2/(1.5*Q*1000/(h*1e-3))",
+        "unit": "",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "z, mm",
+      "y_label": "kuchlanish, MPa",
+      "x_min": "-h/2",
+      "x_max": "h/2",
+      "options": {},
+      "note": "Yupqa plastinada σ/τ odatda 10 dan katta — shuning uchun Kirxhoff nazariyasi τ ni e'tiborsiz qoldiradi."
+     }
+    ]
    },
    "difficulty": "asosiy",
    "previous_link": "pq-05 gacha bo'lgan mavzular og'ish maydonini topish yo'lini qurdi. Endi teskari yo'l: $w \\to \\kappa \\to M \\to \\sigma$. tmm-21 dagi Mizes kriteriysi bilan mustahkamlikni tekshiramiz.",
@@ -38500,7 +39351,173 @@
      "title": "Navye qatorining yig'ilishi",
      "summary": "Birinchi garmonikadan boshlab hadlar ketma-ket qo'shiladi; og'ish sirti deyarli darhol yakuniy shaklga keladi, moment sirti esa sekinroq yaqinlashishi yonma-yon ko'rsatiladi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Navye qatori: hadlar yaqinlashishi",
+      "caption": "Og'ish uchun bir had yetarli, moment uchun esa yo'q.",
+      "params": [
+       {
+        "key": "q",
+        "label": "Yuk",
+        "minimum": 0.1,
+        "maximum": 100,
+        "default": 10,
+        "step": 0.1,
+        "unit": "kPa"
+       },
+       {
+        "key": "a",
+        "label": "Tomon",
+        "minimum": 0.2,
+        "maximum": 5,
+        "default": 1,
+        "step": 0.1,
+        "unit": "m"
+       },
+       {
+        "key": "D",
+        "label": "Bikrlik",
+        "minimum": 100,
+        "maximum": 100000,
+        "default": 20000,
+        "step": 100,
+        "unit": "N·m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "m=n=1 hadi, mm",
+        "expr": "16*q*1000/(pi^6*D*(1/a^2 + 1/a^2)^2)*1000 + 0*x",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Aniq yechim 0,00406qa⁴/D",
+        "expr": "0.00406*q*1000*a^4/D*1000 + 0*x",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Birinchi had",
+        "expr": "16*q*1000*a^4/(pi^6*D*4)*1000",
+        "unit": "mm",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Aniq qiymat",
+        "expr": "0.00406*q*1000*a^4/D*1000",
+        "unit": "mm",
+        "color": "rule",
+        "text": ""
+       },
+       {
+        "label": "Bir hadli xato",
+        "expr": "100*(16/(pi^6*4)/0.0040624 - 1)",
+        "unit": "%",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "hadlar soni N",
+      "y_label": "w_max, mm",
+      "x_min": "1",
+      "x_max": "9",
+      "options": {},
+      "note": "Bitta had markaziy og'ishni 2,4% ga OSHIRIB yuboradi: keyingi hadlar markazda qarama-qarshi ishorada keladi."
+     },
+     {
+      "kind": "plot",
+      "title": "Tomonlar nisbati: bir hadli baho qayerda buziladi",
+      "caption": "Cho'ziq plastinada uzun yo'nalish bo'yicha qo'shimcha hadlar kerak bo'ladi.",
+      "params": [
+       {
+        "key": "q",
+        "label": "Yuk",
+        "minimum": 0.1,
+        "maximum": 100,
+        "default": 10,
+        "step": 0.1,
+        "unit": "kPa"
+       },
+       {
+        "key": "a",
+        "label": "Qisqa tomon",
+        "minimum": 0.2,
+        "maximum": 5,
+        "default": 1,
+        "step": 0.1,
+        "unit": "m"
+       },
+       {
+        "key": "D",
+        "label": "Bikrlik",
+        "minimum": 100,
+        "maximum": 100000,
+        "default": 20000,
+        "step": 100,
+        "unit": "N·m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Bir hadli baho, mm",
+        "expr": "16*q*1000*a^4/(pi^6*D*(1 + 1/x^2)^2)*1000",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Silindrik chegara 5qa⁴/384D",
+        "expr": "5*q*1000*a^4/(384*D)*1000",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Bir had (b/a=1)",
+        "expr": "16*q*1000*a^4/(pi^6*D*4)*1000",
+        "unit": "mm",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Aniq (b/a=1): 0,00406qa⁴/D",
+        "expr": "0.0040624*q*1000*a^4/D*1000",
+        "unit": "mm",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Silindrik chegara",
+        "expr": "5*q*1000*a^4/(384*D)*1000",
+        "unit": "mm",
+        "color": "rule",
+        "text": ""
+       },
+       {
+        "label": "Bir hadli xato (b/a=3)",
+        "expr": "100*(16/(pi^6*(1+1/9)^2)/0.012234 - 1)",
+        "unit": "%",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "b/a nisbati",
+      "y_label": "w_max, mm",
+      "x_min": "1",
+      "x_max": "5",
+      "options": {},
+      "note": "b/a = 1 da bir hadli xato 2,4%, b/a = 3 da esa 10,2% ga chiqadi; aniq qiymat 0,01223qa⁴/D silindrik chegara 0,01302 ga yaqin."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "pq-05 da sharnirli chekkada $w = 0$ va $\\nabla^2 w = 0$ ekanligi ko'rsatilgan edi. Sinus funksiyasi aynan shu ikki shartni avtomatik qanoatlantiradi — shuning uchun u Navye yechimining tabiiy bazisi.",
@@ -38826,7 +39843,146 @@
      "title": "Levi yechimi va chekka effekti",
      "summary": "Plastina bo'ylab og'ish profili quriladi: markazda silindrik egilish, chekkalarda esa giperbolik hadlar hisobiga mahalliy bezovtalik paydo bo'lishi va uning eksponensial so'nishi ko'rsatiladi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Levi yechimi: bir yo'nalishli qator",
+      "caption": "Ikki qarama-qarshi chekka sharnirli bo'lsa masala ODT ga keladi.",
+      "params": [
+       {
+        "key": "a",
+        "label": "Sharnirli tomon",
+        "minimum": 0.2,
+        "maximum": 5,
+        "default": 1,
+        "step": 0.1,
+        "unit": "m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "α_m = mπ/a, 1/m",
+        "expr": "x*pi/a",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Birinchi had",
+        "expr": "pi/a",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "α₁",
+        "expr": "pi/a",
+        "unit": "1/m",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "α₃",
+        "expr": "3*pi/a",
+        "unit": "1/m",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "So'nish masofasi 1/α₁",
+        "expr": "a/pi",
+        "unit": "m",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "had nomeri m",
+      "y_label": "α_m, 1/m",
+      "x_min": "1",
+      "x_max": "9",
+      "options": {},
+      "note": "Yuqori hadlar e^{−αy} bo'yicha tez so'nadi — shuning uchun Levi qatori 3-5 had bilan yetarli."
+     },
+     {
+      "kind": "plot",
+      "title": "Uzun plastina: silindrik egilishning ikki chegaraviy holati",
+      "caption": "Levi yechimining chegaraviy holati aniq formulaga keladi.",
+      "params": [
+       {
+        "key": "q",
+        "label": "Yuk",
+        "minimum": 0.1,
+        "maximum": 100,
+        "default": 10,
+        "step": 0.1,
+        "unit": "kPa"
+       },
+       {
+        "key": "D",
+        "label": "Bikrlik",
+        "minimum": 100,
+        "maximum": 100000,
+        "default": 20000,
+        "step": 100,
+        "unit": "N·m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Sharnirli: 5qa⁴/(384D), mm",
+        "expr": "5*q*1000*x^4/(384*D)*1000",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Qistirilgan: qa⁴/(384D)",
+        "expr": "q*1000*x^4/(384*D)*1000",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Sharnirli (a=1 m)",
+        "expr": "5*q*1000/(384*D)*1000",
+        "unit": "mm",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Qistirilgan (a=1 m)",
+        "expr": "q*1000/(384*D)*1000",
+        "unit": "mm",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Nisbat",
+        "expr": "5",
+        "unit": "marta",
+        "color": "mark",
+        "text": ""
+       },
+       {
+        "label": "Qistirish momenti qa²/12",
+        "expr": "q*1000/12",
+        "unit": "N·m/m",
+        "color": "rule",
+        "text": ""
+       }
+      ],
+      "x_label": "qisqa tomon a, m",
+      "y_label": "w_max, mm",
+      "x_min": "0.2",
+      "x_max": "3",
+      "options": {},
+      "note": "Chekka shartlari og'ishni aynan 5 marta farqlantiradi — Levi yechimi bu ikki holat orasida yotadi."
+     }
+    ]
    },
    "difficulty": "ilg'or",
    "previous_link": "pq-07 dagi Navye yechimi to'rt chekkada sharnirli tayanch talab qilardi. Levi bu cheklovni yarmiga qisqartiradi: faqat ikki qarama-qarshi chekka sharnirli bo'lsa yetarli, qolgan ikkitasi ixtiyoriy bo'lishi mumkin.",
@@ -39140,7 +40296,164 @@
      "title": "Ritz usuli: energiyani minimallashtirish",
      "summary": "Turli koeffitsientlar bilan sinov funksiyalari quriladi, ularning energiyasi hisoblanadi va energiya sirti bo'ylab minimumga tushish ko'rsatiladi; bazis kengayganda minimum aniq yechimga yaqinlashadi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Ritz usuli nimani kafolatlaydi",
+      "caption": "Energetik baho pastdan, markaziy og'ish esa yuqoridan chiqishi mumkin.",
+      "params": [
+       {
+        "key": "q",
+        "label": "Yuk",
+        "minimum": 0.1,
+        "maximum": 100,
+        "default": 10,
+        "step": 0.1,
+        "unit": "kPa"
+       },
+       {
+        "key": "a",
+        "label": "Tomon",
+        "minimum": 0.2,
+        "maximum": 5,
+        "default": 1,
+        "step": 0.1,
+        "unit": "m"
+       },
+       {
+        "key": "D",
+        "label": "Bikrlik",
+        "minimum": 100,
+        "maximum": 100000,
+        "default": 20000,
+        "step": 100,
+        "unit": "N·m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Bir hadli Ritz w_max, mm",
+        "expr": "16*q*1000*x^4/(pi^6*D*4)*1000",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Aniq w_max = 0,0040624qa⁴/D",
+        "expr": "0.0040624*q*1000*x^4/D*1000",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Ritz w_max",
+        "expr": "16*q*1000*a^4/(pi^6*D*4)*1000",
+        "unit": "mm",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Aniq w_max",
+        "expr": "0.0040624*q*1000*a^4/D*1000",
+        "unit": "mm",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Markazdagi xato",
+        "expr": "100*(16/(pi^6*4)/0.0040624 - 1)",
+        "unit": "%",
+        "color": "mark",
+        "text": ""
+       },
+       {
+        "label": "Ish bo'yicha o'rtacha xato",
+        "expr": "100*(0.00068341/0.00069000 - 1)",
+        "unit": "%",
+        "color": "rule",
+        "text": ""
+       }
+      ],
+      "x_label": "tomon a, m",
+      "y_label": "w_max, mm",
+      "x_min": "0.2",
+      "x_max": "3",
+      "options": {},
+      "note": "Ritz YUKNING ISHINI (ya'ni o'rtacha og'ishni) 0,96% ga kam baholaydi, lekin markazdagi qiymatni 2,4% ga oshirib yuboradi — kafolat energiyaga tegishli, nuqtaga emas."
+     },
+     {
+      "kind": "plot",
+      "title": "Galerkin usuli: qoldiq ortogonalligi",
+      "caption": "Qoldiq sinov funksiyasiga ortogonal bo'lsa koeffitsient topiladi.",
+      "params": [
+       {
+        "key": "q",
+        "label": "Yuk",
+        "minimum": 0.1,
+        "maximum": 100,
+        "default": 10,
+        "step": 0.1,
+        "unit": "kPa"
+       },
+       {
+        "key": "D",
+        "label": "Bikrlik",
+        "minimum": 100,
+        "maximum": 100000,
+        "default": 20000,
+        "step": 100,
+        "unit": "N·m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Qoldiq integrali ∫∫R·φ dxdy",
+        "expr": "D*x*pi^4 - 4*q*1000/pi^2",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Nol (yechim)",
+        "expr": "0",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Yechim A",
+        "expr": "16*q*1000/(pi^6*D*4)",
+        "unit": "m",
+        "color": "mark",
+        "text": ""
+       },
+       {
+        "label": "w_max = A",
+        "expr": "16*q*1000/(pi^6*D*4)*1000",
+        "unit": "mm",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Ritz bilan bir xilmi",
+        "expr": "0",
+        "unit": "",
+        "color": "compress",
+        "text": "ha|yo'q"
+       }
+      ],
+      "x_label": "koeffitsient A, m",
+      "y_label": "qoldiq",
+      "x_min": "0",
+      "x_max": "0.01",
+      "options": {},
+      "note": "Sinov funksiyasi chegaraviy shartlarni qanoatlantirsa, Galerkin va Ritz aynan bir xil natija beradi."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "pq-07 va pq-08 dagi aniq yechimlar geometriya va chegaraviy shartlarga qat'iy cheklov qo'yardi. tmm-19 dagi variatsion prinsip esa hech qanday cheklov qo'ymaydi — u ixtiyoriy masalaga taqribiy yechim qurish imkonini beradi.",
@@ -39467,7 +40780,155 @@
      "title": "Bigarmonik shablon va fiktiv tugunlar",
      "summary": "To'r ustida 13 nuqtali shablon siljiydi, har bir tugunda tenglama yoziladi; chegarada fiktiv tugunlar paydo bo'lib, aks ettirish qoidasi bilan ichki tugunlarga bog'lanishi ko'rsatiladi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Chekli ayirmalar: to'r qadamiga bog'liq aniqlik",
+      "caption": "Xato qadam kvadratiga proporsional kamayadi.",
+      "params": [
+       {
+        "key": "q",
+        "label": "Yuk",
+        "minimum": 0.1,
+        "maximum": 100,
+        "default": 10,
+        "step": 0.1,
+        "unit": "kPa"
+       },
+       {
+        "key": "a",
+        "label": "Tomon",
+        "minimum": 0.2,
+        "maximum": 5,
+        "default": 1,
+        "step": 0.1,
+        "unit": "m"
+       },
+       {
+        "key": "D",
+        "label": "Bikrlik",
+        "minimum": 100,
+        "maximum": 100000,
+        "default": 20000,
+        "step": 100,
+        "unit": "N·m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Nisbiy xato ≈ 11,2/N², %",
+        "expr": "11.2/x^2",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "1% chegara",
+        "expr": "1",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "N=4 xato",
+        "expr": "11.2/16",
+        "unit": "%",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "N=8 xato",
+        "expr": "11.2/64",
+        "unit": "%",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "N=16 xato",
+        "expr": "11.2/256",
+        "unit": "%",
+        "color": "rule",
+        "text": ""
+       },
+       {
+        "label": "Noma'lumlar (N=16, Markus)",
+        "expr": "2*225",
+        "unit": "ta",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "bo'linishlar soni N",
+      "y_label": "xato, %",
+      "x_min": "2",
+      "x_max": "40",
+      "options": {},
+      "note": "Sharnirli kvadrat plastinada hisoblangan haqiqiy xatolar: N=4 da 0,84%, N=8 da 0,19%, N=16 da 0,045% — ya'ni ikkinchi tartib, va baho PASTDAN yaqinlashadi."
+     },
+     {
+      "kind": "plot",
+      "title": "Bigarmonik shablon: 13 nuqtali sxema",
+      "caption": "∇⁴ operatori ikki marta qo'llangan Laplasdan chiqadi.",
+      "params": [
+       {
+        "key": "h",
+        "label": "To'r qadami",
+        "minimum": 0.01,
+        "maximum": 1,
+        "default": 0.1,
+        "step": 0.01,
+        "unit": "m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Markaziy koeffitsient 20/h⁴",
+        "expr": "20/x^4",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Qo'shni −8/h⁴",
+        "expr": "-8/x^4",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Markaz (h=0,1)",
+        "expr": "20/1e-4",
+        "unit": "1/m⁴",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Qo'shni (h=0,1)",
+        "expr": "-8/1e-4",
+        "unit": "1/m⁴",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Koeffitsientlar yig'indisi",
+        "expr": "0",
+        "unit": "",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "qadam h, m",
+      "y_label": "koeffitsient, 1/m⁴",
+      "x_min": "0.05",
+      "x_max": "0.5",
+      "options": {},
+      "note": "Barcha koeffitsientlar yig'indisi nol — bu doimiy funksiya uchun ∇⁴w = 0 bo'lishini kafolatlaydi."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "pq-09 dagi Ritz usuli global bazis talab qilardi. Chekli ayirmalar butunlay boshqa g'oyaga asoslanadi: funksiyani emas, **operatorni** taqribiy almashtiramiz. Bu pq-04 dagi tenglamani to'g'ridan-to'g'ri diskretlashtirish.",
@@ -39799,7 +41260,164 @@
     "bridge_to_next": "Hozirgacha material izotrop deb olindi. Lekin amaliyotda ko'plab plastinalar yo'nalish bo'yicha har xil xossaga ega: gofrlangan list, qovurg'ali plita, temir-beton, kompozit. Keyingi mavzuda ortotrop plastinalar nazariyasini quramiz.",
     "research_extension": "Punching shear (o'tkazib yuborish) hodisasini chuqur o'rganing. Ustun atrofida plita konussimon sirt bo'ylab kesilib chiqadi; buzilish mo'rt va ogohlantirishsiz. Eurocode 2 va ACI 318 normativlaridagi kritik perimetr ta'riflarini taqqoslang (ular $2d$ va $d/2$ masofani oladi — nima uchun farqli?). Kritik perimetr formulasi bo'yicha parametrik tahlil qiling: ustun o'lchamini, plita qalinligini va armatura koeffitsientini o'zgartirib, xavfsizlik chegarasini quring. Siljish armaturasi va kapitel (ustun boshi kengaytmasi) qanday ishlaydi?",
     "manim": null,
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Konsentrlangan kuch: og'ish va moment",
+      "caption": "Og'ish chekli, moment esa nuqtada cheksizga intiladi.",
+      "params": [
+       {
+        "key": "P",
+        "label": "Kuch",
+        "minimum": 0.1,
+        "maximum": 100,
+        "default": 10,
+        "step": 0.1,
+        "unit": "kN"
+       },
+       {
+        "key": "a",
+        "label": "Tomon",
+        "minimum": 0.2,
+        "maximum": 5,
+        "default": 1,
+        "step": 0.1,
+        "unit": "m"
+       },
+       {
+        "key": "D",
+        "label": "Bikrlik",
+        "minimum": 100,
+        "maximum": 100000,
+        "default": 20000,
+        "step": 100,
+        "unit": "N·m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Moment ~ (P/4π)ln(a/r), N·m/m",
+        "expr": "P*1000/(4*pi)*log(a/(x*1e-3))",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Nol",
+        "expr": "0",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "w_max = 0,01160Pa²/D",
+        "expr": "0.0116*P*1000*a^2/D*1000",
+        "unit": "mm",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "M (r=10 mm)",
+        "expr": "P*1000/(4*pi)*log(a/0.01)",
+        "unit": "N·m/m",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "M (r=50 mm)",
+        "expr": "P*1000/(4*pi)*log(a/0.05)",
+        "unit": "N·m/m",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "kuch markazidan masofa r, mm",
+      "y_label": "M, N·m/m",
+      "x_min": "1",
+      "x_max": "200",
+      "options": {},
+      "note": "Logarifmik cheksizlik — matematik model natijasi; amalda kuch kichik yuza bo'ylab tarqaladi."
+     },
+     {
+      "kind": "plot",
+      "title": "Chegaraviy shartlarning og'ishga ta'siri",
+      "caption": "Bir xil yuk, turli mahkamlash — natija uch barobargacha farq qiladi.",
+      "params": [
+       {
+        "key": "q",
+        "label": "Yuk",
+        "minimum": 0.1,
+        "maximum": 100,
+        "default": 10,
+        "step": 0.1,
+        "unit": "kPa"
+       },
+       {
+        "key": "D",
+        "label": "Bikrlik",
+        "minimum": 100,
+        "maximum": 100000,
+        "default": 20000,
+        "step": 100,
+        "unit": "N·m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "To'rt tomoni sharnirli: 0,00406",
+        "expr": "0.00406*q*1000*x^4/D*1000",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "To'rt tomoni qistirilgan: 0,00126",
+        "expr": "0.00126*q*1000*x^4/D*1000",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Ikki tomoni sharnirli (silindrik): 5/384",
+        "expr": "5*q*1000*x^4/(384*D)*1000",
+        "color": "mark",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Sharnirli (a=1)",
+        "expr": "0.00406*q*1000/D*1000",
+        "unit": "mm",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Qistirilgan (a=1)",
+        "expr": "0.00126*q*1000/D*1000",
+        "unit": "mm",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Silindrik (a=1)",
+        "expr": "5*q*1000/(384*D)*1000",
+        "unit": "mm",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "tomon a, m",
+      "y_label": "w_max, mm",
+      "x_min": "0.2",
+      "x_max": "3",
+      "options": {},
+      "note": "Ikki tomonli tayanch (silindrik egilish) to'rt tomonlidan 3,2 marta ko'p og'ish beradi."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "pq-07 dagi Navye yechimi ixtiyoriy yuklamani qabul qilardi, lekin konsentrlangan kuchda qator sekin yaqinlashishi aytib o'tilgan edi. pq-10 dagi sonli usul esa singulyarlikni umuman ko'rmaydi. Endi shu muammoni to'g'ridan-to'g'ri o'rganamiz.",
@@ -40175,7 +41793,166 @@
      "title": "Geometrik ortotropiya: gofr va qovurg'a",
      "summary": "Tekis list gofrga aylantiriladi va inersiya momentining keskin o'sishi ko'rsatiladi; so'ng ikki yo'nalishda egilish sinovi o'tkaziladi va anizotropiya vizual namoyon bo'ladi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Ortotrop plastina: ikki yo'nalishdagi bikrlik",
+      "caption": "Qovurg'a bir yo'nalishni keskin bikrlashtiradi.",
+      "params": [
+       {
+        "key": "D1",
+        "label": "Dx (qovurg'ali)",
+        "minimum": 1000,
+        "maximum": 500000,
+        "default": 100000,
+        "step": 1000,
+        "unit": "N·m"
+       },
+       {
+        "key": "q",
+        "label": "Yuk",
+        "minimum": 0.1,
+        "maximum": 100,
+        "default": 10,
+        "step": 0.1,
+        "unit": "kPa"
+       },
+       {
+        "key": "a",
+        "label": "Tomon",
+        "minimum": 0.2,
+        "maximum": 5,
+        "default": 1,
+        "step": 0.1,
+        "unit": "m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Dx ulushi yuk taqsimotida",
+        "expr": "100*D1/(D1 + x)",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Teng taqsimot 50%",
+        "expr": "50",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Dy=20000 da Dx ulushi",
+        "expr": "100*D1/(D1 + 20000)",
+        "unit": "%",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Dx/Dy",
+        "expr": "D1/20000",
+        "unit": "",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "w (izotrop D=Dy)",
+        "expr": "0.00406*q*1000*a^4/20000*1000",
+        "unit": "mm",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "Dy, N·m",
+      "y_label": "Dx yo'nalishi ulushi, %",
+      "x_min": "1000",
+      "x_max": "500000",
+      "options": {},
+      "note": "Qovurg'ali panelda yukning katta qismi qovurg'alar yo'nalishi bo'ylab uzatiladi — hisob shuni hisobga olishi kerak."
+     },
+     {
+      "kind": "plot",
+      "title": "Gofrlangan list: ekvivalent bikrliklar",
+      "caption": "Gofr bir yo'nalishda bikrlikni oshiradi, ikkinchisida kamaytiradi.",
+      "params": [
+       {
+        "key": "E",
+        "label": "Modul",
+        "minimum": 10,
+        "maximum": 400,
+        "default": 210,
+        "step": 5,
+        "unit": "GPa"
+       },
+       {
+        "key": "t",
+        "label": "List qalinligi",
+        "minimum": 0.3,
+        "maximum": 5,
+        "default": 1,
+        "step": 0.1,
+        "unit": "mm"
+       },
+       {
+        "key": "H",
+        "label": "Gofr balandligi",
+        "minimum": 2,
+        "maximum": 100,
+        "default": 20,
+        "step": 1,
+        "unit": "mm"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Dx ≈ EtH²/2, N·m",
+        "expr": "E*1e9*t*1e-3*(x*1e-3)^2/2",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Tekis list D",
+        "expr": "E*1e9*(t*1e-3)^3/(12*0.91)",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Dx (H=20 mm)",
+        "expr": "E*1e9*t*1e-3*4e-4/2",
+        "unit": "N·m",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Tekis list D",
+        "expr": "E*1e9*(t*1e-3)^3/(12*0.91)",
+        "unit": "N·m",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Kuchayish",
+        "expr": "E*1e9*t*1e-3*4e-4/2/(E*1e9*(t*1e-3)^3/(12*0.91))",
+        "unit": "marta",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "gofr balandligi H, mm",
+      "y_label": "Dx, N·m",
+      "x_min": "2",
+      "x_max": "100",
+      "options": {},
+      "note": "1 mm listni 20 mm ga gofrlash uzunlamasiga bikrlikni ~2200 marta oshiradi — massa esa deyarli o'zgarmaydi."
+     }
+    ]
    },
    "difficulty": "ilg'or",
    "previous_link": "tmm-13 da material simmetriyasi va ortotropiya o'rganilgan edi. Endi uni plastina nazariyasiga kiritamiz va kutilmagan natijaga kelamiz: ortotropiya faqat materialdan emas, **geometriyadan** ham kelib chiqishi mumkin.",
@@ -40490,7 +42267,173 @@
      "title": "Doiraviy plastinaning o'qsimmetrik egilishi",
      "summary": "Bosim ostida disk egiladi; radial va halqaviy momentlar epyuralari bir vaqtda quriladi, mahkamlangan va sharnirli chekka variantlari almashtirilib taqqoslanadi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Doiraviy plastina: chekka sharti va og'ish",
+      "caption": "Qistirish og'ishni 4 marta kamaytiradi.",
+      "params": [
+       {
+        "key": "q",
+        "label": "Yuk",
+        "minimum": 0.1,
+        "maximum": 100,
+        "default": 10,
+        "step": 0.1,
+        "unit": "kPa"
+       },
+       {
+        "key": "D",
+        "label": "Bikrlik",
+        "minimum": 100,
+        "maximum": 100000,
+        "default": 20000,
+        "step": 100,
+        "unit": "N·m"
+       },
+       {
+        "key": "nu",
+        "label": "ν",
+        "minimum": 0,
+        "maximum": 0.45,
+        "default": 0.3,
+        "step": 0.01,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "Qistirilgan: qa⁴/(64D), mm",
+        "expr": "q*1000*x^4/(64*D)*1000",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Sharnirli: qa⁴(5+ν)/(64D(1+ν))",
+        "expr": "q*1000*x^4*(5 + nu)/(64*D*(1 + nu))*1000",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Qistirilgan (a=1)",
+        "expr": "q*1000/(64*D)*1000",
+        "unit": "mm",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Sharnirli (a=1)",
+        "expr": "q*1000*(5 + nu)/(64*D*(1 + nu))*1000",
+        "unit": "mm",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Nisbat (ν=0,3)",
+        "expr": "(5 + nu)/(1 + nu)",
+        "unit": "marta",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "radius a, m",
+      "y_label": "w_max, mm",
+      "x_min": "0.1",
+      "x_max": "2",
+      "options": {},
+      "note": "ν = 0,3 da sharnirli plastina qistirilgandan aynan 4,077 marta ko'p og'adi."
+     },
+     {
+      "kind": "plot",
+      "title": "Doiraviy plastinada momentlar radius bo'ylab",
+      "caption": "Qistirilgan chekkada radial moment eng katta.",
+      "params": [
+       {
+        "key": "q",
+        "label": "Yuk",
+        "minimum": 0.1,
+        "maximum": 100,
+        "default": 10,
+        "step": 0.1,
+        "unit": "kPa"
+       },
+       {
+        "key": "a",
+        "label": "Radius",
+        "minimum": 0.1,
+        "maximum": 2,
+        "default": 0.5,
+        "step": 0.05,
+        "unit": "m"
+       },
+       {
+        "key": "nu",
+        "label": "ν",
+        "minimum": 0,
+        "maximum": 0.45,
+        "default": 0.3,
+        "step": 0.01,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "Mr = q/16·((1+ν)a² − (3+ν)r²)",
+        "expr": "q*1000/16*((1 + nu)*a^2 - (3 + nu)*x^2)",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Mt = q/16·((1+ν)a² − (1+3ν)r²)",
+        "expr": "q*1000/16*((1 + nu)*a^2 - (1 + 3*nu)*x^2)",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Nol",
+        "expr": "0",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Mr markazda",
+        "expr": "q*1000*(1 + nu)*a^2/16",
+        "unit": "N·m/m",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Mr chekkada",
+        "expr": "-q*1000*a^2/8",
+        "unit": "N·m/m",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Chekka/markaz nisbati",
+        "expr": "2/(1 + nu)",
+        "unit": "marta",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "radius r, m",
+      "y_label": "moment, N·m/m",
+      "x_min": "0",
+      "x_max": "a",
+      "options": {},
+      "note": "Chekkadagi moment markazdagidan 1,54 marta katta — buzilish aynan qistirish joyidan boshlanadi."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "pq-12 gacha barcha masalalar to'rtburchak koordinatalarda yechildi va analitik yechim faqat maxsus hollarda topildi. Doiraviy plastinada esa o'qsimmetriya PDE ni ODE ga aylantiradi va **to'liq aniq yechim** mavjud bo'ladi — tmm-16 dagi Lame quvuri kabi.",
@@ -40798,7 +42741,166 @@
     "bridge_to_next": "O'qsimmetrik masalalarda yechim to'liq analitik edi. Agar yuklama yoki chegaraviy shart burchakka bog'liq bo'lsa (masalan, disk yon tomondan yuklangan), o'qsimmetriya buziladi. Keyingi mavzuda bu holni Furye qatori bilan yechamiz.",
     "research_extension": "Aylanuvchi disk masalasini o'rganing: turbina yoki tormoz diski aylanganda markazdan qochma kuchlar membrana kuchlanishlarini ($\\sigma_r, \\sigma_\\theta$) keltirib chiqaradi. Bu tmm-16 dagi tekis masala bilan yechiladi. Agar disk bir vaqtda egilsa ham (o'q bo'ylab yuklama), ikkala effekt birlashadi va katta og'ishlarda (pq-18) ular o'zaro ta'sir qiladi. Teng mustahkamlikdagi disk profilini ($\\sigma = $ const) toping va uni doimiy qalinlikdagi disk bilan og'irlik hamda maksimal aylanish tezligi bo'yicha taqqoslang. Nima uchun bug' turbinasi disklari markazga qarab qalinlashadi?",
     "manim": null,
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Halqasimon plastina: teshik og'ishni qanday o'zgartiradi",
+      "caption": "Kichik teshik ham kuchlanishni sezilarli oshiradi.",
+      "params": [
+       {
+        "key": "q",
+        "label": "Yuk",
+        "minimum": 0.1,
+        "maximum": 100,
+        "default": 10,
+        "step": 0.1,
+        "unit": "kPa"
+       },
+       {
+        "key": "a",
+        "label": "Tashqi radius",
+        "minimum": 0.1,
+        "maximum": 2,
+        "default": 0.5,
+        "step": 0.05,
+        "unit": "m"
+       },
+       {
+        "key": "D",
+        "label": "Bikrlik",
+        "minimum": 100,
+        "maximum": 100000,
+        "default": 20000,
+        "step": 100,
+        "unit": "N·m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Halqa maydoni ulushi",
+        "expr": "1 - x^2",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "To'la disk",
+        "expr": "1",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "To'la disk w (qistirilgan)",
+        "expr": "q*1000*a^4/(64*D)*1000",
+        "unit": "mm",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Yuza yo'qotish (b/a=0,3)",
+        "expr": "9",
+        "unit": "%",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Yuza yo'qotish (b/a=0,5)",
+        "expr": "25",
+        "unit": "%",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "b/a (teshik nisbati)",
+      "y_label": "yuza ulushi",
+      "x_min": "0",
+      "x_max": "0.9",
+      "options": {},
+      "note": "Teshik yuzaning kichik qismini olib tashlasa ham, chekka effekti kuchlanish taqsimotini keskin o'zgartiradi."
+     },
+     {
+      "kind": "plot",
+      "title": "Aylanuvchi disk: markazdan qochma kuchlanish",
+      "caption": "Kuchlanish aylanish tezligi kvadratiga proporsional.",
+      "params": [
+       {
+        "key": "rho",
+        "label": "Zichlik",
+        "minimum": 2000,
+        "maximum": 9000,
+        "default": 7850,
+        "step": 50,
+        "unit": "kg/m³"
+       },
+       {
+        "key": "R",
+        "label": "Disk radiusi",
+        "minimum": 0.05,
+        "maximum": 1,
+        "default": 0.3,
+        "step": 0.01,
+        "unit": "m"
+       },
+       {
+        "key": "nu",
+        "label": "ν",
+        "minimum": 0,
+        "maximum": 0.45,
+        "default": 0.3,
+        "step": 0.01,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "σ_max = (3+ν)ρω²R²/8, MPa",
+        "expr": "(3 + nu)*rho*(x*2*pi/60)^2*R^2/8/1e6",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "[σ] = 300 MPa",
+        "expr": "300",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "σ (n=10000)",
+        "expr": "(3 + nu)*rho*(10000*2*pi/60)^2*R^2/8/1e6",
+        "unit": "MPa",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Kritik tezlik ([σ]=300)",
+        "expr": "sqrt(300e6*8/((3 + nu)*rho*R^2))*60/(2*pi)",
+        "unit": "ayl/min",
+        "color": "mark",
+        "text": ""
+       },
+       {
+        "label": "Chekkada σt",
+        "expr": "(1 - nu)*rho*(10000*2*pi/60)^2*R^2/4/1e6",
+        "unit": "MPa",
+        "color": "compress",
+        "text": ""
+       }
+      ],
+      "x_label": "aylanish tezligi n, ayl/min",
+      "y_label": "σ_max, MPa",
+      "x_min": "0",
+      "x_max": "30000",
+      "options": {},
+      "note": "Markaziy teshik ochish maksimal kuchlanishni aynan IKKI barobar oshiradi — turbina disklarida bu hal qiluvchi."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "pq-13 da to'liq diskda regulyarlik sharti $C_3$ va $C_4$ ni yo'q qildi. Markazda teshik bo'lsa, $r = 0$ soha ichida emas va bu hadlar saqlanadi — yechim to'rtta doimiyli to'liq shaklda ishlatiladi.",
@@ -41113,7 +43215,158 @@
      "title": "Doiraviy plastinadagi garmonikalar",
      "summary": "$n = 0, 1, 2, 3$ garmonikalarining shakllari ketma-ket ko'rsatiladi va ular qo'shilib nosimmetrik og'ish sirtini hosil qilishi animatsiya qilinadi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Yarim yuklangan diskning Furye koeffitsientlari",
+      "caption": "Nosimmetrik yuk garmonikalarga aniq yoyiladi.",
+      "params": [
+       {
+        "key": "q",
+        "label": "Yuk intensivligi",
+        "minimum": 0.1,
+        "maximum": 100,
+        "default": 10,
+        "step": 0.1,
+        "unit": "kPa"
+       }
+      ],
+      "curves": [
+       {
+        "label": "|a_n| = 2q/(πn), toq n",
+        "expr": "2*q/(pi*x)",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "O'rtacha a₀ = q/2",
+        "expr": "q/2",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "a₀ (o'qsimmetrik qism)",
+        "expr": "q/2",
+        "unit": "kPa",
+        "color": "rule",
+        "text": ""
+       },
+       {
+        "label": "a₁ (birinchi garmonika)",
+        "expr": "2*q/pi",
+        "unit": "kPa",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "a₃",
+        "expr": "2*q/(3*pi)",
+        "unit": "kPa",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "a₅",
+        "expr": "2*q/(5*pi)",
+        "unit": "kPa",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "garmonika nomeri n",
+      "y_label": "koeffitsient, kPa",
+      "x_min": "1",
+      "x_max": "11",
+      "options": {},
+      "note": "Yarmi yuklangan disk uchun q(θ) = q/2 + (2q/π)(cos θ − cos3θ/3 + cos5θ/5 − …): juft garmonikalar umuman yo'q, toqlari esa 1/n bo'yicha so'nadi."
+     },
+     {
+      "kind": "plot",
+      "title": "Necha garmonika yetarli: qatorning yig'ilishi",
+      "caption": "Hadlar soni oshgani sari qator haqiqiy yukka yaqinlashadi.",
+      "params": [
+       {
+        "key": "q",
+        "label": "Yuk intensivligi",
+        "minimum": 0.1,
+        "maximum": 100,
+        "default": 10,
+        "step": 0.1,
+        "unit": "kPa"
+       }
+      ],
+      "curves": [
+       {
+        "label": "1 had",
+        "expr": "q/2 + 2*q/pi*cos(x*pi/180)",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "3 had",
+        "expr": "q/2 + 2*q/pi*(cos(x*pi/180) - cos(3*x*pi/180)/3 + cos(5*x*pi/180)/5)",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Haqiqiy yuk (yuklangan yarim)",
+        "expr": "q",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       },
+       {
+        "label": "Yuklanmagan yarim",
+        "expr": "0",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "1 had, θ=0",
+        "expr": "q/2 + 2*q/pi",
+        "unit": "kPa",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "3 had, θ=0",
+        "expr": "q/2 + 2*q/pi*(1 - 1/3 + 1/5)",
+        "unit": "kPa",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Aniq qiymat θ=0",
+        "expr": "q",
+        "unit": "kPa",
+        "color": "rule",
+        "text": ""
+       },
+       {
+        "label": "3 hadli oshib ketish",
+        "expr": "100*(0.5 + 2/pi*(1 - 1/3 + 1/5) - 1)",
+        "unit": "%",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "burchak θ, °",
+      "y_label": "yuk, kPa",
+      "x_min": "0",
+      "x_max": "180",
+      "options": {},
+      "note": "θ = 0 da bir had 1,137q, uch had esa 1,052q beradi — sakrash yaqinida Gibbs hodisasi tufayli qator har doim biroz oshib ketadi."
+     }
+    ]
    },
    "difficulty": "ilg'or",
    "previous_link": "pq-13 va pq-14 da o'qsimmetriya masalani bir o'lchovli qilgan edi. pq-08 dagi Levi usuli esa qisman ajratish g'oyasini bergan edi. Endi ikkalasini birlashtiramiz: burchak bo'yicha qator, radius bo'yicha ODE.",
@@ -41427,7 +43680,148 @@
      "title": "Vinkler asosi va xarakterli uzunlik",
      "summary": "Plita ostidagi mustaqil prujinalar ko'rsatiladi; yuklama qo'yilganda mahalliy cho'kish paydo bo'ladi va uning $4\\ell$ da so'nishi, asos qattiqligi o'zgarganda zona kengayishi animatsiya qilinadi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Vinkler asosi: xarakterli uzunlik",
+      "caption": "Yuk faqat chekli sohada tarqaladi.",
+      "params": [
+       {
+        "key": "D",
+        "label": "Plastina bikrligi",
+        "minimum": 100,
+        "maximum": 1000000,
+        "default": 50000,
+        "step": 100,
+        "unit": "N·m"
+       },
+       {
+        "key": "k",
+        "label": "Asos koeffitsienti",
+        "minimum": 1,
+        "maximum": 500,
+        "default": 50,
+        "step": 1,
+        "unit": "MN/m³"
+       }
+      ],
+      "curves": [
+       {
+        "label": "l = (D/k)^0,25, m",
+        "expr": "(D/(x*1e6))^0.25",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "1 m daraja",
+        "expr": "1",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "l (k=50 MN/m³)",
+        "expr": "(D/50e6)^0.25",
+        "unit": "m",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Ta'sir radiusi ≈ 3l",
+        "expr": "3*(D/(k*1e6))^0.25",
+        "unit": "m",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "w markazda (P=100 kN)",
+        "expr": "100000/(8*k*1e6*(D/(k*1e6))^0.5)*1000",
+        "unit": "mm",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "asos koeffitsienti k, MN/m³",
+      "y_label": "xarakterli uzunlik l, m",
+      "x_min": "1",
+      "x_max": "500",
+      "options": {},
+      "note": "Yuk ta'siri ~3l masofada amalda tugaydi — shuning uchun uzun poydevorni cheksiz deb hisoblash mumkin."
+     },
+     {
+      "kind": "plot",
+      "title": "Asos bikrligi va plastina og'ishi",
+      "caption": "Yumshoq asosda og'ish keskin oshadi.",
+      "params": [
+       {
+        "key": "P",
+        "label": "To'plangan kuch",
+        "minimum": 1,
+        "maximum": 1000,
+        "default": 100,
+        "step": 1,
+        "unit": "kN"
+       },
+       {
+        "key": "D",
+        "label": "Bikrlik",
+        "minimum": 100,
+        "maximum": 1000000,
+        "default": 50000,
+        "step": 100,
+        "unit": "N·m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "w₀ = P/(8k l²), mm",
+        "expr": "P*1000/(8*sqrt(x*1e6*D))*1000",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "10 mm daraja",
+        "expr": "10",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "w₀ (k=10)",
+        "expr": "P*1000/(8*sqrt(10e6*D))*1000",
+        "unit": "mm",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "w₀ (k=100)",
+        "expr": "P*1000/(8*sqrt(100e6*D))*1000",
+        "unit": "mm",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "k 10× oshsa",
+        "expr": "sqrt(10)",
+        "unit": "marta kamayadi",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "asos koeffitsienti k, MN/m³",
+      "y_label": "w₀, mm",
+      "x_min": "1",
+      "x_max": "500",
+      "options": {},
+      "note": "Og'ish k va D ning KVADRAT ILDIZIGA teskari — asosni 10 barobar bikrlash og'ishni atigi 3,2 marta kamaytiradi."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "pq-11 da konsentrlangan yuklama chekkalari bo'ylab tayangan plastinada ko'rib chiqilgan edi. Endi tayanch butun yuza bo'ylab taqsimlanadi va masala tubdan o'zgaradi: cheksiz plastinada ham chekli yechim paydo bo'ladi.",
@@ -41801,7 +44195,157 @@
      "title": "Qatlamli paket va B matritsasi",
      "summary": "Nosimmetrik paket cho'zilganda egilib ketishi animatsiya qilinadi; keyin paket simmetrik qilinadi va egilish yo'qolishi ko'rsatiladi. Kuchlanish epyurasining qatlam chegarasidagi sakrashi ta'kidlanadi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Sendvich panel: yadro balandligining roli",
+      "caption": "Qoplamalarni ajratish bikrlikni kvadratik oshiradi.",
+      "params": [
+       {
+        "key": "E",
+        "label": "Qoplama moduli",
+        "minimum": 10,
+        "maximum": 400,
+        "default": 70,
+        "step": 5,
+        "unit": "GPa"
+       },
+       {
+        "key": "tf",
+        "label": "Qoplama qalinligi",
+        "minimum": 0.1,
+        "maximum": 5,
+        "default": 0.5,
+        "step": 0.1,
+        "unit": "mm"
+       }
+      ],
+      "curves": [
+       {
+        "label": "D ≈ E·tf·c²/2, N·m",
+        "expr": "E*1e9*tf*1e-3*(x*1e-3)^2/2",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Yagona list (2tf)",
+        "expr": "E*1e9*(2*tf*1e-3)^3/(12*0.91)",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "D (c=25 mm)",
+        "expr": "E*1e9*tf*1e-3*6.25e-4/2",
+        "unit": "N·m",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Yagona list D",
+        "expr": "E*1e9*(2*tf*1e-3)^3/(12*0.91)",
+        "unit": "N·m",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Kuchayish",
+        "expr": "E*1e9*tf*1e-3*6.25e-4/2/(E*1e9*(2*tf*1e-3)^3/(12*0.91))",
+        "unit": "marta",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "yadro balandligi c, mm",
+      "y_label": "D, N·m",
+      "x_min": "1",
+      "x_max": "100",
+      "options": {},
+      "note": "Massa deyarli o'zgarmaydi, bikrlik esa uch tartibga o'sadi (0,5 mm qoplama, 25 mm yadro: ~1700 marta) — samolyot pollari shunday qurilgan."
+     },
+     {
+      "kind": "plot",
+      "title": "Qatlam burchagi va ekvivalent modul",
+      "caption": "Tolalar yo'nalishi panel xossalarini belgilaydi.",
+      "params": [
+       {
+        "key": "E1",
+        "label": "Tola bo'ylab E₁",
+        "minimum": 50,
+        "maximum": 400,
+        "default": 140,
+        "step": 5,
+        "unit": "GPa"
+       },
+       {
+        "key": "E2",
+        "label": "Ko'ndalang E₂",
+        "minimum": 2,
+        "maximum": 50,
+        "default": 10,
+        "step": 0.5,
+        "unit": "GPa"
+       },
+       {
+        "key": "G12",
+        "label": "Siljish G₁₂",
+        "minimum": 1,
+        "maximum": 20,
+        "default": 5,
+        "step": 0.5,
+        "unit": "GPa"
+       }
+      ],
+      "curves": [
+       {
+        "label": "1/E(θ), 1/GPa",
+        "expr": "cos(x*pi/180)^4/E1 + sin(x*pi/180)^4/E2 + (1/G12 - 0.6/E1)*sin(x*pi/180)^2*cos(x*pi/180)^2",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "1/E₁",
+        "expr": "1/E1",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "E (θ=0°)",
+        "expr": "E1",
+        "unit": "GPa",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "E (θ=45°)",
+        "expr": "1/(0.25/E1 + 0.25/E2 + 0.25*(1/G12 - 0.6/E1))",
+        "unit": "GPa",
+        "color": "mark",
+        "text": ""
+       },
+       {
+        "label": "E (θ=90°)",
+        "expr": "E2",
+        "unit": "GPa",
+        "color": "compress",
+        "text": ""
+       }
+      ],
+      "x_label": "burchak θ, °",
+      "y_label": "1/E, 1/GPa",
+      "x_min": "0",
+      "x_max": "90",
+      "options": {},
+      "note": "Formulada ν₁₂ = 0,3 qabul qilingan. 45° da modul E₁ dan o'nlab barobar kichik — shuning uchun kompozitlar ko'p burchakli qatlamlardan yig'iladi."
+     }
+    ]
    },
    "difficulty": "ilg'or",
    "previous_link": "pq-12 da geometrik ortotropiya orqali bikrlikni oshirish ko'rsatilgan edi. tmm-13 da esa material anizotropiyasi o'rganilgan. Endi ikkalasini birlashtiramiz: turli materiallardan tuzilgan, turli yo'nalishga ega qatlamlar paketi.",
@@ -42120,7 +44664,137 @@
      "title": "Membrana effekti va nochiziqli bikrlanish",
      "summary": "Plastina asta-sekin egiladi; kichik og'ishda o'rta sirt cho'zilmaydi, katta og'ishda esa cho'zilish paydo bo'lib membrana kuchlari o'sadi va $q$–$w$ egri chizig'i chiziqlidan ajralib ketadi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Membrana effekti: katta og'ishlarda bikrlikning oshishi",
+      "caption": "Og'ish qalinlikka yetganda chiziqli nazariya xato beradi.",
+      "params": [
+       {
+        "key": "h",
+        "label": "Qalinlik",
+        "minimum": 0.5,
+        "maximum": 20,
+        "default": 2,
+        "step": 0.1,
+        "unit": "mm"
+       }
+      ],
+      "curves": [
+       {
+        "label": "q_chiziqsiz/q_chiziqli",
+        "expr": "1 + 0.488*x^2",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Chiziqli nazariya",
+        "expr": "1",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "w/h=0,5 da",
+        "expr": "1 + 0.488*0.25",
+        "unit": "marta",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "w/h=1 da",
+        "expr": "1.488",
+        "unit": "marta",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "w/h=2 da",
+        "expr": "1 + 0.488*4",
+        "unit": "marta",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "w/h nisbati",
+      "y_label": "kerakli yuk nisbati",
+      "x_min": "0",
+      "x_max": "3",
+      "options": {},
+      "note": "Qistirilgan doiraviy plastina uchun qa⁴/(Eh⁴) = 5,86(w/h) + 2,86(w/h)³; demak w = h da chiziqli nazariya bashoratidan 48,8% ko'proq yuk kerak bo'ladi."
+     },
+     {
+      "kind": "plot",
+      "title": "Membrana va egish kuchlarining ulushi",
+      "caption": "Og'ish oshgani sari yuk membrana orqali uzatila boshlaydi.",
+      "params": [
+       {
+        "key": "h",
+        "label": "Qalinlik",
+        "minimum": 0.5,
+        "maximum": 20,
+        "default": 2,
+        "step": 0.1,
+        "unit": "mm"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Membrana ulushi, %",
+        "expr": "100*0.488*x^2/(1 + 0.488*x^2)",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Egish ulushi, %",
+        "expr": "100/(1 + 0.488*x^2)",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "50% chegara",
+        "expr": "50",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Membrana (w/h=1)",
+        "expr": "100*0.488/1.488",
+        "unit": "%",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Membrana (w/h=2)",
+        "expr": "100*1.952/2.952",
+        "unit": "%",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Teng ulush w/h",
+        "expr": "sqrt(1/0.488)",
+        "unit": "",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "w/h",
+      "y_label": "ulush, %",
+      "x_min": "0",
+      "x_max": "4",
+      "options": {},
+      "note": "w/h = 1,43 da membrana va egish teng ulush beradi; undan keyin plastina 'membrana'dek ishlaydi."
+     }
+    ]
    },
    "difficulty": "ilg'or",
    "previous_link": "pq-01 dagi uchinchi gipoteza — o'rta sirt cho'zilmaydi — barcha oldingi mavzularda ishlatildi. Endi uni bekor qilamiz. pq-09 dagi energiya usuli esa nochiziqli masalani yechishning eng qulay yo'lini beradi.",
@@ -42439,7 +45113,157 @@
      "title": "Plastina ustuvorligini yo'qotishi",
      "summary": "Siqilgan plastina yuklama ortgani sari tekis qoladi, kritik nuqtada birdan to'lqinsimon shaklga o'tadi; bifurkatsiya diagrammasi bir vaqtda quriladi va $a/b$ o'zgarganda yarim to'lqinlar soni sakrashi ko'rsatiladi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Sirt ichidagi kuchlar va og'ish",
+      "caption": "Cho'zuvchi kuch bikrlashtiradi, siquvchi esa yumshatadi.",
+      "params": [
+       {
+        "key": "q",
+        "label": "Ko'ndalang yuk",
+        "minimum": 0.1,
+        "maximum": 100,
+        "default": 10,
+        "step": 0.1,
+        "unit": "kPa"
+       },
+       {
+        "key": "D",
+        "label": "Bikrlik",
+        "minimum": 100,
+        "maximum": 100000,
+        "default": 20000,
+        "step": 100,
+        "unit": "N·m"
+       },
+       {
+        "key": "a",
+        "label": "Tomon",
+        "minimum": 0.2,
+        "maximum": 5,
+        "default": 1,
+        "step": 0.1,
+        "unit": "m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "w/w₀ = 1/(1 − N/N_kr)",
+        "expr": "1/(1 - x)",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Yuksiz daraja",
+        "expr": "1",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "N/N_kr=0,5 da",
+        "expr": "2",
+        "unit": "marta",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "N/N_kr=0,8 da",
+        "expr": "5",
+        "unit": "marta",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Cho'zilish (N/N_kr=−1)",
+        "expr": "0.5",
+        "unit": "marta",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "N/N_kr nisbati",
+      "y_label": "og'ish kuchayishi",
+      "x_min": "-1",
+      "x_max": "0.9",
+      "options": {},
+      "note": "Siquvchi kuch kritik qiymatning yarmiga yetganda og'ish ikki barobar oshadi — bu ustuvorlikning oldingi belgisi."
+     },
+     {
+      "kind": "plot",
+      "title": "Ustuvorlik masalasining qo'yilishi: xos qiymat",
+      "caption": "Yechim faqat ma'lum yuklarda noldan farqli bo'ladi.",
+      "params": [
+       {
+        "key": "D",
+        "label": "Bikrlik",
+        "minimum": 100,
+        "maximum": 100000,
+        "default": 20000,
+        "step": 100,
+        "unit": "N·m"
+       },
+       {
+        "key": "a",
+        "label": "Tomon",
+        "minimum": 0.2,
+        "maximum": 5,
+        "default": 1,
+        "step": 0.1,
+        "unit": "m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "N_kr(m) = π²D(m + 1/m)²/a² (kvadrat)",
+        "expr": "pi^2*D*(x + 1/x)^2/a^2/1000",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Minimum (m=1, kvadrat)",
+        "expr": "4*pi^2*D/a^2/1000",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "N_kr (m=1)",
+        "expr": "4*pi^2*D/a^2/1000",
+        "unit": "kN/m",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "N_kr (m=2)",
+        "expr": "pi^2*D*(2 + 0.5)^2/a^2/1000",
+        "unit": "kN/m",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Kritik kuchlanish (h=5 mm)",
+        "expr": "4*pi^2*D/a^2/0.005/1e6",
+        "unit": "MPa",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "yarim to'lqinlar soni m",
+      "y_label": "N_kr, kN/m",
+      "x_min": "1",
+      "x_max": "5",
+      "options": {},
+      "note": "Kvadrat plastinada minimal kritik yuk m = 1 da: plastina bitta yarim to'lqin bilan bukiladi."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "pq-18 da **cho'zuvchi** membrana kuchlari plastinani bikrlashtirgan edi. mq-25 da esa sterjenning siqilishda ustuvorlikni yo'qotishi o'rganilgan. Endi ikkalasini birlashtiramiz: siquvchi membrana kuchlari plastinani yumshatadi va ma'lum qiymatda bikrlik butunlay yo'qoladi.",
@@ -42747,7 +45571,148 @@
      "title": "Girlanda egri chizig'i va yarim to'lqinlar",
      "summary": "$a/b$ asta-sekin oshadi; plastinadagi yarim to'lqinlar soni sakrab o'zgaradi va shu paytda girlanda egri chizig'ida shoxdan shoxga o'tish ko'rsatiladi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Siqilgan plastinaning kritik yuki",
+      "caption": "k koeffitsienti tomonlar nisbatiga bog'liq.",
+      "params": [
+       {
+        "key": "E",
+        "label": "Modul",
+        "minimum": 10,
+        "maximum": 400,
+        "default": 210,
+        "step": 5,
+        "unit": "GPa"
+       },
+       {
+        "key": "h",
+        "label": "Qalinlik",
+        "minimum": 1,
+        "maximum": 30,
+        "default": 5,
+        "step": 0.5,
+        "unit": "mm"
+       },
+       {
+        "key": "b",
+        "label": "Kenglik",
+        "minimum": 0.1,
+        "maximum": 3,
+        "default": 0.5,
+        "step": 0.05,
+        "unit": "m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "σ_kr = kπ²E/(12(1−ν²))·(h/b)², MPa",
+        "expr": "x*pi^2*E*1e9/(12*0.91)*(h*1e-3/b)^2/1e6",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Oqish 250 MPa",
+        "expr": "250",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "σ_kr (k=4, sharnirli)",
+        "expr": "4*pi^2*E*1e9/(12*0.91)*(h*1e-3/b)^2/1e6",
+        "unit": "MPa",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "σ_kr (k=6,97, qistirilgan)",
+        "expr": "6.97*pi^2*E*1e9/(12*0.91)*(h*1e-3/b)^2/1e6",
+        "unit": "MPa",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Oqishga teng h",
+        "expr": "sqrt(250e6*12*0.91/(4*pi^2*E*1e9))*b*1000",
+        "unit": "mm",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "ustuvorlik koeffitsienti k",
+      "y_label": "σ_kr, MPa",
+      "x_min": "2",
+      "x_max": "10",
+      "options": {},
+      "note": "Qistirilgan chekka k ni 4 dan 6,97 ga oshiradi — kritik kuchlanish 74% ga ko'tariladi."
+     },
+     {
+      "kind": "plot",
+      "title": "k koeffitsienti va tomonlar nisbati",
+      "caption": "Uzun plastinada k = 4 atrofida tebranadi.",
+      "params": [
+       {
+        "key": "m",
+        "label": "Yarim to'lqinlar soni",
+        "minimum": 1,
+        "maximum": 5,
+        "default": 1,
+        "step": 1,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "k = (m/α + α/m)²",
+        "expr": "(m/x + x/m)^2",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "k = 4 (minimum)",
+        "expr": "4",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "k (α=1, m=1)",
+        "expr": "(1/1 + 1)^2/1",
+        "unit": "",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "k (α=2, m=1)",
+        "expr": "(0.5 + 2)^2",
+        "unit": "",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "k (α=2, m=2)",
+        "expr": "(1 + 1)^2",
+        "unit": "",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "α = a/b",
+      "y_label": "k",
+      "x_min": "0.4",
+      "x_max": "5",
+      "options": {},
+      "note": "α = √2 da m = 1 dan m = 2 ga o'tish yuz beradi — bukilish shakli sakrab o'zgaradi, k esa 4 ga qaytadi."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "pq-19 da ustuvorlik masalasi umumiy qo'yildi va $k = 4$ qiymati berilgan deb olingan edi. Endi uni aniq keltirib chiqaramiz va boshqa geometriyalar uchun qiymatlarini olamiz.",
@@ -43065,7 +46030,164 @@
      "title": "Siljishda ustuvorlik va tortish maydoni",
      "summary": "Devor siljish ostida qiya to'lqinlar bilan bukiladi; keyin kuchlanish taqsimoti o'zgarib, diagonal tortish maydoni hosil bo'lishi va to'sin ferma kabi ishlay boshlashi ko'rsatiladi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Siljishda bukilish koeffitsienti",
+      "caption": "Sof siljishda k siqilishdagidan sezilarli katta.",
+      "params": [
+       {
+        "key": "E",
+        "label": "Modul",
+        "minimum": 10,
+        "maximum": 400,
+        "default": 210,
+        "step": 5,
+        "unit": "GPa"
+       },
+       {
+        "key": "h",
+        "label": "Qalinlik",
+        "minimum": 1,
+        "maximum": 30,
+        "default": 4,
+        "step": 0.5,
+        "unit": "mm"
+       },
+       {
+        "key": "b",
+        "label": "Kenglik",
+        "minimum": 0.1,
+        "maximum": 3,
+        "default": 0.4,
+        "step": 0.05,
+        "unit": "m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "k_s = 5,34 + 4/α²",
+        "expr": "5.34 + 4/x^2",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Uzun plastina chegarasi 5,34",
+        "expr": "5.34",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       },
+       {
+        "label": "Siqilish k = 4",
+        "expr": "4",
+        "color": "compress",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "k_s (α=1)",
+        "expr": "5.34 + 4",
+        "unit": "",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "k_s (α=3)",
+        "expr": "5.34 + 4/9",
+        "unit": "",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "τ_kr (α=1)",
+        "expr": "9.34*pi^2*E*1e9/(12*0.91)*(h*1e-3/b)^2/1e6",
+        "unit": "MPa",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "α = a/b",
+      "y_label": "ustuvorlik koeffitsienti k",
+      "x_min": "1",
+      "x_max": "5",
+      "options": {},
+      "note": "Kvadrat panelda k_s = 9,34, uzun panelda 5,34 ga tushadi — kesuvchi devorlarda qovurg'a shuning uchun qo'yiladi."
+     },
+     {
+      "kind": "plot",
+      "title": "Kritikdan keyingi ish: samarali kenglik",
+      "caption": "Bukilgan plastina yuk ko'tarishda davom etadi.",
+      "params": [
+       {
+        "key": "scr",
+        "label": "Kritik kuchlanish σ_kr",
+        "minimum": 10,
+        "maximum": 300,
+        "default": 60,
+        "step": 5,
+        "unit": "MPa"
+       },
+       {
+        "key": "b",
+        "label": "Kenglik",
+        "minimum": 0.1,
+        "maximum": 3,
+        "default": 0.5,
+        "step": 0.05,
+        "unit": "m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "b_ef/b = √(σ_kr/σ)",
+        "expr": "sqrt(scr/x)",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "To'liq kenglik",
+        "expr": "1",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "b_ef (σ=2σ_kr)",
+        "expr": "b*sqrt(0.5)*1000",
+        "unit": "mm",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "b_ef (σ=σᵧ=250)",
+        "expr": "b*sqrt(scr/250)*1000",
+        "unit": "mm",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Zaxira (σᵧ/σ_kr)",
+        "expr": "250/scr",
+        "unit": "marta",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "chekka kuchlanishi σ, MPa",
+      "y_label": "samarali kenglik ulushi",
+      "x_min": "scr",
+      "x_max": "400",
+      "options": {},
+      "note": "Fon Karman samarali kenglik nazariyasi: plastina bukilgandan keyin ham oqish chegarasigacha ishlaydi."
+     }
+    ]
    },
    "difficulty": "ilg'or",
    "previous_link": "pq-20 da bir tekis siqilish ko'rib chiqildi va kritik yuklama buzilish deb hisoblandi. Amalda esa plastina kritik nuqtada buzilmaydi — pq-18 dagi membrana kuchlari ishga tushadi va qo'shimcha zaxira beradi.",
@@ -43388,7 +46510,173 @@
      "title": "Tebranish shakllari va Xladni figuralari",
      "summary": "Plastina ketma-ket shakllarda tebranadi; har birida tugun chiziqlari ajratib ko'rsatiladi va ularga 'qum' to'planishi animatsiya qilinadi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Plastinaning xususiy chastotalari",
+      "caption": "Chastota qalinlikka proporsional, tomon kvadratiga teskari.",
+      "params": [
+       {
+        "key": "E",
+        "label": "Modul",
+        "minimum": 10,
+        "maximum": 400,
+        "default": 210,
+        "step": 5,
+        "unit": "GPa"
+       },
+       {
+        "key": "rho",
+        "label": "Zichlik",
+        "minimum": 1000,
+        "maximum": 9000,
+        "default": 7850,
+        "step": 50,
+        "unit": "kg/m³"
+       },
+       {
+        "key": "a",
+        "label": "Tomon",
+        "minimum": 0.1,
+        "maximum": 3,
+        "default": 0.5,
+        "step": 0.05,
+        "unit": "m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "f₁₁ = (π/a²)√(D/ρh), Gs",
+        "expr": "pi/a^2*sqrt(E*1e9*(x*1e-3)^3/(12*0.91)/(rho*x*1e-3))",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "50 Gs daraja",
+        "expr": "50",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "f₁₁ (h=2 mm)",
+        "expr": "pi/a^2*sqrt(E*1e9*8e-9/(12*0.91)/(rho*2e-3))",
+        "unit": "Gs",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "f₁₂ = f₂₁ (h=2 mm)",
+        "expr": "5*pi/(2*a^2)*sqrt(E*1e9*8e-9/(12*0.91)/(rho*2e-3))",
+        "unit": "Gs",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "f₁₂/f₁₁",
+        "expr": "2.5",
+        "unit": "marta",
+        "color": "rule",
+        "text": ""
+       },
+       {
+        "label": "f₂₂/f₁₁",
+        "expr": "4",
+        "unit": "marta",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "qalinlik h, mm",
+      "y_label": "birinchi chastota f₁₁, Gs",
+      "x_min": "0.5",
+      "x_max": "20",
+      "options": {},
+      "note": "ω_mn = π²(m²/a² + n²/b²)√(D/ρh): kvadrat plastinada f₁₂ = f₂₁ — ikki tomonlama karrali chastota."
+     },
+     {
+      "kind": "plot",
+      "title": "Chastota va qalinlik: rezonansdan qochish",
+      "caption": "Ishchi chastotadan uzoqlashish uchun qalinlik tanlanadi.",
+      "params": [
+       {
+        "key": "E",
+        "label": "Modul",
+        "minimum": 10,
+        "maximum": 400,
+        "default": 210,
+        "step": 5,
+        "unit": "GPa"
+       },
+       {
+        "key": "rho",
+        "label": "Zichlik",
+        "minimum": 1000,
+        "maximum": 9000,
+        "default": 7850,
+        "step": 50,
+        "unit": "kg/m³"
+       },
+       {
+        "key": "h",
+        "label": "Qalinlik",
+        "minimum": 0.5,
+        "maximum": 20,
+        "default": 3,
+        "step": 0.1,
+        "unit": "mm"
+       }
+      ],
+      "curves": [
+       {
+        "label": "f₁₁(a), Gs",
+        "expr": "pi/x^2*sqrt(E*1e9*(h*1e-3)^3/(12*0.91)/(rho*h*1e-3))",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Dvigatel chastotasi 50 Gs",
+        "expr": "50",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "f₁₁ (a=0,5 m)",
+        "expr": "pi/0.25*sqrt(E*1e9*(h*1e-3)^3/(12*0.91)/(rho*h*1e-3))",
+        "unit": "Gs",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "50 Gs ga mos a",
+        "expr": "sqrt(pi/50*sqrt(E*1e9*(h*1e-3)^3/(12*0.91)/(rho*h*1e-3)))",
+        "unit": "m",
+        "color": "mark",
+        "text": ""
+       },
+       {
+        "label": "Chastota h ga bog'liqligi",
+        "expr": "1",
+        "unit": "daraja",
+        "color": "compress",
+        "text": ""
+       }
+      ],
+      "x_label": "tomon a, m",
+      "y_label": "f₁₁, Gs",
+      "x_min": "0.1",
+      "x_max": "2",
+      "options": {},
+      "note": "Chastota qalinlikka BIRINCHI darajada proporsional (D ~ h³, massa ~ h) — qalinlashtirish samarali chora."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "nm-29 da ko'p erkinlik darajali tizimning modal tahlili o'rganilgan edi. Plastina — cheksiz erkinlik darajali tizim, lekin g'oya bir xil: xususiy chastotalar va shakllar.",
@@ -43743,7 +47031,144 @@
      "title": "Rezonans va demflash",
      "summary": "Qo'zg'atuvchi chastota asta-sekin oshadi; rezonansga yaqinlashganda amplituda keskin ortadi. Keyin demfer qatlam qo'shiladi va cho'qqi yumshashi ko'rsatiladi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Rezonans egri chizig'i va demflash",
+      "caption": "Demflash rezonans cho'qqisini cheklaydi.",
+      "params": [
+       {
+        "key": "z",
+        "label": "Demflash koeffitsienti ζ",
+        "minimum": 0.005,
+        "maximum": 0.5,
+        "default": 0.02,
+        "step": 0.005,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "Kuchayish |H|",
+        "expr": "1/sqrt((1 - x^2)^2 + (2*z*x)^2)",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Statik daraja",
+        "expr": "1",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Rezonansdagi kuchayish",
+        "expr": "1/(2*z)",
+        "unit": "marta",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Sifat omili Q",
+        "expr": "1/(2*z)",
+        "unit": "",
+        "color": "mark",
+        "text": ""
+       },
+       {
+        "label": "ω/ω₁=2 da",
+        "expr": "1/sqrt(9 + 16*z^2)",
+        "unit": "marta",
+        "color": "compress",
+        "text": ""
+       }
+      ],
+      "x_label": "chastota nisbati ω/ω₁",
+      "y_label": "dinamik kuchayish",
+      "x_min": "0",
+      "x_max": "3",
+      "options": {},
+      "note": "ζ = 0,02 da rezonansda kuchayish 25 marta — demflashsiz plastina juda tez buziladi."
+     },
+     {
+      "kind": "plot",
+      "title": "Zarbaviy javob: to'g'ri to'rtburchak impuls spektri",
+      "caption": "Dinamiklik koeffitsienti impuls davomiyligi bilan xususiy davr nisbatiga bog'liq.",
+      "params": [
+       {
+        "key": "T",
+        "label": "Xususiy davr",
+        "minimum": 0.001,
+        "maximum": 1,
+        "default": 0.02,
+        "step": 0.001,
+        "unit": "s"
+       }
+      ],
+      "curves": [
+       {
+        "label": "D = 2sin(π·t_d/T), t_d/T ≤ 0,5",
+        "expr": "2*sin(pi*min(x, 0.5))",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Chegara D = 2",
+        "expr": "2",
+        "color": "compress",
+        "dashed": true,
+        "when": ""
+       },
+       {
+        "label": "Statik daraja",
+        "expr": "1",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "D (t_d/T=0,1)",
+        "expr": "2*sin(pi*0.1)",
+        "unit": "",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "D (t_d/T=0,25)",
+        "expr": "2*sin(pi*0.25)",
+        "unit": "",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "D (t_d/T ≥ 0,5)",
+        "expr": "2",
+        "unit": "",
+        "color": "mark",
+        "text": ""
+       },
+       {
+        "label": "Xususiy chastota",
+        "expr": "1/T",
+        "unit": "Gs",
+        "color": "rule",
+        "text": ""
+       }
+      ],
+      "x_label": "t_d/T nisbati",
+      "y_label": "dinamiklik koeffitsienti D",
+      "x_min": "0",
+      "x_max": "2",
+      "options": {},
+      "note": "Demflashsiz tizim uchun aniq natija: t_d ≥ T/2 bo'lganda D har doim 2 ga teng, qisqa impulsda esa D = 2sin(πt_d/T) — masalan t_d/T = 0,1 da atigi 0,618."
+     }
+    ]
    },
    "difficulty": "ilg'or",
    "previous_link": "pq-22 da xususiy chastotalar topildi, lekin amplituda aniqlanmadi. nm-27 dagi bir erkinlik darajali majburiy tebranish nazariyasini har bir shaklga qo'llab, to'liq javobni olamiz.",
@@ -44103,7 +47528,148 @@
      "title": "Kirxhoff va Mindlin kinematikasi",
      "summary": "Plastina kesimi egiladi; chap tomonda normal chiziq perpendikulyar qoladi (Kirxhoff), o'ng tomonda esa burchak hosil qiladi (Mindlin). Qalinlik oshgani sari farq kattalashishi ko'rsatiladi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Mindlin nazariyasi: sdvig tuzatmasi",
+      "caption": "Qalin plastinada sdvig og'ishga sezilarli hissa qo'shadi.",
+      "params": [
+       {
+        "key": "nu",
+        "label": "ν",
+        "minimum": 0,
+        "maximum": 0.45,
+        "default": 0.3,
+        "step": 0.01,
+        "unit": ""
+       },
+       {
+        "key": "k",
+        "label": "Sdvig koeffitsienti",
+        "minimum": 0.5,
+        "maximum": 1,
+        "default": 0.8333,
+        "step": 0.0001,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "w_M/w_K = 1 + c(h/a)²",
+        "expr": "1 + 2*(1 + nu)/(k*(1 - nu))*0.32*x^2",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Kirxhoff",
+        "expr": "1",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "h/a=1/20 da oshish",
+        "expr": "100*2*(1 + nu)/(k*(1 - nu))*0.32/400",
+        "unit": "%",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "h/a=1/10 da oshish",
+        "expr": "100*2*(1 + nu)/(k*(1 - nu))*0.32/100",
+        "unit": "%",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "h/a=1/5 da oshish",
+        "expr": "100*2*(1 + nu)/(k*(1 - nu))*0.32/25",
+        "unit": "%",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "h/a nisbati",
+      "y_label": "og'ish nisbati",
+      "x_min": "0",
+      "x_max": "0.3",
+      "options": {},
+      "note": "Muhandislik bahosi. h/a = 1/20 da sdvig tuzatmasi 0,4% — aynan shundan Kirxhoff nazariyasining amal qilish chegarasi kelib chiqadi; h/a = 1/5 da esa u 5,7% ga chiqadi."
+     },
+     {
+      "kind": "plot",
+      "title": "Sdvig koeffitsienti va sdvig bikrligi",
+      "caption": "k = 5/6 to'rtburchak kesim uchun energiya tengligidan olinadi.",
+      "params": [
+       {
+        "key": "G",
+        "label": "Siljish moduli",
+        "minimum": 1,
+        "maximum": 100,
+        "default": 81,
+        "step": 1,
+        "unit": "GPa"
+       },
+       {
+        "key": "h",
+        "label": "Qalinlik",
+        "minimum": 1,
+        "maximum": 100,
+        "default": 20,
+        "step": 1,
+        "unit": "mm"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Sdvig bikrligi kGh, MN/m",
+        "expr": "x*G*1e9*h*1e-3/1e6",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "k=5/6 daraja",
+        "expr": "0.8333*G*1e9*h*1e-3/1e6",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "kGh (k=5/6)",
+        "expr": "0.8333*G*1e9*h*1e-3/1e6",
+        "unit": "MN/m",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Egish bikrligi D (ν=0,3)",
+        "expr": "2*G*1e9*(h*1e-3)^3/(12*0.7)",
+        "unit": "N·m",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "k = 5/6",
+        "expr": "5/6",
+        "unit": "",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "sdvig koeffitsienti k",
+      "y_label": "kGh, MN/m",
+      "x_min": "0.5",
+      "x_max": "1",
+      "options": {},
+      "note": "k = 5/6 parabolik τ taqsimotining energiyasini tekis taqsimotga tenglashtirishdan chiqadi."
+     }
+    ]
    },
    "difficulty": "ilg'or",
    "previous_link": "pq-01 da Kirxhoff gipotezasi qabul qilingan va uning xatosi $(h/a)^2$ tartibida ekanligi aytilgan edi. Endi shu gipotezani yumshatamiz va tuzatmani aniq hisoblaymiz.",
@@ -44402,7 +47968,139 @@
      "title": "Gauss egriligi va sirt tasnifi",
      "summary": "Tekis varaq ketma-ket silindrga, konusga, sferaga va giperboloidga aylanadi; har bosqichda $R_1$, $R_2$ va $K$ ko'rsatiladi. Yoyiluvchan sirtlar tekis varaqqa qaytariladi, yoyilmaydiganlar esa yirtilishi ko'rsatiladi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Gauss egriligi va sirt turlari",
+      "caption": "Ishorasi qobiqning bikrlik xarakterini belgilaydi.",
+      "params": [
+       {
+        "key": "R1",
+        "label": "Birinchi egrilik radiusi",
+        "minimum": -10,
+        "maximum": 10,
+        "default": 2,
+        "step": 0.1,
+        "unit": "m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "K = 1/(R₁R₂), 1/m²",
+        "expr": "1/(R1*x)",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Nol egrilik (silindr)",
+        "expr": "0",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Sfera (R₂=R₁)",
+        "expr": "1/R1^2",
+        "unit": "1/m²",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Egar (R₂=−R₁)",
+        "expr": "-1/R1^2",
+        "unit": "1/m²",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Silindr (R₂→∞)",
+        "expr": "0",
+        "unit": "1/m²",
+        "color": "rule",
+        "text": ""
+       }
+      ],
+      "x_label": "ikkinchi radius R₂, m",
+      "y_label": "Gauss egriligi K, 1/m²",
+      "x_min": "-10",
+      "x_max": "10",
+      "options": {},
+      "note": "K > 0 sfera (yassilanmaydi), K = 0 silindr (yassilanadi), K < 0 egar — bu qobiq ishini butunlay o'zgartiradi."
+     },
+     {
+      "kind": "plot",
+      "title": "O'rtacha egrilik va membrana kuchlari",
+      "caption": "Laplas qonuni ikki radiusni bosim bilan bog'laydi.",
+      "params": [
+       {
+        "key": "p",
+        "label": "Ichki bosim",
+        "minimum": 0.01,
+        "maximum": 20,
+        "default": 1,
+        "step": 0.01,
+        "unit": "MPa"
+       },
+       {
+        "key": "t",
+        "label": "Qobiq qalinligi",
+        "minimum": 1,
+        "maximum": 50,
+        "default": 5,
+        "step": 0.5,
+        "unit": "mm"
+       }
+      ],
+      "curves": [
+       {
+        "label": "σ = pR/(2t) (sfera), MPa",
+        "expr": "p*x/(2*t*1e-3)*1e-3/1e3*1e3",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "σ = pR/t (silindr halqasimon)",
+        "expr": "p*x/(t*1e-3)*1e-3/1e3*1e3",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Sfera (R=1 m)",
+        "expr": "p*1/(2*t*1e-3)*1e-3",
+        "unit": "MPa",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Silindr (R=1 m)",
+        "expr": "p*1/(t*1e-3)*1e-3",
+        "unit": "MPa",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Nisbat",
+        "expr": "2",
+        "unit": "marta",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "radius R, m",
+      "y_label": "kuchlanish, MPa",
+      "x_min": "0.05",
+      "x_max": "3",
+      "options": {},
+      "note": "Bir xil bosim va radiusda silindr sferadan ikki barobar ko'p kuchlanadi — ballon uchlari shuning uchun sferik."
+     }
+    ]
    },
    "difficulty": "asosiy",
    "previous_link": "pq-02 da tekis plastinaning egrilik tenzori kiritilgan va Gauss egriligi $K = \\kappa_1\\kappa_2$ ta'riflangan edi. U yerda $K$ deformatsiya natijasi edi; endi $K$ — konstruksiyaning **boshlang'ich** xossasi.",
@@ -44716,7 +48414,164 @@
      "title": "Laplas tenglamasi va membrana kuchlari",
      "summary": "Qobiq elementi ajratiladi, tarang kuchlarning normal tashkil etuvchilari $N/R$ ko'rsatiladi va ular bosim bilan muvozanatlashadi. Keyin silindr va sfera bosim ostida kengayadi — kengayishlar har xil bo'lib, tutashuvda uzilish hosil bo'ladi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Silindrik idish: ikki yo'nalishdagi kuchlanish",
+      "caption": "Halqasimon kuchlanish o'qiydan ikki barobar katta.",
+      "params": [
+       {
+        "key": "p",
+        "label": "Bosim",
+        "minimum": 0.01,
+        "maximum": 20,
+        "default": 2,
+        "step": 0.01,
+        "unit": "MPa"
+       },
+       {
+        "key": "R",
+        "label": "Radius",
+        "minimum": 0.05,
+        "maximum": 3,
+        "default": 0.5,
+        "step": 0.01,
+        "unit": "m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "σ_t = pR/t, MPa",
+        "expr": "p*R/(x*1e-3)*1e-3",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "σ_a = pR/(2t)",
+        "expr": "p*R/(2*x*1e-3)*1e-3",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "[σ] = 160 MPa",
+        "expr": "160",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "σ_t (t=5 mm)",
+        "expr": "p*R/5e-3*1e-3",
+        "unit": "MPa",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "σ_a (t=5 mm)",
+        "expr": "p*R/1e-2*1e-3",
+        "unit": "MPa",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Kerakli t ([σ]=160)",
+        "expr": "p*R/160*1000",
+        "unit": "mm",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "qalinlik t, mm",
+      "y_label": "kuchlanish, MPa",
+      "x_min": "1",
+      "x_max": "40",
+      "options": {},
+      "note": "Buzilish odatda o'q bo'ylab darz bilan boshlanadi — chunki uni halqasimon kuchlanish ochadi."
+     },
+     {
+      "kind": "plot",
+      "title": "Konus qobiq: kuchlanishning radius bo'ylab o'sishi",
+      "caption": "Konusda kuchlanish uchdan asosga qarab chiziqli oshadi.",
+      "params": [
+       {
+        "key": "p",
+        "label": "Bosim",
+        "minimum": 0.01,
+        "maximum": 20,
+        "default": 1,
+        "step": 0.01,
+        "unit": "MPa"
+       },
+       {
+        "key": "t",
+        "label": "Qalinlik",
+        "minimum": 1,
+        "maximum": 40,
+        "default": 5,
+        "step": 0.5,
+        "unit": "mm"
+       },
+       {
+        "key": "al",
+        "label": "Yarim burchak",
+        "minimum": 5,
+        "maximum": 75,
+        "default": 30,
+        "step": 1,
+        "unit": "°"
+       }
+      ],
+      "curves": [
+       {
+        "label": "σ_t = pr/(t·cos α), MPa",
+        "expr": "p*x/(t*1e-3*cos(al*pi/180))*1e-3",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Silindr (α=0) darajasi",
+        "expr": "p*x/(t*1e-3)*1e-3",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "σ_t (r=0,5 m)",
+        "expr": "p*0.5/(t*1e-3*cos(al*pi/180))*1e-3",
+        "unit": "MPa",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Konus/silindr",
+        "expr": "1/cos(al*pi/180)",
+        "unit": "marta",
+        "color": "mark",
+        "text": ""
+       },
+       {
+        "label": "Uchda (r=0)",
+        "expr": "0",
+        "unit": "MPa",
+        "color": "compress",
+        "text": ""
+       }
+      ],
+      "x_label": "radius r, m",
+      "y_label": "σ_t, MPa",
+      "x_min": "0",
+      "x_max": "1",
+      "options": {},
+      "note": "α = 30° da konus silindrdan 15% ko'p kuchlanadi; α = 60° da esa ikki barobar."
+     }
+    ]
    },
    "difficulty": "murakkab",
    "previous_link": "pq-25 da qobiq geometriyasi to'liq tavsiflandi va normal ko'chish cho'zilish deformatsiyasini hosil qilishi ko'rsatildi. Endi shu mexanizmni miqdoriy ifodalaymiz: yuklamani faqat sirt ichidagi kuchlar ko'taradi deb faraz qilamiz.",
@@ -45041,7 +48896,164 @@
      "title": "Chekka effekti va so'nish masshtabi",
      "summary": "Rezervuar devori bosim ostida kengayadi; tubi mahkamlangani uchun u yerda kengayish nolga majburlanadi va so'nuvchi to'lqin hosil bo'ladi. $\\sqrt{Rh}$ masofasi o'lchov chizig'i bilan ko'rsatiladi va qalinlik o'zgarganda u qanday o'zgarishi namoyish etiladi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Silindrik qobiqdagi chekka effekti",
+      "caption": "Chekka buzilishi eksponensial so'nadi.",
+      "params": [
+       {
+        "key": "R",
+        "label": "Radius",
+        "minimum": 0.05,
+        "maximum": 3,
+        "default": 0.5,
+        "step": 0.01,
+        "unit": "m"
+       },
+       {
+        "key": "t",
+        "label": "Qalinlik",
+        "minimum": 1,
+        "maximum": 40,
+        "default": 5,
+        "step": 0.5,
+        "unit": "mm"
+       },
+       {
+        "key": "nu",
+        "label": "ν",
+        "minimum": 0,
+        "maximum": 0.45,
+        "default": 0.3,
+        "step": 0.01,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "e^{−βx} so'nish",
+        "expr": "exp(-x/((R*t*1e-3)^0.5/(3*(1 - nu^2))^0.25))",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "5% daraja",
+        "expr": "0.05",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "So'nish uzunligi 1/β",
+        "expr": "(R*t*1e-3)^0.5/(3*(1 - nu^2))^0.25",
+        "unit": "m",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Ta'sir zonasi ≈ 2,4√(Rt)",
+        "expr": "2.4*sqrt(R*t*1e-3)",
+        "unit": "m",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "√(Rt)",
+        "expr": "sqrt(R*t*1e-3)",
+        "unit": "m",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "chekkadan masofa x, m",
+      "y_label": "nisbiy amplituda",
+      "x_min": "0",
+      "x_max": "0.5",
+      "options": {},
+      "note": "Chekka effekti ~2,4√(Rt) masofada tugaydi — R=0,5 m, t=5 mm uchun bu atigi 12 sm."
+     },
+     {
+      "kind": "plot",
+      "title": "Chekka momenti va mahalliy kuchlanish",
+      "caption": "Qistirilgan chekkada qo'shimcha egish kuchlanishi paydo bo'ladi.",
+      "params": [
+       {
+        "key": "p",
+        "label": "Bosim",
+        "minimum": 0.01,
+        "maximum": 20,
+        "default": 1,
+        "step": 0.01,
+        "unit": "MPa"
+       },
+       {
+        "key": "R",
+        "label": "Radius",
+        "minimum": 0.05,
+        "maximum": 3,
+        "default": 0.5,
+        "step": 0.01,
+        "unit": "m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Halqasimon membrana σ_t = pR/t, MPa",
+        "expr": "p*R/(x*1e-3)*1e-3",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Chekkadagi o'qiy kuchlanish (2,043pR/t)",
+        "expr": "2.043*p*R/(x*1e-3)*1e-3",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Membrana σ_t (t=5 mm)",
+        "expr": "p*R/5e-3*1e-3",
+        "unit": "MPa",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Chekka egish qismi (1,543pR/t)",
+        "expr": "1.543*p*R/5e-3*1e-3",
+        "unit": "MPa",
+        "color": "mark",
+        "text": ""
+       },
+       {
+        "label": "Chekkada to'liq o'qiy",
+        "expr": "2.043*p*R/5e-3*1e-3",
+        "unit": "MPa",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "M₀ = p(1−ν/2)/(2β²)",
+        "expr": "0.2572*p*1e6*R*5e-3",
+        "unit": "N·m/m",
+        "color": "rule",
+        "text": ""
+       }
+      ],
+      "x_label": "qalinlik t, mm",
+      "y_label": "kuchlanish, MPa",
+      "x_min": "1",
+      "x_max": "40",
+      "options": {},
+      "note": "Qistirilgan chekkada M₀ = p(1−ν/2)/(2β²) = 0,2572pRt; egish kuchlanishi 1,543pR/t, o'qiy membrana bilan birga 2,043pR/t — halqasimon membranadan ikki barobardan ortiq (ν = 0,3 uchun hisoblangan)."
+     }
+    ]
    },
    "difficulty": "ilg'or",
    "previous_link": "pq-26 da membrana nazariyasi silindr va sfera tutashuvida o'z-o'zini inkor qilishi ko'rsatildi: kengayishlar 2,43 marta farq qildi. Endi shu mos kelmaslikni bartaraf etuvchi egish yechimini quramiz.",
@@ -45369,7 +49381,180 @@
      "title": "Tutashuvdagi mos kelmaslik",
      "summary": "Silindr va sferik tub bosim ostida alohida-alohida kengayadi va ular orasida uzilish paydo bo'ladi. Keyin $Q_0$ kuchlari qo'yiladi, uzilish yopiladi va moment epyurasi ikki tomonga so'nib tarqaladi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Sfera va silindr tutashuvi: mos kelmaslik",
+      "caption": "Radial ko'chishlar farqi chekka kuchini keltirib chiqaradi.",
+      "params": [
+       {
+        "key": "p",
+        "label": "Bosim",
+        "minimum": 0.01,
+        "maximum": 20,
+        "default": 2,
+        "step": 0.01,
+        "unit": "MPa"
+       },
+       {
+        "key": "R",
+        "label": "Radius",
+        "minimum": 0.05,
+        "maximum": 3,
+        "default": 0.5,
+        "step": 0.01,
+        "unit": "m"
+       },
+       {
+        "key": "E",
+        "label": "Modul",
+        "minimum": 10,
+        "maximum": 400,
+        "default": 210,
+        "step": 5,
+        "unit": "GPa"
+       },
+       {
+        "key": "nu",
+        "label": "ν",
+        "minimum": 0,
+        "maximum": 0.45,
+        "default": 0.3,
+        "step": 0.01,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "Silindr Δ, mm",
+        "expr": "p*1e6*R^2/(E*1e9*x*1e-3)*(1 - nu/2)*1000",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Sfera Δ",
+        "expr": "p*1e6*R^2/(E*1e9*x*1e-3)*(1 - nu)/2*1000",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Silindr (t=5 mm)",
+        "expr": "p*1e6*R^2/(E*1e9*5e-3)*(1 - nu/2)*1000",
+        "unit": "mm",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Sfera (t=5 mm)",
+        "expr": "p*1e6*R^2/(E*1e9*5e-3)*(1 - nu)/2*1000",
+        "unit": "mm",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Farq",
+        "expr": "p*1e6*R^2/(E*1e9*5e-3)*((1 - nu/2) - (1 - nu)/2)*1000",
+        "unit": "mm",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "qalinlik t, mm",
+      "y_label": "radial ko'chish, mm",
+      "x_min": "1",
+      "x_max": "40",
+      "options": {},
+      "note": "Ko'chishlar farqi tutashuvda chekka momenti va kesuvchi kuch tug'diradi — u membrana hisobida umuman ko'rinmaydi."
+     },
+     {
+      "kind": "plot",
+      "title": "Nega bosimli idish tubi yassi bo'lmaydi",
+      "caption": "Bir xil qalinlikdagi yassi tub qobiq tubidan o'nlab barobar ko'p kuchlanadi.",
+      "params": [
+       {
+        "key": "p",
+        "label": "Bosim",
+        "minimum": 0.01,
+        "maximum": 20,
+        "default": 2,
+        "step": 0.01,
+        "unit": "MPa"
+       },
+       {
+        "key": "t",
+        "label": "Qalinlik",
+        "minimum": 1,
+        "maximum": 40,
+        "default": 5,
+        "step": 0.5,
+        "unit": "mm"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Yassi tub: σ = 3pR²/(4t²), MPa",
+        "expr": "0.75*p*(x*1e-3)^2/(t*1e-3)^2",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Silindr: σ_t = pR/t",
+        "expr": "p*(x*1e-3)/(t*1e-3)",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Yarim sferik tub: pR/(2t)",
+        "expr": "p*(x*1e-3)/(2*t*1e-3)",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Yassi tub (R=500 mm)",
+        "expr": "0.75*p*0.25/(t*1e-3)^2",
+        "unit": "MPa",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Silindr (R=500 mm)",
+        "expr": "p*0.5/(t*1e-3)",
+        "unit": "MPa",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "Yarim sferik (R=500 mm)",
+        "expr": "p*0.5/(2*t*1e-3)",
+        "unit": "MPa",
+        "color": "rule",
+        "text": ""
+       },
+       {
+        "label": "Yassi/silindr = 0,75R/t",
+        "expr": "0.75*0.5/(t*1e-3)",
+        "unit": "marta",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "radius R, mm",
+      "y_label": "σ, MPa",
+      "x_min": "50",
+      "x_max": "1000",
+      "options": {},
+      "note": "Qistirilgan doiraviy plastina uchun σ_max = 3pR²/(4t²), qobiq uchun esa pR/t: nisbat aynan 0,75R/t. R/t = 100 da yassi tub 75 marta ko'p kuchlanadi — shuning uchun idish tublari sferik yoki ellipsoid qilinadi."
+     }
+    ]
    },
    "difficulty": "ilg'or",
    "previous_link": "pq-27 da bitta silindrik qobiqning chekka effekti yechildi va $\\beta$, $\\sqrt{Rh}$ apparati qurildi. Endi shu apparatni **ikkita** qobiq tutashgan joyga qo'llaymiz va pq-26 da ochiq qolgan 2,43 barobarlik mos kelmaslikni nihoyat yopamiz.",
@@ -45706,7 +49891,155 @@
      "title": "Qobiq ustuvorligi va nuqsonlarga sezgirlik",
      "summary": "Ideal silindr siqiladi va kritik nuqtada romb shaklidagi buzilish paydo bo'ladi. Keyin kichik nuqson kiritiladi va buzilish ancha past yuklamada sodir bo'ladi. Muvozanat yo'llari yonma-yon ko'rsatiladi: plastina uchun ko'tariluvchi, qobiq uchun pasayuvchi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Silindrik qobiq ustuvorligi: nazariya va tajriba",
+      "caption": "Nuqsonlar kritik yukni bir necha barobar kamaytiradi.",
+      "params": [
+       {
+        "key": "E",
+        "label": "Modul",
+        "minimum": 10,
+        "maximum": 400,
+        "default": 210,
+        "step": 5,
+        "unit": "GPa"
+       },
+       {
+        "key": "R",
+        "label": "Radius",
+        "minimum": 0.05,
+        "maximum": 3,
+        "default": 0.5,
+        "step": 0.01,
+        "unit": "m"
+       },
+       {
+        "key": "nu",
+        "label": "ν",
+        "minimum": 0,
+        "maximum": 0.45,
+        "default": 0.3,
+        "step": 0.01,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "Klassik σ_kr = Eh/(R√(3(1−ν²)))",
+        "expr": "E*1e9*x*1e-3/(R*sqrt(3*(1 - nu^2)))/1e6",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Tajribaviy (~0,3×)",
+        "expr": "0.3*E*1e9*x*1e-3/(R*sqrt(3*(1 - nu^2)))/1e6",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Klassik (h=2 mm)",
+        "expr": "E*1e9*2e-3/(R*sqrt(3*(1 - nu^2)))/1e6",
+        "unit": "MPa",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Tajribaviy (h=2 mm)",
+        "expr": "0.3*E*1e9*2e-3/(R*sqrt(3*(1 - nu^2)))/1e6",
+        "unit": "MPa",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "R/h nisbati (h=2)",
+        "expr": "R/2e-3",
+        "unit": "",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "qalinlik h, mm",
+      "y_label": "σ_kr, MPa",
+      "x_min": "0.5",
+      "x_max": "20",
+      "options": {},
+      "note": "0,3 koeffitsienti R/t ≈ 500 ga mos keladi (keyingi chizmadagi NASA SP-8007 egri chizig'iga qarang) — qobiqlar ustuvorligi nazariya tajribadan uch barobar yuqori chiqadigan kam sonli sohalardan biri."
+     },
+     {
+      "kind": "plot",
+      "title": "NASA SP-8007 pasaytirish koeffitsienti",
+      "caption": "Loyihalash normalari nuqsonlarni R/t orqali hisobga oladi.",
+      "params": [
+       {
+        "key": "scl",
+        "label": "Klassik σ_kr",
+        "minimum": 50,
+        "maximum": 2000,
+        "default": 500,
+        "step": 10,
+        "unit": "MPa"
+       }
+      ],
+      "curves": [
+       {
+        "label": "γ = 1 − 0,901(1 − e^{−φ}), φ = √(R/t)/16",
+        "expr": "1 - 0.901*(1 - exp(-sqrt(x)/16))",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Nuqsonsiz nazariya γ = 1",
+        "expr": "1",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "γ (R/t=100)",
+        "expr": "1 - 0.901*(1 - exp(-sqrt(100)/16))",
+        "unit": "",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "γ (R/t=500)",
+        "expr": "1 - 0.901*(1 - exp(-sqrt(500)/16))",
+        "unit": "",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "γ (R/t=1000)",
+        "expr": "1 - 0.901*(1 - exp(-sqrt(1000)/16))",
+        "unit": "",
+        "color": "mark",
+        "text": ""
+       },
+       {
+        "label": "Loyihaviy σ (R/t=500)",
+        "expr": "scl*(1 - 0.901*(1 - exp(-sqrt(500)/16)))",
+        "unit": "MPa",
+        "color": "rule",
+        "text": ""
+       }
+      ],
+      "x_label": "R/t nisbati",
+      "y_label": "pasaytirish koeffitsienti γ",
+      "x_min": "50",
+      "x_max": "2000",
+      "options": {},
+      "note": "R/t = 100 da γ = 0,58, R/t = 1000 da esa 0,22: yupqa qobiq qanchalik yupqa bo'lsa, nuqsonlarga shunchalik sezgir."
+     }
+    ]
    },
    "difficulty": "ilg'or",
    "previous_link": "pq-21 da plastina kritikdan keyin **zaxiraga** ega ekani ko'rsatilgan edi: b_eff va 1,98 barobar ortiqcha yuk. Qobiqda esa buning teskarisi sodir bo'ladi va bu farqning sababi pq-25 dagi Gauss egriligida yotadi.",
@@ -46053,7 +50386,166 @@
      "title": "Qobiq tebranish shakllari va spektr",
      "summary": "Silindrik qobiq kesimi ketma-ket $n = 0$ (halqa), $n = 1$ (siljish), $n = 2$ (ovallashish) va $n = 6$ (gulsimon) shakllarda tebranadi; har birining chastotasi yoziladi va spektrdagi o'rni belgilanadi. Oxirida $f(n)$ egri chizig'i ikki tashkil etuvchisi bilan birga quriladi va minimum ularning kesishuvida paydo bo'lishi ko'rsatiladi."
     },
-    "figures": []
+    "figures": [
+     {
+      "kind": "plot",
+      "title": "Qobiq tebranishlari: chastotalarning zichligi",
+      "caption": "Qobiqda chastotalar plastinadagidan zichroq joylashgan.",
+      "params": [
+       {
+        "key": "E",
+        "label": "Modul",
+        "minimum": 10,
+        "maximum": 400,
+        "default": 210,
+        "step": 5,
+        "unit": "GPa"
+       },
+       {
+        "key": "rho",
+        "label": "Zichlik",
+        "minimum": 1000,
+        "maximum": 9000,
+        "default": 7850,
+        "step": 50,
+        "unit": "kg/m³"
+       },
+       {
+        "key": "R",
+        "label": "Radius",
+        "minimum": 0.05,
+        "maximum": 3,
+        "default": 0.5,
+        "step": 0.01,
+        "unit": "m"
+       }
+      ],
+      "curves": [
+       {
+        "label": "Halqa chastotasi f_r = c/(2πR), Gs",
+        "expr": "sqrt(E*1e9/rho)/(2*pi*x)",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "1000 Gs daraja",
+        "expr": "1000",
+        "color": "rule",
+        "dashed": true,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "f_r (R=0,5 m)",
+        "expr": "sqrt(E*1e9/rho)/(2*pi*0.5)",
+        "unit": "Gs",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Tovush tezligi materialda",
+        "expr": "sqrt(E*1e9/rho)",
+        "unit": "m/s",
+        "color": "compress",
+        "text": ""
+       },
+       {
+        "label": "f_r (R=1 m)",
+        "expr": "sqrt(E*1e9/rho)/(2*pi)",
+        "unit": "Gs",
+        "color": "mark",
+        "text": ""
+       }
+      ],
+      "x_label": "radius R, m",
+      "y_label": "halqa chastotasi, Gs",
+      "x_min": "0.05",
+      "x_max": "3",
+      "options": {},
+      "note": "Halqa chastotasi — qobiq akustikasining tabiiy chegarasi: undan pastda egish, yuqorida membrana rejimi hukmron."
+     },
+     {
+      "kind": "plot",
+      "title": "Donnell tenglamasi: egish va membrana hissalari",
+      "caption": "To'lqin uzunligi ikki mexanizm orasidagi muvozanatni belgilaydi.",
+      "params": [
+       {
+        "key": "R",
+        "label": "Radius",
+        "minimum": 0.05,
+        "maximum": 3,
+        "default": 0.5,
+        "step": 0.01,
+        "unit": "m"
+       },
+       {
+        "key": "h",
+        "label": "Qalinlik",
+        "minimum": 0.5,
+        "maximum": 20,
+        "default": 2,
+        "step": 0.1,
+        "unit": "mm"
+       },
+       {
+        "key": "nu",
+        "label": "ν",
+        "minimum": 0,
+        "maximum": 0.45,
+        "default": 0.3,
+        "step": 0.01,
+        "unit": ""
+       }
+      ],
+      "curves": [
+       {
+        "label": "Egish hissasi ~ (h/λ)²",
+        "expr": "(h*1e-3/x)^2*1000",
+        "color": "tension",
+        "dashed": false,
+        "when": ""
+       },
+       {
+        "label": "Membrana hissasi ~ (λ/R)²/12",
+        "expr": "(x/R)^2/12*1000",
+        "color": "compress",
+        "dashed": false,
+        "when": ""
+       }
+      ],
+      "readouts": [
+       {
+        "label": "Teng hissa λ",
+        "expr": "sqrt(h*1e-3*R*sqrt(12))",
+        "unit": "m",
+        "color": "mark",
+        "text": ""
+       },
+       {
+        "label": "√(Rh)",
+        "expr": "sqrt(R*h*1e-3)",
+        "unit": "m",
+        "color": "tension",
+        "text": ""
+       },
+       {
+        "label": "Nisbat λ/√(Rh)",
+        "expr": "12^0.25",
+        "unit": "",
+        "color": "compress",
+        "text": ""
+       }
+      ],
+      "x_label": "to'lqin uzunligi λ, m",
+      "y_label": "nisbiy hissa ×10³",
+      "x_min": "0.01",
+      "x_max": "1",
+      "options": {},
+      "note": "Ikki mexanizm λ ≈ 1,86√(Rh) da teng hissa qo'shadi — chekka effekti uzunligi ham aynan shu tartibda."
+     }
+    ]
    },
    "difficulty": "ilg'or",
    "previous_link": "pq-22 da plastina tebranishlari o'rganildi va spektr muntazam tartibda ekani ko'rsatildi: $f_{11} < f_{21} < f_{12}$. Qobiqda membrana energiyasi qo'shilgani uchun spektr butunlay boshqacha tartiblanadi — pq-29 dagi ikki hadli tuzilma bu yerda ham qaytariladi.",
