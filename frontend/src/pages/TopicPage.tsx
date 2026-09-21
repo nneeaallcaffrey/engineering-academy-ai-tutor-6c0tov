@@ -6,6 +6,7 @@ import { EpureRule } from "../components/Epure";
 import { Lab } from "../components/Lab";
 import { Latex, RichText } from "../components/Latex";
 import { ErrorBox, Loading } from "../components/Layout";
+import { interactiveFor } from "../interactive/registry";
 import { useAsync } from "../hooks/useAsync";
 import { useProgress } from "../hooks/useProgress";
 
@@ -22,6 +23,7 @@ export function TopicPage() {
   if (!data) return null;
 
   const L = data.lesson;
+  const interactive = interactiveFor(data.id);
   let n = 0;
   const no = () => String(++n).padStart(2, "0");
 
@@ -33,6 +35,13 @@ export function TopicPage() {
       </p>
 
       <h1 style={{ margin: "0.3rem 0 0.5rem" }}>{data.title}</h1>
+      {interactive && (
+        <p style={{ margin: "0 0 0.6rem" }}>
+          <a href="#interaktiv" className="tag" style={{
+            borderColor: "var(--tension)", color: "var(--tension)",
+          }}>◆ interaktiv chizma bor</a>
+        </p>
+      )}
 
       <Section no={no()} title="Maqsad">
         <RichText text={data.learning_objective} />
@@ -138,9 +147,21 @@ export function TopicPage() {
         <Lab topicId={data.id} computation={L.computation} />
       </Section>
 
-      <Section no={no()} title="Vizualizatsiya">
+      <Section no={no()} title="Vizualizatsiya" wide>
         <p className="small"><span className="tag">{L.visualization.tool}</span>{" "}
           {L.visualization.kind}</p>
+        {interactive && (
+          <div id="interaktiv" className="card"
+               style={{ padding: "0.9rem 1rem", margin: "0.7rem 0 1rem", scrollMarginTop: 70 }}>
+            <p className="mono tiny muted" style={{ margin: "0 0 2px", letterSpacing: "0.1em" }}>
+              INTERAKTIV CHIZMA
+            </p>
+            <p className="display" style={{ fontSize: "var(--t-base)", margin: "0 0 0.6rem" }}>
+              {interactive.title}
+            </p>
+            <interactive.Component />
+          </div>
+        )}
         <RichText text={L.visualization.description} className="small" />
         <details style={{ marginTop: "0.5rem" }}>
           <summary className="small" style={{ cursor: "pointer" }}>Qanday chiziladi</summary>

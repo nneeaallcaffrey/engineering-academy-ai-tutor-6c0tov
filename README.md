@@ -35,11 +35,12 @@ Ikkalasida ham sayt shu manzilda ochiladi:
 | Modullar | 25 |
 | Mavzular | **150** (har fanda aynan 30 ta) |
 | Interaktiv laboratoriyalar | 150 |
+| Interaktiv chizmalar | 14 (har fanda 2–3 ta) |
 | Mustahkamlash savollari | 863 |
 | Chiqarish qadamlari | 1069 |
 | Manim sahnalari | 86 |
 | Yakuniy loyihalar | 5 |
-| Testlar | 78 backend + 24 frontend |
+| Testlar | 84 backend + 49 frontend |
 | Akademik audit | 18/18 tekshiruv **PASS** |
 
 Har bir mavzuning Python hisobi **haqiqatan bajariladi**: 150/150
@@ -105,7 +106,32 @@ masala → Python hisobi → vizualizatsiya → natijalarning talqini →
 tipik xatolar → 5–10 savol → keyingi mavzuga ko'prik → tadqiqot
 yo'nalishi.
 
-## 4. Interaktiv laboratoriya
+## 4. Interaktiv chizmalar
+
+Darsning "Vizualizatsiya" bo'limida **jonli chizma** bor: surgichni
+surasiz — chizma darhol brauzerda qayta hisoblanadi va qayta chiziladi
+(backendga murojaat qilinmaydi). Har bir fanda kamida ikkitadan:
+
+| Fan | Mavzu | Chizma | Nimani ko'rsatadi |
+|---|---|---|---|
+| NM | nm-01 | Vektor moment | yelka d = r·sinθ, burchak 0 da moment yo'qoladi |
+| NM | nm-24 | Fazaviy portret | separatrisa: tebranish va aylanish chegarasi |
+| NM | nm-27 | AChT | cho'qqi 1/(2ζ); ζ > 0,707 da rezonans yo'qoladi |
+| MQ | mq-12 | Q va M epyuralari | dM/dx = Q; yuk joyini surganda M_max ergashadi |
+| MQ | mq-19 | Mor doirasi | kesim θ ga burilsa nuqta 2θ ga buriladi |
+| MQ | mq-25 | Eyler ustuvorligi | μ va λ; λ < λ_lim da formula yaroqsiz |
+| TMM | tmm-02 | Tenzor burilishi | komponentalar o'zgaradi, I₁ va I₂ o'zgarmaydi |
+| TMM | tmm-21 | Mizes va Treska | sof siljishda farq 15,5 % |
+| PQ | pq-07 | Navye egilish sirti | bitta had 2,4 % aniqlik; w/h > 0,2 chegarasi |
+| PQ | pq-13 | Doiraviy plastina | qisilgan va sharnirli: 4,08 barobar farq |
+| PQ | pq-22 | Tebranish shakllari | tugun chiziqlari, kvadratda karrali ildiz |
+| SU | su-10 | Ayirma barqarorligi | r > 0,5 da sxema portlaydi |
+| SU | su-14 | Izoparametrik | det J nolga yetganda element ag'dariladi |
+| SU | su-18 | Yaqinlashish tartibi | kod xatosi kuzatilgan tartibni tushiradi |
+
+Mavzular ro'yxatida bunday mavzular **◆ chizma** belgisi bilan ajratilgan.
+
+## 5. Interaktiv laboratoriya
 
 Har bir mavzuda parametrlar bor. Ularni surasiz → **Ishga tushirish** →
 kod backend sandbox'ida bajariladi → qiymatlar, jadvallar va
@@ -123,7 +149,7 @@ table("Natijalar", ["n", "xato"], rows)     # jadval
 note("Izoh matni")                          # xulosa
 ```
 
-## 5. Xavfsizlik — foydalanuvchi kodi qanday bajariladi
+## 6. Xavfsizlik — foydalanuvchi kodi qanday bajariladi
 
 **Foydalanuvchi Python kodi asosiy jarayonda hech qachon `exec()`
 qilinmaydi.** Yetti mustaqil qatlam, har biri boshqasiga tayanmaydi:
@@ -176,7 +202,7 @@ qo'shish kerak. Tavsiya etilgan variantlar:
 funksiyaga (`run_code` ichidagi jarayon ishga tushirish) tegadi —
 qolgan kod o'zgarmaydi.
 
-## 6. Ishga tushirish
+## 7. Ishga tushirish
 
 ### 1-yo'l · Docker
 
@@ -257,15 +283,15 @@ Havolalarni render qilmasdan tekshirish:
 python -m animatsiya.verify
 ```
 
-## 7. Testlar
+## 8. Testlar
 
 ```bash
 cd backend
-python -m pytest                  # 78 test, ~24 s
+python -m pytest                  # 84 test, ~27 s
 python -m pytest --runslow        # + 150 laboratoriyaning HAMMASINI bajarish (~3 daqiqa)
 
 cd ../frontend
-npm test                          # 24 test
+npm test                          # 49 test
 ```
 
 | To'plam | Soni | Nimani tekshiradi |
@@ -274,14 +300,15 @@ npm test                          # 24 test
 | `test_api.py` | 22 | barcha endpointlar, 404 lar, OpenAPI, `a^4` qonuni HTTP orqali |
 | `test_curriculum.py` | 24 | 150 mavzuning tuzilishi, chiqarish chuqurligi, savollar, soxta matn yo'qligi |
 | `test_manim_refs.py` | 6 | 87 havola, 33 fayl, 86 sinf, nom soyalanishi |
-| frontend | 24 | Epyura, Plot, muharrir, Lab (mock backend bilan) |
+| `test_interactive.py` | 6 | registry kalitlari, har fanda ≥2 chizma |
+| frontend | 49 | Epyura, Plot, muharrir, Lab va 14 interaktiv chizma |
 
 Kurikulum auditi alohida:
 ```bash
 python -m content.curriculum.audit      # 18 tekshiruv
 ```
 
-## 8. Loyiha tuzilishi
+## 9. Loyiha tuzilishi
 
 ```
 content/curriculum/       kurikulum manbai (tipli dataclass'lar)
@@ -297,6 +324,7 @@ backend/
   tests/                  78 test
 frontend/
   src/components/         Epure, Plot, Latex, CodeEditor, Lab
+  src/interactive/        14 ta interaktiv chizma + registry
   src/pages/              Dashboard, Subject, Topic, Graph, Projects, Resources, Audit
   DESIGN.md               dizayn qarorlari va ularning asosi
 animatsiya/
@@ -306,7 +334,7 @@ docker/                   Dockerfile'lar va nginx konfiguratsiyasi
 docker-compose.yml
 ```
 
-## 9. API
+## 10. API
 
 | Metod | Yo'l | Tavsif |
 |---|---|---|
@@ -323,7 +351,7 @@ docker-compose.yml
 | GET | `/api/curriculum/graph` | bog'liqlik grafi |
 | GET | `/api/curriculum/audit` | akademik audit natijasi |
 
-## 10. Dizayn
+## 11. Dizayn
 
 Vizual til **chizmachilik va epyura an'anasidan** olingan — bu
 o'zbek/rus muhandislik ta'limida 150 yildan beri ishlatilgan til.
@@ -337,7 +365,7 @@ uchun ishlatilmaydi — faqat ishorani bildiradi.
 
 Batafsil: [`frontend/DESIGN.md`](frontend/DESIGN.md).
 
-## 11. Ushbu muhitda tekshirilmagan narsalar
+## 12. Ushbu muhitda tekshirilmagan narsalar
 
 Halollik uchun aniq ro'yxat:
 

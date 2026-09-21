@@ -3,6 +3,7 @@ import { api } from "../api/client";
 import { Epure, EpureRule } from "../components/Epure";
 import { ErrorBox, Loading } from "../components/Layout";
 import { RichText } from "../components/Latex";
+import { interactiveFor } from "../interactive/registry";
 import { useAsync } from "../hooks/useAsync";
 import { useProgress } from "../hooks/useProgress";
 
@@ -62,6 +63,11 @@ export function SubjectPage() {
                     }} />
                     <span className="mono tiny muted" style={{ minWidth: 48 }}>{t.id}</span>
                     <span style={{ flex: 1 }}>{t.title}</span>
+                    {interactiveFor(t.id) && (
+                      <span className="tag" style={{
+                        borderColor: "var(--tension)", color: "var(--tension)",
+                      }}>◆ chizma</span>
+                    )}
                     {t.has_lab && <span className="tag">lab</span>}
                     <span className="mono tiny muted">{t.estimated_minutes}′</span>
                   </Link>
