@@ -23,7 +23,8 @@ class Settings(BaseSettings):
 
     #: CORS: dev rejimda Vite, Docker'da nginx.
     cors_origins: list[str] = [
-        "http://localhost:5173", "http://127.0.0.1:5173",
+        "http://localhost:5173", "http://127.0.0.1:5173",   # Vite dev
+        "http://localhost:7070", "http://127.0.0.1:7070",   # Docker / nginx
         "http://localhost:8080", "http://127.0.0.1:8080",
     ]
 

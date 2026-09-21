@@ -5,12 +5,25 @@ har bir mavzuda 18 bo'limli dars va brauzerda ishga tushadigan,
 sandbox'da bajariladigan Python laboratoriyasi. Butun kontent
 o'zbek tilida (lotin yozuvi).
 
+## Ishga tushirish — ikki yo'l
+
+**1-yo'l · Docker bilan** (tavsiya etiladi):
 ```
 docker compose up --build
 ```
 
-- Platforma: http://localhost:8080
-- API hujjati (Swagger): http://localhost:8000/docs
+**2-yo'l · Docker'siz** (bitta buyruq, Windows/Mac/Linux):
+```
+python ishga-tushir.py
+```
+
+Ikkalasida ham sayt shu manzilda ochiladi:
+
+| | |
+|---|---|
+| **Sayt** | **http://localhost:7070** |
+| API hujjati (Swagger) | http://localhost:7070/docs |
+| Sog'liq tekshiruvi | http://localhost:7070/health |
 
 ---
 
@@ -165,7 +178,7 @@ qolgan kod o'zgarmaydi.
 
 ## 6. Ishga tushirish
 
-### Docker (tavsiya etiladi)
+### 1-yo'l · Docker
 
 ```bash
 docker compose up --build
@@ -173,14 +186,37 @@ docker compose up --build
 
 | Xizmat | Manzil |
 |---|---|
-| Frontend | http://localhost:8080 |
-| Backend API | http://localhost:8000 |
-| Swagger | http://localhost:8000/docs |
-| Sog'liq | http://localhost:8000/health |
+| **Sayt** | **http://localhost:7070** |
+| Swagger | http://localhost:7070/docs |
+| Sog'liq | http://localhost:7070/health |
+| Backend to'g'ridan-to'g'ri | http://localhost:8000 |
 
-To'xtatish: `docker compose down` · Ma'lumot bilan: `docker compose down -v`
+To'xtatish: `docker compose down` · Ma'lumot bilan ham: `docker compose down -v`
 
-### Dev rejim
+Portni o'zgartirish: `docker-compose.yml` dagi `"7070:80"` ni tahrirlang.
+
+### 2-yo'l · Docker'siz (bitta buyruq)
+
+Docker o'rnatilmagan bo'lsa:
+
+```bash
+pip install -r backend/requirements.txt
+python ishga-tushir.py
+```
+
+Skript o'zi: kurikulum JSON ini yaratadi → frontendni yig'adi (agar
+`frontend/dist` bo'lmasa, Node.js 18+ kerak) → backendni 8000-portda
+ko'taradi → saytni **http://localhost:7070** da beradi va `/api`
+so'rovlarini backendga uzatadi (nginx o'rniga).
+
+```bash
+python ishga-tushir.py --rebuild     # frontendni qayta yig'ish
+MEXANIKA_PORT=9090 python ishga-tushir.py   # boshqa port
+```
+
+To'xtatish: `Ctrl+C`
+
+### 3-yo'l · Dev rejim (kod ustida ishlash uchun)
 
 Ikkita terminal kerak.
 
@@ -198,6 +234,8 @@ cd frontend
 npm install
 npm run dev                                   # http://localhost:5173
 ```
+
+Bu rejimda sahifa o'zgarishlarni darhol ko'rsatadi (hot reload).
 
 Vite `/api` ni avtomatik 8000-portga uzatadi.
 
@@ -303,11 +341,17 @@ Batafsil: [`frontend/DESIGN.md`](frontend/DESIGN.md).
 
 Halollik uchun aniq ro'yxat:
 
-- **Docker tasvirlari qurilmagan.** Bu muhitda Docker demoni
-  ishlamaydi (`docker info` → daemon yo'q). `docker-compose.yml`
-  sintaksisi `docker compose config` bilan tekshirilgan va barcha
-  muhit o'zgaruvchilari `Settings` klassiga to'g'ri o'tishi sinalgan,
-  lekin tasvirlar qurilmagan va konteynerlar ishga tushirilmagan.
+- **Docker tasvirlari qurilmagan.** Docker demoni ishga tushirildi,
+  lekin tashkilot tarmoq siyosati Docker Hub ning blob CDN'ini
+  (`production.cloudfront.docker.com`) bloklaydi, shuning uchun
+  bazaviy tasvirlarni (`python:3.11-slim` va h.k.) yuklab bo'lmadi.
+  Tekshirilgani: `docker compose config` sintaksisi, barcha
+  `MEXANIKA_*` muhit o'zgaruvchilarining `Settings` klassiga to'g'ri
+  o'tishi va — eng muhimi — **`docker/nginx.conf` ning o'zi haqiqiy
+  nginx bilan 7070-portda ishlatilib**, barcha marshrutlar
+  (SPA, `/api`, `/health`, `/docs`, `/static`) tekshirilgani.
+  Sizning kompyuteringizda Docker Hub ochiq bo'lsa,
+  `docker compose up --build` to'g'ridan-to'g'ri ishlaydi.
 - **Manim sahnalari render qilinmagan.** Manim cairo/pango tizim
   kutubxonalarini talab qiladi, ular bu muhitda yo'q. Buning o'rniga
   manim API'sining stub nusxasi yozilib, **87 ta sahnaning har biri

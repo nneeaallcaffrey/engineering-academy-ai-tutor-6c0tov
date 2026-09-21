@@ -4,10 +4,13 @@ from __future__ import annotations
 
 import logging
 from contextlib import asynccontextmanager
+from pathlib import Path
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.openapi.docs import get_swagger_ui_html
+from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.staticfiles import StaticFiles
 
 from app.config import get_settings
 from app.database import SessionLocal
@@ -47,6 +50,8 @@ app = FastAPI(
         "chegaralari qo'yilgan jarayonda bajariladi."
     ),
     lifespan=lifespan,
+    docs_url=None,          # quyida mahalliy aktivlar bilan qayta quriladi
+    redoc_url=None,
     openapi_tags=[
         {"name": "Fanlar", "description": "Beshta fan va ularning modullari"},
         {"name": "Mavzular", "description": "150 mavzu va Interactive Lab"},
@@ -73,6 +78,24 @@ async def unhandled(request: Request, exc: Exception) -> JSONResponse:
     return JSONResponse(
         status_code=500,
         content={"detail": "Serverda ichki xatolik yuz berdi."},
+    )
+
+
+# Swagger UI aktivlari PAKET ICHIDA — CDN'ga chiqmaydi, shuning uchun
+# /docs internetsiz muhitda ham ochiladi.
+_STATIC = Path(__file__).resolve().parent / "static"
+if _STATIC.is_dir():
+    app.mount("/static", StaticFiles(directory=str(_STATIC)), name="static")
+
+
+@app.get("/docs", include_in_schema=False)
+def swagger_ui() -> HTMLResponse:
+    return get_swagger_ui_html(
+        openapi_url=app.openapi_url or "/openapi.json",
+        title=f"{app.title} — Swagger",
+        swagger_js_url="/static/swagger-ui-bundle.js",
+        swagger_css_url="/static/swagger-ui.css",
+        swagger_favicon_url="/static/swagger-ui.css",
     )
 
 
