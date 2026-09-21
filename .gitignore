@@ -6,6 +6,6 @@ dist/
 *.db
 *.sqlite3
 .env
-manim/media/
+animatsiya/media/
 backend/.pytest_cache/
 .coverage
