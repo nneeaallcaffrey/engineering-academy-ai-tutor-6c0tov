@@ -103,6 +103,34 @@ export interface ManimRef {
   summary: string;
 }
 
+export interface FigureParam {
+  key: string; label: string; minimum: number; maximum: number;
+  default: number; step: number; unit: string;
+}
+export interface FigureCurve {
+  label: string; expr: string;
+  color: "tension" | "compress" | "mark" | "rule" | "ink";
+  dashed: boolean; when: string;
+}
+export interface FigureReadout {
+  label: string; expr: string; unit: string;
+  color: "tension" | "compress" | "mark" | "rule" | "ink"; text: string;
+}
+export interface FigureSpec {
+  kind: "plot" | "element" | "mohr" | "beam" | "field" | "shape" | "polar" | "bars" | "section";
+  title: string;
+  caption: string;
+  params: FigureParam[];
+  curves: FigureCurve[];
+  readouts: FigureReadout[];
+  x_label: string;
+  y_label: string;
+  x_min: string;
+  x_max: string;
+  options: Record<string, string>;
+  note: string;
+}
+
 export interface Lesson {
   physical_problem: string;
   concepts: Concept[];
@@ -119,6 +147,7 @@ export interface Lesson {
   bridge_to_next: string;
   research_extension: string;
   manim: ManimRef | null;
+  figures: FigureSpec[];
 }
 
 export interface TopicDetail extends TopicBrief {

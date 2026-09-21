@@ -156,6 +156,74 @@ class Computation:
 
 
 @dataclass(frozen=True)
+class FigureParam:
+    """Interaktiv chizmadagi surgich."""
+
+    key: str
+    label: str
+    minimum: float
+    maximum: float
+    default: float
+    step: float
+    unit: str = ""
+
+    def __post_init__(self) -> None:  # pragma: no cover - sanity guard
+        if not self.minimum <= self.default <= self.maximum:
+            raise ValueError(f"figura '{self.key}': default [min, max] dan tashqarida")
+        if self.step <= 0:
+            raise ValueError(f"figura '{self.key}': step musbat bo'lishi kerak")
+
+
+@dataclass(frozen=True)
+class FigureCurve:
+    """Chizmadagi bitta egri chiziq: y = f(x), parametrlarga bog'liq."""
+
+    label: str
+    expr: str
+    color: Literal["tension", "compress", "mark", "rule", "ink"] = "tension"
+    dashed: bool = False
+    #: Egri chiziq faqat shu shart bajarilganda chiziladi (bo'sh — doimo).
+    when: str = ""
+
+
+@dataclass(frozen=True)
+class FigureReadout:
+    """Chizma ostida ko'rsatiladigan hisoblangan qiymat."""
+
+    label: str
+    expr: str
+    unit: str = ""
+    color: Literal["tension", "compress", "mark", "rule", "ink"] = "ink"
+    #: Sonli emas, matnli natija: shart -> matn (masalan "barqaror|portlaydi").
+    text: str = ""
+
+
+@dataclass(frozen=True)
+class Figure:
+    """Brauzerda jonli qayta chiziladigan interaktiv chizma.
+
+    `kind` chizma turini beradi; qolgan maydonlar shu turga mos ravishda
+    o'qiladi. Ifodalar (`expr`) kichik matematik tilda yoziladi va
+    frontend'dagi xavfsiz hisoblagich ularni baholaydi — `eval` ishlatilmaydi.
+    """
+
+    kind: Literal["plot", "element", "mohr", "beam", "field", "shape",
+                  "polar", "bars", "section"]
+    title: str
+    caption: str
+    params: list[FigureParam] = field(default_factory=list)
+    curves: list[FigureCurve] = field(default_factory=list)
+    readouts: list[FigureReadout] = field(default_factory=list)
+    x_label: str = "x"
+    y_label: str = "y"
+    x_min: str = "0"
+    x_max: str = "1"
+    #: Turga xos qo'shimcha sozlamalar (masalan element uchun sigma ifodalari).
+    options: dict[str, str] = field(default_factory=dict)
+    note: str = ""
+
+
+@dataclass(frozen=True)
 class Visualization:
     """Vizualizatsiya spetsifikatsiyasi — nima chiziladi va qaysi vosita bilan."""
 
@@ -199,6 +267,8 @@ class Lesson:
     bridge_to_next: str  # 17
     research_extension: str  # 18
     manim: ManimRef | None = None
+    #: Jonli interaktiv chizmalar — har bir mavzuda kamida ikkitadan.
+    figures: list[Figure] = field(default_factory=list)
 
 
 @dataclass(frozen=True)

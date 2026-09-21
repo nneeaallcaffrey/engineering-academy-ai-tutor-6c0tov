@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import dataclasses
 from functools import lru_cache
 
 from content.curriculum.projects import PROJECTS
@@ -18,8 +19,22 @@ SUBJECTS: list[Subject] = [_S1, _S2, _S3, _S4, _S5]
 
 @lru_cache(maxsize=1)
 def all_topics() -> tuple[Topic, ...]:
-    """Barcha mavzular global tartibda (fan tartibi → mavzu tartibi)."""
-    return tuple(t for s in SUBJECTS for t in s.topics)
+    """Barcha mavzular global tartibda (fan tartibi → mavzu tartibi).
+
+    Interaktiv chizmalar shu yerda biriktiriladi: ular dars matnidan
+    alohida (`content/curriculum/figures/`) saqlanadi.
+    """
+    from content.curriculum.figures import FIGURES
+
+    out: list[Topic] = []
+    for subject in SUBJECTS:
+        for t in subject.topics:
+            figs = FIGURES.get(t.id, [])
+            if figs:
+                lesson = dataclasses.replace(t.lesson, figures=figs)
+                t = dataclasses.replace(t, lesson=lesson)
+            out.append(t)
+    return tuple(out)
 
 
 @lru_cache(maxsize=1)
